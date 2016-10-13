@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
+    <!--div id="wrapper">
         <div id="container">
             <div id="welcome">
                 <h1><span>Welcome to</span> Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}</h1>
@@ -43,34 +43,103 @@
             </div>
 
         </div>
-    </div>
-{% endblock %}
+    </div-->
+    
+    <form action="" method="post">
+        <div class="formUsuario">
+            <div class="rowFormUsuario">
+                <label>Nombre *</label> 
+                <input type="text" name="name" required />
+            </div>
+            
+            <div class="rowFormUsuario">
+                <label>Apellidos *</label> 
+                <input type="text" name="apellidos" required />
+            </div>
+            
+            <div class="rowFormUsuario">
+                <label>Email *</label>
+                <input type="email" id="email" name="email" onblur="validarEmail();" required />
+            </div>
+            
+            <div class="rowFormUsuario">
+                <label>Contraseña *</label>
+                <input type="password" name="password1" min="6" required />
+            </div>
+            
+            <div class="rowFormUsuario">
+                <label>Repita contraseña *</label>
+                <input type="password" name="password2" min="6" required />
+            </div>
+            
+            <div class="privacityForm">
+                <input type="checkbox">
+                <label> Al enviar este formulario confirmo que he leído y acepto la 
+                    política de privacidad y aviso legal</label>
+                <span class="">Todos los campos son obligatorios.</span>
+            </div>
+            
+            <div class="rowFormUsuario">
+                <input tye="submit" class="buttonFormUser" value="Regístrate gratis">
+            </div>    
+           
+            
+            <!--div class="rowFormUsuario">
+                <label>Sexo</label> 
+                <input type="radio" name="sex" value="hombre">Hombre
+                <input type="radio" name="sex" value="mujer">Mujer
+            </div>   
+            
+            <div class="rowFormUsuario">
+                <label>Fecha de nacimiento</label> 
+                <input type="datetime" name="birthday">
+            </div>
 
-{% block stylesheets %}
-<style>
-    body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
-    h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
-    h1 { font-size: 36px; }
-    h2 { font-size: 21px; margin-bottom: 1em; }
-    p { margin: 0 0 1em 0; }
-    a { color: #0000F0; }
-    a:hover { text-decoration: none; }
-    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-    #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
-    #container { padding: 2em; }
-    #welcome, #status { margin-bottom: 2em; }
-    #welcome h1 span { display: block; font-size: 75%; }
-    #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
-    #icon-book { display: none; }
-
-    @media (min-width: 768px) {
-        #wrapper { width: 80%; margin: 2em auto; }
-        #icon-book { display: inline-block; }
-        #status a, #next a { display: block; }
-
-        @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
-    }
-</style>
+            
+            <div class="rowFormUsuario">
+                <label>Teléfono</label>
+                <input type="tel" name="phone">
+            </div>
+            
+            <div class="rowFormUsuario">
+                <label>Pais</label>
+                <select name="country">
+                    <option value="">España</option>
+                    <option value="">Italia</option>
+                    <option value="">Francia</option>
+                </select>
+            </div>
+            
+            <div class="rowFormUsuario">
+                <label>Ciudad</label>
+                <input type="text" name="city">
+            </div>
+            
+            <div class="rowFormUsuario">
+                <label>Provincia</label>
+                <input type="text" name="provincia">
+            </div>
+            
+            <div class="rowFormUsuario">
+                <label>Dirección</label>
+                <input type="text" name="adress">
+            </div>   
+            
+            <div class="rowFormUsuario">
+                <label>CP</label>
+                <input type="number" max="5">
+            </div-->
+ 
+        </div> <!-- Fin div class=usuario -->   
+        
+    </form>
+    
+    <script type="text/javascript">
+        function validarEmail() {
+            var email = document.
+            expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if ( !expr.test(email) )
+            alert("Error: La dirección de correo " + email + " es incorrecta.");
+        }
+    </script>
 {% endblock %}
