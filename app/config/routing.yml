@@ -1,6 +1,6 @@
 www_user:
     resource: "@WWWUserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /User
 
 app:
     resource: "@AppBundle/Controller/"
