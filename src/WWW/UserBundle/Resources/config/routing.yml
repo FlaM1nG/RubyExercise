@@ -1,0 +1,6 @@
+www_user_homepage:
+    path:     /
+    defaults: { _controller: WWWUserBundle:Default:index }
+    
+#Puesto por mi ---    
+

@@ -1,0 +1,16 @@
+services:
+#    www_user.example:
+#        class: WWW\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    www_user.registration.form.type:
+        class:     WWW\UserBundle\Form\Type\RegistrationFormType
+        #arguments:     [%fos_user.model.user.class%]
+        tags:
+            - { name:     form.type, alias:     www_user_registration }
+            
+    www_user.form.handler.registration:
+        class:     WWW\UserBundle\Form\Handler\RegistrationFormHandler
+        arguments:     ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer"]
+        scope:     request
+        public:     false        
