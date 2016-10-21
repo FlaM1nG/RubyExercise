@@ -24,45 +24,45 @@ class User extends BaseUser
     private $nombre;
     
     /**
-     * @ORM\Column(type="string", length=255, columnDefinition="VARCHAR(255)")
+     * @ORM\Column(type="string", length=255, nullable=true, columnDefinition="VARCHAR(255)")
      */
     private $apellidos;
     
     /**
-     * @ORM\Column(type="string", length=1, columnDefinition="CHAR(1)")
+     * @ORM\Column(type="string", length=1, nullable=true, columnDefinition="CHAR(1)")
      */
     private $sexo;
     
     /**
-     * @ORM\Column(type="date", name="fecha_nacimiento")
+     * @ORM\Column(type="date", nullable=true, name="fecha_nacimiento", options={"default":NULL})
      */
     private $fechaNacimiento;
     
     /**
-     * @ORM\Column(type="string", name="link_invitacion", length=255, columnDefinition="VARCHAR(255)")
+     * @ORM\Column(type="string", name="link_invitacion", nullable=true, length=255, columnDefinition="VARCHAR(255)")
      */
     private $linkInvitacion;
     
     /**
-     * @ORM\Column(type="integer", options={"default":NULL})
+     * @ORM\Column(type="integer", nullable=true,options={"default":NULL})
      */
     private $anfitrion;
     
     /**
-     * @ORM\Column(type="integer", options={"default":0})
+     * @ORM\Column(type="integer", nullable=true, options={"default":0})
      */
     private $invitados;
     
     /**
-     * @ORM\Column(type="string", length=10, columnDefinition="VARCHAR(10)")
-     */
-    private $cp;
-    
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", nullable=true, length=255)
      */
     protected $avisoLegal;
-
+    
+    /**
+     *  @ORM\Column(type="integer", nullable=true, length=20)
+     */
+    protected $tlfn;
+    
     public function __construct()
     {
         parent::__construct();
@@ -253,8 +253,56 @@ class User extends BaseUser
         return $this->cp;
     }
     
+    /**
+     * Set avisoLegal
+     *
+     * @param int $avisoLegal
+     */
+    public function setAvisoLegal($avisoLegal){
+        
+        $this->avisoLegal = $avisoLegal;
+        return $this;
+        
+    }
+    
+    /**
+     * Get avisoLegal
+     *
+     * @return int
+     */
     public function getAvisoLegal(){
         return $this->avisoLegal;
+    }
+    
+    /**
+     * Set direccion
+     *
+     * @param int $direccion
+     */
+    public function setDireccion($direccion){
+        
+        $this->direccion = $direccion;
+        return $this;
+        
+    }
+    
+    /**
+     * Get direccion
+     *
+     * @return int
+     */
+    public function getDireccion(){
+        return $this->direccion;
+    }
+    
+    /**
+     * Get user
+     * 
+     * @return objeto usuario
+     */
+    
+    public function getUser(){
+        return $this;
     }
 }
 
