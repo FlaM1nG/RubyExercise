@@ -1,0 +1,251 @@
+body{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* ------------------ MENU DE ADMINISTRACI�N  ------------------
+******************************************************************/
+.prueba{
+    /*background-color: #febaba;*/
+}
+
+.administration-row{
+    /*max-height: 130px;*/
+}
+
+
+/*LOGO DE LA EMPRESA*/
+.logo{
+    max-height: 80px;
+    margin: 40px 40px;
+}
+
+/*MENU NAVEGACION*/
+
+.navegacion-usuario{
+    margin-top: 55px;
+}
+
+.navegacion-usuario > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navegacion-usuario > ul > li {
+    float: left;
+}
+
+.navegacion-usuario > ul > li a {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+    color: #f79468;
+}
+
+.navegacion-usuario > ul > li a:hover {
+    color: #333333; 
+    text-decoration: none;
+}
+
+.navegacion-usuario > ul > li a:focus {
+    color: #333333; 
+    text-decoration: none;
+}
+
+.size-icon{
+    font-size: 20px;
+    padding-right: 5px;
+}
+
+.text-nav-user{
+    font-weight: 400;
+}
+
+/*BARRA DE BUSQUEDA DEL MENU DE ADMINISTRACI�N*/
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+.posicion-top{
+    margin-top: 60px;
+}
+
+.alto-search{
+    height: 40px;
+}
+
+/* ------------------ MENU DE NAVEGACION  ------------------
+******************************************************************/
+
+/* ------------------ REGION CATEGORIAS  ------------------
+******************************************************************/
+.categoria1{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../img/vehiculo.jpg);
+    min-height: 200px;
+    margin: 0;
+    padding: 0;
+}
+
+.categoria2{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../img/inmueble.jpg);
+    min-height: 200px;
+    margin: 0;
+    padding: 0;
+}
+
+.categoria3{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../img/otros.jpg);
+    min-height: 200px;
+    margin: 0;
+    padding: 0;
+}
+
+.overlay-categoria{
+    background: linear-gradient(-26deg, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.31));
+    min-height: 200px;
+    display: table;
+}
+
+.centrado-texto{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+h2{
+    font-weight: bold;
+    font-size: 50px;
+    color: #ffffff;
+}
+
+/* ------------------ REGION SPONSORS  ------------------
+******************************************************************/
+.franja{
+    background-color: #ffffff;
+    height: 200px;
+}
+
+.service-icon{
+    font-size: 60px;
+}
+
+.service-text{
+    text-align: center;
+    margin-top: 60px;
+    font-weight: 600;
+}
+
+a.service-ref {
+    color: #333333;
+    text-decoration: none;
+}
+
+a.service-ref:hover, a.service-ref:focus {
+    color: #f79468;
+    text-decoration: none;
+}
+
+.sponsor{
+    min-height: 200px;
+    margin: 0;
+    padding: 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.sponsor1{
+    background-image: url(../img/sponsor1.jpg);
+}
+
+.sponsor2{
+    background-image: url(../img/sponsor2.jpg);
+}
+
+.sponsor3{
+    background-image: url(../img/sponsor3.jpg);
+}
+
+.sponsor4{
+    background-image: url(../img/sponsor4.jpg);
+}
+
+.packs{
+    min-height: 300px;
+    margin: 0;
+    padding: 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.packs-peque1{
+    background-image: url(../img/pack1.jpg);
+}
+
+.packs-peque2{
+    background-image: url(../img/pack2.jpg);
+}
+
+.packs-grande{
+    background-image: url(../img/pack3.jpg);
+}
+
+.sponsor-carousel{
+    margin: 0px;
+    padding: 0px;
+}
+
+#myCarousel .nav a small
+{
+    display: block;
+}
+#myCarousel .nav
+{
+    background: #eee;
+}
+.nav-justified > li > a
+{
+    border-radius: 0px;
+}
+.nav-pills>li[data-slide-to="0"].active a { background-color: #16a085; }
+.nav-pills>li[data-slide-to="1"].active a { background-color: #e67e22; }
+.nav-pills>li[data-slide-to="2"].active a { background-color: #2980b9; }
+.nav-pills>li[data-slide-to="3"].active a { background-color: #8e44ad; }
+
+/* ------------------ FOOTER  ------------------
+******************************************************************/
+footer.section.section-primary {
+    background-color: #f79468;
+    color: #ffffff;
+    min-height: 300px;
+}
+
+footer.section.section-primary > .container > .row {
+    padding-top: 35px;
+}
+
+.col-md-12.hidden-xs.text-right > a{
+    color: #ffffff;
+}
