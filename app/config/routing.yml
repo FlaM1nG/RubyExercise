@@ -22,5 +22,8 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
+www_user_profile:
+    path: /profile
+    defaults: {_controller: WWWUserBundle:Default:show}
 
     

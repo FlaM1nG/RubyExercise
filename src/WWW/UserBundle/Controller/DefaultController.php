@@ -38,7 +38,7 @@ class DefaultController extends Controller{
         
         $form = $this->createForm(new ProfileFormType(),$user);
         
-        return $this->render('WWWUserBundle:Profile:edit.html.twig', array('form' => $form->createView(),
+        return $this->render('FOSUserBundle:Profile:edit.html.twig', array('form' => $form->createView(),
         ));
     
         
