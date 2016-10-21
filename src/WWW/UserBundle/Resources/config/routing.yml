@@ -5,3 +5,7 @@ www_user_homepage:
 www_user_profile:
     path: /profile
     defaults: {_controller: WWWUserBundle:Default:show}
+    
+www_user_login:
+    path: /login
+    defaults: {_controller: WWWUserBundle:Default:login}

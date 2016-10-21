@@ -36,11 +36,6 @@ class ProfileFormType extends AbstractType
                                       'required'=>true,
         ));
         
-        $builder->add('direccion','text',array(
-                                      'label'=>'Dirección',
-                                      'required'=>true,
-        ));
-        
         $builder->add('email','email',array(
                                       'label'=>'Email',
                                       'required'=>true,
@@ -48,11 +43,6 @@ class ProfileFormType extends AbstractType
         
         $builder->add('username','text',array(
                                       'label'=>'Nombre de usuario',
-                                      'required'=>true,
-        ));
-        
-        $builder->add('cp','email',array(
-                                      'label'=>'CP:',
                                       'required'=>true,
         ));
         
