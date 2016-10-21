@@ -1,7 +1,4 @@
-www_user_homepage:
-    path:     /
-    defaults: { _controller: AppBundle:Index:index } 
-
 www_user_profile:
-    path: /profile
+    path:     /profile
     defaults: {_controller: WWWUserBundle:Default:show}
+

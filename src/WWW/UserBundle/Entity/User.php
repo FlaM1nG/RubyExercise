@@ -274,35 +274,5 @@ class User extends BaseUser
         return $this->avisoLegal;
     }
     
-    /**
-     * Set direccion
-     *
-     * @param int $direccion
-     */
-    public function setDireccion($direccion){
-        
-        $this->direccion = $direccion;
-        return $this;
-        
-    }
-    
-    /**
-     * Get direccion
-     *
-     * @return int
-     */
-    public function getDireccion(){
-        return $this->direccion;
-    }
-    
-    /**
-     * Get user
-     * 
-     * @return objeto usuario
-     */
-    
-    public function getUser(){
-        return $this;
-    }
 }
 
