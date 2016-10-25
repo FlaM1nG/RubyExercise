@@ -64,11 +64,20 @@ class User extends BaseUser
     protected $tlfn;
     
     
+    /**
+     * @ORM\ManyToMany(targetEntity="CodigoPostal")
+     * @ORM\JoinTable(name="www_user_cp",
+     *      joinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="cp", referencedColumnName="cp")}
+     *      )
+     */
+    protected $cp;
+    
     
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+        $this->direcciones = new ArrayCollection();
     }
 
     /**
@@ -298,5 +307,38 @@ class User extends BaseUser
     public function getTlfn()
     {
         return $this->tlfn;
+    }
+
+    /**
+     * Add direcciones
+     *
+     * @param \WWW\UserBundle\Entity\CodigoPostal $direcciones
+     * @return User
+     */
+    public function addDireccione(\WWW\UserBundle\Entity\CodigoPostal $direcciones)
+    {
+        $this->direcciones[] = $direcciones;
+
+        return $this;
+    }
+
+    /**
+     * Remove direcciones
+     *
+     * @param \WWW\UserBundle\Entity\CodigoPostal $direcciones
+     */
+    public function removeDireccione(\WWW\UserBundle\Entity\CodigoPostal $direcciones)
+    {
+        $this->direcciones->removeElement($direcciones);
+    }
+
+    /**
+     * Get direcciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDirecciones()
+    {
+        return $this->direcciones;
     }
 }
