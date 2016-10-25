@@ -10,9 +10,9 @@ app:
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
-fos_user_register:
-    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
+www_user_register:
+    path: /register
+    defaults: {_controller: WWWUserBundle:Default:register}
 
 fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
@@ -25,5 +25,9 @@ fos_user_change_password:
 www_user_profile:
     path: /profile
     defaults: {_controller: WWWUserBundle:Default:show}
-
+    methods: [GET]
     
+www_user_profile_edit:
+    path: /profile
+    defaults: {_controller: WWWUserBundle:Default:edit }
+    methods: [POST]

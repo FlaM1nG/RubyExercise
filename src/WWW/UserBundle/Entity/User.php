@@ -67,6 +67,7 @@ class User extends BaseUser
     {
         parent::__construct();
         // your own logic
+        $this->roles = array('ROLE_USER');
     }
 
     /**
@@ -273,6 +274,27 @@ class User extends BaseUser
     public function getAvisoLegal(){
         return $this->avisoLegal;
     }
+    
+    /**
+     * Get tlfn
+     * @return int
+     */
+    
+    public function getTlfn(){
+        return $this->tlfn;
+    }
+    
+    /**
+     * Set tlfn
+     * 
+     * @param int
+     */
+    
+    public function setTlfn($tlfn){
+        $this->tlfn = $tlfn;
+        return $this->tlfn;
+    }
+    
     
 }
 

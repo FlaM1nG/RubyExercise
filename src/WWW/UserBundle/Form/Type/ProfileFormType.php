@@ -20,20 +20,24 @@ class ProfileFormType extends AbstractType
     {
         //$this->buildUserForm($builder, $options);
 
-        $builder->add('current_password', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'), array(
-            'label' => 'Contraseña',
-            'mapped' => false,
-            'constraints' => new UserPassword(!empty($options['validation_groups']) ? array('groups' => array(reset($options['validation_groups']))) : null),
-        ));
+        $builder->add('plainPassword', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\RepeatedType'), 
+                array(
+                    'type' => LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'),
+                    'options' => array('translation_domain' => 'FOSUserBundle'),
+                    'first_options' => array('label' => 'Nueva contraseña'),
+                    'second_options' => array('label' => 'Repita la contraseña'),
+                    'required'=>false
+                    )
+                );
         
         $builder->add('nombre','text',array(
                                       'label'=>'Nombre',
-                                      'required'=>true,
+                                      'required'=>false
         ));
         
-        $builder->add('apellidos','email',array(
+        $builder->add('apellidos','text',array(
                                       'label'=>'Apellidos',
-                                      'required'=>true,
+                                      'required'=>false
         ));
         
         $builder->add('email','email',array(
@@ -46,19 +50,23 @@ class ProfileFormType extends AbstractType
                                       'required'=>true,
         ));
         
-        $builder->add('fecha_nacimiento','text',array(
+        $builder->add('fecha_nacimiento','birthday',array(
                                       'label'=>'Fecha de nacimiento',
-                                      'required'=>true,
+                                      'required'=>false
         ));
         
-        $builder->add('link_invitacion','email',array(
-                                      'label'=>'Invitación',
-                                      'required'=>true,
+        $builder->add('link_invitacion','text',array(
+                                      'label'=>'Invitación'
         ));
         
-        $builder->add('sexo','email',array(
+        $builder->add('sexo','choice',array(
                                       'label'=>'Sexo',
-                                      'required'=>true,
+                                      'choices'   => array('h' => 'Hombre', 'm' => 'Mujer'),
+        ));
+        
+        $builder->add('tlfn','number',array(
+                                      'label'=>'Teléfono',
+                                      'required'=>false,
         ));
     }
 
