@@ -63,6 +63,8 @@ class User extends BaseUser
      */
     protected $tlfn;
     
+    
+    
     public function __construct()
     {
         parent::__construct();
@@ -274,5 +276,27 @@ class User extends BaseUser
         return $this->avisoLegal;
     }
     
-}
 
+    /**
+     * Set tlfn
+     *
+     * @param integer $tlfn
+     * @return User
+     */
+    public function setTlfn($tlfn)
+    {
+        $this->tlfn = $tlfn;
+
+        return $this;
+    }
+
+    /**
+     * Get tlfn
+     *
+     * @return integer 
+     */
+    public function getTlfn()
+    {
+        return $this->tlfn;
+    }
+}
