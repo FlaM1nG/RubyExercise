@@ -285,19 +285,16 @@ class User extends BaseUser
         return $this->avisoLegal;
     }
     
-
     /**
      * Set tlfn
-     *
-     * @param integer $tlfn
-     * @return User
+     * 
+     * @param int
      */
-    public function setTlfn($tlfn)
-    {
+    
+    public function setTlfn($tlfn){
         $this->tlfn = $tlfn;
-
-        return $this;
-    }
+        return $this->tlfn;
+    }  
 
     /**
      * Get tlfn

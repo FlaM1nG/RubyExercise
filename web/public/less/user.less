@@ -1,0 +1,85 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24-oct-2016, 9:51:09
+    Author     : Rocio
+*/
+
+.menuPerfil {
+    
+    li{
+        list-style-type: none;
+    }
+    
+    a{
+        color: @colorSecundario;
+    }
+    
+    h3{
+        margin-bottom: 0;
+    }
+    
+    .nav-pills>li.active>a{
+        background-color: transparent;
+        color: @colorFuentePerfil;
+    }
+}
+
+#formProfile, #formRegister{
+
+    label{
+        color: @colorSecundario;
+        font-weight: 500;
+    }
+    
+    input{
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        box-shadow: none;
+        border-radius:  0;
+        border-bottom: solid 1px @colorPrincipal;
+    }   
+    
+    .form-control[readonly]{
+        background-color: transparent;
+    }
+    
+    .botonGuardar{
+        margin-top: 1em;
+        padding-left: 0.5em;
+    }
+    
+    button{
+        background-color: @colorPrincipal;
+        color: @colorFuenteperfil2;
+        border-color: @colorPrincipal;
+    }
+} 
+
+ul.menuPerfil{
+    border: solid 1px @colorPrincipal;
+    padding-right: 0;
+    
+    a:hover{
+        border-radius: 0;
+    }
+}
+
+.menuPerfil, #info, #credenciales, #objetos, #transacciones, #direcciones, #formRegister{
+    
+    h3{
+        color: @colorFuenteperfil2;
+        background-color: @colorPrincipal;
+        padding: 0.5em;
+    }
+    
+    .form-group{
+        margin-left: 0;
+    }
+}
+
+
