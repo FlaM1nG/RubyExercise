@@ -77,7 +77,8 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->direcciones = new ArrayCollection();
+        // your own logic
+        $this->roles = array('ROLE_USER');
     }
 
     /**
@@ -286,6 +287,15 @@ class User extends BaseUser
     }
     
     /**
+     * Get tlfn
+     * @return int
+     */
+    
+    public function getTlfn(){
+        return $this->tlfn;
+    }
+    
+    /**
      * Set tlfn
      * 
      * @param int
@@ -294,17 +304,8 @@ class User extends BaseUser
     public function setTlfn($tlfn){
         $this->tlfn = $tlfn;
         return $this->tlfn;
-    }  
-
-    /**
-     * Get tlfn
-     *
-     * @return integer 
-     */
-    public function getTlfn()
-    {
-        return $this->tlfn;
     }
+    
 
     /**
      * Add direcciones
