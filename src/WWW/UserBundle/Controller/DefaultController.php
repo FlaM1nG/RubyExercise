@@ -36,10 +36,13 @@ class DefaultController extends Controller{
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 */
-        /*
+        
         $form = $this->createForm(new ProfileFormType(),$user);
         
-        $product = 2;
+        $product = new CodigoPostal();
+        $product->setProvincia('Granada');
+        
+        /*
         $repository = $this->getDoctrine()->getRepository('WWWUserBundle:CodigoPostal');
         $product = $repository->findOneByPais('España');
         
