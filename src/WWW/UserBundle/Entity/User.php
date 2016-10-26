@@ -65,13 +65,9 @@ class User extends BaseUser
     
     
     /**
-     * @ORM\ManyToMany(targetEntity="CodigoPostal")
-     * @ORM\JoinTable(name="www_user_cp",
-     *      joinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="cp", referencedColumnName="cp")}
-     *      )
+     * @ORM\OneToMany(targetEntity="Direccion", mappedBy="user")
      */
-    protected $cp;
+    protected $direcciones;
     
     
     public function __construct()
@@ -79,6 +75,7 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
         $this->roles = array('ROLE_USER');
+        $this->features = new ArrayCollection();
     }
 
     /**
@@ -242,28 +239,6 @@ class User extends BaseUser
         return $this->invitados;
     }
 
-    /**
-     * Set cp
-     *
-     * @param string $cp
-     * @return User
-     */
-    public function setCp($cp)
-    {
-        $this->cp = $cp;
-
-        return $this;
-    }
-
-    /**
-     * Get cp
-     *
-     * @return string 
-     */
-    public function getCp()
-    {
-        return $this->cp;
-    }
     
     /**
      * Set avisoLegal

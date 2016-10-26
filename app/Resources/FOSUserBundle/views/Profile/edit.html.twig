@@ -1,0 +1,31 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    
+{% include "FOSUserBundle:Profile:menuPerfil.html.twig"%}
+
+    
+    {{ form_start(form, {'id':'formProfile','method': 'post','action': path('www_user_profile_edit'), 'attr': {'id':'formProfile','class': '', 'onsubmit':'return validacionPerfil()'}}) }}
+        
+        <div class="tab-content col-sm-8">
+            
+            {% include "FOSUserBundle:Profile:informacionPersonal.html.twig"%}
+            {% include "FOSUserBundle:Profile:credenciales.html.twig"%}
+            {% include "FOSUserBundle:Profile:direcciones.html.twig"%}
+            {% include "FOSUserBundle:Profile:transacciones.html.twig"%}
+            {% include "FOSUserBundle:Profile:misObjetos.html.twig"%}
+        </div>    
+        
+        <input type="hidden" id="tabActive" name="tabActive" value="informacionPersonal">
+        
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-7 botonGuardar">
+                {#<button type="submit" class="btn btn-default">{{ 'registration.submit'|trans }}</button> #}
+                <button type="submit" class="btn btn-default">Guardar</button>
+            </div>
+        </div>
+                
+
+    {{ form_end(form) }}
+    
+{% endblock fos_user_content %}
