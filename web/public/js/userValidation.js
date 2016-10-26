@@ -56,30 +56,31 @@ function calcular_edad(){
    	var year = document.getElementById('www_user_profile_fecha_nacimiento_year').value; 
         var mes = document.getElementById('www_user_profile_fecha_nacimiento_month').value;
         var dia = document.getElementById('www_user_profile_fecha_nacimiento_day').value;
-   
+  
    	if (isNaN(year) || isNaN(mes) || isNaN(dia)) 
             return false; 
 
    	//resto los años de las dos fechas 
-   	var edad=hoy.getYear()- year - 1; //-1 porque no se si ha cumplido años ya este año 
-        console.log(hoy+" -- "+hoy.getFullYear());
-console.log("1 "+edad);
-   	//si resto los meses y me da menor que 0 entonces no ha cumplido años. Si da mayor si ha cumplido 
-   	if (hoy.getMonth() + 1 - mes < 0){ //+ 1 porque los meses empiezan en 0 
-     console.log("2 "+edad);
-        return edad 
-    }
-        if (hoy.getMonth() + 1 - mes > 0) {
-            console.log("3 "+edad);
-      	return edad+1 
-        }
-   	//entonces es que eran iguales. miro los dias 
-   	//si resto los dias y me da menor que 0 entonces no ha cumplido años. Si da mayor o igual si ha cumplido 
-   	if (hoy.getUTCDate() - dia >= 0) {
-            console.log("4 "+edad);
-      	return edad + 1 }
-console.log("5 "+edad)
-   	return edad 
+   	var edad=hoy.getFullYear()- year - 1; //-1 porque no se si ha cumplido años ya este año 
+        
+        if(edad >= 18 )
+            return true;
+        else if(edad == 17){
+            var auxMes = hoy.getMonth()+1-mes;
+            
+            if(auxMes < 0)
+                return false;
+            else if(auxMes > 0)
+                return true;
+            else{ 
+                var auxDia = hoy.getDate()-dia;
+                
+                if(auxDia < 0)
+                    return false;
+                else return true;
+            }
+        }else return false;
+                
 }
 
 function validacionRegistro(){
@@ -106,8 +107,9 @@ function validacionPerfil(){
 //    console.log(validaEmail(email));
 //    console.log(password1+" - "+password2);
  //   console.log(validaCambioPassword(password1,password2));
- calcular_edad();
-    if(!validaEmail(email) || !validaCambioPassword(password1, password2)){
+
+ 
+    if(!validaEmail(email) || !validaCambioPassword(password1, password2) || !calcular_edad()){
 //        console.log("error");
         return false;
     }else{
