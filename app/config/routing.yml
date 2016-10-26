@@ -2,6 +2,10 @@ www_user:
     resource: "@WWWUserBundle/Resources/config/routing.yml"
     prefix:   /
 
+www_home:
+    path:     /
+    defaults: {_controller: AppBundle:Index:index}
+    
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

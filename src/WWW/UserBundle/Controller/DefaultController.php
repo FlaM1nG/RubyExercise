@@ -18,6 +18,7 @@ use WWW\UserBundle\Form\Type\ProfileFormType;
 use WWW\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use WWW\UserBundle\Entity\User;
+use WWW\UserBundle\Entity\CodigoPostal;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
@@ -38,7 +39,28 @@ class DefaultController extends Controller{
         $user = $this->getUser();  
         $form = $this->createForm(new ProfileFormType(),$user);
         
-        return $this->render('FOSUserBundle:Profile:edit.html.twig', array('form' => $form->createView(),
+        $product = new CodigoPostal();
+        $product->setProvincia('Granada');
+        
+        /*
+        $repository = $this->getDoctrine()->getRepository('WWWUserBundle:CodigoPostal');
+        $product = $repository->findOneByPais('España');
+        
+        
+        $product = new CodigoPostal();
+        $product->setCiudad('Atarfe');
+        $product->setProvincia('Granada');
+        $product->setPais('España');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+         * 
+         */
+        
+        return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
+            'form' => $form->createView(),
+            'cp' =>$product,
         ));
     
         
