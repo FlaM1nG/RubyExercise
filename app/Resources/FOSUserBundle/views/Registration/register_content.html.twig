@@ -1,44 +1,49 @@
-{% trans_default_domain 'FOSUserBundle' %}
+{#% trans_default_domain 'FOSUserBundle' %#}
 
-{{ form_start(form, {'id':'formRegister','method': 'post','action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register', 'onsubmit':'return validacionRegistro()'}}) }}
+{{ form_start(form, {'id':'formRegister','method': 'post', 'attr': {'class': 'fos_user_registration_register col-sm-7','id':'formRegister', 'onsubmit':'return validacionRegistro()'}}) }}
     
-    <div id="containerUserName" class="form-group">
-        <label for="{{ form.username.vars.id }}" class="control-label col-sm-3">
-            {{ form.username.vars.label }}
-        </label>    
-        <div class="col-sm-7">      
+    <h3> Nuevo usuario </h3>
+    <div id="containerUserName" class="form-group col-sm-12">
+        <div class="col-sm-12">
+            <label for="{{ form.username.vars.id }}" class="control-label">
+                {{ form.username.vars.label }}
+            </label>    
+              
             {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
         </div>    
     </div>    
         
-    <div class="form-group" id="containerEmail">
-        <label for="{{ form.email.vars.id }}" class="control-label col-sm-3">
-            {{ form.email.vars.label }}
-        </label>    
-        <div class="col-sm-7">      
+    <div id="containerEmail" class="form-group col-sm-12">
+        <div class="col-sm-12">
+            <label for="{{ form.email.vars.id }}" class="control-label">
+                {{ form.email.vars.label }}
+            </label>    
+             
             {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
         </div>    
     </div>    
     
-    <div id="containerPassword1" class="form-group">
-        <label for="{{ form.plainPassword.vars.id }}" class="control-label col-sm-3">
-            {{form.plainPassword.children.first.vars.label}}
-        </label>    
-        <div class="col-sm-7">
+    <div id="containerPassword1" class="form-group col-sm-12">
+        <div class="col-sm-12">
+            <label for="{{ form.plainPassword.vars.id }}" class="control-label">
+                {{form.plainPassword.children.first.vars.label}}
+            </label>    
+        
             {{ form_widget(form.plainPassword.children.first, {'attr': {'class': 'form-control'}}) }}
         </div>    
     </div>    
         
-    <div id="containerPassword2" class="form-group">
-        <label for="{{ form.plainPassword.vars.id }}" class="control-label col-sm-3">
-            {{form.plainPassword.children.second.vars.label}}
-        </label>    
-        <div class="col-sm-7">
+    <div id="containerPassword2" class="form-group col-sm-12">
+        <div class="col-sm-12">
+            <label for="{{ form.plainPassword.vars.id }}">
+                {{form.plainPassword.children.second.vars.label}}
+            </label>    
+        
             {{ form_widget(form.plainPassword.children.second, {'attr': {'class': 'form-control'}}) }}
         </div>    
     </div>
         
-    <div class="checkbox col-sm-offset-3 col-sm-7">
+    <div class="checkbox col-sm-offset-3 col-sm-12">
         <label>
             {{ form_widget(form.avisoLegal) }}
             <p>{{ form.avisoLegal.vars.label}}</p>

@@ -1,3 +1,7 @@
-www_user_homepage:
-    path:     /
-    defaults: { _controller: WWWUserBundle:Default:index } 
+www_user_profile:
+    path:     /profile
+    defaults: {_controller: WWWUserBundle:Default:show}
+
+www_user_profile:
+    path: /profile
+    defaults: {_controller: WWWUserBundle:Default:show}
