@@ -133,10 +133,14 @@ class DefaultController extends Controller{
         //$formFactory = $this->get('fos_user.profile.form.factory');
         
         if($request->request->all()['tabActive'] == 'info'){
+            echo  $request->request->all()['www_user_profile'];
+            $fecha = date_create_from_format('j-M-Y', '15-Feb-2009');
             $user->setNombre($request->request->all()['www_user_profile']['nombre']);
             $user->setApellidos($request->request->all()['www_user_profile']['apellidos']);
+            
             if(!empty($request->request->all()['www_user_profile']['tlfn']))
                 $user->setTlfn($request->request->all()['www_user_profile']['tlfn']);
+            
             //$user->setFechaNacimiento($request->request->all()['www_user_profile']['fecha_nacimiento']);
             $user->setSexo($request->request->all()['www_user_profile']['sexo']);
             
