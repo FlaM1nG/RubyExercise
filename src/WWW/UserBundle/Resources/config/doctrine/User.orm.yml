@@ -9,10 +9,10 @@ WWW\UserBundle\Entity\User:
             generator:
                 strategy: AUTO
     fields:
-        nombre:
+        name:
             type: string
             length: 255
-        apellidos:
+        surname:
             type: string
             length: 255
             nullable: true
@@ -26,29 +26,29 @@ WWW\UserBundle\Entity\User:
         salt:
             type: string
             length: 255
-        sexo:
+        sex:
             type: string
             length: '1'
             nullable: true
-        fechaNacimiento:
+        birthdate:
             type: date
             nullable: true
-            column: fecha_nacimiento
         email:
             type: string
             length: 255
             unique: true
-        foto:
+        photo:
             type: string
             length: 255
-        linkInvitacion:
+        linkInvitation:
             type: string
             length: 255
-            column: link_invitacion
-        invitados:
+            column: link_invitation
+        invitNum:
             type: integer
             nullable: true
-        telefono:
+            column: invit_num
+        phone:
             type: integer
         createdDate:
             type: date
@@ -57,11 +57,9 @@ WWW\UserBundle\Entity\User:
         deletedDate:
             type: date
         isDeleted:
-            type: boolean
-        
-            
+            type: boolean  
     oneToMany:
-        direcciones:
-            targetEntity: Direccion
+        adresses:
+            targetEntity: Adress
             mappedBy: User
     lifecycleCallbacks: {  }

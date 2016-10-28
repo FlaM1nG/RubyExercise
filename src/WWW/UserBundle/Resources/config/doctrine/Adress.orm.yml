@@ -1,7 +1,7 @@
-WWW\UserBundle\Entity\Direccion:
+WWW\UserBundle\Entity\Adress:
     type: entity
     table: null
-    repositoryClass: WWW\UserBundle\Repository\DireccionRepository
+    repositoryClass: WWW\UserBundle\Repository\AdressRepository
     id:
         id:
             type: integer
@@ -9,13 +9,13 @@ WWW\UserBundle\Entity\Direccion:
             generator:
                 strategy: AUTO
     fields:
-        calle:
+        street:
             type: string
             length: 255
-        nombre:
+        name:
             type: string
             length: 255
-        defecto:
+        isDefault:
             type: boolean
         createdDate:
             type: date
@@ -26,14 +26,14 @@ WWW\UserBundle\Entity\Direccion:
         isDeleted:
             type: boolean
     manyToOne:
-        id_user:
+        user:
             targetEntity: User
-            inversedBy: Direccion
+            inversedBy: Adress
             joinColumn:
                 referencedColumnName: id
-        id_cp:
-            targetEntity: CodigoPostal
-            inversedBy: Direccion
+        cp:
+            targetEntity: ZipCode
+            inversedBy: Adress
             joinColumn:
                 referencedColumnName: id
     lifecycleCallbacks: {  }

@@ -1,7 +1,7 @@
-WWW\UserBundle\Entity\CodigoPostal:
+WWW\UserBundle\Entity\ZipCode:
     type: entity
     table: null
-    repositoryClass: WWW\UserBundle\Repository\CodigoPostalRepository
+    repositoryClass: WWW\UserBundle\Repository\ZipCodeRepository
     id:
         id:
             type: integer
@@ -9,17 +9,17 @@ WWW\UserBundle\Entity\CodigoPostal:
             generator:
                 strategy: AUTO
     fields:
-        cP:
+        zipCode:
             type: integer
             unique: true
-            column: CP
-        ciudad:
+            column: zip_code
+        city:
             type: string
             length: 255
-        provincia:
+        region:
             type: string
             length: 255
-        pais:
+        country:
             type: string
             length: 255
         createdDate:
