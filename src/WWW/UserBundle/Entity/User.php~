@@ -377,4 +377,144 @@ class User
     {
         return $this->direcciones;
     }
+    /**
+     * @var string
+     */
+    private $foto;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $deletedDate;
+
+    /**
+     * @var boolean
+     */
+    private $isDeleted;
+
+
+    /**
+     * Set foto
+     *
+     * @param string $foto
+     * @return User
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get foto
+     *
+     * @return string 
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
+    /**
+     * Set createdDate
+     *
+     * @param \DateTime $createdDate
+     * @return User
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createdDate
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * Set modifiedDate
+     *
+     * @param \DateTime $modifiedDate
+     * @return User
+     */
+    public function setModifiedDate($modifiedDate)
+    {
+        $this->modifiedDate = $modifiedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedDate
+     *
+     * @return \DateTime 
+     */
+    public function getModifiedDate()
+    {
+        return $this->modifiedDate;
+    }
+
+    /**
+     * Set deletedDate
+     *
+     * @param \DateTime $deletedDate
+     * @return User
+     */
+    public function setDeletedDate($deletedDate)
+    {
+        $this->deletedDate = $deletedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedDate
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedDate()
+    {
+        return $this->deletedDate;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return User
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean 
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
 }
