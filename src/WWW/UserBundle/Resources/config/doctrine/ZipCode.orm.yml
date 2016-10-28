@@ -27,13 +27,13 @@ WWW\UserBundle\Entity\ZipCode:
             length: 255
             nullable: true
         createdDate:
-            type: date
+            type: datetime
             nullable: true
         modifiedDate:
-            type: date
+            type: datetime
             nullable: true
         deletedDate:
-            type: date
+            type: datetime
             nullable: true
         isDeleted:
             type: boolean
