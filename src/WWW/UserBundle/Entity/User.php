@@ -13,16 +13,15 @@ class User
      * @var int
      */
     private $id;
+    /**
+     * @var string
+     */
+    private $name;
 
     /**
      * @var string
      */
-    private $nombre;
-
-    /**
-     * @var string
-     */
-    private $apellidos;
+    private $surname;
 
     /**
      * @var string
@@ -42,12 +41,12 @@ class User
     /**
      * @var string
      */
-    private $sexo;
+    private $sex;
 
     /**
      * @var \DateTime
      */
-    private $fechaNacimiento;
+    private $birthdate;
 
     /**
      * @var string
@@ -57,18 +56,55 @@ class User
     /**
      * @var string
      */
-    private $linkInvitacion;
+    private $photo;
 
     /**
-     * @var int
+     * @var string
      */
-    private $invitados;
+    private $linkInvitation;
 
     /**
-     * @var int
+     * @var integer
      */
-    private $telefono;
+    private $invitNum;
 
+    /**
+     * @var integer
+     */
+    private $phone;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $deletedDate;
+
+    /**
+     * @var boolean
+     */
+    private $isDeleted;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $adresses;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -81,49 +117,49 @@ class User
     }
 
     /**
-     * Set nombre
+     * Set name
      *
-     * @param string $nombre
+     * @param string $name
      * @return User
      */
-    public function setNombre($nombre)
+    public function setName($name)
     {
-        $this->nombre = $nombre;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get nombre
+     * Get name
      *
      * @return string 
      */
-    public function getNombre()
+    public function getName()
     {
-        return $this->nombre;
+        return $this->name;
     }
 
     /**
-     * Set apellidos
+     * Set surname
      *
-     * @param string $apellidos
+     * @param string $surname
      * @return User
      */
-    public function setApellidos($apellidos)
+    public function setSurname($surname)
     {
-        $this->apellidos = $apellidos;
+        $this->surname = $surname;
 
         return $this;
     }
 
     /**
-     * Get apellidos
+     * Get surname
      *
      * @return string 
      */
-    public function getApellidos()
+    public function getSurname()
     {
-        return $this->apellidos;
+        return $this->surname;
     }
 
     /**
@@ -196,420 +232,6 @@ class User
     }
 
     /**
-     * Set sexo
-     *
-     * @param string $sexo
-     * @return User
-     */
-    public function setSexo($sexo)
-    {
-        $this->sexo = $sexo;
-
-        return $this;
-    }
-
-    /**
-     * Get sexo
-     *
-     * @return string 
-     */
-    public function getSexo()
-    {
-        return $this->sexo;
-    }
-
-    /**
-     * Set fechaNacimiento
-     *
-     * @param \DateTime $fechaNacimiento
-     * @return User
-     */
-    public function setFechaNacimiento($fechaNacimiento)
-    {
-        $this->fechaNacimiento = $fechaNacimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaNacimiento
-     *
-     * @return \DateTime 
-     */
-    public function getFechaNacimiento()
-    {
-        return $this->fechaNacimiento;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set linkInvitacion
-     *
-     * @param string $linkInvitacion
-     * @return User
-     */
-    public function setLinkInvitacion($linkInvitacion)
-    {
-        $this->linkInvitacion = $linkInvitacion;
-
-        return $this;
-    }
-
-    /**
-     * Get linkInvitacion
-     *
-     * @return string 
-     */
-    public function getLinkInvitacion()
-    {
-        return $this->linkInvitacion;
-    }
-
-    /**
-     * Set invitados
-     *
-     * @param integer $invitados
-     * @return User
-     */
-    public function setInvitados($invitados)
-    {
-        $this->invitados = $invitados;
-
-        return $this;
-    }
-
-    /**
-     * Get invitados
-     *
-     * @return integer 
-     */
-    public function getInvitados()
-    {
-        return $this->invitados;
-    }
-
-    /**
-     * Set telefono
-     *
-     * @param integer $telefono
-     * @return User
-     */
-    public function setTelefono($telefono)
-    {
-        $this->telefono = $telefono;
-
-        return $this;
-    }
-
-    /**
-     * Get telefono
-     *
-     * @return integer 
-     */
-    public function getTelefono()
-    {
-        return $this->telefono;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $direcciones;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->direcciones = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add direcciones
-     *
-     * @param \WWW\UserBundle\Entity\Direccion $direcciones
-     * @return User
-     */
-    public function addDireccione(\WWW\UserBundle\Entity\Direccion $direcciones)
-    {
-        $this->direcciones[] = $direcciones;
-
-        return $this;
-    }
-
-    /**
-     * Remove direcciones
-     *
-     * @param \WWW\UserBundle\Entity\Direccion $direcciones
-     */
-    public function removeDireccione(\WWW\UserBundle\Entity\Direccion $direcciones)
-    {
-        $this->direcciones->removeElement($direcciones);
-    }
-
-    /**
-     * Get direcciones
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDirecciones()
-    {
-        return $this->direcciones;
-    }
-    /**
-     * @var string
-     */
-    private $foto;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $modifiedDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $deletedDate;
-
-    /**
-     * @var boolean
-     */
-    private $isDeleted;
-
-
-    /**
-     * Set foto
-     *
-     * @param string $foto
-     * @return User
-     */
-    public function setFoto($foto)
-    {
-        $this->foto = $foto;
-
-        return $this;
-    }
-
-    /**
-     * Get foto
-     *
-     * @return string 
-     */
-    public function getFoto()
-    {
-        return $this->foto;
-    }
-
-    /**
-     * Set createdDate
-     *
-     * @param \DateTime $createdDate
-     * @return User
-     */
-    public function setCreatedDate($createdDate)
-    {
-        $this->createdDate = $createdDate;
-
-        return $this;
-    }
-
-    /**
-     * Get createdDate
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedDate()
-    {
-        return $this->createdDate;
-    }
-
-    /**
-     * Set modifiedDate
-     *
-     * @param \DateTime $modifiedDate
-     * @return User
-     */
-    public function setModifiedDate($modifiedDate)
-    {
-        $this->modifiedDate = $modifiedDate;
-
-        return $this;
-    }
-
-    /**
-     * Get modifiedDate
-     *
-     * @return \DateTime 
-     */
-    public function getModifiedDate()
-    {
-        return $this->modifiedDate;
-    }
-
-    /**
-     * Set deletedDate
-     *
-     * @param \DateTime $deletedDate
-     * @return User
-     */
-    public function setDeletedDate($deletedDate)
-    {
-        $this->deletedDate = $deletedDate;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedDate
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedDate()
-    {
-        return $this->deletedDate;
-    }
-
-    /**
-     * Set isDeleted
-     *
-     * @param boolean $isDeleted
-     * @return User
-     */
-    public function setIsDeleted($isDeleted)
-    {
-        $this->isDeleted = $isDeleted;
-
-        return $this;
-    }
-
-    /**
-     * Get isDeleted
-     *
-     * @return boolean 
-     */
-    public function getIsDeleted()
-    {
-        return $this->isDeleted;
-    }
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $surname;
-
-    /**
-     * @var string
-     */
-    private $sex;
-
-    /**
-     * @var \DateTime
-     */
-    private $birthdate;
-
-    /**
-     * @var string
-     */
-    private $photo;
-
-    /**
-     * @var string
-     */
-    private $linkInvitation;
-
-    /**
-     * @var integer
-     */
-    private $invitNum;
-
-    /**
-     * @var integer
-     */
-    private $phone;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $adresses;
-
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return User
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set surname
-     *
-     * @param string $surname
-     * @return User
-     */
-    public function setSurname($surname)
-    {
-        $this->surname = $surname;
-
-        return $this;
-    }
-
-    /**
-     * Get surname
-     *
-     * @return string 
-     */
-    public function getSurname()
-    {
-        return $this->surname;
-    }
-
-    /**
      * Set sex
      *
      * @param string $sex
@@ -653,6 +275,29 @@ class User
     public function getBirthdate()
     {
         return $this->birthdate;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
@@ -745,6 +390,98 @@ class User
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Set createdDate
+     *
+     * @param \DateTime $createdDate
+     * @return User
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createdDate
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * Set modifiedDate
+     *
+     * @param \DateTime $modifiedDate
+     * @return User
+     */
+    public function setModifiedDate($modifiedDate)
+    {
+        $this->modifiedDate = $modifiedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedDate
+     *
+     * @return \DateTime 
+     */
+    public function getModifiedDate()
+    {
+        return $this->modifiedDate;
+    }
+
+    /**
+     * Set deletedDate
+     *
+     * @param \DateTime $deletedDate
+     * @return User
+     */
+    public function setDeletedDate($deletedDate)
+    {
+        $this->deletedDate = $deletedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedDate
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedDate()
+    {
+        return $this->deletedDate;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return User
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean 
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
     }
 
     /**

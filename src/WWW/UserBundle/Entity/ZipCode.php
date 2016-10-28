@@ -13,129 +13,26 @@ class ZipCode
      * @var int
      */
     private $id;
-
     /**
-     * @var int
+     * @var integer
      */
-    private $cP;
-
-    /**
-     * @var string
-     */
-    private $ciudad;
+    private $zipCode;
 
     /**
      * @var string
      */
-    private $provincia;
+    private $city;
 
     /**
      * @var string
      */
-    private $pais;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $region;
 
     /**
-     * Set cP
-     *
-     * @param integer $cP
-     * @return CodigoPostal
+     * @var string
      */
-    public function setCP($cP)
-    {
-        $this->cP = $cP;
+    private $country;
 
-        return $this;
-    }
-
-    /**
-     * Get cP
-     *
-     * @return integer 
-     */
-    public function getCP()
-    {
-        return $this->cP;
-    }
-
-    /**
-     * Set ciudad
-     *
-     * @param string $ciudad
-     * @return CodigoPostal
-     */
-    public function setCiudad($ciudad)
-    {
-        $this->ciudad = $ciudad;
-
-        return $this;
-    }
-
-    /**
-     * Get ciudad
-     *
-     * @return string 
-     */
-    public function getCiudad()
-    {
-        return $this->ciudad;
-    }
-
-    /**
-     * Set provincia
-     *
-     * @param string $provincia
-     * @return CodigoPostal
-     */
-    public function setProvincia($provincia)
-    {
-        $this->provincia = $provincia;
-
-        return $this;
-    }
-
-    /**
-     * Get provincia
-     *
-     * @return string 
-     */
-    public function getProvincia()
-    {
-        return $this->provincia;
-    }
-
-    /**
-     * Set pais
-     *
-     * @param string $pais
-     * @return CodigoPostal
-     */
-    public function setPais($pais)
-    {
-        $this->pais = $pais;
-
-        return $this;
-    }
-
-    /**
-     * Get pais
-     *
-     * @return string 
-     */
-    public function getPais()
-    {
-        return $this->pais;
-    }
     /**
      * @var \DateTime
      */
@@ -158,116 +55,14 @@ class ZipCode
 
 
     /**
-     * Set createdDate
+     * Get id
      *
-     * @param \DateTime $createdDate
-     * @return CodigoPostal
+     * @return integer 
      */
-    public function setCreatedDate($createdDate)
+    public function getId()
     {
-        $this->createdDate = $createdDate;
-
-        return $this;
+        return $this->id;
     }
-
-    /**
-     * Get createdDate
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedDate()
-    {
-        return $this->createdDate;
-    }
-
-    /**
-     * Set modifiedDate
-     *
-     * @param \DateTime $modifiedDate
-     * @return CodigoPostal
-     */
-    public function setModifiedDate($modifiedDate)
-    {
-        $this->modifiedDate = $modifiedDate;
-
-        return $this;
-    }
-
-    /**
-     * Get modifiedDate
-     *
-     * @return \DateTime 
-     */
-    public function getModifiedDate()
-    {
-        return $this->modifiedDate;
-    }
-
-    /**
-     * Set deletedDate
-     *
-     * @param \DateTime $deletedDate
-     * @return CodigoPostal
-     */
-    public function setDeletedDate($deletedDate)
-    {
-        $this->deletedDate = $deletedDate;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedDate
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedDate()
-    {
-        return $this->deletedDate;
-    }
-
-    /**
-     * Set isDeleted
-     *
-     * @param boolean $isDeleted
-     * @return CodigoPostal
-     */
-    public function setIsDeleted($isDeleted)
-    {
-        $this->isDeleted = $isDeleted;
-
-        return $this;
-    }
-
-    /**
-     * Get isDeleted
-     *
-     * @return boolean 
-     */
-    public function getIsDeleted()
-    {
-        return $this->isDeleted;
-    }
-    /**
-     * @var integer
-     */
-    private $zipCode;
-
-    /**
-     * @var string
-     */
-    private $city;
-
-    /**
-     * @var string
-     */
-    private $region;
-
-    /**
-     * @var string
-     */
-    private $country;
-
 
     /**
      * Set zipCode
@@ -359,5 +154,97 @@ class ZipCode
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * Set createdDate
+     *
+     * @param \DateTime $createdDate
+     * @return ZipCode
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createdDate
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * Set modifiedDate
+     *
+     * @param \DateTime $modifiedDate
+     * @return ZipCode
+     */
+    public function setModifiedDate($modifiedDate)
+    {
+        $this->modifiedDate = $modifiedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedDate
+     *
+     * @return \DateTime 
+     */
+    public function getModifiedDate()
+    {
+        return $this->modifiedDate;
+    }
+
+    /**
+     * Set deletedDate
+     *
+     * @param \DateTime $deletedDate
+     * @return ZipCode
+     */
+    public function setDeletedDate($deletedDate)
+    {
+        $this->deletedDate = $deletedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedDate
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedDate()
+    {
+        return $this->deletedDate;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return ZipCode
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean 
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
     }
 }
