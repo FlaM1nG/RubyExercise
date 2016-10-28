@@ -12,26 +12,35 @@ WWW\UserBundle\Entity\Adress:
         street:
             type: string
             length: 255
+            nullable: true
         name:
             type: string
             length: 255
+            nullable: true
         isDefault:
             type: boolean
+            nullable: true
         createdDate:
             type: date
+            nullable: true
         modifiedDate:
             type: date
+            nullable: true
         deletedDate:
             type: date
+            nullable: true
         isDeleted:
             type: boolean
+            nullable: true
     manyToOne:
         user:
+            nullable: true
             targetEntity: User
             inversedBy: Adress
             joinColumn:
                 referencedColumnName: id
         cp:
+            nullable: true
             targetEntity: ZipCode
             inversedBy: Adress
             joinColumn:

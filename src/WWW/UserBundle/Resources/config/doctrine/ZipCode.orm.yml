@@ -13,21 +13,29 @@ WWW\UserBundle\Entity\ZipCode:
             type: integer
             unique: true
             column: zip_code
+            nullable: true
         city:
             type: string
             length: 255
+            nullable: true
         region:
             type: string
             length: 255
+            nullable: true
         country:
             type: string
             length: 255
+            nullable: true
         createdDate:
             type: date
+            nullable: true
         modifiedDate:
             type: date
+            nullable: true
         deletedDate:
             type: date
+            nullable: true
         isDeleted:
             type: boolean
+            nullable: true
     lifecycleCallbacks: {  }

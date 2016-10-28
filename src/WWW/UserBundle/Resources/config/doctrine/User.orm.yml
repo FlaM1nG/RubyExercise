@@ -12,6 +12,7 @@ WWW\UserBundle\Entity\User:
         name:
             type: string
             length: 255
+            nullable: true
         surname:
             type: string
             length: 255
@@ -26,6 +27,7 @@ WWW\UserBundle\Entity\User:
         salt:
             type: string
             length: 255
+            nullable: true
         sex:
             type: string
             length: '1'
@@ -40,24 +42,32 @@ WWW\UserBundle\Entity\User:
         photo:
             type: string
             length: 255
+            nullable: true
         linkInvitation:
             type: string
             length: 255
             column: link_invitation
+            nullable: true
         invitNum:
             type: integer
             nullable: true
             column: invit_num
+            nullable: true
         phone:
             type: integer
+            nullable: true
         createdDate:
             type: date
+            nullable: true
         modifiedDate:
             type: date
+            nullable: true
         deletedDate:
             type: date
+            nullable: true
         isDeleted:
-            type: boolean  
+            type: boolean
+            nullable: true
     oneToMany:
         adresses:
             targetEntity: Adress
