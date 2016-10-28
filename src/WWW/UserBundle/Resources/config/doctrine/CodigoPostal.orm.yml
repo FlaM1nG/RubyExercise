@@ -22,4 +22,12 @@ WWW\UserBundle\Entity\CodigoPostal:
         pais:
             type: string
             length: 255
+        createdDate:
+            type: date
+        modifiedDate:
+            type: date
+        deletedDate:
+            type: date
+        isDeleted:
+            type: boolean
     lifecycleCallbacks: {  }

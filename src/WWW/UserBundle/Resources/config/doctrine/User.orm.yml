@@ -38,6 +38,9 @@ WWW\UserBundle\Entity\User:
             type: string
             length: 255
             unique: true
+        foto:
+            type: string
+            length: 255
         linkInvitacion:
             type: string
             length: 255
@@ -47,6 +50,16 @@ WWW\UserBundle\Entity\User:
             nullable: true
         telefono:
             type: integer
+        createdDate:
+            type: date
+        modifiedDate:
+            type: date
+        deletedDate:
+            type: date
+        isDeleted:
+            type: boolean
+        
+            
     oneToMany:
         direcciones:
             targetEntity: Direccion

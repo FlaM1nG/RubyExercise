@@ -17,6 +17,14 @@ WWW\UserBundle\Entity\Direccion:
             length: 255
         defecto:
             type: boolean
+        createdDate:
+            type: date
+        modifiedDate:
+            type: date
+        deletedDate:
+            type: date
+        isDeleted:
+            type: boolean
     manyToOne:
         id_user:
             targetEntity: User

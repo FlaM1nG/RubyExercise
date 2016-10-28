@@ -332,4 +332,49 @@ class User
     {
         return $this->telefono;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $direcciones;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->direcciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add direcciones
+     *
+     * @param \WWW\UserBundle\Entity\Direccion $direcciones
+     * @return User
+     */
+    public function addDireccione(\WWW\UserBundle\Entity\Direccion $direcciones)
+    {
+        $this->direcciones[] = $direcciones;
+
+        return $this;
+    }
+
+    /**
+     * Remove direcciones
+     *
+     * @param \WWW\UserBundle\Entity\Direccion $direcciones
+     */
+    public function removeDireccione(\WWW\UserBundle\Entity\Direccion $direcciones)
+    {
+        $this->direcciones->removeElement($direcciones);
+    }
+
+    /**
+     * Get direcciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDirecciones()
+    {
+        return $this->direcciones;
+    }
 }

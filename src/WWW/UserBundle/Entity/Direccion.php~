@@ -108,4 +108,60 @@ class Direccion
     {
         return $this->defecto;
     }
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $id_user;
+
+    /**
+     * @var \WWW\UserBundle\Entity\CodigoPostal
+     */
+    private $id_cp;
+
+
+    /**
+     * Set id_user
+     *
+     * @param \WWW\UserBundle\Entity\User $idUser
+     * @return Direccion
+     */
+    public function setIdUser(\WWW\UserBundle\Entity\User $idUser = null)
+    {
+        $this->id_user = $idUser;
+
+        return $this;
+    }
+
+    /**
+     * Get id_user
+     *
+     * @return \WWW\UserBundle\Entity\User 
+     */
+    public function getIdUser()
+    {
+        return $this->id_user;
+    }
+
+    /**
+     * Set id_cp
+     *
+     * @param \WWW\UserBundle\Entity\CodigoPostal $idCp
+     * @return Direccion
+     */
+    public function setIdCp(\WWW\UserBundle\Entity\CodigoPostal $idCp = null)
+    {
+        $this->id_cp = $idCp;
+
+        return $this;
+    }
+
+    /**
+     * Get id_cp
+     *
+     * @return \WWW\UserBundle\Entity\CodigoPostal 
+     */
+    public function getIdCp()
+    {
+        return $this->id_cp;
+    }
 }
