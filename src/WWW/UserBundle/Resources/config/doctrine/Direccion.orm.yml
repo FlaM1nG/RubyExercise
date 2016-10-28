@@ -1,0 +1,31 @@
+WWW\UserBundle\Entity\Direccion:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\DireccionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        calle:
+            type: string
+            length: 255
+        nombre:
+            type: string
+            length: 255
+        defecto:
+            type: boolean
+    manyToOne:
+        id_user:
+            targetEntity: User
+            inversedBy: Direccion
+            joinColumn:
+                referencedColumnName: id
+        id_cp:
+            targetEntity: CodigoPostal
+            inversedBy: Direccion
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

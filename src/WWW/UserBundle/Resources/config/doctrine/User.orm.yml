@@ -37,6 +37,7 @@ WWW\UserBundle\Entity\User:
         email:
             type: string
             length: 255
+            unique: true
         linkInvitacion:
             type: string
             length: 255
@@ -46,4 +47,8 @@ WWW\UserBundle\Entity\User:
             nullable: true
         telefono:
             type: integer
+    oneToMany:
+        direcciones:
+            targetEntity: Direccion
+            mappedBy: User
     lifecycleCallbacks: {  }

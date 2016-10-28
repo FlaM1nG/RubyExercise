@@ -1,0 +1,25 @@
+WWW\UserBundle\Entity\CodigoPostal:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\CodigoPostalRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        cP:
+            type: integer
+            unique: true
+            column: CP
+        ciudad:
+            type: string
+            length: 255
+        provincia:
+            type: string
+            length: 255
+        pais:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }
