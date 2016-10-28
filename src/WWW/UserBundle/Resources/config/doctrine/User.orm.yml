@@ -57,13 +57,13 @@ WWW\UserBundle\Entity\User:
             type: integer
             nullable: true
         createdDate:
-            type: date
+            type: datetime
             nullable: true
         modifiedDate:
-            type: date
+            type: datetime
             nullable: true
         deletedDate:
-            type: date
+            type: datetime
             nullable: true
         isDeleted:
             type: boolean

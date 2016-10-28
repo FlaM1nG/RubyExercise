@@ -517,4 +517,266 @@ class User
     {
         return $this->isDeleted;
     }
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $surname;
+
+    /**
+     * @var string
+     */
+    private $sex;
+
+    /**
+     * @var \DateTime
+     */
+    private $birthdate;
+
+    /**
+     * @var string
+     */
+    private $photo;
+
+    /**
+     * @var string
+     */
+    private $linkInvitation;
+
+    /**
+     * @var integer
+     */
+    private $invitNum;
+
+    /**
+     * @var integer
+     */
+    private $phone;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $adresses;
+
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set surname
+     *
+     * @param string $surname
+     * @return User
+     */
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+
+        return $this;
+    }
+
+    /**
+     * Get surname
+     *
+     * @return string 
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * Set sex
+     *
+     * @param string $sex
+     * @return User
+     */
+    public function setSex($sex)
+    {
+        $this->sex = $sex;
+
+        return $this;
+    }
+
+    /**
+     * Get sex
+     *
+     * @return string 
+     */
+    public function getSex()
+    {
+        return $this->sex;
+    }
+
+    /**
+     * Set birthdate
+     *
+     * @param \DateTime $birthdate
+     * @return User
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    /**
+     * Get birthdate
+     *
+     * @return \DateTime 
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     * @return User
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return string 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * Set linkInvitation
+     *
+     * @param string $linkInvitation
+     * @return User
+     */
+    public function setLinkInvitation($linkInvitation)
+    {
+        $this->linkInvitation = $linkInvitation;
+
+        return $this;
+    }
+
+    /**
+     * Get linkInvitation
+     *
+     * @return string 
+     */
+    public function getLinkInvitation()
+    {
+        return $this->linkInvitation;
+    }
+
+    /**
+     * Set invitNum
+     *
+     * @param integer $invitNum
+     * @return User
+     */
+    public function setInvitNum($invitNum)
+    {
+        $this->invitNum = $invitNum;
+
+        return $this;
+    }
+
+    /**
+     * Get invitNum
+     *
+     * @return integer 
+     */
+    public function getInvitNum()
+    {
+        return $this->invitNum;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param integer $phone
+     * @return User
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return integer 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Add adresses
+     *
+     * @param \WWW\UserBundle\Entity\Adress $adresses
+     * @return User
+     */
+    public function addAdress(\WWW\UserBundle\Entity\Adress $adresses)
+    {
+        $this->adresses[] = $adresses;
+
+        return $this;
+    }
+
+    /**
+     * Remove adresses
+     *
+     * @param \WWW\UserBundle\Entity\Adress $adresses
+     */
+    public function removeAdress(\WWW\UserBundle\Entity\Adress $adresses)
+    {
+        $this->adresses->removeElement($adresses);
+    }
+
+    /**
+     * Get adresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAdresses()
+    {
+        return $this->adresses;
+    }
 }

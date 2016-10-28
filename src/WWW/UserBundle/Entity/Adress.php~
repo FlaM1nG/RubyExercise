@@ -276,4 +276,144 @@ class Adress
     {
         return $this->isDeleted;
     }
+    /**
+     * @var string
+     */
+    private $street;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var boolean
+     */
+    private $isDefault;
+
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;
+
+    /**
+     * @var \WWW\UserBundle\Entity\ZipCode
+     */
+    private $cp;
+
+
+    /**
+     * Set street
+     *
+     * @param string $street
+     * @return Adress
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    /**
+     * Get street
+     *
+     * @return string 
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Adress
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set isDefault
+     *
+     * @param boolean $isDefault
+     * @return Adress
+     */
+    public function setIsDefault($isDefault)
+    {
+        $this->isDefault = $isDefault;
+
+        return $this;
+    }
+
+    /**
+     * Get isDefault
+     *
+     * @return boolean 
+     */
+    public function getIsDefault()
+    {
+        return $this->isDefault;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \WWW\UserBundle\Entity\User $user
+     * @return Adress
+     */
+    public function setUser(\WWW\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \WWW\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set cp
+     *
+     * @param \WWW\UserBundle\Entity\ZipCode $cp
+     * @return Adress
+     */
+    public function setCp(\WWW\UserBundle\Entity\ZipCode $cp = null)
+    {
+        $this->cp = $cp;
+
+        return $this;
+    }
+
+    /**
+     * Get cp
+     *
+     * @return \WWW\UserBundle\Entity\ZipCode 
+     */
+    public function getCp()
+    {
+        return $this->cp;
+    }
 }
