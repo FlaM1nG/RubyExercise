@@ -13,13 +13,13 @@
  */
 
 
-namespace UserBundle\Form;
+namespace WWW\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegistroType extends AbstractType{
+class RegisterType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
         
@@ -40,7 +40,7 @@ class RegistroType extends AbstractType{
         
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefault(array('data-class'=>UserBundle\Entity\User));
+        $resolver->setDefaults(array('data-class'=>'WWW\UserBundle\Entity\User'));
     }
     
     public function getBlockPrefix(){

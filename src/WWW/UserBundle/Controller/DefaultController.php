@@ -3,8 +3,6 @@
 namespace WWW\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-use AppBundle\Entity\Usuario;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -20,18 +18,17 @@ class DefaultController extends Controller
     
     public function showRegisterAction(){
         
-        $formulario = $this->createForm('UserBundle\Form\RegistroType');
-        $formulario->getForm();
+        $formulario = $this->createForm('WWW\UserBundle\Form\RegisterType');
         
-        
-        return $this->render('UserBundle:Default:registro.html.twig',array('formulario'=>$formulario->createView()));
-                
+        return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
+             
     }
     
     public function registerAction(Request $request){
         
         $usuario = new User();
 
+        
         
     }
     
