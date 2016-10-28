@@ -1,0 +1,49 @@
+WWW\UserBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        nombre:
+            type: string
+            length: 255
+        apellidos:
+            type: string
+            length: 255
+            nullable: true
+        username:
+            type: string
+            length: 255
+            unique: true
+        password:
+            type: string
+            length: 255
+        salt:
+            type: string
+            length: 255
+        sexo:
+            type: string
+            length: '1'
+            nullable: true
+        fechaNacimiento:
+            type: date
+            nullable: true
+            column: fecha_nacimiento
+        email:
+            type: string
+            length: 255
+        linkInvitacion:
+            type: string
+            length: 255
+            column: link_invitacion
+        invitados:
+            type: integer
+            nullable: true
+        telefono:
+            type: integer
+    lifecycleCallbacks: {  }
