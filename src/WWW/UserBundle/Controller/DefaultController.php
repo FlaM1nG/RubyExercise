@@ -28,28 +28,31 @@ class DefaultController extends Controller
     
     public function registerAction(Request $request){
         
-        $data = $request->request->all()['registroUsuario'];
         $usuario = new User();
         
+        $formulario = $this->createForm('WWW\UserBundle\Form\RegisterType',$usuario);
+         
+        //El usuario del formulario se asocia al objeto $usuario
+        $formulario->handleRequest($request);
         
-        $usuario->setEmail($data['email']);
-        $usuario->setUsername($data['username']);
-        $usuario->setPassword($data['password']['first']);
+        if($formulario->isValid()):
+            
+            //Obtiene la codificador de usuario
+            $enconder = $this->get('security.encoder_factory')->getEncoder($usuario);
         
-        $validador = Validation::createValidatorBuilder()->getValidator();
-        $validador->validate($usuario);
-        
-        print_r($validador);
-        /*if(count($errors)> 0 ):
-            echo "hay errores";
+            //Codificamos la contraseña
+            $passwordCodificada = $encoder->encodePassword($usuario->getPassword());
+            $usuario->setPassword($passwordCodificada);
+            
+            $em = $this->getDoctrine()->getMannager();
+            $em->persist($usuario);
+            //$em->flush();
+            
+            return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
         else:
-            echo "no hay errores";
-        endif;*/
-        
-       
-        exit;
-        
-        
+            return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
+        endif;
+                
     }
     
     public function showAction(){
