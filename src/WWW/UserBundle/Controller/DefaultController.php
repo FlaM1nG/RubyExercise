@@ -4,6 +4,7 @@ namespace WWW\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validation;
 use WWW\UserBundle\Entity\User;
 
 class DefaultController extends Controller
@@ -35,6 +36,17 @@ class DefaultController extends Controller
         $usuario->setUsername($data['username']);
         $usuario->setPassword($data['password']['first']);
         
+        $validador = Validation::createValidatorBuilder()->getValidator();
+        $validador->validate($usuario);
+        
+        print_r($validador);
+        /*if(count($errors)> 0 ):
+            echo "hay errores";
+        else:
+            echo "no hay errores";
+        endif;*/
+        
+       
         exit;
         
         
