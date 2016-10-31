@@ -1,7 +1,18 @@
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /user
 
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+user_register:
+    path: /registro
+    defaults: { _controller: UserBundle:Default:showRegister }
+    methods: [GET]
+    
+user_registerUser:
+    path: /registro
+    defaults: { _controller: UserBundle:Default:register }
+    methods: [POST]    
+    
