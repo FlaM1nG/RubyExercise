@@ -4,6 +4,7 @@ namespace WWW\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use WWW\UserBundle\Entity\User;
 
 class DefaultController extends Controller
 {
@@ -26,8 +27,15 @@ class DefaultController extends Controller
     
     public function registerAction(Request $request){
         
+        $data = $request->request->all()['registroUsuario'];
         $usuario = new User();
-
+        
+        
+        $usuario->setEmail($data['email']);
+        $usuario->setUsername($data['username']);
+        $usuario->setPassword($data['password']['first']);
+        
+        exit;
         
         
     }

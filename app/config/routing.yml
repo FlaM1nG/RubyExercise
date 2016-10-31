@@ -11,3 +11,8 @@ user_register:
     defaults: { _controller: UserBundle:Default:showRegister }
     methods: [GET]
     
+user_registerUser:
+    path: /registro
+    defaults: { _controller: UserBundle:Default:register }
+    methods: [POST]    
+    
