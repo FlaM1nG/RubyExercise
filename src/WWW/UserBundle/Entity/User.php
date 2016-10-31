@@ -3,11 +3,17 @@
 namespace WWW\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * User
+ * 
+ * @Assert\Callback(callback = {"isAdult"})
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -25,11 +31,17 @@ class User
 
     /**
      * @var string
+     * 
+     * @Assert\NotBlank()
      */
     private $username;
 
     /**
      * @var string
+     * 
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/")
+     * @Assert\Length(min=8)
      */
     private $password;
 
@@ -45,11 +57,20 @@ class User
 
     /**
      * @var \DateTime
+     * 
+     * @Assert\Date()
      */
     private $birthdate;
 
     /**
      * @var string
+     * 
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
+     *
      */
     private $email;
 
@@ -516,4 +537,34 @@ class User
     {
         return $this->adresses;
     }
+    
+    /**
+     * Devuelve los roles de un usuario autenticado
+     */
+    public function getRoles(){
+        return array('ROLE_USARIO');
+    }
+    
+    /**
+     * 
+     * Elimina la contraseña antes de serializar la información de usuario para guardarla
+     */
+    public function eraseCredentials(){
+        $this->password = null;
+    }
+
+    public function isAdult(){
+        
+    }
+    
+    public function serialize() {
+        
+    }
+
+    public function unserialize($serialized) {
+        
+    }
+    
+    
+
 }
