@@ -4,14 +4,12 @@ namespace WWW\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * User
  * 
- * @Assert\Callback(callback = {"isAdult"})
  */
 class User implements UserInterface
 {
@@ -554,8 +552,13 @@ class User implements UserInterface
         $this->password = null;
     }
 
+    /**
+     * Validación para que los usuarios sean mayores de 18
+     * 
+     * @Assert\True(message = "Debes tener al menos 18 años")
+     */
     public function isAdult(){
-        
+       return $this->birthdate <= new\DateTime('today - 18 years'); 
     }
     
     public function serialize() {

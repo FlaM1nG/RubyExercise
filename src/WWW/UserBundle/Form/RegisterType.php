@@ -23,10 +23,11 @@ class RegisterType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
         
-        $builder ->add('username','text', array('label'=>'Nombre de usuario'));
+        $builder ->add('username','text', array('label'=>'Nombre de usuario','required'=>false));
         $builder
-                ->add('username','text', array('label'=>'Nombre de usuario'))
-                ->add('email','email',array('label'=>'Email'))
+                ->add('username','text', array('label'=>'Nombre de usuario', 'required'=>false))
+                ->add('email','email',array('label'=>'Email', 'required'=>false))
+               // ->add('birthdate','date', array('label' =>'Fecha de nacimiento','required'=>false))
                 ->add('password', 'repeated', array(
                                                 'type' => 'password',
                                                 'invalid_message' => 'Las dos contraseñas deben coincidir',

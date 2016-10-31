@@ -46,7 +46,7 @@ class DefaultController extends Controller
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($usuario);
-            $em->flush();
+            //$em->flush();
             
             return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
         else:
