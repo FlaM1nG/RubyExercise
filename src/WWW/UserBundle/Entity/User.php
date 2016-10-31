@@ -19,6 +19,7 @@ class User implements UserInterface
      * @var int
      */
     private $id;
+    
     /**
      * @var string
      */
@@ -117,14 +118,14 @@ class User implements UserInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $adresses;
+    private $addresses;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -506,36 +507,36 @@ class User implements UserInterface
     }
 
     /**
-     * Add adresses
+     * Add addresses
      *
-     * @param \WWW\UserBundle\Entity\Adress $adresses
+     * @param \WWW\UserBundle\Entity\Address $addresses
      * @return User
      */
-    public function addAdress(\WWW\UserBundle\Entity\Adress $adresses)
+    public function addAddress(\WWW\UserBundle\Entity\Address $addresses)
     {
-        $this->adresses[] = $adresses;
+        $this->addresses[] = $addresses;
 
         return $this;
     }
 
     /**
-     * Remove adresses
+     * Remove addresses
      *
-     * @param \WWW\UserBundle\Entity\Adress $adresses
+     * @param \WWW\UserBundle\Entity\Address $addresses
      */
-    public function removeAdress(\WWW\UserBundle\Entity\Adress $adresses)
+    public function removeAddress(\WWW\UserBundle\Entity\Address $addresses)
     {
-        $this->adresses->removeElement($adresses);
+        $this->addresses->removeElement($addresses);
     }
 
     /**
-     * Get adresses
+     * Get addresses
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getAdresses()
+    public function getAddresses()
     {
-        return $this->adresses;
+        return $this->addresses;
     }
     
     /**

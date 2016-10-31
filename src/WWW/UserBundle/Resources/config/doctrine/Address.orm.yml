@@ -1,7 +1,7 @@
-WWW\UserBundle\Entity\Adress:
+WWW\UserBundle\Entity\Address:
     type: entity
     table: null
-    repositoryClass: WWW\UserBundle\Repository\AdressRepository
+    repositoryClass: WWW\UserBundle\Repository\AddressRepository
     id:
         id:
             type: integer
@@ -36,13 +36,13 @@ WWW\UserBundle\Entity\Adress:
         user:
             nullable: true
             targetEntity: User
-            inversedBy: Adress
+            inversedBy: Address
             joinColumn:
                 referencedColumnName: id
         cp:
             nullable: true
             targetEntity: ZipCode
-            inversedBy: Adress
+            inversedBy: Address
             joinColumn:
                 referencedColumnName: id
     lifecycleCallbacks: {  }

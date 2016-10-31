@@ -5,9 +5,9 @@ namespace WWW\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Adress
+ * Address
  */
-class Adress
+class Address
 {
     /**
      * @var int
@@ -73,7 +73,7 @@ class Adress
      * Set street
      *
      * @param string $street
-     * @return Adress
+     * @return Address
      */
     public function setStreet($street)
     {
@@ -96,7 +96,7 @@ class Adress
      * Set name
      *
      * @param string $name
-     * @return Adress
+     * @return Address
      */
     public function setName($name)
     {
@@ -119,7 +119,7 @@ class Adress
      * Set isDefault
      *
      * @param boolean $isDefault
-     * @return Adress
+     * @return Address
      */
     public function setIsDefault($isDefault)
     {
@@ -142,7 +142,7 @@ class Adress
      * Set createdDate
      *
      * @param \DateTime $createdDate
-     * @return Adress
+     * @return Address
      */
     public function setCreatedDate($createdDate)
     {
@@ -165,7 +165,7 @@ class Adress
      * Set modifiedDate
      *
      * @param \DateTime $modifiedDate
-     * @return Adress
+     * @return Address
      */
     public function setModifiedDate($modifiedDate)
     {
@@ -188,7 +188,7 @@ class Adress
      * Set deletedDate
      *
      * @param \DateTime $deletedDate
-     * @return Adress
+     * @return Address
      */
     public function setDeletedDate($deletedDate)
     {
@@ -211,7 +211,7 @@ class Adress
      * Set isDeleted
      *
      * @param boolean $isDeleted
-     * @return Adress
+     * @return Address
      */
     public function setIsDeleted($isDeleted)
     {
@@ -234,7 +234,7 @@ class Adress
      * Set user
      *
      * @param \WWW\UserBundle\Entity\User $user
-     * @return Adress
+     * @return Address
      */
     public function setUser(\WWW\UserBundle\Entity\User $user = null)
     {
@@ -257,7 +257,7 @@ class Adress
      * Set cp
      *
      * @param \WWW\UserBundle\Entity\ZipCode $cp
-     * @return Adress
+     * @return Address
      */
     public function setCp(\WWW\UserBundle\Entity\ZipCode $cp = null)
     {

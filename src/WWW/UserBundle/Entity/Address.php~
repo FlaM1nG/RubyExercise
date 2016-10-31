@@ -5,33 +5,28 @@ namespace WWW\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ZipCode
+ * Address
  */
-class ZipCode
+class Address
 {
     /**
      * @var int
      */
-    private $id;
+    private $id;    
     /**
-     * @var integer
+     * @var string
      */
-    private $zipCode;
+    private $street;
 
     /**
      * @var string
      */
-    private $city;
+    private $name;
 
     /**
-     * @var string
+     * @var boolean
      */
-    private $region;
-
-    /**
-     * @var string
-     */
-    private $country;
+    private $isDefault;
 
     /**
      * @var \DateTime
@@ -53,6 +48,16 @@ class ZipCode
      */
     private $isDeleted;
 
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;
+
+    /**
+     * @var \WWW\UserBundle\Entity\ZipCode
+     */
+    private $cp;
+
 
     /**
      * Get id
@@ -65,102 +70,79 @@ class ZipCode
     }
 
     /**
-     * Set zipCode
+     * Set street
      *
-     * @param integer $zipCode
-     * @return ZipCode
+     * @param string $street
+     * @return Address
      */
-    public function setZipCode($zipCode)
+    public function setStreet($street)
     {
-        $this->zipCode = $zipCode;
+        $this->street = $street;
 
         return $this;
     }
 
     /**
-     * Get zipCode
-     *
-     * @return integer 
-     */
-    public function getZipCode()
-    {
-        return $this->zipCode;
-    }
-
-    /**
-     * Set city
-     *
-     * @param string $city
-     * @return ZipCode
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get city
+     * Get street
      *
      * @return string 
      */
-    public function getCity()
+    public function getStreet()
     {
-        return $this->city;
+        return $this->street;
     }
 
     /**
-     * Set region
+     * Set name
      *
-     * @param string $region
-     * @return ZipCode
+     * @param string $name
+     * @return Address
      */
-    public function setRegion($region)
+    public function setName($name)
     {
-        $this->region = $region;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get region
+     * Get name
      *
      * @return string 
      */
-    public function getRegion()
+    public function getName()
     {
-        return $this->region;
+        return $this->name;
     }
 
     /**
-     * Set country
+     * Set isDefault
      *
-     * @param string $country
-     * @return ZipCode
+     * @param boolean $isDefault
+     * @return Address
      */
-    public function setCountry($country)
+    public function setIsDefault($isDefault)
     {
-        $this->country = $country;
+        $this->isDefault = $isDefault;
 
         return $this;
     }
 
     /**
-     * Get country
+     * Get isDefault
      *
-     * @return string 
+     * @return boolean 
      */
-    public function getCountry()
+    public function getIsDefault()
     {
-        return $this->country;
+        return $this->isDefault;
     }
 
     /**
      * Set createdDate
      *
      * @param \DateTime $createdDate
-     * @return ZipCode
+     * @return Address
      */
     public function setCreatedDate($createdDate)
     {
@@ -183,7 +165,7 @@ class ZipCode
      * Set modifiedDate
      *
      * @param \DateTime $modifiedDate
-     * @return ZipCode
+     * @return Address
      */
     public function setModifiedDate($modifiedDate)
     {
@@ -206,7 +188,7 @@ class ZipCode
      * Set deletedDate
      *
      * @param \DateTime $deletedDate
-     * @return ZipCode
+     * @return Address
      */
     public function setDeletedDate($deletedDate)
     {
@@ -229,7 +211,7 @@ class ZipCode
      * Set isDeleted
      *
      * @param boolean $isDeleted
-     * @return ZipCode
+     * @return Address
      */
     public function setIsDeleted($isDeleted)
     {
@@ -246,5 +228,51 @@ class ZipCode
     public function getIsDeleted()
     {
         return $this->isDeleted;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \WWW\UserBundle\Entity\User $user
+     * @return Address
+     */
+    public function setUser(\WWW\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \WWW\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set cp
+     *
+     * @param \WWW\UserBundle\Entity\ZipCode $cp
+     * @return Address
+     */
+    public function setCp(\WWW\UserBundle\Entity\ZipCode $cp = null)
+    {
+        $this->cp = $cp;
+
+        return $this;
+    }
+
+    /**
+     * Get cp
+     *
+     * @return \WWW\UserBundle\Entity\ZipCode 
+     */
+    public function getCp()
+    {
+        return $this->cp;
     }
 }

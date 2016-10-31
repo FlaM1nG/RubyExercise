@@ -69,7 +69,7 @@ WWW\UserBundle\Entity\User:
             type: boolean
             nullable: true
     oneToMany:
-        adresses:
-            targetEntity: Adress
+        addresses:
+            targetEntity: Address
             mappedBy: User
     lifecycleCallbacks: {  }
