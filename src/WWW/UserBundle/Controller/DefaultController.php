@@ -38,15 +38,15 @@ class DefaultController extends Controller
         if($formulario->isValid()):
             
             //Obtiene la codificador de usuario
-            $enconder = $this->get('security.encoder_factory')->getEncoder($usuario);
+            $encoder = $this->get('security.encoder_factory')->getEncoder($usuario);
         
             //Codificamos la contraseña
-            $passwordCodificada = $encoder->encodePassword($usuario->getPassword());
+            $passwordCodificada = $encoder->encodePassword($usuario->getPassword(),$usuario->getSalt());
             $usuario->setPassword($passwordCodificada);
             
-            $em = $this->getDoctrine()->getMannager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($usuario);
-            //$em->flush();
+            $em->flush();
             
             return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
         else:
