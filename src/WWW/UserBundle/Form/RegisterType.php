@@ -27,7 +27,10 @@ class RegisterType extends AbstractType{
         $builder
                 ->add('username','text', array('label'=>'Nombre de usuario', 'required'=>false))
                 ->add('email','email',array('label'=>'Email', 'required'=>false))
-               // ->add('birthdate','date', array('label' =>'Fecha de nacimiento','required'=>false))
+                ->add('birthdate','birthday', array(
+                                    'label' =>'Fecha de nacimiento',
+                                    'format' =>'dd-MM-yyyy',
+                                    'required'=>false))
                 ->add('password', 'repeated', array(
                                                 'type' => 'password',
                                                 'invalid_message' => 'Las dos contraseñas deben coincidir',

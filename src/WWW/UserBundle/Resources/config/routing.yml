@@ -2,8 +2,5 @@ user_homepage:
     path:     /
     defaults: { _controller: UserBundle:Default:index }
 
-user_register:
-    path: /registro
-    defaults: { _controller: UserBundle:Default:showRegister }
-    #methods: [GET]
+
    
