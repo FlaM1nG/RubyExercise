@@ -18,14 +18,6 @@ class DefaultController extends Controller
         
     }
     
-    public function showRegisterAction(){
-        
-        $formulario = $this->createForm('WWW\UserBundle\Form\RegisterType');
-        
-        return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
-             
-    }
-    
     public function registerAction(Request $request){
         
         $usuario = new User();
@@ -46,11 +38,11 @@ class DefaultController extends Controller
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($usuario);
-            //$em->flush();
+            $em->flush();
             
-            return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
         else:
-            return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
         endif;
                 
     }
