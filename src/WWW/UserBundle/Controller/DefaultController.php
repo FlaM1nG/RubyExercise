@@ -58,14 +58,22 @@ class DefaultController extends Controller
             $em->persist($usuario);
             $em->flush();*/
             
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$formulario->createView()));
         else:
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
         endif;
                 
     }
     
-    public function showAction(){
+    public function profileAction(Request $request){
+        $usuario = $this->getUser();
         
+        $formulario = $this->createForm('WWW\UserBundle\Form\ProfileType',$usuario);
+        
+        $formulario->handleRequest($request);
+        if($formulario->isValid()){
+            echo "todo va bien";
+        }
+        return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$formulario->createView(),'usuario'=>$usuario));
     }
 }
