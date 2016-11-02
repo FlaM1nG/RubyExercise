@@ -4,12 +4,16 @@ namespace WWW\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * User
  * 
+ * @UniqueEntity(fields="email", message="Ya existe un usuario registrado con ese email")
+ * @UniqueEntity(fields="username", message="Ya existe ese nobre de usuario")
  */
 class User implements UserInterface
 {
