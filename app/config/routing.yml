@@ -16,3 +16,12 @@ user_registerUser:
     defaults: { _controller: UserBundle:Default:register }
     methods: [POST]    
     
+user_login:
+    path: /login
+    defaults: { _controller: UserBundle:Default:login }
+    
+user_logout:
+    path: /logout
+    defaults: { _controller: UserBundle:Default:logout }
+
+    
