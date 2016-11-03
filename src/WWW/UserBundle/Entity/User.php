@@ -575,4 +575,32 @@ class User implements UserInterface
     
     
 
+    /**
+     * @var \WWW\UserBundle\Entity\Role
+     */
+    private $role;
+
+
+    /**
+     * Set role
+     *
+     * @param \WWW\UserBundle\Entity\Role $role
+     * @return User
+     */
+    public function setRole(\WWW\UserBundle\Entity\Role $role = null)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return \WWW\UserBundle\Entity\Role 
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
 }

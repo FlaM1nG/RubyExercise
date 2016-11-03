@@ -1,0 +1,26 @@
+WWW\UserBundle\Entity\Role:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\RoleRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+    manyToMany:
+        permissions:
+          targetEntity: Permission
+          joinTable:
+            name: role_permissions
+            joinColumns:
+              role_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              permission_id:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }
