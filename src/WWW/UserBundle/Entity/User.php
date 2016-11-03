@@ -94,6 +94,8 @@ class User implements UserInterface
 
     /**
      * @var integer
+     * 
+     * \Assert\Image(maxSize="1M")
      */
     private $phone;
 

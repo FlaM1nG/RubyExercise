@@ -5,12 +5,13 @@ namespace WWW\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
-use WWW\UserBundle\Entity\User;
+use WWW\UserBundle\Entity\User as User;
 
 class DefaultController extends Controller
 {
     public function indexAction()
     {
+        $session = $request->getSession();
         return $this->render('UserBundle:Default:index.html.twig');
     }
     
@@ -58,18 +59,23 @@ class DefaultController extends Controller
             $em->persist($usuario);
             $em->flush();*/
             
-            return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
         else:
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
         endif;
                 
     }
     
-    public function profileAction(Request $request){
+    public function profileAction(Request $request){ 
         $usuario = $this->getUser();
         
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $em->getRepository('UserBundle:User')->find(1);
+
+        $usuario = $em->find('UserBundle:User',1);
+        $em->persist($usuario);
         $formulario = $this->createForm('WWW\UserBundle\Form\ProfileType',$usuario);
-        
+       
         $formulario->handleRequest($request);
         if($formulario->isValid()){
             echo "todo va bien";

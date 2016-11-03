@@ -9,3 +9,7 @@ app:
 user_register:
     path: /registro
     defaults: { _controller: UserBundle:Default:register }
+    
+user_profiler:
+    path: /perfil
+    defaults: { _controller: UserBundle:Default:profile }
