@@ -22,3 +22,6 @@ user_logout:
 user_profiler:
     path: /perfil
     defaults: { _controller: UserBundle:Default:profile }
+user_profiler:
+    path: /perfil
+    defaults: { _controller: UserBundle:Default:profile }
