@@ -5,17 +5,63 @@ namespace WWW\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
-use WWW\UserBundle\Entity\User;
+use WWW\UserBundle\Entity\User as User;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $session = $request->getSession();
         return $this->render('UserBundle:Default:index.html.twig');
     }
     
     public function loginAction(Request $request){
+         if($request->getMethod()=="POST")
+        {
+            $email=$request->get("email");
+            $password=sha1($request->get("password"));  
+         
+            //echo "correo=".$correo."<br>pass=".$pass;exit;
+            $user=$this->getDoctrine()->getRepository('UserBundle:User')->findOneBy(array("email"=>$email,"password"=>$password));
         
+            if($user)
+            {
+             $session=$request->getSession();
+               $session->set("id",$user->getId());
+               $session->set("username",$user->getUsername());
+               //echo $session->get("username");exit;
+               return $this->redirect($this->generateUrl('user_homepage'));
+            }else
+            {
+                $this->get('session')->getFlashBag()->add(
+                                'mensaje',
+                                'Los datos ingresados no son válidos'
+                            );
+                    return $this->redirect($this->generateUrl('user_login'));
+            }
+        }
+        
+        return $this->render('UserBundle:Default:login.html.twig');
+        
+    }
+    
+    public function logoutAction(Request $request){
+        $session=$request->getSession();
+        $session->clear();
+         $this->get('session')->getFlashBag()->add(
+                                'mensaje',
+                                'Se ha cerrado la sesion con exito'
+                            );
+                    return $this->redirect($this->generateUrl('user_login'));
+    }
+    
+    
+    public function showRegisterAction(){
+        
+        $formulario = $this->createForm('WWW\UserBundle\Form\RegisterType');
+        
+        return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
+             
     }
     
     public function registerAction(Request $request){
@@ -58,14 +104,27 @@ class DefaultController extends Controller
             $em->persist($usuario);
             $em->flush();*/
             
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
         else:
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
         endif;
                 
     }
     
-    public function showAction(){
+    public function profileAction(Request $request){ 
+        $usuario = $this->getUser();
         
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $em->getRepository('UserBundle:User')->find(1);
+
+        $usuario = $em->find('UserBundle:User',1);
+        $em->persist($usuario);
+        $formulario = $this->createForm('WWW\UserBundle\Form\ProfileType',$usuario);
+       
+        $formulario->handleRequest($request);
+        if($formulario->isValid()){
+            echo "todo va bien";
+        }
+        return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$formulario->createView(),'usuario'=>$usuario));
     }
 }
