@@ -11,7 +11,7 @@ WWW\UserBundle\Entity\Role:
     fields:
         name:
             type: string
-            length: 255
+            length: 255            
     manyToMany:
         permissions:
           targetEntity: Permission
