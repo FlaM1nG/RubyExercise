@@ -8,13 +8,7 @@ app:
 
 user_register:
     path: /registro
-    defaults: { _controller: UserBundle:Default:showRegister }
-    methods: [GET]
-    
-user_registerUser:
-    path: /registro
     defaults: { _controller: UserBundle:Default:register }
-    methods: [POST]    
     
 user_login:
     path: /login
@@ -25,3 +19,6 @@ user_logout:
     defaults: { _controller: UserBundle:Default:logout }
 
     
+user_profiler:
+    path: /perfil
+    defaults: { _controller: UserBundle:Default:profile }
