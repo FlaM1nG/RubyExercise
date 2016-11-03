@@ -12,8 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * User
  * 
- * @UniqueEntity(fields="email", message="Ya existe un usuario registrado con ese email")
- * @UniqueEntity(fields="username", message="Ya existe ese nobre de usuario")
  */
 class User implements UserInterface
 {
