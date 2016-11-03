@@ -25,17 +25,5 @@ WWW\UserBundle\Entity\ZipCode:
         country:
             type: string
             length: 255
-            nullable: true
-        createdDate:
-            type: datetime
-            nullable: true
-        modifiedDate:
-            type: datetime
-            nullable: true
-        deletedDate:
-            type: datetime
-            nullable: true
-        isDeleted:
-            type: boolean
-            nullable: true
+            nullable: true        
     lifecycleCallbacks: {  }
