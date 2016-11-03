@@ -7,19 +7,20 @@
  */
 
 /**
- * Description of RegistroType
+ * Description of ProfileType
  *
  * @author Rocio
  */
-
 
 namespace WWW\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-class RegisterType extends AbstractType{
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use WWW\UserBundle\Form\AdressType;
+      
+class ProfileType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
         
@@ -38,15 +39,24 @@ class RegisterType extends AbstractType{
                                                 'required' => false
                                               )
                         )
-                ->add('guardar','submit',array('label'=>'Registrarse'));
+                ->add('name','text', array('label'=>'Nombre'))
+                ->add('surname','text',array('label'=>'Apellidos'))
+                ->add('photo','file',array('label'=>'foto'))
+                ->add('sex','choice',array(
+                                    'choices'=>array('m'=>'Mujer','h'=>'hombre'),
+                                    'label'=>'Sexo'))
+                ->add('linkInvitation','text',array('label'=>'Invitación'))
+                ->add('phone','number',array('label'=>'Teléfono'))
+                ->add('addresses',CollectionType::class,array('entry_type'=>AdressType::class))
+                ->add('registrar','submit',array('label'=>'Registrarse'));
     }
-        
+    
     public function configureOptions(OptionsResolver $resolver){
         
         $resolver->setDefaults(array('data-class'=>'WWW\UserBundle\Entity\User'));
     }
     
     public function getBlockPrefix(){
-        return 'registroUsuario';
+        return 'profileUser';
     }
 }

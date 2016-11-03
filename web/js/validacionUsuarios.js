@@ -29,7 +29,7 @@ function validaFecha(year, month, day){
         else if((mes+1)-month > 0)
             return false;
         else{
-            if((day-dia) >= 0)
+            if((day-dia) <= 0)
                 return true;
             else
                 return false;
@@ -57,7 +57,7 @@ function validaUsername(username){
 }
 
 function validaRegistro(){
-    console.log("entro");
+    
     var email = document.getElementById("registroUsuario_email").value;
     var dia = document.getElementById("registroUsuario_birthdate_day").value;
     var mes = document.getElementById("registroUsuario_birthdate_month").value;
