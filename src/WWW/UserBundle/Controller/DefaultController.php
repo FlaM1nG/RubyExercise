@@ -19,14 +19,37 @@ class DefaultController extends Controller
          if($request->getMethod()=="POST")
         {
             $email=$request->get("email");
-            $password=sha1($request->get("password"));  
+            $password=$request->get("password");  
          
             //echo "correo=".$correo."<br>pass=".$pass;exit;
-            $user=$this->getDoctrine()->getRepository('UserBundle:User')->findOneBy(array("email"=>$email,"password"=>$password));
         
+            $ch = curl_init();
+            
+            // definimos la URL a la que hacemos la petición
+            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/login_user.php");
+            // indicamos el tipo de petición: POST
+            curl_setopt($ch, CURLOPT_POST, TRUE);
+            // definimos cada uno de los parámetros
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "username=".$email.
+                    "&password=".$password."");
+
+ 
+            // recibimos la respuesta y la guardamos en una variable
+            $prueba = curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            
+            $remote_server_output = curl_exec ($ch);
+var_dump($remote_server_output); 
+            $data = json_decode($remote_server_output, true);
+            echo $data['username'];
+            $user = new User();
+            
+            exit;
+            // cerramos la sesión cURL
+            curl_close ($ch);
+            
             if($user)
             {
-             $session=$request->getSession();
+               $session=$request->getSession();
                $session->set("id",$user->getId());
                $session->set("username",$user->getUsername());
                //echo $session->get("username");exit;
@@ -55,19 +78,10 @@ class DefaultController extends Controller
                     return $this->redirect($this->generateUrl('user_login'));
     }
     
-    
-    public function showRegisterAction(){
-        
-        $formulario = $this->createForm('WWW\UserBundle\Form\RegisterType');
-        
-        return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
-             
-    }
-    
     public function registerAction(Request $request){
         
         $usuario = new User();
-        
+       
         $formulario = $this->createForm('WWW\UserBundle\Form\RegisterType',$usuario);
          
         //El usuario del formulario se asocia al objeto $usuario
@@ -78,18 +92,19 @@ class DefaultController extends Controller
             $ch = curl_init();
             
             // definimos la URL a la que hacemos la petición
-            curl_setopt($ch, CURLOPT_URL,"http://localhost/api_rest/register_user.php");
+            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/register_user.php");
             // indicamos el tipo de petición: POST
             curl_setopt($ch, CURLOPT_POST, TRUE);
             // definimos cada uno de los parámetros
             curl_setopt($ch, CURLOPT_POSTFIELDS, "username=".$usuario->getUsername().
                     "&email=".$usuario->getEmail().
+                    "&date=".$usuario->getBirthdate()->format("YYYY-mm-dd").
                     "&password=".$usuario->getPassword()."");
 
             // recibimos la respuesta y la guardamos en una variable
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $remote_server_output = curl_exec ($ch);
-
+            print_r($remote_server_output);
             // cerramos la sesión cURL
             curl_close ($ch);
             /*
@@ -104,7 +119,7 @@ class DefaultController extends Controller
             $em->persist($usuario);
             $em->flush();*/
             
-            return $this->render('UserBundle:Default:register.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
         else:
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
         endif;
