@@ -8,12 +8,13 @@
         <title>WWW | {% block title %}{% endblock %}</title>
 
         {% block stylesheets %}
-
+            <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
         {% endblock %}
+        
         <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
-        <script type="text/javascript" src="" />
+        
         {% block javascriptsHeader %}
-
+            <script src="{{ asset('js/modernizr.js') }}" type="text/javascript"></script>
         {% endblock %}
 
     </head>
@@ -30,6 +31,15 @@
         {% endblock %}       
 
         {% block javascriptsFooter %}
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+            
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+            
+            <script src="{{ asset('js/cbpHorizontalMenu.min.js') }}" type="text/javascript"></script>
+            
+            <script src="{{ asset('js/menuMovil.js') }}" type="text/javascript"></script> <!-- Resource jQuery -->
         {% endblock %}
     </body>
 </html>

@@ -1,0 +1,384 @@
+/* ------------------ PUBLICIDAD Y SPONSOR HOMEPAGE  ------------------
+******************************************************************/
+
+/* ***** PUBLICIDAD ***** */
+.efecto-marco{
+    padding: 0px;
+    margin: 0px;
+}
+
+.tam-packs-peque{
+    min-height: 300px;
+}
+
+.tam-packs-grande{
+    max-height: 300px
+}
+
+.tam-packs{
+    height: 300px
+}
+
+.hovereffect.tam-packs {
+    height: 300px;
+}
+
+.overlay-categoria{
+    background: linear-gradient(-26deg, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.31));
+    min-height: 200px;
+    display: table;
+}
+
+.hovereffect .overlay {
+    width:100%;
+    height:100%;
+    position:absolute;
+    overflow:hidden;
+    top:0;
+    left:0;
+    opacity:0;
+    background-color: rgba(255, 102, 0, 0.18);
+    -webkit-transition:all .4s ease-in-out;
+    transition:all .4s ease-in-out
+}
+
+.titulo-pack1{
+    position: absolute;
+    z-index: 2;
+    top: 9%;
+    left: 9%;
+    font-size: 36px;
+    font-weight: 900;
+    color: @brand-secondary;
+}
+
+span.texto1-pack1 {
+    position: absolute;
+    z-index: 2;
+    top: 25%;
+    left: 0%;
+    font-size: 25px;
+    font-weight: 900;
+    color: @gray-base;
+    padding: 5%;
+}
+
+span.texto2-pack1 {
+    position: absolute;
+    z-index: 2;
+    top: 80%;
+    left: 37%;
+    font-size: 20px;
+    font-weight: 600;
+    color: @brand-secondary;
+    background-color: @brand-primary;
+    padding: 6px 12px;
+}
+
+span.fondo-pack1 {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 90, 0, 0.3);
+}
+
+.titulo-pack2{
+    position: absolute;
+    z-index: 2;
+    top: 13%;
+    left: 5%;
+    font-size: 46px;
+    font-weight: 900;
+    color: @brand-secondary;
+}
+
+span.texto1-pack2 {
+    position: absolute;
+    z-index: 2;
+    top: 41%;
+    left: 0%;
+    font-size: 33px;
+    font-weight: 900;
+    color: #ff5b00;
+    padding: 0% 12%;
+}
+
+span.texto2-pack2 {
+    position: absolute;
+    z-index: 2;
+    top: 91%;
+    left: 1%;
+    font-size: 14px;
+    font-weight: 600;
+    color: @brand-secondary;
+}
+
+span.especial-pack2 {
+    color: @brand-primary;
+}
+
+span.fondo-pack2 {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(9, 9, 9, 0.32);
+    width: 100%;
+    height: 100%;
+}
+
+.titulo-pack3{
+    position: absolute;
+    z-index: 2;
+    top: 9%;
+    left: 0%;
+    font-size: 80px;
+    font-weight: 900;
+    color: @brand-secondary;
+}
+
+span.texto2-pack3 {
+    position: absolute;
+    z-index: 2;
+    top: 90%;
+    left: 61%;
+    font-size: 14px;
+    font-weight: 600;
+    color: @brand-secondary;
+}
+
+span.especial-pack3 {
+    color: @brand-primary;
+}
+
+span.fondo-pack3 {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(9, 9, 9, 0.32);
+    width: 100%;
+    height: 100%;
+}
+/* ##### FIN PUBLICIDAD ##### */
+
+
+/* ***** SPONSORS ***** */
+.sponsor-carousel{
+    margin: 0px;
+    padding: 0px;
+}
+
+#myCarousel .nav a small {
+    display: block;
+}
+
+#myCarousel .nav {
+    background: @brand-secondary;   
+}
+
+.nav-justified > li > a {
+    border-radius: 0px;
+    font-weight: 600;
+    color: @gray-base;
+}
+
+.nav-pills>li[data-slide-to="0"].active a { 
+    background-color: @gray-base;
+    font-weight: 600;
+}
+
+.nav-pills>li[data-slide-to="1"].active a { 
+    background-color: @gray-base;
+    font-weight: 600;
+}
+
+.nav-pills>li[data-slide-to="2"].active a { 
+    background-color: @gray-base;
+    font-weight: 600;
+}
+
+.nav-pills>li[data-slide-to="3"].active a { 
+    background-color: @gray-base;
+    font-weight: 600;
+}
+
+/*!*/
+.carousel-inner {
+    height: 544px;
+}
+
+@media not all, (-webkit-transform-3d) {
+    .carousel-inner>.item {
+        -webkit-transition: -webkit-transform .6s ease-in-out;
+        -o-transition: -o-transform .6s ease-in-out;
+        transition: transform .6s ease-in-out;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+        height: 100%;
+    }
+}
+
+.carousel-caption{
+    bottom: inherit;
+}
+
+.col-lg-3.col-md-3.col-sm-6.col-xs-12.franja {
+    margin: 30px 0px;
+    height: inherit;;
+}
+
+.img-sponsor{
+    width: 150px;
+    height: 150px;
+    border: 1px solid @gray-base;
+}
+
+.spon1{
+    background-image: url(../img/familia.jpg);
+}
+
+.sponsor{
+    min-height: 200px;
+    margin: 0;
+    padding: 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.sponsor11{
+    background-image: url(../img/sponsor11.jpg);
+}
+
+.sponsor22{
+    background-image: url(../img/sponsor22.jpg);
+}
+
+.sponsor33{
+    background-image: url(../img/sponsor33.jpg);
+}
+
+.sponsor44{
+    background-image: url(../img/sponsor44.jpg);
+}
+
+/* ##### FIN SPONSORS ##### */
+
+
+/* *****  ***** */
+
+/* ##### FIN  ##### */
+
+/*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
+@media only screen and (max-height : 1050px){
+    
+}
+
+@media only screen and (max-height : 810px){
+    
+}
+
+@media only screen and (max-height : 780px){
+    
+}
+
+
+/*######################   RANGO ANCHO [1600 – 1200[ ######################*/
+@media only screen and (max-width : 1600px) {
+    
+    
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 960px){
+        
+    }
+    
+    @media only screen and (max-height : 900px){
+        
+    }
+    
+    @media only screen and (max-height : 800px){
+        
+    }
+    
+    @media only screen and (max-height : 720px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [1200 –  992[  ######################*/
+@media only screen and (max-width : 1200px) {
+    .carousel-inner {
+        height: 400px;
+    }
+    
+    @media only screen and (max-height : 768px){
+        
+    }
+    
+    @media only screen and (max-height : 600px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [992–  768[  ######################*/
+@media only screen and (max-width : 992px) {
+        
+    @media only screen and (max-height : 500px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [768 – 480[  ######################*/
+@media only screen and (max-width : 768px) {
+       
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 850px){
+        
+    }
+    
+    @media only screen and (max-height : 740px){
+        
+    }
+    
+    @media only screen and (max-height : 360px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [480 – 320[  ######################*/
+@media only screen and (max-width : 480px) {
+    
+        
+    @media only screen and (max-height : 667px){
+        
+    }
+    
+    @media only screen and (max-height : 640px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [320 – 1]  ######################*/
+@media only screen and (max-width : 320px) {
+    
+    
+    @media only screen and (max-height : 534px){
+        
+    }
+    
+    @media only screen and (max-height : 480px){
+        
+    }
+}
