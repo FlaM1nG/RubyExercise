@@ -1,8 +1,14 @@
-{% extends '::frontend.html.twig' %}
+{% extends '::base.html.twig' %}
 
 
 {% block body %}
-
+    <div class="cd-main-content">
 	<h1>Bienvenidos</h1>
+    </div>
 
+{% endblock %}
+
+{% block nav %}
+    {{ parent() }}
+    {{ include('menu.html.twig') }}
 {% endblock %}
