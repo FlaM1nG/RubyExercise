@@ -1,0 +1,49 @@
+<!-- MENU NAVEGACION MEGA MENU -->
+<nav id="cbp-hrmenu" class="cbp-hrmenu">
+    <ul class="row-categoria">
+
+        <!-- CATEGORIA CON IMAGEN 1 -->
+        <li class="categoria categoria1">
+            <a class="padre-centrado" href="#">
+                <h1 class="hijo-centrado">Vehículos</h1>
+            </a>
+            <div class="cbp-hrsub">
+                <div class="cbp-hrsub-inner"> 
+                    <span class="triangulo triangulo1"></span>
+                    {{ include('mgCatVeh.html.twig') }}
+                </div><!-- /cbp-hrsub-inner -->
+            </div><!-- /cbp-hrsub -->
+        </li>
+        <!-- FIN CATEGORIA CON IMAGEN 1 -->
+
+        <!-- CATEGORIA CON IMAGEN 2 -->
+        <li class="categoria categoria2">
+            <a class="padre-centrado" href="#">
+                <h1 class="hijo-centrado">Inmuebles</h1>
+            </a>
+            <div class="cbp-hrsub">
+                <div class="cbp-hrsub-inner">
+                    <span class="triangulo triangulo2"></span>
+                    {{ include('mgCatInm.html.twig') }}
+                </div><!-- /cbp-hrsub-inner -->
+            </div><!-- /cbp-hrsub -->
+        </li>
+        <!-- FIN CATEGORIA CON IMAGEN 2 -->
+
+        <!-- CATEGORIA CON IMAGEN 3 -->
+        <li class="categoria categoria3">
+            <a class="padre-centrado" href="#">
+                <h1 class="hijo-centrado">¿Qué necesitas?</h1>
+            </a>
+            <div class="cbp-hrsub">
+                <div class="cbp-hrsub-inner"> 
+                    <span class="triangulo triangulo3"></span>
+                    {{ include('mgCatQue.html.twig') }}
+                </div><!-- /cbp-hrsub-inner -->
+            </div><!-- /cbp-hrsub -->
+        </li>
+        <!-- FIN CATEGORIA CON IMAGEN 3 -->
+
+    </ul>
+</nav>
+<!-- FIN MENU NAVEGACION MEGA MENU -->

@@ -1,16 +1,19 @@
-<!-- HEADER -->
-<div class="container-fluid">
+<!-- MENU ADMINISTRACION -->
+<div class="container-fluid cd-main-content">
     <div class="row prueba administration-row">
 
         <!-- PRIMERA COLUMNA-->
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-            <img class="img-responsive logo" src="img/Logo_www-2.png" alt="Site Logo"/>
+        <div class="col-lg-3 col-md-3 col-sm-4 hidden-xs colAdministracion">
+            <img class="img-responsive logo" 
+                 src="{{ asset('img/Logo_www-2.png') }}" alt="Site Logo"/>
         </div>
+        <!-- FIN PRIMERA COLUMNA-->
 
         <!-- SEGUNDA COLUMNA-->
-        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-3 col-sm-8 col-xs-12 colAdministracion">
             <div class="input-group stylish-input-group posicion-top">
-                <input type="text" class="form-control alto-search"  placeholder="¿Qué es lo que quieres de la web?" >
+                <input type="text" class="form-control alto-search"  
+                       placeholder="¿Qué es lo que quieres de la web?" >
                 <span class="input-group-addon">
                     <button type="submit">
                         <span class="glyphicon glyphicon-search"></span>
@@ -18,84 +21,65 @@
                 </span>
             </div>
         </div>
+        <!-- FIN SEGUNDA COLUMNA-->
 
-
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <!-- TERCERA COLUMNA-->
+        <div class="col-lg-3 col-md-4 col-sm-8 hidden-xs colAdministracion">
             <div class="navegacion-usuario">
                 <ul style="border-right: 0;">
-                    <li class="text-nav-user"><a href="#"><span class="glyphicon glyphicon-user size-icon"></span>Mi Cuenta</a></li>
-                    <li class="text-nav-user"><a href="#"><span class="glyphicon glyphicon-shopping-cart size-icon"></span>Carro</a></li>
-                    <li class="text-nav-user"><a href="#"><span class="glyphicon glyphicon-heart-empty size-icon"></span>Bolsa</a></li>
-                    <li class="text-nav-user"><a href="#"><span class="glyphicon glyphicon-bullhorn size-icon"></span>Radio</a></li>
+                    <li class="text-nav-user">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user size-icon">
+                                
+                            </span>
+                            Mi Cuenta
+                        </a>
+                    </li>
+                    
+                    <li class="text-nav-user">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-shopping-cart 
+                                size-icon">
+                                      
+                            </span>
+                            Carro
+                        </a>
+                    </li>
+                    
+                    <li class="text-nav-user">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-heart-empty 
+                                size-icon">
+                                      
+                            </span>
+                            Bolsa
+                        </a>
+                    </li>
+                    
+                    <li class="text-nav-user">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-bullhorn 
+                                size-icon">
+                                      
+                            </span>
+                            Radio
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
+        <!-- FIN TERCERA COLUMNA-->
+
+        <!-- CUARTA COLUMNA-->
+        <div class="col-lg-2 col-md-2 col-sm-4 hidden-xs colAdministracion">
+            <img class="img-responsive logo2" 
+                 src="{{ asset('img/Logo_wwb-2.png') }}" alt="Site Logo"/>
+            <span class="text-bank">
+                Próximamente también podrá usar nuestro servicio de banco
+            </span>
+        </div>
+        <!-- FIN CUARTA COLUMNA-->
+
     </div>
 </div>
-
-<!-- MENU NAVEGACION MEGA MENU -->
-<nav id="cbp-hrmenu" class="cbp-hrmenu">
-    <ul>
-        <li>
-            <a href="#">Products</a>
-            <div class="cbp-hrsub">
-                <div class="cbp-hrsub-inner"> 
-                    <div>
-                        <h4>Learning & Games</h4>
-                        <ul>
-                            <li><a href="#">Catch the Bullet</a></li>
-                            <li><a href="#">Snoopydoo</a></li>
-                            <!-- ... -->
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>Utilities</h4>
-                        <ul>
-                            <li><a href="#">Gadget Finder</a></li>
-                            <li><a href="#">Green Tree Express</a></li>
-                            <li><a href="#">Green Tree Pro</a></li>
-                            <li><a href="#">Wobbler 3.0</a></li>
-                            <li><a href="#">Coolkid</a></li>
-                        </ul>
-                    </div>
-                </div><!-- /cbp-hrsub-inner -->
-            </div><!-- /cbp-hrsub -->
-        </li>
-    </ul>
-</nav>
-
-<!-- MENU NAVEGACION MEGA MENU -->
-<div class="container-fluid">
-    <div class="row">
-
-        <!-- PRIMERA CATEGORIA -->
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 categoria1">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 overlay-categoria">
-                <div class="centrado-texto">
-                    <h2>Vehículos</h2>
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- SEGUNDA CATEGORIA -->
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 categoria2">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 overlay-categoria">
-                <div class="centrado-texto">
-                    <h2>Inmuebles</h2>
-                </div>
-            </div>
-        </div>
-
-        <!-- TERCERA CATEGORIA -->
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 categoria3">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 overlay-categoria">
-                <div class="centrado-texto">
-                    <h2>Otras categorias</h2>
-                </div>
-            </div>
-        </div>
-    </div> 
-</div>
-        
+<!-- FIN ADMINISTRACION -->
