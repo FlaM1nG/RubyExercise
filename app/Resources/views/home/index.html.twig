@@ -2,12 +2,12 @@
 
 {% block nav %}
     {{ parent() }}
-    {{ include('menuImages.html.twig') }}
+    {{ include('nav/menuImages.html.twig') }}
 {% endblock %}
 
 {% block body %}
-    {{ include('home/franja.html.twig') }}
-    {{ include('home/publicidadSponsor.html.twig') }}
-    {{ include('home/packs.html.twig') }}
-    {{ include('home/blog.html.twig') }}
+    {{ include('homepage/franja.html.twig') }}
+    {{ include('homepage/publicidadSponsor.html.twig') }}
+    {{ include('homepage/packs.html.twig') }}
+    {{ include('homepage/blog.html.twig') }}
 {% endblock %}
