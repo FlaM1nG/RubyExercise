@@ -18,4 +18,29 @@ class IndexController extends Controller
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ));
     }
+    
+    
+    public function aboutUsAction() {
+        return $this->render('pages/aboutUs.html.twig');
+    }
+    
+    public function siteMapAction() {
+        return $this->render('pages/siteMap.html.twig');
+    }
+    
+    public function ordersAction() {
+        return $this->render('pages/orders.html.twig');
+    }
+    
+    public function devolutionsAction() {
+        return $this->render('pages/devolutions.html.twig');
+    }
+    
+    public function contactAction() {
+        return $this->render('pages/contact.html.twig');
+    }
+    
+    public function shippingAction() {
+        return $this->render('pages/shipping.html.twig');
+    }
 }

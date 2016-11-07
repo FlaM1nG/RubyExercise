@@ -1,14 +1,13 @@
 {% extends '::base.html.twig' %}
 
-
-{% block body %}
-    <div class="cd-main-content">
-	<h1>Bienvenidos</h1>
-    </div>
-
-{% endblock %}
-
 {% block nav %}
     {{ parent() }}
-    {{ include('menu.html.twig') }}
+    {{ include('menuImages.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('home/franja.html.twig') }}
+    {{ include('home/publicidadSponsor.html.twig') }}
+    {{ include('home/packs.html.twig') }}
+    {{ include('home/blog.html.twig') }}
 {% endblock %}

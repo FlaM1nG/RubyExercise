@@ -25,3 +25,27 @@ user_profiler:
 user_profiler:
     path: /perfil
     defaults: { _controller: UserBundle:Default:profile }
+
+aboutUs:
+    path: /about-us
+    defaults: { _controller: AppBundle:Index:aboutUs }
+    
+siteMap:
+    path: /site-map
+    defaults: { _controller: AppBundle:Index:siteMap }
+    
+orders:
+    path: /orders
+    defaults: { _controller: AppBundle:Index:orders }
+    
+devolutions:
+    path: /devolutions
+    defaults: { _controller: AppBundle:Index:devolutions }
+    
+contact:
+    path: /contact
+    defaults: { _controller: AppBundle:Index:contact }
+    
+shipping:
+    path: /shipping
+    defaults: { _controller: AppBundle:Index:shipping }
