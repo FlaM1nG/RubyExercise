@@ -2,6 +2,11 @@
 ******************************************************************/
 
 /* ***** CABECERA ***** */
+.aus-body{
+    position: relative;
+    z-index: 1;
+}
+
 .aus-cab{
     height: 300px;
     padding-bottom: 50px;
@@ -12,15 +17,16 @@
 
 .aus-cab video {
     min-width: 100%;
+    min-height: 100%;
     position: fixed;
     top: 0;
-    z-index: -100;
+    z-index: -1;
 }
 
 .aus-cab h1{
     color: @brand-secondary;
     text-align: center;
-    padding-top: 100px;
+    padding-top: 90px;
     font-size: 70px;
 }
 
@@ -35,8 +41,12 @@
 /* ##### FIN CABECERA ##### */
 
 /* ***** DATOS ***** */
+.aus-tam-img{
+    height: 500px;
+}
+
 .aus-img{
-    min-height: 500px;
+    .aus-tam-img;
     margin: 0;
     padding: 0;
     background-position: center center;
@@ -46,6 +56,7 @@
 
 .aus-img1{
     background-image: url(../img/sponsor11.jpg);
+    background-color: @brand-primary;
     .aus-img;
 }
 
@@ -54,8 +65,15 @@
     .aus-img;
 }
 
-.aus-text-ob{
+.aus-text-ob-pad{
     padding: 2% 5% 0%;
+}
+
+.aus-text-ob{
+    .aus-tam-img;
+    .aus-text-ob-pad;
+    background-color: @brand-secondary;
+    background-size: cover;
 }
 /* ##### FIN DATOS ##### */
 
