@@ -72,4 +72,11 @@ WWW\UserBundle\Entity\User:
         addresses:
             targetEntity: Address
             mappedBy: User
+    manyToOne:
+        role:
+            nullable: true
+            targetEntity: Role
+            inversedBy: User
+            joinColumn:
+                referencedColumnName: id
     lifecycleCallbacks: {  }
