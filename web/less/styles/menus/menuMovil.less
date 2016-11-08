@@ -61,7 +61,7 @@ header {
   height: 50px;
   width: 100%;
   background: @gray-base;
-  z-index: 3;
+  z-index: 13;
   /* Force Hardware Acceleration in WebKit */
   -webkit-transform: translateZ(0);
   -webkit-backface-visibility: hidden;
@@ -203,7 +203,7 @@ header.is-fixed {
   top: 0;
   visibility: hidden;
   /* the secondary navigation is covered by the main element */
-  z-index: 1;
+  z-index: 11;
   width: 260px;
   background-color: @gray-base;
   overflow-y: auto;
@@ -218,7 +218,7 @@ header.is-fixed {
   -moz-transform: translateX(80px);
   -ms-transform: translateX(80px);
   -o-transform: translateX(80px);
-  transform: translateX(80px);
+  transform: translateX(260px);
 }
 #cd-lateral-nav .cd-navigation {
   margin: 10px 0 16px;
@@ -355,7 +355,7 @@ header.is-fixed {
 }
 
 
-/*######################   RANGO ANCHO [1600 – 1200[ ######################*/
+/*######################   RANGO ANCHO [1600 ï¿½ 1200[ ######################*/
 @media only screen and (max-width : 1600px) {
     
     
@@ -380,7 +380,7 @@ header.is-fixed {
     }
 }
 
-/*######################   RANGO ANCHO [1200 –  992[  ######################*/
+/*######################   RANGO ANCHO [1200 ï¿½  992[  ######################*/
 @media only screen and (max-width : 1200px) {
     
     
@@ -393,7 +393,7 @@ header.is-fixed {
     }
 }
 
-/*######################   RANGO ANCHO [992–  768[  ######################*/
+/*######################   RANGO ANCHO [992ï¿½  768[  ######################*/
 @media only screen and (max-width : 992px) {
         
     @media only screen and (max-height : 500px){
@@ -401,7 +401,7 @@ header.is-fixed {
     }
 }
 
-/*######################   RANGO ANCHO [768 – 480[  ######################*/
+/*######################   RANGO ANCHO [768 ï¿½ 480[  ######################*/
 @media only screen and (max-width : 768px) {
     .menuMovilSpecial{
         display: block;
@@ -412,7 +412,7 @@ header.is-fixed {
         //min-height: 100%;
         position: relative;
         background-color: @brand-secondary;
-        z-index: 2;
+        z-index: 12;
         padding-top: 50px;
         /* Force Hardware Acceleration in WebKit */
         -webkit-transform: translateZ(0);
@@ -447,7 +447,7 @@ header.is-fixed {
     }
 }
 
-/*######################   RANGO ANCHO [480 – 320[  ######################*/
+/*######################   RANGO ANCHO [480 ï¿½ 320[  ######################*/
 @media only screen and (max-width : 480px) {
     
         
@@ -460,7 +460,7 @@ header.is-fixed {
     }
 }
 
-/*######################   RANGO ANCHO [320 – 1]  ######################*/
+/*######################   RANGO ANCHO [320 ï¿½ 1]  ######################*/
 @media only screen and (max-width : 320px) {
     
     
