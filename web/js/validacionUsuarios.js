@@ -90,3 +90,31 @@ function validaRegistro(){
     
     return validar;
 }
+
+  function validaForgot(){
+    
+    var email = document.getElementById("passOlvidado_email").value;
+   
+    var validar = true;
+
+    if(!validaEmail(email)){
+        console.log("Email no válido");
+        validar = false;
+    }
+    
+    return validar;
+}
+  function validaChange(){
+    
+    var password1 = document.getElementById("cambiarPass_password_first").value;
+    var password2 = document.getElementById("cambiarPass_password_second").value;
+   
+    var validar = true;
+
+    if(!validaPassword(password1,password2)){
+        console.log("Contraseña no válida");
+        validar = false;
+    }
+    
+    return validar;
+}
