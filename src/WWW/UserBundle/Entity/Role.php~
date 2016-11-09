@@ -18,15 +18,6 @@ class Role
      * @var string
      */
     private $name;
-    
-    /**
-     * @ManyToMany(targetEntity="Permission")
-     * @JoinTable(name="role_permissions",
-     *      joinColumns={@JoinColumn(referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(referencedColumnName="id")}
-     *      )
-     */
-
 
     /**
      * Get id
