@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 use WWW\UserBundle\Entity\User as User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class DefaultController extends Controller
 {
@@ -26,7 +27,7 @@ class DefaultController extends Controller
             $ch = curl_init();
             
             // definimos la URL a la que hacemos la petición
-            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/login_user.php");
+            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/registration/login_user.php");
             // indicamos el tipo de petición: POST
             curl_setopt($ch, CURLOPT_POST, TRUE);
             // definimos cada uno de los parámetros
@@ -92,7 +93,7 @@ class DefaultController extends Controller
             $ch = curl_init();
             
             // definimos la URL a la que hacemos la petición
-            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/register_user.php");
+            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/registration/register_user.php");
             // indicamos el tipo de petición: POST
             curl_setopt($ch, CURLOPT_POST, TRUE);
             // definimos cada uno de los parámetros
@@ -125,9 +126,13 @@ class DefaultController extends Controller
         endif;
                 
     }
-    
-    public function changePassAction(Request $request){
-        
+    /**
+     * Matches /change/*
+     *
+     * @Route("/change/{token}", name="user_change")
+     */
+    public function changePassAction(Request $request,$token){
+        //pillar el usuario segun la relación token - user_id
         $usuario = new User();
        
         $formulario = $this->createForm('WWW\UserBundle\Form\ChangePassType',$usuario);
@@ -135,7 +140,7 @@ class DefaultController extends Controller
         //El usuario del formulario se asocia al objeto $usuario
         $formulario->handleRequest($request);
         
-        if($formulario->isValid()):
+        if(!empty($usuario->getPassword())):
             
             $ch = curl_init();
             
@@ -145,7 +150,8 @@ class DefaultController extends Controller
             curl_setopt($ch, CURLOPT_POST, TRUE);
             // definimos cada uno de los parámetros
             curl_setopt($ch, CURLOPT_POSTFIELDS, 
-                    "&password=".$usuario->getPassword()."");
+                    "&password=".$usuario->getPassword().
+                    $token."");
 
             // recibimos la respuesta y la guardamos en una variable
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -180,8 +186,8 @@ class DefaultController extends Controller
         //El usuario del formulario se asocia al objeto $usuario
         $formulario->handleRequest($request);
         
-        if($formulario->isValid()):
-            
+        if(!empty($usuario->getEmail())):
+            print_r("entra");
             $ch = curl_init();
             
             // definimos la URL a la que hacemos la petición
@@ -191,7 +197,7 @@ class DefaultController extends Controller
             // definimos cada uno de los parámetros
             curl_setopt($ch, CURLOPT_POSTFIELDS, 
                     "&email=".$usuario->getEmail()."");
-
+           
             // recibimos la respuesta y la guardamos en una variable
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $remote_server_output = curl_exec ($ch);
@@ -212,6 +218,8 @@ class DefaultController extends Controller
             
             return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
         else:
+            
+            echo $formulario->getErrorsAsString();
             return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
         endif;
                 
