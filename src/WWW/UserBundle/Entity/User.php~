@@ -77,6 +77,7 @@ class User implements UserInterface
 
     /**
      * @var string
+     * \Assert\Image(maxSize="1M")
      */
     private $photo;
 
@@ -93,7 +94,6 @@ class User implements UserInterface
     /**
      * @var integer
      * 
-     * \Assert\Image(maxSize="1M")
      */
     private $phone;
 
@@ -125,9 +125,26 @@ class User implements UserInterface
     /**
      * Constructor
      */
-    public function __construct()
-    {
-        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+    public function __construct(Array $user=null){  
+        
+        if(!empty($user)): 
+            $this->birthdate = date_create_from_format('Y-m-d', $user['birthdate']);
+            $this->email = $user['email'];
+            $this->id = $user['id'];
+            $this->linkInvitation = $user['link_invitation'];
+            $this->name = $user['name'];
+            $this->phone = (int)$user['phone'];
+            $this->photo = $user['photo'];
+            $this->sex = $user['sex'];
+            $this->surname = $user['surname'];
+            $this->username = $user['username'];
+            $this->password = $user['password'];
+            
+            //echo gettype($user['addresses']);
+            $this->addresses = $user['addresses'];
+        else:
+            $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+        endif;
     }
 
     /**
@@ -530,6 +547,10 @@ class User implements UserInterface
     {
         $this->addresses->removeElement($addresses);
     }
+    
+    public function setAddress(Array $addresses){
+        $this->addAddress = $addresses;
+    }
 
     /**
      * Get addresses
@@ -572,7 +593,7 @@ class User implements UserInterface
     public function unserialize($serialized) {
         
     }
-    
+
     
 
     /**

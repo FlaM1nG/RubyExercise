@@ -53,10 +53,6 @@ class Address
      */
     private $user;
 
-    /**
-     * @var \WWW\UserBundle\Entity\ZipCode
-     */
-    private $cp;
 
 
     /**
@@ -254,25 +250,31 @@ class Address
     }
 
     /**
-     * Set cp
+     * @var \WWW\UserBundle\Entity\ZipCode
+     */
+    private $zipcode;
+
+
+    /**
+     * Set zipcode
      *
-     * @param \WWW\UserBundle\Entity\ZipCode $cp
+     * @param \WWW\UserBundle\Entity\ZipCode $zipcode
      * @return Address
      */
-    public function setCp(\WWW\UserBundle\Entity\ZipCode $cp = null)
+    public function setZipcode(\WWW\UserBundle\Entity\ZipCode $zipcode = null)
     {
-        $this->cp = $cp;
+        $this->zipcode = $zipcode;
 
         return $this;
     }
 
     /**
-     * Get cp
+     * Get zipcode
      *
      * @return \WWW\UserBundle\Entity\ZipCode 
      */
-    public function getCp()
+    public function getZipcode()
     {
-        return $this->cp;
+        return $this->zipcode;
     }
 }
