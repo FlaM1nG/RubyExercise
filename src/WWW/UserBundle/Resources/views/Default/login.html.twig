@@ -3,6 +3,7 @@
 
 {% block body %}
 
+    {{ form(formulario) }}
   {% for flashMessage in app.session.flashbag.get('mensaje') %}
     <span class="alert-success">
         {{ flashMessage }}

@@ -56,6 +56,11 @@ WWW\UserBundle\Entity\User:
         phone:
             type: integer
             nullable: true
+        confirmation_token:
+            type: string
+            length: 255
+        is_confirmed:
+            type: boolean
         createdDate:
             type: datetime
             nullable: true

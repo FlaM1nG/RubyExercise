@@ -25,8 +25,8 @@ class ProfileType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
         
         $builder
-                ->add('username','text', array('label'=>'Nombre de usuario', 'required'=>false))
-                ->add('email','email',array('label'=>'Email', 'required'=>false))
+                ->add('username','text', array('label'=>'Nombre de usuario'))
+                ->add('email','email',array('label'=>'Email'))
                 ->add('birthdate','birthday', array(
                                     'label' =>'Fecha de nacimiento',
                                     'format' =>'dd-MM-yyyy',
@@ -36,7 +36,7 @@ class ProfileType extends AbstractType{
                                                 'invalid_message' => 'Las dos contraseñas deben coincidir',
                                                 'first_options' => array('label' => 'Contraseña'),
                                                 'second_options' => array('label' => 'Repite Contraseña'),
-                                                'required' => false
+                                                
                                               )
                         )
                 ->add('name','text', array('label'=>'Nombre'))
@@ -46,9 +46,12 @@ class ProfileType extends AbstractType{
                                     'choices'=>array('m'=>'Mujer','h'=>'hombre'),
                                     'label'=>'Sexo'))
                 ->add('linkInvitation','text',array('label'=>'Invitación'))
-                ->add('phone','number',array('label'=>'Teléfono'))
-                ->add('addresses',CollectionType::class,array('entry_type'=>AdressType::class))
-                ->add('registrar','submit',array('label'=>'Registrarse'));
+                ->add('phone','integer',array('label'=>'Teléfono'))
+                ->add('addresses',CollectionType::class,array(
+                                                        'type'=>new AdressType(),
+                                                        'label' => ' '    
+                                                        ))
+                ->add('registrar','submit',array('label'=>'Guardar'));
     }
     
     public function configureOptions(OptionsResolver $resolver){
