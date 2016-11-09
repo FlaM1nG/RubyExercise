@@ -2,17 +2,21 @@
 ******************************************************************/
 
 /* ***** CABECERA ***** */
+.container-fluid.cd-main-content.administration-body {
+    position: relative;
+    z-index: 1;
+}
+
 .aus-body{
 
 }
 
 .aus-cab{
     height: 300px;
-    padding-bottom: 50px;
-    padding-top: 50px;
-    .null-marg;
+    margin-top: -52px;
+    padding: 50px 0;
     background-color: rgba(0, 0, 0, 0.3);
-    
+    .pos-capas;
 }
 
 .aus-cab video {
@@ -24,20 +28,24 @@
 }
 
 video.aus-video {
+    min-width: 100%;
+    min-height: 100%;
     position: fixed;
+    top: 0;
     z-index: 0;
 }
 
 .aus-cab h1{
     color: @brand-secondary;
     text-align: center;
-    padding-top: 90px;
+    padding-top: 50px;
     font-size: 70px;
 }
 
 .aus-bg{
     background-color: @brand-secondary;
     .null-marg;
+    .pos-capas;
 }
 
 .aus-cont{
@@ -148,6 +156,13 @@ video.aus-video {
 
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width : 768px) {
+    .aus-cab{
+        margin-top: 0px;
+    }
+    
+    .aus-cab h1 {
+        font-size: 55px;
+    }
        
     @media only screen and (max-height : 1024px){
         
@@ -168,7 +183,10 @@ video.aus-video {
 
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 @media only screen and (max-width : 480px) {
-    
+    .aus-cab h1{
+        padding-top: 10px;
+        font-size: 50px;
+    }
         
     @media only screen and (max-height : 667px){
         
@@ -181,7 +199,13 @@ video.aus-video {
 
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 @media only screen and (max-width : 320px) {
+    .aus-cab h1{
+        font-size: 45px;
+    }
     
+    .aus-cont > h2{
+        font-size: 35px;
+    }
     
     @media only screen and (max-height : 534px){
         
