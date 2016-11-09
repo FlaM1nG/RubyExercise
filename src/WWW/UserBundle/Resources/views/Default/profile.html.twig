@@ -2,4 +2,31 @@
 
 {{dump(usuario)}}
 
-{{form(formulario)}}
+{{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
+
+    {{ form_row(formulario.username) }}
+    {{ form_row(formulario.email) }}
+    {{ form_row(formulario.birthdate) }}
+    {{ form_row(formulario.password) }}
+    {{ form_row(formulario.name) }}
+    {{ form_row(formulario.surname) }}
+    {{ form_row(formulario.photo) }}
+    {{ form_row(formulario.sex) }}
+    {{ form_row(formulario.linkInvitation) }}
+    {{ form_row(formulario.phone) }}
+    
+    {% for address in formulario.addresses %}
+        
+        {{ form_row(address.name) }}
+        {{ form_row(address.street) }}
+        {{ form_row(address.isDefault) }}
+        {{ form_row(address.cp.country) }}
+        {{ form_row(address.cp.region) }}
+        {{ form_row(address.cp.city) }}
+        {{ form_row(address.cp.zip_code) }}
+        
+    {% endfor %}   
+    
+    Añadir dirección
+    
+{{ form_end(formulario)}}
