@@ -25,12 +25,12 @@
   <body>
 
       {% block content %}
-          {% for change in changes %}
-              {{ form_start(formulario, {'action':path('user_change',{'change':change.token}),'attr':{'onsubmit':'return validaChange()'}}) }}
+          
+              {{ form_start(formulario, {'action':path('user_change',{'token':token}),'attr':{'onsubmit':'return validaChange()'}}) }}
             
                 {{ form_rest(formulario) }}
             {{ form_end(formulario) }}
-          {% endfor %}
+          
             
         {% endblock %}     
         

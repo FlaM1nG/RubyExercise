@@ -146,7 +146,7 @@ class DefaultController extends Controller
             // definimos cada uno de los parámetros
             curl_setopt($ch, CURLOPT_POSTFIELDS, 
                     "&password=".$usuario->getPassword().
-                    $token."");
+                    "&token=".$token."");
 
             // recibimos la respuesta y la guardamos en una variable
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -166,9 +166,9 @@ class DefaultController extends Controller
             $em->persist($usuario);
             $em->flush();*/
             
-            return $this->render('UserBundle:ChangePass:changepass.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:ChangePass:changepass.html.twig',array('formulario'=>$formulario->createView(),'token'=>$token));
         else:
-            return $this->render('UserBundle:ChangePass:changepass.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:ChangePass:changepass.html.twig',array('formulario'=>$formulario->createView(),'token'=>$token));
         endif;
                 
     }
