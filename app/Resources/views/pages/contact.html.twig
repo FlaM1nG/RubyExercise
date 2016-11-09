@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}
+    Contact
+{% endblock %}
+
+
 {% block nav %}
     {{ parent() }}
     {{ include('nav/menu.html.twig') }}
@@ -136,4 +141,9 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block footer %}
+    {{ include('footer/sponsorFooter.html.twig') }}
+    {{ parent() }}
 {% endblock %}
