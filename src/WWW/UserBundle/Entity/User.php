@@ -634,4 +634,60 @@ class User implements UserInterface
     {
         return $this->role;
     }
+    /**
+     * @var string
+     */
+    private $confirmation_token;
+
+    /**
+     * @var boolean
+     */
+    private $is_confirmed;
+
+
+    /**
+     * Set confirmation_token
+     *
+     * @param string $confirmationToken
+     * @return User
+     */
+    public function setConfirmationToken($confirmationToken)
+    {
+        $this->confirmation_token = $confirmationToken;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmation_token
+     *
+     * @return string 
+     */
+    public function getConfirmationToken()
+    {
+        return $this->confirmation_token;
+    }
+
+    /**
+     * Set is_confirmed
+     *
+     * @param boolean $isConfirmed
+     * @return User
+     */
+    public function setIsConfirmed($isConfirmed)
+    {
+        $this->is_confirmed = $isConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get is_confirmed
+     *
+     * @return boolean 
+     */
+    public function getIsConfirmed()
+    {
+        return $this->is_confirmed;
+    }
 }

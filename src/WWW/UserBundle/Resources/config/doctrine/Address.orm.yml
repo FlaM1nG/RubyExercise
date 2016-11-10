@@ -39,7 +39,7 @@ WWW\UserBundle\Entity\Address:
             inversedBy: Address
             joinColumn:
                 referencedColumnName: id
-        cp:
+        zipcode:
             nullable: true
             targetEntity: ZipCode
             inversedBy: Address
