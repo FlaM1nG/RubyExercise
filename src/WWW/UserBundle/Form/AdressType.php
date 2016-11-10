@@ -24,9 +24,8 @@ class AdressType extends AbstractType{
                 ->add('street','text', array('label'=>'Calle'))
                 ->add('name','text', array('label'=>'Nombre dirección'))
                 ->add('isDefault','checkbox', array('label' => 'Dirección principal'))
-                ->add('cp', new CPType(),array('label' => ' '))
-                ->add('id','hidden', array('label' => ' '));
-        
+                //->add('cp', new CPType(),array('label' => ' '))
+                ->add('id','hidden', array('label' => ' '));        
     }
     
     public function configureOptions(OptionsResolver $resolver){
@@ -37,4 +36,16 @@ class AdressType extends AbstractType{
     public function getBlockPrefix(){
         return 'adressUser';
     }
+    
+    function getName()
+    {
+        return 'address';
+    }
+     function getIdentifier()
+    {
+        return 'address';
+    }
+
+    
 }
+ 

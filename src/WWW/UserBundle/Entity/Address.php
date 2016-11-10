@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Address
  */
-class Address
+class Address 
 {
     /**
      * @var int
@@ -58,6 +58,23 @@ class Address
      */
     private $cp;
 
+     public function __construct(Array $address=null){
+         
+        if($address != null):
+             
+            $this->id = $address['id'];
+            $this->street = $address['street'];
+            $this->name = $address['name'];
+            $this->isDefault = $address['is_default'];
+            $this->createdDate = $address['created_date'];
+            $this->modifiedDate = $address['modified_date'];
+            $this->deletedDate = $address['deleted_date'];
+            $this->isDeleted = $address['is_deleted'];
+            //S$this->user = $address['user'];
+            //$this->cp = $address['cp'];
+             
+        endif;
+     }
 
     /**
      * Get id
@@ -274,5 +291,19 @@ class Address
     public function getCp()
     {
         return $this->cp;
+    }
+    
+     public function toArray(){
+        return array(
+            'id' => $this->getId(),
+            'street' => $this->getStreet(),
+            'name' => $this->getName(),
+            'isDefault' =>(Boolean) $this->getIsDefault(),
+            'createdDate' => $this->getCreatedDate(),
+            'modifiedDate' => $this->getModifiedDate(),
+            'deletedDate' => $this->getDeletedDate(),
+            'isDeleted' => $this->getIsDeleted(),
+            'cp' => $this->getCp()
+        );
     }
 }
