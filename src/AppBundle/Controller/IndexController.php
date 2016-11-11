@@ -43,4 +43,8 @@ class IndexController extends Controller
     public function shippingAction() {
         return $this->render('pages/shipping.html.twig');
     }
+    
+    public function privacyPolicyAction() {
+        return $this->render('pages/privacyPolicy.html.twig');
+    }
 }

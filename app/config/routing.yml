@@ -49,3 +49,7 @@ contact:
 shipping:
     path: /shipping
     defaults: { _controller: AppBundle:Index:shipping }
+    
+privacyPolicy:
+    path: /privacy-policy
+    defaults: { _controller: AppBundle:Index:privacyPolicy }
