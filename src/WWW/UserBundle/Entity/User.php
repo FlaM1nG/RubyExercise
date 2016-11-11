@@ -139,11 +139,20 @@ class User implements UserInterface
             $this->surname = $user['surname'];
             $this->username = $user['username'];
             $this->password = $user['password'];
-            
-            //echo gettype($user['addresses']);
-            $this->addresses = $user['addresses'];
-        else:
             $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+            foreach($user['addresses'] as $address):
+               // print_r($address);exit;
+                //array_push($this->addAddress, new Address($address));
+                $auxAddress = new Address($address);
+                $this->addresses[] = $auxAddress->toArray();
+            
+            endforeach;
+            //print_r($this->addAddress);exit;
+            //echo gettype($user['addresses']);
+            //$this->addresses = $user['addresses'];
+        else:
+            parent::__construct();
+            $this->addresses = new ArrayCollection();
         endif;
     }
 
@@ -533,7 +542,8 @@ class User implements UserInterface
      */
     public function addAddress(\WWW\UserBundle\Entity\Address $addresses)
     {
-        $this->addresses[] = $addresses;
+        
+        $this->addresses[] = $addresses->toArray();
 
         return $this;
     }

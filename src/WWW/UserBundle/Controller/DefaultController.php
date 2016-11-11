@@ -7,10 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Validation;
 use WWW\UserBundle\Entity\User as User;
+use WWW\UserBundle\Entity\Address;
 use WWW\UserBundle\Form\ProfileType;
 
-class DefaultController extends Controller
-{
+class DefaultController extends Controller{
+    
     public function indexAction(Request $request)
     {
         $session = $request->getSession();
@@ -120,6 +121,8 @@ class DefaultController extends Controller
     public function profileAction(Request $request){ 
         $session=$request->getSession();
         
+        $section = null;
+       
         $ch = curl_init();
             
         // definimos la URL a la que hacemos la petición
@@ -143,6 +146,8 @@ class DefaultController extends Controller
         curl_close ($ch);
         
         $usuario = null;
+        $formAddress = null;
+        
         
         if($data['result'] == 'ok'):
             
@@ -151,27 +156,40 @@ class DefaultController extends Controller
             $formulario = $this->createForm(ProfileType::class,$usuario);
             
             //$formulario->handleRequest($request);
+          
             if($request->getMethod()=="POST"):
-                $section = 'address';
-            
-                if($section == 'address')
-                    self::updateAddress($usuario,$request);
-                else
-                    self::updateProfile($usuario,$request);
+                
+                $section = $request->request->all()['section'];
+           
+                if(array_key_exists('buttonAddAddress',$request->request->all() )):
+                    $newAddress = new Address();
+                    $usuario->addAddress($newAddress);
+         
+                    $form = $this->createForm(ProfileType::class,$usuario);
+
+                    return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$form->createView(),
+                                                                          'usuario'=>$usuario));
+                else:
+
+                    if($section == 'address')
+                        self::updateAddress($usuario,$request);
+                    else
+                        self::updateProfile($usuario,$request);
+                endif;    
             
             endif;
            
         endif;
         
-        return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$formulario->createView(),'usuario'=>$usuario));
+        return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$formulario->createView(),
+                                                                          'usuario'=>$usuario));
     }
     
         
     private function updateProfile(User $user, Request $request){
         $arrayUser = $request->request->all()['profileUser'];
-        
-        $section = 'username';
-        
+        $section = $request->request->all()['section'];
+        echo $section;
         $ch = curl_init();
             
         // definimos la URL a la que hacemos la petición
@@ -185,7 +203,7 @@ class DefaultController extends Controller
         $data['id']=$user->getId();
         $data['password']=$user->getPassword();
 
-        if($section == 'personal'):
+        if($section == 'sectionPersonal'):
             $fecha = "'".$arrayUser['birthdate']['year'].'-'.$arrayUser['birthdate']['month'].'-'.$arrayUser['birthdate']['day']."'";
         
             $date= \DateTime::createFromFormat('YYYY-mm-dd', $fecha);
@@ -199,19 +217,19 @@ class DefaultController extends Controller
             $data['birthdate'] = $fecha;
             $data['sex'] = "'".$arrayUser['sex']."'";
 
-        elseif($section == 'email'):
+        elseif($section == 'sectionEmail'):
             
             $data['email'] = "'".$arrayUser['email']."'";
             
-        elseif($section == 'password'):
+        elseif($section == 'sectionPassword'):
         
             $data['password'] = $arrayUser['password'];
         
-        elseif($section == 'photo'):
+        elseif($section == 'sectionPhoto'):
             
             $data['photo'] = "'".$arrayUser['photo']."'";
             
-        elseif($section == 'address'):    
+        elseif($section == 'section'):    
             
             
         endif;
@@ -272,10 +290,6 @@ class DefaultController extends Controller
 
         // cerramos la sesión cURL
         curl_close ($ch);
-        
-    }
-    
-    private function addAddress(User $user, Request $request){
         
     }
 
