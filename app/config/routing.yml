@@ -53,3 +53,7 @@ shipping:
 privacyPolicy:
     path: /privacy-policy
     defaults: { _controller: AppBundle:Index:privacyPolicy }
+    
+paymentMethod:
+    path: /payment-method
+    defaults: { _controller: AppBundle:Index:paymentMethod }

@@ -1,5 +1,9 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}
+    Payment Method
+{% endblock %}
+
 {% block nav %}
     {{ parent() }}
     {{ include('nav/menu.html.twig') }}
@@ -7,7 +11,8 @@
 
 {% block body %}
     <div class="container cd-main-content">
-	<h1>Devoluciones</h1>
+	<h1>Métodos de pago</h1>
+        <hr>
     </div>
     
     <div class="container cd-main-content shi-text">
@@ -101,5 +106,4 @@
         </div>
         
     </div>
-
 {% endblock %}

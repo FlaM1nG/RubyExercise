@@ -47,4 +47,8 @@ class IndexController extends Controller
     public function privacyPolicyAction() {
         return $this->render('pages/privacyPolicy.html.twig');
     }
+    
+    public function paymentMethodAction() {
+        return $this->render('pages/paymentMethod.html.twig');
+    }
 }
