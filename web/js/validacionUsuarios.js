@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function validaEmail(email){
+
+ function validaEmail(email){
     
     if(email.length >0 && /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
 .test(email))
@@ -90,6 +91,19 @@ function validaRegistro(){
     
     return validar;
 }
+
+$(document).ready(function(){
+   
+    $(document).on('click',"#sectionPersonal, #sectionUsername, #sectionEmail, #sectionPassword, #sectionPhoto", changeSection);
+   
+    function changeSection(e){
+       e.stopPropagation(); 
+       var section = $(this).attr("id");
+       
+       $('#sectionUser').val(section);
+       
+    }
+});
 
   function validaForgot(){
     

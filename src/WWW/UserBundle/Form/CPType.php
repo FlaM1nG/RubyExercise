@@ -8,6 +8,8 @@
 
 namespace WWW\UserBundle\Form;
 
+use WWW\UserBundle\Form\EventListener\AddFieldSubscriber;
+
 /**
  * Description of CPType
  *
@@ -19,15 +21,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CPType extends AbstractType{
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options){
         $builder
                 ->add('zip_code','text', array('label'=>'CP'))
                 ->add('city','text', array('label'=>'Ciudad'))
                 ->add('region','text', array('label' => 'Región'))
                 ->add('country', 'text', array('label' => 'País'))
-                ->add('id','hidden');
-        
+                ->add('id','hidden');       
     }
     
     public function configureOptions(OptionsResolver $resolver){

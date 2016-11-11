@@ -47,9 +47,12 @@ class ProfileType extends AbstractType{
                                     'label'=>'Sexo'))
                 ->add('linkInvitation','text',array('label'=>'Invitación'))
                 ->add('phone','integer',array('label'=>'Teléfono'))
-                ->add('addresses',CollectionType::class,array(
-                                                        'type'=>new AdressType(),
-                                                        'label' => ' '    
+                ->add('addresses', CollectionType::class,array(
+                                                        'entry_type' => AdressType::class,
+                                                        'label' => ' ' ,
+                    'allow_add' => true,
+                                              'prototype' => true,
+                                              'by_reference' => false,
                                                         ))
                 ->add('registrar','submit',array('label'=>'Guardar'));
     }
@@ -59,7 +62,13 @@ class ProfileType extends AbstractType{
         $resolver->setDefaults(array('data-class'=>'WWW\UserBundle\Entity\User'));
     }
     
+     /*public function getDefaultOptions(array $options)
+    {
+        return array('data_class' => 'WWW\UserBundle\Entity\User');
+    }*/
+    
     public function getBlockPrefix(){
         return 'profileUser';
     }
+
 }

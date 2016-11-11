@@ -1,32 +1,77 @@
 {# empty Twig template #}
-
-{{dump(usuario)}}
-
-{{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
-
-    {{ form_row(formulario.username) }}
-    {{ form_row(formulario.email) }}
-    {{ form_row(formulario.birthdate) }}
-    {{ form_row(formulario.password) }}
-    {{ form_row(formulario.name) }}
-    {{ form_row(formulario.surname) }}
-    {{ form_row(formulario.photo) }}
-    {{ form_row(formulario.sex) }}
-    {{ form_row(formulario.linkInvitation) }}
-    {{ form_row(formulario.phone) }}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Usuarios</title>
+    {% block stylesheets %}
+    {% endblock %}
+    <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
     
-    {% for address in formulario.addresses %}
+    {% block javascripts %}
         
-        {{ form_row(address.name) }}
-        {{ form_row(address.street) }}
-        {{ form_row(address.isDefault) }}
-        {{ form_row(address.cp.country) }}
-        {{ form_row(address.cp.region) }}
-        {{ form_row(address.cp.city) }}
-        {{ form_row(address.cp.zip_code) }}
-        
-    {% endfor %}   
+        <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="../js/validacionUsuarios.js"></script>
+    {% endblock %}
     
-    Añadir dirección
-    
-{{ form_end(formulario)}}
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+       
+        {% block content %}
+           {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                <ul>
+                    <li>
+                        <a href="#" name="personal" id="sectionPersonal">Personal</a>
+                    </li>
+
+                    <li>
+                        <a href="#" name="email" id="sectionEmail">Email</a>
+                    </li>
+
+                    <li>
+                        <a href="#" name="password" id="sectionPassword">Contraseña</a>
+                    </li>
+
+                    <li>
+                        <a href="#" name="photo" id="sectionPhoto">Foto</a>
+                    </li>
+                </ul>
+
+                {{ form_row(formulario.username) }}
+                {{ form_row(formulario.email) }}
+                {{ form_row(formulario.birthdate) }}
+                {{ form_row(formulario.password) }}
+                {{ form_row(formulario.name) }}
+                {{ form_row(formulario.surname) }}
+                {{ form_row(formulario.photo) }}
+                {{ form_row(formulario.sex) }}
+                {{ form_row(formulario.linkInvitation) }}
+                {{ form_row(formulario.phone) }}
+
+
+                {% for address in formulario.addresses %}
+                   
+                    {{ form_row(address.name) }}
+                    {{ form_row(address.street) }}
+                    {{ form_row(address.isDefault) }}
+
+                {% endfor %}   
+
+                Añadir dirección
+                <input type="submit" value="+" name="buttonAddAddress">
+                <input type="hidden" value="sectionPersonal" name="section" id="sectionUser">
+
+            {{ form_end(formulario)}}
+        {% endblock %}     
+  </body>
+</html>
