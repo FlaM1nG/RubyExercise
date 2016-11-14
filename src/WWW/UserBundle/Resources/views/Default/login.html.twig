@@ -1,7 +1,5 @@
 {% extends '::base.html.twig' %}
 
-{% form_theme formulario ":formTemplate:formBootstrap.html.twig" %}
-
 {% block title %}
     Login
 {% endblock %}
@@ -12,6 +10,13 @@
 {% endblock %}
 
 {% block body %}
+    <div class="container cd-main-content">
+        <h1>
+            Login
+        </h1>
+        <hr>
+    </div>
+    
     <div class="container cd-main-content">
         {{ form(formulario) }}
     </div>
