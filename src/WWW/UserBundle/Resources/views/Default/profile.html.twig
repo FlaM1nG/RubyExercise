@@ -75,13 +75,23 @@
             <div role="tabpanel" class="tab-pane active" id="personal">
             {{ form_row(formulario.username) }}
 
-            {{ form_row(formulario.linkInvitation) }}
-
             {{ form_row(formulario.name) }}
             {{ form_row(formulario.surname) }}
-            {{ form_row(formulario.birthdate) }}
-            {{ form_row(formulario.sex) }}
-            {{ form_row(formulario.phone) }}
+            <div class="row row-mar">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-pad">
+                    {{ form_row(formulario.birthdate) }}
+                </div>
+                
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-pad">
+                    {{ form_row(formulario.sex) }}
+                </div>
+                
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-pad">
+                    {{ form_row(formulario.phone) }}
+                </div>
+            </div>
+            
+            {{ form_row(formulario.linkInvitation) }}
             </div>
 
             <div role="tabpanel" class="tab-pane" id="email">

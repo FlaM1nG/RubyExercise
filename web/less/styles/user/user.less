@@ -4,11 +4,26 @@
 /* ***** PROFILE ***** */
 .us-profile{
     padding: 20px 0px;
-    min-height: 760px;
+    min-height: 590px;
 }
 
 .tab-content {
     margin: 20px 0px;
+}
+
+.nav-tabs > li > a {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+    text-decoration: none;
+    background-color: @brand-secondary;
+    color: @gray-base;
+}
+
+.nav-tabs > li > a:hover {
+    border-color: @gray-light @gray-light #ddd;
 }
 /* ##### FIN PROFILE ##### */
 
@@ -78,6 +93,13 @@
 
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width : 768px) {
+    .us-profile {
+        padding: 20px 2%;
+    }
+    
+    div#profileUser_birthdate {
+        color: @brand-secondary;
+    }
        
     @media only screen and (max-height : 1024px){
         
