@@ -5,7 +5,7 @@ namespace WWW\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
