@@ -760,4 +760,80 @@ class User implements UserInterface
     {
         return $this->photo;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $addresses;
+
+
+    /**
+     * Add addresses
+     *
+     * @param \WWW\GlobalBundle\Entity\Address $addresses
+     * @return User
+     */
+    public function addAddress(\WWW\GlobalBundle\Entity\Address $addresses)
+    {
+        $this->addresses[] = $addresses;
+
+        return $this;
+    }
+
+    /**
+     * Remove addresses
+     *
+     * @param \WWW\GlobalBundle\Entity\Address $addresses
+     */
+    public function removeAddress(\WWW\GlobalBundle\Entity\Address $addresses)
+    {
+        $this->addresses->removeElement($addresses);
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $hobbies;
+
+
+    /**
+     * Add hobbies
+     *
+     * @param \WWW\UserBundle\Entity\Hobby $hobbies
+     * @return User
+     */
+    public function addHobby(\WWW\UserBundle\Entity\Hobby $hobbies)
+    {
+        $this->hobbies[] = $hobbies;
+
+        return $this;
+    }
+
+    /**
+     * Remove hobbies
+     *
+     * @param \WWW\UserBundle\Entity\Hobby $hobbies
+     */
+    public function removeHobby(\WWW\UserBundle\Entity\Hobby $hobbies)
+    {
+        $this->hobbies->removeElement($hobbies);
+    }
+
+    /**
+     * Get hobbies
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHobbies()
+    {
+        return $this->hobbies;
+    }
 }

@@ -81,13 +81,10 @@ WWW\UserBundle\Entity\User:
     oneToMany:
         addresses:
             targetEntity: WWW\GlobalBundle\Entity\Address
-            mappedBy: User
-    oneToOne:
-        host_user:
-            targetEntity: User
-            joinColumn:
-                referencedColumnName: id
+            mappedBy: User        
+    oneToOne:        
         photo:
+            nullable: true
             targetEntity: WWW\GlobalBundle\Entity\Photo
             joinColumn:
                 referencedColumnName: id
@@ -97,5 +94,21 @@ WWW\UserBundle\Entity\User:
             targetEntity: Role
             inversedBy: User
             joinColumn:
+                referencedColumnName: id
+        host_user:
+            nullable: true
+            targetEntity: User
+            joinColumn:
+                referencedColumnName: id
+    manyToMany:
+        hobbies:
+          targetEntity: Hobby
+          joinTable:
+            name: user_hobbies
+            joinColumns:
+              user_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              hobby_id:
                 referencedColumnName: id
     lifecycleCallbacks: {  }

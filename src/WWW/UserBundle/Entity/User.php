@@ -798,4 +798,42 @@ class User implements UserInterface
     {
         return $this->addresses;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $hobbies;
+
+
+    /**
+     * Add hobbies
+     *
+     * @param \WWW\UserBundle\Entity\Hobby $hobbies
+     * @return User
+     */
+    public function addHobby(\WWW\UserBundle\Entity\Hobby $hobbies)
+    {
+        $this->hobbies[] = $hobbies;
+
+        return $this;
+    }
+
+    /**
+     * Remove hobbies
+     *
+     * @param \WWW\UserBundle\Entity\Hobby $hobbies
+     */
+    public function removeHobby(\WWW\UserBundle\Entity\Hobby $hobbies)
+    {
+        $this->hobbies->removeElement($hobbies);
+    }
+
+    /**
+     * Get hobbies
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHobbies()
+    {
+        return $this->hobbies;
+    }
 }
