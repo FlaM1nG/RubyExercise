@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Validation;
 use WWW\UserBundle\Entity\User as User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use WWW\UserBundle\Entity\Address;
 use WWW\GlobalBundle\Entity\Address;
 use WWW\UserBundle\Form\ProfileType;
 
@@ -48,7 +47,7 @@ class DefaultController extends Controller{
             $remote_server_output = curl_exec ($ch);
             var_dump($remote_server_output); 
             $data = json_decode($remote_server_output, true);
-            echo $data['username'];
+            
             $user = new User();
             
             $data = json_decode($remote_server_output, true);
@@ -153,7 +152,7 @@ class DefaultController extends Controller{
             // recibimos la respuesta y la guardamos en una variable
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $remote_server_output = curl_exec ($ch);
-            print_r($remote_server_output);
+            
             // cerramos la sesión cURL
             curl_close ($ch);
             /*
@@ -184,7 +183,7 @@ class DefaultController extends Controller{
         $formulario->handleRequest($request);
         
         if(!empty($usuario->getEmail())):
-            print_r("entra");
+            
             $ch = curl_init();
             
             // definimos la URL a la que hacemos la petición
@@ -198,7 +197,7 @@ class DefaultController extends Controller{
             // recibimos la respuesta y la guardamos en una variable
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $remote_server_output = curl_exec ($ch);
-            print_r($remote_server_output);
+           
             // cerramos la sesión cURL
             curl_close ($ch);
             /*
@@ -216,7 +215,6 @@ class DefaultController extends Controller{
             return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
         else:
             
-            echo $formulario->getErrorsAsString();
             return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
         endif;
                 
@@ -251,7 +249,7 @@ class DefaultController extends Controller{
         
         $usuario = null;
         $formAddress = null;
-        
+        print_r($request->request->all());
         
         if($data['result'] == 'ok'):
             
@@ -267,8 +265,9 @@ class DefaultController extends Controller{
            
                 if(array_key_exists('buttonAddAddress',$request->request->all() )):
                     $newAddress = new Address();
+                
                     $usuario->addAddress($newAddress);
-         
+        // print_r($usuario);exit;
                     $form = $this->createForm(ProfileType::class,$usuario);
 
                     return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$form->createView(),
@@ -276,9 +275,9 @@ class DefaultController extends Controller{
                 else:
 
                     if($section == 'sectionAddress')
-                        self::profileAddress($usuario,$request);
+                        $this->profileAddress($usuario,$request);
                     else
-                        self::updateProfile($usuario,$request);
+                        $this->updateProfile($usuario,$request);
                 endif;    
             
             endif;
@@ -293,8 +292,6 @@ class DefaultController extends Controller{
     private function updateProfile(User $user, Request $request){
         $arrayUser = $request->request->all()['profileUser'];
         $section = $request->request->all()['section'];
-        
-        echo $section;
         
         $ch = curl_init();
             
@@ -342,7 +339,11 @@ class DefaultController extends Controller{
         
         $valor['data'] = json_encode($data);
         
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$valor);
+        
+         curl_setopt($ch, CURLOPT_POST, TRUE);
+            // definimos cada uno de los parámetros
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "username=".$user->getUsername().
+                    "&password=".$user->getPassword()."");
         
         // recibimos la respuesta y la guardamos en una variable
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -357,10 +358,17 @@ class DefaultController extends Controller{
     }
     
     private function profileAddress(User $user, Request $request){
+        /*echo"<br><br>";
+        print_r($request);
+        echo"<br><br>";
+        print_r($user);
+        echo "<br><br>";*/
         
-        print_r($request->request->all());
-        
-        if(array_key_exists("idChangeAddress", $request->request->all()) && 
+        if(isset($request->request->all()["idChangeAddress"]) && $request->request->all()["idChangeAddress"] == ""):
+           
+            $this->addAddress($user,$request);
+
+        elseif(array_key_exists("idChangeAddress", $request->request->all()) && 
                 isset($request->request->all()["idChangeAddress"]) && 
                 $request->request->all()["idChangeAddress"] != ""):
             
@@ -370,11 +378,7 @@ class DefaultController extends Controller{
                 isset($request->request->all()["idDeleteAddress"])):
             
             $this->deleteAddress($user,$request);
-        
-        else:
-            
-            $this->addAddress($user,$request);
-        
+           
         endif;
   
     }
@@ -423,9 +427,7 @@ class DefaultController extends Controller{
     }
     
     private function deleteAddress(User $user, Request $request){
-        
-        echo "entro";
-        
+
         $arrayAdress = $request->request->all()['profileUser']['addresses'];
         $posArrayAddress = $request->request->all()['idDeleteAddress'];
         
@@ -437,19 +439,9 @@ class DefaultController extends Controller{
         curl_setopt($ch, CURLOPT_POST, TRUE);
         // definimos cada uno de los parámetros
         
-        $data = array();
-        $data['username']=$user->getUsername();
-        $data['id_user']=$user->getId();
-        $data['password']=$user->getPassword();
-        //id de la dirección a borrar
-        $data['id'] = $arrayAdress[$posArrayAddress]['id'];
-        
-        
-        $valor['data'] = json_encode($data);
-        
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$valor);
+      
         curl_setopt($ch, CURLOPT_POSTFIELDS, "username=".$user->getUsername().
-                    "&password=".$user->getId()."&id_user=".$user->getId()."&id=". $arrayAdress[$posArrayAddress]['id']);
+                    "&password=".$user->getPassword()."&id_user=".$user->getId()."&id=". $arrayAdress[$posArrayAddress]['id']);
         
         // recibimos la respuesta y la guardamos en una variable
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -457,7 +449,53 @@ class DefaultController extends Controller{
         $remote_server_output = curl_exec ($ch);
             
         $data = json_decode($remote_server_output, true);
-        echo "<br>salida<br>";
+
+        // cerramos la sesión cURL
+        curl_close ($ch);
+    }
+    
+    private function addAddress(User $user, Request $request){
+    
+        $arrayAddress= $request->request->all()['profileUser']['addresses'];
+        $posAddress = count($arrayAddress)-1;
+        $addressDefault = 0;
+        
+        
+        $data = array();
+        $data['username'] = $user->getUsername();
+        $data['id_user'] = $user->getId();
+        $data['password'] = $user->getPassword();
+        //$data['id'] = (integer)$arrayAddress[$posAddress]['id'];
+        $data['name'] = "'".$arrayAddress[$posAddress]['name']."'";
+        $data['street'] = "'".$arrayAddress[$posAddress]['street']."'";
+        
+        if(array_key_exists('is_default',$arrayAddress[$posAddress]))
+            $data['is_default'] = 1;
+        else 
+            $data['is_default'] = 0;
+        
+        $valor['data'] = json_encode($data);
+        print_r($valor['data']);
+        
+        
+        $ch = curl_init();
+            
+        // definimos la URL a la que hacemos la petición
+        curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/addresses/insert_address.php");
+        // indicamos el tipo de petición: POST
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        // definimos cada uno de los parámetros
+        
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $valor);
+        
+        // recibimos la respuesta y la guardamos en una variable
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            
+        $remote_server_output = curl_exec ($ch);
+            
+        $data = json_decode($remote_server_output, true);
+        
+        echo "<br>Address<br>";
         print_r($data);
 
         // cerramos la sesión cURL
