@@ -243,13 +243,14 @@ class DefaultController extends Controller{
         $remote_server_output = curl_exec ($ch);
             
         $data = json_decode($remote_server_output, true);
-         
+        
         // cerramos la sesión cURL
         curl_close ($ch);
         
         $usuario = null;
         $formAddress = null;
-        print_r($request->request->all());
+        $formulario = $this->createForm(ProfileType::class,$usuario);
+       
         
         if($data['result'] == 'ok'):
             
@@ -464,8 +465,8 @@ class DefaultController extends Controller{
         $data = array();
         $data['username'] = $user->getUsername();
         $data['id_user'] = $user->getId();
-        $data['password'] = $user->getPassword();
-        //$data['id'] = (integer)$arrayAddress[$posAddress]['id'];
+        $data['password'] =$user->getPassword();
+        $data['id'] = (integer)$arrayAddress[$posAddress]['id'];
         $data['name'] = "'".$arrayAddress[$posAddress]['name']."'";
         $data['street'] = "'".$arrayAddress[$posAddress]['street']."'";
         
