@@ -92,11 +92,40 @@ function validaRegistro(){
     return validar;
 }
 
+function validaForgot(){
+    
+    var email = document.getElementById("passOlvidado_email").value;
+   
+    var validar = true;
+
+    if(!validaEmail(email)){
+        console.log("Email no válido");
+        validar = false;
+    }
+    
+    return validar;
+}
+  function validaChange(){
+    
+    var password1 = document.getElementById("cambiarPass_password_first").value;
+    var password2 = document.getElementById("cambiarPass_password_second").value;
+   
+    var validar = true;
+
+    if(!validaPassword(password1,password2)){
+        console.log("Contraseña no válida");
+        validar = false;
+    }
+    
+    return validar;
+}
+
 $(document).ready(function(){
    
     $(document).on('click',"#sectionPersonal, #sectionUsername, #sectionEmail, #sectionPassword, #sectionPhoto, #sectionAddress", changeSection);
     $(document).on('click','.buttonEditAddress',activateEditAddress);
     $(document).on('click','.buttonDeleteAddress', deleteAddress);
+    $(document).on('click','#buttonAddAddress', addFormAddress);
     
     function changeSection(e){
        e.stopPropagation(); 
@@ -139,32 +168,19 @@ $(document).ready(function(){
          
         $('#idDeleteAddress').val(posArrayAddress);
     }
+    
+    function addFormAddress(e){
+        e.preventDefault();
+        console.log("entro");
+        $(".contentAddress").append("<div><label class='required'>Nombre dirección</label>"+
+                        "<input type='tex' name='nameNewAddress' required>"+
+                        "<label class='required'>Calle</label>"+
+                        "<input type='text' name='streetNewAddress required='required'>"+
+                        "<label class='required'>Dirección principal</label>"+
+                        "<input type='checkbox' name='isDefaultNewAddress' value='0'>"+
+                        "<input class='posArrayAddress' type='hidden' name='posArrayAddress' value=''>"+
+                        "<button type='submit' name='newAddress' class='buttonEditAddress'>Guardar</button></div>");
+    }
 });
 
-  function validaForgot(){
-    
-    var email = document.getElementById("passOlvidado_email").value;
-   
-    var validar = true;
-
-    if(!validaEmail(email)){
-        console.log("Email no válido");
-        validar = false;
-    }
-    
-    return validar;
-}
-  function validaChange(){
-    
-    var password1 = document.getElementById("cambiarPass_password_first").value;
-    var password2 = document.getElementById("cambiarPass_password_second").value;
-   
-    var validar = true;
-
-    if(!validaPassword(password1,password2)){
-        console.log("Contraseña no válida");
-        validar = false;
-    }
-    
-    return validar;
-}
+  
