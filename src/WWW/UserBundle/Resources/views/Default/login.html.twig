@@ -1,8 +1,19 @@
-{% extends '::frontend.html.twig' %}
+{% extends '::base.html.twig' %}
 
+{% form_theme formulario ":formTemplate:formBootstrap.html.twig" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block nav %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
 
 {% block body %}
-
-    {{ form(formulario) }}
+    <div class="container cd-main-content">
+        {{ form(formulario) }}
+    </div>
 
 {% endblock %}
