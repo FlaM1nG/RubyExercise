@@ -5,6 +5,7 @@ namespace WWW\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -151,7 +152,7 @@ class User implements UserInterface
             //echo gettype($user['addresses']);
             //$this->addresses = $user['addresses'];
         else:
-            parent::__construct();
+           // parent::__construct();
             $this->addresses = new ArrayCollection();
         endif;
     }
