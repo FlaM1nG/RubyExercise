@@ -94,14 +94,50 @@ function validaRegistro(){
 
 $(document).ready(function(){
    
-    $(document).on('click',"#sectionPersonal, #sectionUsername, #sectionEmail, #sectionPassword, #sectionPhoto", changeSection);
-   
+    $(document).on('click',"#sectionPersonal, #sectionUsername, #sectionEmail, #sectionPassword, #sectionPhoto, #sectionAddress", changeSection);
+    $(document).on('click','.buttonEditAddress',activateEditAddress);
+    $(document).on('click','.buttonDeleteAddress', deleteAddress);
+    
     function changeSection(e){
        e.stopPropagation(); 
-       var section = $(this).attr("id");
+       var section = $(this).attr("id"); 
        
        $('#sectionUser').val(section);
        
+    }
+    
+    function activateEditAddress(e){
+        e.stopPropagation();
+                
+        var id = $(this).parent().attr('id');
+        var button = $(this);
+        var nameButton = button.prop("name");
+        
+        if(nameButton === "editar"){
+            var endString = id.length;
+            var idAddress = id.slice(7,endString);
+            var posArrayAddress = $('#'+id+' .posArrayAddress').val();
+            $('#'+id+' input').prop("readonly",false);
+            $('#'+id+' input').prop("disabled",false);
+            $('#idChangeAddress').val(posArrayAddress);
+           
+            button.prop("name","saveAddress");
+            button.html("Guardar");
+            
+            return false;
+        }
+        
+    }
+    
+    function deleteAddress(e){
+        //e.stopPropagation();
+        e.preventDefault();
+        var id = $(this).parent().attr('id');
+        var button = $(this);
+        var nameButton = button.prop("name");
+        var posArrayAddress = $('#'+id+' .posArrayAddress').val();
+        
+        $('#idDeleteAddress').val(posArrayAddress);
     }
 });
 

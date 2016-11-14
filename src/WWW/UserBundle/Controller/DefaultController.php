@@ -171,7 +171,7 @@ class DefaultController extends Controller{
                                                                           'usuario'=>$usuario));
                 else:
 
-                    if($section == 'address')
+                    if($section == 'sectionAddress')
                         self::updateAddress($usuario,$request);
                     else
                         self::updateProfile($usuario,$request);
@@ -189,7 +189,9 @@ class DefaultController extends Controller{
     private function updateProfile(User $user, Request $request){
         $arrayUser = $request->request->all()['profileUser'];
         $section = $request->request->all()['section'];
+        
         echo $section;
+        
         $ch = curl_init();
             
         // definimos la URL a la que hacemos la petición
@@ -253,8 +255,7 @@ class DefaultController extends Controller{
     private function updateAddress(User $user, Request $request){
         
         $arrayAdress = $request->request->all()['profileUser']['addresses'];
-        
-        $section = 'username';
+        $posArrayAddress = $request->request->all()['idChangeAdress'];
         
         $ch = curl_init();
             
@@ -268,14 +269,15 @@ class DefaultController extends Controller{
         $data['username']=$user->getUsername();
         $data['id_user']=$user->getId();
         $data['password']=$user->getPassword();
-        $data['id'] = $arrayAdress[0]['id'];
-        $data['name'] = "'".$arrayAdress[0]['name']."'";
-        $data['street'] = "'".$arrayAdress[0]['street']."'";
+        $data['id'] = $arrayAdress[$posArrayAddress]['id'];
+        $data['name'] = "'".$arrayAdress[$posArrayAddress]['name']."'";
+        $data['street'] = "'".$arrayAdress[$posArrayAddress]['street']."'";
         
-        if(array_key_exists('isDefault',$arrayAdress[0]))
-            $data['isDefault'] = 1;
+        if(array_key_exists('isDefault',$arrayAdress[$posArrayAddress]))
+            $data['is_default'] = 1;
         else
             $data['is_default'] = 0;
+
         
         $valor['data'] = json_encode($data);
         

@@ -305,7 +305,7 @@ class Address
             'modifiedDate' => $this->getModifiedDate(),
             'deletedDate' => $this->getDeletedDate(),
             'isDeleted' => $this->getIsDeleted(),
-            'cp' => $this->getCp()
+            'zipcode' => $this->getZipcode()
         );
     }
 }
