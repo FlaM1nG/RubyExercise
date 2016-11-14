@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Address
  */
-class Address
+class Address 
 {
     /**
      * @var int
@@ -53,11 +53,24 @@ class Address
      */
     private $user;
 
-    /**
-     * @var \WWW\UserBundle\Entity\ZipCode
-     */
-    private $cp;
 
+     public function __construct(Array $address=null){
+         
+        if($address != null):
+             
+            $this->id = $address['id'];
+            $this->street = $address['street'];
+            $this->name = $address['name'];
+            $this->isDefault = $address['is_default'];
+            $this->createdDate = $address['created_date'];
+            $this->modifiedDate = $address['modified_date'];
+            $this->deletedDate = $address['deleted_date'];
+            $this->isDeleted = $address['is_deleted'];
+            //S$this->user = $address['user'];
+            //$this->cp = $address['cp'];
+             
+        endif;
+     }
 
     /**
      * Get id
@@ -254,25 +267,45 @@ class Address
     }
 
     /**
-     * Set cp
+     * @var \WWW\UserBundle\Entity\ZipCode
+     */
+    private $zipcode;
+
+
+    /**
+     * Set zipcode
      *
-     * @param \WWW\UserBundle\Entity\ZipCode $cp
+     * @param \WWW\UserBundle\Entity\ZipCode $zipcode
      * @return Address
      */
-    public function setCp(\WWW\UserBundle\Entity\ZipCode $cp = null)
+    public function setZipcode(\WWW\UserBundle\Entity\ZipCode $zipcode = null)
     {
-        $this->cp = $cp;
+        $this->zipcode = $zipcode;
 
         return $this;
     }
 
     /**
-     * Get cp
+     * Get zipcode
      *
      * @return \WWW\UserBundle\Entity\ZipCode 
      */
-    public function getCp()
+    public function getZipcode()
     {
-        return $this->cp;
+        return $this->zipcode;
+    }
+    
+     public function toArray(){
+        return array(
+            'id' => $this->getId(),
+            'street' => $this->getStreet(),
+            'name' => $this->getName(),
+            'isDefault' =>(Boolean) $this->getIsDefault(),
+            'createdDate' => $this->getCreatedDate(),
+            'modifiedDate' => $this->getModifiedDate(),
+            'deletedDate' => $this->getDeletedDate(),
+            'isDeleted' => $this->getIsDeleted(),
+            'zipcode' => $this->getZipcode()
+        );
     }
 }

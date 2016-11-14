@@ -21,9 +21,14 @@ class AdressType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
         $builder
-                ->add('street','text', array('label'=>'Calle', 'required'=>false))
-                ->add('name','text', array('label'=>'Nombre dirección', 'required' => false))
-                ->add('isDefault','checkbox', array('label' => 'Dirección principal', 'requiered' => false));
+                ->add('street','text', array('label'=>'Calle',
+                                             'read_only' => true))
+                ->add('name','text', array('label'=>'Nombre dirección',
+                                             'read_only' => true))
+                ->add('isDefault','checkbox', array('label' => 'Dirección principal',
+                                                    'disabled' => true))
+                //->add('cp', new CPType(),array('label' => ' '))
+                ->add('id','hidden', array('label' => ' '));        
     }
     
     public function configureOptions(OptionsResolver $resolver){
@@ -34,4 +39,16 @@ class AdressType extends AbstractType{
     public function getBlockPrefix(){
         return 'adressUser';
     }
+    
+    function getName()
+    {
+        return 'address';
+    }
+     function getIdentifier()
+    {
+        return 'address';
+    }
+
+    
 }
+ 
