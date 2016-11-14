@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -129,6 +130,7 @@ class User implements UserInterface
             $this->username = $user['username'];
             $this->password = $user['password'];
             $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+            
             foreach($user['addresses'] as $address):
                // print_r($address);exit;
                 //array_push($this->addAddress, new Address($address));
@@ -140,7 +142,6 @@ class User implements UserInterface
             //echo gettype($user['addresses']);
             //$this->addresses = $user['addresses'];
         else:
-            parent::__construct();
             $this->addresses = new ArrayCollection();
         endif;
     }
