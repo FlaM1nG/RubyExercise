@@ -130,13 +130,13 @@ $(document).ready(function(){
     }
     
     function deleteAddress(e){
-        //e.stopPropagation();
-        e.preventDefault();
+        e.stopPropagation();
+        //e.preventDefault();
         var id = $(this).parent().attr('id');
         var button = $(this);
         var nameButton = button.prop("name");
         var posArrayAddress = $('#'+id+' .posArrayAddress').val();
-        
+         
         $('#idDeleteAddress').val(posArrayAddress);
     }
 });
