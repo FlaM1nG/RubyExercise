@@ -21,7 +21,13 @@ user_login:
 user_logout:
     path: /logout
     defaults: { _controller: UserBundle:Default:logout }
+user_change:
+    path: /change/{token}
+    defaults: { _controller: UserBundle:Default:changePass }
 
+user_forgot:
+    path: /forgot
+    defaults: { _controller: UserBundle:Default:forgotPass }
     
 user_profiler:
     path: /perfil
