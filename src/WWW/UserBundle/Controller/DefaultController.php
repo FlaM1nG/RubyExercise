@@ -190,8 +190,6 @@ class DefaultController extends Controller{
         $arrayUser = $request->request->all()['profileUser'];
         $section = $request->request->all()['section'];
         
-        echo $section;
-        
         $ch = curl_init();
             
         // definimos la URL a la que hacemos la petición
