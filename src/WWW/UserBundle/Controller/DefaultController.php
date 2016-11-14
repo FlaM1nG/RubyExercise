@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Validation;
 use WWW\UserBundle\Entity\User as User;
-use WWW\UserBundle\Entity\Address;
+use WWW\GlobalBundle\Entity\Address;
 use WWW\UserBundle\Form\ProfileType;
 
 class DefaultController extends Controller{

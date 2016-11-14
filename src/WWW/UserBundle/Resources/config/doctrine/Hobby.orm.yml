@@ -1,0 +1,18 @@
+WWW\UserBundle\Entity\Hobby:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\HobbyRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

@@ -1,76 +1,24 @@
 <?php
 
-namespace WWW\UserBundle\Entity;
+namespace WWW\GlobalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Address
  */
-class Address 
+class Address
 {
     /**
      * @var int
      */
-    private $id;    
+    private $id;
+
     /**
      * @var string
      */
     private $street;
 
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var boolean
-     */
-    private $isDefault;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $modifiedDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $deletedDate;
-
-    /**
-     * @var boolean
-     */
-    private $isDeleted;
-
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $user;
-
-
-     public function __construct(Array $address=null){
-         
-        if($address != null):
-             
-            $this->id = $address['id'];
-            $this->street = $address['street'];
-            $this->name = $address['name'];
-            $this->isDefault = $address['is_default'];
-            $this->createdDate = $address['created_date'];
-            $this->modifiedDate = $address['modified_date'];
-            $this->deletedDate = $address['deleted_date'];
-            $this->isDeleted = $address['is_deleted'];
-            //S$this->user = $address['user'];
-            //$this->cp = $address['cp'];
-             
-        endif;
-     }
 
     /**
      * Get id
@@ -104,6 +52,41 @@ class Address
     {
         return $this->street;
     }
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var boolean
+     */
+    private $isDefault;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $deletedDate;
+
+    /**
+     * @var boolean
+     */
+    private $isDeleted;
+
+    /**
+     * @var \WWW\GlobalBundle\Entity\ZipCode
+     */
+    private $zipcode;
+
 
     /**
      * Set name
@@ -244,6 +227,34 @@ class Address
     }
 
     /**
+     * Set zipcode
+     *
+     * @param \WWW\GlobalBundle\Entity\ZipCode $zipcode
+     * @return Address
+     */
+    public function setZipcode(\WWW\GlobalBundle\Entity\ZipCode $zipcode = null)
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    /**
+     * Get zipcode
+     *
+     * @return \WWW\GlobalBundle\Entity\ZipCode 
+     */
+    public function getZipcode()
+    {
+        return $this->zipcode;
+    }
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;
+
+
+    /**
      * Set user
      *
      * @param \WWW\UserBundle\Entity\User $user
@@ -264,48 +275,5 @@ class Address
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * @var \WWW\UserBundle\Entity\ZipCode
-     */
-    private $zipcode;
-
-
-    /**
-     * Set zipcode
-     *
-     * @param \WWW\UserBundle\Entity\ZipCode $zipcode
-     * @return Address
-     */
-    public function setZipcode(\WWW\UserBundle\Entity\ZipCode $zipcode = null)
-    {
-        $this->zipcode = $zipcode;
-
-        return $this;
-    }
-
-    /**
-     * Get zipcode
-     *
-     * @return \WWW\UserBundle\Entity\ZipCode 
-     */
-    public function getZipcode()
-    {
-        return $this->zipcode;
-    }
-    
-     public function toArray(){
-        return array(
-            'id' => $this->getId(),
-            'street' => $this->getStreet(),
-            'name' => $this->getName(),
-            'isDefault' =>(Boolean) $this->getIsDefault(),
-            'createdDate' => $this->getCreatedDate(),
-            'modifiedDate' => $this->getModifiedDate(),
-            'deletedDate' => $this->getDeletedDate(),
-            'isDeleted' => $this->getIsDeleted(),
-            'zipcode' => $this->getZipcode()
-        );
     }
 }

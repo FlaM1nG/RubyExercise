@@ -33,7 +33,7 @@ class AdressType extends AbstractType{
     
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data-class'=>'WWW\UserBundle\Entity\Address'));
+        $resolver->setDefaults(array('data-class'=>'WWW\GlobalBundle\Entity\Address'));
     }
     
     public function getBlockPrefix(){
