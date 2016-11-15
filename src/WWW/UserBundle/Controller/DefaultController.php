@@ -100,7 +100,7 @@ class DefaultController extends Controller{
             $ch = curl_init();
             
             // definimos la URL a la que hacemos la petición
-            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/restistration/register_user.php");
+            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/resgistration/register_user.php");
             // indicamos el tipo de petición: POST
             curl_setopt($ch, CURLOPT_POST, TRUE);
             // definimos cada uno de los parámetros
