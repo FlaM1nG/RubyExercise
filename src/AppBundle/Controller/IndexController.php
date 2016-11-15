@@ -51,4 +51,8 @@ class IndexController extends Controller
     public function paymentMethodAction() {
         return $this->render('pages/paymentMethod.html.twig');
     }
+    
+    public function serShareCarAction() {
+        return $this->render('pages/serShareCar.html.twig');
+    }
 }

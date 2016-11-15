@@ -22,9 +22,6 @@ user_logout:
 user_profiler:
     path: /perfil
     defaults: { _controller: UserBundle:Default:profile }
-user_profiler:
-    path: /perfil
-    defaults: { _controller: UserBundle:Default:profile }
 
 aboutUs:
     path: /about-us
@@ -57,3 +54,7 @@ privacyPolicy:
 paymentMethod:
     path: /payment-method
     defaults: { _controller: AppBundle:Index:paymentMethod }
+    
+serShareCar:
+    path: /share-car
+    defaults: { _controller: AppBundle:Index:serShareCar }

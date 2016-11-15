@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+{% block nav %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block body %}
+<div class="container cd-main-content">
+    <h1>
+        {% block serviceTitle %}  {% endblock %}
+    <hr>
+</div>
+
+<!-- BODY -->
+<div class="container cd-main-content">
+    
+    <!-- SUBTITLE BLOCK  -->
+    <div class="row row-sha-title">
+        {% block serviceSubTitle %}  {% endblock %}
+    </div>
+    <!-- END SUBTITLE BLOCK  -->
+    
+    <!-- LIST ELEMENTS WITH FILTERS -->
+    <div class="row separacion-inferior">
+        
+        <!-- COLUMN FILTERS -->
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" id="filtro">
+            {% block serviceFilters %} {% endblock %}
+        </div>
+        <!-- END COLUMN FILTERS -->
+        
+        <!-- COLUMN LIST ELEMENTS  -->
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+            {% block serviceList %} {% endblock %}
+        </div>
+        <!-- END COLUMN LIST ELEMENTS -->
+        
+    </div>
+    <!-- END LIST ELEMENTS WITH FILTERS -->
+    
+</div>
+<!-- END BODY -->
+
+{% endblock %}
+
+{% block javascriptsFooter %}
+{{ parent() }}    
+<script type="text/javascript">
+    $(document).scroll(function(e){
+        var scrollTop = $(document).scrollTop();
+        if(scrollTop > $('#menuAdministracion').height()){
+            //console.log(scrollTop);
+            $('#cbp-hrmenu').css("position","fixed");
+            $('#cbp-hrmenu').css("top","0");
+            $('#cbp-hrmenu').css("z-index","999");
+        } else {
+            $('#cbp-hrmenu').css("position","relative");
+        }
+    });
+</script>
+{% endblock %}

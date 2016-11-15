@@ -209,3 +209,20 @@
         
     </div>
 {% endblock %}
+
+{% block javascriptsFooter %}
+{{ parent() }}    
+<script type="text/javascript">
+    $(document).scroll(function(e){
+        var scrollTop = $(document).scrollTop();
+        if(scrollTop > $('#menuAdministracion').height()){
+            //console.log(scrollTop);
+            $('#cbp-hrmenu').css("position","fixed");
+            $('#cbp-hrmenu').css("top","0");
+            $('#cbp-hrmenu').css("z-index","999");
+        } else {
+            $('#cbp-hrmenu').css("position","relative");
+        }
+    });
+</script>
+{% endblock %}

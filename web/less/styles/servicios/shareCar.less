@@ -1,39 +1,75 @@
-/* ------------------ USER  ------------------
+/* ------------------ SHARE CAR  ------------------
 ******************************************************************/
 
-/* ***** PROFILE ***** */
-.us-profile{
-    padding: 20px 0px;
-    min-height: 650px;
+/* ***** TITLE VIEW LIST ***** */
+.row-sha-title{
+    padding-bottom: 40px;
+    text-align: center;
 }
 
-.tab-content {
-    margin: 20px 0px;
-}
-
-.nav-tabs > li > a {
-    font-size: 20px;
+.sha-or-dest{
+    font-size: 22px;
     font-weight: 600;
 }
 
-.nav > li > a:focus, .nav > li > a:hover {
-    text-decoration: none;
-    background-color: @brand-secondary;
-    color: @gray-base;
+.sha-or-dest-price{
+    .sha-or-dest;
+    color: @brand-primary;
+}
+/* ##### FIN TITLE VIEW LIST ##### */
+
+/* ***** VIEW LIST ***** */
+.sha-offer-list{
+    .separacion-inferior;
+    .separacion-superior;
+    cursor: pointer;
+    margin: 0px 1% 1% 0px;
 }
 
-.nav-tabs > li > a:hover {
-    border-color: @gray-light @gray-light #ddd;
+.sha-offer-list:hover{
+    background-color: @gray-lighter;
 }
 
-.us-address{
-    
+.row-sha-gen-date{
+    border-top: solid 1px @brand-primary;
+    border-bottom: solid 1px @brand-primary;
+    margin: 10px 0px;
+    padding: 10px 2%;
 }
-/* ##### FIN PROFILE ##### */
+
+.row-sha-name{
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 10px;
+}
+
+.col-sha-price{
+    text-align: right;
+}
+
+.sha-price{
+    font-size: 30px;
+    color: #f60;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.row-sha-info-list{
+    font-size: 16px;
+    padding: 5px 0 0 3%;
+}
+
+.rating{
+    font-size: 22px;
+    margin: -10px 0px;
+}
+/* ##### FIN VIEW LIST ##### */
 
 /* *****  ***** */
 
 /* ##### FIN  ##### */
+
 
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
 @media only screen and (max-height : 1050px){
@@ -97,13 +133,6 @@
 
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width : 768px) {
-    .us-profile {
-        padding: 20px 2%;
-    }
-    
-    div#profileUser_birthdate {
-        color: @brand-secondary;
-    }
        
     @media only screen and (max-height : 1024px){
         
