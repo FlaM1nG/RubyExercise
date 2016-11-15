@@ -274,8 +274,8 @@ class DefaultController extends Controller{
                                                                           'usuario'=>$usuario));
                 else:
 
-                    if($section == 'address')
-                        self::updateAddress($usuario,$request);
+                    if($section == 'sectionAddress')
+                        self::profileAddress($usuario,$request);
                     else
                         self::updateProfile($usuario,$request);
                 endif;    
@@ -292,7 +292,9 @@ class DefaultController extends Controller{
     private function updateProfile(User $user, Request $request){
         $arrayUser = $request->request->all()['profileUser'];
         $section = $request->request->all()['section'];
+        
         echo $section;
+        
         $ch = curl_init();
             
         // definimos la URL a la que hacemos la petición
@@ -353,11 +355,33 @@ class DefaultController extends Controller{
         
     }
     
+    private function profileAddress(User $user, Request $request){
+        
+        print_r($request->request->all());
+        
+        if(array_key_exists("idChangeAddress", $request->request->all()) && 
+                isset($request->request->all()["idChangeAddress"]) && 
+                $request->request->all()["idChangeAddress"] != ""):
+            
+            $this->updateAddress($user, $request);
+        
+        elseif(array_key_exists("idDeleteAddress", $request->request->all())&&
+                isset($request->request->all()["idDeleteAddress"])):
+            
+            $this->deleteAddress($user,$request);
+        
+        else:
+            
+            $this->addAddress($user,$request);
+        
+        endif;
+  
+    }
+    
     private function updateAddress(User $user, Request $request){
         
         $arrayAdress = $request->request->all()['profileUser']['addresses'];
-        
-        $section = 'username';
+        $posArrayAddress = $request->request->all()['idChangeAddress'];
         
         $ch = curl_init();
             
@@ -371,14 +395,15 @@ class DefaultController extends Controller{
         $data['username']=$user->getUsername();
         $data['id_user']=$user->getId();
         $data['password']=$user->getPassword();
-        $data['id'] = $arrayAdress[0]['id'];
-        $data['name'] = "'".$arrayAdress[0]['name']."'";
-        $data['street'] = "'".$arrayAdress[0]['street']."'";
+        $data['id'] = $arrayAdress[$posArrayAddress]['id'];
+        $data['name'] = "'".$arrayAdress[$posArrayAddress]['name']."'";
+        $data['street'] = "'".$arrayAdress[$posArrayAddress]['street']."'";
         
-        if(array_key_exists('isDefault',$arrayAdress[0]))
-            $data['isDefault'] = 1;
+        if(array_key_exists('isDefault',$arrayAdress[$posArrayAddress]))
+            $data['is_default'] = 1;
         else
             $data['is_default'] = 0;
+
         
         $valor['data'] = json_encode($data);
         
@@ -394,6 +419,48 @@ class DefaultController extends Controller{
         // cerramos la sesión cURL
         curl_close ($ch);
         
+    }
+    
+    private function deleteAddress(User $user, Request $request){
+        
+        echo "entro";
+        
+        $arrayAdress = $request->request->all()['profileUser']['addresses'];
+        $posArrayAddress = $request->request->all()['idDeleteAddress'];
+        
+        $ch = curl_init();
+            
+        // definimos la URL a la que hacemos la petición
+        curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/addresses/delete_address.php");
+        // indicamos el tipo de petición: POST
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        // definimos cada uno de los parámetros
+        
+        $data = array();
+        $data['username']=$user->getUsername();
+        $data['id_user']=$user->getId();
+        $data['password']=$user->getPassword();
+        //id de la dirección a borrar
+        $data['id'] = $arrayAdress[$posArrayAddress]['id'];
+        
+        
+        $valor['data'] = json_encode($data);
+        
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$valor);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "username=".$user->getUsername().
+                    "&password=".$user->getId()."&id_user=".$user->getId()."&id=". $arrayAdress[$posArrayAddress]['id']);
+        
+        // recibimos la respuesta y la guardamos en una variable
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            
+        $remote_server_output = curl_exec ($ch);
+            
+        $data = json_decode($remote_server_output, true);
+        echo "<br>salida<br>";
+        print_r($data);
+
+        // cerramos la sesión cURL
+        curl_close ($ch);
     }
 
 }
