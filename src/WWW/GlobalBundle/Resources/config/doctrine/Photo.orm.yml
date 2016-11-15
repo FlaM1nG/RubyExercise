@@ -1,0 +1,27 @@
+WWW\GlobalBundle\Entity\Photo:
+    type: entity
+    table: null
+    repositoryClass: WWW\GlobalBundle\Repository\PhotoRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        url:
+            type: string
+            length: 255
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+    lifecycleCallbacks: {  }

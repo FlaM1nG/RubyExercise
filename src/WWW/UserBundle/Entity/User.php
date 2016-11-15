@@ -7,7 +7,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -78,12 +80,6 @@ class User implements UserInterface
 
     /**
      * @var string
-     * \Assert\Image(maxSize="1M")
-     */
-    private $photo;
-
-    /**
-     * @var string
      */
     private $linkInvitation;
 
@@ -118,10 +114,6 @@ class User implements UserInterface
      */
     private $isDeleted;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $addresses;
 
     /**
      * Constructor
@@ -135,12 +127,12 @@ class User implements UserInterface
             $this->linkInvitation = $user['link_invitation'];
             $this->name = $user['name'];
             $this->phone = (int)$user['phone'];
-            $this->photo = $user['photo'];
             $this->sex = $user['sex'];
             $this->surname = $user['surname'];
             $this->username = $user['username'];
             $this->password = $user['password'];
             $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+            
             foreach($user['addresses'] as $address):
                // print_r($address);exit;
                 //array_push($this->addAddress, new Address($address));
@@ -152,7 +144,6 @@ class User implements UserInterface
             //echo gettype($user['addresses']);
             //$this->addresses = $user['addresses'];
         else:
-           // parent::__construct();
             $this->addresses = new ArrayCollection();
         endif;
     }
@@ -352,29 +343,6 @@ class User implements UserInterface
     }
 
     /**
-     * Set photo
-     *
-     * @param string $photo
-     * @return User
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return string 
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
      * Set linkInvitation
      *
      * @param string $linkInvitation
@@ -534,45 +502,6 @@ class User implements UserInterface
     {
         return $this->isDeleted;
     }
-
-    /**
-     * Add addresses
-     *
-     * @param \WWW\UserBundle\Entity\Address $addresses
-     * @return User
-     */
-    public function addAddress(\WWW\UserBundle\Entity\Address $addresses)
-    {
-        
-        $this->addresses[] = $addresses->toArray();
-
-        return $this;
-    }
-
-    /**
-     * Remove addresses
-     *
-     * @param \WWW\UserBundle\Entity\Address $addresses
-     */
-    public function removeAddress(\WWW\UserBundle\Entity\Address $addresses)
-    {
-        $this->addresses->removeElement($addresses);
-    }
-    
-    public function setAddress(Array $addresses){
-        $this->addAddress = $addresses;
-    }
-
-    /**
-     * Get addresses
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAddresses()
-    {
-        return $this->addresses;
-    }
-    
     /**
      * Devuelve los roles de un usuario autenticado
      */
@@ -690,5 +619,224 @@ class User implements UserInterface
     public function getIsConfirmed()
     {
         return $this->is_confirmed;
+    }
+    /**
+     * @var boolean
+     */
+    private $sms_confirmed;
+
+    /**
+     * @var integer
+     */
+    private $nif;
+
+    /**
+     * @var string
+     */
+    private $num_account;
+
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $host_user;
+
+
+
+    /**
+     * Set sms_confirmed
+     *
+     * @param boolean $smsConfirmed
+     * @return User
+     */
+    public function setSmsConfirmed($smsConfirmed)
+    {
+        $this->sms_confirmed = $smsConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get sms_confirmed
+     *
+     * @return boolean 
+     */
+    public function getSmsConfirmed()
+    {
+        return $this->sms_confirmed;
+    }
+
+    /**
+     * Set nif
+     *
+     * @param integer $nif
+     * @return User
+     */
+    public function setNif($nif)
+    {
+        $this->nif = $nif;
+
+        return $this;
+    }
+
+    /**
+     * Get nif
+     *
+     * @return integer 
+     */
+    public function getNif()
+    {
+        return $this->nif;
+    }
+
+    /**
+     * Set num_account
+     *
+     * @param string $numAccount
+     * @return User
+     */
+    public function setNumAccount($numAccount)
+    {
+        $this->num_account = $numAccount;
+
+        return $this;
+    }
+
+    /**
+     * Get num_account
+     *
+     * @return string 
+     */
+    public function getNumAccount()
+    {
+        return $this->num_account;
+    }
+
+    /**
+     * Set host_user
+     *
+     * @param \WWW\UserBundle\Entity\User $hostUser
+     * @return User
+     */
+    public function setHostUser(\WWW\UserBundle\Entity\User $hostUser = null)
+    {
+        $this->host_user = $hostUser;
+
+        return $this;
+    }
+
+    /**
+     * Get host_user
+     *
+     * @return \WWW\UserBundle\Entity\User 
+     */
+    public function getHostUser()
+    {
+        return $this->host_user;
+    }
+
+ 
+    /**
+     * @var \WWW\GlobalBundle\Entity\Photo
+     */
+    private $photo;
+
+
+    /**
+     * Set photo
+     *
+     * @param \WWW\GlobalBundle\Entity\Photo $photo
+     * @return User
+     */
+    public function setPhoto(\WWW\GlobalBundle\Entity\Photo $photo = null)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \WWW\GlobalBundle\Entity\Photo 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $addresses;
+
+
+    /**
+     * Add addresses
+     *
+     * @param \WWW\GlobalBundle\Entity\Address $addresses
+     * @return User
+     */
+    public function addAddress(\WWW\GlobalBundle\Entity\Address $addresses)
+    {
+        $this->addresses[] = $addresses->toArray();
+
+        return $this;
+    }
+
+    /**
+     * Remove addresses
+     *
+     * @param \WWW\GlobalBundle\Entity\Address $addresses
+     */
+    public function removeAddress(\WWW\GlobalBundle\Entity\Address $addresses)
+    {
+        $this->addresses->removeElement($addresses);
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $hobbies;
+
+
+    /**
+     * Add hobbies
+     *
+     * @param \WWW\UserBundle\Entity\Hobby $hobbies
+     * @return User
+     */
+    public function addHobby(\WWW\UserBundle\Entity\Hobby $hobbies)
+    {
+        $this->hobbies[] = $hobbies;
+
+        return $this;
+    }
+
+    /**
+     * Remove hobbies
+     *
+     * @param \WWW\UserBundle\Entity\Hobby $hobbies
+     */
+    public function removeHobby(\WWW\UserBundle\Entity\Hobby $hobbies)
+    {
+        $this->hobbies->removeElement($hobbies);
+    }
+
+    /**
+     * Get hobbies
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHobbies()
+    {
+        return $this->hobbies;
     }
 }

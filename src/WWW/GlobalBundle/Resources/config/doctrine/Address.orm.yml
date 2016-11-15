@@ -1,7 +1,7 @@
-WWW\UserBundle\Entity\Address:
+WWW\GlobalBundle\Entity\Address:
     type: entity
     table: null
-    repositoryClass: WWW\UserBundle\Repository\AddressRepository
+    repositoryClass: WWW\GlobalBundle\Repository\AddressRepository
     id:
         id:
             type: integer
@@ -35,7 +35,7 @@ WWW\UserBundle\Entity\Address:
     manyToOne:
         user:
             nullable: true
-            targetEntity: User
+            targetEntity: WWW\UserBundle\Entity\User
             inversedBy: Address
             joinColumn:
                 referencedColumnName: id

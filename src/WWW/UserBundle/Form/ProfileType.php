@@ -47,7 +47,7 @@ class ProfileType extends AbstractType{
                                     'choices'=>array('m'=>'Mujer','h'=>'hombre'),
                                     'label'=>'Sexo'))
                 ->add('linkInvitation','text',array('label'=>'Invitación'))
-                ->add('phone','integer',array('label'=>'Teléfono'))
+                ->add('phone','number',array('label'=>'Teléfono'))
                 ->add('addresses', CollectionType::class,array(
                                                         'entry_type' => AdressType::class,
                                                         'label' => ' ' ,

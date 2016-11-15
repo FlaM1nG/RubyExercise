@@ -1,38 +1,57 @@
 <?php
 
-namespace WWW\UserBundle\Entity;
+namespace WWW\GlobalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ZipCode
+ * Photo
  */
-class ZipCode
+class Photo
 {
     /**
      * @var int
      */
     private $id;
-    /**
-     * @var integer
-     */
-    private $zipCode;
 
     /**
      * @var string
      */
-    private $city;
+    private $url;
+
 
     /**
-     * @var string
+     * Get id
+     *
+     * @return integer 
      */
-    private $region;
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
-     * @var string
+     * Set url
+     *
+     * @param string $url
+     * @return Photo
      */
-    private $country;
+    public function setUrl($url)
+    {
+        $this->url = $url;
 
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
     /**
      * @var \DateTime
      */
@@ -55,112 +74,10 @@ class ZipCode
 
 
     /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set zipCode
-     *
-     * @param integer $zipCode
-     * @return ZipCode
-     */
-    public function setZipCode($zipCode)
-    {
-        $this->zipCode = $zipCode;
-
-        return $this;
-    }
-
-    /**
-     * Get zipCode
-     *
-     * @return integer 
-     */
-    public function getZipCode()
-    {
-        return $this->zipCode;
-    }
-
-    /**
-     * Set city
-     *
-     * @param string $city
-     * @return ZipCode
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return string 
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set region
-     *
-     * @param string $region
-     * @return ZipCode
-     */
-    public function setRegion($region)
-    {
-        $this->region = $region;
-
-        return $this;
-    }
-
-    /**
-     * Get region
-     *
-     * @return string 
-     */
-    public function getRegion()
-    {
-        return $this->region;
-    }
-
-    /**
-     * Set country
-     *
-     * @param string $country
-     * @return ZipCode
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return string 
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
      * Set createdDate
      *
      * @param \DateTime $createdDate
-     * @return ZipCode
+     * @return Photo
      */
     public function setCreatedDate($createdDate)
     {
@@ -183,7 +100,7 @@ class ZipCode
      * Set modifiedDate
      *
      * @param \DateTime $modifiedDate
-     * @return ZipCode
+     * @return Photo
      */
     public function setModifiedDate($modifiedDate)
     {
@@ -206,7 +123,7 @@ class ZipCode
      * Set deletedDate
      *
      * @param \DateTime $deletedDate
-     * @return ZipCode
+     * @return Photo
      */
     public function setDeletedDate($deletedDate)
     {
@@ -229,7 +146,7 @@ class ZipCode
      * Set isDeleted
      *
      * @param boolean $isDeleted
-     * @return ZipCode
+     * @return Photo
      */
     public function setIsDeleted($isDeleted)
     {

@@ -39,10 +39,6 @@ WWW\UserBundle\Entity\User:
             type: string
             length: 255
             unique: true
-        photo:
-            type: string
-            length: 255
-            nullable: true
         linkInvitation:
             type: string
             length: 255
@@ -59,6 +55,15 @@ WWW\UserBundle\Entity\User:
         confirmation_token:
             type: string
             length: 255
+        sms_confirmed:
+            type: boolean
+        nif:
+            type: integer
+            nullable: true
+        num_account:
+            type: string
+            length: 255
+            nullable: true
         is_confirmed:
             type: boolean
         createdDate:
@@ -75,13 +80,35 @@ WWW\UserBundle\Entity\User:
             nullable: true
     oneToMany:
         addresses:
-            targetEntity: Address
-            mappedBy: User
+            targetEntity: WWW\GlobalBundle\Entity\Address
+            mappedBy: User        
+    oneToOne:        
+        photo:
+            nullable: true
+            targetEntity: WWW\GlobalBundle\Entity\Photo
+            joinColumn:
+                referencedColumnName: id
     manyToOne:
         role:
             nullable: true
             targetEntity: Role
             inversedBy: User
             joinColumn:
+                referencedColumnName: id
+        host_user:
+            nullable: true
+            targetEntity: User
+            joinColumn:
+                referencedColumnName: id
+    manyToMany:
+        hobbies:
+          targetEntity: Hobby
+          joinTable:
+            name: user_hobbies
+            joinColumns:
+              user_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              hobby_id:
                 referencedColumnName: id
     lifecycleCallbacks: {  }
