@@ -108,8 +108,6 @@ class DefaultController extends Controller{
             
             $nacimiento =$arrayBirthdate['year']."-".$mes.'-'.$dia;
             
-        
-        echo "username ".$usuario->getUsername()." email ".$usuario->getEmail()." nacimiento ".$nacimiento." password ".$usuario->getPassword();
             $ch = curl_init();
             
             // definimos la URL a la que hacemos la petición
@@ -132,8 +130,6 @@ class DefaultController extends Controller{
 
             // cerramos la sesión cURL
             curl_close ($ch); 
-            echo "<br>data";
-            print_r($data);
              
             
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
