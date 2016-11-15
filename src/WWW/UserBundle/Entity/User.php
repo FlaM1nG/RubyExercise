@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Collections\ArrayCollection;
+//use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
