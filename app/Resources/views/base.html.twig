@@ -38,7 +38,10 @@
             {{ include('footer/footer.html.twig') }}
         {% endblock %}   
         </div>
-
+         
+        {% block filtroMovil %}
+        {% endblock %}
+        
     {% block javascriptsFooter %}
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="{{ asset('js/jquery-3.1.1.min.js') }}" 
@@ -60,6 +63,12 @@
         <!-- Mobile Menu js -->
         <script src="{{ asset('js/menuMovil.js') }}" 
         type="text/javascript"></script> <!-- Resource jQuery -->
+        
+        <script type="text/javascript">
+            $('#myModal').on('shown.bs.modal', function () {
+                $('#myInput').focus();
+            });
+        </script>
     {% endblock %}
     </body>
 </html>
