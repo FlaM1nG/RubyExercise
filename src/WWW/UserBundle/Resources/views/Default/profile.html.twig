@@ -27,7 +27,7 @@
   <body>
        
         {% block content %}
-           {{dump(formulario)}}
+           {#{dump(usuario)}#}
            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
 
                 <ul>
@@ -68,27 +68,34 @@
                 {{ form_row(formulario.linkInvitation) }}
 
                 <br>
+                <div class="contentAddress">
                 {% for address in formulario.addresses %}
                     
                    <div id="address{{address.vars.value.id}}">
-                        {{ form_row(address.name) }}
-                        {{ form_row(address.street) }}
-                        {{ form_row(address.isDefault) }}
+                        {{ form_label(address.name)}}
+                        {{ form_widget(address.name,  { 'attr': { 'readonly': 'true' } })}}
+                        
+                        {{ form_label(address.street) }}
+                        {{ form_widget(address.street,  { 'attr': { 'readonly': 'true' } })}}
+
+                        {{ form_label(address.isDefault) }}
+                        {{ form_widget(address.isDefault,  { 'attr': { 'readonly': 'true' } })}}
+
                         {{ form_row(address.id)}}
 
                         <input class="posArrayAddress" type ="hidden" name="posArrayAddress" value="{{address.vars.name}}">
                         <button type="submit" name="editar" class="buttonEditAddress">Editar</button>
                         <button type="submit" name="eliminar" class="buttonDeleteAddress">Eliminar</button>
-                   </div> 
-                   <br>
-
+                   </div>
                 {% endfor %}   
+                </div> 
 
                 Añadir dirección
-                <input type="submit" value="+" name="buttonAddAddress">
+                <input type="submit" value="+" name="buttonAddAddress" id="buttonAddAddress">
                 <input type="hidden" value="sectionPersonal" name="section" id="sectionUser">
                 <input type="hidden" value="" name="idChangeAddress" id="idChangeAddress">
                 <input type="hidden" value="" name="idDeleteAddress" id="idDeleteAddress">
+                <input type="hidden" value="" name="addAddress" id="addAddress">
 
             {{ form_end(formulario)}}
         {% endblock %}     

@@ -775,7 +775,7 @@ class User implements UserInterface
      */
     public function addAddress(\WWW\GlobalBundle\Entity\Address $addresses)
     {
-        $this->addresses[] = $addresses;
+        $this->addresses[] = $addresses->toArray();
 
         return $this;
     }
