@@ -12,8 +12,13 @@
     color: @brand-primary;
 }
 
+.sha-header-title{
+   
+}
+
 .sha-parallax{
     background: url(../img/shareCar.jpg);
+    background-position: center bottom !important;
 }
 /* ##### FIN TITLE VIEW LIST ##### */
 
@@ -86,7 +91,9 @@
 
 /*######################   RANGO ANCHO [1600 � 1200[ ######################*/
 @media only screen and (max-width : 1600px) {
-    
+    .sha-parallax {
+        background-position: center -180px !important;
+    }
     
     @media only screen and (max-height : 1024px){
         
@@ -111,7 +118,9 @@
 
 /*######################   RANGO ANCHO [1200 �  992[  ######################*/
 @media only screen and (max-width : 1200px) {
-    
+    .sha-parallax {
+        background-position: center -100px !important;
+    }
     
     @media only screen and (max-height : 768px){
         
@@ -124,7 +133,10 @@
 
 /*######################   RANGO ANCHO [992�  768[  ######################*/
 @media only screen and (max-width : 992px) {
-        
+    .sha-parallax {
+        background-position: center -50px !important;
+    }
+    
     @media only screen and (max-height : 500px){
         
     }
@@ -132,7 +144,15 @@
 
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width : 768px) {
-       
+    .sha-parallax{
+        margin-bottom: 0px;
+        background-position: right -145px !important;
+    }
+    
+    .sha-header-title {
+        padding-top: 0px;
+    }
+    
     @media only screen and (max-height : 1024px){
         
     }
@@ -152,7 +172,11 @@
 
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 @media only screen and (max-width : 480px) {
-    
+    .sha-header-title {
+        h1{
+            font-size: 48px;
+        }
+    }
         
     @media only screen and (max-height : 667px){
         
@@ -165,7 +189,11 @@
 
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 @media only screen and (max-width : 320px) {
-    
+    .sha-header-title {
+        h1{
+            font-size: 45px;
+        }
+    }
     
     @media only screen and (max-height : 534px){
         

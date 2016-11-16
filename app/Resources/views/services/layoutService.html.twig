@@ -8,7 +8,8 @@
 {% block body %}
 <div class="container-fluid cd-main-content 
     {% block cssParallax %}{% endblock %} service-parallax">
-    <div class="container service-header">
+    <div class="container service-header 
+        {% block cssTitleParallax %}{% endblock %}">
         <h1>
             {% block serviceTitle %}  {% endblock %}
         </h1>
