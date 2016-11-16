@@ -56,5 +56,5 @@ paymentMethod:
     defaults: { _controller: AppBundle:Index:paymentMethod }
     
 serShareCar:
-    path: /share-car
+    path: /services/share-car
     defaults: { _controller: AppBundle:Index:serShareCar }

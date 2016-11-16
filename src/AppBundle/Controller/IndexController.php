@@ -53,6 +53,6 @@ class IndexController extends Controller
     }
     
     public function serShareCarAction() {
-        return $this->render('pages/serShareCar.html.twig');
+        return $this->render('services/serShareCar.html.twig');
     }
 }

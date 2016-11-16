@@ -1,0 +1,36 @@
+{% extends '::services/layoutService.html.twig' %}
+
+{% block title %}
+    Share Car
+{% endblock %}
+
+{% block cssParallax %}
+sha-parallax
+{% endblock %}
+
+{% block serviceTitle %} 
+    Share Car 
+{% endblock %}
+
+{% block serviceSubTitle %}  
+    {{ include('services/subTitles/shareCarSubTitle.html.twig') }}
+{% endblock %}
+
+{% block serviceFilters %} 
+    {{ include('services/filters/shareCarFilter.html.twig') }}
+{% endblock %}
+            
+{% block serviceList %}
+    {{ include('services/lists/shareCarList.html.twig') }}
+    {{ include('services/lists/shareCarList.html.twig') }}
+    {{ include('services/lists/shareCarList.html.twig') }}
+    {{ include('services/lists/shareCarList.html.twig') }}
+    {{ include('services/lists/shareCarList.html.twig') }}
+    {{ include('services/lists/shareCarList.html.twig') }}
+    <!-- Modal -->
+{% endblock %}
+
+{% block filtroMovilBody %}
+    {{ include('services/filters/shareCarFilter.html.twig') }}
+{% endblock %}
+

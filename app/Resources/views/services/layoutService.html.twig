@@ -6,17 +6,20 @@
 {% endblock %}
 
 {% block body %}
-<div class="container cd-main-content">
-    <h1>
-        {% block serviceTitle %}  {% endblock %}
-    <hr>
+<div class="container-fluid cd-main-content 
+    {% block cssParallax %}{% endblock %} service-parallax">
+    <div class="container service-header">
+        <h1>
+            {% block serviceTitle %}  {% endblock %}
+        </h1>
+    </div>
 </div>
 
 <!-- BODY -->
 <div class="container cd-main-content">
     
     <!-- SUBTITLE BLOCK  -->
-    <div class="row row-sha-title">
+    <div class="row row-service-title">
         {% block serviceSubTitle %}  {% endblock %}
     </div>
     <!-- END SUBTITLE BLOCK  -->
@@ -45,7 +48,7 @@
 {% endblock %}
 
 {% block buttonFilter %}
-    <div class="cd-navigation menu-mobile-bank">
+    <div class="cd-navigation">
         <!-- Trigger the modal with a button -->
         <button type="button" 
             class="btn btn-info btn-lg" 
@@ -94,3 +97,8 @@
     });
 </script>
 {% endblock %}
+
+{% block footer %}
+    {{ include('footer/sponsorFooter.html.twig') }}
+    {{ parent() }}
+{% endblock %} 
