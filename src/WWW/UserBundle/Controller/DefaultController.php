@@ -85,8 +85,13 @@ class DefaultController extends Controller{
                             );
                     return $this->redirect($this->generateUrl('user_login'));
     }
-    
-    public function registerAction(Request $request){
+     /**
+     * Matches /registro
+     * Matches /invitation/*
+     *
+     * @Route("/invitation/{token}", name="user_invitation")
+     */
+   public function registerAction(Request $request,$token){
         
         $usuario = new User();
        
@@ -118,7 +123,8 @@ class DefaultController extends Controller{
             curl_setopt($ch, CURLOPT_POSTFIELDS, "username=".$usuario->getUsername().
                     "&email=".$usuario->getEmail().
                     "&date=".$nacimiento.
-                    "&password=".$usuario->getPassword()."");
+                    "&password=".$usuario->getPassword().
+                    "&token=".$token."");
 
             // recibimos la respuesta y la guardamos en una variable
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
