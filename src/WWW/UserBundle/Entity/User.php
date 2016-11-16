@@ -837,4 +837,32 @@ class User implements UserInterface
     {
         return $this->hobbies;
     }
+    /**
+     * @var string
+     */
+    private $prefix;
+
+
+    /**
+     * Set prefix
+     *
+     * @param string $prefix
+     * @return User
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * Get prefix
+     *
+     * @return string 
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
 }

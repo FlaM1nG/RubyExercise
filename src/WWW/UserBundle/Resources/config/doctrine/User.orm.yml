@@ -52,6 +52,10 @@ WWW\UserBundle\Entity\User:
         phone:
             type: integer
             nullable: true
+        prefix:
+            type: string
+            length: 255
+            nullable: true
         confirmation_token:
             type: string
             length: 255
