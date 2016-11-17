@@ -16,6 +16,11 @@ WWW\UserBundle\Entity\ConfirmSms:
             type: datetime
         clicked:
             type: boolean
+        phone:
+            type: integer
+        prefix:
+            type: string
+            length: 255
     manyToOne:
         user:
             targetEntity: User

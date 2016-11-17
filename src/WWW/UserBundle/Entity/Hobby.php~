@@ -108,4 +108,32 @@ class Hobby
     {
         return $this->photo;
     }
+    /**
+     * @var boolean
+     */
+    private $deleted;
+
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return Hobby
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 }

@@ -136,4 +136,60 @@ class ConfirmSms
     {
         return $this->user;
     }
+    /**
+     * @var integer
+     */
+    private $phone;
+
+    /**
+     * @var string
+     */
+    private $prefix;
+
+
+    /**
+     * Set phone
+     *
+     * @param integer $phone
+     * @return ConfirmSms
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return integer 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set prefix
+     *
+     * @param string $prefix
+     * @return ConfirmSms
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * Get prefix
+     *
+     * @return string 
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
 }
