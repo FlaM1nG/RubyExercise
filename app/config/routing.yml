@@ -57,3 +57,7 @@ paymentMethod:
 serShareCar:
     path: /services/share-car
     defaults: { _controller: AppBundle:Index:serShareCar }
+    
+serTrade:
+    path: /services/trade
+    defaults: { _controller: AppBundle:Index:serTrade }

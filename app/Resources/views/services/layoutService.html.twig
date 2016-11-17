@@ -29,7 +29,8 @@
     <div class="row separacion-inferior">
         
         <!-- COLUMN FILTERS -->
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" id="filtro">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" 
+             id="filtro">
             {% block serviceFilters %} {% endblock %}
         </div>
         <!-- END COLUMN FILTERS -->
@@ -48,18 +49,6 @@
 
 {% endblock %}
 
-{% block buttonFilter %}
-    <div class="cd-navigation">
-        <!-- Trigger the modal with a button -->
-        <button type="button" 
-            class="btn btn-info btn-lg" 
-            data-toggle="modal" 
-            data-target="#myModal">
-            Open Modal
-        </button>
-    </div>
-{% endblock %}
-
 {% block filtroMovil %}
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -68,7 +57,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
+                <h4 class="modal-title">Filters</h4>
             </div>
             <div class="modal-body">
                 {% block filtroMovilBody %}
@@ -108,10 +97,10 @@
 <div class="cd-navigation menu-mobile-bank">
     <!-- Trigger the modal with a button -->
     <button type="button" 
-        class="btn btn-info btn-lg" 
+        class="btn btn-default" 
         data-toggle="modal" 
         data-target="#myModal">
-        Open Modal
+        Filters
     </button>
 </div>            
 {% endblock %}

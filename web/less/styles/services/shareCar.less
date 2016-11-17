@@ -20,6 +20,10 @@
     background: url(../img/shareCar.jpg);
     background-position: center bottom !important;
 }
+
+.col-sha-user{
+    
+}
 /* ##### FIN TITLE VIEW LIST ##### */
 
 /* ***** VIEW LIST ***** */
@@ -28,6 +32,8 @@
     .separacion-superior;
     cursor: pointer;
     margin: 0px 1% 1% 0px;
+    .aEnlaces;
+    font-weight: 600;
 }
 
 .sha-offer-list:hover {
@@ -41,12 +47,6 @@
     .sha-price{
         color: @brand-secondary;
     }
-}
-
-.row-sha-gen-date {
-    border-bottom: solid 1px @brand-primary;
-    margin: 0px 0 10px;
-    padding: 5px 2%;
 }
 
 .row-sha-name {
@@ -76,12 +76,28 @@
     font-size: 22px;
     margin: -10px 0px;
 }
+
+.row-sha-mobil{
+    display: none;
+}
 /* ##### FIN VIEW LIST ##### */
+
+
+/* ***** DATE ***** */
+.row-sha-gen-date {
+    border-bottom: solid 1px @brand-primary;
+    margin: 0px 0 10px;
+    padding: 5px 2%;
+}
+
+.sha-date-mobile {
+    display: none;
+}
+/* ##### FIN DATE ##### */
 
 /* *****  ***** */
 
 /* ##### FIN  ##### */
-
 
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
 @media only screen and (max-height : 1050px){
@@ -152,6 +168,21 @@
 
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width : 768px) {
+    .row-sha-gen-date {
+        border-bottom: none;
+        display: inline-block;
+        width: 50%;
+    }
+    
+    .col-sha-generico{
+    }
+    
+    .row-sha-mobil{
+        display: inline-block;
+        width: 50%;
+        margin-top: 15px;
+    }
+    
     .sha-parallax{
         margin-bottom: 0px;
         background-position: right -145px !important;
@@ -159,6 +190,64 @@
     
     .sha-header-title {
         padding-top: 0px;
+    }
+    
+    .sha-date {
+        display: none;
+    }
+
+    .sha-date-mobile {
+        display: inherit;
+    }
+    
+    .sha-valoracion {
+        
+    }
+    
+    .col-sha-user{
+        display: none;
+    }
+    
+    .row-sha-price{
+        display: none;
+    }
+    
+    .col-sha-car{
+        display: none;
+    }
+    
+    .row-sha-price-mob{
+        margin-top: 15px;
+    }
+    
+    .sha-price {
+        font-size: 25px;
+    }
+    
+    .rating > span {
+        width: inherit;
+    }
+    
+    .col-sha-vot-mob{
+        text-align: center;
+    }
+    
+    .rating{
+        text-align: center;
+    }
+    
+    .sha-offer-list {
+        border: solid 1px @gray-base;
+        width: 80%;
+        margin: 0 auto 5%;
+    }
+    
+    .sha-offer-list:hover {
+        border: none;
+    }
+    
+    .sha-date-sep-mob{
+        display: none;
     }
     
     @media only screen and (max-height : 1024px){
@@ -178,8 +267,37 @@
     }
 }
 
-/*######################   RANGO ANCHO [480 � 320[  ######################*/
-@media only screen and (max-width : 480px) {
+@media only screen and (max-width : 600px) {
+    .sha-offer-list {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width : 540px) {
+    .sha-offer-list {
+        width: 95%;
+    }
+}
+
+/*######################   RANGO ANCHO [490 � 320[  ######################*/
+@media only screen and (max-width : 490px) {
+    .sha-offer-list{
+	width: inherit;
+        margin: 0px 1% 5% 0;
+        
+    }
+    
+    .row-sha-gen-date{
+	display: inherit;
+        width: inherit;
+        text-align: center;
+    }
+
+    .row-sha-mobil{
+        display: inherit;
+        width: inherit;
+    }
+    
     .sha-header-title {
         h1{
             font-size: 48px;
