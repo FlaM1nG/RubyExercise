@@ -1,7 +1,7 @@
-WWW\UserBundle\Entity\Hobby:
+WWW\UserBundle\Entity\ConfirmSms:
     type: entity
     table: null
-    repositoryClass: WWW\UserBundle\Repository\HobbyRepository
+    repositoryClass: WWW\UserBundle\Repository\ConfirmSmsRepository
     id:
         id:
             type: integer
@@ -9,18 +9,17 @@ WWW\UserBundle\Entity\Hobby:
             generator:
                 strategy: AUTO
     fields:
-        name:
+        token:
             type: string
             length: 255
-        description:
-            type: string
-            length: 255
-        deleted:
+        date:
+            type: datetime
+        clicked:
             type: boolean
-    oneToOne:        
-        photo:
-            nullable: true
-            targetEntity: WWW\GlobalBundle\Entity\Photo
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: ForgottenPassword
             joinColumn:
                 referencedColumnName: id
     lifecycleCallbacks: {  }

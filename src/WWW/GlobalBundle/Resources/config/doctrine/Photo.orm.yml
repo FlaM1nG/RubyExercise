@@ -12,6 +12,7 @@ WWW\GlobalBundle\Entity\Photo:
         url:
             type: string
             length: 255
+            unique: true
         createdDate:
             type: datetime
             nullable: true

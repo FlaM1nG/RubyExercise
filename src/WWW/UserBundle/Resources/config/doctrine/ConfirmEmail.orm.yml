@@ -1,7 +1,7 @@
-WWW\UserBundle\Entity\Hobby:
+WWW\UserBundle\Entity\ConfirmEmail:
     type: entity
     table: null
-    repositoryClass: WWW\UserBundle\Repository\HobbyRepository
+    repositoryClass: WWW\UserBundle\Repository\ConfirmEmailRepository
     id:
         id:
             type: integer
@@ -9,18 +9,22 @@ WWW\UserBundle\Entity\Hobby:
             generator:
                 strategy: AUTO
     fields:
-        name:
+        email:
             type: string
             length: 255
-        description:
-            type: string
-            length: 255
-        deleted:
+        date:
+            type: datetime
+        clicked:
             type: boolean
-    oneToOne:        
-        photo:
-            nullable: true
-            targetEntity: WWW\GlobalBundle\Entity\Photo
+        token:
+            type: string
+            length: 255
+        original:
+            type: boolean
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: ConfirmEmail
             joinColumn:
                 referencedColumnName: id
     lifecycleCallbacks: {  }

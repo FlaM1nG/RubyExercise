@@ -80,4 +80,32 @@ class Hobby
     {
         return $this->description;
     }
+    /**
+     * @var \WWW\GlobalBundle\Entity\Photo
+     */
+    private $photo;
+
+
+    /**
+     * Set photo
+     *
+     * @param \WWW\GlobalBundle\Entity\Photo $photo
+     * @return Hobby
+     */
+    public function setPhoto(\WWW\GlobalBundle\Entity\Photo $photo = null)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \WWW\GlobalBundle\Entity\Photo 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
 }
