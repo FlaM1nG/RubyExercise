@@ -111,7 +111,56 @@ class User implements UserInterface
      * @var boolean
      */
     private $isDeleted;
+    
+    /**
+     * @var string
+     */
+    private $confirmation_token;
 
+    /**
+     * @var boolean
+     */
+    private $is_confirmed;
+    
+     /**
+     * @var \WWW\UserBundle\Entity\Role
+     */
+    private $role;
+
+     /**
+     * @var \WWW\GlobalBundle\Entity\Photo
+     */
+    private $photo;
+
+     /**
+     * @var boolean
+     */
+    private $sms_confirmed;
+
+    /**
+     * @var integer
+     */
+    private $nif;
+
+    /**
+     * @var string
+     */
+    private $num_account;
+
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $host_user;
+    
+     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $addresses;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $hobbies;
 
     /**
      * Constructor
@@ -132,18 +181,15 @@ class User implements UserInterface
             $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
             
             foreach($user['addresses'] as $address):
-               // print_r($address);exit;
-                //array_push($this->addAddress, new Address($address));
+               
                 $auxAddress = new Address($address);
                 $this->addresses[] = $auxAddress->toArray();
             
             endforeach;
-            //print_r($this->addAddress);exit;
-            //echo gettype($user['addresses']);
-            //$this->addresses = $user['addresses'];
         else:
             $this->addresses = new ArrayCollection();
         endif;
+        
     }
 
     /**
@@ -532,14 +578,6 @@ class User implements UserInterface
         
     }
 
-    
-
-    /**
-     * @var \WWW\UserBundle\Entity\Role
-     */
-    private $role;
-
-
     /**
      * Set role
      *
@@ -562,16 +600,6 @@ class User implements UserInterface
     {
         return $this->role;
     }
-    /**
-     * @var string
-     */
-    private $confirmation_token;
-
-    /**
-     * @var boolean
-     */
-    private $is_confirmed;
-
 
     /**
      * Set confirmation_token
@@ -618,27 +646,6 @@ class User implements UserInterface
     {
         return $this->is_confirmed;
     }
-    /**
-     * @var boolean
-     */
-    private $sms_confirmed;
-
-    /**
-     * @var integer
-     */
-    private $nif;
-
-    /**
-     * @var string
-     */
-    private $num_account;
-
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $host_user;
-
-
 
     /**
      * Set sms_confirmed
@@ -732,13 +739,6 @@ class User implements UserInterface
         return $this->host_user;
     }
 
- 
-    /**
-     * @var \WWW\GlobalBundle\Entity\Photo
-     */
-    private $photo;
-
-
     /**
      * Set photo
      *
@@ -761,11 +761,6 @@ class User implements UserInterface
     {
         return $this->photo;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $addresses;
-
 
     /**
      * Add addresses
@@ -799,11 +794,6 @@ class User implements UserInterface
     {
         return $this->addresses;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $hobbies;
-
 
     /**
      * Add hobbies
@@ -837,32 +827,11 @@ class User implements UserInterface
     {
         return $this->hobbies;
     }
-    /**
-     * @var string
-     */
-    private $prefix;
-
-
-    /**
-     * Set prefix
-     *
-     * @param string $prefix
-     * @return User
-     */
-    public function setPrefix($prefix)
-    {
-        $this->prefix = $prefix;
-
-        return $this;
-    }
-
-    /**
-     * Get prefix
-     *
-     * @return string 
-     */
-    public function getPrefix()
-    {
-        return $this->prefix;
+    
+    public function deleteAddress($index){
+        echo "<br><br>usuario<br><br> Indice ".$index."<br>";
+        //print_r($this->addresses);
+        unset($this->addresses[$index]);
+        echo "<br><br><br>";
     }
 }
