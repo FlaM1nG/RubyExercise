@@ -1,0 +1,83 @@
+<!-- ELEMENTO-->
+ <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-tra-elem">
+     
+     <div class="tra-cont-elem">
+     
+        <!-- IMAGEN -->
+        <div class="row row-tra-mar">
+            <img class="img-responsive tra-grid-img" 
+                src="
+            {{ random([asset('img/seat.jpg'), 
+                   asset('img/articulo1.jpg'), 
+                   asset('img/macbook.png'),
+                   asset('img/alquilerTuristico3.jpg')]) }} 
+            " alt="">
+        </div>
+        <!-- FIN IMAGEN -->
+
+
+        <!-- TITLE-->
+        <div class="row row-tra-title-grid">
+            <h4>
+                <a href="#" class="tra-title-elem">
+                    {{ random(['Titulo objeto en venta', 
+                        'Aleatorio para que el texto sea diferentes', 
+                        'Yo soy corto', 
+                        'Soy un titulo para ver que aparece', 
+                        'Te ha tocado la loteria!!', ]) }}
+                </a>
+            </h4>
+        </div>
+        <!-- FIN TITLE -->
+
+
+        <!-- CATEGORIAS -->
+        <div class="row row-tra-cat-grid">
+           {% for i in 0..3 %}
+               <span class="">Categoria</span>
+           {% endfor %}
+        </div>
+        <!-- FIN CATEGORIAS -->
+
+
+        <!-- USER Y PRECIO -->
+        <div class="row row-tra-upr-grid">
+
+            <!-- USER -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-tra-user">
+
+               <!-- IMAGEN USUARIO -->
+               <div class="row row-tra-grid-user-img">
+                   <img class="center-block img-circle 
+                       img-responsive" 
+                       src="{{ asset('img/usuario1.jpg') }}" 
+                       width="50" alt="">
+               </div>
+               <!-- FIN IMAGEN USUARIO -->
+
+               <!-- NOMBRE USUARIO -->
+               <div class="row row-tra-grid-name">
+                   <a href="#">Paco J</a>
+               </div>
+               <!-- FIN NOMBRE USUARIO -->
+
+            </div>
+            <!-- FIN USER -->
+
+
+            <!-- PRECIO -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+               <span class="sha-price">
+                   28€
+               </span>
+            </div>
+            <!-- FIN PRECIO -->
+
+
+        </div>
+        <!-- FIN USER Y PRECIO -->
+
+    </div>
+     
+ </div>
+<!-- FIN ELEMENTO-->

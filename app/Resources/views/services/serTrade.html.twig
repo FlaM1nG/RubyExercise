@@ -25,10 +25,11 @@ sha-header-title
 {% endblock %}
             
 {% block serviceList %}
-    {% for i in 0..7 %}
-        {{ include('services/lists/shareCarList.html.twig') }}
+    <div class="row row-tra-mar">
+    {% for i in 0..22 %}
+        {{ include('services/lists/tradeList.html.twig') }}
     {% endfor %}
-    <!-- Modal -->
+    </div>
 {% endblock %}
 
 {% block filtroMovilBody %}
