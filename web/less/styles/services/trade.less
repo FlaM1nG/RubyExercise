@@ -13,12 +13,29 @@
     
 }
 
-.row-tra-mar{
-    margin: -13px 0 0;
+.row-tra-base{
+    margin: -25px 0 0;
+    
     -moz-column-width: 19em;
     -webkit-column-width: 19em;
+    column-width: 19em;
+    
     -moz-column-gap: 1em;
     -webkit-column-gap: 1em;
+    column-gap: 1em;
+}
+
+.row-tra-mar{
+    margin: 0px 0 0;
+    
+    -moz-column-width: 19em;
+    -webkit-column-width: 19em;
+    column-width: 19em;
+    
+    -moz-column-gap: 1em;
+    -webkit-column-gap: 1em;
+    column-gap: 1em;
+    
 }
 
 .row-tra-mar-reset{
@@ -42,12 +59,13 @@
 .row-tra-cat-grid{
     .row-tra-mar-reset;
     .row-tra-padd-grid-elem;
-    padding-bottom: 15px;
+    padding-bottom: 20px;
 }
 
 .row-tra-upr-grid{
     .row-tra-mar-reset;
     .row-tra-padd-grid-elem;
+    padding-bottom: 20px;
 }
 
 .row-tra-grid-user-img{
@@ -55,7 +73,8 @@
 }
 
 .row-tra-grid-name{
-    
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .col-tra-elem {
@@ -66,6 +85,10 @@
 
 .col-tra-user{
     text-align: center;
+}
+
+.col-tra-grid-price{
+    text-align: right;
 }
 
 .tra-cont-elem{
@@ -90,6 +113,14 @@
         color: @brand-primary;
     }
     
+    .tra-cat-grid{
+        color: @gray-base;
+    }
+    
+    .tra-cat-grid:hover, .tra-cat-grid:focus{
+        color: @brand-primary;
+    }
+    
     .row-tra-grid-name{
         
     }
@@ -101,6 +132,18 @@
     -moz-border-radius: 10px 10px 0px 0px;
     -webkit-border-radius: 10px 10px 0px 0px;
     border: 0px solid @gray-base;
+}
+
+.tra-cat-grid{
+    color: @brand-secondary; 
+    font-weight: 600;
+}
+
+.tra-price{
+    font-size: 30px;
+    color: @brand-primary;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 /* ##### FIN GRID ##### */
 
