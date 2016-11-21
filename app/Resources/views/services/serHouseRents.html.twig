@@ -1,0 +1,35 @@
+{% extends '::services/layoutService.html.twig' %}
+
+{% block title %}
+    House Rents
+{% endblock %}
+
+{% block cssParallax %}
+hre-parallax
+{% endblock %}
+
+{% block cssTitleParallax %}
+sha-header-title
+{% endblock %}
+
+{% block serviceTitle %} 
+    House Rents
+{% endblock %}
+
+{% block serviceSubTitle %}  
+    {#{ include('services/subTitles/shareCarSubTitle.html.twig') }#}
+{% endblock %}
+
+{% block serviceFilters %} 
+    {{ include('services/filters/shareCarFilter.html.twig') }}
+{% endblock %}
+            
+{% block serviceList %}
+    <div class="row " >
+        {{ include('services/lists/houseRentsList.html.twig') }}
+    </div>
+{% endblock %}
+
+{% block filtroMovilBody %}
+    {{ include('services/filters/shareCarFilter.html.twig') }}
+{% endblock %}
