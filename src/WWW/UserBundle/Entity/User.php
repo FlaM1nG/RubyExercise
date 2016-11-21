@@ -144,6 +144,7 @@ class User implements UserInterface
 
     /**
      * @var string
+     * @Assert\Length(max=24)
      */
     private $num_account;
 
@@ -179,6 +180,7 @@ class User implements UserInterface
             $this->username = $user['username'];
             $this->password = $user['password'];
             $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->num_account = $user['num_account'];
             
             foreach($user['addresses'] as $address):
                
