@@ -38,17 +38,15 @@ class ProfileController extends Controller{
                            "id" => $session->get('id'),
                            "password" => $session->get('password'));
         
-        $data = $ch->conectionWithParameters($arrayData, $file);
+        $result = $ch->sendInformation($arrayData, $file, "parameters");
+        print_r($result);
         
         $formAddress = null;
         $formulario = $this->createForm(ProfileType::class,$this->usuario);
        
-        if($data['result'] == 'ok'):
+        if($result['result'] == 'ok'):
             
-            $this->usuario = new User($data);
- 
-            
-
+            $this->usuario = new User($result);
             if($request->getMethod()=="POST"):
                 
                 $section = $request->request->all()['section'];
@@ -127,7 +125,7 @@ class ProfileController extends Controller{
             
         endif;
 
-        $result = $ch->conectionWithJason($data, $file);
+        $result = $ch->sendInformation($data, $file, "json");
 
         if($result['result'] == "ok"):
             
@@ -191,7 +189,7 @@ class ProfileController extends Controller{
         else
             $data['is_default'] = 0;
 
-        $result = $ch->conectionWithJason($data, $file);
+        $result = $ch->sendInformation($data, $file, "json");
         
         //print_r($result);        
     }
@@ -209,7 +207,7 @@ class ProfileController extends Controller{
                       "id_user" => $user->getId(),
                       "id" => $arrayAdress[$posArrayAddress]['id']);
         
-        $result = $ch->conectionWithParameters($data, $file);
+        $result = $ch->sendInformation($data, $file,"parameters");
         
         if($result['result'] == 'ok'):
             $this->usuario->deleteAddress($posArrayAddress);
@@ -240,7 +238,7 @@ class ProfileController extends Controller{
         $ch = new ApiRed();
         $file = "http://www.whatwantweb.com/api_rest/user/addresses/insert_address.php";
         
-        $result = $ch->conectionWithJason($data, $file);
+        $result = $ch->sendInformation($data, $file, "json");
         echo "data<br>"; print_r($data);echo "<br>";
         print_r($result);
         
@@ -269,7 +267,7 @@ class ProfileController extends Controller{
                       "new_password" => $newPassword,
                       "id" => $id);
         
-        $result = $ch->conectionWithParameters($data, $file);
+        $result = $ch->sendInformation($data, $file, "parameters");
         
         //print_r($result);
     }
