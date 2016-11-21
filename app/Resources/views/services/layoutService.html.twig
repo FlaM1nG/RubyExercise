@@ -86,6 +86,17 @@
         }
     });
 </script>
+
+<script src=" {{ asset('js/masonry.pkgd.min.js') }}"></script>
+<script type="text/javascript">
+    $('.row-tra-base').masonry({
+    // options
+    columnWidth: '.col-tra-size',
+    itemSelector: '.col-tra-elem',
+    percentPosition: true,
+    transitionDuration: 0.0
+  });
+</script>
 {% endblock %}
 
 {% block footer %}

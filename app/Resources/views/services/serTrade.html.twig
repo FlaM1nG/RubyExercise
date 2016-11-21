@@ -25,7 +25,8 @@ sha-header-title
 {% endblock %}
             
 {% block serviceList %}
-    <div class="row row-tra-base">
+    <div class="row row-tra-base" >
+        <div class="col-tra-size col-lg-4 col-md-4 col-sm-6 col-xs-12"></div>
     {% for i in 0..22 %}
         {{ include('services/lists/tradeList.html.twig') }}
     {% endfor %}

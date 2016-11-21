@@ -53,12 +53,11 @@ ul.row-categoria {
     min-height: 200px;
 }
 
-a.padre-centrado {
-    display: table;
-}
-
-.padre-centrado{
-    display: table;
+@-moz-document url-prefix() {
+    a.padre-centrado {
+        padding: 5em 2em !important;
+        display: -moz-grid !important;
+    }
 }
 
 .hijo-centrado{
@@ -71,7 +70,7 @@ a.padre-centrado {
 }
 
 .hijo-centrado:hover{
-    overflow: auto;
+    //overflow: auto;
 }
 
 .categoria1{
@@ -167,6 +166,14 @@ a.padre-centrado {
     
     nav#cbp-hrmenu {
         margin-top: 0px;
+    }
+    
+    @-moz-document url-prefix() {
+        .categoria3{
+            a.padre-centrado {
+                padding: 3em 2em 0 !important;
+            }
+        }
     }
     
     @media only screen and (max-height : 1024px){
@@ -283,6 +290,14 @@ a.padre-centrado {
     
     .cbp-hrmenu .cbp-hrsub-inner > div {
         min-height: 90px;
+    }
+    
+    @-moz-document url-prefix() {
+        .categoria3{
+            a.padre-centrado {
+                padding: 4em 2em 0 !important;
+            }
+        }
     }
     
     @media only screen and (max-height : 500px){
