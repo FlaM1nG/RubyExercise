@@ -4,12 +4,10 @@ namespace WWW\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Validation;
 use WWW\UserBundle\Entity\User as User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use WWW\GlobalBundle\Entity\Address;
-use WWW\UserBundle\Form\ProfileType;
+use WWW\GlobalBundle\Entity\ApiRed;
 
 class DefaultController extends Controller{
     
@@ -30,37 +28,22 @@ class DefaultController extends Controller{
             $email=$request->request->all()['loginUser']['username'];
             $password=$request->request->all()['loginUser']['password'];  
          
-            $ch = curl_init();
+            $file = "http://www.whatwantweb.com/api_rest/user/registration/login_user.php";
+            $data = array("username" => $email,
+                          "password" => $password);
             
-            // definimos la URL a la que hacemos la petición
-            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/registration/login_user.php");
-            // indicamos el tipo de petición: POST
-            curl_setopt($ch, CURLOPT_POST, TRUE);
-            // definimos cada uno de los parámetros
-            curl_setopt($ch, CURLOPT_POSTFIELDS, "username=".$email.
-                    "&password=".$password."");
-
- 
-            // recibimos la respuesta y la guardamos en una variable
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $ch = new ApiRed();
             
-            $remote_server_output = curl_exec ($ch);
-            var_dump($remote_server_output); 
-            $data = json_decode($remote_server_output, true);
+            $result = $ch->sendInformation($data, $file, "parameters");
             
             $user = new User();
             
-            $data = json_decode($remote_server_output, true);
-         
-             // cerramos la sesión cURL
-            curl_close ($ch);
-            
-            if($data['result'] == 'ok'):
+            if($result['result'] == 'ok'):
                 
                $session=$request->getSession();
-               $session->set("id",$data['id']);
-               $session->set("username",$data['username']);
-               $session->set("password",$data['password']);
+               $session->set("id",$result['id']);
+               $session->set("username",$result['username']);
+               $session->set("password",$result['password']);
                
                return $this->redirect($this->generateUrl('user_homepage'));
             else:
@@ -96,7 +79,7 @@ class DefaultController extends Controller{
         $formulario->handleRequest($request);
         
         if($formulario->isValid()):
-           
+           echo "esvalido";
             $arrayBirthdate = $request->request->all()['registroUsuario']['birthdate'];
             $mes = $arrayBirthdate['month'];
             $dia = $arrayBirthdate['day'];
@@ -108,30 +91,18 @@ class DefaultController extends Controller{
             
             $nacimiento =$arrayBirthdate['year']."-".$mes.'-'.$dia;
             
-            $ch = curl_init();
+            $file = "http://www.whatwantweb.com/api_rest/user/registration/register_user.php";
+            $data = array("username" => $usuario->getUsername(),
+                          "email" => $usuario->getEmail(),
+                          "date" => $nacimiento,
+                          "password" => $usuario->getPassword(),
+                          "phone" => $usuario->getPhone());
             
-            // definimos la URL a la que hacemos la petición
-            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/registration/register_user.php");
-            // indicamos el tipo de petición: POST
-            curl_setopt($ch, CURLOPT_POST, TRUE);
-            // definimos cada uno de los parámetros
-            curl_setopt($ch, CURLOPT_POSTFIELDS, "username=".$usuario->getUsername().
-                    "&email=".$usuario->getEmail().
-                    "&date=".$nacimiento.
-                    "&password=".$usuario->getPassword()."");
-
-            // recibimos la respuesta y la guardamos en una variable
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            
-            $remote_server_output = curl_exec ($ch);
-            
-            $data = json_decode($remote_server_output, true);
-
-
-            // cerramos la sesión cURL
-            curl_close ($ch); 
-             
-            
+            $ch = new ApiRed();
+            print_r($data);
+            $result = $ch->sendInformation($data, $file, "parameters");
+            echo"<br><br>";
+print_r($result);
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
         else:
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
@@ -154,34 +125,11 @@ class DefaultController extends Controller{
         
         if(!empty($usuario->getPassword())):
             
-            $ch = curl_init();
-            
-            // definimos la URL a la que hacemos la petición
-            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/passwords/new_password.php");
-            // indicamos el tipo de petición: POST
-            curl_setopt($ch, CURLOPT_POST, TRUE);
-            // definimos cada uno de los parámetros
-            curl_setopt($ch, CURLOPT_POSTFIELDS, 
-                    "&password=".$usuario->getPassword().
-                    "&token=".$token."");
-
-            // recibimos la respuesta y la guardamos en una variable
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $remote_server_output = curl_exec ($ch);
-            
-            // cerramos la sesión cURL
-            curl_close ($ch);
-            /*
-            //Obtiene la codificador de usuario
-            $encoder = $this->get('security.encoder_factory')->getEncoder($usuario);
-        
-            //Codificamos la contraseña
-            $passwordCodificada = $encoder->encodePassword($usuario->getPassword(),$usuario->getSalt());
-            $usuario->setPassword($passwordCodificada);
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($usuario);
-            $em->flush();*/
+            $file = "http://www.whatwantweb.com/api_rest/user/passwords/new_password.php";
+            $ch = new ApiRed();
+            $data = array("password" => $usuario->getPassword(),
+                             "token" => $token);
+            $result = $ch->sendInformation($data, $file, "parameters");
             
             return $this->render('UserBundle:ChangePass:changepass.html.twig',array('formulario'=>$formulario->createView(),'token'=>$token));
         else:
@@ -201,33 +149,11 @@ class DefaultController extends Controller{
         
         if(!empty($usuario->getEmail())):
             
-            $ch = curl_init();
-            
-            // definimos la URL a la que hacemos la petición
-            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/passwords/forget_password.php");
-            // indicamos el tipo de petición: POST
-            curl_setopt($ch, CURLOPT_POST, TRUE);
-            // definimos cada uno de los parámetros
-            curl_setopt($ch, CURLOPT_POSTFIELDS, 
-                    "&email=".$usuario->getEmail()."");
-           
-            // recibimos la respuesta y la guardamos en una variable
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $remote_server_output = curl_exec ($ch);
-           
-            // cerramos la sesión cURL
-            curl_close ($ch);
-            /*
-            //Obtiene la codificador de usuario
-            $encoder = $this->get('security.encoder_factory')->getEncoder($usuario);
+            $file = "http://www.whatwantweb.com/api_rest/user/passwords/forget_password.php";
+            $data = array("email" => $usuario->getEmail());
         
-            //Codificamos la contraseña
-            $passwordCodificada = $encoder->encodePassword($usuario->getPassword(),$usuario->getSalt());
-            $usuario->setPassword($passwordCodificada);
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($usuario);
-            $em->flush();*/
+            $ch = new ApiRed();
+            $result = $ch->sendInformation($data, $file, "parameters");
             
             return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
         else:

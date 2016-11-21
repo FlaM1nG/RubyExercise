@@ -27,7 +27,7 @@
   <body>
        
         {% block content %}
-           {#{dump(usuario)}#}
+           {{dump(usuario)}}
            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
 
                 <ul>
@@ -50,12 +50,16 @@
                     <li>
                         <a href="#" name="photo" id="sectionAddress">Direcciones</a>
                     </li>
+                    
+                    <li>
+                        <a href="#" name="bank" id="sectionBank">Datos bancarios</a>
+                    </li>
                 </ul>
 
                 {{ form_row(formulario.username) }}
                 {{ form_row(formulario.email) }}
                 <br>
-                
+                {{ form_row(formulario.oldPassword) }}
                 {{ form_row(formulario.password) }}
                 {{ form_row(formulario.name) }}
                 {{ form_row(formulario.surname) }}
@@ -72,6 +76,7 @@
                 {% for address in formulario.addresses %}
                     
                    <div id="address{{address.vars.value.id}}">
+                       
                         {{ form_label(address.name)}}
                         {{ form_widget(address.name,  { 'attr': { 'readonly': 'true' } })}}
                         
@@ -82,6 +87,13 @@
                         {{ form_widget(address.isDefault,  { 'attr': { 'readonly': 'true' } })}}
 
                         {{ form_row(address.id)}}
+
+                        {{ form_row(address.zipCode)}}
+                        {{ form_row(address.city)}}
+                        {{ form_row(address.region)}}
+                        {{ form_row(address.country)}}
+                        {{ form_row(address.idZipCode)}}
+                          
 
                         <input class="posArrayAddress" type ="hidden" name="posArrayAddress" value="{{address.vars.name}}">
                         <button type="submit" name="editar" class="buttonEditAddress">Editar</button>

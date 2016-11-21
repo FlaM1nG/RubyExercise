@@ -36,8 +36,8 @@ class RegisterType extends AbstractType{
                                                 'first_options' => array('label' => 'Contraseña'),
                                                 'second_options' => array('label' => 'Repite Contraseña'),
                                                 'required' => false
-                                              )
-                        )
+                                              ))
+                ->add('phone','number', array('label' => 'Teléfono'))
                 ->add('guardar','submit',array('label'=>'Registrarse'));
     }
         
