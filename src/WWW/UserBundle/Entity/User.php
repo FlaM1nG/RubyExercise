@@ -836,4 +836,32 @@ class User implements UserInterface
         unset($this->addresses[$index]);
         echo "<br><br><br>";
     }
+    /**
+     * @var string
+     */
+    private $prefix;
+
+
+    /**
+     * Set prefix
+     *
+     * @param string $prefix
+     * @return User
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * Get prefix
+     *
+     * @return string 
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
 }
