@@ -79,7 +79,7 @@ class DefaultController extends Controller{
         $formulario->handleRequest($request);
         
         if($formulario->isValid()):
-           
+           echo "esvalido";
             $arrayBirthdate = $request->request->all()['registroUsuario']['birthdate'];
             $mes = $arrayBirthdate['month'];
             $dia = $arrayBirthdate['day'];
@@ -95,11 +95,14 @@ class DefaultController extends Controller{
             $data = array("username" => $usuario->getUsername(),
                           "email" => $usuario->getEmail(),
                           "date" => $nacimiento,
-                          "password" => $usuario->getPassword());
+                          "password" => $usuario->getPassword(),
+                          "phone" => $usuario->getPhone());
             
             $ch = new ApiRed();
+            print_r($data);
             $result = $ch->sendInformation($data, $file, "parameters");
-
+            echo"<br><br>";
+print_r($result);
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
         else:
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));

@@ -57,10 +57,11 @@ class ProfileType extends AbstractType{
                 ->add('addresses', CollectionType::class,array(
                                                         'entry_type' => AdressType::class,
                                                         'label' => ' ' ,
-                    'allow_add' => true,
-                                              'prototype' => true,
-                                              'by_reference' => false,
+                                                        'allow_add' => true,
+                                                        'prototype' => true,
+                                                        'by_reference' => false,
                                                         ))
+                ->add('num_account','text', array('label' => 'Número de cuenta'))
                 ->add('registrar','submit',array('label'=>'Guardar'));
     }
     

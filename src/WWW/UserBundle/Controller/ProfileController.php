@@ -39,7 +39,7 @@ class ProfileController extends Controller{
                            "password" => $session->get('password'));
         
         $result = $ch->sendInformation($arrayData, $file, "parameters");
-        print_r($result);
+        //print_r($result);
         
         $formAddress = null;
         $formulario = $this->createForm(ProfileType::class,$this->usuario);
@@ -68,6 +68,7 @@ class ProfileController extends Controller{
                     if($section == 'sectionPassword')
                         $this->changePassword($this->usuario,$request);
                     
+                   
                     else
                         $this->updateProfile($request);
                 endif;    
@@ -87,7 +88,7 @@ class ProfileController extends Controller{
         
         $arrayUser = $request->request->all()['profileUser'];
         $section = $request->request->all()['section'];
-        
+        echo "UPDATE PROFILE <BR>".$section."<br>";
         $ch = new ApiRed();
         
         $file = "http://www.whatwantweb.com/api_rest/user/data/update_user.php";
@@ -122,6 +123,10 @@ class ProfileController extends Controller{
         elseif($section == 'sectionPhoto'):
             
             $data['photo'] = "'".$arrayUser['photo']."'";
+        
+        elseif($section == 'sectionBank'):
+            
+            $data['num_account'] = "'".$arrayUser['num_account']."'";
             
         endif;
 
@@ -132,12 +137,16 @@ class ProfileController extends Controller{
             foreach($data as $key => $value):
             
                 if($key != "id" && $key != "birthdate"):
-                    $aux = "set".ucwords($key);
+                    
+                    $aux = str_replace("_", "", $key);
+                    $aux = "set".ucwords($aux);
+                    
                     //Al forma el array algunos datos se les añade comillas x lo que hay que quitarlas
                     if($value[0] == "'"):
                         $value = substr($value,1);
                         $value = substr($value,0,-1);
                     endif;
+                    
                     $this->usuario->$aux($value);
                 endif;    
 

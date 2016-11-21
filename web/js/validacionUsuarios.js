@@ -122,7 +122,9 @@ function validaForgot(){
 
 $(document).ready(function(){
    
-    $(document).on('click',"#sectionPersonal, #sectionUsername, #sectionEmail, #sectionPassword, #sectionPhoto, #sectionAddress", changeSection);
+    $(document).on('click',"#sectionPersonal, #sectionUsername, #sectionEmail,"+
+                    "#sectionPassword, #sectionPhoto, #sectionAddress, "+
+                    "#sectionBank", changeSection);
     $(document).on('click','.buttonEditAddress',activateEditAddress);
     $(document).on('click','.buttonDeleteAddress', deleteAddress);
     $(document).on('click','#buttonAddAddress', addFormAddress);
