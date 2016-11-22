@@ -74,6 +74,9 @@ class ProfileController extends Controller{
                     elseif($section == 'sectionTlfn'):
                         $this->changePhone($request);
                     
+                    elseif($section == 'sectionPhoto'):
+                        $this->changePhoto($request);
+                    
                     else:
                         $this->updateProfile($request);
                     endif;
@@ -120,10 +123,6 @@ class ProfileController extends Controller{
         elseif($section == 'sectionPassword'):
         
             $data['password'] = $arrayUser['password'];
-        
-        elseif($section == 'sectionPhoto'):
-            
-            $data['photo'] = "'".$arrayUser['photo']."'";
         
         elseif($section == 'sectionBank'):
             
@@ -303,26 +302,53 @@ class ProfileController extends Controller{
         //print_r($result);
     }
     
-    private function changePhone(Request $request){
+    private function confirmCodePhone(Request $request){
         
-        print_r($request);
         $file = "http://www.whatwantweb.com/api_rest/user/phone/send_sms";
-        
+
         $data = array('username' => $this->usuario->getUsername(),
-                      'id' => $this->usuario->getId(),
-                      'password' => $this->usuario->getPassword(),
-                      'phone' => $request->request->all()['profileUser']['phone'],
-                      'prefix' => $request->request->all()['profileUser']['prefix']);
-        
+                          'id' => $this->usuario->getId(),
+                          'password' => $this->usuario->getPassword(),
+                          'phone' => $request->request->all()['profileUser']['phone'],
+                          'prefix' => $request->request->all()['profileUser']['prefix']);
+
         $ch = new ApiRest();
         $result = $ch->sendInformation($data, $file, "parameters");
+    }
+    
+    private function changePhone(Request $request){
         
-        print_r($request);
-        if($result['result'] == 'ok'):
-            $this->usuario->setPhone($data['phone']);
-            $this->usuario->setPrefix($data['prefix']);
+        if(empty($request->request->all()['profileUser']['codConfirmation']) ||
+            array_key_exists("confirmPhone", $request->request->all()['profileUser'])):    
+            
+            $this->confirmCodePhone($request);
+   
+        elseif(!empty($request->request->all()['profileUser']['codConfirmation'])):
+            
+            $file = "http://www.whatwantweb.com/api_rest/user/phone/confirm_sms";
+            $data = array('username' => $this->usuario->getUsername(),
+                          'id' => $this->usuario->getId(),
+                          'password' => $this->usuario->getPassword(),
+                          'token' => $request->request->all()['profileUser']['codConfirmation']);
+            
+            $ch = new ApiRest();
+            $result = $ch->sendInformation($data, $file, "parameters");
+            print_r($result);
+            if($result['result'] == 'ok'):
+                $this->usuario->setSmsConfirmed(1);
+                
+                $this->usuario->setPhone($result['phone']);
+                $this->usuario->setPrefix($result['prefix']);
+            endif;
+
         endif;
          
+        
+    }
+    
+    private function changePhoto(Request $request){
+        
+        $file = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
         
     }
 }
