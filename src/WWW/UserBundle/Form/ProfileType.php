@@ -47,17 +47,17 @@ class ProfileType extends AbstractType{
                                     'choices'=>array('m'=>'Mujer','h'=>'hombre'),
                                     'label'=>'Sexo'))
                // ->add('linkInvitation','text',array('label'=>'Invitación'))
-                ->add('phone','number',array('label'=>'Teléfono'))
-                ->add('addresses', CollectionType::class,array(
-                                                        'entry_type' => AdressType::class,
-                                                        'label' => ' ' ,
+                ->add('phone', 'number', array('label' => 'Teléfono'))
+                ->add('addresses', CollectionType::class, array(
+                    'entry_type' => AdressType::class,
+                    'label' => ' ',
                     'allow_add' => true,
-                                              'prototype' => true,
-                                              'by_reference' => false,
-                                                        ))
-                ->add('registrar','submit',array('label'=>'Guardar'));
+                    'prototype' => true,
+                    'by_reference' => false,
+                ))
+                ->add('registrar', 'submit', array('label' => 'Guardar'));
     }
-    
+
     public function configureOptions(OptionsResolver $resolver){
         
         $resolver->setDefaults(array('data-class'=>'WWW\UserBundle\Entity\User'));
