@@ -222,6 +222,25 @@ class ProfileController extends Controller{
             $this->usuario->deleteAddress($posArrayAddress);
         endif;
     }
+    private function deleteUser(User $user, Request $request){
+
+       // $arrayAdress = $request->request->all()['profileUser']['addresses'];
+       // $posArrayAddress = $request->request->all()['idDeleteAddress'];
+        
+        $ch = new ApiRed();
+        $file = "http://www.whatwantweb.com/api_rest/user/registration/delete_user.php";
+            
+        $data = array("username" => $user->getUsername(),
+                      "password" => $user->getPassword(),
+                      "id_user" => $user->getId());
+                      
+        
+        $result = $ch->sendInformation($data, $file,"parameters");
+        
+        if($result['result'] == 'ok'):
+            echo 'usuario borrado';
+        endif;
+    }
     
     private function addAddress(User $user, Request $request){
     print_r($request->request->all());

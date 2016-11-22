@@ -18,6 +18,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use WWW\UserBundle\Form\AdressType;
       
 class ProfileType extends AbstractType{
@@ -52,17 +53,7 @@ class ProfileType extends AbstractType{
                 ->add('sex','choice',array(
                                     'choices'=>array('m'=>'Mujer','h'=>'hombre'),
                                     'label'=>'Sexo'))
-               // ->add('linkInvitation','text',array('label'=>'Invitación'))
-                ->add('phone', 'number', array('label' => 'Teléfono'))
-                ->add('addresses', CollectionType::class, array(
-                    'entry_type' => AdressType::class,
-                    'label' => ' ',
-                    'allow_add' => true,
-                    'prototype' => true,
-                    'by_reference' => false,
-                ))
-                ->add('registrar', 'submit', array('label' => 'Guardar'));
-                ->add('linkInvitation','text',array('label'=>'Invitación'))
+              //  ->add('linkInvitation','text',array('label'=>'Invitación'))
                 ->add('phone','number',array('label'=>'Teléfono'))
                 ->add('addresses', CollectionType::class,array(
                                                         'entry_type' => AdressType::class,
@@ -72,6 +63,7 @@ class ProfileType extends AbstractType{
                                                         'by_reference' => false,
                                                         ))
                 ->add('num_account','text', array('label' => 'Número de cuenta'))
+                ->add('deleteUser',ButtonType::class,array('label'=> 'Darse de baja','attr'=>array('class'=>'form-control')))
                 ->add('registrar','submit',array('label'=>'Guardar'));
     }
 
