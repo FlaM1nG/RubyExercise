@@ -58,6 +58,9 @@
                     <li>
                         <a href="#" name="bank" id="sectionBank">Datos bancarios</a>
                     </li>
+                    <li>
+                        <a href="#" name="delete" id="sectionDelete">Darse de baja</a>
+                    </li>
                 </ul>
 
                 {{ form_row(formulario.username) }}
@@ -133,6 +136,7 @@
                 <input type="hidden" value="" name="addAddress" id="addAddress">
 
             {{ form_end(formulario)}}
+            
         {% endblock %}     
   </body>
 </html>

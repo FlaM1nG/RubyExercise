@@ -68,7 +68,7 @@ class ProfileType extends AbstractType{
                                                         'by_reference' => false,
                                                         ))
                 ->add('num_account','text', array('label' => 'Número de cuenta'))
-                ->add('deleteUser',ButtonType::class,array('label'=> 'Darse de baja','attr'=>array('class'=>'form-control')))
+                ->add('deleteUser', 'submit', array('label' => 'Darse de baja'))
                 ->add('registrar','submit',array('label'=>'Guardar'));
     }
 

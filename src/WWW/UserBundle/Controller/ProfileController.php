@@ -74,8 +74,13 @@ class ProfileController extends Controller{
                     elseif($section == 'sectionTlfn'):
                         $this->changePhone($request);
                     
+                    elseif($section == 'sectionDelete'):
+                        $this->deleteUser($this->usuario,$request);
+                    
                     else:
                         $this->updateProfile($request);
+                      //  $this->deleteUser($this->usuario,$request);
+                    
                     endif;
                 endif;    
             
@@ -244,23 +249,23 @@ class ProfileController extends Controller{
         endif;
     }
     private function deleteUser(User $user, Request $request){
-
-       // $arrayAdress = $request->request->all()['profileUser']['addresses'];
-       // $posArrayAddress = $request->request->all()['idDeleteAddress'];
+       print_r('entra');
+       //if($request->request->has('deleteUser')){
         
-        $ch = new ApiRed();
+        $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/user/registration/delete_user.php";
             
         $data = array("username" => $user->getUsername(),
                       "password" => $user->getPassword(),
-                      "id_user" => $user->getId());
+                      "id" => $user->getId());
                       
-        
+                  print_r($data);
         $result = $ch->sendInformation($data, $file,"parameters");
-        
+        print_r($result);
         if($result['result'] == 'ok'):
             echo 'usuario borrado';
         endif;
+      // }
     }
     
     private function addAddress(User $user, Request $request){
