@@ -162,6 +162,11 @@ class User implements UserInterface
      * @var \Doctrine\Common\Collections\Collection
      */
     private $hobbies;
+    
+     /**
+     * @var string
+     */
+    private $prefix;
 
     /**
      * Constructor
@@ -831,17 +836,11 @@ class User implements UserInterface
     }
     
     public function deleteAddress($index){
-        echo "<br><br>usuario<br><br> Indice ".$index."<br>";
-        //print_r($this->addresses);
+       
         unset($this->addresses[$index]);
-        echo "<br><br><br>";
+        
     }
-    /**
-     * @var string
-     */
-    private $prefix;
-
-
+    
     /**
      * Set prefix
      *

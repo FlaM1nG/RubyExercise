@@ -108,7 +108,6 @@ class ProfileController extends Controller{
             endif;*/
             $data['name']="'".$arrayUser['name']."'";
             $data['surname']="'".$arrayUser['surname']."'";
-            $data['phone']=$arrayUser['phone'];
             $data['birthdate'] = $fecha;
             $data['sex'] = "'".$arrayUser['sex']."'";
 
@@ -127,6 +126,10 @@ class ProfileController extends Controller{
         elseif($section == 'sectionBank'):
             
             $data['num_account'] = "'".$arrayUser['num_account']."'";
+        
+        elseif($section == 'sectionTlfn'):
+            
+            $data['phone']=$arrayUser['phone'];
             
         endif;
 

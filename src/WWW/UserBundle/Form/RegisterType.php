@@ -18,6 +18,8 @@ namespace WWW\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use WWW\UserBundle\Entity\Hobby;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class RegisterType extends AbstractType{
     
@@ -30,6 +32,8 @@ class RegisterType extends AbstractType{
                                     'label' =>'Fecha de nacimiento',
                                     'format' =>'dd-MM-yyyy',
                                     'required'=>false))
+                ->add('prefix', 'number', array('label' => 'Teléfono'))
+                ->add('phone','number', array('label' => ' '))
                 ->add('password', 'repeated', array(
                                                 'type' => 'password',
                                                 'invalid_message' => 'Las dos contraseñas deben coincidir',
@@ -37,7 +41,7 @@ class RegisterType extends AbstractType{
                                                 'second_options' => array('label' => 'Repite Contraseña'),
                                                 'required' => false
                                               ))
-                ->add('phone','number', array('label' => 'Teléfono'))
+                
                 ->add('guardar','submit',array('label'=>'Registrarse'));
     }
         
