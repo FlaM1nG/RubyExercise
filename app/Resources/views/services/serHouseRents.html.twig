@@ -25,9 +25,10 @@ sha-header-title
 {% endblock %}
             
 {% block serviceList %}
-    <div class="row " >
+    {% for i in 0..9 %}
         {{ include('services/lists/houseRentsList.html.twig') }}
-    </div>
+    {% endfor %}
+        
 {% endblock %}
 
 {% block filtroMovilBody %}

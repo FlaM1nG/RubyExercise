@@ -1,1 +1,153 @@
-{# empty Twig template #}
+<!-- ELEMENT -->
+<div class="row row-hre-element">
+    <!-- COLUMNA IMAGEN PRICIPAL -->
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 col-hre-img-prin">
+        <a href="#IMAGENPRINCIPAL">
+            <img class="img-responsive hre-img-prin" 
+                src="{{ random([asset('img/alquilerTuristico1.jpg'), 
+                            asset('img/alquilerTuristico2.jpg'), 
+                            asset('img/alquilerTuristico3.jpg'),
+                            asset('img/alquilerTuristico4.jpg'),
+                            asset('img/alquilerTuristico5.jpg'),
+                            asset('img/alquilerTuristico6.jpg')]) }} " 
+                alt="">
+        </a>
+    </div>
+    <!-- FIN COLUMNA IMAGEN PRICIPAL -->
+    
+    
+    <!-- COLUMNA IMAGENES SECUNDARIAS -->
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 col-hre-second ">
+        <!-- SEGUNDA IMAGEN -->
+        <div class="row row-hre-img-secon">
+            <a href="#IMAGENSECUNDARIA">
+                <img class="img-responsive hre-img-other hre-img-other1" 
+                    src="{{ random([asset('img/alquilerTuristico1.jpg'), 
+                            asset('img/alquilerTuristico2.jpg'), 
+                            asset('img/alquilerTuristico3.jpg'),
+                            asset('img/alquilerTuristico4.jpg'),
+                            asset('img/alquilerTuristico5.jpg'),
+                            asset('img/alquilerTuristico6.jpg')]) }} " 
+                    alt="">
+            </a>
+        </div>
+        <!-- FIN SEGUNDA IMAGEN -->
+        
+        
+        <!-- TERCERA IMAGEN -->
+        <div class="row row-hre-img-secon">
+            <a href="#IMAGENTERCIARIA">
+                <img class="img-responsive hre-img-other" 
+                    src="{{ random([asset('img/alquilerTuristico1.jpg'), 
+                            asset('img/alquilerTuristico2.jpg'), 
+                            asset('img/alquilerTuristico3.jpg'),
+                            asset('img/alquilerTuristico4.jpg'),
+                            asset('img/alquilerTuristico5.jpg'),
+                            asset('img/alquilerTuristico6.jpg')]) }} " 
+                    alt="">
+            </a>
+        </div>
+        <!-- FIN TERCERA IMAGEN -->
+        
+        
+    </div>
+    <!-- FIN COLUMNA IMAGENES SECUNDARIAS -->
+    
+    
+    <!-- COLUMNA  DATOS -->
+    <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 col-hre-data">
+        <!-- FILA TITULO, DATOS Y USUARIO -->
+        <div class="row row-hre-title-user">
+            <!-- COLUMNA TITULO Y DATOS -->
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                <!-- TITULO -->
+                <div class="row">
+                    <h4>
+                        <a href="#ARTICULO" class="hre-title-grid">
+                            {{ random(['Titulo objeto en venta', 
+                                'Aleatorio para que el texto sea diferentes', 
+                                'Yo soy corto', 
+                                'Soy un titulo para ver que aparece', 
+                                'Te ha tocado la loteria!!']) }}
+                        </a>
+                    </h4>
+                </div>
+                <!-- FIN TITULO -->
+                
+                
+                <!-- DATOS -->
+                <div class="row row-hre-data">
+                    <span>Capacidad {{ random(8) }}, </span>
+                    <span>Habitaciones {{ random(4) }}, </span>
+                    <span>Baños {{ random(3) }} </span>
+                </div>
+                <!-- FIN DATOS -->
+                
+                
+            </div>
+            <!-- FIN COLUMNA TITULO Y DATOS -->
+            
+            
+            <!-- COLUMNA USUARIO -->
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-hre-user">
+                <!-- IMAGEN USUARIO -->
+                <div class="row">
+                    <a href="#USUARIO">
+                        <img class="center-block img-circle 
+                            img-responsive" 
+                            src="{{ asset('img/usuario1.jpg') }}" 
+                            width="50" alt="">
+                    </a>
+                </div>
+                <!-- FIN IMAGEN USUARIO -->
+                
+                
+                <!-- NOMBRE USUARIO -->
+                <div class="row row-hre-user-name">
+                    <a href="#USUARIO" class="hre-user-name-grid">Paco J</a>
+                </div>
+                <!-- FIN NOMBRE USUARIO -->
+                
+                
+            </div>
+            <!-- FIN COLUMNA USUARIO -->
+            
+            
+        </div>
+        <!-- FIN FILA TITULO, DATOS Y USUARIO -->
+        
+        
+        <!-- VALORACIÓN Y PRECIO DIA -->
+        <div class="row">
+            <!-- VALORACIONES -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="rating hre-rating">
+                        <span>☆</span>
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                    </div>
+            </div>
+            <!-- FIN VALORACIONES -->
+            
+            
+            <!-- PRECIO DIA -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-hre-price">
+                <span class="hre-price">
+                    {{ random(999) }}€/dia
+                </span>
+            </div>
+            <!-- FIN PRECIO DIA -->
+            
+            
+        </div>
+        <!-- FIN VALORACIÓN Y PRECIO DIA -->
+        
+        
+    </div>
+    <!-- FIN COLUMNA  DATOS -->
+    
+    
+</div>
+<!-- FIN ELEMENT -->
