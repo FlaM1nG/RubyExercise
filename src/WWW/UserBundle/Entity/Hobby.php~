@@ -23,6 +23,11 @@ class Hobby
      * @var string
      */
     private $description;
+    
+    /**
+     * @var \WWW\GlobalBundle\Entity\Photo
+     */
+    private $photo;
 
 
     /**
@@ -80,10 +85,6 @@ class Hobby
     {
         return $this->description;
     }
-    /**
-     * @var \WWW\GlobalBundle\Entity\Photo
-     */
-    private $photo;
 
 
     /**
@@ -136,4 +137,16 @@ class Hobby
     {
         return $this->deleted;
     }
+    
+    public function toArray(){
+        
+        return Array(
+            'id' => $this->getId(),
+            'name' =>$this->getStreet(),
+            'description' => $this->getName(),
+            'photo' => $this->getPhoto()
+            
+        );    
+    }
+
 }

@@ -87,7 +87,10 @@ WWW\UserBundle\Entity\User:
     oneToMany:
         addresses:
             targetEntity: WWW\GlobalBundle\Entity\Address
-            mappedBy: User        
+            mappedBy: User
+        inviteds:
+            targetEntity: User
+            mappedBy: hostUser
     oneToOne:        
         photo:
             nullable: true
@@ -104,6 +107,7 @@ WWW\UserBundle\Entity\User:
         hostUser:
             nullable: true
             targetEntity: User
+            inversedBy: inviteds
             joinColumn:
                 referencedColumnName: id
     manyToMany:
