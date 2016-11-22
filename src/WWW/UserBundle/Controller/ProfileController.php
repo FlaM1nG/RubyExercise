@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\UserBundle\Entity\User as User;
 use WWW\GlobalBundle\Entity\Address;
-use WWW\GlobalBundle\Entity\ApiRed;
+use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\UserBundle\Form\ProfileType;
 
 
@@ -31,7 +31,7 @@ class ProfileController extends Controller{
         
         $section = null;
        
-        $ch = new ApiRed();
+        $ch = new ApiRest();
         
         $file = "http://www.whatwantweb.com/api_rest/user/data/get_info_user.php";
         $arrayData = array("username" => $session->get('username'),
@@ -62,15 +62,21 @@ class ProfileController extends Controller{
                                                                           'usuario'=>$this->usuario));
                 else:
 
-                    if($section == 'sectionAddress')
+                    if($section == 'sectionAddress'):
                         $this->profileAddress($this->usuario,$request);
                                 
-                    if($section == 'sectionPassword')
+                    elseif($section == 'sectionPassword'):
                         $this->changePassword($this->usuario,$request);
                     
-                   
-                    else
+                    elseif($section == 'sectionEmail'):
+                        $this->changeEmail($request);
+                    
+                    elseif($section == 'sectionTlfn'):
+                        $this->changePhone($request);
+                    
+                    else:
                         $this->updateProfile($request);
+                    endif;
                 endif;    
             
             endif;
@@ -89,7 +95,7 @@ class ProfileController extends Controller{
         $arrayUser = $request->request->all()['profileUser'];
         $section = $request->request->all()['section'];
         echo "UPDATE PROFILE <BR>".$section."<br>";
-        $ch = new ApiRed();
+        $ch = new ApiRest();
         
         $file = "http://www.whatwantweb.com/api_rest/user/data/update_user.php";
         
@@ -110,10 +116,6 @@ class ProfileController extends Controller{
             $data['surname']="'".$arrayUser['surname']."'";
             $data['birthdate'] = $fecha;
             $data['sex'] = "'".$arrayUser['sex']."'";
-
-        elseif($section == 'sectionEmail'):
-            
-            $data['email'] = "'".$arrayUser['email']."'";
             
         elseif($section == 'sectionPassword'):
         
@@ -158,6 +160,22 @@ class ProfileController extends Controller{
         
     }
     
+    private function changeEmail(Request $request){
+        
+        $file = "http://www.whatwantweb.com/api_rest/user/email/change_email.php";
+        $data = array('username' => $this->usuario->getUsername(),
+                      'id' =>$this->usuario->getId(),
+                      'password' => $request->request->all()['profileUser']['oldPassword'],
+                      'email' => $request->request->all()['profileUser']['email'] );
+        
+        $ch = new ApiRest();
+        $result = $ch->sendInformation($data, $file, "parameters");
+       
+        if($result['result'] == "ok"):
+            $this->usuario->setEmail($data['email']);
+        endif;
+    }
+    
     private function profileAddress(User $user, Request $request){
 
         if(isset($request->request->all()["idChangeAddress"]) 
@@ -185,7 +203,7 @@ class ProfileController extends Controller{
         $arrayAdress = $request->request->all()['profileUser']['addresses'];
         $posArrayAddress = $request->request->all()['idChangeAddress'];
         
-        $ch = new ApiRed();
+        $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/user/addresses/update_address.php";
         
         $data = array();
@@ -211,7 +229,7 @@ class ProfileController extends Controller{
         $arrayAdress = $request->request->all()['profileUser']['addresses'];
         $posArrayAddress = $request->request->all()['idDeleteAddress'];
         
-        $ch = new ApiRed();
+        $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/user/addresses/delete_address.php";
             
         $data = array("username" => $user->getUsername(),
@@ -247,7 +265,7 @@ class ProfileController extends Controller{
         else 
             $data['is_default'] = 0;
         
-        $ch = new ApiRed();
+        $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/user/addresses/insert_address.php";
         
         $result = $ch->sendInformation($data, $file, "json");
@@ -263,10 +281,11 @@ class ProfileController extends Controller{
         //print_r($result);
     }
     
-    public function changePassword(User $user, Request $request){
+    private function changePassword(User $user, Request $request){
+        
         $datos = $request->request->all()['profileUser'];
        
-        $ch = new ApiRed();
+        $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/user/passwords/change_password.php";
             
         $id = $user->getId();
@@ -282,5 +301,28 @@ class ProfileController extends Controller{
         $result = $ch->sendInformation($data, $file, "parameters");
         
         //print_r($result);
+    }
+    
+    private function changePhone(Request $request){
+        
+        print_r($request);
+        $file = "http://www.whatwantweb.com/api_rest/user/phone/send_sms";
+        
+        $data = array('username' => $this->usuario->getUsername(),
+                      'id' => $this->usuario->getId(),
+                      'password' => $this->usuario->getPassword(),
+                      'phone' => $request->request->all()['profileUser']['phone'],
+                      'prefix' => $request->request->all()['profileUser']['prefix']);
+        
+        $ch = new ApiRest();
+        $result = $ch->sendInformation($data, $file, "parameters");
+        
+        print_r($request);
+        if($result['result'] == 'ok'):
+            $this->usuario->setPhone($data['phone']);
+            $this->usuario->setPrefix($data['prefix']);
+        endif;
+         
+        
     }
 }

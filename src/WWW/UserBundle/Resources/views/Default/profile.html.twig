@@ -61,6 +61,15 @@
                 </ul>
 
                 {{ form_row(formulario.username) }}
+                
+                --- SECCIÓN CAMBIO DE EMAIL ----
+                
+                {{ form_row(formulario.email) }}
+                {{ form_row(formulario.oldPassword) }}
+                
+                --- FIN SECCIÓN CAMBIO DE EMAIL ---
+                
+                <BR>
                 {{ form_row(formulario.email) }}
                 <br>
                 {{ form_row(formulario.oldPassword) }}
@@ -69,7 +78,15 @@
                 {{ form_row(formulario.surname) }}
                 {{ form_row(formulario.birthdate) }}
                 {{ form_row(formulario.sex) }}
+                
+                --- SECCIÓN CAMBIO DE TELÉFONO ---
+                
+                {{ form_row(formulario.prefix)}}
                 {{ form_row(formulario.phone) }}
+                {{ form_row(formulario.codConfirmation)}}
+                {{ form_row(formulario.confirmPhone)}}
+                
+                --- FIN SECCIÓN CAMBIO DE TELÉFONO ---
                 <br>
                 {{ form_row(formulario.photo) }}
                 <br>

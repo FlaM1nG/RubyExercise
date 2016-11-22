@@ -48,12 +48,16 @@ class ProfileType extends AbstractType{
                 
                 ->add('name','text', array('label'=>'Nombre'))
                 ->add('surname','text',array('label'=>'Apellidos'))
+                ->add('phone','number',array('label'=>' '))
+                ->add('prefix','text',array('label' => 'Teléfono'))
+                ->add('codConfirmation', 'text', array('label' => 'Código de confirmación',
+                                                        'mapped' => false))
+                ->add('confirmPhone', 'submit', array('label' => 'Confirmar'))
                 ->add('photo','file',array('label'=>'foto'))
                 ->add('sex','choice',array(
                                     'choices'=>array('m'=>'Mujer','h'=>'hombre'),
                                     'label'=>'Sexo'))
                 ->add('linkInvitation','text',array('label'=>'Invitación'))
-                ->add('phone','number',array('label'=>'Teléfono'))
                 ->add('addresses', CollectionType::class,array(
                                                         'entry_type' => AdressType::class,
                                                         'label' => ' ' ,

@@ -13,7 +13,7 @@ namespace WWW\GlobalBundle\Entity;
  *
  * @author Rocio
  */
-class ApiRed {
+class ApiRest {
     //put your code here
     private $ch;
     
