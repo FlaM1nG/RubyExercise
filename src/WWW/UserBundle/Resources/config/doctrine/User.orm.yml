@@ -88,6 +88,7 @@ WWW\UserBundle\Entity\User:
         addresses:
             targetEntity: WWW\GlobalBundle\Entity\Address
             mappedBy: User
+            onDelete: CASCADE
         inviteds:
             targetEntity: User
             mappedBy: hostUser
@@ -118,7 +119,9 @@ WWW\UserBundle\Entity\User:
             joinColumns:
               user_id:
                 referencedColumnName: id
+                onDelete: CASCADE
             inverseJoinColumns:
               hobby_id:
                 referencedColumnName: id
+                onDelete: CASCADE
     lifecycleCallbacks: {  }
