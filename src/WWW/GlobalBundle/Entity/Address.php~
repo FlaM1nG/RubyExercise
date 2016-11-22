@@ -18,40 +18,6 @@ class Address
      * @var string
      */
     private $street;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set street
-     *
-     * @param string $street
-     * @return Address
-     */
-    public function setStreet($street)
-    {
-        $this->street = $street;
-
-        return $this;
-    }
-
-    /**
-     * Get street
-     *
-     * @return string 
-     */
-    public function getStreet()
-    {
-        return $this->street;
-    }
     /**
      * @var string
      */
@@ -87,6 +53,56 @@ class Address
      */
     private $zipcode;
 
+     public function __construct(Array $address=null){
+         
+        if($address != null):
+             
+            $this->id = $address['id'];
+            $this->street = $address['street'];
+            $this->name = $address['name'];
+            $this->isDefault = $address['is_default'];
+            $this->createdDate = $address['created_date'];
+            $this->modifiedDate = $address['modified_date'];
+            $this->deletedDate = $address['deleted_date'];
+            $this->isDeleted = $address['is_deleted'];
+            //S$this->user = $address['user'];
+            //$this->cp = $address['cp'];
+             
+        endif;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set street
+     *
+     * @param string $street
+     * @return Address
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    /**
+     * Get street
+     *
+     * @return string 
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
 
     /**
      * Set name
@@ -276,4 +292,19 @@ class Address
     {
         return $this->user;
     }
+    
+    public function toArray(){
+        
+        return Array(
+            'id' => $this->getId(),
+            'street' =>$this->getStreet(),
+            'name' => $this->getName(),
+            'isDefault' => (boolean)$this->getIsDefault(),
+            'createdDate' => $this->getCreatedDate(),
+            'modifiedDate' => $this->getModifiedDate(),
+            'deletedDate' => $this->getDeletedDate(),
+            'isDeleted' => $this->getIsDeleted(),
+        );    
+    }
+
 }

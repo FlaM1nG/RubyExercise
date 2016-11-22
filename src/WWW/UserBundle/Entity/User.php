@@ -113,7 +113,63 @@ class User implements UserInterface
      * @var boolean
      */
     private $isDeleted;
+       
+     /**
+     * @var \WWW\UserBundle\Entity\Role
+     */
+    private $role;
 
+     /**
+     * @var \WWW\GlobalBundle\Entity\Photo
+     */
+    private $photo;
+
+    /**
+     * @var integer
+     */
+    private $nif;
+    
+     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $addresses;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $hobbies;
+    
+    /**
+     * @var boolean
+     */
+    private $smsConfirmed;
+
+
+    /**
+     * @var string
+     */
+    private $confirmationToken;
+
+    /**
+     * @var string
+     * @Assert\Length(max=24)
+     */
+    private $numAccount;
+
+    /**
+     * @var boolean
+     */
+    private $isConfirmed;
+    
+    /**
+     * @var string
+     */
+    private $prefix;
+    
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $hostUser;
 
     /**
      * Constructor
@@ -132,20 +188,18 @@ class User implements UserInterface
             $this->username = $user['username'];
             $this->password = $user['password'];
             $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->numAccount = $user['num_account'];
             
             foreach($user['addresses'] as $address):
-               // print_r($address);exit;
-                //array_push($this->addAddress, new Address($address));
+               
                 $auxAddress = new Address($address);
                 $this->addresses[] = $auxAddress->toArray();
             
             endforeach;
-            //print_r($this->addAddress);exit;
-            //echo gettype($user['addresses']);
-            //$this->addresses = $user['addresses'];
         else:
             $this->addresses = new ArrayCollection();
         endif;
+        
     }
 
     /**
@@ -534,14 +588,6 @@ class User implements UserInterface
         
     }
 
-    
-
-    /**
-     * @var \WWW\UserBundle\Entity\Role
-     */
-    private $role;
-
-
     /**
      * Set role
      *
@@ -564,107 +610,7 @@ class User implements UserInterface
     {
         return $this->role;
     }
-    /**
-     * @var string
-     */
-    private $confirmation_token;
-
-    /**
-     * @var boolean
-     */
-    private $is_confirmed;
-
-
-    /**
-     * Set confirmation_token
-     *
-     * @param string $confirmationToken
-     * @return User
-     */
-    public function setConfirmationToken($confirmationToken)
-    {
-        $this->confirmation_token = $confirmationToken;
-
-        return $this;
-    }
-
-    /**
-     * Get confirmation_token
-     *
-     * @return string 
-     */
-    public function getConfirmationToken()
-    {
-        return $this->confirmation_token;
-    }
-
-    /**
-     * Set is_confirmed
-     *
-     * @param boolean $isConfirmed
-     * @return User
-     */
-    public function setIsConfirmed($isConfirmed)
-    {
-        $this->is_confirmed = $isConfirmed;
-
-        return $this;
-    }
-
-    /**
-     * Get is_confirmed
-     *
-     * @return boolean 
-     */
-    public function getIsConfirmed()
-    {
-        return $this->is_confirmed;
-    }
-    /**
-     * @var boolean
-     */
-    private $sms_confirmed;
-
-    /**
-     * @var integer
-     */
-    private $nif;
-
-    /**
-     * @var string
-     */
-    private $num_account;
-
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $host_user;
-
-
-
-    /**
-     * Set sms_confirmed
-     *
-     * @param boolean $smsConfirmed
-     * @return User
-     */
-    public function setSmsConfirmed($smsConfirmed)
-    {
-        $this->sms_confirmed = $smsConfirmed;
-
-        return $this;
-    }
-
-    /**
-     * Get sms_confirmed
-     *
-     * @return boolean 
-     */
-    public function getSmsConfirmed()
-    {
-        return $this->sms_confirmed;
-    }
-
+    
     /**
      * Set nif
      *
@@ -687,60 +633,7 @@ class User implements UserInterface
     {
         return $this->nif;
     }
-
-    /**
-     * Set num_account
-     *
-     * @param string $numAccount
-     * @return User
-     */
-    public function setNumAccount($numAccount)
-    {
-        $this->num_account = $numAccount;
-
-        return $this;
-    }
-
-    /**
-     * Get num_account
-     *
-     * @return string 
-     */
-    public function getNumAccount()
-    {
-        return $this->num_account;
-    }
-
-    /**
-     * Set host_user
-     *
-     * @param \WWW\UserBundle\Entity\User $hostUser
-     * @return User
-     */
-    public function setHostUser(\WWW\UserBundle\Entity\User $hostUser = null)
-    {
-        $this->host_user = $hostUser;
-
-        return $this;
-    }
-
-    /**
-     * Get host_user
-     *
-     * @return \WWW\UserBundle\Entity\User 
-     */
-    public function getHostUser()
-    {
-        return $this->host_user;
-    }
-
- 
-    /**
-     * @var \WWW\GlobalBundle\Entity\Photo
-     */
-    private $photo;
-
-
+    
     /**
      * Set photo
      *
@@ -763,11 +656,6 @@ class User implements UserInterface
     {
         return $this->photo;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $addresses;
-
 
     /**
      * Add addresses
@@ -801,11 +689,6 @@ class User implements UserInterface
     {
         return $this->addresses;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $hobbies;
-
 
     /**
      * Add hobbies
@@ -838,5 +721,154 @@ class User implements UserInterface
     public function getHobbies()
     {
         return $this->hobbies;
+    }
+    
+    public function deleteAddress($index){
+        echo "<br><br>usuario<br><br> Indice ".$index."<br>";
+        //print_r($this->addresses);
+        unset($this->addresses[$index]);
+        echo "<br><br><br>";
+    }
+
+
+    /**
+     * Set prefix
+     *
+     * @param string $prefix
+     * @return User
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * Get prefix
+     *
+     * @return string 
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * Set smsConfirmed
+     *
+     * @param boolean $smsConfirmed
+     * @return User
+     */
+    public function setSmsConfirmed($smsConfirmed)
+    {
+        $this->smsConfirmed = $smsConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get smsConfirmed
+     *
+     * @return boolean 
+     */
+    public function getSmsConfirmed()
+    {
+        return $this->smsConfirmed;
+    }
+    
+
+
+
+    /**
+     * Set confirmationToken
+     *
+     * @param string $confirmationToken
+     * @return User
+     */
+    public function setConfirmationToken($confirmationToken)
+    {
+        $this->confirmationToken = $confirmationToken;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmationToken
+     *
+     * @return string 
+     */
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * Set numAccount
+     *
+     * @param string $numAccount
+     * @return User
+     */
+    public function setNumAccount($numAccount)
+    {
+        $this->numAccount = $numAccount;
+
+        return $this;
+    }
+
+    /**
+     * Get numAccount
+     *
+     * @return string 
+     */
+    public function getNumAccount()
+    {
+        return $this->numAccount;
+    }
+
+    /**
+     * Set isConfirmed
+     *
+     * @param boolean $isConfirmed
+     * @return User
+     */
+    public function setIsConfirmed($isConfirmed)
+    {
+        $this->isConfirmed = $isConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get isConfirmed
+     *
+     * @return boolean 
+     */
+    public function getIsConfirmed()
+    {
+        return $this->isConfirmed;
+    }
+
+    /**
+     * Set hostUser
+     *
+     * @param \WWW\UserBundle\Entity\User $hostUser
+     * @return User
+     */
+    public function setHostUser(\WWW\UserBundle\Entity\User $hostUser = null)
+    {
+        $this->hostUser = $hostUser;
+
+        return $this;
+    }
+
+    /**
+     * Get hostUser
+     *
+     * @return \WWW\UserBundle\Entity\User 
+     */
+    public function getHostUser()
+    {
+        return $this->hostUser;
     }
 }

@@ -52,19 +52,25 @@ WWW\UserBundle\Entity\User:
         phone:
             type: integer
             nullable: true
-        confirmation_token:
+        prefix:
             type: string
             length: 255
-        sms_confirmed:
+            nullable: true
+        confirmationToken:
+            type: string
+            length: 255
+            column: confirmation_token
+        smsConfirmed:
             type: boolean
         nif:
             type: integer
             nullable: true
-        num_account:
+        numAccount:
             type: string
             length: 255
             nullable: true
-        is_confirmed:
+            column: num_account
+        isConfirmed:
             type: boolean
         createdDate:
             type: datetime
@@ -95,7 +101,7 @@ WWW\UserBundle\Entity\User:
             inversedBy: User
             joinColumn:
                 referencedColumnName: id
-        host_user:
+        hostUser:
             nullable: true
             targetEntity: User
             joinColumn:

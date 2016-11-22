@@ -122,10 +122,13 @@ function validaForgot(){
 
 $(document).ready(function(){
    
-    $(document).on('click',"#sectionPersonal, #sectionUsername, #sectionEmail, #sectionPassword, #sectionPhoto, #sectionAddress", changeSection);
+    $(document).on('click',"#sectionPersonal, #sectionUsername, #sectionEmail,"+
+                    "#sectionPassword, #sectionPhoto, #sectionAddress, "+
+                    "#sectionBank", changeSection);
     $(document).on('click','.buttonEditAddress',activateEditAddress);
     $(document).on('click','.buttonDeleteAddress', deleteAddress);
     $(document).on('click','#buttonAddAddress', addFormAddress);
+    $(document).on('blur','.zipCode', autoCompleteZipCode);
     
     function changeSection(e){
        e.stopPropagation(); 
@@ -160,7 +163,7 @@ $(document).ready(function(){
     
     function deleteAddress(e){
         e.stopPropagation();
-        //e.preventDefault();
+        
         var id = $(this).parent().attr('id');
         var button = $(this);
         var nameButton = button.prop("name");
@@ -171,16 +174,42 @@ $(document).ready(function(){
     
     function addFormAddress(e){
         e.preventDefault();
-        console.log("entro");
+        
         $(".contentAddress").append("<div><label class='required'>Nombre dirección</label>"+
                         "<input type='tex' name='nameNewAddress' required>"+
                         "<label class='required'>Calle</label>"+
-                        "<input type='text' name='streetNewAddress required='required'>"+
+                        "<input type='text' name='streetNewAddress' required>"+
                         "<label class='required'>Dirección principal</label>"+
                         "<input type='checkbox' name='isDefaultNewAddress' value='0'>"+
                         "<input class='posArrayAddress' type='hidden' name='posArrayAddress' value=''>"+
                         "<button type='submit' name='newAddress' class='buttonEditAddress'>Guardar</button></div>");
     }
+    
+    function autoCompleteZipCode(e){
+        e.preventDefault();
+        
+        console.log("entro");
+        var url = $(this).attr('href');
+        var zipCode = $(this).attr('value');
+        console.log($(this).attr('value'));
+        
+        
+        $.ajax({
+            url: "/api_rest/user/addresses/get_zipcode.php",
+            data: { zipcode : zipCode },
+            dataType: "json",
+            method: "POST",
+            success: function (data) {
+               console.log(data);
+            },
+            fail: function () {
+                console.log("error");
+            },
+            complete: function (data) {
+                console.log("complete");
+                console.log(data);
+            }
+        })
+    }
 });
-
   

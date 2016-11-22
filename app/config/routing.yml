@@ -35,5 +35,5 @@ user_forgot:
     
 user_profiler:
     path: /perfil
-    defaults: { _controller: UserBundle:Default:profile }
+    defaults: { _controller: UserBundle:Profile:profile }
 
