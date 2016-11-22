@@ -88,7 +88,6 @@ WWW\UserBundle\Entity\User:
         addresses:
             targetEntity: WWW\GlobalBundle\Entity\Address
             mappedBy: User
-            onDelete: CASCADE
         inviteds:
             targetEntity: User
             mappedBy: hostUser
