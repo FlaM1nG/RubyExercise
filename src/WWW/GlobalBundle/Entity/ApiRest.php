@@ -13,7 +13,7 @@ namespace WWW\GlobalBundle\Entity;
  *
  * @author Rocio
  */
-class ApiRed {
+class ApiRest {
     //put your code here
     private $ch;
     
@@ -65,5 +65,21 @@ class ApiRed {
            
         return $result;
          
+    }
+    
+    public function sendInformationWihoutParameters($file){
+        
+        // definimos la URL a la que hacemos la petición
+        curl_setopt($this->ch, CURLOPT_URL, $file);
+        // recibimos la respuesta y la guardamos en una variable
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
+        
+        $remote_server_output = curl_exec ($this->ch);
+        
+        $result = json_decode($remote_server_output, true);
+        
+        curl_close ($this->ch);
+           
+        return $result;
     }
 }

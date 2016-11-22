@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 use WWW\UserBundle\Entity\User as User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use WWW\GlobalBundle\Entity\ApiRed;
+use WWW\GlobalBundle\Entity\ApiRest;
 
 class DefaultController extends Controller{
     
@@ -32,7 +32,7 @@ class DefaultController extends Controller{
             $data = array("username" => $email,
                           "password" => $password);
             
-            $ch = new ApiRed();
+            $ch = new ApiRest();
             
             $result = $ch->sendInformation($data, $file, "parameters");
             
@@ -77,22 +77,43 @@ class DefaultController extends Controller{
    public function registerAction(Request $request,$token){
         
         $usuario = new User();
-       
+        
+        $ch = new ApiRest();
+        $resultHobbies = $ch->sendInformationWihoutParameters("http://www.whatwantweb.com/api_rest/user/data/get_hobbies.php");
+        $totalHobbies = count($resultHobbies);
         $formulario = $this->createForm('WWW\UserBundle\Form\RegisterType',$usuario);
-         
+        
         //El usuario del formulario se asocia al objeto $usuario
         $formulario->handleRequest($request);
-        
         if($formulario->isValid()):
-           echo "esvalido";
+           
             $arrayBirthdate = $request->request->all()['registroUsuario']['birthdate'];
             $mes = $arrayBirthdate['month'];
             $dia = $arrayBirthdate['day'];
+            $hobbies = "";
+            $totalHobbiesCheck = 0;
+            
+            for($i = 0; $i<$totalHobbies; $i++):
+                if(key_exists("hobbies_".$i, $request->request->all())):
+                    $totalHobbiesCheck++;
+                
+                    if(empty($hobbies)):
+                        $hobbies .= $request->request->all()['hobbies_'.$i]; 
+                    else:
+                        $hobbies .="-". $request->request->all()['hobbies_'.$i];  
+                    endif;
+                endif;
+            endfor;
             
             if(strlen($mes) < 2) 
                 $mes = '0'.$mes;
             if(strlen($dia) < 2) 
                 $dia = '0'.$dia;
+            
+            if($totalHobbiesCheck != 3):
+                $this->addFlash('error', 'Debe elegir 3 hobbies');
+                return $this->redirectToRoute('user_register');
+            endif;
             
             $nacimiento =$arrayBirthdate['year']."-".$mes.'-'.$dia;
             
@@ -101,16 +122,17 @@ class DefaultController extends Controller{
                           "email" => $usuario->getEmail(),
                           "date" => $nacimiento,
                           "password" => $usuario->getPassword(),
-                          "phone" => $usuario->getPhone());
+                          "prefix" => $usuario->getPrefix(),
+                          "phone" => $usuario->getPhone(),
+                          "hobbies" => $hobbies
+                );
             
-            $ch = new ApiRed();
-            print_r($data);
+            $ch = new ApiRest();
+            
             $result = $ch->sendInformation($data, $file, "parameters");
-            echo"<br><br>";
-print_r($result);
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
         else:
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
         endif;
                 
     }
@@ -131,7 +153,7 @@ print_r($result);
         if(!empty($usuario->getPassword())):
             
             $file = "http://www.whatwantweb.com/api_rest/user/passwords/new_password.php";
-            $ch = new ApiRed();
+            $ch = new ApiRest();
             $data = array("password" => $usuario->getPassword(),
                              "token" => $token);
             $result = $ch->sendInformation($data, $file, "parameters");
@@ -157,7 +179,7 @@ print_r($result);
             $file = "http://www.whatwantweb.com/api_rest/user/passwords/forget_password.php";
             $data = array("email" => $usuario->getEmail());
         
-            $ch = new ApiRed();
+            $ch = new ApiRest();
             $result = $ch->sendInformation($data, $file, "parameters");
             
             return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));

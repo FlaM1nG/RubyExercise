@@ -19,6 +19,7 @@ WWW\UserBundle\Entity\ConfirmEmail:
         token:
             type: string
             length: 255
+            unique: true
         original:
             type: boolean
     manyToOne:

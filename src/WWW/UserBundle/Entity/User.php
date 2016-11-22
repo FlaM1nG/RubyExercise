@@ -162,14 +162,13 @@ class User implements UserInterface
     private $isConfirmed;
     
     /**
-     * @var string
-     */
-    private $prefix;
-    
-    /**
      * @var \WWW\UserBundle\Entity\User
      */
     private $hostUser;
+     /**
+     * @var string
+     */
+    private $prefix;
 
     /**
      * Constructor
@@ -724,13 +723,11 @@ class User implements UserInterface
     }
     
     public function deleteAddress($index){
-        echo "<br><br>usuario<br><br> Indice ".$index."<br>";
-        //print_r($this->addresses);
+       
         unset($this->addresses[$index]);
-        echo "<br><br><br>";
+        
     }
-
-
+    
     /**
      * Set prefix
      *
