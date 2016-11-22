@@ -303,24 +303,63 @@ class ProfileController extends Controller{
         //print_r($result);
     }
     
+    private function confirmCodePhone($code){
+        
+         $file = "http://www.whatwantweb.com/api_rest/user/phone/send_sms";
+
+            $data = array('username' => $this->usuario->getUsername(),
+                          'id' => $this->usuario->getId(),
+                          'password' => $this->usuario->getPassword(),
+                          'phone' => $request->request->all()['profileUser']['phone'],
+                          'prefix' => $request->request->all()['profileUser']['prefix']);
+
+            $ch = new ApiRest();
+            $result = $ch->sendInformation($data, $file, "parameters");
+
+            if($result['result'] == 'ok'):
+                $this->usuario->setPhone($data['phone']);
+                $this->usuario->setPrefix($data['prefix']);
+            endif;
+    }
+    
     private function changePhone(Request $request){
         
-        print_r($request);
-        $file = "http://www.whatwantweb.com/api_rest/user/phone/send_sms";
+        print_r($request->request);
         
-        $data = array('username' => $this->usuario->getUsername(),
-                      'id' => $this->usuario->getId(),
-                      'password' => $this->usuario->getPassword(),
-                      'phone' => $request->request->all()['profileUser']['phone'],
-                      'prefix' => $request->request->all()['profileUser']['prefix']);
-        
-        $ch = new ApiRest();
-        $result = $ch->sendInformation($data, $file, "parameters");
-        
-        print_r($request);
-        if($result['result'] == 'ok'):
-            $this->usuario->setPhone($data['phone']);
-            $this->usuario->setPrefix($data['prefix']);
+        if(empty($request->request->all()['profileUser']['codConfirmation'])):
+            $file = "http://www.whatwantweb.com/api_rest/user/phone/send_sms";
+
+            $data = array('username' => $this->usuario->getUsername(),
+                          'id' => $this->usuario->getId(),
+                          'password' => $this->usuario->getPassword(),
+                          'phone' => $request->request->all()['profileUser']['phone'],
+                          'prefix' => $request->request->all()['profileUser']['prefix']);
+
+            $ch = new ApiRest();
+            $result = $ch->sendInformation($data, $file, "parameters");
+
+            if($result['result'] == 'ok'):
+                $this->usuario->setPhone($data['phone']);
+                $this->usuario->setPrefix($data['prefix']);
+            endif;
+            
+        elseif(!empty($request->request->all()['profileUser']['codConfirmation'])):
+            
+            $file = "http://www.whatwantweb.com/api_rest/user/phone/confirm_sms";
+            $data = array('username' => $this->usuario->getUsername(),
+                          'id' => $this->usuario->getId(),
+                          'password' => $this->usuario->getPassword(),
+                          'token' => $request->request->all()['profileUser']['codConfirmation']);
+            
+            $ch = new ApiRest();
+            $result = $ch->sendInformation($data, $file, "parameters");
+            
+            if($result['result'] == 'ok'):
+                $this->usuario->setSmsConfirmed(1);
+            endif;
+            
+        elseif(array_key_exists("confirmPhone", $request->request->all()['profileUser'])):    
+            $this->confirmCodePhone($request->request->all()['profileUser']['codConfirmation']);
         endif;
          
         
