@@ -11,12 +11,9 @@ app:
     type:     annotation
 
 user_register:
-    path: /registro
-    defaults: { _controller: UserBundle:Default:register }
+    path: /registro/{token}
+    defaults: { _controller: UserBundle:Default:register,token:null }
     
-user_invitation:
-    path: /invitation/{token}
-    defaults: { _controller: UserBundle:Default:register }
     
 user_login:
     path: /login

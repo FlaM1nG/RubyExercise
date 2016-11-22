@@ -69,15 +69,14 @@ class DefaultController extends Controller{
                     return $this->redirect($this->generateUrl('user_login'));
     }
      /**
-     * Matches /registro
-     * Matches /invitation/*
+     * Matches /registro/*
+     * 
      *
-     * @Route("/invitation/{token}", name="user_invitation")
+     * @Route("/registro/{token}", name="user_register")
      */
    public function registerAction(Request $request,$token){
         
         $usuario = new User();
-        
         $ch = new ApiRest();
         $resultHobbies = $ch->sendInformationWihoutParameters("http://www.whatwantweb.com/api_rest/user/data/get_hobbies.php");
         $totalHobbies = count($resultHobbies);
@@ -124,15 +123,17 @@ class DefaultController extends Controller{
                           "password" => $usuario->getPassword(),
                           "prefix" => $usuario->getPrefix(),
                           "phone" => $usuario->getPhone(),
-                          "hobbies" => $hobbies
+                          "hobbies" => $hobbies,
+                          "token"=>$token
                 );
-            
+                
             $ch = new ApiRest();
             
             $result = $ch->sendInformation($data, $file, "parameters");
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
+            print_r($result);
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
         else:
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
         endif;
                 
     }

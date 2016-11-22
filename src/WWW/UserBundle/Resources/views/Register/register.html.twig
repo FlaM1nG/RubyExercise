@@ -25,7 +25,7 @@
   <body>
        
         {% block content %}
-            {{ form_start(formulario, {'action':path('user_register'),'attr':{'onsubmit':'return validaRegistro()'}}) }}
+            {{ form_start(formulario, {'action':path('user_register',{'token':token}),'attr':{'onsubmit':'return validaRegistro()'}}) }}
             
                 {{ form_rest(formulario) }}
                 <div class="hobbies">
