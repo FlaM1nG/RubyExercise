@@ -136,6 +136,38 @@ class User implements UserInterface
      * @var \Doctrine\Common\Collections\Collection
      */
     private $hobbies;
+    
+    /**
+     * @var boolean
+     */
+    private $smsConfirmed;
+
+
+    /**
+     * @var string
+     */
+    private $confirmationToken;
+
+    /**
+     * @var string
+     * @Assert\Length(max=24)
+     */
+    private $numAccount;
+
+    /**
+     * @var boolean
+     */
+    private $isConfirmed;
+    
+    /**
+     * @var string
+     */
+    private $prefix;
+    
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $hostUser;
 
     /**
      * Constructor
@@ -154,7 +186,7 @@ class User implements UserInterface
             $this->username = $user['username'];
             $this->password = $user['password'];
             $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->num_account = $user['num_account'];
+            $this->numAccount = $user['num_account'];
             
             foreach($user['addresses'] as $address):
                
@@ -695,10 +727,6 @@ class User implements UserInterface
         unset($this->addresses[$index]);
         echo "<br><br><br>";
     }
-    /**
-     * @var string
-     */
-    private $prefix;
 
 
     /**
@@ -723,28 +751,6 @@ class User implements UserInterface
     {
         return $this->prefix;
     }
-    /**
-     * @var boolean
-     */
-    private $smsConfirmed;
-
-
-    /**
-     * @var string
-     */
-    private $confirmationToken;
-
-    /**
-     * @var string
-     * @Assert\Length(max=24)
-     */
-    private $numAccount;
-
-    /**
-     * @var boolean
-     */
-    private $isConfirmed;
-
 
     /**
      * Set smsConfirmed
@@ -768,10 +774,99 @@ class User implements UserInterface
     {
         return $this->smsConfirmed;
     }
+    
+
+
+
     /**
-     * @var \WWW\UserBundle\Entity\User
+     * Set confirmationToken
+     *
+     * @param string $confirmationToken
+     * @return User
      */
-    private $hostUser;
+    public function setConfirmationToken($confirmationToken)
+    {
+        $this->confirmationToken = $confirmationToken;
 
+        return $this;
+    }
 
+    /**
+     * Get confirmationToken
+     *
+     * @return string 
+     */
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * Set numAccount
+     *
+     * @param string $numAccount
+     * @return User
+     */
+    public function setNumAccount($numAccount)
+    {
+        $this->numAccount = $numAccount;
+
+        return $this;
+    }
+
+    /**
+     * Get numAccount
+     *
+     * @return string 
+     */
+    public function getNumAccount()
+    {
+        return $this->numAccount;
+    }
+
+    /**
+     * Set isConfirmed
+     *
+     * @param boolean $isConfirmed
+     * @return User
+     */
+    public function setIsConfirmed($isConfirmed)
+    {
+        $this->isConfirmed = $isConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get isConfirmed
+     *
+     * @return boolean 
+     */
+    public function getIsConfirmed()
+    {
+        return $this->isConfirmed;
+    }
+
+    /**
+     * Set hostUser
+     *
+     * @param \WWW\UserBundle\Entity\User $hostUser
+     * @return User
+     */
+    public function setHostUser(\WWW\UserBundle\Entity\User $hostUser = null)
+    {
+        $this->hostUser = $hostUser;
+
+        return $this;
+    }
+
+    /**
+     * Get hostUser
+     *
+     * @return \WWW\UserBundle\Entity\User 
+     */
+    public function getHostUser()
+    {
+        return $this->hostUser;
+    }
 }

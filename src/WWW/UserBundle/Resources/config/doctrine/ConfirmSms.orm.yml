@@ -12,6 +12,7 @@ WWW\UserBundle\Entity\ConfirmSms:
         token:
             type: string
             length: 255
+            unique: true
         date:
             type: datetime
         clicked:

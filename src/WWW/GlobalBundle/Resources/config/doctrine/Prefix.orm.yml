@@ -1,0 +1,19 @@
+WWW\GlobalBundle\Entity\Prefix:
+    type: entity
+    table: null
+    repositoryClass: WWW\GlobalBundle\Repository\PrefixRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        prefix:
+            type: string
+            length: 255
+            unique: true
+        country:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }
