@@ -29,7 +29,9 @@ user_change:
 user_forgot:
     path: /forgot
     defaults: { _controller: UserBundle:Default:forgotPass }
-    
+user_resend:
+    path: /resend
+    defaults: { _controller: UserBundle:Default:resend }  
 user_profiler:
     path: /perfil
     defaults: { _controller: UserBundle:Profile:profile }
