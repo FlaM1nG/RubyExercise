@@ -118,7 +118,9 @@ WWW\UserBundle\Entity\User:
             joinColumns:
               user_id:
                 referencedColumnName: id
+                onDelete: CASCADE
             inverseJoinColumns:
               hobby_id:
                 referencedColumnName: id
+                onDelete: CASCADE
     lifecycleCallbacks: {  }

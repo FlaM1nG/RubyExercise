@@ -28,4 +28,5 @@ WWW\UserBundle\Entity\ConfirmEmail:
             inversedBy: ConfirmEmail
             joinColumn:
                 referencedColumnName: id
+                onDelete: CASCADE
     lifecycleCallbacks: {  }

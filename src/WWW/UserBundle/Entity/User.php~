@@ -167,6 +167,11 @@ class User implements UserInterface
      * @var string
      */
     private $prefix;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $inviteds;
 
     /**
      * Constructor
@@ -865,5 +870,40 @@ class User implements UserInterface
     public function getHostUser()
     {
         return $this->hostUser;
+    }
+    
+
+
+    /**
+     * Add inviteds
+     *
+     * @param \WWW\UserBundle\Entity\User $inviteds
+     * @return User
+     */
+    public function addInvited(\WWW\UserBundle\Entity\User $inviteds)
+    {
+        $this->inviteds[] = $inviteds;
+
+        return $this;
+    }
+
+    /**
+     * Remove inviteds
+     *
+     * @param \WWW\UserBundle\Entity\User $inviteds
+     */
+    public function removeInvited(\WWW\UserBundle\Entity\User $inviteds)
+    {
+        $this->inviteds->removeElement($inviteds);
+    }
+
+    /**
+     * Get inviteds
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInviteds()
+    {
+        return $this->inviteds;
     }
 }

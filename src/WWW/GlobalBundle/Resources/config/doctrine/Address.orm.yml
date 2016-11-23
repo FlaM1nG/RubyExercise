@@ -39,10 +39,12 @@ WWW\GlobalBundle\Entity\Address:
             inversedBy: Address
             joinColumn:
                 referencedColumnName: id
+                onDelete: CASCADE
         zipcode:
             nullable: true
             targetEntity: ZipCode
             inversedBy: Address
             joinColumn:
                 referencedColumnName: id
+                onDelete: CASCADE
     lifecycleCallbacks: {  }
