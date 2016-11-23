@@ -347,8 +347,47 @@ class ProfileController extends Controller{
     }
     
     private function changePhoto(Request $request){
-        
+        echo "cambio foto";
         $file = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
+        
+        $dataFiles = $request->files->all()['profileUser']['photo'];
+        $fileUpload = "http://www.whatwantweb.com/img/user_".$this->usuario->getId()."/profile/perfil";
+        
+        
+        print_r($request->files->all()['profileUser']['photo']);
+        $typePhoto = $request->files->all()['profileUser']['photo']->getMimeType();
+        $name = $dataFiles->getClientOriginalName();
+        $tmpName = $dataFiles->getPathname();
+        
+        
+        if(strstr($typePhoto,"image") === false){
+            echo "error";
+        }
+        $carpeta = "http://www.whatwantweb.com/img/user_".$this->usuario->getId();
+        echo "<br>carpeta ".$carpeta."<br>";
+        
+        if (!file_exists($carpeta)) {
+            echo mkdir($carpeta, 0777, true);
+            echo "<br>la carpeta no existe";
+        }else 
+            echo  "<BR>la carpeta existe<br>";
+        
+        $target_path = "http://www.whatwantweb.com/img/user_".$this->usuario->getId()."/profile/";
+        
+        $target_path = $target_path . basename($name); 
+        
+        echo "<br><br><br>name ".$name." temporal ".$tmpName."<br>";
+        if(move_uploaded_file("perfil", $target_path)) { 
+            echo "El archivo ha sido subido";
+        } else{
+            echo "Ha ocurrido un error, trate de nuevo!";
+        }
+        //move_uploaded_file($nameTemp);
+       // echo $dataFiles->all();
+        
+        /*if(!empty($dataFiles)):
+            
+        endif;*/
         
     }
 }
