@@ -223,6 +223,14 @@
         font-size: 25px;
     }
     
+    .sha-offer-list:hover {
+
+        .sha-price{
+            color: @brand-primary;
+        }
+    }
+
+    
     .rating > span {
         width: inherit;
     }
@@ -236,13 +244,26 @@
     }
     
     .sha-offer-list {
-        border: solid 1px @gray-base;
         width: 80%;
         margin: 0 auto 5%;
+        background-color: @gray-base;
+        color: @brand-secondary;
     }
     
     .sha-offer-list:hover {
         border: none;
+        background-color: @brand-secondary;
+        color: inherit;
+        
+        .sha-date-mobile:hover{
+            color: @gray-base;
+        }
+        
+        .row-sha-name{
+            a:hover{
+                color: @gray-base;
+            }
+        }
     }
     
     .sha-date-sep-mob{

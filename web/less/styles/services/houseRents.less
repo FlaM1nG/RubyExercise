@@ -54,15 +54,21 @@
     font-weight: initial;
 }
 
+.row-hre-img-secon {
+    height: 90px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
+
 .col-hre-img-prin {
     padding: 0;
     overflow: hidden;
     height: 180px;
+    position: relative;
 }
 
 .col-hre-second {
-    overflow: hidden;
-    height: 90px;
 }
 
 .col-hre-data{
@@ -76,12 +82,27 @@
 }
 
 .hre-img-prin{
-    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
 }
 
 .hre-img-other {
+    min-width: 100%;
+    min-height: 100%;
     
-    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
 }
 
 .hre-price {
@@ -178,6 +199,7 @@
         .hre-user-name-grid:hover, hre-user-name-grid:focus{
             color: @brand-secondary;
         }
+        
     }
     
     .row-hre-element:hover, .row-hre-element:focus{
@@ -211,10 +233,6 @@
             position: relative;
             margin: 0;
         }
-        
-        .hre-img-other{
-            height: 180px;
-        }
     }
     
     .col-hre-data {
@@ -226,10 +244,6 @@
         text-align: right;
     }
     
-    .hre-img-prin {
-        border-bottom: 5px solid #f60;
-    }
-    
     .hre-img-other1{
         border-right: 5px solid #f60;
     }
@@ -238,6 +252,10 @@
         .hre-parallax{
             background-position: center bottom !important;
         }
+    }
+    
+    .col-hre-img-prin {
+        border-bottom: 5px solid #f60;
     }
     
     @media only screen and (max-height : 500px){
