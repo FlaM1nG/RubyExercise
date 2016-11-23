@@ -23,30 +23,15 @@
     <![endif]-->
   </head>
   <body>
-       
-        {% block content %}
-            {{ form_start(formulario, {'action':path('user_register'),'attr':{'onsubmit':'return validaRegistro()'}}) }}
+
+      {% block content %}
+          
+              {{ form_start(formulario, {'action':path('user_change',{'token':token}),'attr':{'onsubmit':'return validaChange()'}}) }}
             
                 {{ form_rest(formulario) }}
-                <div class="hobbies">
-                    
-                    {% set imageHobby = "" %}
-                    {% set i = 0 %}
-                   
-                    {% for hobby in hobbies %}
-                        
-                        {% if hobby.photo is defined %}
-                                {% set imageHobby = 'background:url("http://www.whatwantweb.com/'~hobby.photo.url~'")' %}
-                        {% endif %}
-                        
-                        <input style="{{ imageHobby }}" type="checkbox" name="hobbies_{{i}}" value="{{hobby.id}}">
-                        {{ hobby.name | capitalize}}
-                        <br>
-                        {% set i = i+1%}
-                    {%endfor%}
-                </div>
             {{ form_end(formulario) }}
-
+          
+            
         {% endblock %}     
         
   </body>

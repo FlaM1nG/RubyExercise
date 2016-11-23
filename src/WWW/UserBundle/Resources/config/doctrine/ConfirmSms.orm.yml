@@ -1,7 +1,7 @@
-WWW\UserBundle\Entity\ForgottenPassword:
+WWW\UserBundle\Entity\ConfirmSms:
     type: entity
     table: null
-    repositoryClass: WWW\UserBundle\Repository\ForgottenPasswordRepository
+    repositoryClass: WWW\UserBundle\Repository\ConfirmSmsRepository
     id:
         id:
             type: integer
@@ -15,8 +15,13 @@ WWW\UserBundle\Entity\ForgottenPassword:
             unique: true
         date:
             type: datetime
-        changed:
+        clicked:
             type: boolean
+        phone:
+            type: integer
+        prefix:
+            type: string
+            length: 255
     manyToOne:
         user:
             targetEntity: User

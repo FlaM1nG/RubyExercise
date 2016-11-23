@@ -39,10 +39,6 @@ WWW\UserBundle\Entity\User:
             type: string
             length: 255
             unique: true
-        photo:
-            type: string
-            length: 255
-            nullable: true
         linkInvitation:
             type: string
             length: 255
@@ -56,10 +52,25 @@ WWW\UserBundle\Entity\User:
         phone:
             type: integer
             nullable: true
-        confirmation_token:
+        prefix:
             type: string
             length: 255
-        is_confirmed:
+            nullable: true
+        confirmationToken:
+            type: string
+            length: 255
+            column: confirmation_token
+        smsConfirmed:
+            type: boolean
+        nif:
+            type: integer
+            nullable: true
+        numAccount:
+            type: string
+            length: 255
+            nullable: true
+            column: num_account
+        isConfirmed:
             type: boolean
         createdDate:
             type: datetime
@@ -75,8 +86,17 @@ WWW\UserBundle\Entity\User:
             nullable: true
     oneToMany:
         addresses:
-            targetEntity: Address
+            targetEntity: WWW\GlobalBundle\Entity\Address
             mappedBy: User
+        inviteds:
+            targetEntity: User
+            mappedBy: hostUser
+    oneToOne:        
+        photo:
+            nullable: true
+            targetEntity: WWW\GlobalBundle\Entity\Photo
+            joinColumn:
+                referencedColumnName: id
     manyToOne:
         role:
             nullable: true
@@ -84,4 +104,23 @@ WWW\UserBundle\Entity\User:
             inversedBy: User
             joinColumn:
                 referencedColumnName: id
+        hostUser:
+            nullable: true
+            targetEntity: User
+            inversedBy: inviteds
+            joinColumn:
+                referencedColumnName: id
+    manyToMany:
+        hobbies:
+          targetEntity: Hobby
+          joinTable:
+            name: user_hobbies
+            joinColumns:
+              user_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+            inverseJoinColumns:
+              hobby_id:
+                referencedColumnName: id
+                onDelete: CASCADE
     lifecycleCallbacks: {  }

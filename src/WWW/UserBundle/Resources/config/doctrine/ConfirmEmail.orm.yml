@@ -1,7 +1,7 @@
-WWW\UserBundle\Entity\ForgottenPassword:
+WWW\UserBundle\Entity\ConfirmEmail:
     type: entity
     table: null
-    repositoryClass: WWW\UserBundle\Repository\ForgottenPasswordRepository
+    repositoryClass: WWW\UserBundle\Repository\ConfirmEmailRepository
     id:
         id:
             type: integer
@@ -9,18 +9,23 @@ WWW\UserBundle\Entity\ForgottenPassword:
             generator:
                 strategy: AUTO
     fields:
+        email:
+            type: string
+            length: 255
+        date:
+            type: datetime
+        clicked:
+            type: boolean
         token:
             type: string
             length: 255
             unique: true
-        date:
-            type: datetime
-        changed:
+        original:
             type: boolean
     manyToOne:
         user:
             targetEntity: User
-            inversedBy: ForgottenPassword
+            inversedBy: ConfirmEmail
             joinColumn:
                 referencedColumnName: id
                 onDelete: CASCADE

@@ -5,8 +5,9 @@ namespace WWW\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -77,12 +78,6 @@ class User implements UserInterface
 
     /**
      * @var string
-     * \Assert\Image(maxSize="1M")
-     */
-    private $photo;
-
-    /**
-     * @var string
      */
     private $linkInvitation;
 
@@ -116,11 +111,67 @@ class User implements UserInterface
      * @var boolean
      */
     private $isDeleted;
+       
+     /**
+     * @var \WWW\UserBundle\Entity\Role
+     */
+    private $role;
+
+     /**
+     * @var \WWW\GlobalBundle\Entity\Photo
+     */
+    private $photo;
 
     /**
+     * @var integer
+     */
+    private $nif;
+    
+     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $addresses;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $hobbies;
+    
+    /**
+     * @var boolean
+     */
+    private $smsConfirmed;
+
+
+    /**
+     * @var string
+     */
+    private $confirmationToken;
+
+    /**
+     * @var string
+     * @Assert\Length(max=24)
+     */
+    private $numAccount;
+
+    /**
+     * @var boolean
+     */
+    private $isConfirmed;
+    
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $hostUser;
+     /**
+     * @var string
+     */
+    private $prefix;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $inviteds;
 
     /**
      * Constructor
@@ -134,26 +185,23 @@ class User implements UserInterface
             $this->linkInvitation = $user['link_invitation'];
             $this->name = $user['name'];
             $this->phone = (int)$user['phone'];
-            $this->photo = $user['photo'];
             $this->sex = $user['sex'];
             $this->surname = $user['surname'];
             $this->username = $user['username'];
             $this->password = $user['password'];
             $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->numAccount = $user['num_account'];
+            
             foreach($user['addresses'] as $address):
-               // print_r($address);exit;
-                //array_push($this->addAddress, new Address($address));
+               
                 $auxAddress = new Address($address);
                 $this->addresses[] = $auxAddress->toArray();
             
             endforeach;
-            //print_r($this->addAddress);exit;
-            //echo gettype($user['addresses']);
-            //$this->addresses = $user['addresses'];
         else:
-            parent::__construct();
             $this->addresses = new ArrayCollection();
         endif;
+        
     }
 
     /**
@@ -351,29 +399,6 @@ class User implements UserInterface
     }
 
     /**
-     * Set photo
-     *
-     * @param string $photo
-     * @return User
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return string 
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
      * Set linkInvitation
      *
      * @param string $linkInvitation
@@ -533,45 +558,6 @@ class User implements UserInterface
     {
         return $this->isDeleted;
     }
-
-    /**
-     * Add addresses
-     *
-     * @param \WWW\UserBundle\Entity\Address $addresses
-     * @return User
-     */
-    public function addAddress(\WWW\UserBundle\Entity\Address $addresses)
-    {
-        
-        $this->addresses[] = $addresses->toArray();
-
-        return $this;
-    }
-
-    /**
-     * Remove addresses
-     *
-     * @param \WWW\UserBundle\Entity\Address $addresses
-     */
-    public function removeAddress(\WWW\UserBundle\Entity\Address $addresses)
-    {
-        $this->addresses->removeElement($addresses);
-    }
-    
-    public function setAddress(Array $addresses){
-        $this->addAddress = $addresses;
-    }
-
-    /**
-     * Get addresses
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAddresses()
-    {
-        return $this->addresses;
-    }
-    
     /**
      * Devuelve los roles de un usuario autenticado
      */
@@ -604,14 +590,6 @@ class User implements UserInterface
         
     }
 
-    
-
-    /**
-     * @var \WWW\UserBundle\Entity\Role
-     */
-    private $role;
-
-
     /**
      * Set role
      *
@@ -634,60 +612,298 @@ class User implements UserInterface
     {
         return $this->role;
     }
+    
     /**
-     * @var string
+     * Set nif
+     *
+     * @param integer $nif
+     * @return User
      */
-    private $confirmation_token;
+    public function setNif($nif)
+    {
+        $this->nif = $nif;
+
+        return $this;
+    }
 
     /**
-     * @var boolean
+     * Get nif
+     *
+     * @return integer 
      */
-    private $is_confirmed;
+    public function getNif()
+    {
+        return $this->nif;
+    }
+    
+    /**
+     * Set photo
+     *
+     * @param \WWW\GlobalBundle\Entity\Photo $photo
+     * @return User
+     */
+    public function setPhoto(\WWW\GlobalBundle\Entity\Photo $photo = null)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \WWW\GlobalBundle\Entity\Photo 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * Add addresses
+     *
+     * @param \WWW\GlobalBundle\Entity\Address $addresses
+     * @return User
+     */
+    public function addAddress(\WWW\GlobalBundle\Entity\Address $addresses)
+    {
+        $this->addresses[] = $addresses->toArray();
+
+        return $this;
+    }
+
+    /**
+     * Remove addresses
+     *
+     * @param \WWW\GlobalBundle\Entity\Address $addresses
+     */
+    public function removeAddress(\WWW\GlobalBundle\Entity\Address $addresses)
+    {
+        $this->addresses->removeElement($addresses);
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * Add hobbies
+     *
+     * @param \WWW\UserBundle\Entity\Hobby $hobbies
+     * @return User
+     */
+    public function addHobby(\WWW\UserBundle\Entity\Hobby $hobbies)
+    {
+        $this->hobbies[] = $hobbies;
+
+        return $this;
+    }
+
+    /**
+     * Remove hobbies
+     *
+     * @param \WWW\UserBundle\Entity\Hobby $hobbies
+     */
+    public function removeHobby(\WWW\UserBundle\Entity\Hobby $hobbies)
+    {
+        $this->hobbies->removeElement($hobbies);
+    }
+
+    /**
+     * Get hobbies
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHobbies()
+    {
+        return $this->hobbies;
+    }
+    
+    public function deleteAddress($index){
+       
+        unset($this->addresses[$index]);
+        
+    }
+    
+    /**
+     * Set prefix
+     *
+     * @param string $prefix
+     * @return User
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * Get prefix
+     *
+     * @return string 
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * Set smsConfirmed
+     *
+     * @param boolean $smsConfirmed
+     * @return User
+     */
+    public function setSmsConfirmed($smsConfirmed)
+    {
+        $this->smsConfirmed = $smsConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get smsConfirmed
+     *
+     * @return boolean 
+     */
+    public function getSmsConfirmed()
+    {
+        return $this->smsConfirmed;
+    }
+    
+
 
 
     /**
-     * Set confirmation_token
+     * Set confirmationToken
      *
      * @param string $confirmationToken
      * @return User
      */
     public function setConfirmationToken($confirmationToken)
     {
-        $this->confirmation_token = $confirmationToken;
+        $this->confirmationToken = $confirmationToken;
 
         return $this;
     }
 
     /**
-     * Get confirmation_token
+     * Get confirmationToken
      *
      * @return string 
      */
     public function getConfirmationToken()
     {
-        return $this->confirmation_token;
+        return $this->confirmationToken;
     }
 
     /**
-     * Set is_confirmed
+     * Set numAccount
+     *
+     * @param string $numAccount
+     * @return User
+     */
+    public function setNumAccount($numAccount)
+    {
+        $this->numAccount = $numAccount;
+
+        return $this;
+    }
+
+    /**
+     * Get numAccount
+     *
+     * @return string 
+     */
+    public function getNumAccount()
+    {
+        return $this->numAccount;
+    }
+
+    /**
+     * Set isConfirmed
      *
      * @param boolean $isConfirmed
      * @return User
      */
     public function setIsConfirmed($isConfirmed)
     {
-        $this->is_confirmed = $isConfirmed;
+        $this->isConfirmed = $isConfirmed;
 
         return $this;
     }
 
     /**
-     * Get is_confirmed
+     * Get isConfirmed
      *
      * @return boolean 
      */
     public function getIsConfirmed()
     {
-        return $this->is_confirmed;
+        return $this->isConfirmed;
+    }
+
+    /**
+     * Set hostUser
+     *
+     * @param \WWW\UserBundle\Entity\User $hostUser
+     * @return User
+     */
+    public function setHostUser(\WWW\UserBundle\Entity\User $hostUser = null)
+    {
+        $this->hostUser = $hostUser;
+
+        return $this;
+    }
+
+    /**
+     * Get hostUser
+     *
+     * @return \WWW\UserBundle\Entity\User 
+     */
+    public function getHostUser()
+    {
+        return $this->hostUser;
+    }
+    
+
+
+    /**
+     * Add inviteds
+     *
+     * @param \WWW\UserBundle\Entity\User $inviteds
+     * @return User
+     */
+    public function addInvited(\WWW\UserBundle\Entity\User $inviteds)
+    {
+        $this->inviteds[] = $inviteds;
+
+        return $this;
+    }
+
+    /**
+     * Remove inviteds
+     *
+     * @param \WWW\UserBundle\Entity\User $inviteds
+     */
+    public function removeInvited(\WWW\UserBundle\Entity\User $inviteds)
+    {
+        $this->inviteds->removeElement($inviteds);
+    }
+
+    /**
+     * Get inviteds
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInviteds()
+    {
+        return $this->inviteds;
     }
 }

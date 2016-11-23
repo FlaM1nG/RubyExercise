@@ -7,9 +7,9 @@
  */
 
 /**
- * Description of RegistroType
+ * Description of ChangePassType
  *
- * @author Rocio
+ * @author Julio
  */
 
 
@@ -18,31 +18,22 @@ namespace WWW\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use WWW\UserBundle\Entity\Hobby;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class RegisterType extends AbstractType{
+class ChangePassType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
         
         $builder
-                ->add('username','text', array('label'=>'Nombre de usuario', 'required'=>false))
-                ->add('email','email',array('label'=>'Email', 'required'=>false))
-                ->add('birthdate','birthday', array(
-                                    'label' =>'Fecha de nacimiento',
-                                    'format' =>'dd-MM-yyyy',
-                                    'required'=>false))
-                ->add('prefix', 'number', array('label' => 'Teléfono'))
-                ->add('phone','number', array('label' => ' '))
+                
                 ->add('password', 'repeated', array(
                                                 'type' => 'password',
                                                 'invalid_message' => 'Las dos contraseñas deben coincidir',
                                                 'first_options' => array('label' => 'Contraseña'),
                                                 'second_options' => array('label' => 'Repite Contraseña'),
                                                 'required' => false
-                                              ))
-                
-                ->add('guardar','submit',array('label'=>'Registrarse'));
+                                              )
+                        )
+                ->add('guardar','submit',array('label'=>'Guardar'));
     }
         
     public function configureOptions(OptionsResolver $resolver){
@@ -51,6 +42,6 @@ class RegisterType extends AbstractType{
     }
     
     public function getBlockPrefix(){
-        return 'registroUsuario';
+        return 'cambiarPass';
     }
 }

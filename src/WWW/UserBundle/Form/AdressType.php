@@ -11,6 +11,8 @@ namespace WWW\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use WWW\GlobalBundle\Entity\ZipCode;
 
 /**
  * Description of AdressType
@@ -22,18 +24,23 @@ class AdressType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
         $builder
                 ->add('street','text', array('label'=>'Calle',
-                                             'read_only' => true))
+                                             ))
                 ->add('name','text', array('label'=>'Nombre dirección',
                                              'read_only' => true))
                 ->add('isDefault','checkbox', array('label' => 'Dirección principal',
                                                     'disabled' => true))
-                //->add('cp', new CPType(),array('label' => ' '))
+                ->add('zipCode','text', array('label'=>'CP',
+                                              'attr' => array('class' => 'zipCode')  ))
+                ->add('city','text', array('label'=>'Ciudad'))
+                ->add('region','text', array('label' => 'Región'))
+                ->add('country', 'text', array('label' => 'País'))
+                ->add('idZipCode','hidden')       
                 ->add('id','hidden', array('label' => ' '));        
     }
     
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data-class'=>'WWW\UserBundle\Entity\Address'));
+        $resolver->setDefaults(array('data-class'=>'WWW\GlobalBundle\Entity\Address'));
     }
     
     public function getBlockPrefix(){

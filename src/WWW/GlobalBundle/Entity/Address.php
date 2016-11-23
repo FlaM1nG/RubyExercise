@@ -1,23 +1,23 @@
 <?php
 
-namespace WWW\UserBundle\Entity;
+namespace WWW\GlobalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Address
  */
-class Address 
+class Address
 {
     /**
      * @var int
      */
-    private $id;    
+    private $id;
+
     /**
      * @var string
      */
     private $street;
-
     /**
      * @var string
      */
@@ -49,10 +49,9 @@ class Address
     private $isDeleted;
 
     /**
-     * @var \WWW\UserBundle\Entity\User
+     * @var \WWW\GlobalBundle\Entity\ZipCode
      */
-    private $user;
-
+    private $zipcode;
 
      public function __construct(Array $address=null){
          
@@ -70,7 +69,7 @@ class Address
             //$this->cp = $address['cp'];
              
         endif;
-     }
+    }
 
     /**
      * Get id
@@ -244,6 +243,34 @@ class Address
     }
 
     /**
+     * Set zipcode
+     *
+     * @param \WWW\GlobalBundle\Entity\ZipCode $zipcode
+     * @return Address
+     */
+    public function setZipcode(\WWW\GlobalBundle\Entity\ZipCode $zipcode = null)
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    /**
+     * Get zipcode
+     *
+     * @return \WWW\GlobalBundle\Entity\ZipCode 
+     */
+    public function getZipcode()
+    {
+        return $this->zipcode;
+    }
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;
+
+
+    /**
      * Set user
      *
      * @param \WWW\UserBundle\Entity\User $user
@@ -265,47 +292,19 @@ class Address
     {
         return $this->user;
     }
-
-    /**
-     * @var \WWW\UserBundle\Entity\ZipCode
-     */
-    private $zipcode;
-
-
-    /**
-     * Set zipcode
-     *
-     * @param \WWW\UserBundle\Entity\ZipCode $zipcode
-     * @return Address
-     */
-    public function setZipcode(\WWW\UserBundle\Entity\ZipCode $zipcode = null)
-    {
-        $this->zipcode = $zipcode;
-
-        return $this;
-    }
-
-    /**
-     * Get zipcode
-     *
-     * @return \WWW\UserBundle\Entity\ZipCode 
-     */
-    public function getZipcode()
-    {
-        return $this->zipcode;
-    }
     
-     public function toArray(){
-        return array(
+    public function toArray(){
+        
+        return Array(
             'id' => $this->getId(),
-            'street' => $this->getStreet(),
+            'street' =>$this->getStreet(),
             'name' => $this->getName(),
-            'isDefault' =>(Boolean) $this->getIsDefault(),
+            'isDefault' => (boolean)$this->getIsDefault(),
             'createdDate' => $this->getCreatedDate(),
             'modifiedDate' => $this->getModifiedDate(),
             'deletedDate' => $this->getDeletedDate(),
             'isDeleted' => $this->getIsDeleted(),
-            'zipcode' => $this->getZipcode()
-        );
+        );    
     }
+
 }

@@ -4,11 +4,10 @@ namespace WWW\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Validation;
 use WWW\UserBundle\Entity\User as User;
-use WWW\UserBundle\Entity\Address;
-use WWW\UserBundle\Form\ProfileType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use WWW\GlobalBundle\Entity\ApiRest;
 
 class DefaultController extends Controller{
     
@@ -29,33 +28,22 @@ class DefaultController extends Controller{
             $email=$request->request->all()['loginUser']['username'];
             $password=$request->request->all()['loginUser']['password'];  
          
-            $ch = curl_init();
+            $file = "http://www.whatwantweb.com/api_rest/user/registration/login_user.php";
+            $data = array("username" => $email,
+                          "password" => $password);
             
-            // definimos la URL a la que hacemos la petición
-            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/registration/login_user.php");
-            // indicamos el tipo de petición: POST
-            curl_setopt($ch, CURLOPT_POST, TRUE);
-            // definimos cada uno de los parámetros
-            curl_setopt($ch, CURLOPT_POSTFIELDS, "username=".$email.
-                    "&password=".$password."");
-
- 
-            // recibimos la respuesta y la guardamos en una variable
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $ch = new ApiRest();
             
-            $remote_server_output = curl_exec ($ch);
+            $result = $ch->sendInformation($data, $file, "parameters");
             
-            $data = json_decode($remote_server_output, true);
-         
-             // cerramos la sesión cURL
-            curl_close ($ch);
+            $user = new User();
             
-            if($data['result'] == 'ok'):
+            if($result['result'] == 'ok'):
                 
                $session=$request->getSession();
-               $session->set("id",$data['id']);
-               $session->set("username",$data['username']);
-               $session->set("password",$data['password']);
+               $session->set("id",$result['id']);
+               $session->set("username",$result['username']);
+               $session->set("password",$result['password']);
                
                return $this->redirect($this->generateUrl('user_homepage'));
             else:
@@ -84,213 +72,116 @@ class DefaultController extends Controller{
     public function registerAction(Request $request){
         
         $usuario = new User();
-       
+        
+        $ch = new ApiRest();
+        $resultHobbies = $ch->sendInformationWihoutParameters("http://www.whatwantweb.com/api_rest/user/data/get_hobbies.php");
+        $totalHobbies = count($resultHobbies);
         $formulario = $this->createForm('WWW\UserBundle\Form\RegisterType',$usuario);
+        
+        //El usuario del formulario se asocia al objeto $usuario
+        $formulario->handleRequest($request);
+        if($formulario->isValid()):
+           
+            $arrayBirthdate = $request->request->all()['registroUsuario']['birthdate'];
+            $mes = $arrayBirthdate['month'];
+            $dia = $arrayBirthdate['day'];
+            $hobbies = "";
+            $totalHobbiesCheck = 0;
+            
+            for($i = 0; $i<$totalHobbies; $i++):
+                if(key_exists("hobbies_".$i, $request->request->all())):
+                    $totalHobbiesCheck++;
+                
+                    if(empty($hobbies)):
+                        $hobbies .= $request->request->all()['hobbies_'.$i]; 
+                    else:
+                        $hobbies .="-". $request->request->all()['hobbies_'.$i];  
+                    endif;
+                endif;
+            endfor;
+            
+            if(strlen($mes) < 2) 
+                $mes = '0'.$mes;
+            if(strlen($dia) < 2) 
+                $dia = '0'.$dia;
+            
+            if($totalHobbiesCheck != 3):
+                $this->addFlash('error', 'Debe elegir 3 hobbies');
+                return $this->redirectToRoute('user_register');
+            endif;
+            
+            $nacimiento =$arrayBirthdate['year']."-".$mes.'-'.$dia;
+            
+            $file = "http://www.whatwantweb.com/api_rest/user/registration/register_user.php";
+            $data = array("username" => $usuario->getUsername(),
+                          "email" => $usuario->getEmail(),
+                          "date" => $nacimiento,
+                          "password" => $usuario->getPassword(),
+                          "prefix" => $usuario->getPrefix(),
+                          "phone" => $usuario->getPhone(),
+                          "hobbies" => $hobbies
+                );
+            
+            $ch = new ApiRest();
+            
+            $result = $ch->sendInformation($data, $file, "parameters");
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
+        else:
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
+        endif;
+                
+    }
+    /**
+     * Matches /change/*
+     *
+     * @Route("/change/{token}", name="user_change")
+     */
+    public function changePassAction(Request $request,$token){
+        //pillar el usuario segun la relación token - user_id
+        $usuario = new User();
+       
+        $formulario = $this->createForm('WWW\UserBundle\Form\ChangePassType',$usuario);
          
         //El usuario del formulario se asocia al objeto $usuario
         $formulario->handleRequest($request);
         
-        if($formulario->isValid()):
+        if(!empty($usuario->getPassword())):
             
-            $ch = curl_init();
+            $file = "http://www.whatwantweb.com/api_rest/user/passwords/new_password.php";
+            $ch = new ApiRest();
+            $data = array("password" => $usuario->getPassword(),
+                             "token" => $token);
+            $result = $ch->sendInformation($data, $file, "parameters");
             
-            // definimos la URL a la que hacemos la petición
-            curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/restistration/register_user.php");
-            // indicamos el tipo de petición: POST
-            curl_setopt($ch, CURLOPT_POST, TRUE);
-            // definimos cada uno de los parámetros
-            curl_setopt($ch, CURLOPT_POSTFIELDS, "username=".$usuario->getUsername().
-                    "&email=".$usuario->getEmail().
-                    "&date=".$usuario->getBirthdate()->format("YYYY-mm-dd").
-                    "&password=".$usuario->getPassword()."");
-
-            // recibimos la respuesta y la guardamos en una variable
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $remote_server_output = curl_exec ($ch);
-
-            // cerramos la sesión cURL
-            curl_close ($ch);
-            
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:ChangePass:changepass.html.twig',array('formulario'=>$formulario->createView(),'token'=>$token));
         else:
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView()));
+            return $this->render('UserBundle:ChangePass:changepass.html.twig',array('formulario'=>$formulario->createView(),'token'=>$token));
         endif;
                 
     }
     
-    public function profileAction(Request $request){ 
-        $session=$request->getSession();
+    public function forgotPassAction(Request $request){
         
-        $section = null;
+        $usuario = new User();
        
-        $ch = curl_init();
-            
-        // definimos la URL a la que hacemos la petición
-        curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/data/get_info_user.php");
-        // indicamos el tipo de petición: POST
-        curl_setopt($ch, CURLOPT_POST, TRUE);
-        // definimos cada uno de los parámetros
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "username=".$session->get('username').
-                    "&id=".$session->get('id').
-                    "&password=".$session->get('password')."");
-
- 
-        // recibimos la respuesta y la guardamos en una variable
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            
-        $remote_server_output = curl_exec ($ch);
-            
-        $data = json_decode($remote_server_output, true);
+        $formulario = $this->createForm('WWW\UserBundle\Form\ForgotPassType',$usuario);
          
-        // cerramos la sesión cURL
-        curl_close ($ch);
+        //El usuario del formulario se asocia al objeto $usuario
+        $formulario->handleRequest($request);
         
-        $usuario = null;
-        $formAddress = null;
+        if(!empty($usuario->getEmail())):
+            
+            $file = "http://www.whatwantweb.com/api_rest/user/passwords/forget_password.php";
+            $data = array("email" => $usuario->getEmail());
         
-        
-        if($data['result'] == 'ok'):
+            $ch = new ApiRest();
+            $result = $ch->sendInformation($data, $file, "parameters");
             
-            $usuario = new User($data);
+            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
+        else:
             
-            $formulario = $this->createForm(ProfileType::class,$usuario);
-            
-            //$formulario->handleRequest($request);
-          
-            if($request->getMethod()=="POST"):
+            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
+        endif;
                 
-                $section = $request->request->all()['section'];
-           
-                if(array_key_exists('buttonAddAddress',$request->request->all() )):
-                    $newAddress = new Address();
-                    $usuario->addAddress($newAddress);
-         
-                    $form = $this->createForm(ProfileType::class,$usuario);
-
-                    return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$form->createView(),
-                                                                          'usuario'=>$usuario));
-                else:
-
-                    if($section == 'sectionAddress')
-                        self::updateAddress($usuario,$request);
-                    else
-                        self::updateProfile($usuario,$request);
-                endif;    
-            
-            endif;
-           
-        endif;
-        
-        return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$formulario->createView(),
-                                                                          'usuario'=>$usuario));
     }
-    
-        
-    private function updateProfile(User $user, Request $request){
-        $arrayUser = $request->request->all()['profileUser'];
-        $section = $request->request->all()['section'];
-        
-        $ch = curl_init();
-            
-        // definimos la URL a la que hacemos la petición
-        curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/data/update_user.php");
-        // indicamos el tipo de petición: POST
-        curl_setopt($ch, CURLOPT_POST, TRUE);
-        // definimos cada uno de los parámetros
-        
-        $data = array();
-        $data['username']=$user->getUsername();
-        $data['id']=$user->getId();
-        $data['password']=$user->getPassword();
-
-        if($section == 'sectionPersonal'):
-            $fecha = "'".$arrayUser['birthdate']['year'].'-'.$arrayUser['birthdate']['month'].'-'.$arrayUser['birthdate']['day']."'";
-        
-            $date= \DateTime::createFromFormat('YYYY-mm-dd', $fecha);
-
-            /*if($date >= new\DateTime('today - 18 years')):
-                return false;
-            endif;*/
-            $data['name']="'".$arrayUser['name']."'";
-            $data['surname']="'".$arrayUser['surname']."'";
-            $data['phone']=$arrayUser['phone'];
-            $data['birthdate'] = $fecha;
-            $data['sex'] = "'".$arrayUser['sex']."'";
-
-        elseif($section == 'sectionEmail'):
-            
-            $data['email'] = "'".$arrayUser['email']."'";
-            
-        elseif($section == 'sectionPassword'):
-        
-            $data['password'] = $arrayUser['password'];
-        
-        elseif($section == 'sectionPhoto'):
-            
-            $data['photo'] = "'".$arrayUser['photo']."'";
-            
-        elseif($section == 'section'):    
-            
-            
-        endif;
-        
-        $valor['data'] = json_encode($data);
-        
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$valor);
-        
-        // recibimos la respuesta y la guardamos en una variable
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            
-        $remote_server_output = curl_exec ($ch);
-            
-        $data = json_decode($remote_server_output, true);
-
-        // cerramos la sesión cURL
-        curl_close ($ch);
-        
-    }
-    
-    private function updateAddress(User $user, Request $request){
-        
-        $arrayAdress = $request->request->all()['profileUser']['addresses'];
-        $posArrayAddress = $request->request->all()['idChangeAdress'];
-        
-        $ch = curl_init();
-            
-        // definimos la URL a la que hacemos la petición
-        curl_setopt($ch, CURLOPT_URL,"http://www.whatwantweb.com/api_rest/user/addresses/update_address.php");
-        // indicamos el tipo de petición: POST
-        curl_setopt($ch, CURLOPT_POST, TRUE);
-        // definimos cada uno de los parámetros
-        
-        $data = array();
-        $data['username']=$user->getUsername();
-        $data['id_user']=$user->getId();
-        $data['password']=$user->getPassword();
-        $data['id'] = $arrayAdress[$posArrayAddress]['id'];
-        $data['name'] = "'".$arrayAdress[$posArrayAddress]['name']."'";
-        $data['street'] = "'".$arrayAdress[$posArrayAddress]['street']."'";
-        
-        if(array_key_exists('isDefault',$arrayAdress[$posArrayAddress]))
-            $data['is_default'] = 1;
-        else
-            $data['is_default'] = 0;
-
-        
-        $valor['data'] = json_encode($data);
-        
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$valor);
-        
-        // recibimos la respuesta y la guardamos en una variable
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            
-        $remote_server_output = curl_exec ($ch);
-            
-        $data = json_decode($remote_server_output, true);
-
-        // cerramos la sesión cURL
-        curl_close ($ch);
-        
-    }
-
 }

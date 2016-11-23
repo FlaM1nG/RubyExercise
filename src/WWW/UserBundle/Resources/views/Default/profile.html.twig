@@ -9,10 +9,9 @@
     {{ include('nav/menu.html.twig') }}
 {% endblock %}
        
-{% block body %}
-    <div class="container cd-main-content us-profile">
-   {#{dump(formulario)}#}
-   {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
+        {% block content %}
+           {{dump(usuario)}}
+           {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
 
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
@@ -37,127 +36,96 @@
                 </a>
             </li>
 
-            <li role="presentation">
-                <a href="#pass" 
-                   name="password"
-                   id="sectionPassword"
-                   aria-controls="pass" 
-                   role="tab" 
-                   data-toggle="tab">
-                   Contraseña
-                </a>
-            </li>
+                    <li>
+                        <a href="#" name="password" id="sectionPassword">Contraseña</a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" name="tlfn" id="sectionTlfn">Teléfono</a>
+                    </li>
 
-            <li role="presentation">
-                <a href="#foto" 
-                   name="photo" 
-                   id="sectionPhoto"
-                   aria-controls="foto" 
-                   role="tab" 
-                   data-toggle="tab">
-                   Foto
-                </a>
-            </li>
+                    <li>
+                        <a href="#" name="photo" id="sectionPhoto">Foto</a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" name="photo" id="sectionAddress">Direcciones</a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" name="bank" id="sectionBank">Datos bancarios</a>
+                    </li>
+                </ul>
 
-            <li role="presentation">
-                <a href="#direcciones" 
-                   name="photo" 
-                   id="sectionAddress"
-                   aria-controls="personal" 
-                   role="tab" 
-                   data-toggle="tab">
-                   Direcciones
-                </a>
-            </li>
-        </ul>
-        
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="personal">
-            {{ form_row(formulario.username) }}
-
-            {{ form_row(formulario.name) }}
-            {{ form_row(formulario.surname) }}
-            <div class="row row-mar">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-pad">
-                    {{ form_row(formulario.birthdate) }}
-                </div>
+                {{ form_row(formulario.username) }}
                 
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-pad">
-                    {{ form_row(formulario.sex) }}
-                </div>
+                --- SECCIÓN CAMBIO DE EMAIL ----
                 
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-pad">
-                    {{ form_row(formulario.phone) }}
-                </div>
-            </div>
-            
-            {{ form_row(formulario.linkInvitation) }}
-            </div>
+                {{ form_row(formulario.email) }}
+                {{ form_row(formulario.oldPassword) }}
+                
+                --- FIN SECCIÓN CAMBIO DE EMAIL ---
+                
+                <BR>
+                {{ form_row(formulario.email) }}
+                <br>
+                {{ form_row(formulario.oldPassword) }}
+                {{ form_row(formulario.password) }}
+                {{ form_row(formulario.name) }}
+                {{ form_row(formulario.surname) }}
+                {{ form_row(formulario.birthdate) }}
+                {{ form_row(formulario.sex) }}
+                
+                --- SECCIÓN CAMBIO DE TELÉFONO ---
+                
+                {{ form_row(formulario.prefix)}}
+                {{ form_row(formulario.phone) }}
+                {{ form_row(formulario.codConfirmation)}}
+                {{ form_row(formulario.confirmPhone)}}
+                
+                --- FIN SECCIÓN CAMBIO DE TELÉFONO ---
+                <br>
+                {{ form_row(formulario.photo) }}
+                <br>
+                {{ form_row(formulario.linkInvitation) }}
 
-            <div role="tabpanel" class="tab-pane" id="email">
-            {{ form_row(formulario.email) }}
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="pass">
-            {{ form_row(formulario.password) }}
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="foto">
-            {{ form_row(formulario.photo) }}
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="direcciones">
+                <br>
+                <div class="contentAddress">
                 {% for address in formulario.addresses %}
-                    <div id="address{{address.vars.value.id}}">
-                         {{ form_row(address.name) }}
-                         {{ form_row(address.street) }}
-                         {{ form_row(address.isDefault) }}
-                         {{ form_row(address.id)}}
+                    
+                   <div id="address{{address.vars.value.id}}">
+                       
+                        {{ form_label(address.name)}}
+                        {{ form_widget(address.name,  { 'attr': { 'readonly': 'true' } })}}
+                        
+                        {{ form_label(address.street) }}
+                        {{ form_widget(address.street,  { 'attr': { 'readonly': 'true' } })}}
 
-                        <input class="posArrayAddress" 
-                            type ="hidden" 
-                            name="posArrayAddress" 
-                            value="{{address.vars.name}}">
-                         
-                        <button type="submit" 
-                            name="editar" 
-                            class="buttonEditAddress">
-                            Editar
-                        </button>
-                         
-                        <button type="submit" 
-                            name="eliminar"
-                            class="buttonDeleteAddress">
-                            Eliminar
-                        </button>
-                    </div>
-                {% endfor %}
+                        {{ form_label(address.isDefault) }}
+                        {{ form_widget(address.isDefault,  { 'attr': { 'readonly': 'true' } })}}
+
+                        {{ form_row(address.id)}}
+
+                        {{ form_row(address.zipCode)}}
+                        {{ form_row(address.city)}}
+                        {{ form_row(address.region)}}
+                        {{ form_row(address.country)}}
+                        {{ form_row(address.idZipCode)}}
+                          
+
+                        <input class="posArrayAddress" type ="hidden" name="posArrayAddress" value="{{address.vars.name}}">
+                        <button type="submit" name="editar" class="buttonEditAddress">Editar</button>
+                        <button type="submit" name="eliminar" class="buttonDeleteAddress">Eliminar</button>
+                   </div>
+                {% endfor %}   
+                </div> 
 
                 Añadir dirección
-                <input type="submit" 
-                    value="+" 
-                    name="buttonAddAddress">
-                
-                <input type="hidden" 
-                    value="sectionPersonal" 
-                    name="section" 
-                    id="sectionUser">
-                
-                <input type="hidden" 
-                    value="" 
-                    name="idChangeAddress" 
-                    id="idChangeAddress">
-                
-                <input type="hidden" 
-                    value="" 
-                    name="idDeleteAddress" 
-                    id="idDeleteAddress">
-            </div>
-            
-        {{ form_end(formulario)}}
-        </div>
-    </div>
-{% endblock %}
+                <input type="submit" value="+" name="buttonAddAddress" id="buttonAddAddress">
+                <input type="hidden" value="sectionPersonal" name="section" id="sectionUser">
+                <input type="hidden" value="" name="idChangeAddress" id="idChangeAddress">
+                <input type="hidden" value="" name="idDeleteAddress" id="idDeleteAddress">
+                <input type="hidden" value="" name="addAddress" id="addAddress">
 
 {% block javascriptsFooter %}
     {{ parent() }}

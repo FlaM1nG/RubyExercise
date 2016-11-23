@@ -1,7 +1,7 @@
-WWW\UserBundle\Entity\ZipCode:
+WWW\GlobalBundle\Entity\ZipCode:
     type: entity
     table: null
-    repositoryClass: WWW\UserBundle\Repository\ZipCodeRepository
+    repositoryClass: WWW\GlobalBundle\Repository\ZipCodeRepository
     id:
         id:
             type: integer
@@ -25,5 +25,5 @@ WWW\UserBundle\Entity\ZipCode:
         country:
             type: string
             length: 255
-            nullable: true        
+            nullable: true  
     lifecycleCallbacks: {  }
