@@ -1,26 +1,7 @@
 global:
     resource: "@GlobalBundle/Resources/config/routing.yml"
     prefix:   /
-
-user:
-    resource: "@UserBundle/Resources/config/routing.yml"
-    prefix:   /user
-
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
-
-user_register:
-    path: /registro
-    defaults: { _controller: UserBundle:Default:register }
     
-user_login:
-    path: /login
-    defaults: { _controller: UserBundle:Default:login }
-    
-user_logout:
-    path: /logout
-    defaults: { _controller: UserBundle:Default:logout }
 user_change:
     path: /change/{token}
     defaults: { _controller: UserBundle:Default:changePass }
@@ -28,10 +9,6 @@ user_change:
 user_forgot:
     path: /forgot
     defaults: { _controller: UserBundle:Default:forgotPass }
-    
-user_profiler:
-    path: /perfil
-    defaults: { _controller: UserBundle:Profile:profile }
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
