@@ -363,25 +363,19 @@ class ProfileController extends Controller{
         if(strstr($typePhoto,"image") === false){
             echo "error";
         }
-        $carpeta = "http://www.whatwantweb.com/img/user_".$this->usuario->getId();
-        echo "<br>carpeta ".$carpeta."<br>";
+        $carpeta = "http://www.whatwantweb.com/img/profile";
+
         
-        if (!file_exists($carpeta)) {
-            echo mkdir($carpeta, 0777, true);
-            echo "<br>la carpeta no existe";
-        }else 
-            echo  "<BR>la carpeta existe<br>";
-        
-        $target_path = "http://www.whatwantweb.com/img/user_".$this->usuario->getId()."/profile/";
+        $target_path = "http://www.whatwantweb.com/img/profile";
         
         $target_path = $target_path . basename($name); 
         
         echo "<br><br><br>name ".$name." temporal ".$tmpName."<br>";
-        if(move_uploaded_file("perfil", $target_path)) { 
-            echo "El archivo ha sido subido";
-        } else{
-            echo "Ha ocurrido un error, trate de nuevo!";
-        }
+        //$foto = substr(md5(uniqid(rand())),0,10).".".$extension;
+        $directorio = "http://www.whatwantweb.com/img/profile"; // directorio de tu elección
+            
+        // almacenar imagen en el servidor
+        move_uploaded_file($tmpName,'http://www.whatwantweb.com/img/profile/profile.jpg');
         //move_uploaded_file($nameTemp);
        // echo $dataFiles->all();
         
