@@ -1,0 +1,20 @@
+WWW\ServiceBundle\Entity\TradeCategory:
+    type: entity
+    table: null
+    repositoryClass: WWW\ServiceBundle\Repository\TradeCategoryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        deleted:
+            type: boolean        
+    lifecycleCallbacks: {  }
