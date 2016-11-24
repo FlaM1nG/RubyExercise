@@ -30,7 +30,7 @@ class ProfileController extends Controller{
         $session = $request->getSession();
         
         $section = null;
-       
+      
         $ch = new ApiRest();
         
         $file = "http://www.whatwantweb.com/api_rest/user/data/get_info_user.php";
@@ -39,7 +39,6 @@ class ProfileController extends Controller{
                            "password" => $session->get('password'));
         
         $result = $ch->sendInformation($arrayData, $file, "parameters");
-        //print_r($result);
         
         $formAddress = null;
         $formulario = $this->createForm(ProfileType::class,$this->usuario);
@@ -244,13 +243,11 @@ class ProfileController extends Controller{
     }
     
     private function addAddress(User $user, Request $request){
-    print_r($request->request->all());
+    
         $dataForm= $request->request->all();
         $posAddress = count( $request->request->all()['profileUser']['addresses']);
         $addressDefault = 0;
         
-        echo "<br><br>Direcciones <br><br>".$posAddress."<br>";
-        print_r($request->request->all());
         $data = array();
         $data['username'] = $user->getUsername();
         $data['id_user'] = $user->getId();
@@ -347,8 +344,33 @@ class ProfileController extends Controller{
     }
     
     private function changePhoto(Request $request){
-        
+        echo "cambio foto";
         $file = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
+        
+        $dataFiles = $request->files->all()['profileUser']['photo'];
+        $fileUpload = "http://www.whatwantweb.com/img/user_".$this->usuario->getId()."/profile/perfil";
+        
+        
+       //print_r($request->files->all()['profileUser']['photo']);
+        $typePhoto = $request->files->all()['profileUser']['photo']->getMimeType();
+        $name = $dataFiles->getClientOriginalName();
+        $tmpName = $dataFiles->getPathname();
+        $extension = $dataFiles->getClientoriginalExtension();
+        
+        
+        if(strstr($typePhoto,"image") === false){
+            echo "error";
+        }
+        $carpeta = "http://www.whatwantweb.com/img/profile";
+
+        
+        $target_path = "http://www.whatwantweb.com/img/profile";
+
+        $directorio = "http://www.whatwantweb.com/img/profile"; // directorio de tu elección
+            
+        // almacenar imagen en el servidor
+        move_uploaded_file($tmpName,'http://www.whatwantweb.com/img/profile/'.$this->usuario->getId().$extension);
+ 
         
     }
 }

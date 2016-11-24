@@ -72,6 +72,9 @@ WWW\UserBundle\Entity\User:
             column: num_account
         isConfirmed:
             type: boolean
+        isBanned:
+            type: boolean
+            nullable: true
         createdDate:
             type: datetime
             nullable: true
