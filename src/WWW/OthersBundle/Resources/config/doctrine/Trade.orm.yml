@@ -13,31 +13,20 @@ WWW\OthersBundle\Entity\Trade:
             type: float
             nullable: true
             column: price_user
-            nullable: true
         priceTotal:
             type: float
             nullable: true
             column: price_total
-            nullable: true
         dimensions:
             type: string
             length: 255
             nullable: true
-        weight:
+        longitude:
             type: float
             nullable: true
-        createdDate:
-            type: datetime
-            nullable: true
-        modifiedDate:
-            type: datetime
-            nullable: true
-        deletedDate:
-            type: datetime
-            nullable: true
-        isDeleted:
-            type: boolean
-            nullable: true
+        latitude:
+            type: float
+            nullable: true    
     oneToOne:        
         offer:
             targetEntity: WWW\ServiceBundle\Entity\Offer
