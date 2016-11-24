@@ -28,6 +28,36 @@ class Offer
      * @var bool
      */
     private $expired;
+    
+    /**
+     * @var \DateTime
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $deletedDate;
+
+    /**
+     * @var boolean
+     */
+    private $isDeleted;
+
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user_admin;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $photos;
 
 
     /**
@@ -107,5 +137,161 @@ class Offer
     public function getExpired()
     {
         return $this->expired;
+    }    
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set createdDate
+     *
+     * @param \DateTime $createdDate
+     * @return Offer
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createdDate
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * Set modifiedDate
+     *
+     * @param \DateTime $modifiedDate
+     * @return Offer
+     */
+    public function setModifiedDate($modifiedDate)
+    {
+        $this->modifiedDate = $modifiedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedDate
+     *
+     * @return \DateTime 
+     */
+    public function getModifiedDate()
+    {
+        return $this->modifiedDate;
+    }
+
+    /**
+     * Set deletedDate
+     *
+     * @param \DateTime $deletedDate
+     * @return Offer
+     */
+    public function setDeletedDate($deletedDate)
+    {
+        $this->deletedDate = $deletedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedDate
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedDate()
+    {
+        return $this->deletedDate;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return Offer
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean 
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * Set user_admin
+     *
+     * @param \WWW\UserBundle\Entity\User $userAdmin
+     * @return Offer
+     */
+    public function setUserAdmin(\WWW\UserBundle\Entity\User $userAdmin = null)
+    {
+        $this->user_admin = $userAdmin;
+
+        return $this;
+    }
+
+    /**
+     * Get user_admin
+     *
+     * @return \WWW\UserBundle\Entity\User 
+     */
+    public function getUserAdmin()
+    {
+        return $this->user_admin;
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \WWW\GlobalBundle\Entity\Photo $photos
+     * @return Offer
+     */
+    public function addPhoto(\WWW\GlobalBundle\Entity\Photo $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \WWW\GlobalBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\WWW\GlobalBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }

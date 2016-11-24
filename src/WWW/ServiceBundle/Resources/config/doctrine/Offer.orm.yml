@@ -36,6 +36,11 @@ WWW\ServiceBundle\Entity\Offer:
             inversedBy: Offer
             joinColumn:
                 referencedColumnName: id
+        service:
+            targetEntity: Service
+            inversedBy: Offer
+            joinColumn:
+                referencedColumnName: id
     manyToMany:
         photos:
           targetEntity: WWW\GlobalBundle\Entity\Photo
