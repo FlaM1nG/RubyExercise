@@ -58,6 +58,12 @@ class Offer
      * @var \Doctrine\Common\Collections\Collection
      */
     private $photos;
+    
+    
+    /**
+     * @var \WWW\ServiceBundle\Entity\Service
+     */
+    private $service;
 
 
     /**
@@ -293,5 +299,29 @@ class Offer
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+
+    /**
+     * Set service
+     *
+     * @param \WWW\ServiceBundle\Entity\Service $service
+     * @return Offer
+     */
+    public function setService(\WWW\ServiceBundle\Entity\Service $service = null)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return \WWW\ServiceBundle\Entity\Service 
+     */
+    public function getService()
+    {
+        return $this->service;
     }
 }
