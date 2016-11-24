@@ -1,7 +1,7 @@
-WWW\ServiceBundle\Entity\Trade:
+WWW\OthersBundle\Entity\Trade:
     type: entity
     table: null
-    repositoryClass: WWW\ServiceBundle\Repository\TradeRepository
+    repositoryClass: WWW\OthersBundle\Repository\TradeRepository
     id:
         id:
             type: integer
@@ -28,7 +28,7 @@ WWW\ServiceBundle\Entity\Trade:
             nullable: true
     oneToOne:        
         offer:
-            targetEntity: Offer
+            targetEntity: WWW\ServiceBundle\Entity\Offer
             joinColumn:
                 referencedColumnName: id
                 onDelete: CASCADE
