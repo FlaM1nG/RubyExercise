@@ -59,6 +59,9 @@ class RegisterType extends AbstractType{
                                                 'second_options' => array('label' => 'Repite Contraseña'),
                                                 'required' => false
                                               ))
+                ->add('captcha', 'captcha', array( 'as_url' => true, 
+                                                   'reload' => true,
+                                                   'label' => " "))
                 
                 ->add('guardar','submit',array('label'=>'Registrarse'));
     }
