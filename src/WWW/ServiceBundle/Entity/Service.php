@@ -136,4 +136,32 @@ class Service
     {
         return $this->category;
     }
+    /**
+     * @var string
+     */
+    private $table;
+
+
+    /**
+     * Set table
+     *
+     * @param string $table
+     * @return Service
+     */
+    public function setTable($table)
+    {
+        $this->table = $table;
+
+        return $this;
+    }
+
+    /**
+     * Get table
+     *
+     * @return string 
+     */
+    public function getTable()
+    {
+        return $this->table;
+    }
 }
