@@ -172,6 +172,12 @@ class User implements UserInterface
      * @var \Doctrine\Common\Collections\Collection
      */
     private $inviteds;
+    
+    
+    /**
+     * @var boolean
+     */
+    private $isBanned;
 
     /**
      * Constructor
@@ -905,5 +911,29 @@ class User implements UserInterface
     public function getInviteds()
     {
         return $this->inviteds;
+    }
+
+
+    /**
+     * Set isBanned
+     *
+     * @param boolean $isBanned
+     * @return User
+     */
+    public function setIsBanned($isBanned)
+    {
+        $this->isBanned = $isBanned;
+
+        return $this;
+    }
+
+    /**
+     * Get isBanned
+     *
+     * @return boolean 
+     */
+    public function getIsBanned()
+    {
+        return $this->isBanned;
     }
 }
