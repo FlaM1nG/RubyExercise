@@ -354,10 +354,11 @@ class ProfileController extends Controller{
         $fileUpload = "http://www.whatwantweb.com/img/user_".$this->usuario->getId()."/profile/perfil";
         
         
-        print_r($request->files->all()['profileUser']['photo']);
+       //print_r($request->files->all()['profileUser']['photo']);
         $typePhoto = $request->files->all()['profileUser']['photo']->getMimeType();
         $name = $dataFiles->getClientOriginalName();
         $tmpName = $dataFiles->getPathname();
+        $extension = $dataFiles->getClientoriginalExtension();
         
         
         if(strstr($typePhoto,"image") === false){
@@ -367,21 +368,12 @@ class ProfileController extends Controller{
 
         
         $target_path = "http://www.whatwantweb.com/img/profile";
-        
-        $target_path = $target_path . basename($name); 
-        
-        echo "<br><br><br>name ".$name." temporal ".$tmpName."<br>";
-        //$foto = substr(md5(uniqid(rand())),0,10).".".$extension;
+
         $directorio = "http://www.whatwantweb.com/img/profile"; // directorio de tu elección
             
         // almacenar imagen en el servidor
-        move_uploaded_file($tmpName,'http://www.whatwantweb.com/img/profile/profile.jpg');
-        //move_uploaded_file($nameTemp);
-       // echo $dataFiles->all();
-        
-        /*if(!empty($dataFiles)):
-            
-        endif;*/
+        move_uploaded_file($tmpName,'http://www.whatwantweb.com/img/profile/'.$this->usuario->getId().$extension);
+ 
         
     }
 }
