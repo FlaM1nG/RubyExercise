@@ -24,4 +24,5 @@ class Trade
     {
         return $this->id;
     }
+    
 }

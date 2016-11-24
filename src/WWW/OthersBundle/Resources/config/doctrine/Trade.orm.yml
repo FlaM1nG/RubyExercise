@@ -26,6 +26,18 @@ WWW\OthersBundle\Entity\Trade:
         weight:
             type: float
             nullable: true
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
     oneToOne:        
         offer:
             targetEntity: WWW\ServiceBundle\Entity\Offer
