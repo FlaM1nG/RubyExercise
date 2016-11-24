@@ -1,0 +1,52 @@
+WWW\ServiceBundle\Entity\Offer:
+    type: entity
+    table: null
+    repositoryClass: WWW\ServiceBundle\Repository\OfferRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        expired:
+            type: boolean
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+    manyToOne:
+        user_admin:
+            nullable: true
+            targetEntity: WWW\UserBundle\Entity\User
+            inversedBy: Offer
+            joinColumn:
+                referencedColumnName: id
+    manyToMany:
+        photos:
+          targetEntity: WWW\GlobalBundle\Entity\Photo
+          joinTable:
+            name: offer_photos
+            joinColumns:
+              offer_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+            inverseJoinColumns:
+              photo_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+    lifecycleCallbacks: {  }
