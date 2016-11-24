@@ -20,7 +20,7 @@ app:
 
 user_register:
     path: /registro
-    defaults: { _controller: UserBundle:Default:register }
+    defaults: { _controller: UserBundle:Register:register }
     
 user_login:
     path: /login
@@ -77,3 +77,6 @@ serTrade:
 serHouseRents:
     path: /services/house-rents
     defaults: { _controller: AppBundle:Index:serHouseRents }
+    
+gregwar_captcha_routing:
+   resource: "@GregwarCaptchaBundle/Resources/config/routing/routing.yml"
