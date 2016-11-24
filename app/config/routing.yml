@@ -12,7 +12,7 @@ app:
 
 user_register:
     path: /registro
-    defaults: { _controller: UserBundle:Default:register }
+    defaults: { _controller: UserBundle:Register:register }
     
 user_login:
     path: /login

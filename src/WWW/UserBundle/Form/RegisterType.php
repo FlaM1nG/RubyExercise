@@ -38,7 +38,10 @@ class RegisterType extends AbstractType{
         
         $builder
                 ->add('username','text', array('label'=>'Nombre de usuario', 'required'=>false))
-                ->add('email','email',array('label'=>'Email', 'required'=>false))
+                ->add('email','repeated',array('required'=>false,
+                                               'type' => 'email',
+                                                'first_options' => array('label' => 'Email'),
+                                                'second_options' => array('label' => 'Repite email'),))
                 ->add('birthdate','birthday', array(
                                     'label' =>'Fecha de nacimiento',
                                     'format' =>'dd-MM-yyyy',
