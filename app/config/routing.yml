@@ -20,7 +20,7 @@ app:
 
 user_register:
     path: /registro/{token}
-    defaults: { _controller: UserBundle:Default:register,token:null }
+    defaults: { _controller: UserBundle:Register:register,token:null }
     
     
 user_login:
