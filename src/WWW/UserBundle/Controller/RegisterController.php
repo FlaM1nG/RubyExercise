@@ -14,15 +14,17 @@ use WWW\UserBundle\Entity\User as User;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\UserBundle\Form\RegisterType;
 use Symfony\Component\Form\AbstractType;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * Description of RegisterController
- *
+ *Matches /registro/*
+ * 
+ * @Route("/registro/{token}", name="user_register")
  * @author Rocio
  */
 class RegisterController extends Controller{
     
-    public function registerAction(Request $request){
+    public function registerAction(Request $request,$token){
         
         $usuario = new User();
         
@@ -73,15 +75,16 @@ class RegisterController extends Controller{
                           "password" => $usuario->getPassword(),
                           "prefix" => $usuario->getPrefix(),
                           "phone" => $usuario->getPhone(),
-                          "hobbies" => $hobbies
+                          "hobbies" => $hobbies,
++                         "token"=>$token
                 );
             
             $ch = new ApiRest();
             
             $result = $ch->sendInformation($data, $file, "parameters");
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
         else:
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
         endif;
                 
     }
