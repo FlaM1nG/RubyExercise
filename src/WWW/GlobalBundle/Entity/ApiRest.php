@@ -82,4 +82,8 @@ class ApiRest {
            
         return $result;
     }
+    
+    public function closeConection(){
+        curl_close($this->ch);
+    }
 }

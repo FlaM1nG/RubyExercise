@@ -72,6 +72,9 @@ WWW\UserBundle\Entity\User:
             column: num_account
         isConfirmed:
             type: boolean
+        isBanned:
+            type: boolean
+            nullable: true
         createdDate:
             type: datetime
             nullable: true
@@ -87,7 +90,10 @@ WWW\UserBundle\Entity\User:
     oneToMany:
         addresses:
             targetEntity: WWW\GlobalBundle\Entity\Address
-            mappedBy: User        
+            mappedBy: User
+        inviteds:
+            targetEntity: User
+            mappedBy: hostUser
     oneToOne:        
         photo:
             nullable: true
@@ -104,6 +110,7 @@ WWW\UserBundle\Entity\User:
         hostUser:
             nullable: true
             targetEntity: User
+            inversedBy: inviteds
             joinColumn:
                 referencedColumnName: id
     manyToMany:
@@ -114,7 +121,9 @@ WWW\UserBundle\Entity\User:
             joinColumns:
               user_id:
                 referencedColumnName: id
+                onDelete: CASCADE
             inverseJoinColumns:
               hobby_id:
                 referencedColumnName: id
+                onDelete: CASCADE
     lifecycleCallbacks: {  }

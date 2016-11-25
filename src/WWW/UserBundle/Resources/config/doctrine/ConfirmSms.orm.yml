@@ -28,4 +28,5 @@ WWW\UserBundle\Entity\ConfirmSms:
             inversedBy: ForgottenPassword
             joinColumn:
                 referencedColumnName: id
+                onDelete: CASCADE
     lifecycleCallbacks: {  }

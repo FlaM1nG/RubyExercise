@@ -30,7 +30,7 @@ class ProfileController extends Controller{
         $session = $request->getSession();
         
         $section = null;
-       
+      
         $ch = new ApiRest();
         
         $file = "http://www.whatwantweb.com/api_rest/user/data/get_info_user.php";
@@ -39,7 +39,6 @@ class ProfileController extends Controller{
                            "password" => $session->get('password'));
         
         $result = $ch->sendInformation($arrayData, $file, "parameters");
-        //print_r($result);
         
         $formAddress = null;
         $formulario = $this->createForm(ProfileType::class,$this->usuario);
@@ -73,6 +72,9 @@ class ProfileController extends Controller{
                     
                     elseif($section == 'sectionTlfn'):
                         $this->changePhone($request);
+                    
+                    elseif($section == 'sectionPhoto'):
+                        $this->changePhoto($request);
                     
                     elseif($section == 'sectionDelete'):
                         $this->deleteUser($this->usuario,$request);
@@ -125,10 +127,6 @@ class ProfileController extends Controller{
         elseif($section == 'sectionPassword'):
         
             $data['password'] = $arrayUser['password'];
-        
-        elseif($section == 'sectionPhoto'):
-            
-            $data['photo'] = "'".$arrayUser['photo']."'";
         
         elseif($section == 'sectionBank'):
             
@@ -269,13 +267,11 @@ class ProfileController extends Controller{
     }
     
     private function addAddress(User $user, Request $request){
-    print_r($request->request->all());
+    
         $dataForm= $request->request->all();
         $posAddress = count( $request->request->all()['profileUser']['addresses']);
         $addressDefault = 0;
         
-        echo "<br><br>Direcciones <br><br>".$posAddress."<br>";
-        print_r($request->request->all());
         $data = array();
         $data['username'] = $user->getUsername();
         $data['id_user'] = $user->getId();
@@ -327,26 +323,78 @@ class ProfileController extends Controller{
         //print_r($result);
     }
     
-    private function changePhone(Request $request){
+    private function confirmCodePhone(Request $request){
         
-        print_r($request);
         $file = "http://www.whatwantweb.com/api_rest/user/phone/send_sms";
-        
+
         $data = array('username' => $this->usuario->getUsername(),
-                      'id' => $this->usuario->getId(),
-                      'password' => $this->usuario->getPassword(),
-                      'phone' => $request->request->all()['profileUser']['phone'],
-                      'prefix' => $request->request->all()['profileUser']['prefix']);
-        
+                          'id' => $this->usuario->getId(),
+                          'password' => $this->usuario->getPassword(),
+                          'phone' => $request->request->all()['profileUser']['phone'],
+                          'prefix' => $request->request->all()['profileUser']['prefix']);
+
         $ch = new ApiRest();
         $result = $ch->sendInformation($data, $file, "parameters");
+    }
+    
+    private function changePhone(Request $request){
         
-        print_r($request);
-        if($result['result'] == 'ok'):
-            $this->usuario->setPhone($data['phone']);
-            $this->usuario->setPrefix($data['prefix']);
+        if(empty($request->request->all()['profileUser']['codConfirmation']) ||
+            array_key_exists("confirmPhone", $request->request->all()['profileUser'])):    
+            
+            $this->confirmCodePhone($request);
+   
+        elseif(!empty($request->request->all()['profileUser']['codConfirmation'])):
+            
+            $file = "http://www.whatwantweb.com/api_rest/user/phone/confirm_sms";
+            $data = array('username' => $this->usuario->getUsername(),
+                          'id' => $this->usuario->getId(),
+                          'password' => $this->usuario->getPassword(),
+                          'token' => $request->request->all()['profileUser']['codConfirmation']);
+            
+            $ch = new ApiRest();
+            $result = $ch->sendInformation($data, $file, "parameters");
+            print_r($result);
+            if($result['result'] == 'ok'):
+                $this->usuario->setSmsConfirmed(1);
+                
+                $this->usuario->setPhone($result['phone']);
+                $this->usuario->setPrefix($result['prefix']);
+            endif;
+
         endif;
          
+        
+    }
+    
+    private function changePhoto(Request $request){
+        echo "cambio foto";
+        $file = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
+        
+        $dataFiles = $request->files->all()['profileUser']['photo'];
+        $fileUpload = "http://www.whatwantweb.com/img/user_".$this->usuario->getId()."/profile/perfil";
+        
+        
+       //print_r($request->files->all()['profileUser']['photo']);
+        $typePhoto = $request->files->all()['profileUser']['photo']->getMimeType();
+        $name = $dataFiles->getClientOriginalName();
+        $tmpName = $dataFiles->getPathname();
+        $extension = $dataFiles->getClientoriginalExtension();
+        
+        
+        if(strstr($typePhoto,"image") === false){
+            echo "error";
+        }
+        $carpeta = "http://www.whatwantweb.com/img/profile";
+
+        
+        $target_path = "http://www.whatwantweb.com/img/profile";
+
+        $directorio = "http://www.whatwantweb.com/img/profile"; // directorio de tu elección
+            
+        // almacenar imagen en el servidor
+        move_uploaded_file($tmpName,'http://www.whatwantweb.com/img/profile/'.$this->usuario->getId().$extension);
+ 
         
     }
 }

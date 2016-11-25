@@ -160,14 +160,18 @@ class User implements UserInterface
     private $isConfirmed;
     
     /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $hostUser;
+     /**
      * @var string
      */
     private $prefix;
     
     /**
-     * @var \WWW\UserBundle\Entity\User
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $hostUser;
+    private $inviteds;
 
     /**
      * Constructor
@@ -722,13 +726,11 @@ class User implements UserInterface
     }
     
     public function deleteAddress($index){
-        echo "<br><br>usuario<br><br> Indice ".$index."<br>";
-        //print_r($this->addresses);
+       
         unset($this->addresses[$index]);
-        echo "<br><br><br>";
+        
     }
-
-
+    
     /**
      * Set prefix
      *
@@ -868,5 +870,40 @@ class User implements UserInterface
     public function getHostUser()
     {
         return $this->hostUser;
+    }
+    
+
+
+    /**
+     * Add inviteds
+     *
+     * @param \WWW\UserBundle\Entity\User $inviteds
+     * @return User
+     */
+    public function addInvited(\WWW\UserBundle\Entity\User $inviteds)
+    {
+        $this->inviteds[] = $inviteds;
+
+        return $this;
+    }
+
+    /**
+     * Remove inviteds
+     *
+     * @param \WWW\UserBundle\Entity\User $inviteds
+     */
+    public function removeInvited(\WWW\UserBundle\Entity\User $inviteds)
+    {
+        $this->inviteds->removeElement($inviteds);
+    }
+
+    /**
+     * Get inviteds
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInviteds()
+    {
+        return $this->inviteds;
     }
 }
