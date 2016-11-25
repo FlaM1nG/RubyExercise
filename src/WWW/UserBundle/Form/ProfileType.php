@@ -18,11 +18,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use WWW\UserBundle\Form\AdressType;
+use WWW\GlobalBundle\Entity\ApiRest;
       
 class ProfileType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
+        
+        $arrayPrefix = array();
+        $filePrefix = "http://www.whatwantweb.com/api_rest/global/prefix/get_prefixes";
+       
+        $ch = new ApiRest();
+        
+        $result = $ch->sendInformationWihoutParameters($filePrefix);
+        
+        foreach($result as $prefix):
+            $arrayPrefix[$prefix['prefix']] =  $prefix['prefix'];
+        endforeach;
         
         $builder
                 ->add('username','text', array('label'=>'Nombre de usuario',
@@ -56,8 +69,12 @@ class ProfileType extends AbstractType{
                                              'required' => false))
                 ->add('phone','number',array('label'=>' ',
                                              'required' => false))
-                ->add('prefix','text',array('label' => 'Teléfono',
-                                             'required' => false))
+                ->add('prefix',ChoiceType::class, array('label' => 'Teléfono',
+                                                        'required' => false,
+                                                        'empty_value' => false,
+                                                        'choices' => $arrayPrefix,
+                                                        ))
+                
                 ->add('codConfirmation', 'text', array('label' => 'Código de confirmación',
                                                         'mapped' => false,
                                                         'required' => false))

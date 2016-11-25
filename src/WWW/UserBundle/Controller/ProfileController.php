@@ -30,7 +30,7 @@ class ProfileController extends Controller{
         $session = $request->getSession();
         
         $section = null;
-       
+      
         $ch = new ApiRest();
         
         $file = "http://www.whatwantweb.com/api_rest/user/data/get_info_user.php";
@@ -39,7 +39,6 @@ class ProfileController extends Controller{
                            "password" => $session->get('password'));
         
         $result = $ch->sendInformation($arrayData, $file, "parameters");
-        //print_r($result);
         
         $formAddress = null;
         $formulario = $this->createForm(ProfileType::class,$this->usuario);
@@ -244,13 +243,11 @@ class ProfileController extends Controller{
     }
     
     private function addAddress(User $user, Request $request){
-    print_r($request->request->all());
+    
         $dataForm= $request->request->all();
         $posAddress = count( $request->request->all()['profileUser']['addresses']);
         $addressDefault = 0;
         
-        echo "<br><br>Direcciones <br><br>".$posAddress."<br>";
-        print_r($request->request->all());
         $data = array();
         $data['username'] = $user->getUsername();
         $data['id_user'] = $user->getId();

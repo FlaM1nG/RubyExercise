@@ -197,6 +197,7 @@ class User implements UserInterface
             $this->password = $user['password'];
             $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
             $this->numAccount = $user['num_account'];
+            $this->prefix = $user['prefix'];
             
             foreach($user['addresses'] as $address):
                
