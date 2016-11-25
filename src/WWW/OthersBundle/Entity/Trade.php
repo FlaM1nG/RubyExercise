@@ -25,6 +25,7 @@ class Trade
         return $this->id;
     }
     
+    
     /**
      * @var float
      */
@@ -46,24 +47,14 @@ class Trade
     private $weight;
 
     /**
-     * @var \DateTime
+     * @var float
      */
-    private $createdDate;
+    private $longitude;
 
     /**
-     * @var \DateTime
+     * @var float
      */
-    private $modifiedDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $deletedDate;
-
-    /**
-     * @var boolean
-     */
-    private $isDeleted;
+    private $latitude;
 
     /**
      * @var \WWW\ServiceBundle\Entity\Offer
@@ -169,95 +160,49 @@ class Trade
     }
 
     /**
-     * Set createdDate
+     * Set longitude
      *
-     * @param \DateTime $createdDate
+     * @param float $longitude
      * @return Trade
      */
-    public function setCreatedDate($createdDate)
+    public function setLongitude($longitude)
     {
-        $this->createdDate = $createdDate;
+        $this->longitude = $longitude;
 
         return $this;
     }
 
     /**
-     * Get createdDate
+     * Get longitude
      *
-     * @return \DateTime 
+     * @return float 
      */
-    public function getCreatedDate()
+    public function getLongitude()
     {
-        return $this->createdDate;
+        return $this->longitude;
     }
 
     /**
-     * Set modifiedDate
+     * Set latitude
      *
-     * @param \DateTime $modifiedDate
+     * @param float $latitude
      * @return Trade
      */
-    public function setModifiedDate($modifiedDate)
+    public function setLatitude($latitude)
     {
-        $this->modifiedDate = $modifiedDate;
+        $this->latitude = $latitude;
 
         return $this;
     }
 
     /**
-     * Get modifiedDate
+     * Get latitude
      *
-     * @return \DateTime 
+     * @return float 
      */
-    public function getModifiedDate()
+    public function getLatitude()
     {
-        return $this->modifiedDate;
-    }
-
-    /**
-     * Set deletedDate
-     *
-     * @param \DateTime $deletedDate
-     * @return Trade
-     */
-    public function setDeletedDate($deletedDate)
-    {
-        $this->deletedDate = $deletedDate;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedDate
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedDate()
-    {
-        return $this->deletedDate;
-    }
-
-    /**
-     * Set isDeleted
-     *
-     * @param boolean $isDeleted
-     * @return Trade
-     */
-    public function setIsDeleted($isDeleted)
-    {
-        $this->isDeleted = $isDeleted;
-
-        return $this;
-    }
-
-    /**
-     * Get isDeleted
-     *
-     * @return boolean 
-     */
-    public function getIsDeleted()
-    {
-        return $this->isDeleted;
+        return $this->latitude;
     }
 
     /**
@@ -304,61 +249,5 @@ class Trade
     public function getCategory()
     {
         return $this->category;
-    }
-    /**
-     * @var float
-     */
-    private $longitude;
-
-    /**
-     * @var float
-     */
-    private $latitude;
-
-
-    /**
-     * Set longitude
-     *
-     * @param float $longitude
-     * @return Trade
-     */
-    public function setLongitude($longitude)
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    /**
-     * Get longitude
-     *
-     * @return float 
-     */
-    public function getLongitude()
-    {
-        return $this->longitude;
-    }
-
-    /**
-     * Set latitude
-     *
-     * @param float $latitude
-     * @return Trade
-     */
-    public function setLatitude($latitude)
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    /**
-     * Get latitude
-     *
-     * @return float 
-     */
-    public function getLatitude()
-    {
-        return $this->latitude;
     }
 }

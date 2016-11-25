@@ -21,6 +21,9 @@ WWW\OthersBundle\Entity\Trade:
             type: string
             length: 255
             nullable: true
+        weight:
+            type: float
+            nullable: true
         longitude:
             type: float
             nullable: true
