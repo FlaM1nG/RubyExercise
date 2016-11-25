@@ -1,3 +1,11 @@
+others:
+    resource: "@OthersBundle/Resources/config/routing.yml"
+    prefix:   /
+
+service:
+    resource: "@ServiceBundle/Resources/config/routing.yml"
+    prefix:   /
+
 global:
     resource: "@GlobalBundle/Resources/config/routing.yml"
     prefix:   /
