@@ -14,7 +14,11 @@
 {% block alert %}
     {% for flash_message in app.session.flashbag.get('mensaje') %}
        {{  alerts.alert('alert-warning', flash_message, null) }}
-    {% endfor %}    
+    {% endfor %}
+    
+    {% for flash_message in app.session.flashbag.get('mensaje2') %}
+        {{  alerts.alert(null, flash_message, null) }}
+     {% endfor %}
 {% endblock %}
 
 

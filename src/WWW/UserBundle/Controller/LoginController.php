@@ -65,7 +65,7 @@ class LoginController extends Controller{
         $session=$request->getSession();
         $session->clear();
         $this->get('session')->getFlashBag()->add(
-                                'mensaje',
+                                'mensaje2',
                                 'Se ha cerrado la sesion con exito'
                             );
                     return $this->redirect($this->generateUrl('user_login'));

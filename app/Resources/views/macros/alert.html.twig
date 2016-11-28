@@ -1,5 +1,7 @@
+{#{ alert-success | alert-info | alert-warning | alert-danger }#}
+
 {% macro alert(estilo, message, strongMessage) %}
-<div class="alert {{ estilo|default('text-info') }} alert-dismissible" role="alert">
+<div class="alert {{ estilo|default('alert-info') }} alert-dismissible" role="alert">
     <button type="button" 
             class="close" 
             data-dismiss="alert" 
