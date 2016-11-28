@@ -24,10 +24,9 @@ class LoginType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
-                ->add('username','text', array('label'=>'Usuario', 'required'=>false))
+                ->add('username','text', array('label'=>'Usuario'))
                 ->add('password','password', array('label' => 'Contraseña'))
                 ->add('enviar','submit',array('label'=>'Enviar'))
-                ->add('password2','password', array('label' => 'Contraseña','mapped'=>false))
                 ->add('captcha', 'captcha', array( 'as_url' => true, 
                                                    'reload' => true,
                                                    'label' => " "));

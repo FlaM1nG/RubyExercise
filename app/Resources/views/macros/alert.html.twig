@@ -1,0 +1,13 @@
+{% macro alert(estilo, message, strongMessage) %}
+<div class="alert {{ estilo|default('text-info') }} alert-dismissible" role="alert">
+    <button type="button" 
+            class="close" 
+            data-dismiss="alert" 
+            aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    
+    <strong>{{ strongMessage|e }}</strong> {{ message|e }}
+</div>
+
+{% endmacro %}

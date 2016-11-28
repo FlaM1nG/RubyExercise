@@ -1,7 +1,3 @@
-global:
-    resource: "@GlobalBundle/Resources/config/routing.yml"
-    prefix:   /
-    
 user_change:
     path: /change/{token}
     defaults: { _controller: UserBundle:Default:changePass }
@@ -24,11 +20,11 @@ user_register:
     
 user_login:
     path: /login
-    defaults: { _controller: UserBundle:Default:login }
+    defaults: { _controller: UserBundle:Login:login }
     
 user_logout:
     path: /logout
-    defaults: { _controller: UserBundle:Default:logout }
+    defaults: { _controller: UserBundle:Login:logout }
     
 user_profiler:
     path: /perfil
