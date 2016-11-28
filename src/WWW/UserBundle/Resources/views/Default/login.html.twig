@@ -10,6 +10,31 @@
 {% endblock %}
 
 {% block body %}
+
+    {{ form_start(formulario) }}
+    
+        {{ form_label(formulario.username) }}
+        {{ form_widget(formulario.username) }}
+
+        {{ form_label(formulario.password) }}
+        {{ form_widget(formulario.password) }}
+        
+        
+        
+        {% if app.session.get('intentoLogin') > 3 %}
+            {{form_widget(formulario.captcha)}}
+        {% endif %}    
+        
+        {{ form_row(formulario.enviar)}}
+    
+    
+        {% for flash_message in app.session.flashbag.get('mensaje') %}
+
+            {{ flash_message }}
+
+        {% endfor %}
+        
+    {#{ form_end(formulario)}#}
     <div class="container cd-main-content">
         <h1>
             Login
