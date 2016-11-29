@@ -1,0 +1,225 @@
+{% extends '::base.html.twig' %}
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{#{ BLOQUES -->     offerImage 
+                    offerUser
+                    offerTitle
+                    offerPrice
+                    offerVote
+                    offerDescription
+                    offerVariableData
+                    offerRelacionadas
+                    offerComments
+                    offerPublicidad
+                    offerDestacadas 
+                    offerOtherData 
+}#}
+
+{% block body %}
+<!-- BODY OFFER -->
+<div class="container-fluid cd-main-content">
+    <div class="row">
+        <!-- PRINCIPAL -->
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <!-- FILA PRINCIPAL -->
+            <div class="row">
+                <!-- IMAGENES Y USUARIO -->
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                    <!-- IMAGENES -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            {% block offerImage %} {% endblock %}
+                        </div>
+                        
+                        
+                    </div>
+                    <!-- FIN IMAGENES -->
+                    
+                    
+                    <!-- USUARIO -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            {% block offerUser %} {% endblock %}
+                        </div>
+                        
+                        
+                    </div>
+                    <!-- FIN USUARIO -->
+                    
+                    
+                </div>
+                <!-- FILA IMAGENES Y USUARIO -->
+                
+                
+                <!-- DATOS PRINCIPALES -->
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                    <!-- TITLE OFFER -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12
+                             col-off-title">
+                            <h2> {% block offerTitle %} {% endblock %} </h2>
+                            <hr>
+                        </div>
+                    </div>
+                    <!-- FIN TITLE OFFER -->
+                    
+                    
+                    <!-- PRICE AND VOTE OFFER -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="off-price"> 
+                                {% block offerPrice %} {% endblock %} 
+                            </span>
+                            
+                            <span class="off-vote"> 
+                                {% block offerVote %} {% endblock %} 
+                            </span>
+                        </div>
+                    </div>
+                    <!-- FIN PRICE AND VOTE OFFER -->
+                    
+                    
+                    <!-- DESCRIPTION OFFER -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <p> {% block offerDescription %} {% endblock %} </p>
+                        </div>
+                    </div>
+                    <!-- FIN DESCRIPTION OFFER -->
+                    
+                    
+                    <!-- BUY OFFER -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-default">
+                               Comprar
+                            </button>
+                        </div>
+                    </div>
+                    <!-- FIN BUY OFFER -->
+                    
+                    
+                    <!-- RRSS OFFER -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <p>REDES SOCIALES</p>
+                        </div>
+                    </div>
+                    <!-- FIN RRSS OFFER -->
+                    
+                    
+                </div>
+                <!-- FILA DATOS PRINCIPALES -->
+                
+                
+            </div>
+            <!-- FIN FILA PRINCIPAL -->
+            
+            
+            <!-- FILA SECUNDARIA -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!-- DATOS VARIABLES SERVICIO -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            {% block offerVariableData %} {% endblock %}
+                        </div>
+                    </div>
+                    <!-- FIN DATOS VARIABLES SERVICIO -->
+                    
+                    
+                    <!-- OFERTAS RELACIONADAS -->
+                    <div class="row row-tra-base">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            {% block offerRelacionadas %} {% endblock %}
+                        </div>
+                    </div>
+                    <!-- FIN OFERTAS RELACIONADAS -->
+                    
+                    
+                    <!-- COMENTARIOS -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            {% block offerComments %} {% endblock %}
+                        </div>
+                    </div>
+                    <!-- FIN COMENTARIOS -->
+                    
+                    
+                </div>
+                
+                
+            </div>
+            <!-- FIN FILA SECUNDARIA -->
+            
+            
+        </div>
+        <!-- FIN PRINCIPAL -->
+        
+        
+        <!-- SECUNDARIO -->
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <!-- PUBLICIDAD -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    {% block offerPublicidad %} {% endblock %}
+                </div>
+            </div>
+            <!-- FIN PUBLICIDAD -->
+            
+            
+            <!-- OFERTAS DESTACADAS -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    {% block offerDestacadas %} {% endblock %}
+                </div>
+            </div>
+            <!-- FIN OFERTAS DESTACADAS -->
+            
+            
+            <!-- OTROS DATOS -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    {% block offerOtherData %} {% endblock %}
+                </div>
+            </div>
+            <!-- FIN OTROS DATOS -->
+            
+            
+        </div>
+        <!-- FIN SECUNDARIO -->
+        
+        
+    </div>
+    
+    
+</div>
+<!-- FIN BODY OFFER -->
+{% endblock %}
+
+{% block javascriptsFooter %}
+{{ parent() }}    
+<script type="text/javascript">
+    $(document).scroll(function(e){
+        var scrollTop = $(document).scrollTop();
+        if(scrollTop > $('#menuAdministracion').height()){
+            //console.log(scrollTop);
+            $('#cbp-hrmenu').css("position","fixed");
+            $('#cbp-hrmenu').css("top","0");
+            $('#cbp-hrmenu').css("z-index","999");
+        } else {
+            $('#cbp-hrmenu').css("position","relative");
+        }
+    });
+</script>
+{% endblock %}
+
+{% block footer %}
+    {{ include('footer/sponsorFooter.html.twig') }}
+    {{ parent() }}
+{% endblock %} 
+
