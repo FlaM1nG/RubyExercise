@@ -18,4 +18,49 @@ class IndexController extends Controller
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ));
     }
+    
+    
+    public function aboutUsAction() {
+        return $this->render('pages/aboutUs.html.twig');
+    }
+    
+    public function siteMapAction() {
+        return $this->render('pages/siteMap.html.twig');
+    }
+    
+    public function ordersAction() {
+        return $this->render('pages/orders.html.twig');
+    }
+    
+    public function devolutionsAction() {
+        return $this->render('pages/devolutions.html.twig');
+    }
+    
+    public function contactAction() {
+        return $this->render('pages/contact.html.twig');
+    }
+    
+    public function shippingAction() {
+        return $this->render('pages/shipping.html.twig');
+    }
+    
+    public function privacyPolicyAction() {
+        return $this->render('pages/privacyPolicy.html.twig');
+    }
+    
+    public function paymentMethodAction() {
+        return $this->render('pages/paymentMethod.html.twig');
+    }
+    
+    public function serShareCarAction() {
+        return $this->render('services/serShareCar.html.twig');
+    }
+    
+    public function serTradeAction() {
+        return $this->render('services/serTrade.html.twig');
+    }
+    
+    public function serHouseRentsAction() {
+        return $this->render('services/serHouseRents.html.twig');
+    }
 }

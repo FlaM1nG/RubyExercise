@@ -1,5 +1,13 @@
-{% extends '::frontend.html.twig' %}
+{% extends '::base.html.twig' %}
 
+{% block title %}
+    Login
+{% endblock %}
+
+{% block nav %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
 
 {% block body %}
 

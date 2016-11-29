@@ -1,0 +1,371 @@
+/* ------------------ MENU DE NAVEGACION CON IMAGENES HOMEPAGE ------------------
+******************************************************************/
+
+/* *****  ***** */
+
+/* ##### FIN  ##### */
+
+
+/* ***** MENU ***** */
+nav#cbp-hrmenu {
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+.title-megamenu {
+    background: @gray-base;
+}
+
+.cbp-hrmenu > ul > li > a.title-megamenu {
+    background: @gray-base;
+}
+
+.cbp-hrmenu > ul > li > a.title-megamenu:hover {
+    background: rgba(255, 102, 0, 0.55);
+    text-decoration: none;
+    color: @brand-secondary;
+}
+
+.cbp-hrmenu > ul > li > a.title-megamenu:focus {
+    background: rgba(255, 102, 0, 0.55);
+    text-decoration: none;
+    color: @brand-secondary;
+}
+
+.row-categoria{
+    padding: 0px;
+}
+
+ul.row-categoria {
+    padding: 0px;
+}
+/* ##### FIN  ##### */
+
+/* ***** CATEGORIA ***** */
+.categoria {
+    width: 33.33333333%;
+    float: left;
+}
+
+.categoria > a {
+    width: 100%;
+    min-height: 200px;
+}
+
+@-moz-document url-prefix() {
+    a.padre-centrado {
+        padding: 5em 2em !important;
+        display: -moz-grid !important;
+    }
+}
+
+.hijo-centrado{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 50px;
+    color: @brand-secondary;
+}
+
+.hijo-centrado:hover{
+    //overflow: auto;
+}
+
+.categoria1{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../img/vehiculo.jpg);
+    min-height: 200px;
+    margin: 0;
+    padding: 0;
+}
+
+.categoria2{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../img/inmueble.jpg);
+    min-height: 200px;
+    margin: 0;
+    padding: 0;
+}
+
+.categoria3{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../img/otros.jpg);
+    min-height: 200px;
+    margin: 0;
+    padding: 0;
+}
+/* ##### FIN CATEGORIA ##### */
+
+
+/* ***** TRIANGULO ***** */
+.triangulo{
+    width: 0px;
+    height: 0px;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 0 50px 36px 50px;
+    border-bottom-color: @brand-primary;
+    border-left-color: rgba(255, 0, 0, 0);
+    border-right-color: rgba(255, 0, 0, 0);
+    position: absolute;
+}
+
+.triangulo1{
+    top: -34px;
+    left: 12%;
+}
+
+.triangulo2{
+    top: -34px;
+    left: 46%;
+}
+
+.triangulo3{;
+    top: -34px;
+    left: 80%;
+}
+/* ##### FIN TRIANGULO ##### */
+
+
+/* *****  ***** */
+
+/* ##### FIN  ##### */
+
+
+/*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
+@media only screen and (max-height : 1050px){
+    
+}
+
+@media only screen and (max-height : 810px){
+    
+}
+
+@media only screen and (max-height : 780px){
+    
+}
+
+
+/*######################   RANGO ANCHO [1600 � 1500[ ######################*/
+@media only screen and (max-width : 1600px) {
+    .triangulo1{
+        left: 14%;
+    }
+
+    .triangulo2{
+        left: 46%;
+    }
+    
+    nav#cbp-hrmenu {
+        margin-top: 0px;
+    }
+    
+    @-moz-document url-prefix() {
+        .categoria3{
+            a.padre-centrado {
+                padding: 3em 2em 0 !important;
+            }
+        }
+    }
+    
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 960px){
+        
+    }
+    
+    @media only screen and (max-height : 900px){
+        
+    }
+    
+    @media only screen and (max-height : 800px){
+        
+    }
+    
+    @media only screen and (max-height : 720px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [1500 � 1400[ ######################*/
+@media only screen and (max-width : 1500px) {
+    .triangulo1{
+        left: 13%;
+    }
+
+}
+
+/*######################   RANGO ANCHO [1400 � 1300[ ######################*/
+@media only screen and (max-width : 1400px) {
+    .triangulo1{
+        left: 14%;
+    }
+
+    .triangulo2{
+        left: 45.5%;
+    }
+    
+    nav#cbp-hrmenu {
+        margin-top: 0px;
+    }
+    
+}
+
+/*######################   RANGO ANCHO [1300 � 1200[ ######################*/
+@media only screen and (max-width : 1300px) {
+    .triangulo1{
+        left: 14%;
+    }
+
+    .triangulo2{
+        left: 46%;
+    }
+}
+
+/*######################   RANGO ANCHO [1200 � 1100[ ######################*/
+@media only screen and (max-width : 1200px) {
+    .triangulo1{
+        left: 13%;
+    }
+    
+    .triangulo3{
+        left: 79%;
+    }
+    
+    .cbp-hrmenu .cbp-hrsub-inner > div {
+        min-height: 75px;
+    }
+}
+
+/*######################   RANGO ANCHO [1100 �  992[  ######################*/
+@media only screen and (max-width : 1100px) {
+    .triangulo1 {
+        left: 12%;
+    }
+    
+    .triangulo2{
+        left: 45%;
+    }
+
+    .triangulo3{;
+        left: 78%;
+    }
+    
+    @media only screen and (max-height : 768px){
+        
+    }
+    
+    @media only screen and (max-height : 600px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [992�  850[  ######################*/
+@media only screen and (max-width : 992px) {
+    .hijo-centrado {
+        font-size: 34px;
+    }
+    
+    .triangulo1{
+        left: 12%;
+    }
+
+    .triangulo2{
+        left: 44%;
+    }
+
+    .triangulo3{;
+        left: 78%;
+    }
+    
+    .cbp-hrmenu .cbp-hrsub-inner > div {
+        min-height: 90px;
+    }
+    
+    @-moz-document url-prefix() {
+        .categoria3{
+            a.padre-centrado {
+                padding: 4em 2em 0 !important;
+            }
+        }
+    }
+    
+    @media only screen and (max-height : 500px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [850�  768[  ######################*/
+@media only screen and (max-width : 850px) {
+    
+    .triangulo1{
+        left: 11%;
+    }
+
+    .triangulo2{
+        left: 44%;
+    }
+
+    .triangulo3{;
+        left: 77%;
+    }
+}
+
+/*######################   RANGO ANCHO [768 � 480[  ######################*/
+@media only screen and (max-width : 768px) {
+    nav#cbp-hrmenu {
+        display: none;
+    }
+       
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 850px){
+        
+    }
+    
+    @media only screen and (max-height : 740px){
+        
+    }
+    
+    @media only screen and (max-height : 360px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [480 � 320[  ######################*/
+@media only screen and (max-width : 480px) {
+    
+        
+    @media only screen and (max-height : 667px){
+        
+    }
+    
+    @media only screen and (max-height : 640px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [320 � 1]  ######################*/
+@media only screen and (max-width : 320px) {
+    
+    
+    @media only screen and (max-height : 534px){
+        
+    }
+    
+    @media only screen and (max-height : 480px){
+        
+    }
+}
