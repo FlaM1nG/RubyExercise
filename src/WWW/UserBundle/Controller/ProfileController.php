@@ -23,7 +23,7 @@ use WWW\UserBundle\Form\ProfileType;
  */
 class ProfileController extends Controller{
     
-    private $usuario;
+    private $usuario = null;
     
     public function profileAction(Request $request){ 
         

@@ -64,7 +64,7 @@ class LoginController extends Controller{
     public function logoutAction(Request $request){
         $session=$request->getSession();
         $session->clear();
-         $this->get('session')->getFlashBag()->add(
+        $this->get('session')->getFlashBag()->add(
                                 'mensaje',
                                 'Se ha cerrado la sesion con exito'
                             );

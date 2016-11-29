@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new WWW\UserBundle\UserBundle(),
             new WWW\GlobalBundle\GlobalBundle(),
+            new WWW\ServiceBundle\ServiceBundle(),
+            new WWW\OthersBundle\OthersBundle(),
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
         );
 

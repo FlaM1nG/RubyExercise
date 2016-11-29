@@ -586,6 +586,10 @@ class User implements UserInterface
      * @Assert\True(message = "Debes tener al menos 18 años")
      */
     public function isAdult(){
+       if( $this->birthdate <= new\DateTime('today - 18 years')) 
+           echo "hola";
+       else echo "adios";
+       
        return $this->birthdate <= new\DateTime('today - 18 years'); 
     }
     
