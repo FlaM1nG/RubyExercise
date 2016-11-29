@@ -14,7 +14,7 @@ class DefaultController extends Controller{
     public function indexAction(Request $request)
     {
         $session = $request->getSession();
-        return $this->render('UserBundle:Default:index.html.twig');
+        return $this->render('::home/index.html.twig');
     }
     
     public function loginAction(Request $request){

@@ -1,5 +1,5 @@
 {% extends '::base.html.twig' %}
-
+{% import 'macros/alert.html.twig' as alerts %}
 {% block title %}
     Profile
 {% endblock %}
@@ -8,9 +8,19 @@
     {{ parent() }}
     {{ include('nav/menu.html.twig') }}
 {% endblock %}
+
+{% block alert %}
+    {% for flash_message in app.session.flashbag.get('mensaje') %}
+       {{  alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+    
+    {% for flash_message in app.session.flashbag.get('mensaje2') %}
+        {{  alerts.alert(null, flash_message, null) }}
+     {% endfor %}
+{% endblock %}
        
-        {% block content %}
-           {{dump(usuario)}}
+        {% block body %}
+           {#{dump(usuario)}#}
            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
 
         <ul class="nav nav-tabs" role="tablist">
@@ -36,36 +46,38 @@
                 </a>
             </li>
 
-                    <li>
-                        <a href="#" name="password" id="sectionPassword">Contraseña</a>
-                    </li>
-                    
-                    <li>
-                        <a href="#" name="tlfn" id="sectionTlfn">Teléfono</a>
-                    </li>
+            <li>
+                <a href="#" name="password" id="sectionPassword">Contraseña</a>
+            </li>
 
-                    <li>
-                        <a href="#" name="photo" id="sectionPhoto">Foto</a>
-                    </li>
-                    
-                    <li>
-                        <a href="#" name="photo" id="sectionAddress">Direcciones</a>
-                    </li>
-                    
-                    <li>
-                        <a href="#" name="bank" id="sectionBank">Datos bancarios</a>
-                    </li>
-                </ul>
+            <li>
+                <a href="#" name="tlfn" id="sectionTlfn">Teléfono</a>
+            </li>
 
+            <li>
+                <a href="#" name="photo" id="sectionPhoto">Foto</a>
+            </li>
+
+            <li>
+                <a href="#" name="photo" id="sectionAddress">Direcciones</a>
+            </li>
+
+            <li>
+                <a href="#" name="bank" id="sectionBank">Datos bancarios</a>
+            </li>
+        </ul>
+
+           
                 {{ form_row(formulario.username) }}
-                
+           
+           
                 --- SECCIÓN CAMBIO DE EMAIL ----
                 
                 {{ form_row(formulario.email) }}
                 {{ form_row(formulario.oldPassword) }}
                 
                 --- FIN SECCIÓN CAMBIO DE EMAIL ---
-                
+              
                 <BR>
                 {{ form_row(formulario.email) }}
                 <br>
@@ -126,6 +138,8 @@
                 <input type="hidden" value="" name="idChangeAddress" id="idChangeAddress">
                 <input type="hidden" value="" name="idDeleteAddress" id="idDeleteAddress">
                 <input type="hidden" value="" name="addAddress" id="addAddress">
+                
+        {% endblock %}
 
 {% block javascriptsFooter %}
     {{ parent() }}
