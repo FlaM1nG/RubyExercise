@@ -1,0 +1,129 @@
+WWW\UserBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: true
+        surname:
+            type: string
+            length: 255
+            nullable: true
+        username:
+            type: string
+            length: 255
+            unique: true
+        password:
+            type: string
+            length: 255
+        salt:
+            type: string
+            length: 255
+            nullable: true
+        sex:
+            type: string
+            length: '1'
+            nullable: true
+        birthdate:
+            type: date
+            nullable: true
+        email:
+            type: string
+            length: 255
+            unique: true
+        linkInvitation:
+            type: string
+            length: 255
+            column: link_invitation
+            nullable: true
+        invitNum:
+            type: integer
+            nullable: true
+            column: invit_num
+            nullable: true
+        phone:
+            type: integer
+            nullable: true
+        prefix:
+            type: string
+            length: 255
+            nullable: true
+        confirmationToken:
+            type: string
+            length: 255
+            column: confirmation_token
+        smsConfirmed:
+            type: boolean
+        nif:
+            type: integer
+            nullable: true
+        numAccount:
+            type: string
+            length: 255
+            nullable: true
+            column: num_account
+        isConfirmed:
+            type: boolean
+        isBanned:
+            type: boolean
+            nullable: true
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+    oneToMany:
+        addresses:
+            targetEntity: WWW\GlobalBundle\Entity\Address
+            mappedBy: User
+        inviteds:
+            targetEntity: User
+            mappedBy: hostUser
+    oneToOne:        
+        photo:
+            nullable: true
+            targetEntity: WWW\GlobalBundle\Entity\Photo
+            joinColumn:
+                referencedColumnName: id
+    manyToOne:
+        role:
+            nullable: true
+            targetEntity: Role
+            inversedBy: User
+            joinColumn:
+                referencedColumnName: id
+        hostUser:
+            nullable: true
+            targetEntity: User
+            inversedBy: inviteds
+            joinColumn:
+                referencedColumnName: id
+    manyToMany:
+        hobbies:
+          targetEntity: Hobby
+          joinTable:
+            name: user_hobbies
+            joinColumns:
+              user_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+            inverseJoinColumns:
+              hobby_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+    lifecycleCallbacks: {  }

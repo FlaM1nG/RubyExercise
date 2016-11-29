@@ -1,0 +1,50 @@
+WWW\GlobalBundle\Entity\Address:
+    type: entity
+    table: null
+    repositoryClass: WWW\GlobalBundle\Repository\AddressRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        street:
+            type: string
+            length: 255
+            nullable: true
+        name:
+            type: string
+            length: 255
+            nullable: true
+        isDefault:
+            type: boolean
+            nullable: true
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+    manyToOne:
+        user:
+            nullable: true
+            targetEntity: WWW\UserBundle\Entity\User
+            inversedBy: Address
+            joinColumn:
+                referencedColumnName: id
+                onDelete: CASCADE
+        zipcode:
+            nullable: true
+            targetEntity: ZipCode
+            inversedBy: Address
+            joinColumn:
+                referencedColumnName: id
+                onDelete: CASCADE
+    lifecycleCallbacks: {  }

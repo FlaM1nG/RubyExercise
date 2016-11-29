@@ -1,0 +1,32 @@
+WWW\UserBundle\Entity\ConfirmSms:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\ConfirmSmsRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        token:
+            type: string
+            length: 255
+            unique: true
+        date:
+            type: datetime
+        clicked:
+            type: boolean
+        phone:
+            type: integer
+        prefix:
+            type: string
+            length: 255
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: ForgottenPassword
+            joinColumn:
+                referencedColumnName: id
+                onDelete: CASCADE
+    lifecycleCallbacks: {  }

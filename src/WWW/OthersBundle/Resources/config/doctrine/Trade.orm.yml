@@ -1,0 +1,42 @@
+WWW\OthersBundle\Entity\Trade:
+    type: entity
+    table: null
+    repositoryClass: WWW\OthersBundle\Repository\TradeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        priceUser:
+            type: float
+            nullable: true
+            column: price_user
+        priceTotal:
+            type: float
+            nullable: true
+            column: price_total
+        dimensions:
+            type: string
+            length: 255
+            nullable: true
+        longitude:
+            type: float
+            nullable: true
+        latitude:
+            type: float
+            nullable: true    
+    oneToOne:        
+        offer:
+            targetEntity: WWW\ServiceBundle\Entity\Offer
+            joinColumn:
+                referencedColumnName: id
+                onDelete: CASCADE
+    manyToOne:
+        category:
+            targetEntity: TradeCategory
+            inversedBy: Trade
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

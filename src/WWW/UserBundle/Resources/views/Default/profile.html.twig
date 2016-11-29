@@ -1,0 +1,142 @@
+{# empty Twig template #}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Usuarios</title>
+    {% block stylesheets %}
+    {% endblock %}
+    <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
+    
+    {% block javascripts %}
+        
+        <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="../js/validacionUsuarios.js"></script>
+    {% endblock %}
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+       
+        {% block content %}
+           {{dump(usuario)}}
+           {{ form_start(formulario,{'enctype': 'multipart/form-data'}, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                <ul>
+                    <li>
+                        <a href="#" name="personal" id="sectionPersonal">Personal</a>
+                    </li>
+
+                    <li>
+                        <a href="#" name="email" id="sectionEmail">Email</a>
+                    </li>
+
+                    <li>
+                        <a href="#" name="password" id="sectionPassword">Contraseña</a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" name="tlfn" id="sectionTlfn">Teléfono</a>
+                    </li>
+
+                    <li>
+                        <a href="#" name="photo" id="sectionPhoto">Foto</a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" name="photo" id="sectionAddress">Direcciones</a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" name="bank" id="sectionBank">Datos bancarios</a>
+                    </li>
+                    <li>
+                        <a href="#" name="delete" id="sectionDelete">Darse de baja</a>
+                    </li>
+                </ul>
+
+                {{ form_row(formulario.username) }}
+                
+                --- SECCIÓN CAMBIO DE EMAIL ----
+                
+                {{ form_row(formulario.email) }}
+                {{ form_row(formulario.oldPassword) }}
+                
+                --- FIN SECCIÓN CAMBIO DE EMAIL ---
+                
+                <BR>
+                {{ form_row(formulario.email) }}
+                <br>
+                {{ form_row(formulario.oldPassword) }}
+                {{ form_row(formulario.password) }}
+                {{ form_row(formulario.name) }}
+                {{ form_row(formulario.surname) }}
+                {{ form_row(formulario.birthdate) }}
+                {{ form_row(formulario.sex) }}
+                
+                --- SECCIÓN CAMBIO DE TELÉFONO ---
+                
+                {{ form_row(formulario.prefix)}}
+                {{ form_row(formulario.phone) }}
+                {{ form_row(formulario.codConfirmation)}}
+                {{ form_row(formulario.confirmPhone)}}
+                
+                --- FIN SECCIÓN CAMBIO DE TELÉFONO ---
+                <br>
+                {{ form_row(formulario.photo) }}
+                <br>
+                Invita a tus amigos y consigue nuevos servicios:
+                <br>
+                http://localhost/wwweb/web/app_dev.php/registro/{{usuario.linkInvitation}}
+                <br>
+                <br>
+                <div class="contentAddress">
+                {% for address in formulario.addresses %}
+                    
+                   <div id="address{{address.vars.value.id}}">
+                       
+                        {{ form_label(address.name)}}
+                        {{ form_widget(address.name,  { 'attr': { 'readonly': 'true' } })}}
+                        
+                        {{ form_label(address.street) }}
+                        {{ form_widget(address.street,  { 'attr': { 'readonly': 'true' } })}}
+
+                        {{ form_label(address.isDefault) }}
+                        {{ form_widget(address.isDefault,  { 'attr': { 'readonly': 'true' } })}}
+
+                        {{ form_row(address.id)}}
+
+                        {{ form_row(address.zipCode)}}
+                        {{ form_row(address.city)}}
+                        {{ form_row(address.region)}}
+                        {{ form_row(address.country)}}
+                        {{ form_row(address.idZipCode)}}
+                          
+
+                        <input class="posArrayAddress" type ="hidden" name="posArrayAddress" value="{{address.vars.name}}">
+                        <button type="submit" name="editar" class="buttonEditAddress">Editar</button>
+                        <button type="submit" name="eliminar" class="buttonDeleteAddress">Eliminar</button>
+                   </div>
+                {% endfor %}   
+                </div> 
+
+                Añadir dirección
+                <input type="submit" value="+" name="buttonAddAddress" id="buttonAddAddress">
+                <input type="hidden" value="sectionPersonal" name="section" id="sectionUser">
+                <input type="hidden" value="" name="idChangeAddress" id="idChangeAddress">
+                <input type="hidden" value="" name="idDeleteAddress" id="idDeleteAddress">
+                <input type="hidden" value="" name="addAddress" id="addAddress">
+
+            {{ form_end(formulario)}}
+            
+        {% endblock %}     
+  </body>
+</html>

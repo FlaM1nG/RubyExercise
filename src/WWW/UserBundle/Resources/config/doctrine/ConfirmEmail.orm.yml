@@ -1,0 +1,32 @@
+WWW\UserBundle\Entity\ConfirmEmail:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\ConfirmEmailRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: 255
+        date:
+            type: datetime
+        clicked:
+            type: boolean
+        token:
+            type: string
+            length: 255
+            unique: true
+        original:
+            type: boolean
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: ConfirmEmail
+            joinColumn:
+                referencedColumnName: id
+                onDelete: CASCADE
+    lifecycleCallbacks: {  }
