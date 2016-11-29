@@ -19,93 +19,151 @@
      {% endfor %}
 {% endblock %}
        
-        {% block body %}
+{% block body %}
            {#{dump(usuario)}#}
-           {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
+           {#{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }#}
 
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active">
-                <a href="#personal" 
-                   name="personal" 
-                   id="sectionPersonal"
-                   aria-controls="personal" 
-                   role="tab" 
-                   data-toggle="tab">
-                   Personal
-                </a>
-            </li>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#personal" 
+               name="personal" 
+               id="sectionPersonal"
+               aria-controls="personal" 
+               role="tab" 
+               data-toggle="tab">
+               Personal
+            </a>
+        </li>
 
-            <li role="presentation">
-                <a href="#email" 
-                   name="email" 
-                   id="sectionEmail"
-                   aria-controls="email" 
-                   role="tab" 
-                   data-toggle="tab">
-                   Email
-                </a>
-            </li>
+        <li role="presentation">
+            <a href="#email" 
+               name="email" 
+               id="sectionEmail"
+               aria-controls="email" 
+               role="tab" 
+               data-toggle="tab">
+               Email
+            </a>
+        </li>
 
-            <li>
-                <a href="#" name="password" id="sectionPassword">Contraseña</a>
-            </li>
+        <li role="presentation">
+            <a href="#password" 
+               name="password" 
+               id="sectionPassword"
+               aria-controls="password"
+               role="tab" 
+               data-toggle="tab">
+                Contraseña
+            </a>
+        </li>
 
-            <li>
-                <a href="#" name="tlfn" id="sectionTlfn">Teléfono</a>
-            </li>
+        <li role="presentation">
+            <a href="#tlfn" 
+               name="tlfn" 
+               id="sectionTlfn"
+               aria-controls="tlfn"
+               role="tab" 
+               data-toggle="tab">Teléfono</a>
+        </li>
 
-            <li>
-                <a href="#" name="photo" id="sectionPhoto">Foto</a>
-            </li>
+        <li role="presentation">
+            <a href="#photo" 
+               name="photo" 
+               id="sectionPhoto"
+               aria-controls="photo"
+               role="tab" 
+               data-toggle="tab">
+                Foto
+            </a>
+        </li>
 
-            <li>
-                <a href="#" name="photo" id="sectionAddress">Direcciones</a>
-            </li>
+        <li role="presentation">
+            <a href="#address" 
+               name="address" 
+               id="sectionAddress"
+               aria-controls="address"
+               role="tab" 
+               data-toggle="tab">
+                Direcciones
+            </a>
+        </li>
 
-            <li>
-                <a href="#" name="bank" id="sectionBank">Datos bancarios</a>
-            </li>
-        </ul>
-
+        <li role="presentation">
+            <a href="#bank" 
+               name="bank" 
+               id="sectionBank"
+               aria-controls="bank"
+               role="tab" 
+               data-toggle="tab">
+                Datos bancarios
+            </a>
+        </li>
+        
+        <li role="presentation">
+            <a href="#myOffer" 
+               name="myOffer" 
+               id="sectionMyOffer"
+               aria-controls="myOffer"
+               role="tab" 
+               data-toggle="tab">
+                Mis ofertas
+            </a>
+        </li>
+    </ul>
            
+    <div class="tab-content">
+        
+        <div class="tab-pane active" name="personal" id="personal">
+            
+            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
                 {{ form_row(formulario.username) }}
-           
-           
-                --- SECCIÓN CAMBIO DE EMAIL ----
-                
-                {{ form_row(formulario.email) }}
-                {{ form_row(formulario.oldPassword) }}
-                
-                --- FIN SECCIÓN CAMBIO DE EMAIL ---
-              
-                <BR>
-                {{ form_row(formulario.email) }}
-                <br>
-                {{ form_row(formulario.oldPassword) }}
-                {{ form_row(formulario.password) }}
                 {{ form_row(formulario.name) }}
                 {{ form_row(formulario.surname) }}
                 {{ form_row(formulario.birthdate) }}
                 {{ form_row(formulario.sex) }}
+                {{ form_row(formulario.linkInvitation) }}
                 
-                --- SECCIÓN CAMBIO DE TELÉFONO ---
+        </div>
+        
+        <div class="tab-pane" name="email" id="email">
+            
+            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_row(formulario.email) }}
+                {{ form_row(formulario.oldPassword) }}
                 
+        </div>
+        
+        <div class="tab-pane" name="password" id="password">
+            
+            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_row(formulario.oldPassword) }}
+                {{ form_row(formulario.password) }}
+                
+        </div>
+        
+        <div class="tab-pane" name="tlfn" id="tlfn">
+            
+            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
                 {{ form_row(formulario.prefix)}}
                 {{ form_row(formulario.phone) }}
                 {{ form_row(formulario.codConfirmation)}}
                 {{ form_row(formulario.confirmPhone)}}
                 
-                --- FIN SECCIÓN CAMBIO DE TELÉFONO ---
-                <br>
+        </div>
+        
+        <div class="tab-pane" name="photo" id="photo">
+            
+            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
                 {{ form_row(formulario.photo) }}
-                <br>
-                {{ form_row(formulario.linkInvitation) }}
-
-                <br>
+        </div>
+        
+        <div class="tab-pane" name="address" id="address">
+            
+           {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}  
                 <div class="contentAddress">
-                {% for address in formulario.addresses %}
+                    {% for address in formulario.addresses %}
                     
-                   <div id="address{{address.vars.value.id}}">
+                    <div id="address{{address.vars.value.id}}">
                        
                         {{ form_label(address.name)}}
                         {{ form_widget(address.name,  { 'attr': { 'readonly': 'true' } })}}
@@ -129,17 +187,31 @@
                         <button type="submit" name="editar" class="buttonEditAddress">Editar</button>
                         <button type="submit" name="eliminar" class="buttonDeleteAddress">Eliminar</button>
                    </div>
-                {% endfor %}   
-                </div> 
-
-                Añadir dirección
+                    {% endfor %}   
+                </div>
                 <input type="submit" value="+" name="buttonAddAddress" id="buttonAddAddress">
+        </div>
+        
+        <div class="tab-pane" name="bank" id="bank">
+            
+            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_row(formulario.num_account)}}
+        </div>
+        
+        <div class="tab-pane" name="myOffer" id="myOffer">
+            
+           {{ form_start(formulario, {'attr': {'novalidate': 'novalidate'}}) }}  
+        </div>
+        
+    </div>    
+
+                
                 <input type="hidden" value="sectionPersonal" name="section" id="sectionUser">
                 <input type="hidden" value="" name="idChangeAddress" id="idChangeAddress">
                 <input type="hidden" value="" name="idDeleteAddress" id="idDeleteAddress">
                 <input type="hidden" value="" name="addAddress" id="addAddress">
-                
-        {% endblock %}
+              
+{% endblock %}
 
 {% block javascriptsFooter %}
     {{ parent() }}
