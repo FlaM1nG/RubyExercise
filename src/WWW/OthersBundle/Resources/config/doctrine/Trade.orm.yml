@@ -9,14 +9,9 @@ WWW\OthersBundle\Entity\Trade:
             generator:
                 strategy: AUTO
     fields:
-        priceUser:
+        price:
             type: float
             nullable: true
-            column: price_user
-        priceTotal:
-            type: float
-            nullable: true
-            column: price_total
         dimensions:
             type: string
             length: 255
