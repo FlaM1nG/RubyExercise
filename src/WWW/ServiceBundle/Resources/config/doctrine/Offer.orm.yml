@@ -15,6 +15,7 @@ WWW\ServiceBundle\Entity\Offer:
         description:
             type: string
             length: 255
+            nullable: true
         expired:
             type: boolean
         createdDate:
