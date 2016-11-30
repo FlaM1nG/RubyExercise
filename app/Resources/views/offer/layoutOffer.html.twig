@@ -224,19 +224,53 @@
     $('.owl-carousel').owlCarousel({
         margin:10,
         loop:true,
-        items:3,
-        startPosition:1
+        startPosition:1,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            320:{
+                items:2
+            },
+            480:{
+                items:3
+            },
+            600:{
+                items:4
+            },
+            769:{
+                items:1
+            },
+            850:{
+                items:2
+            },
+            1500:{
+                items:3
+            },
+            2100:{
+                items:4
+            }
+        }
     });
 </script>
 
 <script type="text/javascript">
     $(document).ready(function() {
+        var srcimgprin = $('.off-img-slid0').attr('src');
+        $(".off-img-expo").attr('src',srcimgprin);
+        $(".off-img-expo").attr('data-zoom-image',srcimgprin);
+        
         $('.off-img-slid').click(function(){
             var srcimg = $(this).attr('src');
             $(".off-img-expo").attr('src',srcimg);
+            $(".off-img-expo").attr('data-zoom-image',srcimg);
         });
     });
 </script>
+
+
+
 {% endblock %}
 
 {% block footer %}

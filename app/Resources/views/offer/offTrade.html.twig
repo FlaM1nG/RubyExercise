@@ -18,12 +18,8 @@
     
 <div class="off-img-marco-grande">
     <img class="img-responsive off-img-expo" 
-        src="
-    {{ random([asset('img/seat.jpg'), 
-           asset('img/articulo1.jpg'), 
-           asset('img/macbook.png'),
-           asset('img/alquilerTuristico3.jpg')]) }} 
-    " alt="">
+        src=""
+        alt=""/>
 </div>
 
 
@@ -33,7 +29,7 @@
     <div class="owl-item off-item-dime">
         <h4>{{ i }}</h4>
         <div class="off-img-marco-peque ">
-            <img class="img-responsive off-img-slid" 
+            <img class="img-responsive off-img-slid off-img-slid{{i}}" 
                 src="
                 {{ random([asset('img/seat.jpg'), 
                        asset('img/articulo1.jpg'), 
