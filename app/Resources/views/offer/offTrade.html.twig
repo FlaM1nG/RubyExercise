@@ -15,13 +15,36 @@
 }#}
 
 {% block offerImage %}
-    <img class="img-responsive" 
+    
+<div class="off-img-marco-grande">
+    <img class="img-responsive off-img-expo" 
         src="
     {{ random([asset('img/seat.jpg'), 
            asset('img/articulo1.jpg'), 
            asset('img/macbook.png'),
            asset('img/alquilerTuristico3.jpg')]) }} 
     " alt="">
+</div>
+
+
+<div class="owl-carousel owl-theme">
+    
+    {% for i in 0..6 %}
+    <div class="owl-item off-item-dime">
+        <h4>{{ i }}</h4>
+        <div class="off-img-marco-peque ">
+            <img class="img-responsive off-img-slid" 
+                src="
+                {{ random([asset('img/seat.jpg'), 
+                       asset('img/articulo1.jpg'), 
+                       asset('img/macbook.png'),
+                       asset('img/alquilerTuristico3.jpg')]) }} 
+                " alt="">
+        </div>
+    </div>
+    {% endfor %}
+    
+</div>
 {% endblock %}
 
 

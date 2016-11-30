@@ -21,7 +21,7 @@
 
 {% block body %}
 <!-- BODY OFFER -->
-<div class="container-fluid cd-main-content">
+<div class="container-fluid cd-main-content off-container">
     <div class="row">
         <!-- PRINCIPAL -->
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -214,6 +214,27 @@
         } else {
             $('#cbp-hrmenu').css("position","relative");
         }
+    });
+</script>
+
+<script src="{{ asset('js/owl.carousel.min.js') }}" 
+        type="text/javascript">
+</script>
+<script type="text/javascript">
+    $('.owl-carousel').owlCarousel({
+        margin:10,
+        loop:true,
+        items:3,
+        startPosition:1
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.off-img-slid').click(function(){
+            var srcimg = $(this).attr('src');
+            $(".off-img-expo").attr('src',srcimg);
+        });
     });
 </script>
 {% endblock %}
