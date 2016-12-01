@@ -16,35 +16,43 @@
 
 {% block offerImage %}
     
-<div class="owl-carousel owl-theme owl-loaded">
-    <div class="owl-stage-outer">
-        <div class="owl-stage">
-            <div class="owl-item">
-                <img class="img-responsive " 
-                src="{{ random([asset('img/seat.jpg'), 
+
+<div class="off-img-marco-grande">
+    <a class="off-img-href-grande" 
+        href="" 
+        data-lightbox="offer-item">
+        
+        <img class="img-responsive off-img-expo" 
+            src=""
+            alt=""/>
+    </a>
+</div>
+
+
+<div class="owl-carousel owl-theme">
+    
+{% for i in 0..6 %}
+
+{% set imageOff = random([asset('img/seat.jpg'), 
                    asset('img/articulo1.jpg'), 
                    asset('img/macbook.png'),
-                   asset('img/alquilerTuristico3.jpg')]) }}" 
+                   asset('img/alquilerTuristico3.jpg')]) %}
+        
+    <div class="owl-item off-item-dime">
+        <h4>{{ i }}</h4>
+        <div class="off-img-marco-peque ">
+            <a class="off-img-href-peque off-img-href-peque{{i}}" 
+                href="{{ imageOff }}" 
+                data-lightbox="offer-item">
+                
+            <img class="img-responsive off-img-slid off-img-slid{{i}}" 
+                src="{{ imageOff }}" 
                 alt="">
-            </div>
-            <div class="owl-item">
-                <img class="img-responsive " 
-                src="{{ random([asset('img/seat.jpg'), 
-                   asset('img/articulo1.jpg'), 
-                   asset('img/macbook.png'),
-                   asset('img/alquilerTuristico3.jpg')]) }}" 
-                alt="">
-            </div>
-            <div class="owl-item">
-                <img class="img-responsive " 
-                src="{{ random([asset('img/seat.jpg'), 
-                   asset('img/articulo1.jpg'), 
-                   asset('img/macbook.png'),
-                   asset('img/alquilerTuristico3.jpg')]) }}" 
-                alt="">
-            </div>
+            </a>
         </div>
     </div>
+{% endfor %}
+    
 </div>
 {% endblock %}
 

@@ -259,10 +259,16 @@
     $(document).ready(function() {
         var srcimgprin = $('.off-img-slid0').attr('src');
         $(".off-img-expo").attr('src',srcimgprin);
+        $(".off-img-href-grande").attr('href',srcimgprin);
         
-        $('.off-img-slid').click(function(){
-            var srcimg = $(this).attr('src');
+        //$('.cloned').attr('data-lightbox', '#');
+        $('.cloned').find('.off-img-href-peque').attr('data-lightbox', '');
+        $('.off-img-href-peque0').attr('data-lightbox', '');
+        
+        $('.off-img-marco-peque').click(function(){
+            var srcimg = $(this).find('.off-img-slid').attr('src');
             $(".off-img-expo").attr('src',srcimg);
+            $(".off-img-href-grande").attr('href',srcimg);
         });
     });
 </script>
@@ -270,6 +276,13 @@
 
 <script src="{{ asset('js/lightbox.js') }}" 
         type="text/javascript">
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        lightbox.option({
+          'disableScrolling' : true;
+        });
+    });
 </script>
 {% endblock %}
 
