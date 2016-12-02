@@ -14,7 +14,7 @@
 
 .btn-social {
   position: relative;
-  padding-left: (@bs-height-base + @padding-base-horizontal);
+  padding-left: (@bs-height-base + @padding-base-horizontal * 2);
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -31,7 +31,7 @@
     border-right: 1px solid rgba(0, 0, 0, 0.2);
   }
   &.btn-lg {
-    padding-left: (@bs-height-lg + @padding-large-horizontal);
+    padding-left: (@bs-height-lg + @padding-large-horizontal * 2);
     > :first-child {
       line-height: @bs-height-lg;
       width: @bs-height-lg;
@@ -39,7 +39,7 @@
     }
   }
   &.btn-sm {
-    padding-left: (@bs-height-sm + @padding-small-horizontal);
+    padding-left: (@bs-height-sm + @padding-small-horizontal * 2);
     > :first-child {
       line-height: @bs-height-sm;
       width: @bs-height-sm;
@@ -47,7 +47,7 @@
     }
   }
   &.btn-xs {
-    padding-left: (@bs-height-xs + @padding-small-horizontal);
+    padding-left: (@bs-height-xs + @padding-small-horizontal * 2);
     > :first-child {
       line-height: @bs-height-xs;
       width: @bs-height-xs;
@@ -95,6 +95,8 @@
   font-size: 18px;
   line-height: 1.33;
   border-radius: 25px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 
@@ -140,3 +142,38 @@
 .btn-twitter       { .btn-social(@gray-base); }
 .btn-youtube       { .btn-social(@gray-base); }
 .btn-whatsapp       { .btn-social(@gray-base); }
+
+.btn-facebook:focus, .btn-facebook:hover { 
+     background-color: @brand-primary;
+     border-color: @brand-primary;
+}
+
+.btn-twitter:focus, .btn-twitter:hover { 
+     background-color: @brand-primary;
+     border-color: @brand-primary;
+}
+
+.btn-youtube:focus, .btn-youtube:hover { 
+     background-color: @brand-primary;
+     border-color: @brand-primary;
+}
+
+.btn-linkedin:focus, .btn-linkedin:hover { 
+     background-color: @brand-primary;
+     border-color: @brand-primary;
+}
+
+.btn-whatsapp:focus, .btn-whatsapp:hover { 
+     background-color: @brand-primary;
+     border-color: @brand-primary;
+}
+
+.btn-pinterest:focus, .btn-pinterest:hover { 
+     background-color: @brand-primary;
+     border-color: @brand-primary;
+}
+
+.btn-google:focus, .btn-google:hover { 
+     background-color: @brand-primary;
+     border-color: @brand-primary;
+}
