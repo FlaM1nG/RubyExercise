@@ -14,38 +14,47 @@
                     offerOtherData 
 }#}
 
+
+
 {% block offerImage %}
-    
-<div class="owl-carousel owl-theme owl-loaded">
-    <div class="owl-stage-outer">
-        <div class="owl-stage">
-            <div class="owl-item">
-                <img class="img-responsive " 
-                src="{{ random([asset('img/seat.jpg'), 
-                   asset('img/articulo1.jpg'), 
-                   asset('img/macbook.png'),
-                   asset('img/alquilerTuristico3.jpg')]) }}" 
-                alt="">
+    <div id="off-img-big" class="owl-carousel">
+        {% set imgGallery = []  %}
+        
+        {% for i in 0..6 %}
+            
+            {% set imageOff = random([asset('img/seat.jpg'), 
+                asset('img/articulo1.jpg'), 
+                asset('img/macbook.png'),
+                asset('img/alquilerTuristico3.jpg')]) %}
+
+
+            {% set imgGallery = imgGallery|merge([imageOff] ) %}
+            <div class="item">
+                <div class="off-img-marco-grande">
+                    <a href="{{ imageOff }}" 
+                        data-lightbox="offer-item">
+                        
+                        <img class="img-responsive off-img-expo" 
+                            src="{{ imageOff }}" 
+                            alt="">
+                    </a>
+                </div>
             </div>
-            <div class="owl-item">
-                <img class="img-responsive " 
-                src="{{ random([asset('img/seat.jpg'), 
-                   asset('img/articulo1.jpg'), 
-                   asset('img/macbook.png'),
-                   asset('img/alquilerTuristico3.jpg')]) }}" 
-                alt="">
-            </div>
-            <div class="owl-item">
-                <img class="img-responsive " 
-                src="{{ random([asset('img/seat.jpg'), 
-                   asset('img/articulo1.jpg'), 
-                   asset('img/macbook.png'),
-                   asset('img/alquilerTuristico3.jpg')]) }}" 
-                alt="">
+        {% endfor %}
+    </div>
+
+    <div id="off-img-small" class="owl-carousel">
+        {% for i in 0..6 %}
+        <div class="item off-item-dime">
+            <div class="off-img-marco-peque">
+                <img class="img-responsive off-img-slid" 
+                    src="{{ imgGallery[i] }}" 
+                    alt="">
             </div>
         </div>
+        {% endfor %}
     </div>
-</div>
+
 {% endblock %}
 
 
