@@ -25,17 +25,6 @@ class Trade
         return $this->id;
     }
     
-    
-    /**
-     * @var float
-     */
-    private $priceUser;
-
-    /**
-     * @var float
-     */
-    private $priceTotal;
-
     /**
      * @var string
      */
@@ -66,52 +55,6 @@ class Trade
      */
     private $category;
 
-
-    /**
-     * Set priceUser
-     *
-     * @param float $priceUser
-     * @return Trade
-     */
-    public function setPriceUser($priceUser)
-    {
-        $this->priceUser = $priceUser;
-
-        return $this;
-    }
-
-    /**
-     * Get priceUser
-     *
-     * @return float 
-     */
-    public function getPriceUser()
-    {
-        return $this->priceUser;
-    }
-
-    /**
-     * Set priceTotal
-     *
-     * @param float $priceTotal
-     * @return Trade
-     */
-    public function setPriceTotal($priceTotal)
-    {
-        $this->priceTotal = $priceTotal;
-
-        return $this;
-    }
-
-    /**
-     * Get priceTotal
-     *
-     * @return float 
-     */
-    public function getPriceTotal()
-    {
-        return $this->priceTotal;
-    }
 
     /**
      * Set dimensions
@@ -249,5 +192,33 @@ class Trade
     public function getCategory()
     {
         return $this->category;
+    }
+    /**
+     * @var float
+     */
+    private $price;
+
+
+    /**
+     * Set price
+     *
+     * @param float $price
+     * @return Trade
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float 
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }
