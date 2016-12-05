@@ -60,27 +60,14 @@
 
 {% block offerUser %} 
     <!-- IMAGEN USUARIO -->
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <a href="#USUARIO">
-                <img class="center-block img-circle 
-                    img-responsive" 
-                    src="{{ asset('img/usuario1.jpg') }}" 
-                    width="50" alt="">
-            </a>
-        </div>
-                    
-                    
-    </div>
-    <!-- FIN IMAGEN USUARIO -->
-    
-    
-    <!-- NOMBRE USUARIO -->
     <div class="row row-off-user-name">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <a class="off-user-name" href="#USUARIO">Paco J</a>
-        </div>
-        
+        <a class="off-user-image" href="#USUARIO">
+            <img class=" img-circle img-responsive" 
+                src="{{ asset('img/usuario1.jpg') }}" 
+                width="50" alt="">
+        </a>
+                    
+        <a class="off-user-name" href="#USUARIO">Paco J</a>
         
     </div>
     <!-- FIN NOMBRE USUARIO -->
@@ -161,7 +148,13 @@
 
 
 {% block offerPublicidad %}
-    <p>PUBLICIDAD</p>
+    <h3>
+        Publicidad
+    </h3>
+    <hr>
+    <img src="{{ asset('img/publicidad.jpg') }}" 
+        class="img-responsive center-block"
+        alt="publicidad">
 {% endblock %}
 
 
@@ -171,5 +164,13 @@
 
 
 {% block offerOtherData %} 
-    <p>OTROS DATOS DE LA WEB</p>
+    <h3>
+        Recompensa por tu compra <span class="off-special">¡Gratis!</span>
+    </h3>
+    <hr>
+    <p>
+        Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
+        peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
+        Diodeno amatomaa pecador diodeno sexuarl. 
+    </p>
 {% endblock %}
