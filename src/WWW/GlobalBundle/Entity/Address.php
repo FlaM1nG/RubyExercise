@@ -65,9 +65,18 @@ class Address
             $this->modifiedDate = $address['modified_date'];
             $this->deletedDate = $address['deleted_date'];
             $this->isDeleted = $address['is_deleted'];
-            //S$this->user = $address['user'];
+            //$this->user = $address['user'];
             //$this->cp = $address['cp'];
              
+        else:
+            $this->id = 0;
+            $this->street = "";
+            $this->name = "";
+            $this->isDefault = "";
+            $this->createdDate = "";
+            $this->modifiedDate = "";
+            $this->deletedDate = "";
+            $this->isDeleted = "";
         endif;
     }
 
