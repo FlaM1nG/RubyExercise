@@ -1,0 +1,30 @@
+<script type="text/javascript">
+   // var tamTop = ($('#menuAdministracion').height() 
+        //+ $('.hre-parallax').height() + 65 );
+    
+    //var tamFirst = tamTop - 56;
+    
+    //$('.sid-body').css("top", tamTop);
+    
+    $('.sid-body').affix({
+        offset: {     
+            top: $('.sid-body').offset().top - 60,
+            bottom: ($('footer').outerHeight(true) + $('.cont-foo').outerHeight(true)) + 90
+        }
+    });
+    
+    
+    $(document).scroll(function(e){
+        var scrollTop = $(document).scrollTop();
+    
+        if(scrollTop > $('#menuAdministracion').height()){
+            //console.log(scrollTop);
+            
+            $('.sid-body').css("margin", "20px 0 0");
+            //$('.sid-body').addClass('sid-body2');
+        } else {
+            $('.sid-body').css("margin", "76px 0 0 0");
+            //$('.sid-body').removeClass('sid-body2');
+        }
+    });
+</script>
