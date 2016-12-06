@@ -14,7 +14,7 @@ class DefaultController extends Controller{
     public function indexAction(Request $request)
     {
         $session = $request->getSession();
-        return $this->render('UserBundle:Default:index.html.twig');
+        return $this->render('::home/index.html.twig');
     }
     
     public function loginAction(Request $request){
@@ -110,30 +110,6 @@ class DefaultController extends Controller{
         if(!empty($usuario->getEmail())):
             
             $file = "http://www.whatwantweb.com/api_rest/user/passwords/forget_password.php";
-            $data = array("email" => $usuario->getEmail());
-        
-            $ch = new ApiRest();
-            $result = $ch->sendInformation($data, $file, "parameters");
-            
-            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
-        else:
-            
-            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
-        endif;
-                
-    }
-    public function ResendAction(Request $request){
-        
-        $usuario = new User();
-       
-        $formulario = $this->createForm('WWW\UserBundle\Form\ForgotPassType',$usuario);
-         
-        //El usuario del formulario se asocia al objeto $usuario
-        $formulario->handleRequest($request);
-        
-        if(!empty($usuario->getEmail())):
-            
-            $file = "http://www.whatwantweb.com/api_rest/user/email/resend_email.php";
             $data = array("email" => $usuario->getEmail());
         
             $ch = new ApiRest();

@@ -1,0 +1,16 @@
+{# empty Twig template #}
+{{dump(formTrade)}}
+{{ form_start(formOffer) }}
+    {{ form_label(formOffer.description) }}
+    {{ form_widget(formOffer.description) }}
+    {{ form_label(formOffer.title) }}
+    {{ form_widget(formOffer.title) }}
+    {#{ form_label(formTrade.priceUser) }#}
+    {#{ form_widget(formTrade.priceUser) }#}
+    {{ form_row(formTrade.priceUser,{ 'money_pattern': '{{ widget }} €' })}}
+    {{ form_label(formTrade.dimensions) }}
+    {{ form_widget(formTrade.dimensions) }}
+    {{ form_label(formTrade.weight) }}
+    {{ form_widget(formTrade.weight) }}
+    <input type="submit" name="saveTrade" value="Guardar"> 
+

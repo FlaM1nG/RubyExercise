@@ -1,53 +1,218 @@
-{# empty Twig template #}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Usuarios</title>
-    {% block stylesheets %}
-    {% endblock %}
-    <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
-    
-    {% block javascripts %}
-        <script type="text/javascript" src="../js/validacionUsuarios.js"></script>
-    {% endblock %}
-    
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-       
-        {% block content %}
-            {{ form_start(formulario, {'action':path('user_register',{'token':token}),'attr':{'onsubmit':'return validaRegistro()'}}) }}
-            
-                {{ form_rest(formulario) }}
-                <div class="hobbies">
-                    
-                    {% set imageHobby = "" %}
-                    {% set i = 0 %}
-                   
-                    {% for hobby in hobbies %}
-                        
-                        {% if hobby.photo is defined %}
-                                {% set imageHobby = 'background:url("http://www.whatwantweb.com/'~hobby.photo.url~'")' %}
-                        {% endif %}
-                        
-                        <input style="{{ imageHobby }}" type="checkbox" name="hobbies_{{i}}" value="{{hobby.id}}">
-                        {{ hobby.name | capitalize}}
-                        <br>
-                        {% set i = i+1%}
-                    {%endfor%}
-                </div>
-            {{ form_end(formulario) }}
+{% extends '::base.html.twig' %}
 
-        {% endblock %}     
-        
-  </body>
-</html>
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+       
+{% block body %}
+<!-- TITULO REGISTRO -->
+<div class="container cd-main-content">
+    <h1>Register</h1>
+    <hr>
+</div>
+<!-- FIN TITULO REGISTRO -->
+
+{{ form_start(formulario, {'action':path('user_register'),
+    'attr':{'onsubmit':'return validaRegistro()'}}) }}
+
+<!-- CUERPO FORMULARIO -->
+<div class="container cd-main-content">
+
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <!-- FILA USUARIO NOMBRE Y TELEFONO -->
+        <div class="row">
+            <!-- USUARIO NOMBRE -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ form_row(formulario.username) }}
+            </div>
+            <!-- FIN USUARIO NOMBRE -->
+
+
+            <!-- USUARIO TELEFONO -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ form_label(formulario.prefix) }}
+                <div class="user-register-phone"> 
+                {{ form_widget(formulario.prefix) }}
+                {{ form_widget(formulario.phone) }}
+                </div>
+            </div>
+            <!-- FIN USUARIO TELEFONO -->
+
+
+        </div>
+        <!-- FIN FILA USUARIO NOMBRE Y TELEFONO -->
+
+
+        <!-- FILA USUARIO EMAIL Y PASS -->
+        <div class="row">
+            <!-- USUARIO PASS -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ form_row(formulario.password) }}
+            </div>
+            <!-- FIN USUARIO PASS -->
+
+
+            <!-- USUARIO EMAIL -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ form_row(formulario.email) }}
+            </div>
+            <!-- FIN USUARIO EMAIL -->
+
+
+        </div>
+        <!-- FIN FILA USUARIO EMAIL Y PASS -->
+
+
+        <!-- FILA USUARIO FECHA NACIMIENTO -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 
+                 us-birthdate-align">
+                {{ form_row(formulario.birthdate) }}
+            </div>
+        </div>
+        <!-- FIN FILA USUARIO FECHA NACIMIENTO -->
+
+
+        <!-- FILA USUARIO HOBBIES -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>
+                    Selecciona 3 preferencias que se identifique con tus gustos
+                    y aficiones.
+                </h3>
+                <hr>
+                {% set imageHobby = "" %}
+                {% set i = 0 %}
+
+                {% for hobby in hobbies %}
+
+                    {% if hobby.photo is defined %}
+                        {% set imageHobby = 'background:url("http://www.whatwantweb.com/'~hobby.photo.url~'")' %}
+                    {% endif %}
+                    <div class="us-check-group-element col-lg-3 col-md-3 
+                         col-sm-4 col-xs-6">
+                        <label class="us-image-checkbox center-block" 
+                            title="{{ hobby.name | capitalize}}">
+
+                            <img class="img-responsive img-circle center-block
+                                 us-register-img-hob"
+                                 src="{{ asset('img/usuario1.jpg') }}" />
+
+                            <input style="{{ imageHobby }}" 
+                                   type="checkbox" 
+                                   name="hobbies_{{i}}" 
+                                   value="{{hobby.id}}">
+                        </label>
+                        <span class="us-register-text-hobby"> 
+                            {{ hobby.name | capitalize}} 
+                        </span>
+                    </div>
+                    {% set i = i+1%}
+                {%endfor%}
+            </div>
+        </div>
+        <!-- FIN FILA USUARIO HOBBIES -->
+
+
+        <!-- FILA USUARIO CAPTCHA -->
+        <div class="row">
+            <div class="us-register-captcha center-block">
+                {{ form_row(formulario.captcha) }}
+            </div>
+        </div>
+        <!-- FIN FILA USUARIO CAPTCHA -->
+
+
+        <!-- FILA USUARIO CAPTCHA Y BOTON -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                {{ form_row(formulario.guardar) }}
+            </div>
+        </div>
+        <!-- FIN FILA USUARIO CAPTCHA Y BOTON -->
+
+
+    </div>
+
+
+</div>
+<!-- FIN CUERPO FORMULARIO -->
+
+{{ form_end(formulario) }}
+
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+{{ parent() }}    
+<script type="text/javascript">
+    $(document).scroll(function(e){
+        var scrollTop = $(document).scrollTop();
+        if(scrollTop > $('#menuAdministracion').height()){
+            //console.log(scrollTop);
+            $('#cbp-hrmenu').css("position","fixed");
+            $('#cbp-hrmenu').css("top","0");
+            $('#cbp-hrmenu').css("z-index","999");
+        } else {
+            $('#cbp-hrmenu').css("position","relative");
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    
+   
+    jQuery(function ($) {
+        var range = 3;
+        var cont = 0; 
+        // init the state from the input
+        $(".us-image-checkbox").each(function () {
+            if ($(this).find('input[type="checkbox"]').first().attr("checked")) {
+                $(this).addClass('us-image-checkbox-checked');
+                //alert('Select maximum ' + cont + ' technologies!');
+                
+            }
+            else {
+                $(this).removeClass('us-image-checkbox-checked');
+                //alert('Select maximum ' + cont + ' technologies!');
+                cont = 0;
+            }
+        });
+
+        // sync the state to the input
+        $(".us-image-checkbox").on("click", function (e) {
+            if ($(this).hasClass('us-image-checkbox-checked')) {
+                $('.us-image-checkbox').removeClass('us-image-all-select');
+                $(this).removeClass('us-image-checkbox-checked');
+                $(this).find('input[type="checkbox"]').first().removeAttr("checked");
+                cont--;
+                //alert('2Select maximum ' + cont + ' technologies!');
+            }
+            else {
+                if(cont < range){
+                    $(this).addClass('us-image-checkbox-checked');
+                    $(this).find('input[type="checkbox"]').first().attr("checked", "checked");
+                    cont++;
+                    //alert('1Select maximum ' + cont + ' technologies!');
+                }
+                
+                if(cont == range){
+                    $('.us-image-checkbox').not('.us-image-checkbox-checked').addClass('us-image-all-select');
+                    //alert('FULLLSelect maximum ' + cont + ' technologies!');
+                }
+                
+            }
+            
+            /*if(cont == range){
+                $(this).addClass('us-image-all-select');
+                $(this).find('input[type="checkbox"]').first().attr("checked", "checked");
+                    
+            }*/
+
+            e.preventDefault();
+        });
+    });
+</script>
+{% endblock %}

@@ -40,13 +40,26 @@ class ApiRest {
             endforeach;
         elseif($type == "json"):
             $information['data'] = json_encode($data);
+        
         endif;
         
         //echo  $information;
         return $this->resultApiRed($information, $file);
     }
     
-    private function resultApiRed($data, $file){
+    public function sendSeveralInformation($dataParameter, $dataJSON, $file){
+        $information = null;
+
+        foreach($dataParameter as $key => $value):
+            $information[$key] = $value;
+
+        endforeach;
+        $information['data'] = json_encode($dataJSON);        
+        
+        //echo  $information;
+        return $this->resultApiRed($information, $file);
+    }
+    public function resultApiRed($data, $file){
         
         // definimos la URL a la que hacemos la petición
         curl_setopt($this->ch, CURLOPT_URL, $file);

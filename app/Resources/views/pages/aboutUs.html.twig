@@ -1,0 +1,515 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    About us
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    <video class="aus-video" src="{{ asset('video/macbook.mp4') }}" 
+        autoplay loop mute poster="{{ asset('img/macbook.png') }}">
+    </video>
+    
+    <!-- TITULO -->
+    <div class="container-fluid aus-cab cd-main-content">
+        <h1>Sobre Nosotros</h1>
+
+    </div>
+    <!-- FIN TITULO -->
+    
+    
+    <!-- NUESTROS VALORES -->
+    <div class="container-fluid aus-bg cd-main-content">
+        <div class="container aus-cont">
+            <h2>
+                Nuestros valores
+            </h2>
+            <hr>
+            <p>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean 
+                commodo ligula eget dolor. Aenean massa. Cum sociis natoque 
+                penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. 
+                Nulla consequat massa quis enim. Donec pede justo, fringilla vel, 
+                aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, 
+                imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede 
+                mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum 
+                semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, 
+                porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem 
+                ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra 
+                nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. 
+                Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies 
+                nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget 
+                condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem 
+                neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, 
+                hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. 
+                Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. 
+                Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. 
+                Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. 
+                Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
+            </p>
+        </div>
+
+    </div>
+    <!-- FIN NUESTROS VALORES -->
+
+    <!-- TEXTO E IMAGENES -->
+    <div class="container-fluid cd-main-content">
+        <div class="row">
+            
+            <!-- IMAGEN 1 -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-img1">
+
+            </div>
+            <!-- FIN IMAGEN 1 -->
+
+            <!-- QUE ES WWW -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-text-ob">
+                <h3>
+                    ¿Qué es WhatWantWeb?
+                </h3>
+                <hr>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean 
+                    commodo ligula eget dolor. Aenean massa. Cum sociis natoque 
+                    penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                    Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. 
+                    Nulla consequat massa quis enim. Donec pede justo, fringilla vel, 
+                    aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, 
+                    imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede 
+                    mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum 
+                    semper nisi. Aenean vulputate eleifend tellus.
+                </p>
+            </div>
+            <!-- FIN QUE ES WWW -->
+
+        </div>
+
+
+        <div class="row">
+            
+            <!-- NUESTROS OBJETIVOS -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-text-ob">
+                <h3>
+                    Nuestros objetivos
+                </h3>
+                <hr>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean 
+                    commodo ligula eget dolor. Aenean massa. Cum sociis natoque 
+                    penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                    Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. 
+                    Nulla consequat massa quis enim. Donec pede justo, fringilla vel, 
+                    aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, 
+                    imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede 
+                    mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum 
+                    semper nisi. Aenean vulputate eleifend tellus.
+                </p>
+            </div>
+            <!-- FIN NUESTROS OBJETIVOS -->
+
+            <!-- IMAGEN 2 -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-img2">
+
+            </div>
+            <!-- FIN IMAGEN 2 -->
+
+        </div>
+
+    </div>
+    <!-- FIN TEXTO E IMAGENES -->
+    
+    <!-- NUESTRO EQUIPO -->
+    <div class="container-fluid aus-bg cd-main-content">
+        <div class="container aus-cont">
+            <h2>
+                Nuestro equipo
+            </h2>
+            <hr>
+            
+            <!-- UNA PERSONA -->
+            <div class="row">
+                <!-- PERSONA -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 aus-col-peo1">
+                    <!-- EFECTO -->
+                    <div class="aus-efect-peo1">
+                        <!-- IMAGEN PERSONA -->
+                        <div class="aus-img-peo">
+                            <img src="{{ asset('img/usuario1.jpg') }}" 
+                                 class="img-responsive img-circle 
+                                    aus-img-personal center-block" 
+                                 alt="person">
+                        </div>
+                        <!-- FIN IMAGEN PERSONA -->
+                        
+                        <!-- TEXTO PERSONA -->
+                        <div class="aus-text-peo">
+                            <span class="aus-name">
+                                Felix Estrada
+                            </span>
+                            <span class="aus-job">
+                                CEO
+                            </span>
+                            <p>
+                                Texto personalizable, en el cual cada uno puede 
+                                introducir lo que desee. Se recomienda que sea 
+                                una frase que le motive personalmente.
+                            </p>
+                            <a class="aus-email" href="#">
+                                felix.estrada@whatwantweb.com
+                            </a>
+                        </div>
+                        <!-- FIN TEXTO PERSONA -->
+                        
+                    </div>
+                    <!-- FIN EFECTO -->
+                    
+                </div>
+                <!-- FIN PERSONA -->
+                
+            </div>
+            <!-- FIN UNA PERSONA -->
+            
+            <!-- TRES PERSONAS -->
+            <div class="row">
+                <!-- PERSONA -->
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 aus-col-peo">
+                    <!-- EFECTO -->
+                    <div class="aus-efect-peo">
+                        <!-- IMAGEN PERSONA -->
+                        <div class="center-block aus-img-peo ">
+                            <img src="{{ asset('img/usuario1.jpg') }}" 
+                                 class="img-responsive img-circle 
+                                    aus-img-personal center-block" 
+                                 alt="person">
+                        </div>
+                        <!-- FIN IMAGEN PERSONA -->
+                        
+                        <!-- TEXTO PERSONA -->
+                        <div class="aus-text-peo">
+                            <span class="aus-name">
+                                Rocio Espinosa
+                            </span>
+                            <span class="aus-job">
+                                Web Developer
+                            </span>
+                            <p>
+                                Texto personalizable, en el cual cada uno puede 
+                                introducir lo que desee. Se recomienda que sea una frase
+                                que le motive personalmente.
+                            </p>
+                            <a class="aus-email" href="#">
+                                felix.estrada@whatwantweb.com
+                            </a>
+                        </div>
+                        <!-- FIN TEXTO PERSONA -->
+                        
+                    </div>
+                    <!-- FIN EFECTO -->
+
+                </div>
+                <!-- FIN PERSONA -->
+                
+                <!-- PERSONA -->
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 aus-col-peo">
+                    <!-- EFECTO -->
+                    <div class="aus-efect-peo">
+                        <!-- IMAGEN PERSONA -->
+                        <div class="aus-img-peo">
+                            <img src="{{ asset('img/usuario1.jpg') }}" 
+                                 class="img-responsive img-circle 
+                                    aus-img-personal center-block" 
+                                 alt="person">
+                        </div>
+                        <!-- FIN IMAGEN PERSONA -->
+                        
+                        <!-- TEXTO PERSONA -->
+                        <div class="aus-text-peo">
+                            <span class="aus-name">
+                                Julio Piñar
+                            </span>
+                            <span class="aus-job">
+                                Web Developer
+                            </span>
+                            <p>
+                                Texto personalizable, en el cual cada uno puede 
+                                introducir lo que desee. Se recomienda que sea una frase
+                                que le motive personalmente.
+                            </p>
+                            <a class="aus-email" href="#">
+                                felix.estrada@whatwantweb.com
+                            </a>
+                        </div>
+                        <!-- FIN TEXTO PERSONA -->
+                        
+                    </div>
+                    <!-- FIN EFECTO -->
+                    
+                </div>
+                <!-- FIN PERSONA -->
+                
+                <!-- PERSONA -->
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 aus-col-peo">
+                    <!-- EFECTO -->
+                    <div class="aus-efect-peo">
+                        <!-- IMAGEN PERSONA -->
+                        <div class="aus-img-peo">
+                            <img src="{{ asset('img/usuario1.jpg') }}" 
+                                 class="img-responsive img-circle 
+                                    aus-img-personal center-block" 
+                                 alt="person">
+                        </div>
+                        <!-- FIN IMAGEN PERSONA -->
+                        
+                        <!-- TEXTO PERSONA -->
+                        <div class="aus-text-peo">
+                            <span class="aus-name">
+                                Angel Velazquez
+                            </span>
+                            <span class="aus-job">
+                                Android Developer
+                            </span>
+                            <p>
+                                Texto personalizable, en el cual cada uno puede 
+                                introducir lo que desee. Se recomienda que sea una frase
+                                que le motive personalmente.
+                            </p>
+                            <a class="aus-email" href="#">
+                                felix.estrada@whatwantweb.com
+                            </a>
+                        </div>
+                        <!-- FIN TEXTO PERSONA -->
+                        
+                    </div>
+                    <!-- FIN EFECTO -->
+                    
+                </div>
+                <!-- FIN PERSONA -->
+                
+            </div>
+            <!-- FIN TRES PERSONAS -->
+            
+            <!-- TRES PERSONAS -->
+            <div class="row">
+                <!-- PERSONA -->
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 aus-col-peo">
+                    <!-- EFECTO -->
+                    <div class="aus-efect-peo">
+                        <!-- IMAGEN PERSONA -->
+                        <div class="aus-img-peo">
+                            <img src="{{ asset('img/usuario1.jpg') }}" 
+                                 class="img-responsive img-circle 
+                                    aus-img-personal center-block" 
+                                 alt="person">
+                        </div>
+                        <!-- FIN IMAGEN PERSONA -->
+                        
+                        <!-- TEXTO PERSONA -->
+                        <div class="aus-text-peo">
+                            <span class="aus-name">
+                                Jose Alberto Megías
+                            </span>
+                            <span class="aus-job">
+                                Web Developer
+                            </span>
+                            <p>
+                                Texto personalizable, en el cual cada uno puede 
+                                introducir lo que desee. Se recomienda que sea una frase
+                                que le motive personalmente.
+                            </p>
+                            <a class="aus-email" href="#">
+                                felix.estrada@whatwantweb.com
+                            </a>
+                        </div>
+                        <!-- FIN TEXTO PERSONA -->
+                        
+                    </div>
+                    <!-- FIN EFECTO -->
+                    
+                </div>
+                <!-- FIN PERSONA -->
+                
+                <!-- PERSONA -->
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 aus-col-peo">
+                    <!-- EFECTO -->
+                    <div class="aus-efect-peo">
+                        <!-- IMAGEN PERSONA -->
+                        <div class="aus-img-peo">
+                            <img src="{{ asset('img/usuario1.jpg') }}" 
+                                 class="img-responsive img-circle 
+                                    aus-img-personal center-block" 
+                                 alt="person">
+                        </div>
+                        <!-- FIN IMAGEN PERSONA -->
+                        
+                        <!-- TEXTO PERSONA -->
+                        <div class="aus-text-peo">
+                            <span class="aus-name">
+                                Carlos Andrés Morón
+                            </span>
+                            <span class="aus-job">
+                                Web Developer
+                            </span>
+                            <p>
+                                Texto personalizable, en el cual cada uno puede 
+                                introducir lo que desee. Se recomienda que sea una frase
+                                que le motive personalmente.
+                            </p>
+                            <a class="aus-email" href="#">
+                                felix.estrada@whatwantweb.com
+                            </a>
+                        </div>
+                        <!-- FIN TEXTO PERSONA -->
+                        
+                    </div>
+                    <!-- FIN EFECTO -->
+                    
+                </div>
+                <!-- FIN PERSONA -->
+                
+                <!-- PERSONA -->
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 aus-col-peo">
+                    <!-- EFECTO -->
+                    <div class="aus-efect-peo">
+                        <!-- IMAGEN PERSONA -->
+                        <div class="aus-img-peo">
+                            <img src="{{ asset('img/usuario1.jpg') }}" 
+                                 class="img-responsive img-circle 
+                                    aus-img-personal center-block" 
+                                 alt="person">
+                        </div>
+                        <!-- FIN IMAGEN PERSONA -->
+                        
+                        <!-- TEXTO PERSONA -->
+                        <div class="aus-text-peo">
+                            <span class="aus-name">
+                                Daniel Barbeitos
+                            </span>
+                            <span class="aus-job">
+                                Web Developer and Designer?
+                            </span>
+                            <p>
+                                Texto personalizable, en el cual cada uno puede 
+                                introducir lo que desee. Se recomienda que sea una frase
+                                que le motive personalmente.
+                            </p>
+                            <a class="aus-email" href="#">
+                                felix.estrada@whatwantweb.com
+                            </a>
+                        </div>
+                        <!-- FIN TEXTO PERSONA -->
+                        
+                    </div>
+                    <!-- FIN EFECTO -->
+                    
+                </div>
+                <!-- FIN PERSONA -->
+                
+            </div>
+            <!-- FIN TRES PERSONAS -->
+            
+        </div>
+
+    </div>
+    <!-- FIN NUESTRO EQUIPO -->
+
+    <!-- PATROCINADORES -->
+    <div class="container-fluid aus-bg cd-main-content aus-bg2">
+        <div class="container aus-bg3">
+            <h2>
+                Nuestros patrocinadores
+            </h2>
+            <hr>
+        </div>
+        
+        <!-- SPONSORS -->
+        <div class="row">
+
+            <!-- PRIMER SPONSOR -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-spon1">
+
+            </div>
+
+            <!-- PRIMER SPONSOR -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-spon2">
+
+            </div>
+        
+        </div>
+        <div class="row">
+
+            <!-- CUARTO SPONSOR -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-spon3">
+
+            </div>
+
+            <!-- TERCER SPONSOR -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-spon4">
+
+            </div>
+
+
+        </div>
+        <!-- FIN SPONSORS -->
+        
+    </div>
+    <!-- FIN PATROCINADORES -->
+    
+    <!-- NUESTROS SERVICIOS -->
+    <div class="container-fluid aus-bg cd-main-content aus-bg aus-servicios ">
+        <div class="container">
+            <div class="row aus-row-services">
+                <h2>
+                    Nuestros servicios complementarios
+                </h2>
+                <hr>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <a href="#" class="">
+                        <img src="{{ asset('img/wwb-750.jpg') }}" 
+                            class="img-responsive
+                               center-block" 
+                            alt="other_services">
+                    </a>
+                </div>
+                            
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <a href="#" class="">
+                        <img src="{{ asset('img/wwr-750.jpg') }}" 
+                            class="img-responsive
+                               center-block" 
+                            alt="other_services">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- FIN NUESTROS SERVICIOS -->
+    
+
+{% endblock %}
+
+
+{% block javascriptsFooter %}
+{{ parent() }}    
+<script type="text/javascript">
+    $(document).scroll(function(e){
+        var scrollTop = $(document).scrollTop();
+        if(scrollTop > $('#menuAdministracion').height()){
+            //console.log(scrollTop);
+            $('#cbp-hrmenu').css("position","fixed");
+            $('#cbp-hrmenu').css("top","0");
+            $('#cbp-hrmenu').css("z-index","999");
+        } else {
+            $('#cbp-hrmenu').css("position","relative");
+        }
+    });
+</script>
+{% endblock %}

@@ -23,7 +23,7 @@ use WWW\UserBundle\Form\ProfileType;
  */
 class ProfileController extends Controller{
     
-    private $usuario;
+    private $usuario = null;
     
     public function profileAction(Request $request){ 
         
@@ -46,8 +46,9 @@ class ProfileController extends Controller{
         if($result['result'] == 'ok'):
             
             $this->usuario = new User($result);
+            //print_r($this->usuario);
             if($request->getMethod()=="POST"):
-                
+                echo "entro";
                 $section = $request->request->all()['section'];
            
                 if(array_key_exists('buttonAddAddress',$request->request->all() )):
@@ -89,7 +90,8 @@ class ProfileController extends Controller{
             endif;
            
         endif;
-        
+        //echo "<br><br><br>";
+        //print_r($this->usuario);
         $formulario = $this->createForm(ProfileType::class,$this->usuario);
         
         return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$formulario->createView(),

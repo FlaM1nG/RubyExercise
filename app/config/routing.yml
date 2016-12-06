@@ -1,15 +1,3 @@
-others:
-    resource: "@OthersBundle/Resources/config/routing.yml"
-    prefix:   /
-
-service:
-    resource: "@ServiceBundle/Resources/config/routing.yml"
-    prefix:   /
-
-global:
-    resource: "@GlobalBundle/Resources/config/routing.yml"
-    prefix:   /
-
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /user
@@ -18,32 +6,49 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-user_register:
-    path: /registro/{token}
-    defaults: { _controller: UserBundle:Register:register,token:null }
+aboutUs:
+    path: /about-us
+    defaults: { _controller: AppBundle:Index:aboutUs }
     
+siteMap:
+    path: /site-map
+    defaults: { _controller: AppBundle:Index:siteMap }
     
-user_login:
-    path: /login
-    defaults: { _controller: UserBundle:Login:login }
+orders:
+    path: /orders
+    defaults: { _controller: AppBundle:Index:orders }
     
-user_logout:
-    path: /logout
-    defaults: { _controller: UserBundle:Login:logout }
+devolutions:
+    path: /devolutions
+    defaults: { _controller: AppBundle:Index:devolutions }
     
-user_change:
-    path: /change/{token}
-    defaults: { _controller: UserBundle:Default:changePass }
-
-user_forgot:
-    path: /forgot
-    defaults: { _controller: UserBundle:Default:forgotPass }
-user_resend:
-    path: /resend
-    defaults: { _controller: UserBundle:Default:resend }  
-user_profiler:
-    path: /perfil
-    defaults: { _controller: UserBundle:Profile:profile }
-
+contact:
+    path: /contact
+    defaults: { _controller: AppBundle:Index:contact }
+    
+shipping:
+    path: /shipping
+    defaults: { _controller: AppBundle:Index:shipping }
+    
+privacyPolicy:
+    path: /privacy-policy
+    defaults: { _controller: AppBundle:Index:privacyPolicy }
+    
+paymentMethod:
+    path: /payment-method
+    defaults: { _controller: AppBundle:Index:paymentMethod }
+    
+serShareCar:
+    path: /services/share-car
+    defaults: { _controller: AppBundle:Index:serShareCar }
+    
+serTrade:
+    path: /services/trade
+    defaults: { _controller: AppBundle:Index:serTrade }
+    
+serHouseRents:
+    path: /services/house-rents
+    defaults: { _controller: AppBundle:Index:serHouseRents }
+    
 gregwar_captcha_routing:
-    resource: "@GregwarCaptchaBundle/Resources/config/routing/routing.yml"
+   resource: "@GregwarCaptchaBundle/Resources/config/routing/routing.yml"
