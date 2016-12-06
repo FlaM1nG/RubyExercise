@@ -1,4 +1,5 @@
 {% extends '::base.html.twig' %}
+{% import 'macros/alert.html.twig' as alerts %}
 
 {% block title %}
     Login
@@ -7,18 +8,65 @@
 {% block nav %}
     {{ parent() }}
     {{ include('nav/menu.html.twig') }}
+    
 {% endblock %}
 
+{% block alert %}
+    {% for flash_message in app.session.flashbag.get('mensaje') %}
+       {{  alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+    
+    {% for flash_message in app.session.flashbag.get('mensaje2') %}
+        {{  alerts.alert(null, flash_message, null) }}
+     {% endfor %}
+{% endblock %}
+
+
 {% block body %}
-    <div class="container cd-main-content">
+    
+    <div class="container cd-main-content us-login-cont">
         <h1>
             Login
         </h1>
         <hr>
     </div>
     
-    <div class="container cd-main-content">
-        {{ form(formulario) }}
+    {{ form_start(formulario) }}
+    
+    <div class="container cd-main-content us-login-cont">
+        
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {{ form_label(formulario.username) }}
+            {{ form_widget(formulario.username) }}
+            </div>
+        </div>
+            
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {{ form_label(formulario.password) }}
+            {{ form_widget(formulario.password) }}
+            </div>
+        </div>
+            
+            
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {% if app.session.get('intentoLogin') > 3 %}
+                {{form_widget(formulario.captcha)}}
+            {% endif %}    
+            </div>
+        </div>
+            
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {{ form_row(formulario.enviar)}}   
+            </div>
+        </div>
+    
+        
+    {#{ form_end(formulario)}#}
     </div>
+    
 
 {% endblock %}

@@ -11,6 +11,7 @@ namespace WWW\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 /**
@@ -21,11 +22,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class LoginType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-        
+
         $builder
-                ->add('username','text', array('label'=>'Usuario', 'required'=>false))
+                ->add('username','text', array('label'=>'Usuario'))
                 ->add('password','password', array('label' => 'Contraseña'))
-                ->add('enviar','submit',array('label'=>'Enviar'));
+                ->add('enviar','submit',array('label'=>'Enviar'))
+                ->add('captcha', 'captcha', array( 'as_url' => true, 
+                                                   'reload' => true,
+                                                   'label' => " "));
     }
     
     public function configureOptions(OptionsResolver $resolver){

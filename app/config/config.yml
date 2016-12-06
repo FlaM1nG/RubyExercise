@@ -68,3 +68,8 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+gregwar_captcha:
+    width: 200
+    height: 50
+    length: 4

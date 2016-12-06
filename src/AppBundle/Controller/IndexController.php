@@ -63,4 +63,8 @@ class IndexController extends Controller
     public function serHouseRentsAction() {
         return $this->render('services/serHouseRents.html.twig');
     }
+    
+    public function offTradeAction() {
+        return $this->render('offer/offTrade.html.twig');
+    }
 }

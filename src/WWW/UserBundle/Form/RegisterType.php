@@ -18,21 +18,39 @@ namespace WWW\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use WWW\UserBundle\Entity\Hobby;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use WWW\GlobalBundle\Entity\ApiRest;
 
 class RegisterType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
         
+        $arrayPrefix = array();
+        $filePrefix = "http://www.whatwantweb.com/api_rest/global/prefix/get_prefixes";
+       
+        $ch = new ApiRest();
+        
+        $result = $ch->sendInformationWihoutParameters($filePrefix);
+        
+        foreach($result as $prefix):
+            $arrayPrefix[$prefix['prefix']] =  $prefix['prefix'];
+        endforeach;
+        
         $builder
                 ->add('username','text', array('label'=>'Nombre de usuario', 'required'=>false))
-                ->add('email','email',array('label'=>'Email', 'required'=>false))
+                ->add('email','repeated',array('required'=>false,
+                                               'type' => 'email',
+                                                'first_options' => array('label' => 'Email'),
+                                                'second_options' => array('label' => 'Repite email'),))
                 ->add('birthdate','birthday', array(
                                     'label' =>'Fecha de nacimiento',
                                     'format' =>'dd-MM-yyyy',
                                     'required'=>false))
-                ->add('prefix', 'number', array('label' => 'Teléfono'))
+               ->add('prefix',ChoiceType::class, array('label' => 'Teléfono',
+                                                        'required' => false,
+                                                        'empty_value' => false,
+                                                        'choices' => $arrayPrefix,
+                                                        'data'=>'+34' ))
                 ->add('phone','number', array('label' => ' '))
                 ->add('password', 'repeated', array(
                                                 'type' => 'password',
@@ -41,6 +59,9 @@ class RegisterType extends AbstractType{
                                                 'second_options' => array('label' => 'Repite Contraseña'),
                                                 'required' => false
                                               ))
+                ->add('captcha', 'captcha', array( 'as_url' => true, 
+                                                   'reload' => true,
+                                                   'label' => " "))
                 
                 ->add('guardar','submit',array('label'=>'Registrarse'));
     }

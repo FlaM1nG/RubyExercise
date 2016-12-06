@@ -2,6 +2,9 @@
 ******************************************************************/
 
 /* ***** PROFILE ***** */
+
+
+/* ***** REGISTER ***** */
 .us-profile{
     padding: 20px 0px;
     min-height: 650px;
@@ -29,7 +32,150 @@
 .us-address{
     
 }
-/* ##### FIN PROFILE ##### */
+/* ##### FIN REGISTER ##### */
+
+
+
+/* ***** REGISTER ***** */
+.user-register-phone {
+    display: block;
+}
+
+#registroUsuario_prefix {
+    width: 25%;
+    display: inline;
+    float: left;
+}
+
+#registroUsuario_phone{
+    width: 75%;
+    display: inline;
+    float: left;
+}
+
+.us-check-group-element {
+    display: inline-block;
+    text-align: center;
+    padding: 0 0px 25px;
+}
+
+.us-register-text-hobby {
+    display: block;
+}
+
+.us-register-img-hob{
+    height: 100px;
+    width: 100px;
+}
+
+.us-image-checkbox{
+    background-color: @brand-secondary;
+    
+    img, img:focus{
+        cursor: pointer;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        border: 5px solid transparent;
+        outline: 0;
+        opacity: 1;
+        -webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+        background: @brand-secondary;
+    }
+    
+    img:hover{
+        opacity: .5;
+    }
+    /*cursor: pointer;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 4px solid transparent;
+    outline: 0;*/
+}
+
+.us-image-checkbox:hover, .us-image-checkbox:focus{
+    background-color: @brand-secondary;
+}
+
+.us-image-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.us-image-checkbox-checked {
+    img, img:hover, img:focus{
+        border: 5px solid @brand-primary;
+        opacity: 1;
+    }
+    //border-color: #f58723;
+}
+
+.us-image-all-select{
+    img, img:focus{
+        opacity: .5;
+    }
+}
+
+.captcha_reload{
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    font-size: 1.1em;
+    font-weight: 500;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    letter-spacing: 1px;
+    line-height: 1.486em;
+    text-transform: uppercase;
+    transition: all 300ms ease 0s;
+    color: @brand-secondary;
+    background-color: @brand-primary;
+    margin-left: 15px;
+}
+
+.captcha_reload:hover, .captcha_reload:focus{
+    background-color: @gray-base;
+    color: @brand-secondary;
+}
+
+.us-birthdate-align{
+    text-align: center;
+}
+
+.us-register-captcha{
+    width: 50%
+}
+
+input#registroUsuario_captcha {
+    margin-top: 10px;
+}
+/* ##### FIN REGISTER ##### */
+
+
+/* ***** LOGIN ***** */
+.us-login-cont{
+    #loginUser_username {
+        margin-bottom: 20px;
+    }
+    
+    #loginUser_password {
+        margin-bottom: 20px;
+    }
+    
+    #loginUser_captcha {
+        margin-bottom: 20px;
+    }
+    
+    .row{
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+/* ##### FIN LOGIN ##### */
+
+
 
 /* *****  ***** */
 
@@ -76,7 +222,13 @@
 
 /*######################   RANGO ANCHO [1200 �  992[  ######################*/
 @media only screen and (max-width : 1200px) {
-    
+    #registroUsuario_prefix {
+        width: 40%;
+    }
+
+    #registroUsuario_phone{
+        width: 60%;
+    }
     
     @media only screen and (max-height : 768px){
         
@@ -89,6 +241,9 @@
 
 /*######################   RANGO ANCHO [992�  768[  ######################*/
 @media only screen and (max-width : 992px) {
+    .us-register-captcha{
+        width: 100%;
+    }
         
     @media only screen and (max-height : 500px){
         
@@ -104,6 +259,46 @@
     div#profileUser_birthdate {
         color: @brand-secondary;
     }
+    
+    #registroUsuario_prefix {
+        width: 20%;
+    }
+
+    #registroUsuario_phone{
+        width: 80%;
+    }
+    
+    #registroUsuario_birthdate {
+        width: 100%;
+        color: #fff;
+    }
+    
+    #registroUsuario_birthdate_day{
+        width: 25%;
+        display: inline-block;
+    }
+    
+    #registroUsuario_birthdate_month {
+        width: 25%;
+        display: inline-block;
+    }
+    
+    #registroUsuario_birthdate_year {
+        width: 35%;
+        display: inline-block;
+    }
+    
+    .us-login-cont{
+        padding-top: 0px;
+        
+        .row{
+            width: inherit;
+            margin-left: inherit;
+            margin-right: inherit;
+        }
+    }
+    
+    
        
     @media only screen and (max-height : 1024px){
         
@@ -124,7 +319,36 @@
 
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 @media only screen and (max-width : 480px) {
+    #registroUsuario_prefix {
+        width: 30%;
+    }
+
+    #registroUsuario_phone{
+        width: 70%;
+    }
     
+    #registroUsuario_birthdate_day{
+        width: 100%;
+        display: inline-block;
+    }
+    
+    #registroUsuario_birthdate_month {
+        width: 100%;
+        display: inline-block;
+    }
+    
+    #registroUsuario_birthdate_year {
+        width: 100%;
+        display: inline-block;
+    }
+    
+    .us-login-cont{
+        .captcha_reload{
+            font-size: inherit;
+            margin: 5px 0px;
+            display: table;
+        }
+    }
         
     @media only screen and (max-height : 667px){
         
@@ -137,6 +361,21 @@
 
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 @media only screen and (max-width : 320px) {
+    #registroUsuario_prefix {
+        width: 40%;
+    }
+
+    #registroUsuario_phone{
+        width: 60%;
+    }
+    
+    .captcha_reload {
+        font-size: inherit;
+        margin: 5px 0px;
+        display: block;
+        width: 35%;
+    }
+    
     
     
     @media only screen and (max-height : 534px){
