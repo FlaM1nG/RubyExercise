@@ -44,6 +44,8 @@
     </div>
     <!-- END LIST ELEMENTS WITH FILTERS -->
     
+    {{ include('services/sidebar/ocio.html.twig') }}
+    
 </div>
 <!-- END BODY -->
 
@@ -86,6 +88,9 @@
         }
     });
 </script>
+
+{{ include('services/sidebar/ocioScript.html.twig') }}
+
 {% endblock %}
 
 {% block footer %}
