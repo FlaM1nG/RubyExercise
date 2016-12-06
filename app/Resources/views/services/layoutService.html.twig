@@ -44,7 +44,9 @@
     </div>
     <!-- END LIST ELEMENTS WITH FILTERS -->
     
-    {{ include('services/sidebar/ocio.html.twig') }}
+    <!-- SIDEBAR FLOATING -->
+    {% block serviceSidebar %} {% endblock %}
+    <!-- END SIDEBAR FLOATING -->
     
 </div>
 <!-- END BODY -->
@@ -74,22 +76,9 @@
 {% endblock %}
 
 {% block javascriptsFooter %}
-{{ parent() }}    
-<script type="text/javascript">
-    $(document).scroll(function(e){
-        var scrollTop = $(document).scrollTop();
-        if(scrollTop > $('#menuAdministracion').height()){
-            //console.log(scrollTop);
-            $('#cbp-hrmenu').css("position","fixed");
-            $('#cbp-hrmenu').css("top","0");
-            $('#cbp-hrmenu').css("z-index","999");
-        } else {
-            $('#cbp-hrmenu').css("position","relative");
-        }
-    });
-</script>
+{{ parent() }}
 
-{{ include('services/sidebar/ocioScript.html.twig') }}
+{{ include('nav/menuScript.html.twig') }}
 
 {% endblock %}
 

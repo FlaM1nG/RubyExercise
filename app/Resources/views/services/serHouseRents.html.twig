@@ -34,3 +34,12 @@ sha-header-title
 {% block filtroMovilBody %}
     {{ include('services/filters/shareCarFilter.html.twig') }}
 {% endblock %}
+
+{% block serviceSidebar %}
+    {{ include('services/sidebar/ocio.html.twig') }}
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ include('services/sidebar/ocioScript.html.twig') }}
+{% endblock %}
