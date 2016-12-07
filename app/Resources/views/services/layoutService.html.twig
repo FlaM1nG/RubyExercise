@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
 
+
 {% block header %}
     {{ parent() }}
     {{ include('nav/menu.html.twig') }}
@@ -44,12 +45,15 @@
     </div>
     <!-- END LIST ELEMENTS WITH FILTERS -->
     
+</div>
+<!-- END BODY -->
+
+
+<div class="cd-main-content sid-cont">
     <!-- SIDEBAR FLOATING -->
     {% block serviceSidebar %} {% endblock %}
     <!-- END SIDEBAR FLOATING -->
-    
 </div>
-<!-- END BODY -->
 
 {% endblock %}
 
@@ -74,7 +78,7 @@
         </div>
       
     </div>
-  </div>
+</div>
 {% endblock %}
 
 {% block javascriptsFooter %}

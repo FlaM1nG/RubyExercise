@@ -1,0 +1,80 @@
+{#{ Hay que eliminar el bucle y descomentar la linea comentada }#}
+
+{% macro sidebarDemo(titulo, href, message) %}
+    <h4>
+        {{ titulo|e }}
+    </h4>
+    <hr>
+    {% for i in 0..9 %}
+    <div class="sid-item">
+        <a href="{{ href|default('#') }}">
+            <span>
+                {#{ message|e }#}
+                {{ i }}*{{ random(['Titulo objeto en venta', 
+                    'Yo soy corto', 
+                    'Soy un titulo para ver que aparece', 
+                    'Te ha tocado la loteria!!']) }}    
+            </span>
+
+
+        </a>
+
+
+    </div>
+    {% endfor %}
+
+
+{% endmacro %}
+
+
+
+{% macro sidebarElementDemo(href, message) %}
+    {% for i in 0..9 %}
+    <div class="sid-item">
+        <a href="{{ href|default('#') }}">
+            <span>
+                {#{ message|e }#}
+                {{ i }}*{{ random(['Titulo objeto en venta', 
+                    'Yo soy corto', 
+                    'Soy un titulo para ver que aparece', 
+                    'Te ha tocado la loteria!!']) }}    
+            </span>
+
+
+        </a>
+
+
+    </div>
+    {% endfor %}
+
+
+{% endmacro %}
+
+
+
+{% macro sidebarTitle(titulo) %}
+    <h4>
+        {{ titulo|e }}
+    </h4>
+    <hr>
+    
+    
+{% endmacro %}
+
+
+
+{% macro sidebarElement(href, message) %}
+    <div class="sid-item">
+        <a href="{{ href|default('#') }}">
+            <span>
+                {{ message|e }}  
+            </span>
+
+
+        </a>
+
+
+    </div>
+
+
+{% endmacro %}
