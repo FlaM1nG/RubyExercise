@@ -1,10 +1,4 @@
 <script type="text/javascript">
-   // var tamTop = ($('#menuAdministracion').height() 
-        //+ $('.hre-parallax').height() + 65 );
-    
-    //var tamFirst = tamTop - 56;
-    
-    //$('.sid-body').css("top", tamTop);
     
     $('.sid-body').affix({
         offset: {     
@@ -20,10 +14,10 @@
         if(scrollTop > $('#menuAdministracion').height()){
             //console.log(scrollTop);
             
-            $('.sid-body').css("margin", "20px 0 0");
+            $('.sid-body').css("margin", "20px 1% 0 0");
             //$('.sid-body').addClass('sid-body2');
         } else {
-            $('.sid-body').css("margin", "76px 0 0 0");
+            $('.sid-body').css("margin", "76px 1% 0 0");
             //$('.sid-body').removeClass('sid-body2');
         }
     });

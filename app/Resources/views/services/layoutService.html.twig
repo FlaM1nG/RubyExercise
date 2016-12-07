@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
 
+
 {% block header %}
     {{ parent() }}
     {{ include('nav/menu.html.twig') }}
@@ -49,6 +50,13 @@
 </div>
 <!-- END BODY -->
 
+
+<div class="cd-main-content sid-cont">
+    <!-- SIDEBAR FLOATING -->
+    {% block serviceSidebar %} {% endblock %}
+    <!-- END SIDEBAR FLOATING -->
+</div>
+
 {% endblock %}
 
 {% block filtroMovil %}
@@ -58,7 +66,9 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
                 <h4 class="modal-title">Filters</h4>
             </div>
             <div class="modal-body">
@@ -70,26 +80,13 @@
         </div>
       
     </div>
-  </div>
+</div>
 {% endblock %}
 
 {% block javascriptsFooter %}
-{{ parent() }}    
-<script type="text/javascript">
-    $(document).scroll(function(e){
-        var scrollTop = $(document).scrollTop();
-        if(scrollTop > $('#menuAdministracion').height()){
-            //console.log(scrollTop);
-            $('#cbp-hrmenu').css("position","fixed");
-            $('#cbp-hrmenu').css("top","0");
-            $('#cbp-hrmenu').css("z-index","999");
-        } else {
-            $('#cbp-hrmenu').css("position","relative");
-        }
-    });
-</script>
+{{ parent() }}
 
-{{ include('services/sidebar/ocioScript.html.twig') }}
+{{ include('nav/menuScript.html.twig') }}
 
 {% endblock %}
 

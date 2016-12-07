@@ -4,9 +4,9 @@
 /* ***** SIDEBAR ***** */
 .sid-body{
     position: absolute;
-    margin: 76px 0 0 0;
+    margin: 76px 1% 0 0;
     top: 54.5%;
-    width: 350px;
+    width: 320px;
     overflow: hidden;
     right: 0;
     z-index: 15;
@@ -37,26 +37,220 @@
 
 .sid-body.affix{
     position: fixed;
-    top: 10% !important;
+    top: 6% !important;
 }
 /* ##### FIN SIDEBAR ##### */
+
+
+/* ***** MOVIL ***** */
+.sid-body-mov{
+    display: none;
+}
+
+.sid-cont{
+    padding-top: 0;
+    -webkit-transform: inherit;
+}
+
+.sid-button{
+    i.fa{
+        font-size: 16px;
+    }
+}
+
+.sid-button1{
+    .sid-button;
+}
+
+.sid-button2{
+    .sid-button;
+}
+
+.sid-button3{
+    .sid-button;
+}
+
+.btn-sid-pulse{
+    color: @brand-secondary;
+    width: 50px;
+    height: 50px;
+    border: none;
+    box-shadow: 0 0 0 0 rgba(255, 102, 51, 0.7);
+    border-radius: 50%;
+    background-color: @brand-primary;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    z-index: 15;
+    position: fixed;
+    bottom: 15px;
+}
+
+.btn-sid-pulse:hover {
+    -webkit-animation: none;
+    -moz-animation: none;
+    -ms-animation: none;
+    animation: none;
+}
+
+.btn-sid-pulse1{
+    right: 60%;
+}
+
+.btn-sid-pulse2{
+    right: 50%;
+}
+
+.btn-sid-pulse3{
+    right: 40%;
+}
+
+@-webkit-keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(255, 102, 51, 0);
+    }
+}
+
+@-moz-keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(255, 102, 51, 0);
+    }
+}
+
+@-ms-keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(255, 102, 51, 0);
+    }
+}
+
+@keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(255, 102, 51, 0);
+    }
+}
+/* ##### FIN MOVIL ##### */
 
 
 /* *****  ***** */
 
 /* ##### FIN  ##### */
 
-/*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
+/*######################   >1800PX DE ANCHO - ALTURAS  ######################*/
+
 @media only screen and (max-height : 1050px){
     
 }
 
-@media only screen and (max-height : 810px){
+@media only screen and (max-height : 900px){
+    .sid-body{
+        display: none;
+    }
     
+    /* ***** MOVIL ***** */
+    .sid-body-mov{
+        display: inherit;
+    }
 }
 
 @media only screen and (max-height : 780px){
     
+}
+
+/*######################   RANGO ANCHO [1800 � 1600[ ######################*/
+@media only screen and (max-width : 1800px) {
+    .sid-body{
+        display: none;
+    }
+    
+    /* ***** MOVIL ***** */
+    .sid-body-mov{
+        display: inherit;
+    }
+    
+    /*.sid-button{
+        i.fa{
+            font-size: 16px;
+        }
+    }
+
+    .sid-button1{
+        .sid-button;
+    }
+
+    .sid-button2{
+        .sid-button;
+    }
+
+    .sid-button3{
+        .sid-button;
+    }
+
+    .btn-sid-pulse{
+        color: @brand-secondary;
+        width: 50px;
+        height: 50px;
+        border: none;
+        box-shadow: 0 0 0 0 rgba(255, 102, 51, 0.7);
+        border-radius: 50%;
+        background-color: @brand-primary;
+        background-size: cover;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+        -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+        -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+        animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+        z-index: 12;
+        position: fixed;
+        bottom: 15px;
+    }
+
+    .btn-sid-pulse:hover {
+        -webkit-animation: none;
+        -moz-animation: none;
+        -ms-animation: none;
+        animation: none;
+    }
+
+    .btn-sid-pulse1{
+        right: 60%;
+    }
+
+    .btn-sid-pulse2{
+        right: 50%;
+    }
+
+    .btn-sid-pulse3{
+        right: 40%;
+    }
+    
+    @-webkit-keyframes pulse {
+        to {
+            box-shadow: 0 0 0 45px rgba(255, 102, 51, 0);
+        }
+    }
+
+    @-moz-keyframes pulse {
+        to {
+            box-shadow: 0 0 0 45px rgba(255, 102, 51, 0);
+        }
+    }
+
+    @-ms-keyframes pulse {
+        to {
+            box-shadow: 0 0 0 45px rgba(255, 102, 51, 0);
+        }
+    }
+
+    @keyframes pulse {
+        to {
+            box-shadow: 0 0 0 45px rgba(255, 102, 51, 0);
+        }
+    }*/
 }
 
 
@@ -108,6 +302,17 @@
 
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width : 768px) {
+    .btn-sid-pulse1{
+        right: 70%;
+    }
+
+    .btn-sid-pulse2{
+        right: 50%;
+    }
+
+    .btn-sid-pulse3{
+        right: 30%;
+    }
        
     @media only screen and (max-height : 1024px){
         
@@ -128,7 +333,17 @@
 
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 @media only screen and (max-width : 480px) {
-    
+    .btn-sid-pulse1{
+        right: 75%;
+    }
+
+    .btn-sid-pulse2{
+        right: 45%;
+    }
+
+    .btn-sid-pulse3{
+        right: 15%;
+    }
         
     @media only screen and (max-height : 667px){
         
@@ -141,7 +356,17 @@
 
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 @media only screen and (max-width : 320px) {
-    
+    .btn-sid-pulse1{
+        right: 73%;
+    }
+
+    .btn-sid-pulse2{
+        right: 45%;
+    }
+
+    .btn-sid-pulse3{
+        right: 13%;
+    }
     
     @media only screen and (max-height : 534px){
         
