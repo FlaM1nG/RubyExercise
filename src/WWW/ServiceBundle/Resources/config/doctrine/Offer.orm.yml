@@ -31,7 +31,7 @@ WWW\ServiceBundle\Entity\Offer:
             type: boolean
             nullable: true
     manyToOne:
-        user_admin:
+        userAdmin:
             nullable: true
             targetEntity: WWW\UserBundle\Entity\User
             inversedBy: Offer
