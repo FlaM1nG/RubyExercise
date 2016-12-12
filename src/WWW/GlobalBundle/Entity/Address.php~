@@ -48,10 +48,6 @@ class Address
      */
     private $isDeleted;
 
-    /**
-     * @var \WWW\GlobalBundle\Entity\ZipCode
-     */
-    private $zipcode;
 
      public function __construct(Array $address=null){
          
@@ -242,28 +238,7 @@ class Address
         return $this->isDeleted;
     }
 
-    /**
-     * Set zipcode
-     *
-     * @param \WWW\GlobalBundle\Entity\ZipCode $zipcode
-     * @return Address
-     */
-    public function setZipcode(\WWW\GlobalBundle\Entity\ZipCode $zipcode = null)
-    {
-        $this->zipcode = $zipcode;
-
-        return $this;
-    }
-
-    /**
-     * Get zipcode
-     *
-     * @return \WWW\GlobalBundle\Entity\ZipCode 
-     */
-    public function getZipcode()
-    {
-        return $this->zipcode;
-    }
+        
     /**
      * @var \WWW\UserBundle\Entity\User
      */

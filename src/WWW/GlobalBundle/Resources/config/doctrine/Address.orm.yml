@@ -19,7 +19,6 @@ WWW\GlobalBundle\Entity\Address:
             nullable: true
         zipCode:
             type: integer
-            unique: true
             column: zip_code
             nullable: true
         city:

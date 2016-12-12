@@ -221,4 +221,32 @@ class Trade
     {
         return $this->price;
     }
+    /**
+     * @var string
+     */
+    private $region;
+
+
+    /**
+     * Set region
+     *
+     * @param string $region
+     * @return Trade
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return string 
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
 }
