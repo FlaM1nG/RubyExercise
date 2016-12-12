@@ -24,30 +24,38 @@ use WWW\GlobalBundle\Entity\ApiRest;
 class TradeController extends Controller{
     
     private $sesion;
+    private $trade;
     
-    public function createOfertAction(Request $request){
+    public function createOfferAction(Request $request){
+        //print_r($request);
         $this->sesion = $request->getSession();
         
-        $offer = new Offer();
         $trade = new Trade();
+        $formTrade = $this->createForm(TradeType::class,$trade);
+        $formTrade->handleRequest($request);
         
-        $formOffer = $this->createForm(new OfferType(),$offer);
-        $formTrade = $this->createForm(new TradeType(),$trade);
-        
-         if($request->getMethod()=="POST"):
+         if($formTrade->isSubmitted()):
+             
+             $this->trade = $trade;
+         print_r($this->trade);
              $this->saveTrade($request);
+             echo "enviado";
+             
+         else: 
+             echo "fallo";
          endif;
         
         return $this->render('OthersBundle:Trade:offerTrade.html.twig',
-                       array('formOffer' => $formOffer->createView(),
-                             'formTrade' => $formTrade->createView()));
+                       array(//'formOffer' => $formOffer->createView(),
+                             'formTrade' => $formTrade->createView(),
+                             'trade' => $trade));
     }
     
     private function saveTrade(Request $request){
         //print_r($request);
         
         $service = $request->server->all()['PATH_INFO'];
-        $requestOffer = $request->request->all()['offer'];
+        //$requestOffer = $request->request->all()['offer'];
         $requestTrade = $request->request->all()['trade'];
        
         $ch = new ApiRest();
@@ -55,8 +63,8 @@ class TradeController extends Controller{
         $dataOffer = array("id" => $this->sesion->get('id'),
                       "username" => $this->sesion->get('username'),
                       "password" =>$this->sesion->get('password'),
-                      "title" => $requestOffer['title'],
-                      "description" => $requestOffer['description'],
+                      "title" => $this->trade->getOffer()->getTitle(),
+                      "description" => $this->trade->getOffer()->getDescription(),
                       "service_id" => 1);
         $dataTrade = array();
         
@@ -64,12 +72,12 @@ class TradeController extends Controller{
         //category_id debe venir de un array de categorías
         
         $dataTrade['values'] = array("category_id" => 1,
-                           "price_user" => $requestTrade['priceUser'],
+                           "price" => $requestTrade['price'],
                            "dimensions" => "'".$requestTrade['dimensions']."'",
                            "weight" => $requestTrade['weight'] );
         
         $result = $ch->sendSeveralInformation($dataOffer, $dataTrade, $file);
-        //print_r($result);
+        print_r($result);
         
         if($result['result'] == "ok"):
             $this->addFlash(
