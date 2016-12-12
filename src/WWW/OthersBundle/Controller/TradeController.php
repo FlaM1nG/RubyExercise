@@ -36,9 +36,9 @@ class TradeController extends Controller{
         
          if($formTrade->isSubmitted()):
              
-             $this->trade = $trade;
-         print_r($this->trade);
-             $this->saveTrade($request);
+             //$this->trade = $trade;
+        
+             $this->saveTrade($request,$trade);
              echo "enviado";
              
          else: 
@@ -46,38 +46,35 @@ class TradeController extends Controller{
          endif;
         
         return $this->render('OthersBundle:Trade:offerTrade.html.twig',
-                       array(//'formOffer' => $formOffer->createView(),
-                             'formTrade' => $formTrade->createView(),
+                       array('formTrade' => $formTrade->createView(),
                              'trade' => $trade));
     }
     
-    private function saveTrade(Request $request){
-        //print_r($request);
+    private function saveTrade(Request $request, Trade $trade){
+        //print_r($trade);
         
         $service = $request->server->all()['PATH_INFO'];
-        //$requestOffer = $request->request->all()['offer'];
-        $requestTrade = $request->request->all()['trade'];
        
         $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/services/offer/insert_offer.php";
         $dataOffer = array("id" => $this->sesion->get('id'),
                       "username" => $this->sesion->get('username'),
                       "password" =>$this->sesion->get('password'),
-                      "title" => $this->trade->getOffer()->getTitle(),
-                      "description" => $this->trade->getOffer()->getDescription(),
+                      "title" => $trade->getOffer()->getTitle(),
+                      "description" => $trade->getOffer()->getDescription(),
                       "service_id" => 1);
         $dataTrade = array();
         
         $dataTrade['photos'] = array(1,2);
-        //category_id debe venir de un array de categorías
         
-        $dataTrade['values'] = array("category_id" => 1,
-                           "price" => $requestTrade['price'],
-                           "dimensions" => "'".$requestTrade['dimensions']."'",
-                           "weight" => $requestTrade['weight'] );
         
-        $result = $ch->sendSeveralInformation($dataOffer, $dataTrade, $file);
-        print_r($result);
+        $dataTrade['values'] = array("category_id" => $trade->getCategory()->getId(),
+                           "price" => $trade->getPrice(),
+                           "dimensions" => "'".$trade->getDimensions()."'",
+                           "weight" => $trade->getWeight() );
+        
+        $this->uploadImage($request);
+        /*$result = $ch->sendSeveralInformation($dataOffer, $dataTrade, $file);
         
         if($result['result'] == "ok"):
             $this->addFlash(
@@ -87,6 +84,33 @@ class TradeController extends Controller{
         else:
             $this->addFlash('messageOffer', 'Ha ocurrido un error');
         endif;
-                
+                */
+    }
+    
+    private function uploadImage(Request $request){
+        $file = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
+        $arrayFiles = $request->files->all()['trade']['offer']['photos'][1]['fileImage'];
+        $i = 1;
+        
+        if(($ficherosUsuario  = scandir('C:\xampp\img\user_1',1)) !== false):
+            $i = count($ficherosUsuario)+1;
+        print_r($ficherosUsuario);endif;
+        foreach($arrayFiles as $file):
+            echo $file->getPathname()."<br>";
+        endforeach;
+       
+        //$dataFiles = $request->files->all()['profileUser']['photo'];
+        
+        
+        
+        $tmpName = $dataFiles->getPathname();
+        $extension = $dataFiles->getClientoriginalExtension();
+        
+        $ficherosUsuario  = scandir('http://www.whatwantweb.com/img/user_'.$this->usuario->getId());
+        $totalImg = coun($ficherosUsuario);
+        $nameImg = 'image'.($totalImg+1).$extension;
+            
+        // almacenar imagen en el servidor
+        //move_uploaded_file($tmpName,'http://www.whatwantweb.com/img/user_'.$this->usuario->getId().'/'.$nameImg);
     }
 }
