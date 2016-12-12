@@ -43,6 +43,11 @@ class Service
      * @var \WWW\ServiceBundle\Entity\ServiceCategory
      */
     private $category;
+    
+    /**
+     * @var string
+     */
+    private $table;
 
 
     /**
@@ -136,11 +141,6 @@ class Service
     {
         return $this->category;
     }
-    /**
-     * @var string
-     */
-    private $table;
-
 
     /**
      * Set table

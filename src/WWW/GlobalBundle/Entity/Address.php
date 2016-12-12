@@ -47,6 +47,31 @@ class Address
      * @var boolean
      */
     private $isDeleted;
+            
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;    
+    
+    /**
+     * @var integer
+     */
+    private $zipCode;
+
+    /**
+     * @var string
+     */
+    private $city;
+
+    /**
+     * @var string
+     */
+    private $region;
+
+    /**
+     * @var string
+     */
+    private $country;
 
 
      public function __construct(Array $address=null){
@@ -238,13 +263,6 @@ class Address
         return $this->isDeleted;
     }
 
-        
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $user;
-
-
     /**
      * Set user
      *
@@ -281,27 +299,6 @@ class Address
             'isDeleted' => $this->getIsDeleted(),
         );    
     }
-
-    /**
-     * @var integer
-     */
-    private $zipCode;
-
-    /**
-     * @var string
-     */
-    private $city;
-
-    /**
-     * @var string
-     */
-    private $region;
-
-    /**
-     * @var string
-     */
-    private $country;
-
 
     /**
      * Set zipCode

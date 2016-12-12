@@ -13,18 +13,7 @@ class Trade
      * @var int
      */
     private $id;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
+   
     /**
      * @var string
      */
@@ -53,8 +42,27 @@ class Trade
     /**
      * @var \WWW\OthersBundle\Entity\TradeCategory
      */
-    private $category;
-
+    private $category;       
+    
+    /**
+     * @var float
+     */
+    private $price;
+        
+    /**
+     * @var string
+     */
+    private $region;
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set dimensions
@@ -193,11 +201,6 @@ class Trade
     {
         return $this->category;
     }
-    /**
-     * @var float
-     */
-    private $price;
-
 
     /**
      * Set price
@@ -221,11 +224,6 @@ class Trade
     {
         return $this->price;
     }
-    /**
-     * @var string
-     */
-    private $region;
-
 
     /**
      * Set region
