@@ -24,7 +24,11 @@ WWW\OthersBundle\Entity\Trade:
             nullable: true
         latitude:
             type: float
-            nullable: true    
+            nullable: true
+        region:
+            type: string
+            length: 255
+            nullable: true
     oneToOne:        
         offer:
             targetEntity: WWW\ServiceBundle\Entity\Offer

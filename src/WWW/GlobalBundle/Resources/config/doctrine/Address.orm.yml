@@ -17,9 +17,23 @@ WWW\GlobalBundle\Entity\Address:
             type: string
             length: 255
             nullable: true
-        isDefault:
-            type: boolean
+        zipCode:
+            type: integer
+            unique: true
+            column: zip_code
             nullable: true
+        city:
+            type: string
+            length: 255
+            nullable: true
+        region:
+            type: string
+            length: 255
+            nullable: true
+        country:
+            type: string
+            length: 255
+            nullable: true  
         createdDate:
             type: datetime
             nullable: true
@@ -36,13 +50,6 @@ WWW\GlobalBundle\Entity\Address:
         user:
             nullable: true
             targetEntity: WWW\UserBundle\Entity\User
-            inversedBy: Address
-            joinColumn:
-                referencedColumnName: id
-                onDelete: CASCADE
-        zipcode:
-            nullable: true
-            targetEntity: ZipCode
             inversedBy: Address
             joinColumn:
                 referencedColumnName: id
