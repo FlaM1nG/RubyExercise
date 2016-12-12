@@ -1,0 +1,178 @@
+{% extends '::offer/layoutOffer.html.twig' %}
+
+{#{ BLOQUES -->     offerImage 
+                    offerUser
+                    offerTitle
+                    offerPrice
+                    offerVote
+                    offerDescription
+                    offerVariableData
+                    offerRelacionadas
+                    offerComments
+                    offerPublicidad
+                    offerDestacadas 
+                    offerOtherData 
+}#}
+
+
+
+{% block offerImage %}
+    <div id="off-img-big" class="owl-carousel">
+        {% set imgGallery = []  %}
+        
+        {% for i in 0..6 %}
+            
+            {% set imageOff = random([asset('img/seat.jpg'), 
+                asset('img/articulo1.jpg'), 
+                asset('img/macbook.png'),
+                asset('img/alquilerTuristico3.jpg')]) %}
+
+
+            {% set imgGallery = imgGallery|merge([imageOff] ) %}
+            <div class="item">
+                <div class="off-img-marco-grande">
+                    <a href="{{ imageOff }}" 
+                        data-lightbox="offer-item">
+                        
+                        <img class="img-responsive off-img-expo" 
+                            src="{{ imageOff }}" 
+                            alt="">
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="off-img-small" class="owl-carousel">
+        {% for i in 0..6 %}
+        <div class="item off-item-dime">
+            <div class="off-img-marco-peque">
+                <img class="img-responsive off-img-slid" 
+                    src="{{ imgGallery[i] }}" 
+                    alt="">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+
+{% block offerUser %} 
+    <!-- IMAGEN USUARIO -->
+    <div class="row row-off-user-name">
+        <a class="off-user-image" href="#USUARIO">
+            <img class=" img-circle img-responsive" 
+                src="{{ asset('img/usuario1.jpg') }}" 
+                width="50" alt="">
+        </a>
+                    
+        <a class="off-user-name" href="#USUARIO">Paco J</a>
+        
+    </div>
+    <!-- FIN NOMBRE USUARIO -->
+{% endblock %}
+
+
+{% block offerTitle %}
+    {{ random(['Titulo objeto en venta', 
+            'Aleatorio para que el texto sea diferentes', 
+            'Yo soy corto', 
+            'Soy un titulo para ver que aparece', 
+            'Te ha tocado la loteria!!']) }}
+{% endblock %}
+
+
+{% block offerPrice %} 
+    {{ random(999) }} €
+{% endblock %}
+
+
+{% block offerVote %} 
+    <!-- VALORACIONES -->
+    <div class="rating">
+        <span>☆</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+    </div>
+    <!-- FIN VALORACIONES -->
+{% endblock %}
+
+
+{% block offerDescription %}
+    <p>
+        Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
+        peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
+        Diodeno amatomaa pecador diodeno sexuarl. No te digo trigo por no 
+        llamarte Rodrigor fistro papaar papaar se calle ustée. La caidita ese 
+        pedazo de de la pradera sexuarl ese que llega tiene musho peligro 
+        diodenoo ese pedazo de tiene musho peligro. Pecador jarl te voy a 
+        borrar el cerito se calle ustée diodeno a gramenawer va usté muy 
+        cargadoo la caidita qué dise usteer. No te digo trigo por no llamarte 
+        Rodrigor está la cosa muy malar ahorarr condemor sexuarl. Apetecan a wan 
+        ese hombree ese pedazo de qué dise usteer tiene musho peligro jarl tiene 
+        musho peligro jarl. Qué dise usteer pecador mamaar apetecan la caidita. 
+    </p>
+{% endblock %}
+
+
+{% block offerVariableData %}
+    
+    <p>
+        Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
+        peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
+        Diodeno amatomaa pecador diodeno sexuarl. No te digo trigo por no 
+        llamarte Rodrigor fistro papaar papaar se calle ustée. La caidita ese 
+        pedazo de de la pradera sexuarl ese que llega tiene musho peligro 
+        diodenoo ese pedazo de tiene musho peligro. Pecador jarl te voy a 
+        borrar el cerito se calle ustée diodeno a gramenawer va usté muy 
+        cargadoo la caidita qué dise usteer. No te digo trigo por no llamarte 
+        Rodrigor está la cosa muy malar ahorarr condemor sexuarl. Apetecan a wan 
+        ese hombree ese pedazo de qué dise usteer tiene musho peligro jarl tiene 
+        musho peligro jarl. Qué dise usteer pecador mamaar apetecan la caidita.
+        <span class="icon-lavadora"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span></span>
+    </p>
+{% endblock %}
+
+
+{% block offerRelacionadas %} 
+    {% for i in 0..2 %}
+        {#{ include('services/lists/tradeList.html.twig') }#}
+    {% endfor %}
+{% endblock %}
+
+
+{% block offerComments %}
+    <p>COMENTARIOS</p>
+{% endblock %}
+
+
+{% block offerPublicidad %}
+    <h3>
+        Publicidad
+    </h3>
+    <hr>
+    <img src="{{ asset('img/publicidad.jpg') }}" 
+        class="img-responsive center-block"
+        alt="publicidad">
+{% endblock %}
+
+
+{% block offerDestacadas %} 
+    <p>DESTACADOS</p>
+{% endblock %}
+
+
+{% block offerOtherData %} 
+    <h3>
+        Recompensa por tu compra <span class="off-special">¡Gratis!</span>
+    </h3>
+    <hr>
+    <p>
+        Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
+        peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
+        Diodeno amatomaa pecador diodeno sexuarl. 
+    </p>
+{% endblock %}
