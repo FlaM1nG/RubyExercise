@@ -39,7 +39,7 @@ class TradeController extends Controller{
              //$this->trade = $trade;
         
              $this->saveTrade($request,$trade);
-             echo "enviado";
+             //echo "enviado";
              
          else: 
              echo "fallo";
@@ -54,6 +54,7 @@ class TradeController extends Controller{
         //print_r($trade);
         
         $service = $request->server->all()['PATH_INFO'];
+        $dataTrade['photos'] = array();
        
         $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/services/offer/insert_offer.php";
@@ -65,52 +66,77 @@ class TradeController extends Controller{
                       "service_id" => 1);
         $dataTrade = array();
         
-        $dataTrade['photos'] = array(1,2);
-        
-        
+        if(array_key_exists('trade', $request->files->all()))
+            $dataTrade['photos'] = $this->uploadImage($request);
+         
         $dataTrade['values'] = array("category_id" => $trade->getCategory()->getId(),
                            "price" => $trade->getPrice(),
                            "dimensions" => "'".$trade->getDimensions()."'",
                            "weight" => $trade->getWeight() );
         
-        $this->uploadImage($request);
-        /*$result = $ch->sendSeveralInformation($dataOffer, $dataTrade, $file);
         
-        if($result['result'] == "ok"):
-            $this->addFlash(
-                                'messageOffer',
-                                'Oferta guardada con éxito'
-                            );
-        else:
-            $this->addFlash('messageOffer', 'Ha ocurrido un error');
-        endif;
-                */
+        $result = $ch->sendSeveralInformation($dataOffer, $dataTrade, $file);
+        
+        $this->flashMessageGeneral($result['result']);
+                
     }
     
     private function uploadImage(Request $request){
-        $file = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
+        
+        $filePhotos = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
         $arrayFiles = $request->files->all()['trade']['offer']['photos'][1]['fileImage'];
+        $arrayPhotos = null;
         $i = 1;
         
-        if(($ficherosUsuario  = scandir('C:\xampp\img\user_1',1)) !== false):
-            $i = count($ficherosUsuario)+1;
-        print_r($ficherosUsuario);endif;
-        foreach($arrayFiles as $file):
-            echo $file->getPathname()."<br>";
-        endforeach;
-       
-        //$dataFiles = $request->files->all()['profileUser']['photo'];
+        $directorio = 'C:/xampp/htdocs/img/user_1';
+        //$directorio = 'http://www.whatwantweb.com/img/user_'.$this->usuario->getId();
         
+        if(!file_exists($directorio)):
+            mkdir($directorio, 0777, true);
         
-        
-        $tmpName = $dataFiles->getPathname();
-        $extension = $dataFiles->getClientoriginalExtension();
-        
-        $ficherosUsuario  = scandir('http://www.whatwantweb.com/img/user_'.$this->usuario->getId());
-        $totalImg = coun($ficherosUsuario);
-        $nameImg = 'image'.($totalImg+1).$extension;
+        else:
             
-        // almacenar imagen en el servidor
-        //move_uploaded_file($tmpName,'http://www.whatwantweb.com/img/user_'.$this->usuario->getId().'/'.$nameImg);
+            $i = count(scandir($directorio))+1;
+        
+        endif;
+
+        foreach($arrayFiles as $file):
+            $tmpName = $file->getPathname();
+            $extension = $file->getClientoriginalExtension();
+            $nameImg = 'image_'.$i.$extension;
+            $arrayPhotos[] = $directorio.'/'.$nameImg;
+            move_uploaded_file($tmpName,$directorio.'/'.$nameImg);
+            
+            $i++;
+        endforeach;
+        
+        $ch = new ApiRest();
+        
+        $data['url'] = $arrayPhotos; 
+        $informacion['data'] = json_encode($data);
+        
+        $result = $ch->resultApiRed($informacion, $filePhotos);
+        
+        if($result['result'] == 'ok'):
+            $arrayPhotos = null;
+            
+            foreach($result['photos'] as $photo):
+               $arrayPhotos[] = $photo['id'];
+            endforeach;
+            
+            return $arrayPhotos;
+        else:
+            $this->flashMessageGeneral($result['result']);
+        endif;
+        
+    }
+    
+    private function flashMessageGeneral($result){
+        
+        if($result == 'ok'):
+            $this->addFlash('messageSuccess','Datos guardados correctamente');
+        else:
+            $this->addFlash('messageFail','Error al guardar');
+        endif;
     }
 }
