@@ -28,7 +28,7 @@ class ProfileType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
         
         $arrayPrefix = array();
-        $filePrefix = "http://www.whatwantweb.com/api_rest/global/prefix/get_prefixes";
+        $filePrefix = "http://www.whatwantweb.com/api_rest/global/prefix/get_prefixes.php";
        
         $ch = new ApiRest();
         
@@ -85,7 +85,7 @@ class ProfileType extends AbstractType{
                 ->add('sex','choice',array(
                                     'choices'=>array('m'=>'Mujer','h'=>'hombre'),
                                     'label'=>'Sexo'))
-              //  ->add('linkInvitation','text',array('label'=>'Invitación'))
+                ->add('linkInvitation','text',array('label'=>'Invitación'))
                 ->add('phone','number',array('label'=>'Teléfono'))
                 ->add('addresses', CollectionType::class,array(
                                                         'entry_type' => AdressType::class,

@@ -68,7 +68,7 @@ class OfferVoter extends Voter
     private function canCreate(Post $post, User $user, TokenInterface $token)
     {
         // si pueden editar, pueden ver
-        if ($this->decisionManager->decide($token, array('ROLE_SUPER_ADMIN'))) {
+        if ($this->decisionManager->decide($token, array($user->getRole()))) {
             return true;
         }
 

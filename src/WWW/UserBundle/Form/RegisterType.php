@@ -26,7 +26,7 @@ class RegisterType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
         
         $arrayPrefix = array();
-        $filePrefix = "http://www.whatwantweb.com/api_rest/global/prefix/get_prefixes";
+        $filePrefix = "http://www.whatwantweb.com/api_rest/global/prefix/get_prefixes.php";
        
         $ch = new ApiRest();
         

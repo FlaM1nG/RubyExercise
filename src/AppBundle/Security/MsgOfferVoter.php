@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 
-class MsgOffervVoter extends Voter
+class MsgOfferVoter extends Voter
 {
     // en estos strings puedes poner lo que quieras
     const CREATE = 'create_msg_offer';
