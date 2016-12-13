@@ -2,14 +2,10 @@
 
 namespace WWW\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\Common\Collections\ArrayCollection;
-
 use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
-//use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -43,9 +39,10 @@ class User implements UserInterface
     /**
      * @var string
      * 
-     * @Assert\NotBlank()
-     * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/")
+     * @Assert\NotBlank(message="Por favor rellene este campo")
+     * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/", message="La contraseña debe contener letras y números")
      * @Assert\Length(min=8)
+     * 
      */
     private $password;
 
@@ -173,13 +170,17 @@ class User implements UserInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $inviteds;
-    
+    private $inviteds;    
     
     /**
      * @var boolean
      */
-    private $isBanned;
+    private $isBanned;    
+    
+    /**
+     * @var \WWW\GlobalBundle\Entity\Address
+     */
+    private $defaultAddress;
 
     /**
      * Constructor
@@ -588,10 +589,7 @@ class User implements UserInterface
      * @Assert\True(message = "Debes tener al menos 18 años")
      */
     public function isAdult(){
-       if( $this->birthdate <= new\DateTime('today - 18 years')) 
-           echo "hola";
-       else echo "adios";
-       
+
        return $this->birthdate <= new\DateTime('today - 18 years'); 
     }
     
@@ -680,7 +678,8 @@ class User implements UserInterface
      */
     public function addAddress(\WWW\GlobalBundle\Entity\Address $addresses)
     {
-        $this->addresses[] = $addresses->toArray();
+        $arrayAddresses = $addresses->toArray();
+        $this->addresses[$arrayAddresses['id']] = $addresses->toArray();
 
         return $this;
     }
@@ -942,5 +941,29 @@ class User implements UserInterface
     public function getIsBanned()
     {
         return $this->isBanned;
+    }
+
+
+    /**
+     * Set defaultAddress
+     *
+     * @param \WWW\GlobalBundle\Entity\Address $defaultAddress
+     * @return User
+     */
+    public function setDefaultAddress(\WWW\GlobalBundle\Entity\Address $defaultAddress = null)
+    {
+        $this->defaultAddress = $defaultAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get defaultAddress
+     *
+     * @return \WWW\GlobalBundle\Entity\Address 
+     */
+    public function getDefaultAddress()
+    {
+        return $this->defaultAddress;
     }
 }

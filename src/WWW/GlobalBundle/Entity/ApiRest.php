@@ -54,9 +54,9 @@ class ApiRest {
             $information[$key] = $value;
 
         endforeach;
+        
         $information['data'] = json_encode($dataJSON);        
         
-        //echo  $information;
         return $this->resultApiRed($information, $file);
     }
     public function resultApiRed($data, $file){

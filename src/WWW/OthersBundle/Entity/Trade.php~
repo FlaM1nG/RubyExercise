@@ -13,28 +13,7 @@ class Trade
      * @var int
      */
     private $id;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    /**
-     * @var float
-     */
-    private $priceUser;
-
-    /**
-     * @var float
-     */
-    private $priceTotal;
-
+   
     /**
      * @var string
      */
@@ -46,24 +25,14 @@ class Trade
     private $weight;
 
     /**
-     * @var \DateTime
+     * @var float
      */
-    private $createdDate;
+    private $longitude;
 
     /**
-     * @var \DateTime
+     * @var float
      */
-    private $modifiedDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $deletedDate;
-
-    /**
-     * @var boolean
-     */
-    private $isDeleted;
+    private $latitude;
 
     /**
      * @var \WWW\ServiceBundle\Entity\Offer
@@ -73,53 +42,26 @@ class Trade
     /**
      * @var \WWW\OthersBundle\Entity\TradeCategory
      */
-    private $category;
-
-
+    private $category;       
+    
     /**
-     * Set priceUser
-     *
-     * @param float $priceUser
-     * @return Trade
+     * @var float
      */
-    public function setPriceUser($priceUser)
-    {
-        $this->priceUser = $priceUser;
-
-        return $this;
-    }
-
+    private $price;
+        
     /**
-     * Get priceUser
-     *
-     * @return float 
+     * @var string
      */
-    public function getPriceUser()
-    {
-        return $this->priceUser;
-    }
-
+    private $region;
+    
     /**
-     * Set priceTotal
+     * Get id
      *
-     * @param float $priceTotal
-     * @return Trade
+     * @return integer 
      */
-    public function setPriceTotal($priceTotal)
+    public function getId()
     {
-        $this->priceTotal = $priceTotal;
-
-        return $this;
-    }
-
-    /**
-     * Get priceTotal
-     *
-     * @return float 
-     */
-    public function getPriceTotal()
-    {
-        return $this->priceTotal;
+        return $this->id;
     }
 
     /**
@@ -169,95 +111,49 @@ class Trade
     }
 
     /**
-     * Set createdDate
+     * Set longitude
      *
-     * @param \DateTime $createdDate
+     * @param float $longitude
      * @return Trade
      */
-    public function setCreatedDate($createdDate)
+    public function setLongitude($longitude)
     {
-        $this->createdDate = $createdDate;
+        $this->longitude = $longitude;
 
         return $this;
     }
 
     /**
-     * Get createdDate
+     * Get longitude
      *
-     * @return \DateTime 
+     * @return float 
      */
-    public function getCreatedDate()
+    public function getLongitude()
     {
-        return $this->createdDate;
+        return $this->longitude;
     }
 
     /**
-     * Set modifiedDate
+     * Set latitude
      *
-     * @param \DateTime $modifiedDate
+     * @param float $latitude
      * @return Trade
      */
-    public function setModifiedDate($modifiedDate)
+    public function setLatitude($latitude)
     {
-        $this->modifiedDate = $modifiedDate;
+        $this->latitude = $latitude;
 
         return $this;
     }
 
     /**
-     * Get modifiedDate
+     * Get latitude
      *
-     * @return \DateTime 
+     * @return float 
      */
-    public function getModifiedDate()
+    public function getLatitude()
     {
-        return $this->modifiedDate;
-    }
-
-    /**
-     * Set deletedDate
-     *
-     * @param \DateTime $deletedDate
-     * @return Trade
-     */
-    public function setDeletedDate($deletedDate)
-    {
-        $this->deletedDate = $deletedDate;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedDate
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedDate()
-    {
-        return $this->deletedDate;
-    }
-
-    /**
-     * Set isDeleted
-     *
-     * @param boolean $isDeleted
-     * @return Trade
-     */
-    public function setIsDeleted($isDeleted)
-    {
-        $this->isDeleted = $isDeleted;
-
-        return $this;
-    }
-
-    /**
-     * Get isDeleted
-     *
-     * @return boolean 
-     */
-    public function getIsDeleted()
-    {
-        return $this->isDeleted;
+        return $this->latitude;
     }
 
     /**
@@ -304,5 +200,51 @@ class Trade
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set price
+     *
+     * @param float $price
+     * @return Trade
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set region
+     *
+     * @param string $region
+     * @return Trade
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return string 
+     */
+    public function getRegion()
+    {
+        return $this->region;
     }
 }

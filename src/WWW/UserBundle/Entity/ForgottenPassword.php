@@ -28,6 +28,11 @@ class ForgottenPassword
      * @var bool
      */
     private $changed;
+    
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;
 
 
     /**
@@ -108,10 +113,6 @@ class ForgottenPassword
     {
         return $this->changed;
     }
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $user;
 
 
     /**
