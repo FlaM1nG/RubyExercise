@@ -119,21 +119,324 @@
 
 
 {% block offerVariableData %}
+    <!-- DATOS IMPORTATNES DEL SERVICIO -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>
+                Alojamiento
+            </h4>
+            <hr>
+        </div>
+    </div>
     
-    <p>
-        Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
-        peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
-        Diodeno amatomaa pecador diodeno sexuarl. No te digo trigo por no 
-        llamarte Rodrigor fistro papaar papaar se calle ustée. La caidita ese 
-        pedazo de de la pradera sexuarl ese que llega tiene musho peligro 
-        diodenoo ese pedazo de tiene musho peligro. Pecador jarl te voy a 
-        borrar el cerito se calle ustée diodeno a gramenawer va usté muy 
-        cargadoo la caidita qué dise usteer. No te digo trigo por no llamarte 
-        Rodrigor está la cosa muy malar ahorarr condemor sexuarl. Apetecan a wan 
-        ese hombree ese pedazo de qué dise usteer tiene musho peligro jarl tiene 
-        musho peligro jarl. Qué dise usteer pecador mamaar apetecan la caidita.
-        <span class="icon-lavadora"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span></span>
-    </p>
+    <div class="row off-row-date-prin">
+        <!-- CAPACIDAD -->
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+            <i class="fa fa-users off-icon-prin" aria-hidden="true"></i>
+            
+            
+            <span class="off-target-prin-text">
+                Capacidad: 
+                <span class="off-target-prin">
+                    {{ random(15) }}
+                </span>
+                
+                
+            </span>
+            
+            
+        </div>
+        <!-- FIN CAPACIDAD -->
+        
+        
+        <!-- BAÑOS -->
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+            <i class="fa fa-bath off-icon-prin" aria-hidden="true"></i>
+            
+            
+            <span class="off-target-prin-text">
+                Baños:
+                <span class="off-target-prin">
+                    {{ random(15) }}
+                </span>
+                
+            </span>
+            
+            
+        </div>
+        <!-- FIN BAÑOS -->
+        
+        
+        <!-- DORMITORIOS -->
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+            <i class="fa fa-home off-icon-prin" aria-hidden="true"></i>
+            
+            
+            <span class="off-target-prin-text">
+                Dormitorios: 
+                <span class="off-target-prin">
+                    {{ random(15) }}
+                </span>
+                
+                
+            </span>
+            
+            
+        </div>
+        <!-- FIN DORMITORIOS -->
+        
+        
+        <!-- CAMAS -->
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+            <i class="fa fa-bed off-icon-prin" aria-hidden="true"></i>
+            
+            
+            <span class="off-target-prin-text">
+                Camas: 
+                <span class="off-target-prin">
+                    {{ random(15) }}
+                </span>
+                
+                
+            </span>
+            
+            
+        </div>
+        <!-- FIN CAMAS -->
+        
+        
+    </div>
+    <!-- FIN DATOS IMPORTATNES DEL SERVICIO -->
+    
+    <!-- LLEGADA Y SALIDA -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>
+                Horario
+            </h4>
+            <hr>
+        </div>
+    </div>
+    
+    <div class="row off-row-date-prin">
+        <!-- LLEGADA -->
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+            <i class="fa fa-sign-in off-icon-prin" aria-hidden="true"></i>
+            
+            
+            <span class="off-target-prin-text">
+                Llegada: 
+                <span class="off-target-prin">
+                    16:00
+                </span>
+                
+                
+            </span>
+            
+            
+        </div>
+        <!-- FIN LLEGADA -->
+        
+        
+        <!-- SALIDA -->
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+            <i class="fa fa-sign-out off-icon-prin" aria-hidden="true"></i>
+            
+            
+            <span class="off-target-prin-text">
+                Salida: 
+                <span class="off-target-prin">
+                    12:00
+                </span>
+                
+                
+            </span>
+            
+            
+        </div>
+        <!-- FIN SALIDA -->
+        
+        
+    </div>
+    <!-- FIN LLEGADA Y SALIDA -->        
+    
+    
+    <!-- SERVICIOS -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>
+                Servicios
+            </h4>
+            <hr>
+        </div>
+    </div>
+    
+    
+    {% set datos = ['Acceso 24h', 'Acceso discapacitados', 'Internet', 'Wifi', 
+        'Jacuzzi', 'Aire acondicionado', 'Lavadora', 'Parking gratuito', 
+        'Apto para familias y niños', 'Perchas', 'Piscina', 'Plancha', 
+        'Calefacción', 'Champu', 'Portero', 'Salón privado', 'Chimenea interior', 
+        'Secador de pelo', 'Cocina', 'Secadora', 'Desayuno', 'Ascensor', 
+        'Telefonillo / Timbre', 'Elementos básicos', 'Tv', 'Tv por satélite', 
+        'Gimnasio', 'Zona para trabajar con portátiles', 'Necesario coche'] %}
+        
+    {% set col = 0 %}
+    
+    {% for dato in datos|sort %}
+        {% if col == 0 %}
+            <div class="row off-row-date-second">
+        {% endif %}
+        
+        
+                <!-- DATO -->
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 
+                     off-col-other-date-sec">
+                    <i class="fa {{ random(['fa-times-circle off-icon-secund-no', 
+                        'fa-check-circle off-icon-secund-ok']) }}  
+                        " aria-hidden="true"></i>
+
+
+                    <span class="off-target-secon">
+                        {{ dato }}
+                    </span>
+
+
+                </div>
+                <!-- DATO -->
+                
+                
+        {% if col < 3 %}
+            {% set col = 1 + col %}
+        {% else %}
+            {% set col = 0 %}
+             </div>
+        {% endif %}
+            
+   
+    {% endfor %}
+    
+    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
+    {% if col != 0 %}
+        </div>
+    {% endif %}
+    
+    <!-- SERVICIOS -->
+    
+    
+    <!-- NORMAS -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>
+                Normas
+            </h4>
+            <hr>
+        </div>
+    </div>
+    
+    
+    {% set datos = ['Fumar', 'Mascotas', 'Fiestas', 'Eventos'] %}
+        
+    {% set col = 0 %}
+    
+    {% for dato in datos|sort %}
+        {% if col == 0 %}
+            <div class="row off-row-date-second">
+        {% endif %}
+        
+        
+                <!-- DATO -->
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6
+                     off-col-other-date-sec">
+                    <i class="fa {{ random(['fa-times-circle off-icon-secund-no', 
+                        'fa-check-circle off-icon-secund-ok']) }}  
+                        " aria-hidden="true"></i>
+
+
+                    <span class="off-target-secon">
+                        {{ dato }}
+                    </span>
+
+
+                </div>
+                <!-- DATO -->
+                
+                
+        {% if col < 3 %}
+            {% set col = 1 + col %}
+        {% else %}
+            {% set col = 0 %}
+             </div>
+        {% endif %}
+            
+   
+    {% endfor %}
+    
+    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
+    {% if col != 0 %}
+        </div>
+    {% endif %}
+    
+    <!-- NORMAS -->
+    
+    
+    <!-- SEGURIDAD -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>
+                Seguridad
+            </h4>
+            <hr>
+        </div>
+    </div>
+    
+    
+    {% set datos = ['Detector de humo', 'Detector de monóxido de carbono', 
+        'Ficha de instrucciones de seguridad', 'Extintor de incendios',
+        'Botiquín', 'Pestillo en la puerta del dormitorio'] %}
+        
+    {% set col = 0 %}
+    
+    {% for dato in datos|sort %}
+        {% if col == 0 %}
+            <div class="row off-row-date-second">
+        {% endif %}
+        
+        
+                <!-- DATO -->
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 
+                     off-col-other-date-sec">
+                    <i class="fa {{ random(['fa-times-circle off-icon-secund-no', 
+                        'fa-check-circle off-icon-secund-ok']) }}  
+                        " aria-hidden="true"></i>
+
+
+                    <span class="off-target-secon">
+                        {{ dato }}
+                    </span>
+
+
+                </div>
+                <!-- DATO -->
+                
+                
+        {% if col < 3 %}
+            {% set col = 1 + col %}
+        {% else %}
+            {% set col = 0 %}
+             </div>
+        {% endif %}
+            
+   
+    {% endfor %}
+    
+    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
+    {% if col != 0 %}
+        </div>
+    {% endif %}
+    
+    <!-- SEGURIDAD -->
+    
+    
 {% endblock %}
 
 
