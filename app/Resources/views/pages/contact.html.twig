@@ -1,0 +1,167 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    Contact
+{% endblock %}
+
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+	<h1>Contacto</h1>
+        <hr>
+    </div>
+    
+    <div class="container formulario">
+        <h3 class="cnt-title3">
+            póngase en contacto con nosotros por email
+        </h3>
+        
+        <form class="">
+            <fieldset>
+
+            <!-- Text input-->
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+                <label class="control-label" for="name">
+                    Name
+                </label>  
+                
+                <div class="">
+                    <input id="name" name="name" type="text" placeholder="" 
+                        class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+                <label class="control-label" for="email">
+                    Email
+                </label>  
+                
+                <div class="">
+                    <input id="email" name="email" type="text" placeholder="" 
+                        class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+                <label class="control-label" for="subject">
+                    Subject
+                </label>  
+                
+                <div class="">
+                    <input id="subject" name="subject" type="text" 
+                        placeholder="" class="form-control input-md" 
+                        required="">
+
+                </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                <label class="control-label" for="message">
+                    Message
+                </label>
+                
+                <div class="">                     
+                    <textarea class="form-control" id="message" 
+                        name="message" row="20"></textarea>
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="control-label" for="send"></label>
+                <div class="">
+                    <button id="send" name="send" class="btn btn-primary">
+                        Send
+                    </button>
+                </div>
+            </div>
+
+            </fieldset>
+        </form>
+           
+    </div>
+    
+    
+    <div class="container">
+	<h3 class="cnt-title3">
+            o utilice nuestras redes sociales
+        </h3>
+        
+        <div class="row redes">
+            <div class="rrss">
+                <a href="#">
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div class="rrss">
+                <a href="#">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div class="rrss">
+                <a href="#">
+                    <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                </a>
+            </div>  
+
+            <div class="rrss">
+                <a href="#">
+                    <i class="fa fa-snapchat-ghost" aria-hidden="true"></i>
+                </a>
+            </div>  
+
+            <div class="rrss">
+                <a href="#">
+                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                </a>
+            </div> 
+
+            <div class="rrss">
+                <a href="#">
+                    <i class="fa fa-flickr" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div class="rrss">
+                <a href="#">
+                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    {{ include('footer/sponsorFooter.html.twig') }}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascriptsFooter %}
+{{ parent() }}    
+<script type="text/javascript">
+    $(document).scroll(function(e){
+        var scrollTop = $(document).scrollTop();
+        if(scrollTop > $('#menuAdministracion').height()){
+            //console.log(scrollTop);
+            $('#cbp-hrmenu').css("position","fixed");
+            $('#cbp-hrmenu').css("top","0");
+            $('#cbp-hrmenu').css("z-index","999");
+        } else {
+            $('#cbp-hrmenu').css("position","relative");
+        }
+    });
+</script>
+{% endblock %}

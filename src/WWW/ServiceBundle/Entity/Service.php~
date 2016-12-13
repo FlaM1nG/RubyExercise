@@ -43,6 +43,11 @@ class Service
      * @var \WWW\ServiceBundle\Entity\ServiceCategory
      */
     private $category;
+    
+    /**
+     * @var string
+     */
+    private $table;
 
 
     /**
@@ -135,5 +140,28 @@ class Service
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set table
+     *
+     * @param string $table
+     * @return Service
+     */
+    public function setTable($table)
+    {
+        $this->table = $table;
+
+        return $this;
+    }
+
+    /**
+     * Get table
+     *
+     * @return string 
+     */
+    public function getTable()
+    {
+        return $this->table;
     }
 }

@@ -1,0 +1,60 @@
+{% extends '::services/layoutService.html.twig' %}
+{% import 'macros/popup.html.twig' as popups %}
+{% import 'macros/sidebar.html.twig' as sidebars %}
+
+{% block title %}
+    House Rents
+{% endblock %}
+
+{% block cssParallax %}
+hre-parallax
+{% endblock %}
+
+{% block cssTitleParallax %}
+sha-header-title
+{% endblock %}
+
+{% block serviceTitle %} 
+    House Rents
+{% endblock %}
+
+{% block serviceSubTitle %}  
+    {#{ include('services/subTitles/shareCarSubTitle.html.twig') }#}
+{% endblock %}
+
+{% block serviceFilters %} 
+    {{ include('services/filters/shareCarFilter.html.twig') }}
+{% endblock %}
+            
+{% block serviceList %}
+    {% for i in 0..9 %}
+        {{ include('services/lists/houseRentsList.html.twig') }}
+    {% endfor %}
+        
+{% endblock %}
+
+{% block filtroMovilBody %}
+    {{ include('services/filters/shareCarFilter.html.twig') }}
+{% endblock %}
+
+{% block serviceSidebar %}
+    {{ include('services/sidebar/ocio.html.twig') }}
+    {{ include('services/sidebar/ocioMovil.html.twig') }}
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ include('services/sidebar/ocioScript.html.twig') }}
+    {{ include('services/sidebar/ocioMovilScript.html.twig') }}
+{% endblock %}
+
+{% block popupBlock %}
+    {{ popups.popup('sid-restaurante', 'Restaurante', 
+        sidebars.sidebarElementDemo()) }}
+        
+    {{ popups.popup('sid-ocio', 'Ocio', 
+        sidebars.sidebarElementDemo()) }}
+        
+    {{ popups.popup('sid-tiendas', 'Tiendas', 
+        sidebars.sidebarElementDemo()) }}
+{% endblock %}

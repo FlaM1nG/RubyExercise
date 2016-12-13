@@ -1,142 +1,297 @@
-{# empty Twig template #}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Usuarios</title>
-    {% block stylesheets %}
-    {% endblock %}
-    <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
+{% extends '::base.html.twig' %}
+{% import 'macros/alert.html.twig' as alerts %}
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block nav %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block alert %}
+    {% for flash_message in app.session.flashbag.get('mensaje') %}
+       {{  alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
     
-    {% block javascripts %}
-        
-        <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="../js/validacionUsuarios.js"></script>
-    {% endblock %}
-    
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
+    {% for flash_message in app.session.flashbag.get('mensaje2') %}
+        {{  alerts.alert(null, flash_message, null) }}
+     {% endfor %}
+{% endblock %}
        
-        {% block content %}
-           {{dump(usuario)}}
-           {{ form_start(formulario,{'enctype': 'multipart/form-data'}, {'attr': {'novalidate': 'novalidate'}}) }}
+{% block body %}
 
-                <ul>
-                    <li>
-                        <a href="#" name="personal" id="sectionPersonal">Personal</a>
-                    </li>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" {{tabActive == 'personal' or tabActive is empty ? 'class="active"'}}>
+            <a href="#personal" 
+               name="personal" 
+               id="sectionPersonal"
+               aria-controls="personal" 
+               role="tab" 
+               data-toggle="tab">
+               Personal
+            </a>
+        </li>
 
-                    <li>
-                        <a href="#" name="email" id="sectionEmail">Email</a>
-                    </li>
+        <li role="presentation" {{tabActive == 'email' ? 'class="active"'}}>
+            <a href="#email" 
+               name="email" 
+               id="sectionEmail"
+               aria-controls="email" 
+               role="tab" 
+               data-toggle="tab">
+               Email
+            </a>
+        </li>
 
-                    <li>
-                        <a href="#" name="password" id="sectionPassword">Contraseña</a>
-                    </li>
-                    
-                    <li>
-                        <a href="#" name="tlfn" id="sectionTlfn">Teléfono</a>
-                    </li>
+        <li role="presentation" {{tabActive == 'password' ? 'class="active"'}}>
+            <a href="#password" 
+               name="password" 
+               id="sectionPassword"
+               aria-controls="password"
+               role="tab" 
+               data-toggle="tab">
+                Contraseña
+            </a>
+        </li>
 
-                    <li>
-                        <a href="#" name="photo" id="sectionPhoto">Foto</a>
-                    </li>
-                    
-                    <li>
-                        <a href="#" name="photo" id="sectionAddress">Direcciones</a>
-                    </li>
-                    
-                    <li>
-                        <a href="#" name="bank" id="sectionBank">Datos bancarios</a>
-                    </li>
-                    <li>
-                        <a href="#" name="delete" id="sectionDelete">Darse de baja</a>
-                    </li>
-                </ul>
+        <li role="presentation" {{tabActive == 'phone' ? 'class="active"'}}>
+            <a href="#phone" 
+               name="phone" 
+               id="sectionTlfn"
+               aria-controls="phone"
+               role="tab" 
+               data-toggle="tab">Teléfono</a>
+        </li>
 
-                {{ form_row(formulario.username) }}
+        <li role="presentation" {{tabActive == 'photo' ? 'class="active"'}}>
+            <a href="#photo" 
+               name="photo" 
+               id="sectionPhoto"
+               aria-controls="photo"
+               role="tab" 
+               data-toggle="tab">
+                Foto
+            </a>
+        </li>
+
+        <li role="presentation" {{tabActive == 'address' ? 'class="active"'}}>
+            <a href="#address" 
+               name="address" 
+               id="sectionAddress"
+               aria-controls="address"
+               role="tab" 
+               data-toggle="tab">
+                Direcciones
+            </a>
+        </li>
+
+        <li role="presentation" {{tabActive == 'bank' ? 'class="active"'}}>
+            <a href="#bank" 
+               name="bank" 
+               id="sectionBank"
+               aria-controls="bank"
+               role="tab" 
+               data-toggle="tab">
+                Datos bancarios
+            </a>
+        </li>
+        
+        <li role="presentation">
+            <a href="#myOffer" 
+               name="myOffer" 
+               id="sectionMyOffer"
+               aria-controls="myOffer"
+               role="tab" 
+               data-toggle="tab">
+                Mis ofertas
+            </a>
+        </li>
+    </ul>
+           
+    <div class="tab-content">
+        {% block content3 %}
+            {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+                {{ alerts.alert('alert-success', flash_message, null) }}
+            {% endfor %}    
+        {% endblock %}
+        
+        {% block content4 %}
+            {% for flash_message in app.session.flashbag.get('messageFail') %}
+                {{ alerts.alert('alert-warning', flash_message, null) }}
+            {% endfor %}    
+        {% endblock %}
+        
+        <div class="tab-pane {{tabActive == 'personal' or tabActive is empty ? 'active'}}" name="personal" id="personal">
+            
+            {{ form_start(formPersonal) }}
+                {{ form_row(formPersonal.saveData)}}
+                {{ form_row(formPersonal.username) }}
+                {{ form_row(formPersonal.name) }}
+                {{ form_row(formPersonal.surname) }}
+                {{ form_row(formPersonal.birthdate) }}
+                {{ form_row(formPersonal.sex) }}
+                {{ form_row(formPersonal.linkInvitation) }}
+            {{ form_end(formPersonal)}}    
                 
-                --- SECCIÓN CAMBIO DE EMAIL ----
+        </div>
+        
+        <div class="tab-pane {{tabActive == 'email' ? 'active'}}" name="email" id="email">
+          
+            Email actual: {{ usuario.email }}
+            {{ form_start(formEmail) }}
+                {{ form_row(formEmail.email) }}
+                {{ form_row(formEmail.password) }}
                 
-                {{ form_row(formulario.email) }}
-                {{ form_row(formulario.oldPassword) }}
+            {{ form_end(formEmail)}}      
                 
-                --- FIN SECCIÓN CAMBIO DE EMAIL ---
+        </div>
+        
+        <div class="tab-pane {{tabActive == 'password' ? 'active'}}" name="password" id="password">
+            {{ form_errors(formPassword) }}
+            {{ form_start(formPassword) }}
+                {{ form_row(formPassword.oldPassword) }}
+                {{ form_row(formPassword.password) }}
+            {{ form_end(formPassword)}}    
                 
-                <BR>
-                {{ form_row(formulario.email) }}
-                <br>
-                {{ form_row(formulario.oldPassword) }}
-                {{ form_row(formulario.password) }}
-                {{ form_row(formulario.name) }}
-                {{ form_row(formulario.surname) }}
-                {{ form_row(formulario.birthdate) }}
-                {{ form_row(formulario.sex) }}
+        </div>
+        
+        <div class="tab-pane {{tabActive == 'phone' ? 'active'}}" name="phone" id="phone">
+            
+            {{ form_start(formPhone) }}
+                {{ form_row(formPhone.confirmPhone)}}
+                {{ form_row(formPhone.savePhone)}}
+                {{ form_row(formPhone.prefix)}}
+                {{ form_row(formPhone.phone) }}
+                {{ form_row(formPhone.codConfirmation)}}
+                {{ form_row(formPhone.confirmPhone)}}
+            {{ form_end(formPhone)}}
                 
-                --- SECCIÓN CAMBIO DE TELÉFONO ---
-                
-                {{ form_row(formulario.prefix)}}
-                {{ form_row(formulario.phone) }}
-                {{ form_row(formulario.codConfirmation)}}
-                {{ form_row(formulario.confirmPhone)}}
-                
-                --- FIN SECCIÓN CAMBIO DE TELÉFONO ---
-                <br>
-                {{ form_row(formulario.photo) }}
-                <br>
-                Invita a tus amigos y consigue nuevos servicios:
-                <br>
-                http://localhost/wwweb/web/app_dev.php/registro/{{usuario.linkInvitation}}
-                <br>
-                <br>
+        </div>
+        
+        <div class="tab-pane {{tabActive == 'photo' ? 'active'}}" name="photo" id="photo">
+            
+            {{ form_start(formPhoto) }}
+                {{ form_row(formPhoto.photo) }}
+            {{ form_end(formPhoto)}}    
+            
+        </div>
+            
+        <div class="tab-pane {{tabActive == 'bank' ? 'active'}}" name="bank" id="bank">
+            
+            {{ form_start(formBank) }}
+                {{ form_row(formBank.num_account)}}
+            {#{ form_end(formBank) }#}
+        </form>
+        </div>
+        
+        <div class="tab-pane {{tabActive == 'address' ? 'active'}}" name="address" id="address">
+            
+           {{ form_start(formAddress, {'attr': {'novalidate': 'novalidate'}}) }}  
+                {{ form_row(formAddress.section)}}
                 <div class="contentAddress">
-                {% for address in formulario.addresses %}
                     
-                   <div id="address{{address.vars.value.id}}">
+                    {% set readOnly = "" %}
+                    {% set cont = 0 %}
+                    {% set disableButton = "" %}
+                    {% set nameButton = "saveAddress" %}
+                    {% set valueButton = "Guardar" %}
+                    
+                    
+                    {% for address in formAddress.addresses %}
+                        
+                        {% if address.vars.value.id != 0 %}
+                        
+                            {% set readOnly = "readonly= true" %}
+                            {% set nameButton = "editar" %}
+                            {% set valueButton = "Editar" %}
+                            {% set disableButton = "disabled" %}
+                            
+                        {% endif %}
+                    
+                        <div id="address{{address.vars.value.id}}">
                        
                         {{ form_label(address.name)}}
-                        {{ form_widget(address.name,  { 'attr': { 'readonly': 'true' } })}}
+                        <input type="text" id="profileUser_addresses_{{cont}}}_name" 
+                               name="profileUser[addresses][{{cont}}][name]" 
+                               required="required" 
+                               class="form-control"
+                               {{readOnly}}
+                               value="{{address.name.vars.value}}">
                         
                         {{ form_label(address.street) }}
-                        {{ form_widget(address.street,  { 'attr': { 'readonly': 'true' } })}}
+                        <input type="text" id="profileUser_addresses_{{cont}}}_street" 
+                               name="profileUser[addresses][{{cont}}][street]" 
+                               required="required" 
+                               class="form-control"
+                               {{readOnly}}
+                               value="{{address.street.vars.value}}">
 
                         {{ form_label(address.isDefault) }}
-                        {{ form_widget(address.isDefault,  { 'attr': { 'readonly': 'true' } })}}
-
+                        <input type="checkbox" id="profileUser_addresses_{{cont}}_isDefault" 
+                               name="profileUser[addresses][{{cont}}][isDefault]" 
+                               {{ disableButton }}
+                               required="required"
+                               {{address.vars.value.isDefault == 1 ? 'checked' : ''}}>
+                        {% set cont = cont+1%}       
                         {{ form_row(address.id)}}
 
                         {{ form_row(address.zipCode)}}
                         {{ form_row(address.city)}}
+                       
                         {{ form_row(address.region)}}
                         {{ form_row(address.country)}}
                         {{ form_row(address.idZipCode)}}
-                          
-
-                        <input class="posArrayAddress" type ="hidden" name="posArrayAddress" value="{{address.vars.name}}">
-                        <button type="submit" name="editar" class="buttonEditAddress">Editar</button>
-                        <button type="submit" name="eliminar" class="buttonDeleteAddress">Eliminar</button>
+                        
+                        <button type="submit" name="{{ nameButton }}" class="buttonEditAddress">{{ valueButton }}</button>
+                        {% if address.vars.value.id != 0 %}
+                           <input class="posArrayAddress" type ="hidden" name="posArrayAddress" value="{{address.vars.name}}">
+                           <button type="submit" name="eliminar" class="buttonDeleteAddress">Eliminar</button>
+                        {% endif %}   
                    </div>
-                {% endfor %}   
-                </div> 
-
-                Añadir dirección
+                    {% endfor %}   
+                </div>
                 <input type="submit" value="+" name="buttonAddAddress" id="buttonAddAddress">
+                {#{form_end(formAddress)}#}
+        </div>
+        
+        <div class="tab-pane" name="myOffer" id="myOffer">
+            
+             
+        </div>
+        
+    </div>    
+
+                
                 <input type="hidden" value="sectionPersonal" name="section" id="sectionUser">
                 <input type="hidden" value="" name="idChangeAddress" id="idChangeAddress">
                 <input type="hidden" value="" name="idDeleteAddress" id="idDeleteAddress">
                 <input type="hidden" value="" name="addAddress" id="addAddress">
+              
+{% endblock %}
 
-            {{ form_end(formulario)}}
-            
-        {% endblock %}     
-  </body>
-</html>
+{% block javascriptsFooter %}
+    {{ parent() }}
+    <script>
+        $('#myTabs a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    </script>
+    
+    <script type="text/javascript">
+    $(document).scroll(function(e){
+        var scrollTop = $(document).scrollTop();
+        if(scrollTop > $('#menuAdministracion').height()){
+            //console.log(scrollTop);
+            $('#cbp-hrmenu').css("position","fixed");
+            $('#cbp-hrmenu').css("top","0");
+            $('#cbp-hrmenu').css("z-index","999");
+        } else {
+            $('#cbp-hrmenu').css("position","relative");
+        }
+    });
+    </script>
+    
+    <script type="text/javascript" src="{{ asset('js/profile.js') }}">  </script>
+{% endblock %}

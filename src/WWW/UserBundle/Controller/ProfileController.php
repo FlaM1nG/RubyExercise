@@ -13,7 +13,13 @@ use Symfony\Component\HttpFoundation\Request;
 use WWW\UserBundle\Entity\User as User;
 use WWW\GlobalBundle\Entity\Address;
 use WWW\GlobalBundle\Entity\ApiRest;
-use WWW\UserBundle\Form\ProfileType;
+use WWW\UserBundle\Form\ProfilePersonalType;
+use WWW\UserBundle\Form\ProfileAddressType;
+use WWW\UserBundle\Form\ProfileBankType;
+use WWW\UserBundle\Form\ProfileEmailType;
+use WWW\UserBundle\Form\ProfilePasswordType;
+use WWW\UserBundle\Form\ProfilePhoneType;
+use WWW\UserBundle\Form\ProfilePhotoType;
 
 
 /**
@@ -23,185 +29,200 @@ use WWW\UserBundle\Form\ProfileType;
  */
 class ProfileController extends Controller{
     
-    private $usuario;
+    private $usuario = null;
+    private $session = null;
+    private $dataProfile = null;
+    private $sectionActive = null;
     
     public function profileAction(Request $request){ 
         
-        $session = $request->getSession();
-        
-        $section = null;
+        $this->session = $request->getSession();
       
         $ch = new ApiRest();
         
         $file = "http://www.whatwantweb.com/api_rest/user/data/get_info_user.php";
-        $arrayData = array("username" => $session->get('username'),
-                           "id" => $session->get('id'),
-                           "password" => $session->get('password'));
+        $arrayData = array("username" => $this->session->get('username'),
+                           "id" => $this->session->get('id'),
+                           "password" => $this->session->get('password'));
         
         $result = $ch->sendInformation($arrayData, $file, "parameters");
-        
-        $formAddress = null;
-        $formulario = $this->createForm(ProfileType::class,$this->usuario);
-       
+ 
         if($result['result'] == 'ok'):
             
             $this->usuario = new User($result);
+        
+            if($this->usuario->getAddresses()->isEmpty()):
+                $address = new Address();
+                $this->usuario->addAddress($address);
+            endif;
+        
+            $formPersonal = $this->createForm(ProfilePersonalType::class,$this->usuario);
+            $formEmail = $this->createForm(ProfileEmailType::class,$this->usuario);
+            $formPassword = $this->createForm(ProfilePasswordType::class,$this->usuario);
+            $formPhone = $this->createForm(ProfilePhoneType::class,$this->usuario);
+            $formPhoto = $this->createForm(ProfilePhotoType::class,$this->usuario);
+            $formAddress = $this->createForm(ProfileAddressType::class,$this->usuario);
+            $formBank = $this->createForm(ProfileBankType::class,$this->usuario);
+        
             if($request->getMethod()=="POST"):
                 
-                $section = $request->request->all()['section'];
-           
-                if(array_key_exists('buttonAddAddress',$request->request->all() )):
-                    $newAddress = new Address();
+                $this->dataProfile = $request->request->all()['profileUser'];
+                $section = $this->dataProfile['section'];
                 
-                    $this->usuario->addAddress($newAddress);
-        
-                    $form = $this->createForm(ProfileType::class,$this->usuario);
-
-                    return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$form->createView(),
-                                                                          'usuario'=>$this->usuario));
-                else:
-
-                    if($section == 'sectionAddress'):
-                        $this->profileAddress($this->usuario,$request);
-                                
-                    elseif($section == 'sectionPassword'):
-                        $this->changePassword($this->usuario,$request);
+                if($section == 'personal'):
+                    $formPersonal->handleRequest($request);
                     
-                    elseif($section == 'sectionEmail'):
-                        $this->changeEmail($request);
+                    $this->sectionActive = 'personal';
+                    $this->updateProfile();
                     
-                    elseif($section == 'sectionTlfn'):
-                        $this->changePhone($request);
-                    
-                    elseif($section == 'sectionPhoto'):
-                        $this->changePhoto($request);
-                    
-                    elseif($section == 'sectionDelete'):
-                        $this->deleteUser($this->usuario,$request);
-                    
-                    else:
-                        $this->updateProfile($request);
-                      //  $this->deleteUser($this->usuario,$request);
-                    
-                    endif;
-                endif;    
-            
+                elseif($section == 'email'):
+                    $this->sectionActive = 'email';
+                    $this->changeEmail();
+                elseif($section == 'password'):
+                    $this->sectionActive ='password';
+                    $this->changePassword();
+     
+                elseif($section == 'phone'):
+                    $this->sectionActive = 'phone';
+                    $this->changePhone($request);
+                elseif($section == 'photo'):
+                    $this->sectionActive = 'photo';
+                    $this->changePhoto();
+                elseif($section == 'address'):
+                    $this->sectionActive = 'address';
+                    $this->profileAddress($request);
+                elseif($section == 'bank'):
+                    $this->sectionActive = 'bank';
+                    $this->changeBank();
+                endif;
+              
             endif;
            
         endif;
         
-        $formulario = $this->createForm(ProfileType::class,$this->usuario);
+        $formPersonal = $this->createForm(ProfilePersonalType::class,$this->usuario);
+        $formEmail = $this->createForm(ProfileEmailType::class,$this->usuario);
+        $formPassword = $this->createForm(ProfilePasswordType::class,$this->usuario);
+        $formPhone = $this->createForm(ProfilePhoneType::class,$this->usuario);
+        $formPhoto = $this->createForm(ProfilePhotoType::class,$this->usuario);
+        $formAddress = $this->createForm(ProfileAddressType::class,$this->usuario);
+        $formBank = $this->createForm(ProfileBankType::class,$this->usuario);
         
-        return $this->render('UserBundle:Default:profile.html.twig',array('formulario'=>$formulario->createView(),
-                                                                          'usuario'=>$this->usuario));
+        return $this->render('UserBundle:Default:profile.html.twig',
+                array('formPersonal'=>$formPersonal->createView(),
+                      'formEmail'=>$formEmail->createView(),
+                      'formPassword'=>$formPassword->createView(),
+                      'formPhone'=>$formPhone->createView(),
+                      'formPhoto'=>$formPhoto->createView(),
+                      'formAddress'=>$formAddress->createView(),
+                      'formBank'=>$formBank->createView(),
+                      'usuario'=>$this->usuario,
+                      'tabActive' => $this->sectionActive));
     }
     
         
-    private function updateProfile(Request $request){
-        
-        $arrayUser = $request->request->all()['profileUser'];
-        $section = $request->request->all()['section'];
-        echo "UPDATE PROFILE <BR>".$section."<br>";
-        $ch = new ApiRest();
-        
-        $file = "http://www.whatwantweb.com/api_rest/user/data/update_user.php";
-        
-        $data = array();
-        $data['username']=$this->usuario->getUsername();
-        $data['id']=$this->usuario->getId();
-        $data['password']=$this->usuario->getPassword();
+    private function updateProfile(){
+        $fecha = $this->dataProfile['birthdate']['year'].'-'.$this->dataProfile['birthdate']['month'].'-'.$this->dataProfile['birthdate']['day'];
 
-        if($section == 'sectionPersonal'):
-            $fecha = "'".$arrayUser['birthdate']['year'].'-'.$arrayUser['birthdate']['month'].'-'.$arrayUser['birthdate']['day']."'";
+        $date = \DateTime::createFromFormat('Y-m-d', $fecha);
         
-            $date= \DateTime::createFromFormat('YYYY-mm-dd', $fecha);
+        if($date < new\DateTime('today - 18 years')):
+            
+            $ch = new ApiRest();
+        
+            $file = "http://www.whatwantweb.com/api_rest/user/data/update_user.php";
 
-            /*if($date >= new\DateTime('today - 18 years')):
-                return false;
-            endif;*/
-            $data['name']="'".$arrayUser['name']."'";
-            $data['surname']="'".$arrayUser['surname']."'";
+            $data = array();
+            $data['username']=$this->usuario->getUsername();
+            $data['id']=$this->usuario->getId();
+            $data['password']=$this->usuario->getPassword();
+            
+            $data['name']="'".$this->dataProfile['name']."'";
+            $data['surname']="'".$this->dataProfile['surname']."'";
             $data['birthdate'] = $fecha;
-            $data['sex'] = "'".$arrayUser['sex']."'";
+            $data['sex'] = "'".$this->dataProfile['sex']."'";
+
+            $informacion['data'] = json_encode($data); 
+            $result = $ch->resultApiRed($informacion, $file);
             
-        elseif($section == 'sectionPassword'):
-        
-            $data['password'] = $arrayUser['password'];
-        
-        elseif($section == 'sectionBank'):
+            $this->flashMessageGeneral($result['result']);
             
-            $data['num_account'] = "'".$arrayUser['num_account']."'";
-        
-        elseif($section == 'sectionTlfn'):
+            if($result['result'] == "ok"):
             
-            $data['phone']=$arrayUser['phone'];
-            
+                foreach($data as $key => $value):
+
+                    if($key != "id"):
+                        $aux = str_replace("_", "", $key);
+                        $aux = "set".ucwords($aux);
+
+                        if($key != 'birthdate'):    
+                            //Al forma el array algunos datos se les añade comillas x lo que hay que quitarlas
+                            if($value[0] == "'"):
+                                $value = substr($value,1);
+                                $value = substr($value,0,-1);
+                            endif;
+                        else:
+                        $value = \DateTime::createFromFormat('Y-m-d', $fecha);
+
+                        endif;    
+                        $this->usuario->$aux($value);
+                    endif;    
+
+                endforeach;
+            endif;
+        else:
+            $this->addFlash('messageFail','Fecha no válida, debe ser mayor de edad');
         endif;
-
-        $result = $ch->sendInformation($data, $file, "json");
-
-        if($result['result'] == "ok"):
-            
-            foreach($data as $key => $value):
-            
-                if($key != "id" && $key != "birthdate"):
-                    
-                    $aux = str_replace("_", "", $key);
-                    $aux = "set".ucwords($aux);
-                    
-                    //Al forma el array algunos datos se les añade comillas x lo que hay que quitarlas
-                    if($value[0] == "'"):
-                        $value = substr($value,1);
-                        $value = substr($value,0,-1);
-                    endif;
-                    
-                    $this->usuario->$aux($value);
-                endif;    
-
-            endforeach;
-        endif;
-        
-    }
-    
-    private function changeEmail(Request $request){
-        
-        $file = "http://www.whatwantweb.com/api_rest/user/email/change_email.php";
-        $data = array('username' => $this->usuario->getUsername(),
-                      'id' =>$this->usuario->getId(),
-                      'password' => $request->request->all()['profileUser']['oldPassword'],
-                      'email' => $request->request->all()['profileUser']['email'] );
-        
-        $ch = new ApiRest();
-        $result = $ch->sendInformation($data, $file, "parameters");
        
-        if($result['result'] == "ok"):
-            $this->usuario->setEmail($data['email']);
-        endif;
     }
     
-    private function profileAddress(User $user, Request $request){
-
-        if(isset($request->request->all()["idChangeAddress"]) 
-                && $request->request->all()["idChangeAddress"] == "" 
-                && empty($request->request->all()["idDeleteAddress"])):
-           echo "añade direcciój";
-            $this->addAddress($user,$request);
-
-        elseif(array_key_exists("idChangeAddress", $request->request->all()) && 
-                isset($request->request->all()["idChangeAddress"]) && 
-                $request->request->all()["idChangeAddress"] != ""):
-            echo "actulización dirección";
-            $this->updateAddress($user, $request);
+    private function changeEmail(){
         
-        elseif(array_key_exists("idDeleteAddress", $request->request->all())):
-            echo "borra dirección";
-            $this->deleteAddress($user,$request);
-           
+        if($this->dataProfile['email']['first'] == $this->dataProfile['email']['second']):
+            
+            $file = "http://www.whatwantweb.com/api_rest/user/email/change_email.php";
+            $data = array('username' => $this->usuario->getUsername(),
+                          'id' =>$this->usuario->getId(),
+                          'password' =>$this->dataProfile['password'],
+                          'email' => $this->dataProfile['email']['first'] );
+
+            $ch = new ApiRest();
+
+            $result = $ch->resultApiRed($data,$file);
+       
+            if($result['result'] == "ok"):
+                $this->usuario->setEmail($data['email']);
+
+            endif;
+            $this->flashMessageGeneral($result['result']);
+        else:
+            $this->addFlash('messageFail','Email no válido');
         endif;
+        
+        
+    }
+    
+    private function profileAddress(Request $request){
+       //print_r($request);
+       
+       if(array_key_exists('newAddress', $request->request->all()) ||
+         (array_key_exists('saveAddress',$request->request->all()) &&
+         !array_key_exists('posArrayAddress',$request->request->all()))):
+           //guardar una dirección nueva
+           $this->addAddress($request);
+       
+       elseif(array_key_exists('saveAddress', $request->request->all())):
+           //modificar una dirección existente
+            $this->updateAddress( $request);
+           
+       elseif(array_key_exists('eliminar', $request->request->all())):
+           //eliminar dirección
+           $this->deleteAddress($request);
+       endif;
   
     }
     
-    private function updateAddress(User $user, Request $request){
+    private function updateAddress(Request $request){
         
         $arrayAdress = $request->request->all()['profileUser']['addresses'];
         $posArrayAddress = $request->request->all()['idChangeAddress'];
@@ -210,9 +231,9 @@ class ProfileController extends Controller{
         $file = "http://www.whatwantweb.com/api_rest/user/addresses/update_address.php";
         
         $data = array();
-        $data['username']=$user->getUsername();
-        $data['id_user']=$user->getId();
-        $data['password']=$user->getPassword();
+        $data['username']=$this->usuario->getUsername();
+        $data['id_user']=$this->usuario->getId();
+        $data['password']=$this->usuario->getPassword();
         $data['id'] = $arrayAdress[$posArrayAddress]['id'];
         $data['name'] = "'".$arrayAdress[$posArrayAddress]['name']."'";
         $data['street'] = "'".$arrayAdress[$posArrayAddress]['street']."'";
@@ -222,28 +243,40 @@ class ProfileController extends Controller{
         else
             $data['is_default'] = 0;
 
-        $result = $ch->sendInformation($data, $file, "json");
-        
-        //print_r($result);        
+        $informacion['data'] = json_encode($data);
+        $result = $ch->resultApiRed($informacion, $file);
+
+        if($result['result'] == 'ok'):
+            $this->updateAddressFormUser($data, $posArrayAddress);
+            $this->flashMessageGeneral($result['result']);
+        endif;
+               
     }
     
-    private function deleteAddress(User $user, Request $request){
+    private function deleteAddress(Request $request){
 
-        $arrayAdress = $request->request->all()['profileUser']['addresses'];
+        $arrayAdress = $this->dataProfile['addresses'];
         $posArrayAddress = $request->request->all()['idDeleteAddress'];
         
         $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/user/addresses/delete_address.php";
             
-        $data = array("username" => $user->getUsername(),
-                      "password" => $user->getPassword(),
-                      "id_user" => $user->getId(),
+        $data = array("username" => $this->usuario->getUsername(),
+                      "password" => $this->usuario->getPassword(),
+                      "id_user" => $this->usuario->getId(),
                       "id" => $arrayAdress[$posArrayAddress]['id']);
         
-        $result = $ch->sendInformation($data, $file,"parameters");
+        $result = $ch->resultApiRed($data, $file);
         
         if($result['result'] == 'ok'):
             $this->usuario->deleteAddress($posArrayAddress);
+        
+            if(count($this->usuario->getAddresses()) == 0):
+                $address = new Address();
+                $this->usuario->addAddress($address);
+            endif;
+            
+            $this->flashMessageGeneral($result['result']);
         endif;
     }
     private function deleteUser(User $user, Request $request){
@@ -266,95 +299,152 @@ class ProfileController extends Controller{
       // }
     }
     
-    private function addAddress(User $user, Request $request){
-    
-        $dataForm= $request->request->all();
-        $posAddress = count( $request->request->all()['profileUser']['addresses']);
-        $addressDefault = 0;
+    private function addAddress(Request $request){
+     
+        $newAddress = new Address();
         
-        $data = array();
-        $data['username'] = $user->getUsername();
-        $data['id_user'] = $user->getId();
-        $data['password'] =$user->getPassword();
-        $data['name'] = "'".$dataForm["nameNewAddress"]."'";
-        $data['street'] = "'".$dataForm["streetNewAddress"]."'";
-        $data['zipcode_id'] = 1;
+        $address = $this->dataProfile['addresses'];
+        $data['username'] = $this->usuario->getUsername();
+        $data['id_user'] = $this->usuario->getId();
+        $data['password'] =$this->usuario->getPassword();
         
-        if(array_key_exists('isDefaultNewAddress',$dataForm))
-            $data['is_default'] = 1;
-        else 
-            $data['is_default'] = 0;
-        
+        if(!array_key_exists('posArrayAddress',$request->request->all())):
+            //Dirección cuando no existe ninguna
+            
+            $data['name'] = "'".$address[0]["name"]."'";
+            $data['street'] = "'".$address[0]["street"]."'";
+            $data['zipcode_id'] = 1;
+            
+            if(array_key_exists('isDefault',$address[0])):
+                $data['is_default'] = 1;
+            else:
+                $data['is_default'] = 0;
+            endif;
+            
+            unset($this->usuario->getAddresses()[0]);
+            
+        else: 
+            //Nueva dirección cuando ya existen direcciones
+            $data['name'] = "'".$request->request->all()['nameNewAddress']."'";
+            $data['street'] = "'".$request->request->all()["streetNewAddress"]."'";
+            $data['zipcode_id'] = 1;
+            if(array_key_exists('isDefaultNewAddress',$request->request->all()))
+                $data['is_default'] = 1;
+            else 
+                $data['is_default'] = 0;
+        endif; 
+       
         $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/user/addresses/insert_address.php";
         
         $result = $ch->sendInformation($data, $file, "json");
-        echo "data<br>"; print_r($data);echo "<br>";
-        print_r($result);
         
         if($result['result'] == 'ok'):
-            echo "<br><br>Direccion nueva<br>PosAddress ".$posAddress;
-        
-            print_r($this->usuario->getAddresses()[$posAddress]);
+           $this->flashMessageGeneral($result['result']);
+           $this->updateAddressFormUser($data, $result['id']); 
         endif;
-        
-        //print_r($result);
+
     }
     
-    private function changePassword(User $user, Request $request){
+    private function updateAddressFormUser(Array $data, $id){
+
+        $aux = null;
         
-        $datos = $request->request->all()['profileUser'];
-       
+        foreach($data as $key => $value):
+            if($key != "username" && $key != "id_user" && $key != "password" && $key != "is_default"):
+                    //Al forma el array algunos datos se les añade comillas x lo que hay que quitarlas
+                if($value[0] == "'"):
+                    $value = substr($value,1);
+                    $value = substr($value,0,-1);
+                endif;
+                $aux[$key] = $value;
+            endif;    
+        endforeach;
+        
+        $aux['zipcode_id'] = 1;
+        $aux['id'] = $id;
+        
+        if($data['is_default'] == 1)
+            $aux['isDefault'] = true;
+        else $aux['isDefault'] = false;
+        
+        $this->usuario->getAddresses()[$id] = $aux;
+    }
+    
+    private function changePassword(){
+        
         $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/user/passwords/change_password.php";
+        
+        if($this->dataProfile['password']['first'] == $this->dataProfile['password']['second']):
             
-        $id = $user->getId();
-        $username = $user->getUsername();
-        $oldPassword = $datos['oldPassword'];
-        $newPassword = $datos['password']['first'];
-        
-        $data = array("username" => $username,
-                      "old_password" => $oldPassword,
-                      "new_password" => $newPassword,
-                      "id" => $id);
-        
-        $result = $ch->sendInformation($data, $file, "parameters");
-        
-        //print_r($result);
+            $id = $this->usuario->getId();
+            $username = $this->usuario->getUsername();
+            $oldPassword = $this->dataProfile['oldPassword'];
+            $newPassword = $this->dataProfile['password']['first'];
+
+            $data = array("username" => $username,
+                          "old_password" => $oldPassword,
+                          "new_password" => $newPassword,
+                          "id" => $id);
+
+            $result = $ch->resultApiRed($data, $file);
+            $this->flashMessageGeneral($result['result']);
+        else:
+            $this->addFlash('messageFail','Las contraseñas deben ser iguales');
+        endif;    
     }
     
-    private function confirmCodePhone(Request $request){
+    private function confirmCodePhone(){
         
         $file = "http://www.whatwantweb.com/api_rest/user/phone/send_sms";
 
         $data = array('username' => $this->usuario->getUsername(),
                           'id' => $this->usuario->getId(),
                           'password' => $this->usuario->getPassword(),
-                          'phone' => $request->request->all()['profileUser']['phone'],
-                          'prefix' => $request->request->all()['profileUser']['prefix']);
+                          'phone' => $this->dataProfile['phone'],
+                          'prefix' => $this->dataProfile['prefix']);
 
         $ch = new ApiRest();
-        $result = $ch->sendInformation($data, $file, "parameters");
+        $result = $ch->resultApiRed($data, $file);
+        
+        $this->flashMessageGeneral($result['result']);
     }
     
-    private function changePhone(Request $request){
+    private function changeBank(){
         
-        if(empty($request->request->all()['profileUser']['codConfirmation']) ||
-            array_key_exists("confirmPhone", $request->request->all()['profileUser'])):    
+        $file = "http://www.whatwantweb.com/api_rest/user/data/update_user.php";
+        
+        $data['username']=$this->usuario->getUsername();
+        $data['id']=$this->usuario->getId();
+        $data['password']=$this->usuario->getPassword();
+        $data['num_account'] = "'".$this->dataProfile['num_account']."'";
+        $informacion['data'] = json_encode($data); 
+        
+        $ch = new ApiRest();
+        $result = $ch->resultApiRed($informacion, $file);
+        
+        $this->flashMessageGeneral($result['result']);
+    }
+    
+    private function changePhone(){
+        
+        if(empty($this->dataProfile['codConfirmation']) ||
+            array_key_exists("confirmPhone", $this->dataProfile)):    
             
-            $this->confirmCodePhone($request);
+            $this->confirmCodePhone();
    
-        elseif(!empty($request->request->all()['profileUser']['codConfirmation'])):
+        elseif(!empty($this->dataProfile['codConfirmation'])):
             
             $file = "http://www.whatwantweb.com/api_rest/user/phone/confirm_sms";
             $data = array('username' => $this->usuario->getUsername(),
                           'id' => $this->usuario->getId(),
                           'password' => $this->usuario->getPassword(),
-                          'token' => $request->request->all()['profileUser']['codConfirmation']);
+                          'token' => $this->dataProfile['codConfirmation']);
             
             $ch = new ApiRest();
-            $result = $ch->sendInformation($data, $file, "parameters");
-            print_r($result);
+            $result = $ch->resultApiRed($data, $file);
+            
             if($result['result'] == 'ok'):
                 $this->usuario->setSmsConfirmed(1);
                 
@@ -374,8 +464,6 @@ class ProfileController extends Controller{
         $dataFiles = $request->files->all()['profileUser']['photo'];
         $fileUpload = "http://www.whatwantweb.com/img/user_".$this->usuario->getId()."/profile/perfil";
         
-        
-       //print_r($request->files->all()['profileUser']['photo']);
         $typePhoto = $request->files->all()['profileUser']['photo']->getMimeType();
         $name = $dataFiles->getClientOriginalName();
         $tmpName = $dataFiles->getPathname();
@@ -386,15 +474,20 @@ class ProfileController extends Controller{
             echo "error";
         }
         $carpeta = "http://www.whatwantweb.com/img/profile";
-
-        
         $target_path = "http://www.whatwantweb.com/img/profile";
-
         $directorio = "http://www.whatwantweb.com/img/profile"; // directorio de tu elección
             
         // almacenar imagen en el servidor
         move_uploaded_file($tmpName,'http://www.whatwantweb.com/img/profile/'.$this->usuario->getId().$extension);
- 
+   
+    }
+    
+    private function flashMessageGeneral($result){
         
+        if($result == 'ok'):
+            $this->addFlash('messageSuccess','Datos actualizados correctamente');
+        else:
+            $this->addFlash('messageFail','Error al actualizar');
+        endif;
     }
 }

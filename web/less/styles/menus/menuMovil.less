@@ -1,0 +1,474 @@
+/* --------------------- MENU MOVIL  ---------------------
+******************************************************************/
+
+
+/* ***** MENU MOVIL ***** */
+
+ul.cd-navigation {
+    list-style: none;
+    padding: 0;
+}
+
+ul.sub-menu {
+    list-style: none;
+}
+
+.faMovil{
+    padding-right: 5px;
+}
+
+/* -------------------------------- 
+
+Modules - reusable parts of our design
+
+-------------------------------- */
+.cd-img-replace {
+  /* replace text with a background-image */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%;
+  @brand-secondary-space: nowrap;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* -------------------------------- 
+
+Main components 
+
+-------------------------------- */
+
+.menuMovilSpecial{
+    display: none;
+}
+
+.cd-main-content.lateral-menu-is-open {
+  /* translate to show the lateral menu - all content needs to be put in the .cd-main-content to translate*/
+  -webkit-transform: translateX(-260px);
+  -moz-transform: translateX(-260px);
+  -ms-transform: translateX(-260px);
+  -o-transform: translateX(-260px);
+  transform: translateX(-260px);
+}
+
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  background: @gray-base;
+  z-index: 13;
+  /* Force Hardware Acceleration in WebKit */
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+header.lateral-menu-is-open {
+  /* translate to show the lateral menu */
+  -webkit-transform: translateX(-260px);
+  -moz-transform: translateX(-260px);
+  -ms-transform: translateX(-260px);
+  -o-transform: translateX(-260px);
+  transform: translateX(-260px);
+}
+header.is-fixed {
+  position: fixed;
+}
+
+
+#cd-logo {
+  display: block;
+  float: left;
+  margin: 12px 0 0 20px;
+}
+#cd-logo img {
+  display: block;
+}
+
+
+#cd-top-nav {
+  position: absolute;
+  top: 0;
+  right: 120px;
+  height: 100%;
+  display: none;
+}
+#cd-top-nav ul {
+  height: 100%;
+  padding-top: 18px;
+}
+#cd-top-nav li {
+  display: inline-block;
+  margin-right: 1em;
+}
+#cd-top-nav a {
+  display: inline-block;
+  padding: .5em;
+  color: @brand-secondary;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+#cd-top-nav a.current {
+  background-color: @gray-base;
+}
+.no-touch #cd-top-nav a:hover {
+  color: @brand-secondary;
+}
+
+
+#cd-menu-trigger {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 50px;
+  background-color: @gray-dark;
+}
+#cd-menu-trigger .cd-menu-text {
+  height: 100%;
+  text-transform: uppercase;
+  color: @brand-secondary;
+  font-weight: 600;
+  display: none;
+}
+#cd-menu-trigger .cd-menu-icon {
+  /* this span is the central line in the menu menu */
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  bottom: auto;
+  right: auto;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  width: 18px;
+  height: 2px;
+  background-color: @brand-secondary;
+  /* these are the upper and lower lines in the menu menu */
+}
+#cd-menu-trigger .cd-menu-icon::before, #cd-menu-trigger .cd-menu-icon:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: inherit;
+  left: 0;
+}
+#cd-menu-trigger .cd-menu-icon::before {
+  bottom: 5px;
+}
+#cd-menu-trigger .cd-menu-icon::after {
+  top: 5px;
+}
+#cd-menu-trigger.is-clicked .cd-menu-icon {
+  background-color: rgba(255, 255, 255, 0);
+}
+#cd-menu-trigger.is-clicked .cd-menu-icon::before, #cd-menu-trigger.is-clicked .cd-menu-icon::after {
+  background-color: @brand-secondary;
+}
+#cd-menu-trigger.is-clicked .cd-menu-icon::before {
+  bottom: 0;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+#cd-menu-trigger.is-clicked .cd-menu-icon::after {
+  top: 0;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+
+#cd-lateral-nav {
+  position: fixed;
+  height: 100%;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  /* the secondary navigation is covered by the main element */
+  z-index: 11;
+  width: 260px;
+  background-color: @gray-base;
+  overflow-y: auto;
+  /* Force Hardware Acceleration in WebKit */
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: -webkit-transform .4s 0s, visibility 0s .4s;
+  -moz-transition: -moz-transform .4s 0s, visibility 0s .4s;
+  transition: transform .4s 0s, visibility 0s .4s;
+  /* this creates the subtle slide in animation of the navigation */
+  -webkit-transform: translateX(260px);
+  -moz-transform: translateX(260px);
+  -ms-transform: translateX(260px);
+  -o-transform: translateX(260px);
+  transform: translateX(260px);
+}
+#cd-lateral-nav .cd-navigation {
+  margin: 10px 0 16px;
+}
+#cd-lateral-nav .sub-menu {
+  padding: 0 10px 20px 15px;
+  display: none;
+}
+#cd-lateral-nav a {
+  display: block;
+  line-height: 2em;
+  padding: 0 16px 0 32px;
+  color: @brand-secondary;
+}
+#cd-lateral-nav a.current {
+  background-color: @brand-primary;
+  color: @brand-secondary;
+}
+.no-touch #cd-lateral-nav a:hover {
+  color: @brand-primary;
+}
+
+#cd-lateral-nav.lateral-menu-is-open {
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+  visibility: visible;
+  -webkit-transition: -webkit-transform .4s 0s, visibility 0s 0s;
+  -moz-transition: -moz-transform .4s 0s, visibility 0s 0s;
+  transition: transform .4s 0s, visibility 0s 0s;
+  /* smooth the scrolling on touch devices - webkit browsers */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* style menu items which have a submenu  */
+#cd-lateral-nav .item-has-children > a {
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 600;
+  /* this is the right arrow to show that the item has a submenu  */
+}
+#cd-lateral-nav .item-has-children > a::after {
+  content: '';
+  display: block;
+  height: 11px;
+  width: 8px;
+  position: absolute;
+  top: 50%;
+  bottom: auto;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 1em;
+  background: url("../img/cd-arrow.svg") no-repeat center center;
+  background-size: 8px 11px;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+#cd-lateral-nav .item-has-children > a.submenu-open::after {
+  -webkit-transform: translateY(-50%) rotate(90deg);
+  -moz-transform: translateY(-50%) rotate(90deg);
+  -ms-transform: translateY(-50%) rotate(90deg);
+  -o-transform: translateY(-50%) rotate(90deg);
+  transform: translateY(-50%) rotate(90deg);
+}
+
+#cd-lateral-nav .socials {
+  padding: 0 32px;
+}
+#cd-lateral-nav .socials:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#cd-lateral-nav .socials a {
+  height: 32px;
+  width: 32px;
+  float: left;
+  padding: 0;
+  background-image: url("../img/cd-socials.svg");
+  background-repeat: no-repeat;
+  background-size: 128px 64px;
+  background-color: @brand-secondary;
+  margin-right: .5em;
+  border-radius: 0.25em;
+}
+#cd-lateral-nav .socials a.cd-twitter {
+  background-position: 0 0;
+}
+#cd-lateral-nav .socials a.cd-github {
+  background-position: -32px 0;
+}
+#cd-lateral-nav .socials a.cd-facebook {
+  background-position: -64px 0;
+}
+#cd-lateral-nav .socials a.cd-google {
+  background-position: -96px 0;
+}
+.no-touch #cd-lateral-nav .socials a:hover {
+  background-color: @gray-base;
+}
+.no-touch #cd-lateral-nav .socials a:hover.cd-twitter {
+  background-position: 0 -32px;
+}
+.no-touch #cd-lateral-nav .socials a:hover.cd-github {
+  background-position: -32px -32px;
+}
+.no-touch #cd-lateral-nav .socials a:hover.cd-facebook {
+  background-position: -64px -32px;
+}
+.no-touch #cd-lateral-nav .socials a:hover.cd-google {
+  background-position: -96px -32px;
+}
+
+/*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
+@media only screen and (max-height : 1050px){
+    
+}
+
+@media only screen and (max-height : 810px){
+    
+}
+
+@media only screen and (max-height : 780px){
+    
+}
+
+
+/*######################   RANGO ANCHO [1600 � 1200[ ######################*/
+@media only screen and (max-width : 1600px) {
+    
+    
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 960px){
+        
+    }
+    
+    @media only screen and (max-height : 900px){
+        
+    }
+    
+    @media only screen and (max-height : 800px){
+        
+    }
+    
+    @media only screen and (max-height : 720px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [1200 �  992[  ######################*/
+@media only screen and (max-width : 1200px) {
+    
+    
+    @media only screen and (max-height : 768px){
+        
+    }
+    
+    @media only screen and (max-height : 600px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [992�  768[  ######################*/
+@media only screen and (max-width : 992px) {
+        
+    @media only screen and (max-height : 500px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [768 � 480[  ######################*/
+@media only screen and (max-width : 768px) {
+    .menuMovilSpecial{
+        display: block;
+    }
+    
+    .cd-main-content {
+        /* set a min-height and a z-index to be sure that the main element completely covers the lateral menu */
+        //min-height: 100%;
+        position: relative;
+        background-color: @brand-secondary;
+        z-index: 12;
+        padding-top: 50px;
+        /* Force Hardware Acceleration in WebKit */
+        -webkit-transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        -webkit-transition-property: -webkit-transform;
+        -moz-transition-property: -moz-transform;
+        transition-property: transform;
+        -webkit-transition-duration: 0.4s;
+        -moz-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+    }
+    
+    .menu-mobile-bank {
+        padding: 0px 20px;
+        color: #ffffff;
+    }
+    
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 850px){
+        
+    }
+    
+    @media only screen and (max-height : 740px){
+        
+    }
+    
+    @media only screen and (max-height : 360px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [480 � 320[  ######################*/
+@media only screen and (max-width : 480px) {
+    
+        
+    @media only screen and (max-height : 667px){
+        
+    }
+    
+    @media only screen and (max-height : 640px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [320 � 1]  ######################*/
+@media only screen and (max-width : 320px) {
+    
+    
+    @media only screen and (max-height : 534px){
+        
+    }
+    
+    @media only screen and (max-height : 480px){
+        
+    }
+}

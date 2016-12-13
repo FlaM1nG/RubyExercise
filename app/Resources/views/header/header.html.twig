@@ -1,0 +1,87 @@
+<!-- MENU ADMINISTRACION -->
+<div class="container-fluid cd-main-content administration-body" id="menuAdministracion">
+    <div class="row prueba administration-row">
+
+        <!-- PRIMERA COLUMNA-->
+        <div class="col-lg-3 col-md-3 col-sm-4 hidden-xs colAdministracion">
+            <a href="{{ path('homepage') }}">
+                <img class="img-responsive logo" 
+                     src="{{ asset('img/Logo_www-2.png') }}" alt="Site Logo"/>
+            </a>
+        </div>
+        <!-- FIN PRIMERA COLUMNA-->
+
+        <!-- SEGUNDA COLUMNA-->
+        <div class="col-lg-4 col-md-3 col-sm-8 col-xs-12 colAdministracion">
+            <div class="input-group stylish-input-group posicion-top">
+                <input type="text" class="form-control alto-search"  
+                       placeholder="¿Qué es lo que quieres de la web?" >
+                <span class="input-group-addon">
+                    <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>  
+                </span>
+            </div>
+        </div>
+        <!-- FIN SEGUNDA COLUMNA-->
+
+        <!-- TERCERA COLUMNA-->
+        <div class="col-lg-3 col-md-4 col-sm-8 hidden-xs colAdministracion">
+            <div class="navegacion-usuario">
+                <ul style="border-right: 0;">
+                    <li class="text-nav-user">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user size-icon">
+                                
+                            </span>
+                            Mi Cuenta
+                        </a>
+                    </li>
+                    
+                    <li class="text-nav-user">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-shopping-cart 
+                                size-icon">
+                                      
+                            </span>
+                            Carro
+                        </a>
+                    </li>
+                    
+                    <li class="text-nav-user">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-heart-empty 
+                                size-icon">
+                                      
+                            </span>
+                            Bolsa
+                        </a>
+                    </li>
+                    
+                    <li class="text-nav-user">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-bullhorn 
+                                size-icon">
+                                      
+                            </span>
+                            Radio
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- FIN TERCERA COLUMNA-->
+
+        <!-- CUARTA COLUMNA-->
+        <div class="col-lg-2 col-md-2 col-sm-4 hidden-xs colAdministracion">
+            <img class="img-responsive logo2" 
+                 src="{{ asset('img/Logo_wwb-2.png') }}" alt="Site Logo"/>
+            <span class="text-bank">
+                Próximamente también podrá usar nuestro servicio de banco
+            </span>
+        </div>
+        <!-- FIN CUARTA COLUMNA-->
+
+    </div>
+</div>
+<!-- FIN ADMINISTRACION -->

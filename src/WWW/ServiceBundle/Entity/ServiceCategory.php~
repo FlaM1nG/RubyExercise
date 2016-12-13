@@ -14,16 +14,6 @@ class ServiceCategory
      */
     private $id;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
     /**
      * @var string
      */
@@ -38,7 +28,17 @@ class ServiceCategory
      * @var \WWW\GlobalBundle\Entity\Photo
      */
     private $photo;
-
+    
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set title

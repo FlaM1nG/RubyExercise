@@ -15,6 +15,7 @@ WWW\ServiceBundle\Entity\Offer:
         description:
             type: string
             length: 255
+            nullable: true
         expired:
             type: boolean
         createdDate:
@@ -30,7 +31,7 @@ WWW\ServiceBundle\Entity\Offer:
             type: boolean
             nullable: true
     manyToOne:
-        user_admin:
+        userAdmin:
             nullable: true
             targetEntity: WWW\UserBundle\Entity\User
             inversedBy: Offer

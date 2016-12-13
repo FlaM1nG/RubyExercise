@@ -1,0 +1,58 @@
+{% extends '::services/layoutService.html.twig' %}
+
+{% block title %}
+    Trade
+{% endblock %}
+
+{% block cssParallax %}
+tra-parallax
+{% endblock %}
+
+{% block cssTitleParallax %}
+sha-header-title
+{% endblock %}
+
+{% block serviceTitle %} 
+    Trade
+{% endblock %}
+
+{% block serviceSubTitle %}  
+    {#{ include('services/subTitles/shareCarSubTitle.html.twig') }#}
+{% endblock %}
+
+{% block serviceFilters %} 
+    {{ include('services/filters/shareCarFilter.html.twig') }}
+{% endblock %}
+            
+{% block serviceList %}
+    <div class="row row-tra-base" >
+        <div class="col-tra-size col-lg-4 col-md-4 col-sm-6 col-xs-12"></div>
+    {% for i in 0..22 %}
+        {{ include('services/lists/tradeList.html.twig') }}
+    {% endfor %}
+    </div>
+{% endblock %}
+
+{% block filtroMovilBody %}
+    {{ include('services/filters/shareCarFilter.html.twig') }}
+{% endblock %}
+
+{% block serviceSidebar %}
+    
+{% endblock %}
+
+{% block javascriptsFooter %}
+{{ parent() }}
+
+<script src=" {{ asset('js/masonry.pkgd.min.js') }}"></script>
+<script type="text/javascript">
+    $('.row-tra-base').masonry({
+    // options
+    columnWidth: '.col-tra-size',
+    itemSelector: '.col-tra-elem',
+    percentPosition: true,
+    transitionDuration: 0.0
+  });
+</script>
+{% endblock %}
+

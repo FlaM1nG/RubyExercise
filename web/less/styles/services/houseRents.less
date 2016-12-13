@@ -1,0 +1,315 @@
+/* ------------------ HOUSE RENTS ------------------
+******************************************************************/
+
+/* ***** TITLE VIEW LIST ***** */
+.hre-parallax{
+    background: url(../img/houseRents.jpg);
+    background-position: center -200px !important;
+}
+/* ##### FIN TITLE VIEW LIST ##### */
+
+
+/* ***** ELEMENT LIST HOUSE RENTS ***** */
+.row-hre-element {
+    background-color: @brand-secondary;
+    margin: 0 0 20px 1%;
+    .aEnlaces;
+}
+
+.row-hre-element:hover, .row-hre-element:focus{
+    background-color: @gray-base;
+    color: @brand-secondary;
+    
+    .hre-price {
+        color: @brand-secondary;
+    }
+    
+    .row-hre-title-user {
+        border-bottom: solid 1px @brand-secondary;
+    }
+    
+    .hre-title-grid:hover, hre-title-grid:focus{
+        color: @brand-secondary;
+    }
+    
+    .hre-user-name-grid:hover, hre-user-name-grid:focus{
+        color: @brand-secondary;
+    }
+}
+
+.row-hre-title-user {
+    border-bottom: solid 1px @gray-base;
+    padding: 0 0 2%;
+    margin: 0 15px 2% -15px;
+}
+
+.row-hre-user-name{
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 10px;
+}
+
+.row-hre-data{
+    font-size: 14px;
+    font-weight: initial;
+}
+
+.row-hre-img-secon {
+    height: 90px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
+
+.col-hre-img-prin {
+    padding: 0;
+    overflow: hidden;
+    height: 180px;
+    position: relative;
+}
+
+.col-hre-second {
+}
+
+.col-hre-data{
+    padding: 1% 0% 0% 5%;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.col-hre-user{
+    text-align: center;
+}
+
+.hre-img-prin{
+    min-width: 100%;
+    min-height: 100%;
+    
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.hre-img-other {
+    min-width: 100%;
+    min-height: 100%;
+    
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.hre-price {
+    font-size: 30px;
+    color: @gray-base;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.hre-rating{
+    padding-top: 5%;
+}
+/* ##### FIN ELEMENT LIST HOUSE RENTS ##### */
+
+
+/* *****  ***** */
+
+/* ##### FIN  ##### */
+
+/*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
+@media only screen and (max-height : 1050px){
+    
+}
+
+@media only screen and (max-height : 810px){
+    
+}
+
+@media only screen and (max-height : 780px){
+    
+}
+
+
+/*######################   RANGO ANCHO [1600 � 1200[ ######################*/
+@media only screen and (max-width : 1600px) {
+    
+    
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 960px){
+        
+    }
+    
+    @media only screen and (max-height : 900px){
+        
+    }
+    
+    @media only screen and (max-height : 800px){
+        
+    }
+    
+    @media only screen and (max-height : 720px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [1200 �  992[  ######################*/
+@media only screen and (max-width : 1200px) {
+    .col-hre-second {
+        display: none;
+    }
+    
+    @media only screen and (max-height : 768px){
+        
+    }
+    
+    @media only screen and (max-height : 600px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [992�  768[  ######################*/
+@media only screen and (max-width : 992px) {
+    .row-hre-element{
+        background-color: @gray-base;
+        color: @brand-secondary;
+        margin: 0 0 20px 0%;
+
+        .hre-price {
+            color: @brand-secondary;
+        }
+
+        .row-hre-title-user {
+            border-bottom: solid 1px @brand-secondary;
+            margin: 0 0 2%;
+        }
+
+        .hre-title-grid:hover, hre-title-grid:focus{
+            color: @brand-secondary;
+        }
+
+        .hre-user-name-grid:hover, hre-user-name-grid:focus{
+            color: @brand-secondary;
+        }
+        
+    }
+    
+    .row-hre-element:hover, .row-hre-element:focus{
+        background-color: @brand-secondary;
+        color: @gray-base;
+
+        .hre-price {
+            color: @gray-base;
+        }
+
+        .row-hre-title-user {
+            border-bottom: solid 1px @gray-base;
+        }
+
+        .hre-title-grid:hover, hre-title-grid:focus{
+            color: @gray-base;
+        }
+
+        .hre-user-name-grid:hover, hre-user-name-grid:focus{
+            color: @gray-base;
+        }
+    }
+    
+    .col-hre-second{
+        display: inherit;
+        padding: 0;
+        
+        .row-hre-img-secon{
+            width: 50%;
+            float: left;
+            position: relative;
+            margin: 0;
+        }
+    }
+    
+    .col-hre-data {
+        margin: 2% 0;
+        padding: 0 5%;
+    }
+    
+    .col-hre-price{
+        text-align: right;
+    }
+    
+    .hre-img-other1{
+        border-right: 5px solid #f60;
+    }
+    
+    @-moz-document url-prefix() {
+        .hre-parallax{
+            background-position: center bottom !important;
+        }
+    }
+    
+    .col-hre-img-prin {
+        border-bottom: 5px solid #f60;
+    }
+    
+    @media only screen and (max-height : 500px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [768 � 480[  ######################*/
+@media only screen and (max-width : 768px) {
+    .hre-parallax {
+        background-position: center bottom!important;
+        margin-bottom: 0px;
+    }
+    
+       
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 850px){
+        
+    }
+    
+    @media only screen and (max-height : 740px){
+        
+    }
+    
+    @media only screen and (max-height : 360px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [480 � 320[  ######################*/
+@media only screen and (max-width : 480px) {
+    
+        
+    @media only screen and (max-height : 667px){
+        
+    }
+    
+    @media only screen and (max-height : 640px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [320 � 1]  ######################*/
+@media only screen and (max-width : 320px) {
+    
+    
+    @media only screen and (max-height : 534px){
+        
+    }
+    
+    @media only screen and (max-height : 480px){
+        
+    }
+}

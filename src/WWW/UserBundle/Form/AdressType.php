@@ -23,10 +23,8 @@ class AdressType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
         $builder
-                ->add('street','text', array('label'=>'Calle',
-                                             ))
-                ->add('name','text', array('label'=>'Nombre dirección',
-                                             'read_only' => true))
+                ->add('street','text', array('label'=>'Calle'))
+                ->add('name','text', array('label'=>'Nombre dirección',))
                 ->add('isDefault','checkbox', array('label' => 'Dirección principal',
                                                     'disabled' => true))
                 ->add('zipCode','text', array('label'=>'CP',

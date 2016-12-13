@@ -1,4 +1,27 @@
-user_homepage:
-    path:     /
-    defaults: { _controller: UserBundle:Default:index }
+user_register:
+    path: /register/{token}
+    defaults: { _controller: UserBundle:Register:register,token:null  }
+    
+user_login:
+    path: /login
+    defaults: { _controller: UserBundle:Login:login }
+    
+user_logout:
+    path: /logout
+    defaults: { _controller: UserBundle:Login:logout }
+    
+user_profiler:
+    path: /profile
+    defaults: { _controller: UserBundle:Profile:profile }
 
+user_forgot:
+    path: /forgot
+    defaults: { _controller: UserBundle:Default:forgotPass }
+    
+user_change:
+    path: /change/{token}
+    defaults: { _controller: UserBundle:Default:changePass }
+    
+user_resend:
+    path: /resend
+    defaults: { _controller: UserBundle:Default:resend }
