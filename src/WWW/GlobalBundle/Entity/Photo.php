@@ -18,7 +18,26 @@ class Photo
      * @var string
      */
     private $url;
+        
+    /**
+     * @var \DateTime
+     */
+    private $createdDate;
 
+    /**
+     * @var \DateTime
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $deletedDate;
+
+    /**
+     * @var boolean
+     */
+    private $isDeleted;
 
     /**
      * Get id
@@ -52,27 +71,7 @@ class Photo
     {
         return $this->url;
     }
-    /**
-     * @var \DateTime
-     */
-    private $createdDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $modifiedDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $deletedDate;
-
-    /**
-     * @var boolean
-     */
-    private $isDeleted;
-
-
+    
     /**
      * Set createdDate
      *

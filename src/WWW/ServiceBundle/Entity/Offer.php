@@ -55,7 +55,7 @@ class Offer
     /**
      * @var \WWW\UserBundle\Entity\User
      */
-    private $user_admin;
+    private $userAdmin;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -252,26 +252,26 @@ class Offer
     }
 
     /**
-     * Set user_admin
+     * Set userAdmin
      *
      * @param \WWW\UserBundle\Entity\User $userAdmin
      * @return Offer
      */
     public function setUserAdmin(\WWW\UserBundle\Entity\User $userAdmin = null)
     {
-        $this->user_admin = $userAdmin;
+        $this->userAdmin = $userAdmin;
 
         return $this;
     }
 
     /**
-     * Get user_admin
+     * Get userAdmin
      *
      * @return \WWW\UserBundle\Entity\User 
      */
     public function getUserAdmin()
     {
-        return $this->user_admin;
+        return $this->userAdmin;
     }
 
     /**

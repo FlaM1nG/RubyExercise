@@ -28,6 +28,11 @@ class Hobby
      * @var \WWW\GlobalBundle\Entity\Photo
      */
     private $photo;
+        
+    /**
+     * @var boolean
+     */
+    private $deleted;
 
 
     /**
@@ -109,10 +114,6 @@ class Hobby
     {
         return $this->photo;
     }
-    /**
-     * @var boolean
-     */
-    private $deleted;
 
 
     /**

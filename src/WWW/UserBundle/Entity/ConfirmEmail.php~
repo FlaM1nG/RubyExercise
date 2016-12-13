@@ -33,6 +33,16 @@ class ConfirmEmail
      * @var string
      */
     private $token;
+    
+    /**
+     * @var boolean
+     */
+    private $original;
+
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;
 
 
     /**
@@ -136,17 +146,6 @@ class ConfirmEmail
     {
         return $this->token;
     }
-
-    /**
-     * @var boolean
-     */
-    private $original;
-
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $user;
-
 
     /**
      * Set original

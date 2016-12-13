@@ -53,17 +53,12 @@ class Trade
     /**
      * @var \WWW\OthersBundle\Entity\TradeCategory
      */
-    private $category;
-
-        /**
-     * @var float
-     */
-    private $longitude;
-
+    private $category;       
+        
     /**
-     * @var float
+     * @var string
      */
-    private $latitude;
+    private $region;
     
     /**
      * Get id
@@ -75,7 +70,6 @@ class Trade
         return $this->id;
     }
     
-
     /**
      * Set price
      *
@@ -246,25 +240,25 @@ class Trade
     }
 
     /**
-     * Set price
+     * Set region
      *
-     * @param float $price
+     * @param string $region
      * @return Trade
      */
-    public function setPrice($price)
+    public function setRegion($region)
     {
-        $this->price = $price;
+        $this->region = $region;
 
         return $this;
     }
 
     /**
-     * Get price
+     * Get region
      *
-     * @return float 
+     * @return string 
      */
-    public function getPrice()
+    public function getRegion()
     {
-        return $this->price;
+        return $this->region;
     }
 }
