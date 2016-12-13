@@ -47,11 +47,32 @@ class Address
      * @var boolean
      */
     private $isDeleted;
+            
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;    
+    
+    /**
+     * @var integer
+     */
+    private $zipCode;
 
     /**
-     * @var \WWW\GlobalBundle\Entity\ZipCode
+     * @var string
      */
-    private $zipcode;
+    private $city;
+
+    /**
+     * @var string
+     */
+    private $region;
+
+    /**
+     * @var string
+     */
+    private $country;
+
 
      public function __construct(Array $address=null){
          
@@ -252,34 +273,6 @@ class Address
     }
 
     /**
-     * Set zipcode
-     *
-     * @param \WWW\GlobalBundle\Entity\ZipCode $zipcode
-     * @return Address
-     */
-    public function setZipcode(\WWW\GlobalBundle\Entity\ZipCode $zipcode = null)
-    {
-        $this->zipcode = $zipcode;
-
-        return $this;
-    }
-
-    /**
-     * Get zipcode
-     *
-     * @return \WWW\GlobalBundle\Entity\ZipCode 
-     */
-    public function getZipcode()
-    {
-        return $this->zipcode;
-    }
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $user;
-
-
-    /**
      * Set user
      *
      * @param \WWW\UserBundle\Entity\User $user
@@ -316,4 +309,95 @@ class Address
         );    
     }
 
+    /**
+     * Set zipCode
+     *
+     * @param integer $zipCode
+     * @return Address
+     */
+    public function setZipCode($zipCode)
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    /**
+     * Get zipCode
+     *
+     * @return integer 
+     */
+    public function getZipCode()
+    {
+        return $this->zipCode;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return Address
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set region
+     *
+     * @param string $region
+     * @return Address
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return string 
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     * @return Address
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string 
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
 }

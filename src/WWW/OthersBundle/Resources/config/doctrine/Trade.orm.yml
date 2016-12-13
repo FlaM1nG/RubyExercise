@@ -9,24 +9,26 @@ WWW\OthersBundle\Entity\Trade:
             generator:
                 strategy: AUTO
     fields:
-        priceUser:
+        price:
             type: float
             nullable: true
-            column: price_user
-        priceTotal:
-            type: float
-            nullable: true
-            column: price_total
         dimensions:
             type: string
             length: 255
+            nullable: true
+        weight:
+            type: float
             nullable: true
         longitude:
             type: float
             nullable: true
         latitude:
             type: float
-            nullable: true    
+            nullable: true
+        region:
+            type: string
+            length: 255
+            nullable: true
     oneToOne:        
         offer:
             targetEntity: WWW\ServiceBundle\Entity\Offer

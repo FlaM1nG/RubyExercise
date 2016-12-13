@@ -14,16 +14,6 @@ class TradeCategory
      */
     private $id;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
     /**
      * @var string
      */
@@ -39,6 +29,25 @@ class TradeCategory
      */
     private $deleted;
 
+    
+    public function __construct($arrayData = null) {
+        if(!empty($arrayData)):
+            $this->id = (int)$arrayData['id'];
+            $this->name = $arrayData['name'];
+            $this->description = $arrayData['description'];
+            $this->deleted = (bool)$arrayData['deleted'];
+        endif;    
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set name
@@ -107,5 +116,9 @@ class TradeCategory
     public function getDeleted()
     {
         return $this->deleted;
+    }
+    
+    public function cast(TradeCategory $object){
+        return $object;
     }
 }

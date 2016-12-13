@@ -170,13 +170,17 @@ class User implements UserInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $inviteds;
-    
+    private $inviteds;    
     
     /**
      * @var boolean
      */
-    private $isBanned;
+    private $isBanned;    
+    
+    /**
+     * @var \WWW\GlobalBundle\Entity\Address
+     */
+    private $defaultAddress;
 
     /**
      * Constructor
@@ -937,5 +941,29 @@ class User implements UserInterface
     public function getIsBanned()
     {
         return $this->isBanned;
+    }
+
+
+    /**
+     * Set defaultAddress
+     *
+     * @param \WWW\GlobalBundle\Entity\Address $defaultAddress
+     * @return User
+     */
+    public function setDefaultAddress(\WWW\GlobalBundle\Entity\Address $defaultAddress = null)
+    {
+        $this->defaultAddress = $defaultAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get defaultAddress
+     *
+     * @return \WWW\GlobalBundle\Entity\Address 
+     */
+    public function getDefaultAddress()
+    {
+        return $this->defaultAddress;
     }
 }

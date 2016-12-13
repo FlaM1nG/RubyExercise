@@ -11,7 +11,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use WWW\ServiceBundle\Entity\Offer;
+use WWW\GlobalBundle\Form\PhotoType;
 
 /**
  * Description of OfferType
@@ -31,7 +32,11 @@ class OfferType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
         $builder
                 
-                //->add('photos',CollectionType::class, array('entry_type' => PhotoType::class)
+                ->add('photos',CollectionType::class, array('entry_type' => PhotoType::class,
+                                                            'allow_add' => true,
+                                                            'allow_delete' => true,    
+                                                            'by_reference' => false,
+                                                            ))
                 ->add('title','text', array('label'=>'Título',
                                              ))
                 ->add('description','textarea', array('label'=>'Descripción',
@@ -43,10 +48,7 @@ class OfferType extends AbstractType{
         
         $resolver->setDefaults(array('data-class'=>'WWW\ServiceBundle\Entity\Offer'));
     }
-    
-    public function getBlockPrefix(){
-        return 'offer';
-    }
+
 
 
     

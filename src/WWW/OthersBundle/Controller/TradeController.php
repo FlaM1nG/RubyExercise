@@ -11,8 +11,6 @@ namespace WWW\OthersBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Form\TradeType;
-use WWW\ServiceBundle\Entity\Offer;
-use WWW\ServiceBundle\Form\OfferType;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Entity\ApiRest;
 
@@ -36,13 +34,9 @@ class TradeController extends Controller{
         
          if($formTrade->isSubmitted()):
              
-             //$this->trade = $trade;
-        
              $this->saveTrade($request,$trade);
              //echo "enviado";
-             
-         else: 
-             echo "fallo";
+
          endif;
         
         return $this->render('OthersBundle:Trade:offerTrade.html.twig',
@@ -72,11 +66,12 @@ class TradeController extends Controller{
         $dataTrade['values'] = array("category_id" => $trade->getCategory()->getId(),
                            "price" => $trade->getPrice(),
                            "dimensions" => "'".$trade->getDimensions()."'",
-                           "weight" => $trade->getWeight() );
-        
+                           "weight" => $trade->getWeight(),
+                           "region" => "'".$trade->getRegion()."'");
+        print_r($dataTrade);
         
         $result = $ch->sendSeveralInformation($dataOffer, $dataTrade, $file);
-        
+        print_r($result);
         $this->flashMessageGeneral($result['result']);
                 
     }

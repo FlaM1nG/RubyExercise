@@ -1,3 +1,5 @@
-others_homepage:
-    path:     /
-    defaults: { _controller: OthersBundle:Default:index }
+
+    
+service_newTrade:
+    path: /newTrade
+    defaults: { _controller: OthersBundle:Trade:createOffer }

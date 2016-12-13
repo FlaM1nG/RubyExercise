@@ -1,6 +1,10 @@
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /user
+    
+trade:
+    resource: "@OthersBundle/Resources/config/routing.yml"
+    prefix:   /services/trade  
 
 app:
     resource: "@AppBundle/Controller/"

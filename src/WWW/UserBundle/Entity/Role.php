@@ -18,6 +18,11 @@ class Role
      * @var string
      */
     private $name;
+        
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $permissions;
 
     /**
      * Get id
@@ -51,10 +56,6 @@ class Role
     {
         return $this->name;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $permissions;
 
     /**
      * Constructor
