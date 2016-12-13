@@ -3,6 +3,8 @@
 namespace WWW\OthersBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use \WWW\ServiceBundle\Entity\Offer;
 
 /**
  * Trade
@@ -14,24 +16,21 @@ class Trade
      */
     private $id;
 
+    /**
+     * @var float
+     * @Assert\NotBlank()
+     */
+    private $price;
 
     /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    /**
      * @var string
+     * @Assert\NotBlank()
      */
     private $dimensions;
 
     /**
      * @var float
+     * @Assert\NotBlank()
      */
     private $weight;
 
@@ -47,6 +46,7 @@ class Trade
 
     /**
      * @var \WWW\ServiceBundle\Entity\Offer
+     * @Assert\type(type="WWW\ServiceBundle\Entity\Offer")
      */
     private $offer;
 
@@ -55,6 +55,49 @@ class Trade
      */
     private $category;
 
+        /**
+     * @var float
+     */
+    private $longitude;
+
+    /**
+     * @var float
+     */
+    private $latitude;
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+
+    /**
+     * Set price
+     *
+     * @param float $price
+     * @return Trade
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
 
     /**
      * Set dimensions
@@ -154,12 +197,20 @@ class Trade
      * @param \WWW\ServiceBundle\Entity\Offer $offer
      * @return Trade
      */
-    public function setOffer(\WWW\ServiceBundle\Entity\Offer $offer = null)
-    {
-        $this->offer = $offer;
+    public function setOffer( $offer = null){
+        
+        if(gettype($offer) == 'array'):
+            
+            $newOffer = new Offer($offer);
+            $this->offer = $newOffer;
+            
+        else:
+            $this->offer = $offer;
+        endif;
 
         return $this;
     }
+
 
     /**
      * Get offer
@@ -193,11 +244,6 @@ class Trade
     {
         return $this->category;
     }
-    /**
-     * @var float
-     */
-    private $price;
-
 
     /**
      * Set price
