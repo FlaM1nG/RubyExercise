@@ -97,7 +97,7 @@
             </a>
         </li>
         
-        <li role="presentation">
+        <li role="presentation" {{tabActive == 'myOffer' ? 'class= "active"' }}>
             <a href="#myOffer" 
                name="myOffer" 
                id="sectionMyOffer"
@@ -185,6 +185,22 @@
         </form>
         </div>
         
+        <div class="tab-pane {{tabActive == 'myOffer' ? 'active'}}" name="myOffer" id="myOffer">
+            {{dump(usuario)}}
+            {% for trade in usuario.trades %}
+                <h2>{{trade.offer.title}}</h2><br>
+                {{trade.offer.description}}<br>
+                {{trade.category.name}}<br>
+                {{trade.price}}€<br>
+                {{trade.region}}<br>
+                {% if trade.offer.photos | length > 0%}
+                    <img src="{{trade.offer.photos.0.url}}" height="42" width="42">
+                {% endif %}    
+                {#{trade.modified_date}#}<br>
+                <br><br>
+            {% endfor %}    
+             
+        </div>
         <div class="tab-pane {{tabActive == 'address' ? 'active'}}" name="address" id="address">
             
            {{ form_start(formAddress, {'attr': {'novalidate': 'novalidate'}}) }}  
@@ -253,11 +269,6 @@
                 </div>
                 <input type="submit" value="+" name="buttonAddAddress" id="buttonAddAddress">
                 {#{form_end(formAddress)}#}
-        </div>
-        
-        <div class="tab-pane" name="myOffer" id="myOffer">
-            
-             
         </div>
         
     </div>    
