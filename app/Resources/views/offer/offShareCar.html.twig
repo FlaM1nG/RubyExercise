@@ -75,63 +75,175 @@
 
 
 {% block offerTitle %}
-    {{ random(['Titulo objeto en venta', 
-            'Aleatorio para que el texto sea diferentes', 
-            'Yo soy corto', 
-            'Soy un titulo para ver que aparece', 
-            'Te ha tocado la loteria!!']) }}
+    Granada
+    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    Madrid
 {% endblock %}
 
 
 {% block offerPrice %} 
-    {{ random(999) }} €
+    {{ random(20)|number_format(2, ',') }}€
 {% endblock %}
 
 
 {% block offerVote %} 
-    <!-- VALORACIONES -->
-    <div class="rating">
-        <span>☆</span>
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-    </div>
-    <!-- FIN VALORACIONES -->
 {% endblock %}
 
 
+{% block offerDate %} 
+    {{ 'now'|date('d/m/Y') }} {{ ' a las '  }} {{ 'now'|date('H:i')  }}
+{% endblock %} 
+
+
 {% block offerDescription %}
-    <p>
-        Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
-        peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
-        Diodeno amatomaa pecador diodeno sexuarl. No te digo trigo por no 
-        llamarte Rodrigor fistro papaar papaar se calle ustée. La caidita ese 
-        pedazo de de la pradera sexuarl ese que llega tiene musho peligro 
-        diodenoo ese pedazo de tiene musho peligro. Pecador jarl te voy a 
-        borrar el cerito se calle ustée diodeno a gramenawer va usté muy 
-        cargadoo la caidita qué dise usteer. No te digo trigo por no llamarte 
-        Rodrigor está la cosa muy malar ahorarr condemor sexuarl. Apetecan a wan 
-        ese hombree ese pedazo de qué dise usteer tiene musho peligro jarl tiene 
-        musho peligro jarl. Qué dise usteer pecador mamaar apetecan la caidita. 
-    </p>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-3 off-col-tra">
+            Salida
+        </div>
+        
+        
+        <div class="col-lg-9 col-md-8 col-sm-9 col-xs-9 off-col-tra-data">
+            <i class="fa fa-sign-out off-tra-icon" aria-hidden="true"></i>
+            Granada
+        </div>
+        
+        
+    </div>
+    
+    
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-3 off-col-tra">
+            Destino
+        </div>
+        
+        
+        <div class="col-lg-9 col-md-8 col-sm-9 col-xs-9 off-col-tra-data">
+            <i class="fa fa-map-marker off-tra-icon" aria-hidden="true"></i>
+            Madrid
+        </div>
+        
+        
+    </div>
+    
+    
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-3 off-col-tra">
+            Fecha
+        </div>
+        
+        
+        <div class="col-lg-9 col-md-8 col-sm-9 col-xs-9 off-col-tra-data">
+            <i class="fa fa-calendar-check-o off-tra-icon" aria-hidden="true"></i>
+            {{ 'now'|date('d/m/Y') }} {{ ' a las '  }} {{ 'now'|date('H:i')  }}
+        </div>
+        
+        
+    </div>
+            
+    
+    <div class="row off-row-tra-last">
+        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-3 off-col-tra">
+            Vehículo
+        </div>
+        
+        
+        <div class="col-lg-9 col-md-8 col-sm-9 col-xs-9 off-col-tra-data">
+            <i class="fa fa-car off-tra-icon" aria-hidden="true"></i>
+            Renault Megane
+        </div>
+        
+        
+    </div>
 {% endblock %}
 
 
 {% block offerVariableData %}
-    <p>
-        Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
-        peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
-        Diodeno amatomaa pecador diodeno sexuarl. No te digo trigo por no 
-        llamarte Rodrigor fistro papaar papaar se calle ustée. La caidita ese 
-        pedazo de de la pradera sexuarl ese que llega tiene musho peligro 
-        diodenoo ese pedazo de tiene musho peligro. Pecador jarl te voy a 
-        borrar el cerito se calle ustée diodeno a gramenawer va usté muy 
-        cargadoo la caidita qué dise usteer. No te digo trigo por no llamarte 
-        Rodrigor está la cosa muy malar ahorarr condemor sexuarl. Apetecan a wan 
-        ese hombree ese pedazo de qué dise usteer tiene musho peligro jarl tiene 
-        musho peligro jarl. Qué dise usteer pecador mamaar apetecan la caidita. 
-    </p>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>
+                Caracteristicas Viaje
+            </h4>
+            <hr>
+        </div>
+    </div>
+    
+    
+    {% set datos = ['Fumar', 'Mascotas', 'Música', 'Conversar'] %}
+        
+    {% set col = 0 %}
+    
+    {% for dato in datos|sort %}
+        {% if col == 0 %}
+            <div class="row off-row-date-second">
+        {% endif %}
+        
+        
+                <!-- DATO -->
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 
+                     off-col-other-date-sec">
+                    <i class="fa {{ random(['fa-times-circle off-icon-secund-no', 
+                        'fa-check-circle off-icon-secund-ok']) }}  
+                        " aria-hidden="true"></i>
+
+
+                    <span class="off-target-secon">
+                        {{ dato }}
+                    </span>
+
+
+                </div>
+                <!-- DATO -->
+                
+                
+        {% if col < 3 %}
+            {% set col = 1 + col %}
+        {% else %}
+            {% set col = 0 %}
+             </div>
+        {% endif %}
+            
+   
+    {% endfor %}
+    
+    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
+    {% if col != 0 %}
+        </div>
+    {% endif %}
+    
+    
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>
+                Descripción del Conductor para el viaje
+            </h4>
+            <hr>
+        </div>
+        
+        
+    </div>
+    
+    
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>
+                Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
+                peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
+                Diodeno amatomaa pecador diodeno sexuarl. No te digo trigo por no 
+                llamarte Rodrigor fistro papaar papaar se calle ustée. La caidita ese 
+                pedazo de de la pradera sexuarl ese que llega tiene musho peligro 
+                diodenoo ese pedazo de tiene musho peligro. Pecador jarl te voy a 
+                borrar el cerito se calle ustée diodeno a gramenawer va usté muy 
+                cargadoo la caidita qué dise usteer. No te digo trigo por no llamarte 
+                Rodrigor está la cosa muy malar ahorarr condemor sexuarl. Apetecan a wan 
+                ese hombree ese pedazo de qué dise usteer tiene musho peligro jarl tiene 
+                musho peligro jarl. Qué dise usteer pecador mamaar apetecan la caidita. 
+            </p>
+            
+            
+        </div>
+        
+        
+    </div>
 {% endblock %}
 
 

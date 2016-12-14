@@ -23,7 +23,14 @@
 
 .off-vote {
     display: inline-block;
-    
+    padding-right: 20px;
+}
+
+.off-date{
+    display: inline-block;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 2;
 }
 
 .off-img-marco-grande {
@@ -133,8 +140,6 @@
 .off-icon-prin{
     color: @brand-primary;
     font-size: 32px;
-    width: 0px !important;
-    padding-right: 40px;
 }
 
 .off-icon-secund-ok{
@@ -150,13 +155,11 @@
     padding-right: 25px;
 }
 
-.off-target-prin{
-    font-size: 20px;
-}
-
 .off-target-prin-text{
     .off-target-prin;
     font-weight: 100;
+    display: block;
+    margin: 0 auto;
 }
 
 .off-target-secon{
@@ -174,13 +177,45 @@
 
 .off-col-other-date{
     text-align: center;
+    line-height: 2;
 }
+
+.off-icon-prin {
+    font-size: 30px;
+    display: block;
+    margin: 0 auto;
+}
+
+.off-target-prin {
+    font-weight: 600;
+    display: block;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+
 /* ##### FIN OFFER ##### */
 
 
 
 /* ***** TRADE ***** */
+.off-row-tra-last{
+    padding-bottom: 15px;
+}
 
+.off-col-tra{
+    font-size: 24px;
+    line-height: 1.8;
+}
+
+.off-col-tra-data{
+    .off-col-tra;
+    font-weight: 600;
+}
+
+.off-tra-icon{
+    color: @brand-primary;
+}
 /* ##### FIN TRADE ##### */
 
 
@@ -327,7 +362,15 @@
         font-size: 30px;
     }
     
-    .off-icon-prin {
+    .off-col-tra{
+        display: none;
+    }
+    
+    .off-col-tra-data{
+        width: 100%;
+    }
+    
+    /*.off-icon-prin {
         font-size: 30px;
         display: block;
         margin: 0 auto;
@@ -335,7 +378,7 @@
     
     .off-target-prin {
         font-weight: 600;
-    }
+    }*/
         
     @media only screen and (max-height : 667px){
         

@@ -101,6 +101,11 @@
 {% endblock %}
 
 
+{% block offerDate %} 
+    {{ 'now'|date('d/m/Y') }}
+{% endblock %} 
+
+
 {% block offerDescription %}
     <p>
         Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
@@ -119,146 +124,158 @@
 
 
 {% block offerVariableData %}
-    <!-- DATOS IMPORTATNES DEL SERVICIO -->
+    
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h4>
-                Alojamiento
-            </h4>
-            <hr>
+        <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12">
+            <!-- DATOS IMPORTATNES DEL SERVICIO -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h4>
+                        Alojamiento
+                    </h4>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row off-row-date-prin">
+                <!-- CAPACIDAD -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+                    <i class="fa fa-users off-icon-prin" aria-hidden="true"></i>
+
+
+                    <span class="off-target-prin-text">
+                        Capacidad 
+                        <span class="off-target-prin">
+                            {{ random(15) }}
+                        </span>
+
+
+                    </span>
+
+
+                </div>
+                <!-- FIN CAPACIDAD -->
+
+
+                <!-- BAÑOS -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+                    <i class="fa fa-bath off-icon-prin" aria-hidden="true"></i>
+
+
+                    <span class="off-target-prin-text">
+                        Baños
+                        <span class="off-target-prin">
+                            {{ random(15) }}
+                        </span>
+
+                    </span>
+
+
+                </div>
+                <!-- FIN BAÑOS -->
+
+
+                <!-- DORMITORIOS -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+                    <i class="fa fa-home off-icon-prin" aria-hidden="true"></i>
+
+
+                    <span class="off-target-prin-text">
+                        Dormitorios
+                        <span class="off-target-prin">
+                            {{ random(15) }}
+                        </span>
+
+
+                    </span>
+
+
+                </div>
+                <!-- FIN DORMITORIOS -->
+
+
+                <!-- CAMAS -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+                    <i class="fa fa-bed off-icon-prin" aria-hidden="true"></i>
+
+
+                    <span class="off-target-prin-text">
+                        Camas
+                        <span class="off-target-prin">
+                            {{ random(15) }}
+                        </span>
+
+
+                    </span>
+
+
+                </div>
+                <!-- FIN CAMAS -->
+
+
+            </div>
+            <!-- FIN DATOS IMPORTATNES DEL SERVICIO -->
+        </div>
+        
+        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+            <!-- LLEGADA Y SALIDA -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h4>
+                        Horario
+                    </h4>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row off-row-date-prin">
+                <!-- LLEGADA -->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+                    <i class="fa fa-sign-in off-icon-prin" aria-hidden="true"></i>
+
+
+                    <span class="off-target-prin-text">
+                        Llegada: 
+                        <span class="off-target-prin">
+                            16:00
+                        </span>
+
+
+                    </span>
+
+
+                </div>
+                <!-- FIN LLEGADA -->
+
+
+                <!-- SALIDA -->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
+                    <i class="fa fa-sign-out off-icon-prin" aria-hidden="true"></i>
+
+
+                    <span class="off-target-prin-text">
+                        Salida: 
+                        <span class="off-target-prin">
+                            12:00
+                        </span>
+
+
+                    </span>
+
+
+                </div>
+                <!-- FIN SALIDA -->
+
+
+            </div>
+            <!-- FIN LLEGADA Y SALIDA -->
         </div>
     </div>
     
-    <div class="row off-row-date-prin">
-        <!-- CAPACIDAD -->
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-            <i class="fa fa-users off-icon-prin" aria-hidden="true"></i>
-            
-            
-            <span class="off-target-prin-text">
-                Capacidad: 
-                <span class="off-target-prin">
-                    {{ random(15) }}
-                </span>
-                
-                
-            </span>
-            
-            
-        </div>
-        <!-- FIN CAPACIDAD -->
-        
-        
-        <!-- BAÑOS -->
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-            <i class="fa fa-bath off-icon-prin" aria-hidden="true"></i>
-            
-            
-            <span class="off-target-prin-text">
-                Baños:
-                <span class="off-target-prin">
-                    {{ random(15) }}
-                </span>
-                
-            </span>
-            
-            
-        </div>
-        <!-- FIN BAÑOS -->
-        
-        
-        <!-- DORMITORIOS -->
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-            <i class="fa fa-home off-icon-prin" aria-hidden="true"></i>
-            
-            
-            <span class="off-target-prin-text">
-                Dormitorios: 
-                <span class="off-target-prin">
-                    {{ random(15) }}
-                </span>
-                
-                
-            </span>
-            
-            
-        </div>
-        <!-- FIN DORMITORIOS -->
-        
-        
-        <!-- CAMAS -->
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-            <i class="fa fa-bed off-icon-prin" aria-hidden="true"></i>
-            
-            
-            <span class="off-target-prin-text">
-                Camas: 
-                <span class="off-target-prin">
-                    {{ random(15) }}
-                </span>
-                
-                
-            </span>
-            
-            
-        </div>
-        <!-- FIN CAMAS -->
-        
-        
-    </div>
-    <!-- FIN DATOS IMPORTATNES DEL SERVICIO -->
     
-    <!-- LLEGADA Y SALIDA -->
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h4>
-                Horario
-            </h4>
-            <hr>
-        </div>
-    </div>
     
-    <div class="row off-row-date-prin">
-        <!-- LLEGADA -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-            <i class="fa fa-sign-in off-icon-prin" aria-hidden="true"></i>
+    
             
-            
-            <span class="off-target-prin-text">
-                Llegada: 
-                <span class="off-target-prin">
-                    16:00
-                </span>
-                
-                
-            </span>
-            
-            
-        </div>
-        <!-- FIN LLEGADA -->
-        
-        
-        <!-- SALIDA -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-            <i class="fa fa-sign-out off-icon-prin" aria-hidden="true"></i>
-            
-            
-            <span class="off-target-prin-text">
-                Salida: 
-                <span class="off-target-prin">
-                    12:00
-                </span>
-                
-                
-            </span>
-            
-            
-        </div>
-        <!-- FIN SALIDA -->
-        
-        
-    </div>
-    <!-- FIN LLEGADA Y SALIDA -->        
     
     
     <!-- SERVICIOS -->
