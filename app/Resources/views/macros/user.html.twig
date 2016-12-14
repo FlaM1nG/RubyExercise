@@ -1,0 +1,32 @@
+{% macro userList(href, src, nombre) %}
+<!-- IMAGEN USUARIO -->
+<div class="row">
+    <a href="{{ href|default('#') }}">
+        <img class="center-block img-circle 
+            img-responsive" 
+            src="{{ src }}" 
+            width="50" alt="">
+    </a>
+            
+            
+</div>
+<!-- FIN IMAGEN USUARIO -->
+
+
+<!-- NOMBRE USUARIO -->
+<div class="row row-hre-user-name">
+    <a href="{{ href|default('#') }}" class="hre-user-name-grid">
+        {{ nombre }}
+    </a>
+    
+    
+</div>
+<!-- FIN NOMBRE USUARIO -->
+{% endmacro %}
+
+
+
+
+{% macro userOffer(href, src, nombre) %}
+
+{% endmacro %}

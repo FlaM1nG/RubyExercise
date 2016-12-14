@@ -1,4 +1,5 @@
 {% extends '::offer/layoutOffer.html.twig' %}
+{% import '::macros/offer.html.twig' as offers %}
 
 {#{ BLOQUES -->     offerImage 
                     offerUser
@@ -139,77 +140,26 @@
 
             <div class="row off-row-date-prin">
                 <!-- CAPACIDAD -->
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-                    <i class="fa fa-users off-icon-prin" aria-hidden="true"></i>
-
-
-                    <span class="off-target-prin-text">
-                        Capacidad 
-                        <span class="off-target-prin">
-                            {{ random(15) }}
-                        </span>
-
-
-                    </span>
-
-
-                </div>
+                {{ offers.atriHouRen('capacidad', 'fa-users', random(15), 
+                    3, 6, 6, 6) }}
                 <!-- FIN CAPACIDAD -->
 
 
                 <!-- BAÑOS -->
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-                    <i class="fa fa-bath off-icon-prin" aria-hidden="true"></i>
-
-
-                    <span class="off-target-prin-text">
-                        Baños
-                        <span class="off-target-prin">
-                            {{ random(15) }}
-                        </span>
-
-                    </span>
-
-
-                </div>
+                {{ offers.atriHouRen('baños', 'fa-bath', random(15), 
+                    3, 6, 6, 6) }}
                 <!-- FIN BAÑOS -->
 
 
                 <!-- DORMITORIOS -->
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-                    <i class="fa fa-home off-icon-prin" aria-hidden="true"></i>
-
-
-                    <span class="off-target-prin-text">
-                        Dormitorios
-                        <span class="off-target-prin">
-                            {{ random(15) }}
-                        </span>
-
-
-                    </span>
-
-
-                </div>
+                {{ offers.atriHouRen('dormitorios', 'fa-home', random(15), 
+                    3, 6, 6, 6) }}
                 <!-- FIN DORMITORIOS -->
 
 
                 <!-- CAMAS -->
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-                    <i class="fa fa-bed off-icon-prin" aria-hidden="true"></i>
-
-
-                    <span class="off-target-prin-text">
-                        Camas
-                        <span class="off-target-prin">
-                            {{ random(15) }}
-                        </span>
-
-
-                    </span>
-
-
-                </div>
+                {{ offers.atriHouRen('camas', 'fa-bed', random(15), 
+                    3, 6, 6, 6) }}
                 <!-- FIN CAMAS -->
 
 
@@ -230,40 +180,14 @@
 
             <div class="row off-row-date-prin">
                 <!-- LLEGADA -->
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-                    <i class="fa fa-sign-in off-icon-prin" aria-hidden="true"></i>
-
-
-                    <span class="off-target-prin-text">
-                        Llegada: 
-                        <span class="off-target-prin">
-                            16:00
-                        </span>
-
-
-                    </span>
-
-
-                </div>
+                {{ offers.atriHouRen('llegada', 'fa-sign-in', '16:00', 
+                    6, 6, 6, 6) }}
                 <!-- FIN LLEGADA -->
 
 
                 <!-- SALIDA -->
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 off-col-other-date">
-                    <i class="fa fa-sign-out off-icon-prin" aria-hidden="true"></i>
-
-
-                    <span class="off-target-prin-text">
-                        Salida: 
-                        <span class="off-target-prin">
-                            12:00
-                        </span>
-
-
-                    </span>
-
-
-                </div>
+                {{ offers.atriHouRen('salida', 'fa-sign-out', '12:00', 
+                    6, 6, 6, 6) }}
                 <!-- FIN SALIDA -->
 
 
@@ -271,11 +195,6 @@
             <!-- FIN LLEGADA Y SALIDA -->
         </div>
     </div>
-    
-    
-    
-    
-            
     
     
     <!-- SERVICIOS -->
@@ -305,21 +224,9 @@
         {% endif %}
         
         
-                <!-- DATO -->
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 
-                     off-col-other-date-sec">
-                    <i class="fa {{ random(['fa-times-circle off-icon-secund-no', 
-                        'fa-check-circle off-icon-secund-ok']) }}  
-                        " aria-hidden="true"></i>
-
-
-                    <span class="off-target-secon">
-                        {{ dato }}
-                    </span>
-
-
-                </div>
-                <!-- DATO -->
+        <!-- DATO -->
+        {{ offers.atriOffer(dato) }}
+        <!-- DATO -->
                 
                 
         {% if col < 3 %}
@@ -361,21 +268,9 @@
         {% endif %}
         
         
-                <!-- DATO -->
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6
-                     off-col-other-date-sec">
-                    <i class="fa {{ random(['fa-times-circle off-icon-secund-no', 
-                        'fa-check-circle off-icon-secund-ok']) }}  
-                        " aria-hidden="true"></i>
-
-
-                    <span class="off-target-secon">
-                        {{ dato }}
-                    </span>
-
-
-                </div>
-                <!-- DATO -->
+        <!-- DATO -->
+        {{ offers.atriOffer(dato) }}
+        <!-- DATO -->
                 
                 
         {% if col < 3 %}
@@ -419,21 +314,9 @@
         {% endif %}
         
         
-                <!-- DATO -->
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 
-                     off-col-other-date-sec">
-                    <i class="fa {{ random(['fa-times-circle off-icon-secund-no', 
-                        'fa-check-circle off-icon-secund-ok']) }}  
-                        " aria-hidden="true"></i>
-
-
-                    <span class="off-target-secon">
-                        {{ dato }}
-                    </span>
-
-
-                </div>
-                <!-- DATO -->
+        <!-- DATO -->
+        {{ offers.atriOffer(dato) }}
+        <!-- DATO -->
                 
                 
         {% if col < 3 %}

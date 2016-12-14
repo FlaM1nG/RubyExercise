@@ -1,10 +1,12 @@
 {% extends '::offer/layoutOffer.html.twig' %}
+{% import '::macros/offer.html.twig' as offers %}
 
 {#{ BLOQUES -->     offerImage 
                     offerUser
                     offerTitle
                     offerPrice
                     offerVote
+                    offerDate
                     offerDescription
                     offerVariableData
                     offerRelacionadas
@@ -96,64 +98,17 @@
 
 
 {% block offerDescription %}
-    <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-3 off-col-tra">
-            Salida
-        </div>
-        
-        
-        <div class="col-lg-9 col-md-8 col-sm-9 col-xs-9 off-col-tra-data">
-            <i class="fa fa-sign-out off-tra-icon" aria-hidden="true"></i>
-            Granada
-        </div>
-        
-        
-    </div>
+    {{ offers.atriShaCar('salida', 'fa-sign-out', 'granada') }}
     
+    {{ offers.atriShaCar('destino', 'fa-map-marker', 'Madrid') }}
     
-    <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-3 off-col-tra">
-            Destino
-        </div>
-        
-        
-        <div class="col-lg-9 col-md-8 col-sm-9 col-xs-9 off-col-tra-data">
-            <i class="fa fa-map-marker off-tra-icon" aria-hidden="true"></i>
-            Madrid
-        </div>
-        
-        
-    </div>
+    {% set fecha = 'now'|date('d/m/Y')%}
+    {% set hora = 'now'|date('H:i')%}
+    {{ offers.atriShaCar('fecha', 'fa-calendar-check-o', 
+        fecha ~ ' a las ' ~ hora) }}
     
-    
-    <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-3 off-col-tra">
-            Fecha
-        </div>
-        
-        
-        <div class="col-lg-9 col-md-8 col-sm-9 col-xs-9 off-col-tra-data">
-            <i class="fa fa-calendar-check-o off-tra-icon" aria-hidden="true"></i>
-            {{ 'now'|date('d/m/Y') }} {{ ' a las '  }} {{ 'now'|date('H:i')  }}
-        </div>
-        
-        
-    </div>
-            
-    
-    <div class="row off-row-tra-last">
-        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-3 off-col-tra">
-            Vehículo
-        </div>
-        
-        
-        <div class="col-lg-9 col-md-8 col-sm-9 col-xs-9 off-col-tra-data">
-            <i class="fa fa-car off-tra-icon" aria-hidden="true"></i>
-            Renault Megane
-        </div>
-        
-        
-    </div>
+    {{ offers.atriShaCar('vehículo', 'fa-car', 'Renaul Megane', 
+        'off-row-tra-last') }}
 {% endblock %}
 
 
@@ -178,21 +133,9 @@
         {% endif %}
         
         
-                <!-- DATO -->
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 
-                     off-col-other-date-sec">
-                    <i class="fa {{ random(['fa-times-circle off-icon-secund-no', 
-                        'fa-check-circle off-icon-secund-ok']) }}  
-                        " aria-hidden="true"></i>
-
-
-                    <span class="off-target-secon">
-                        {{ dato }}
-                    </span>
-
-
-                </div>
-                <!-- DATO -->
+        <!-- DATO -->
+        {{ offers.atriOffer(dato) }}
+        <!-- DATO -->
                 
                 
         {% if col < 3 %}
@@ -226,17 +169,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <p>
-                Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
-                peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
-                Diodeno amatomaa pecador diodeno sexuarl. No te digo trigo por no 
-                llamarte Rodrigor fistro papaar papaar se calle ustée. La caidita ese 
-                pedazo de de la pradera sexuarl ese que llega tiene musho peligro 
-                diodenoo ese pedazo de tiene musho peligro. Pecador jarl te voy a 
-                borrar el cerito se calle ustée diodeno a gramenawer va usté muy 
-                cargadoo la caidita qué dise usteer. No te digo trigo por no llamarte 
-                Rodrigor está la cosa muy malar ahorarr condemor sexuarl. Apetecan a wan 
-                ese hombree ese pedazo de qué dise usteer tiene musho peligro jarl tiene 
-                musho peligro jarl. Qué dise usteer pecador mamaar apetecan la caidita. 
+                {{ include('macros/text.html.twig') }}
             </p>
             
             
@@ -281,8 +214,6 @@
     </h3>
     <hr>
     <p>
-        Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
-        peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
-        Diodeno amatomaa pecador diodeno sexuarl. 
+        {{ include('macros/text.html.twig') }}
     </p>
 {% endblock %}
