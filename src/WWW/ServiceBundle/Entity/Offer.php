@@ -71,14 +71,30 @@ class Offer
     /**
      * Constructor
      */
-    public function __construct($data = null){ 
+    public function __construct($data = null,$isOffer = null){ 
+       // print_r($data);
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         
-        if(!empty($data)):
+        if(!empty($data) && empty($isOffer)):
             foreach($data as $key => $value){
                 $this->$key = $value;
             }
+        else:
+            foreach ($data as $key => $value):
+                if($key != 'id' && property_exists('WWW\ServiceBundle\Entity\Offer',$key)){
+                        $this->$key = $value;
+                }
+            endforeach;
+            
+            $this->id = $data['offer_id'];
+            if(!empty($data['url'])):
+                $photo = new \WWW\GlobalBundle\Entity\Photo();
+
+                $photo->setUrl($data['url']);
+                $this->photos[] = $photo;
+            endif;    
         endif;
+        
     }
     /**
      * Get id

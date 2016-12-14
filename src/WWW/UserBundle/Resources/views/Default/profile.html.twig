@@ -186,9 +186,13 @@
         </div>
         
         <div class="tab-pane {{tabActive == 'myOffer' ? 'active'}}" name="myOffer" id="myOffer">
-            {{dump(usuario)}}
+            {#{dump(usuario)}#}
             {% for trade in usuario.trades %}
-                <h2>{{trade.offer.title}}</h2><br>
+                <h3>
+                    <a href="{{ path('user_profiler_offers', { offer: 'offer' ,idOffer: trade.offer.id }) }}">
+                        {{trade.offer.title}}
+                    </a>
+                </h3><br>
                 {{trade.offer.description}}<br>
                 {{trade.category.name}}<br>
                 {{trade.price}}€<br>

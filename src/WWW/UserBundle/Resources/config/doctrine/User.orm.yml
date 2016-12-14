@@ -94,6 +94,7 @@ WWW\UserBundle\Entity\User:
         inviteds:
             targetEntity: User
             mappedBy: hostUser
+        
     oneToOne:        
         photo:
             nullable: true

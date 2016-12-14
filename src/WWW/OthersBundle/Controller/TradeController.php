@@ -68,10 +68,8 @@ class TradeController extends Controller{
                            "dimensions" => "'".$trade->getDimensions()."'",
                            "weight" => $trade->getWeight(),
                            "region" => "'".$trade->getRegion()."'");
-        print_r($dataTrade);
         
         $result = $ch->sendSeveralInformation($dataOffer, $dataTrade, $file);
-        print_r($result);
         $this->flashMessageGeneral($result['result']);
                 
     }

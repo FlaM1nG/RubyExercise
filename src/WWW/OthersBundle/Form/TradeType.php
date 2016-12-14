@@ -34,6 +34,7 @@ class TradeType extends AbstractType{
     }*/
     
     public function buildForm(FormBuilderInterface $builder, array $options){
+        //print_r($options);
         
         $arrayCategory = $this->arrayCategories();
         $builder

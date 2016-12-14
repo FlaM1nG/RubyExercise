@@ -11,7 +11,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use WWW\ServiceBundle\Entity\Offer;
 use WWW\GlobalBundle\Form\PhotoType;
 
 /**

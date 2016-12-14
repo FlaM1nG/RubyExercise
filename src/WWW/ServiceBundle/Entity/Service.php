@@ -13,17 +13,7 @@ class Service
      * @var int
      */
     private $id;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    
     /**
      * @var string
      */
@@ -49,6 +39,19 @@ class Service
      */
     private $table;
 
+    public function __construct($id = null) {
+        $this->id = null;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set title

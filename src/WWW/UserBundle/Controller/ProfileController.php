@@ -20,11 +20,19 @@ use WWW\UserBundle\Form\ProfileEmailType;
 use WWW\UserBundle\Form\ProfilePasswordType;
 use WWW\UserBundle\Form\ProfilePhoneType;
 use WWW\UserBundle\Form\ProfilePhotoType;
+use WWW\OthersBundle\Form\UserTradeType;
+use WWW\OthersBundle\Entity\Trade;
+use WWW\OthersBundle\Entity\TradeCategory;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Description of ProfileController
  *
+     * Matches /profile
+     *
+     * @Route("/profile", name="user_profiler")
+    
  * @author Rocio
  */
 class ProfileController extends Controller{
@@ -35,6 +43,7 @@ class ProfileController extends Controller{
     private $sectionActive = null;
     
     public function profileAction(Request $request){ 
+       // print_r($request);
         
         $this->session = $request->getSession();
       
@@ -48,7 +57,6 @@ class ProfileController extends Controller{
         $result = $ch->sendInformation($arrayData, $file, "parameters");
  
         if($result['result'] == 'ok'):
-            
             $this->usuario = new User($result);
         
             if($this->usuario->getAddresses()->isEmpty()):
@@ -56,46 +64,20 @@ class ProfileController extends Controller{
                 $this->usuario->addAddress($address);
             endif;
         
-            $formPersonal = $this->createForm(ProfilePersonalType::class,$this->usuario);
+            $formPersonal = $this->createForm(ProfilePersonalType::class,$this->usuario);  
             $formEmail = $this->createForm(ProfileEmailType::class,$this->usuario);
             $formPassword = $this->createForm(ProfilePasswordType::class,$this->usuario);
             $formPhone = $this->createForm(ProfilePhoneType::class,$this->usuario);
             $formPhoto = $this->createForm(ProfilePhotoType::class,$this->usuario);
             $formAddress = $this->createForm(ProfileAddressType::class,$this->usuario);
-            $formBank = $this->createForm(ProfileBankType::class,$this->usuario);
+            $formBank = $this->createForm(ProfileBankType::class,$this->usuario);   
         
             if($request->getMethod()=="POST"):
                 
-                $this->dataProfile = $request->request->all()['profileUser'];
-                $section = $this->dataProfile['section'];
-                
-                if($section == 'personal'):
-                    $formPersonal->handleRequest($request);
-                    
-                    $this->sectionActive = 'personal';
-                    $this->updateProfile();
-                    
-                elseif($section == 'email'):
-                    $this->sectionActive = 'email';
-                    $this->changeEmail();
-                elseif($section == 'password'):
-                    $this->sectionActive ='password';
-                    $this->changePassword();
-     
-                elseif($section == 'phone'):
-                    $this->sectionActive = 'phone';
-                    $this->changePhone($request);
-                elseif($section == 'photo'):
-                    $this->sectionActive = 'photo';
-                    $this->changePhoto();
-                elseif($section == 'address'):
-                    $this->sectionActive = 'address';
-                    $this->profileAddress($request);
-                elseif($section == 'bank'):
-                    $this->sectionActive = 'bank';
-                    $this->changeBank();
-                endif;
-              
+                $this->showProfile($request);
+            
+            elseif($request->getMethod()=="GET"):
+               // $this->showOffer($request->query->all()['oferta']);
             endif;
            
         endif;
@@ -120,6 +102,37 @@ class ProfileController extends Controller{
                       'tabActive' => $this->sectionActive));
     }
     
+    private function showProfile(Request $request){
+        $this->dataProfile = $request->request->all()['profileUser'];
+        $section = $this->dataProfile['section'];
+
+        if($section == 'personal'):
+            //$formPersonal->handleRequest($request);
+
+            $this->sectionActive = 'personal';
+            $this->updateProfile();
+
+        elseif($section == 'email'):
+            $this->sectionActive = 'email';
+            $this->changeEmail();
+        elseif($section == 'password'):
+            $this->sectionActive ='password';
+            $this->changePassword();
+
+        elseif($section == 'phone'):
+            $this->sectionActive = 'phone';
+            $this->changePhone($request);
+        elseif($section == 'photo'):
+            $this->sectionActive = 'photo';
+            $this->changePhoto();
+        elseif($section == 'address'):
+            $this->sectionActive = 'address';
+            $this->profileAddress($request);
+        elseif($section == 'bank'):
+            $this->sectionActive = 'bank';
+            $this->changeBank();
+        endif;
+    }
         
     private function updateProfile(){
         $fecha = $this->dataProfile['birthdate']['year'].'-'.$this->dataProfile['birthdate']['month'].'-'.$this->dataProfile['birthdate']['day'];
@@ -470,5 +483,9 @@ class ProfileController extends Controller{
         else:
             $this->addFlash('messageFail','Error al actualizar');
         endif;
+    }
+    
+    private function showOffer($idOffer){
+        
     }
 }

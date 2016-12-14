@@ -6,14 +6,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use WWW\OthersBundle\Entity\Trade;
+use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\OthersBundle\Entity\TradeCategory;
 
 
 /**
  * User
  * 
  */
-class User implements UserInterface
-{
+class User implements UserInterface{
     /**
      * @var int
      */
@@ -181,6 +183,11 @@ class User implements UserInterface
      * @var \WWW\GlobalBundle\Entity\Address
      */
     private $defaultAddress;
+    
+    /**
+     * @var Array
+     */
+    private $trades;
 
     /**
      * Constructor
@@ -201,6 +208,7 @@ class User implements UserInterface
             $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
             $this->numAccount = $user['num_account'];
             $this->prefix = $user['prefix'];
+            $this->trades = $this->searchTrades();
             
             foreach($user['addresses'] as $address):
                
@@ -210,6 +218,7 @@ class User implements UserInterface
             endforeach;
         else:
             $this->addresses = new ArrayCollection();
+            $this->trades = Array();
         endif;
         
     }
@@ -965,5 +974,75 @@ class User implements UserInterface
     public function getDefaultAddress()
     {
         return $this->defaultAddress;
+    }
+    
+    /**
+     * 
+     * @param type $index
+     * @return Array
+     */
+    public function getTrades($index = null){
+        
+       
+        if(!is_null($index)){
+            return $this->trades[$index];
+        }else{ 
+            return $this->trades;
+        
+        }
+        
+    }
+    
+    public function setTrades(Array $trades = null){
+        
+        $this->trades = $trades;
+        
+    }
+    
+    private function searchTrades(){
+        
+        $arrayOffer = array();
+        $file = 'http://www.whatwantweb.com/api_rest/services/offer/get_user_offers.php';
+        
+        $ch = new ApiRest();
+        
+        $data = array();
+        $data['username'] = $this->username;
+        $data['id'] = $this->id;
+        $data['password'] = $this->password;
+        $data['service'] = 'trade';
+        
+        $result = $ch->resultApiRed($data, $file);
+
+        $arrayCategory = $this->tradeCategory();
+
+        foreach($result['offers'] as $offer):
+
+            $trade = new Trade($offer,true);
+
+            $trade->setCategory($arrayCategory[$offer['category_id']]);
+            $arrayOffer[] = $trade;
+        endforeach;
+      
+        return $arrayOffer;
+    }
+    
+    private function tradeCategory(){
+        
+        $arrayCategory = array();
+        
+        $fileCategory = "http://www.whatwantweb.com/api_rest/services/trade/get_categories.php";
+       
+        $ch = new ApiRest();
+        
+        $result = $ch->sendInformationWihoutParameters($fileCategory);
+
+        if(!empty($result)):
+            foreach($result as $category):
+                $arrayCategory[$category['id']] = new TradeCategory($category);
+            endforeach;
+        endif;  
+        
+        return $arrayCategory;
     }
 }

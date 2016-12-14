@@ -60,6 +60,19 @@ class Trade
      */
     private $region;
     
+    public function __construct($arrayData = null,$isOffert = null) {
+       
+        
+        if(!empty($arrayData)):
+            $this->id = $arrayData['id'];
+            $this->price = $arrayData['price'];
+            $this->dimensions = $arrayData['dimensions'];
+            $this->weight = $arrayData['weight'];
+            $this->region = $arrayData['region'];
+            $this->offer = new Offer($arrayData,$isOffert);
+        endif;
+        
+    }
     /**
      * Get id
      *
@@ -192,7 +205,7 @@ class Trade
      * @return Trade
      */
     public function setOffer( $offer = null){
-        
+        //echo "gettype ".gettype($offer);
         if(gettype($offer) == 'array'):
             
             $newOffer = new Offer($offer);
