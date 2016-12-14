@@ -20,19 +20,11 @@ use WWW\UserBundle\Form\ProfileEmailType;
 use WWW\UserBundle\Form\ProfilePasswordType;
 use WWW\UserBundle\Form\ProfilePhoneType;
 use WWW\UserBundle\Form\ProfilePhotoType;
-use WWW\OthersBundle\Form\UserTradeType;
-use WWW\OthersBundle\Entity\Trade;
-use WWW\OthersBundle\Entity\TradeCategory;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Description of ProfileController
- *
-     * Matches /profile
-     *
-     * @Route("/profile", name="user_profiler")
-    
  * @author Rocio
  */
 class ProfileController extends Controller{
@@ -76,8 +68,6 @@ class ProfileController extends Controller{
                 
                 $this->showProfile($request);
             
-            elseif($request->getMethod()=="GET"):
-               // $this->showOffer($request->query->all()['oferta']);
             endif;
            
         endif;

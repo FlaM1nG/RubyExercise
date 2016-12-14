@@ -62,7 +62,7 @@ class Trade
     
     public function __construct($arrayData = null,$isOffert = null) {
        
-        
+        //print_r($arrayData);
         if(!empty($arrayData)):
             $this->id = $arrayData['id'];
             $this->price = $arrayData['price'];
@@ -70,6 +70,7 @@ class Trade
             $this->weight = $arrayData['weight'];
             $this->region = $arrayData['region'];
             $this->offer = new Offer($arrayData,$isOffert);
+            $this->category = new TradeCategory(null,$arrayData['category_id']);
         endif;
         
     }

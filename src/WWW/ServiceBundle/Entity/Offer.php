@@ -4,6 +4,7 @@ namespace WWW\ServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Util\Inflector as Inflector;
 
 /**
  * Offer
@@ -81,12 +82,16 @@ class Offer
             }
         else:
             foreach ($data as $key => $value):
+                $key = Inflector::camelize($key);
+        
                 if($key != 'id' && property_exists('WWW\ServiceBundle\Entity\Offer',$key)){
                         $this->$key = $value;
                 }
             endforeach;
             
             $this->id = $data['offer_id'];
+            //$this->createdDate = $data['created_date'];
+            //$this->isDeleted = $data['is_deleted'];
             if(!empty($data['url'])):
                 $photo = new \WWW\GlobalBundle\Entity\Photo();
 
