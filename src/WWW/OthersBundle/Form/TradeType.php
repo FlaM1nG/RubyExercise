@@ -34,9 +34,9 @@ class TradeType extends AbstractType{
     }*/
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-        //print_r($options);
-        
+        print_r($options['data']->getCategory());
         $arrayCategory = $this->arrayCategories();
+        
         $builder
             ->add('offer',OfferType::class)    
             ->add('price',MoneyType::class, array('label' => 'Precio',
@@ -46,7 +46,7 @@ class TradeType extends AbstractType{
             ->add('dimensions','text', array('label' => 'Dimensiones'))
             ->add('weight','number', array('label' => 'Peso'))
             ->add('category',ChoiceType::class, array('label' => 'Categoria',
-                                                         'data_class' => TradeCategory::class,
+                                                         
                                                          'required' => false,
                                                          'empty_value' => false,
                                                          'choices' => $arrayCategory,
@@ -56,7 +56,8 @@ class TradeType extends AbstractType{
                                                                 return ucfirst($category->getName());
                                                             },
                                                          'choice_value' => 'id'
-                                                    )) 
+                                                         )
+                                                    ) 
             
             ->add('region',TextType::class, array('label' => 'Provincia'))                                                        
             ->add('guardar','submit',array('label'=>'Guardar'));
@@ -83,6 +84,7 @@ class TradeType extends AbstractType{
         if(!empty($result)):
             foreach($result as $category):
                 $arrayCategory[$category['id']] = new TradeCategory($category);
+        //array_push($arrayCategory,new TradeCategory($category));
             endforeach;
         endif;  
         
