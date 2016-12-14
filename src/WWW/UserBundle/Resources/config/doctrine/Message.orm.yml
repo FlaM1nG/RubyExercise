@@ -1,0 +1,28 @@
+WWW\UserBundle\Entity\Message:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\MessageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        subject:
+            type: string
+            length: 255
+            nullable: true
+        message:
+            type: string
+            length: 255
+            nullable: true
+        status:
+            type: integer
+            nullable: true
+        date:
+            type: datetime
+        revisionDate:
+            type: datetime
+            nullable: true
+    lifecycleCallbacks: {  }
