@@ -52,13 +52,18 @@ sha-header-title
 
 <script src=" {{ asset('js/masonry.pkgd.min.js') }}"></script>
 <script type="text/javascript">
-    $('.row-tra-base').masonry({
-    // options
-    columnWidth: '.col-tra-elem',
-    itemSelector: '.col-tra-elem',
-    percentPosition: true,
-    transitionDuration: 0.0
-  });
+    $(document).ready(function(){
+        
+        $('.row-tra-base').masonry({
+            // options
+            columnWidth: '.col-tra-elem',
+            itemSelector: '.col-tra-elem',
+            percentPosition: true,
+            transitionDuration: 0.2
+        });
+    });
+    
+    
 </script>
 {% endblock %}
 
