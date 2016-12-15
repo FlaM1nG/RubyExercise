@@ -5,7 +5,7 @@
     col-xs-{{ xs|default('12') }}
     col-hre-img-prin">
     <a href="{{ href|default('#') }}">
-        <img class="img-responsive hre-img-prin" src="{{ src }}"  alt="">
+        <img class="img-responsive hre-img-prin" src="{{ src|e }}"  alt="">
     </a>
             
             
@@ -19,7 +19,7 @@
 <div class="row row-hre-img-secon">
     <a href="{{ href|default('#') }}">
         <img class="img-responsive hre-img-other hre-img-other1"  
-            src="{{ src }}" 
+            src="{{ src|e }}" 
             alt="">
     </a>
             
@@ -68,7 +68,8 @@
 
 
 {% macro element(hrefOffer, srcImgBig, srcImgSmallF, srcImgSmallS, title, 
-    capacidad, habitaciones, banos, hrefUser, srcImgUser, nameUser, price ) %}
+    capacidad, habitaciones, banos, hrefUser, srcImgUser, nameUser, price,
+    vote ) %}
 <!-- ELEMENT -->
 <div class="row row-hre-element">
     <!-- COLUMNA IMAGEN PRICIPAL -->
@@ -143,7 +144,7 @@
                     
                     
                     {% if banos > 0 %}
-                        <span>Baños {{ banos }} </span>
+                        <span>Baños {{ banos|trim }} </span>
                     {% endif %}
                 </div>
                 <!-- FIN DATOS -->
@@ -157,10 +158,10 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-hre-user">
                 <!-- IMAGEN USUARIO -->
                 <div class="row">
-                    <a href="{{ hrefUser }}">
+                    <a href="{{ hrefUser|e }}">
                         <img class="center-block img-circle 
                             img-responsive" 
-                            src="{{ srcImgUser }}" 
+                            src="{{ srcImgUser|e }}" 
                             width="50" alt="">
                     </a>
                 </div>
@@ -169,8 +170,8 @@
                 
                 <!-- NOMBRE USUARIO -->
                 <div class="row row-hre-user-name">
-                    <a href="{{ hrefUser }}" class="hre-user-name-grid">
-                        {{ nameUser }}
+                    <a href="{{ hrefUser|e }}" class="hre-user-name-grid">
+                        {{ nameUser|e }}
                     </a>
                         
                         
@@ -204,7 +205,7 @@
             <!-- PRECIO DIA -->
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-hre-price">
                 <span class="hre-price">
-                    {{ price }}€/dia
+                    {{ price|e }}€/dia
                 </span>
             </div>
             <!-- FIN PRECIO DIA -->

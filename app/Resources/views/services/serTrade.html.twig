@@ -1,4 +1,5 @@
 {% extends '::services/layoutService.html.twig' %}
+{% import '::macros/tradeList.html.twig' as trades %}
 
 {% block title %}
     Trade
@@ -26,9 +27,14 @@ sha-header-title
             
 {% block serviceList %}
     <div class="row row-tra-base" >
-        <div class="col-tra-size col-lg-4 col-md-4 col-sm-6 col-xs-12"></div>
     {% for i in 0..22 %}
-        {{ include('services/lists/tradeList.html.twig') }}
+        {#{ include('services/lists/tradeList.html.twig') }#}
+        
+        {% set img = random([asset('img/seat.jpg'), asset('img/articulo1.jpg'), asset('img/macbook.png'), asset('img/alquilerTuristico3.jpg')]) %}
+        {% set title = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}
+        
+        {{ trades.element('#TRADE', img, title, 'categoria', '#CATEGORIA', 
+            '#USER', asset('img/usuario1.jpg'), 'Paco J', random(999)) }}
     {% endfor %}
     </div>
 {% endblock %}
@@ -48,7 +54,7 @@ sha-header-title
 <script type="text/javascript">
     $('.row-tra-base').masonry({
     // options
-    columnWidth: '.col-tra-size',
+    columnWidth: '.col-tra-elem',
     itemSelector: '.col-tra-elem',
     percentPosition: true,
     transitionDuration: 0.0
