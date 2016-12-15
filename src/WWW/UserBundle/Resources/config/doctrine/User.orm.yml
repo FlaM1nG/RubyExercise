@@ -94,6 +94,12 @@ WWW\UserBundle\Entity\User:
         inviteds:
             targetEntity: User
             mappedBy: hostUser
+        sent:
+            targetEntity: Message
+            mappedBy: from
+        received:
+            targetEntity: Message
+            mappedBy: to
     oneToOne:        
         photo:
             nullable: true

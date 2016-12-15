@@ -180,7 +180,17 @@ class User implements UserInterface
     /**
      * @var \WWW\GlobalBundle\Entity\Address
      */
-    private $defaultAddress;
+    private $defaultAddress;    
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sent;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $received;
 
     /**
      * Constructor
@@ -965,5 +975,71 @@ class User implements UserInterface
     public function getDefaultAddress()
     {
         return $this->defaultAddress;
+    }
+
+    /**
+     * Add sent
+     *
+     * @param \WWW\UserBundle\Entity\Message $sent
+     * @return User
+     */
+    public function addSent(\WWW\UserBundle\Entity\Message $sent)
+    {
+        $this->sent[] = $sent;
+
+        return $this;
+    }
+
+    /**
+     * Remove sent
+     *
+     * @param \WWW\UserBundle\Entity\Message $sent
+     */
+    public function removeSent(\WWW\UserBundle\Entity\Message $sent)
+    {
+        $this->sent->removeElement($sent);
+    }
+
+    /**
+     * Get sent
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSent()
+    {
+        return $this->sent;
+    }
+
+    /**
+     * Add received
+     *
+     * @param \WWW\UserBundle\Entity\Message $received
+     * @return User
+     */
+    public function addReceived(\WWW\UserBundle\Entity\Message $received)
+    {
+        $this->received[] = $received;
+
+        return $this;
+    }
+
+    /**
+     * Remove received
+     *
+     * @param \WWW\UserBundle\Entity\Message $received
+     */
+    public function removeReceived(\WWW\UserBundle\Entity\Message $received)
+    {
+        $this->received->removeElement($received);
+    }
+
+    /**
+     * Get received
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReceived()
+    {
+        return $this->received;
     }
 }
