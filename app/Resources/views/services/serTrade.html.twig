@@ -26,7 +26,7 @@ sha-header-title
 {% endblock %}
             
 {% block serviceList %}
-    <div class="row row-tra-base" >
+    <div class="row row-tra-base" id="tra-cont-base">
     {% for i in 0..22 %}
         {#{ include('services/lists/tradeList.html.twig') }#}
         
@@ -52,17 +52,30 @@ sha-header-title
 
 <script src=" {{ asset('js/masonry.pkgd.min.js') }}"></script>
 <script type="text/javascript">
+    
     $(document).ready(function(){
-        
-        $('.row-tra-base').masonry({
+        var e = $(".row-tra-base");
+        e.length > 0 && e.masonry({
             // options
-            columnWidth: '.col-tra-elem',
+            columnWidth: 250,
             itemSelector: '.col-tra-elem',
-            percentPosition: true,
-            transitionDuration: 0.2
+            //percentPosition: true,
+            transitionDuration: 0.2,
+            isFitWidth: true,
+            gutter: 20
         });
+        
+        
     });
     
+    /*var e = $(".row-tra-base");
+    e.length > 0 && (e.masonry({
+        transitionDuration: 0,
+        itemSelector: ".col-tra-elem",
+        columnWidth: ".col-tra-elem",
+        gutter: 20,
+        percentPosition: true,
+    });*/
     
 </script>
 {% endblock %}
