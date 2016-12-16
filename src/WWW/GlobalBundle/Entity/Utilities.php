@@ -36,5 +36,34 @@ class Utilities{
 
         return $arrayCategory;
     }
+    
+    public function uploadImage($files,$id){
+        
+        $arrayPhotos = null;
+        $i = 1;
+        
+        $directorio = 'C:/xampp/htdocs/img/user_'.$id;
+        //$directorio = 'http://www.whatwantweb.com/img/user_'.$this->usuario->getId();
+        
+        if(!file_exists($directorio)):
+            mkdir($directorio, 0777, true);
+        
+        else:    
+            $i = count(scandir($directorio))+1;
+        
+        endif;
+
+        foreach($files as $file):
+            $tmpName = $file->getPathname();
+            $extension = $file->getClientoriginalExtension();
+            $nameImg = 'image_'.$i.$extension;
+            $arrayPhotos[] = $directorio.'/'.$nameImg;
+            move_uploaded_file($tmpName,$directorio.'/'.$nameImg);
+            
+            $i++;
+        endforeach;
+        
+        return $arrayPhotos;
+    }
 }
 

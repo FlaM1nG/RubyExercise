@@ -185,7 +185,7 @@ class User implements UserInterface{
     private $defaultAddress;
     
     /**
-     * @var Array
+     * @var \Doctrine\Common\Collections\Collection
      */
     private $trades;
 
@@ -999,6 +999,11 @@ class User implements UserInterface{
         
     }
     
+    public function deleteTrade($id){
+       
+        unset($this->trades[$id]);
+    }
+    
     private function searchTrades(){
         
         $arrayOffer = array();
@@ -1013,8 +1018,9 @@ class User implements UserInterface{
         $data['service'] = 'trade';
         
         $result = $ch->resultApiRed($data, $file);
-
+        
         $arrayCategory = $this->tradeCategory();
+        
 
         foreach($result['offers'] as $offer):
 

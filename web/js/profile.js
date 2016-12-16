@@ -12,6 +12,9 @@ $(document).ready(function(){
     $(document).on('click','.buttonDeleteAddress', deleteAddress);
     $(document).on('click','#buttonAddAddress', addFormAddress);
     $(document).on('blur','.zipCode', autoCompleteZipCode);
+    //$(document).on('click','',checkDeleteOffers);
+    
+    //function
     
     function activateEditAddress(e){
         e.stopPropagation();

@@ -62,7 +62,6 @@ class Trade
     
     public function __construct($arrayData = null,$isOffert = null) {
        
-        //print_r($arrayData);
         if(!empty($arrayData)):
             $this->id = $arrayData['id'];
             $this->price = $arrayData['price'];
@@ -225,8 +224,7 @@ class Trade
      *
      * @return \WWW\ServiceBundle\Entity\Offer 
      */
-    public function getOffer()
-    {
+    public function getOffer(){ 
         return $this->offer;
     }
 

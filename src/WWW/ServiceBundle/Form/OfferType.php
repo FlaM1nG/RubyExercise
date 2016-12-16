@@ -11,6 +11,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use WWW\GlobalBundle\Form\PhotoType;
 
 /**
@@ -29,6 +31,7 @@ class OfferType extends AbstractType{
     }*/
     
     public function buildForm(FormBuilderInterface $builder, array $options){
+
         $builder
                 
                 ->add('photos',CollectionType::class, array('entry_type' => PhotoType::class,
@@ -36,8 +39,14 @@ class OfferType extends AbstractType{
                                                             'allow_delete' => true,    
                                                             'by_reference' => false,
                                                             ))
-                ->add('title','text', array('label'=>'Título',
-                                             ))
+                ->add('fileImage',FileType::class, array('label' =>' ',
+                                                         'mapped' => false,
+                                                         'multiple' => true,
+                                                         'required' => false,
+                                                         'attr' => array('accept'=>'image/*')))
+                ->add('title','text', array('label'=>'Título'))
+                ->add('expired',HiddenType::class)
+                ->add('deletePhotos','submit', array('label' => 'Eliminar imágenes'))
                 ->add('description','textarea', array('label'=>'Descripción',
                                                   'required' => false ));
                 
@@ -45,7 +54,7 @@ class OfferType extends AbstractType{
     
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data-class'=>'WWW\ServiceBundle\Entity\Offer'));
+        $resolver->setDefaults(array('data_class' => 'WWW\ServiceBundle\Entity\Offer'));
     }
 
 

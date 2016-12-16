@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use WWW\ServiceBundle\Form\OfferType;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Entity\TradeCategory;
@@ -25,16 +26,16 @@ use WWW\GlobalBundle\Entity\ApiRest;
  */
 class TradeType extends AbstractType{
     
-    private $typeService;
+    private $typeForm;
     
-    /*public function __construct($servicio = null) {
+    public function __construct($typeForm = null) {
         
         //Tipo de servicio para añadir unos campo u otros a la oferta
-        $this->typeService = $servicio; 
-    }*/
+        $this->typeForm = $typeForm;
+    }
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-        print_r($options['data']->getCategory());
+        //print_r($options);
         $arrayCategory = $this->arrayCategories();
         
         $builder
@@ -56,11 +57,14 @@ class TradeType extends AbstractType{
                                                                 return ucfirst($category->getName());
                                                             },
                                                          'choice_value' => 'id'
-                                                         )
-                                                    ) 
+                                                         )) 
             
-            ->add('region',TextType::class, array('label' => 'Provincia'))                                                        
+            ->add('region',TextType::class, array('label' => 'Provincia'))
+            ->add('checkOffer',CheckboxType::class,array('label' => ' ',
+                                                         'mapped' => false,
+                                                         'required' => false))                                                      
             ->add('guardar','submit',array('label'=>'Guardar'));
+
             
         
     }
@@ -68,7 +72,7 @@ class TradeType extends AbstractType{
     
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data-class'=>Trade::class));
+        $resolver->setDefaults(array('data_class'=>Trade::class));
     }
 
     private function arrayCategories(){

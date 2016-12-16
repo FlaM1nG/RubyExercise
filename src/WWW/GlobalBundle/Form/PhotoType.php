@@ -11,13 +11,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use WWW\GlobalBundle\Entity\Photo;
 
 /**
- * Description of OfferType
+ * Description of PohoType
  *
  * @author Rocio
  */
@@ -25,22 +25,21 @@ class PhotoType extends AbstractType{
     
     
     public function buildForm(FormBuilderInterface $builder, array $options){
+        
         $builder
                 
                 ->add('id',HiddenType::class)
                 ->add('url',UrlType::class, array('label'=>'Imagen',
                                                   'read_only' =>true,
-                                             ))
-                ->add('fileImage',FileType::class, array('label' =>' ',
-                                                         'mapped' => false,
-                                                         'multiple' => true,
-                                                         'attr' => array('accept'=>'image/*')));
+                                                ))
+                ->add('checkPhoto',CheckboxType::class,array('label' => ' ',
+                                                             'mapped' => false ));
                 
     }
     
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data-class'=>'WWW\GlobalBundle\Entity\Photo'));
+        $resolver->setDefaults(array('data_class'=>Photo::class));
     }
 
 

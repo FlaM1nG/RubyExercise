@@ -5,6 +5,7 @@ namespace WWW\ServiceBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Util\Inflector as Inflector;
+use WWW\GlobalBundle\Entity\Photo;
 
 /**
  * Offer
@@ -73,33 +74,40 @@ class Offer
      * Constructor
      */
     public function __construct($data = null,$isOffer = null){ 
-       // print_r($data);
+      //print_r($data);
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         
-        if(!empty($data) && empty($isOffer)):
+        if(!empty($data) && empty($isOffer)): 
             foreach($data as $key => $value){
                 $this->$key = $value;
             }
-        else:
+        else: 
             foreach ($data as $key => $value):
                 $key = Inflector::camelize($key);
         
-                if($key != 'id' && property_exists('WWW\ServiceBundle\Entity\Offer',$key)){
+                if($key != 'id' && $key != 'photos' && property_exists('WWW\ServiceBundle\Entity\Offer',$key)){
                         $this->$key = $value;
                 }
             endforeach;
             
             $this->id = $data['offer_id'];
-            //$this->createdDate = $data['created_date'];
-            //$this->isDeleted = $data['is_deleted'];
+            if( !empty($data['photos']) ):
+                
+                foreach( $data['photos'] as $photo ):
+                    $newPhoto = new Photo($photo);
+                    
+                    $this->photos[]= $newPhoto;
+                    
+                endforeach;
+                
+            endif;    
+            
             if(!empty($data['url'])):
-                $photo = new \WWW\GlobalBundle\Entity\Photo();
-
+                $photo = new Photo();
                 $photo->setUrl($data['url']);
                 $this->photos[] = $photo;
-            endif;    
+            endif; 
         endif;
-        
     }
     /**
      * Get id
@@ -303,6 +311,7 @@ class Offer
      */
     public function addPhoto(\WWW\GlobalBundle\Entity\Photo $photos)
     {
+        //array_push($this->photos, $photos);
         $this->photos[] = $photos;
 
         return $this;

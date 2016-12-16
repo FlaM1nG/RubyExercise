@@ -186,25 +186,27 @@
         </div>
         
         <div class="tab-pane {{tabActive == 'myOffer' ? 'active'}}" name="myOffer" id="myOffer">
-            {#{dump(usuario)}#}
-            {% for trade in usuario.trades %}
-                
-                {% if trade.offer.photos | length > 0%}
-                    <img src="{{trade.offer.photos.0.url}}" height="42" width="42">
-                {% endif %}    
-                
-                <h3>
-                    <a href="{{ path('user_profiler_offers', { offer: 'offer' ,idOffer: trade.offer.id }) }}">
-                        {{trade.offer.title}}
-                    </a>
-                </h3>
-                    <br>
-                {{trade.offer.description}}<br>
-                {{trade.category.name}}<br>
-                {{trade.price}}€<br>
-                <br>
-                <br><br>
-            {% endfor %}    
+            
+            {{ form_start(formOfferts) }}
+                {{form_row(formOfferts.deleteOffers)}}
+                {% for offer in formOfferts.trades %}
+                    <h4>
+                        <a href="{{path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.offer.vars.value.id})}}">
+                            {{offer.offer.vars.value.title}}
+                        </a>    
+                    </h4>    
+                    {{offer.offer.vars.value.description}}<br>    
+                    {{offer.vars.value.price}}€
+                    {{offer.category.vars.data.name}}
+
+                    {% if offer.offer.photos|length > 0%}
+                        <img src="{{offer.offer.photos.0.url.vars.value}}" height="42" width="42">
+                    {% endif %}    
+                    {{form_row(offer.checkOffer)}}
+
+                {% endfor%}
+                {{form_row(formOfferts.idsDeleteOffers)}}
+            </form>
              
         </div>
         <div class="tab-pane {{tabActive == 'address' ? 'active'}}" name="address" id="address">
@@ -308,6 +310,7 @@
             $('#cbp-hrmenu').css("position","relative");
         }
     });
+    
     </script>
     
     <script type="text/javascript" src="{{ asset('js/profile.js') }}">  </script>

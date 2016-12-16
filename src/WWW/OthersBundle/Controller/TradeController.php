@@ -81,7 +81,7 @@ class TradeController extends Controller{
         $arrayPhotos = null;
         $i = 1;
         
-        $directorio = 'C:/xampp/htdocs/img/user_1';
+        $directorio = 'C:/xampp/htdocs/img/'.$this->usuario->getId();;
         //$directorio = 'http://www.whatwantweb.com/img/user_'.$this->usuario->getId();
         
         if(!file_exists($directorio)):

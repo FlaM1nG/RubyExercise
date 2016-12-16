@@ -20,8 +20,7 @@ use WWW\UserBundle\Form\ProfileEmailType;
 use WWW\UserBundle\Form\ProfilePasswordType;
 use WWW\UserBundle\Form\ProfilePhoneType;
 use WWW\UserBundle\Form\ProfilePhotoType;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use WWW\UserBundle\Form\ProfileOffertsType;
 
 /**
  * Description of ProfileController
@@ -62,11 +61,15 @@ class ProfileController extends Controller{
             $formPhone = $this->createForm(ProfilePhoneType::class,$this->usuario);
             $formPhoto = $this->createForm(ProfilePhotoType::class,$this->usuario);
             $formAddress = $this->createForm(ProfileAddressType::class,$this->usuario);
-            $formBank = $this->createForm(ProfileBankType::class,$this->usuario);   
+            $formBank = $this->createForm(ProfileBankType::class,$this->usuario);
+            //print_r($this->usuario->getTrades());
+            $formOfferts = $this->createForm(ProfileOffertsType::class,$this->usuario);
         
             if($request->getMethod()=="POST"):
-                
-                $this->showProfile($request);
+                if(array_key_exists('deleteOffers', $request->request->all()['profile_offerts']))
+                        $this->deleteOffers($request->request->all()['profile_offerts']['trades']);
+                else
+                    $this->showProfile($request);
             
             endif;
            
@@ -79,6 +82,7 @@ class ProfileController extends Controller{
         $formPhoto = $this->createForm(ProfilePhotoType::class,$this->usuario);
         $formAddress = $this->createForm(ProfileAddressType::class,$this->usuario);
         $formBank = $this->createForm(ProfileBankType::class,$this->usuario);
+        $formOfferts = $this->createForm(ProfileOffertsType::class,$this->usuario);
         
         return $this->render('UserBundle:Default:profile.html.twig',
                 array('formPersonal'=>$formPersonal->createView(),
@@ -88,11 +92,41 @@ class ProfileController extends Controller{
                       'formPhoto'=>$formPhoto->createView(),
                       'formAddress'=>$formAddress->createView(),
                       'formBank'=>$formBank->createView(),
+                      'formOfferts' => $formOfferts->createView(),  
                       'usuario'=>$this->usuario,
                       'tabActive' => $this->sectionActive));
     }
     
+    private function deleteOffers($arrayOffers){
+        $this->sectionActive = 'myOffer';
+        $error['result'] = 'ok';
+        $result = null;
+        $arrayTrades = $this->usuario->getTrades(); 
+        $file = "http://www.whatwantweb.com/api_rest/services/offer/delete_offer.php";
+        
+        $data['username'] = $this->session->get('username');
+        $data['id'] = $this->session->get('id');
+        $data['password'] = $this->session->get('password');
+        
+        foreach($arrayOffers as $key => $value): 
+            $data['offer_id'] = $arrayTrades[$key]->getOffer()->getId();
+            $ch = new ApiRest();
+            $result = $ch->resultApiRed($data, $file);
+       
+            if($result['result'] == 'ok'):
+                $data['offer_id'] = $arrayTrades[$key]->getOffer()->getId();
+                //eliminar oferta del usuario
+                $this->usuario->deleteTrade($key);
+            else: 
+                $error['result'] = 'ko';
+            endif;
+        endforeach;
+        
+        $this->flashMessageGeneral($error['result']);
+    }
+    
     private function showProfile(Request $request){
+        
         $this->dataProfile = $request->request->all()['profileUser'];
         $section = $this->dataProfile['section'];
 
