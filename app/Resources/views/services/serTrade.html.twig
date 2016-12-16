@@ -34,7 +34,7 @@ sha-header-title
         {% set title = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}
         
         {{ trades.element('#TRADE', img, title, 'categoria', '#CATEGORIA', 
-            '#USER', asset('img/usuario1.jpg'), 'Paco J', random(999)) }}
+            '#USER', asset('img/usuario1.jpg'), 'Paco J', random(999999999)) }}
     {% endfor %}
     </div>
 {% endblock %}
@@ -57,7 +57,7 @@ sha-header-title
         var e = $(".row-tra-base");
         e.length > 0 && e.masonry({
             // options
-            columnWidth: 250,
+            columnWidth: '.col-tra-elem',
             itemSelector: '.col-tra-elem',
             //percentPosition: true,
             transitionDuration: 0.2,

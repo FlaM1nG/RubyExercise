@@ -1,5 +1,8 @@
 {% macro element(hrefOffer, srcImg, title, categoria, hrefCategoria, hrefUser, 
     srcImgUser, nameUser, price) %}
+    
+    {% import 'macros/user.html.twig' as users %}
+    
 <!-- ELEMENTO-->
 <div class="col-tra-elem {#col-lg-4 col-md-4 col-sm-6 col-xs-12#}">
     <!-- BODY -->
@@ -30,44 +33,13 @@
         <!-- FIN TITLE -->
 
 
-        <!-- CATEGORIAS -->
-        <div class="row row-tra-cat-grid">
-           {% for i in 0..3 %}
-               <a href="/{{ hrefCategoria|e }}" class="tra-cat-grid">
-                   <span class="">{{ categoria|e|capitalize }} </span>
-               </a>
-               
-               
-           {% endfor %}
-        </div>
-        <!-- FIN CATEGORIAS -->
-
-
         <!-- USER Y PRECIO -->
         <div class="row row-tra-upr-grid">
             <!-- USER -->
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 col-tra-user">
-                <!-- IMAGEN USUARIO -->
-                <div class="row row-tra-grid-user-img">
-                     <a href="/{{ hrefUser|e }}">
-                         <img class="center-block img-circle 
-                             img-responsive" 
-                             src="{{ srcImgUser|e }}" 
-                             width="50" alt="">
-                     </a>
-                             
-                             
-                </div>
-                <!-- FIN IMAGEN USUARIO -->
-
-                <!-- NOMBRE USUARIO -->
-                <div class="row row-tra-grid-name">
-                    <a href="/{{ hrefUser|e }}">{{ nameUser|e }}</a>
-                    
-                    
-                </div>
-                <!-- FIN NOMBRE USUARIO -->
-
+                {{ users.userList(hrefUser, srcImgUser, nameUser) }}
+                
+                
             </div>
             <!-- FIN USER -->
 
@@ -75,9 +47,14 @@
             <!-- PRECIO -->
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7
                 col-tra-grid-price">
-                <span class="tra-price">
-                    {{ price|e|number_format(2, '.') }}€
-                </span>
+                {% for i in 0..3 %}
+                <a href="/{{ hrefCategoria|e }}" class="tra-cat-grid">
+                    <span class="">{{ categoria|e|capitalize }} </span>
+                </a>
+
+
+
+            {% endfor %}
                 
                 
             </div>
@@ -86,6 +63,15 @@
 
         </div>
         <!-- FIN USER Y PRECIO -->
+        
+        
+        <!-- CATEGORIAS -->
+        <div class="row row-tra-cat-grid">
+            <span class="tra-price">
+                {{ price|e|number_format(2, '.', '') }}€
+            </span>
+        </div>
+        <!-- FIN CATEGORIAS -->
         
         
     </div>

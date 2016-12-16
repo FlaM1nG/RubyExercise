@@ -1,10 +1,10 @@
 {% macro userList(href, src, nombre) %}
 <!-- IMAGEN USUARIO -->
 <div class="row">
-    <a href="{{ href|default('#') }}">
+    <a href="{{ href|default('#')|e }}">
         <img class="center-block img-circle 
             img-responsive" 
-            src="{{ src }}" 
+            src="{{ src|e }}" 
             width="50" alt="">
     </a>
             
@@ -15,8 +15,8 @@
 
 <!-- NOMBRE USUARIO -->
 <div class="row row-hre-user-name">
-    <a href="{{ href|default('#') }}" class="hre-user-name-grid">
-        {{ nombre }}
+    <a href="{{ href|default('#')|e }}" class="hre-user-name-grid">
+        {{ nombre|e }}
     </a>
     
     
