@@ -13,9 +13,9 @@ use WWW\OthersBundle\Entity\TradeCategory;
 
 /**
  * User
- * 
+ * @Assert\GroupSequenceProvider
  */
-class User implements UserInterface{
+class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * @var int
      */
@@ -34,16 +34,18 @@ class User implements UserInterface{
     /**
      * @var string
      * 
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups = {"email"})
      */
     private $username;
 
     /**
      * @var string
      * 
-     * @Assert\NotBlank(message="Por favor rellene este campo")
-     * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/", message="La contraseña debe contener letras y números")
-     * @Assert\Length(min=8)
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"email"})
+     * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/",
+     *               message="La contraseña debe contener letras y números",
+     *               groups = {"email"})
+     * @Assert\Length(min=8, groups = {"email"})
      * 
      */
     private $password;
@@ -68,10 +70,11 @@ class User implements UserInterface{
     /**
      * @var string
      * 
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups = {"email"})
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = true
+     *     checkMX = true,
+     *     groups = {"email"}
      * )
      *
      */
@@ -152,6 +155,7 @@ class User implements UserInterface{
     /**
      * @var string
      * @Assert\Length(max=24)
+     * @Assert\NotBlank(groups={"bank"})
      */
     private $numAccount;
 
@@ -595,7 +599,7 @@ class User implements UserInterface{
     /**
      * Validación para que los usuarios sean mayores de 18
      * 
-     * @Assert\True(message = "Debes tener al menos 18 años")
+     * @Assert\True(message = "Debes tener al menos 18 años", group={"personalData"})
      */
     public function isAdult(){
 
@@ -1050,5 +1054,18 @@ class User implements UserInterface{
         endif;  
         
         return $arrayCategory;
+    }
+    /*
+     * @return Array de grupos
+     */
+    public function getGroupSequence()
+    {
+        $groups = array('User');
+
+        if ($this->isPremium()) {
+            $groups[] = 'Premium';
+        }
+
+        return $groups;
     }
 }
