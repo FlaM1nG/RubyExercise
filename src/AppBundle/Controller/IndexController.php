@@ -79,4 +79,8 @@ class IndexController extends Controller
     public function blogAction() {
         return $this->render('blog/blog.html.twig');
     }
+    
+    public function adminAction() {
+        return $this->render('admin/baseAdmin.html.twig');
+    }
 }

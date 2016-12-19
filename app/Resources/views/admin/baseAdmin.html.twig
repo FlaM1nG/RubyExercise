@@ -1,0 +1,133 @@
+{% import '::macros/alert.html.twig' as alerts %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>WWW | {% block title %}{% endblock %}</title>
+
+        {% block stylesheetsAdmin %}
+            <link href="{{ asset('css/style.css') }}" rel="stylesheet" 
+                  type="text/css">
+        {% endblock %}
+        
+        <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
+        
+        {% block javascriptsHeaderAdmin %}
+        {% endblock %}
+
+    </head>
+    
+    
+    <body>
+        <!-- ADMIN ADMINISTRATION NAVBAR -->
+        <nav class="navbar navbar-default navbar-fixed-top" id="navbar">            
+            <span class="glyphicon glyphicon-menu-hamburger adm-plegable"
+                  id="menu-toggle"
+                  aria-hidden="true">
+                      
+            </span>
+            
+        </nav>
+        <!-- END ADMIN ADMINISTRATION NAVBAR -->
+        
+        
+        <!-- ADMIN ADMINISTRATION BODY -->
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="#">
+                            Start Bootstrap
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">Usuarios</a>
+                    </li>
+                    <li>
+                        <a href="#">Ofertas</a>
+                    </li>
+                    <li>
+                        <a href="#">Overview</a>
+                    </li>
+                    <li>
+                        <a href="#">Events</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <!-- ALERT SYSTEM -->
+                    <div class="container adm-first-cont">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {% block alert %}{% endblock %}
+                                {{ alerts.alert('alert-success','Soy un mensaje de suceso') }}
+                                {{ alerts.alert('alert-info','Soy un mensaje de ainformación') }}
+                                {{ alerts.alert('alert-warning','Soy un mensaje de advertencia o aviso') }}
+                                {{ alerts.alert('alert-danger','Soy un mensaje de peligro') }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ALERT SYSTEM -->
+                    
+                    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>Simple Sidebar</h1>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                            <!--<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+
+        </div>
+        <!-- FIN ADMIN ADMINISTRATION BODY -->
+        
+        
+
+        {% block popupBlockAdmin %}
+        {% endblock %}
+
+        {% block javascriptsFooterAdmin %}
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="{{ asset('js/jquery-3.1.1.min.js') }}" 
+            type="text/javascript"></script>
+
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="{{ asset('js/bootstrap.min.js') }}" 
+            type="text/javascript"></script>
+            </script>
+            
+            <script>
+                $(document).ready(function(){
+                    $("#menu-toggle").click(function(e) {
+                        e.preventDefault();
+                        $("#wrapper").toggleClass("toggled");
+                        $("#navbar").toggleClass("toggled");
+                    });
+                });
+                
+            </script>
+        {% endblock %}
+    </body>
+</html>
