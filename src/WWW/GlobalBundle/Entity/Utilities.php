@@ -10,6 +10,8 @@ namespace WWW\GlobalBundle\Entity;
 
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\OthersBundle\Entity\TradeCategory;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Description of Utilities
@@ -64,6 +66,30 @@ class Utilities{
         endforeach;
         
         return $arrayPhotos;
+    }
+    
+    public function flashMessage($type, Request $request, $result = null){
+        $session = $request->getSession();
+        print_r($session);
+        $success = "";
+        $error = "Se ha producido un error, por favor vuelva a intentarlo";
+        
+        switch($type):
+            case 'general':     $success = "Datos actualizados correctamente";
+                                break;
+            case 'offer':       $success = "Oferta creada";  
+                                break;   
+            case 'register':    $success = "Usuario creado";
+                                if($result['result'] == 'username_exists')
+                                    $error = "El usuario ya existe";
+                                break;
+        endswitch;
+        
+        if($result['result'] == 'ok' || empty($result)):
+            $request->getSession()->getFlashBag()->add('messageSuccess', $success);
+        else:
+            $request->getSession()->getFlashBag()->add('messageFail', $error);
+        endif;
     }
 }
 

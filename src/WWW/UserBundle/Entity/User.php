@@ -3,6 +3,7 @@
 namespace WWW\UserBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\GroupSequenceProviderInterface;
 use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -34,18 +35,18 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * @var string
      * 
-     * @Assert\NotBlank(groups = {"email"})
+     * @Assert\NotBlank(groups = {"email","register"})
      */
     private $username;
 
     /**
      * @var string
      * 
-     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"email"})
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"email","register"})
      * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/",
      *               message="La contraseña debe contener letras y números",
-     *               groups = {"email"})
-     * @Assert\Length(min=8, groups = {"email"})
+     *               groups = {"email","register"})
+     * @Assert\Length(min=8, groups = {"email","register"})
      * 
      */
     private $password;
@@ -63,18 +64,18 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * @var \DateTime
      * 
-     * @Assert\Date()
+     * @Assert\Date(groups = {"register"})
      */
     private $birthdate;
 
     /**
      * @var string
      * 
-     * @Assert\NotBlank(groups = {"email"})
+     * @Assert\NotBlank(groups = {"email","register"})
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email.",
      *     checkMX = true,
-     *     groups = {"email"}
+     *     groups = {"email","register"}
      * )
      *
      */
@@ -92,7 +93,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
 
     /**
      * @var integer
-     * 
+     * @Assert\NotBlank(groups={"register"})
      */
     private $phone;
 
@@ -170,6 +171,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     private $hostUser;
      /**
      * @var string
+     * @Assert\NotBlank(groups="register")
      */
     private $prefix;
     
@@ -599,7 +601,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * Validación para que los usuarios sean mayores de 18
      * 
-     * @Assert\True(message = "Debes tener al menos 18 años", group={"personalData"})
+     * @Assert\True(message = "Debes tener al menos 18 años", groups={"personalData", "register"})
      */
     public function isAdult(){
 
@@ -1063,7 +1065,17 @@ class User implements UserInterface, GroupSequenceProviderInterface{
         $groups = array('User');
 
         if ($this->isPremium()) {
-            $groups[] = 'Premium';
+            
+            $groups[] = 'email';
+            
+        }elseif($this->isRegister()){
+            
+            $groups[] = "register";
+            
+        }elseif($this->isPersonalData()){
+            
+           $groups[] = "personalData";
+           
         }
 
         return $groups;

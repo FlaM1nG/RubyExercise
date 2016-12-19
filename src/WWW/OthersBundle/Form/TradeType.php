@@ -47,7 +47,6 @@ class TradeType extends AbstractType{
             ->add('dimensions','text', array('label' => 'Dimensiones'))
             ->add('weight','number', array('label' => 'Peso'))
             ->add('category',ChoiceType::class, array('label' => 'Categoria',
-                                                         
                                                          'required' => false,
                                                          'empty_value' => false,
                                                          'choices' => $arrayCategory,
