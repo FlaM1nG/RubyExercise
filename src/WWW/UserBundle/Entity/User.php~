@@ -122,7 +122,7 @@ class User implements UserInterface
     private $photo;
 
     /**
-     * @var integer
+     * @var string
      */
     private $nif;
     
@@ -637,7 +637,7 @@ class User implements UserInterface
     /**
      * Set nif
      *
-     * @param integer $nif
+     * @param string $nif
      * @return User
      */
     public function setNif($nif)
@@ -650,7 +650,7 @@ class User implements UserInterface
     /**
      * Get nif
      *
-     * @return integer 
+     * @return string
      */
     public function getNif()
     {
