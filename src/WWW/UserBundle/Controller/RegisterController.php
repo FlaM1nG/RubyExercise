@@ -40,12 +40,15 @@ class RegisterController extends Controller{
         $formulario->handleRequest($request);
         
         if($formulario->isValid()):
-            $this->newUser($request, $totalHobbies);
-            $result = $this->ut->flashMessage('register', $request, null);
-            if($result == 'ok')
+            
+            $result = $this->newUser($request, $totalHobbies);
+            
+            if($result == 'ok'):
+                $this->ut->flashMessage('register', $request, null);
                 return $this->redirectToRoute('homepage');
-            else
+            else:
                 return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
+            endif;
         else:
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
         endif;
@@ -99,7 +102,7 @@ class RegisterController extends Controller{
         $result = $ch->resultApiRed($data,$file);
         
         $this->ut->flashMessage("register",$request,$result);
-        return $result['result'];
+        return $result;
     }
 
 

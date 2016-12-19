@@ -70,7 +70,7 @@ class Utilities{
     
     public function flashMessage($type, Request $request, $result = null){
         $session = $request->getSession();
-        print_r($session);
+        
         $success = "";
         $error = "Se ha producido un error, por favor vuelva a intentarlo";
         
@@ -85,7 +85,7 @@ class Utilities{
                                 break;
         endswitch;
         
-        if($result['result'] == 'ok' || empty($result)):
+        if($result['result'] == 'ok' || $result === null):
             $request->getSession()->getFlashBag()->add('messageSuccess', $success);
         else:
             $request->getSession()->getFlashBag()->add('messageFail', $error);

@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
 
+
 {% block header %}
     {{ parent() }}
     {{ include('nav/menu.html.twig') }}
@@ -8,7 +9,7 @@
 {% block body %}
 <!-- TITULO REGISTRO -->
 <div class="container cd-main-content">
-    <h1>Register</h1>***
+    <h1>Register</h1>
     <hr>
 </div>
 <!-- FIN TITULO REGISTRO -->
@@ -26,7 +27,7 @@
         {% for flash_message in app.session.flashbag.get('messageFail') %}
             {{  alerts.alert('alert-warning', flash_message, null) }}
         {% endfor %}
-    {% endblock %}
+   {% endblock %}
     
 <!-- CUERPO FORMULARIO -->
 <div class="container cd-main-content">

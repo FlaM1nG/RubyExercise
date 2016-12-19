@@ -50,12 +50,14 @@ class RegisterType extends AbstractType{
                 ->add('captcha', 'captcha', array( 'as_url' => true, 
                                                    'reload' => true,
                                                    'label' => " "))
-                ->add('acepto', 'checkbox', array('label' => ' ',
+                ->add('acepto', 'checkbox', array('label' => ' ','required' =>false,
                                                   'mapped' => false,
                                                   'constraints' => new IsTrue(array(
                                                                    'message' => 'Debes aceptar las condiciones legales 
-                                                                    antes de añadir una oferta'))
+                                                                    antes de añadir una oferta',
+                                                                   'groups' => 'register'))
                                                 ))
+                
                 ->add('guardar','submit',array('label'=>'Registrarse'));
     }
         
@@ -78,7 +80,8 @@ class RegisterType extends AbstractType{
     public function configureOptions(OptionsResolver $resolver){
         
         $resolver->setDefaults(array('data_class'=>'WWW\UserBundle\Entity\User',
-                                     'validation_groups' => array('register')));
+                                     'validation_groups' => array('register')
+            ));
     }
     
     public function getBlockPrefix(){

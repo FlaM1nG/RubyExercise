@@ -11,6 +11,7 @@ use WWW\GlobalBundle\Entity\ApiRest;
 class LoginController extends Controller{
     
     public function loginAction(Request $request){
+        
         $session=$request->getSession();
         
         
