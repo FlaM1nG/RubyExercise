@@ -87,6 +87,10 @@ class RegisterController extends Controller{
 
         $nacimiento =$arrayBirthdate['year']."-".$mes.'-'.$dia;
 
+        $role = 1;
+        if(!empty($this->usuario->getNif()))
+            $role = 2;
+        
         $file = "http://www.whatwantweb.com/api_rest/user/registration/register_user.php";
         $data = array("username" => $this->usuario->getUsername(),
                       "email" => $this->usuario->getEmail(),
@@ -94,7 +98,9 @@ class RegisterController extends Controller{
                       "password" => $this->usuario->getPassword(),
                       "prefix" => $this->usuario->getPrefix(),
                       "phone" => $this->usuario->getPhone(),
-                      "hobbies" => $hobbies
+                      "hobbies" => $hobbies,
+                      "nif" => $this->usuario->getNif(),
+                      "role" => $role
             );
 
         $ch = new ApiRest();

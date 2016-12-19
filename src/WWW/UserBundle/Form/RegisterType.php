@@ -47,10 +47,19 @@ class RegisterType extends AbstractType{
                                                 'first_options' => array('label' => 'Contraseña'),
                                                 'second_options' => array('label' => 'Repite Contraseña'),
                                               ))
+                ->add('isEnterprise','checkbox',array('label' => "Soy una empresa",
+                                                      'mapped' => false,
+                                                      'required' => false))
+                ->add('nif','text',array('label' => 'CIF',
+                                         'required' => false,
+                                         'attr' => array('style' => 'display:none',
+                                                         'class' => 'registroUsuario_nif'),
+                                         'label_attr' => array('style' => 'display:none',
+                                                               'class' => 'registroUsuario_nif' )))
                 ->add('captcha', 'captcha', array( 'as_url' => true, 
                                                    'reload' => true,
                                                    'label' => " "))
-                ->add('acepto', 'checkbox', array('label' => ' ','required' =>false,
+                ->add('acepto', 'checkbox', array('label' => ' ',
                                                   'mapped' => false,
                                                   'constraints' => new IsTrue(array(
                                                                    'message' => 'Debes aceptar las condiciones legales 

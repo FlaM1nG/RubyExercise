@@ -6,7 +6,6 @@
 
 
 $(document).ready(function(){
-   console.log("jquery");
     
     $(document).on('click','.buttonEditAddress',activateEditAddress);
     $(document).on('click','.buttonDeleteAddress', deleteAddress);

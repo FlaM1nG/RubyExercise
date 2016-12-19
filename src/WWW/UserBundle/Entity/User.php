@@ -129,6 +129,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
 
     /**
      * @var integer
+     * 
      */
     private $nif;
     
