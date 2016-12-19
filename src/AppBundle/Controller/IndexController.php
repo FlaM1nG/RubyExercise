@@ -75,4 +75,8 @@ class IndexController extends Controller
     public function offShareCarAction() {
         return $this->render('offer/offShareCar.html.twig');
     }
+    
+    public function blogAction() {
+        return $this->render('blog/blog.html.twig');
+    }
 }
