@@ -70,7 +70,6 @@ class Utilities{
     
     public function flashMessage($type, Request $request, $result = null){
         $session = $request->getSession();
-        
         $success = "";
         $error = "Se ha producido un error, por favor vuelva a intentarlo";
         
@@ -82,6 +81,8 @@ class Utilities{
             case 'register':    $success = "Usuario creado";
                                 if($result['result'] == 'username_exists')
                                     $error = "El usuario ya existe";
+                                elseif($result['result'] =='email_exists')
+                                    $error = "El email ya existe";
                                 break;
         endswitch;
         
