@@ -31,20 +31,20 @@
                 
         </div>
         <!-- FIN TITLE -->
+        
+        
+        <!-- PRECIO -->
+        <div class="row row-tra-cat-grid">
+            <span class="tra-price">
+                {{ price|e|number_format(2, '.', '') }}€
+            </span>
+        </div>
+        <!-- FIN PRECIO -->
 
 
         <!-- USER Y PRECIO -->
         <div class="row row-tra-upr-grid">
-            <!-- USER -->
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 col-tra-user">
-                {{ users.userList(hrefUser, srcImgUser, nameUser) }}
-                
-                
-            </div>
-            <!-- FIN USER -->
-
-
-            <!-- PRECIO -->
+            <!-- CATEGORIAS  -->
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7
                 col-tra-grid-price">
                 {% for i in 0..3 %}
@@ -58,20 +58,20 @@
                 
                 
             </div>
-            <!-- FIN PRECIO -->
+            <!-- FIN CATEGORIAS -->
+            
+            
+            <!-- USER -->
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 col-tra-user">
+                {{ users.userList(hrefUser, srcImgUser, nameUser) }}
+                
+                
+            </div>
+            <!-- FIN USER -->
 
 
         </div>
         <!-- FIN USER Y PRECIO -->
-        
-        
-        <!-- CATEGORIAS -->
-        <div class="row row-tra-cat-grid">
-            <span class="tra-price">
-                {{ price|e|number_format(2, '.', '') }}€
-            </span>
-        </div>
-        <!-- FIN CATEGORIAS -->
         
         
     </div>
