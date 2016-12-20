@@ -1,4 +1,5 @@
 {% import '::macros/alert.html.twig' as alerts %}
+{% import '::macros/adminNavbar.html.twig' as navbars %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,30 +43,112 @@
                 <ul class="sidebar-nav">
                     <li class="sidebar-brand">
                         <a href="#">
-                            Start Bootstrap
+                            <img src="{{ asset('img/footer.png') }}" alt="" 
+                                class="img-responsive adm-logo">
                         </a>
                     </li>
+                    
+                    
+                    <!-- USUARIO -->
                     <li>
-                        <a href="#">Usuarios</a>
+                        <div class="row row-adm-user">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <img src="{{ asset('img/usuario3.jpg') }}" alt="" 
+                                class="img-circle img-thumbnail adm-user">
+                            </div>
+                                
+                                
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12
+                                 col-adm-user">
+                                <span class="adm-saludo">
+                                    Bienvenido,
+                                </span>
+                                <span>
+                                    Nombre usuario
+                                </span>
+                            </div>
+                                
+                                
+                        </div>
                     </li>
-                    <li>
-                        <a href="#">Ofertas</a>
-                    </li>
-                    <li>
-                        <a href="#">Overview</a>
-                    </li>
-                    <li>
-                        <a href="#">Events</a>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
+                    <!-- FIN USUARIO -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {#<li>
+                        <a href="#adminUsuarios" data-toggle="collapse">
+                            Usuarios
+                            <span class="glyphicon glyphicon-chevron-down 
+                                  adm-collapse-icon" 
+                              aria-hidden="true"></span>
+                        </a>
+                        
+                    </li>#}
+                    {{ navbars.list('#adminUsuarios', 'collapse', 'usuarios') }}
+                    {#<div class="collapse" id="adminUsuarios">
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 1</a>
+                        </li>
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 2</a>
+                        </li>
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 3</a>
+                        </li>
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 4</a>
+                        </li>
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 5</a>
+                        </li>
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 6</a>
+                        </li>
+                    </div>#}
+                    {% set listaSubRef = [] %}
+                    {% for i in 0..4 %}
+                        {% set listaSubRef = listaSubRef|merge(['#' ~ i]) %}
+                    {% endfor %}
+                    
+                    {% set listaSub = []%}
+                    {% for i in 0..4 %}
+                        {% set listaSub = listaSub|merge(['Submenu ' ~ i] ) %}
+                    {% endfor %}
+                    
+                    {{ navbars.sublist('adminUsuarios', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {{ navbars.list('#adminOfertas', 'collapse', 'ofertas') }}
+                    {{ navbars.sublist('adminOfertas', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {{ navbars.list('#adminCompras', 'collapse', 'compras') }}
+                    {{ navbars.sublist('adminCompras', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {{ navbars.list('#adminMensajes', 'collapse', 'mensajes') }}
+                    {{ navbars.sublist('adminMensajes', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {{ navbars.list('#adminServicios', 'collapse', 'servicios') }}
+                    {{ navbars.sublist('adminServicios', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {{ navbars.list('#adminIncidencias', 'collapse', 'incidencias') }}
+                    {{ navbars.sublist('adminIncidencias', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
                 </ul>
             </div>
             <!-- /#sidebar-wrapper -->
@@ -91,6 +174,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1>Simple Sidebar</h1>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
                             <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
                             <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
                             <!--<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
@@ -125,6 +216,33 @@
                         $("#wrapper").toggleClass("toggled");
                         $("#navbar").toggleClass("toggled");
                     });
+                    
+                    $(".adm-nav-ref").click(function(){
+                        if($(this).attr("aria-expanded") === "true"){
+                            var q = $(this).attr("href");
+                            $(q).removeClass("prueba");
+                            console.log("ESTE ES EL TRUE " + q);
+                        }else if($(".adm-nav-ref").attr("aria-expanded") === "true"){
+                            var r = $(".adm-nav-ref").attr("href");
+                            $(r).removeClass("in");
+                            $(r).removeClass("prueba");
+                            $(".adm-nav-ref").attr("aria-expanded") = "false";
+                            $(this).attr("href").addClass("prueba");
+                            console.log("YA HABIA UN TRUE " + r);
+                        }else{
+                            var p = $(this).attr("href");
+                            $(p).addClass("prueba");
+                            console.log("NO HABIA UN TRUE " + p);
+                        }
+                        
+                        console.log("FIN");
+                    });
+                    
+                    {#if($("data-toggle").attr("aria-expanded") === "true"){
+                        console.log("SALTO");
+                    }else{
+                        console.log("NO SALTO");
+                    }#}
                 });
                 
             </script>
