@@ -217,32 +217,89 @@
                         $("#navbar").toggleClass("toggled");
                     });
                     
+                    var memory = null;
+                    
                     $(".adm-nav-ref").click(function(){
                         if($(this).attr("aria-expanded") === "true"){
-                            var q = $(this).attr("href");
-                            $(q).removeClass("prueba");
-                            console.log("ESTE ES EL TRUE " + q);
-                        }else if($(".adm-nav-ref").attr("aria-expanded") === "true"){
-                            var r = $(".adm-nav-ref").attr("href");
-                            $(r).removeClass("in");
-                            $(r).removeClass("prueba");
-                            $(".adm-nav-ref").attr("aria-expanded", "false");
-                            $(this).attr("href").addClass("prueba");
-                            console.log("YA HABIA UN TRUE " + r);
+                            var e = $(this).attr("href");
+                            
+                            $(e).removeClass("prueba");
+                            
+                            console.log("SI CLICK EN EL QUE YA ESTA ABIERTO " + e);
+                            
+                            
+                        }else if(memory !== null && $(this).attr("href") !== memory){
+                            var e = $(this).attr("href");
+                            
+                            //PRIMERO EN EL QUE PINCHAS
+                            $(e).addClass("prueba");
+                            
+                            //SEGUNDO EL QUE ESTABA ABIERTO
+                            $(memory).attr("aria-expanded", "false");
+                            $(memory).removeClass("prueba");
+                            $(memory).removeClass("in");
+                            
+                            $('a[href^="'+memory+'"]').addClass("collapsed");
+                            $('a[href^="'+memory+'"]').attr("aria-expanded", "false");
+                            
+                            console.log($(".adm-nav-ref").text());
+                            
+                            console.log("SI CLICK EN " + e + " Y OTRO ABIERTO " + memory);
+                            
+                            memory = e;
+                            
+                            console.log("MEMORY:" + e + " E:" + memory);
+                            
                         }else{
-                            var p = $(this).attr("href");
-                            $(p).addClass("prueba");
-                            console.log("NO HABIA UN TRUE " + p);
+                            var e = $(this).attr("href");
+                            $(e).addClass("prueba");
+                            
+                            memory = e;
+                            
+                            console.log("SI TODO CERRADO Y CLICK " + memory);
                         }
                         
                         console.log("FIN");
                     });
                     
-                    {#if($("data-toggle").attr("aria-expanded") === "true"){
-                        console.log("SALTO");
-                    }else{
-                        console.log("NO SALTO");
-                    }#}
+//                    $(".adm-nav-ref").click(function(){
+//                        if($(this).attr("aria-expanded") === "true"){
+//                            var e = $(this).attr("href");
+//                            
+//                            $(e).removeClass("prueba");
+//                            
+//                            console.log("SI CLICK EN EL QUE YA ESTA ABIERTO " + e);
+//                            
+//                            
+//                        }else if($(".adm-nav-ref").attr("aria-expanded") === "true"){
+//                            var e = $(this).attr("href");
+//                            var q = $(".adm-nav-ref").attr("href");
+//                            
+//                            //PRIMERO EN EL QUE PINCHAS
+//                            $(e).addClass("prueba");
+//                            
+//                            //SEGUNDO EL QUE ESTABA ABIERTO
+//                            $(q).attr("aria-expanded", "false");
+//                            $(q).removeClass("prueba");
+//                            $(q).removeClass("in");
+//                            
+//                            $(".adm-nav-ref").addClass("collapsed");
+//                            $(".adm-nav-ref").attr("aria-expanded", "false");
+//                            
+//                            console.log("SI CLICK EN " + e + " Y OTRO ABIERTO " + q);
+//                            
+//                            
+//                        }else{
+//                            var e = $(this).attr("href");
+//                            $(e).addClass("prueba");
+//                            
+//                            memory = e;
+//                            
+//                            console.log("SI TODO CERRADO Y CLICK " + e);
+//                        }
+//                        
+//                        console.log("FIN");
+//                    });
                 });
                 
             </script>
