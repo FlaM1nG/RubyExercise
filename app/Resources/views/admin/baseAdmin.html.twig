@@ -225,7 +225,7 @@
                             
                             $(e).removeClass("prueba");
                             
-                            console.log("SI CLICK EN EL QUE YA ESTA ABIERTO " + e);
+//                            console.log("SI CLICK EN EL QUE YA ESTA ABIERTO " + e);
                             
                             
                         }else if(memory !== null && $(this).attr("href") !== memory){
@@ -242,13 +242,13 @@
                             $('a[href^="'+memory+'"]').addClass("collapsed");
                             $('a[href^="'+memory+'"]').attr("aria-expanded", "false");
                             
-                            console.log($(".adm-nav-ref").text());
+//                            console.log($(".adm-nav-ref").text());
                             
-                            console.log("SI CLICK EN " + e + " Y OTRO ABIERTO " + memory);
+//                            console.log("SI CLICK EN " + e + " Y OTRO ABIERTO " + memory);
                             
                             memory = e;
                             
-                            console.log("MEMORY:" + e + " E:" + memory);
+//                            console.log("MEMORY:" + e + " E:" + memory);
                             
                         }else{
                             var e = $(this).attr("href");
@@ -256,10 +256,10 @@
                             
                             memory = e;
                             
-                            console.log("SI TODO CERRADO Y CLICK " + memory);
+//                            console.log("SI TODO CERRADO Y CLICK " + memory);
                         }
                         
-                        console.log("FIN");
+//                        console.log("FIN");
                     });
                     
 //                    $(".adm-nav-ref").click(function(){
