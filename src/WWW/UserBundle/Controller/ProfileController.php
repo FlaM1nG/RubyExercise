@@ -20,10 +20,13 @@ use WWW\UserBundle\Form\ProfileEmailType;
 use WWW\UserBundle\Form\ProfilePasswordType;
 use WWW\UserBundle\Form\ProfilePhoneType;
 use WWW\UserBundle\Form\ProfilePhotoType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 /**
  * Description of ProfileController
+ * 
+ * 
  *
  * @author Rocio
  */
@@ -35,9 +38,9 @@ class ProfileController extends Controller{
     private $sectionActive = null;
     
     public function profileAction(Request $request){ 
-        
+                
         $this->session = $request->getSession();
-      
+        
         $ch = new ApiRest();
         
         $file = "http://www.whatwantweb.com/api_rest/user/data/get_info_user.php";
@@ -47,10 +50,14 @@ class ProfileController extends Controller{
         
         $result = $ch->sendInformation($arrayData, $file, "parameters");
  
-        if($result['result'] == 'ok'):
-            
-            $this->usuario = new User($result);
         
+            $this->usuario = new User($result);
+        if($result['result'] == 'ok'):
+           
+            if(!$this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')){        
+                $this->get('app.manager.usuario_manager')->login($this->usuario);
+            }
+            
             if($this->usuario->getAddresses()->isEmpty()):
                 $address = new Address();
                 $this->usuario->addAddress($address);

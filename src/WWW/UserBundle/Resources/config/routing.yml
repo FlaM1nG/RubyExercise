@@ -5,7 +5,10 @@ user_register:
 user_login:
     path: /login
     defaults: { _controller: UserBundle:Login:login }
-    
+
+user_login_check:
+    pattern:   /login
+    methods:   [POST]
 user_logout:
     path: /logout
     defaults: { _controller: UserBundle:Login:logout }

@@ -67,7 +67,10 @@ class RegisterController extends Controller{
             endif;
             
             $nacimiento =$arrayBirthdate['year']."-".$mes.'-'.$dia;
-            
+            $this->get('app.manager.usuario_manager')->login($usuario);
+            $tokenRoleUser=$this->get('security.token_storage')->getToken();
+            $request->getSession()->set('tokenRole', $tokenRoleUser);
+            $request->getSession()->save();
             $file = "http://www.whatwantweb.com/api_rest/user/registration/register_user.php";
             $data = array("username" => $usuario->getUsername(),
                           "email" => $usuario->getEmail(),

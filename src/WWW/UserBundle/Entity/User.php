@@ -201,6 +201,7 @@ class User implements UserInterface
             $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
             $this->numAccount = $user['num_account'];
             $this->prefix = $user['prefix'];
+          //  $this->role = $user['ROLE_USER'];
             
             foreach($user['addresses'] as $address):
                
@@ -592,13 +593,22 @@ class User implements UserInterface
 
        return $this->birthdate <= new\DateTime('today - 18 years'); 
     }
-    
+    /** @see \Serializable::serialize() */
     public function serialize() {
-        
+            
+        return serialize(array(
+            $this->id
+            // see section on salt below
+            // $this->salt,
+        ));
     }
-
+    /** @see \Serializable::unserialize() */
     public function unserialize($serialized) {
-        
+        list (
+            $this->id
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
     }
 
     /**

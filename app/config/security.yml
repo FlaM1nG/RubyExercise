@@ -7,7 +7,7 @@ security:
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory:
-            memory: ~
+            memory: ~     
         users:
             entity: {class: WWW\UserBundle\Entity\User, property: username }
 
@@ -16,17 +16,28 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-   
         main:
             anonymous: ~
+            pattern: ^/
+        user:
+            pattern: ^/user/*            
+            provider: users
+            anonymous: ~           
             # activate different ways to authenticate
-
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
+            form_login:
+                login_path:  user_login
+                check_path:  user_login_check
+            logout:
+                path:       user_logout
+            remember_me:
+                secret:   3j9d3MInd39
+                lifetime: 604800 # 1 week in seconds   
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-
+    access_control:
+       # - { path: ^/user/profile, roles: ROLE_USER }        
 
     encoders:
         WWW\UserBundle\Entity\User: bcrypt

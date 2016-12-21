@@ -12,7 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\Session\Session;
-
+use AppBundle\Form\TaskType;
 
 /**
  * Description of LoginType
@@ -24,8 +24,8 @@ class LoginType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
-                ->add('username','text', array('label'=>'Usuario'))
-                ->add('password','password', array('label' => 'Contraseña'))
+                ->add('_username','text', array('label'=>'Usuario'))
+                ->add('_password','password', array('label' => 'Contraseña'))
                 ->add('enviar','submit',array('label'=>'Enviar'))
                 ->add('captcha', 'captcha', array( 'as_url' => true, 
                                                    'reload' => true,
