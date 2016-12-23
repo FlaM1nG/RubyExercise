@@ -73,11 +73,39 @@ class Offer
     /**
      * Constructor
      */
-    public function __construct($data = null,$isOffer = null){ 
+    public function __construct($data = null){ 
       //print_r($data);
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         
-        if(!empty($data) && empty($isOffer)): 
+        if(gettype($data == 'array')):
+            
+            foreach ($data as $key => $value):
+                $key = Inflector::camelize($key);
+        
+                if(property_exists('WWW\ServiceBundle\Entity\Offer',$key)):
+                    if($key == 'photos'):
+                        foreach($value as $photo):
+                            $newPhoto = new Photo($photo);
+                            $this->photos[] = $newPhoto;
+                        endforeach;
+                    else:
+                        $this->$key = $value;
+                    endif;
+                    
+                endif;
+            endforeach;
+            /*Al buscar todas las ofertas de un usuario en el array en vez de 
+             photo viene el campo url
+             */
+            
+            if(array_key_exists('url', $data)):
+                $photo = new Photo();
+                $photo->setUrl($data['url']);
+                $this->photos[] = $photo;
+            endif;
+        endif;
+        
+        /*if(!empty($data) && empty($isOffer)): 
             foreach($data as $key => $value){
                 $this->$key = $value;
             }
@@ -107,7 +135,7 @@ class Offer
                 $photo->setUrl($data['url']);
                 $this->photos[] = $photo;
             endif; 
-        endif;
+        endif;*/
     }
     /**
      * Get id

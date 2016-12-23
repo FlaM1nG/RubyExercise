@@ -33,7 +33,8 @@ class PhotoType extends AbstractType{
                                                   'read_only' =>true,
                                                 ))
                 ->add('checkPhoto',CheckboxType::class,array('label' => ' ',
-                                                             'mapped' => false ));
+                                                             'mapped' => false,
+                                                             'required' => false ));
                 
     }
     

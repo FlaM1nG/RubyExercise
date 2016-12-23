@@ -15,13 +15,17 @@ class OfferUserController extends Controller{
     private $service = null;
     private $offer = null;
     private $session = null;
+    private $ut = null;
     
    public function showOfferAction(Request $request){ 
        $this->session = $request->getSession();
+       $this->ut = new Utilities();
        
-       $arrayOffer = $this->searchOffer($request->get('idOffer'));
+       $formulario = $this->searchOffer($request->get('idOffer'),$request);
+
+       $typeService = $this->nameService($this->service);
        
-       $this->service = $arrayOffer['service'];
+       /*$this->service = $arrayOffer['service'];
        $this->offer = $arrayOffer['offer'];
        $formulario = $this->createForm(TradeType::class,$this->offer);
        $typeService = "";
@@ -38,35 +42,58 @@ class OfferUserController extends Controller{
           
            $this->saveOffer($request);
        endif;
-       
+       */
        return $this->render('UserBundle:Offers:'.$typeService.'.html.twig',
                        array('formulario' => $formulario->createView(),
                              'offer' => $this->offer));
    }
-
-   private function searchOffer($id){
-       $file = "http://www.whatwantweb.com/api_rest/services/offer/get_offer.php";
-       $arrayOffer = null;
-       $offer = null;
+   
+   private function nameService($idService){
        
+       $nameService = "";
+       
+       switch($idService):
+           
+           case 1: $nameService = "trade";
+                   break; 
+       endswitch;
+       
+       return $nameService;
+   }
+
+   private function searchOffer($id,$request){
+       
+       $file = "http://www.whatwantweb.com/api_rest/services/offer/get_offer.php";
        $ch = new ApiRest();
+       
        $data['id'] = $id;
        $result = $ch->resultApiRed($data, $file);
+       $formulario = null;
      
-       $this->flashMessageErrorSearch($result);
+        if($result['result'] == 'ok'):
+
+            $this->service = $result['service_id'];
+
+             if($result['service_id'] == 1):
+                 $this->createTrade($result);
+                 $formulario = $this->createForm(TradeType::class,$this->offer);
+             endif;
+        else:     
+            $this->ut->flashMessage("offer", $request, $result);
+        endif;
+
+        return $formulario;
+   }
+   
+   private function createTrade($result){
        
-       $arrayOffer['service'] = $result['service_id'];
-      
-       if($result['service_id'] == 1):
-            $offer = new Trade($result,true);
-            $utility = new Utilities();
-            $arrayCategory = $utility->getArrayCategoryTrade();
-            $offer->setCategory($arrayCategory[$result['category_id']]);
-       endif; 
-       
-       $arrayOffer['offer'] = $offer;
-       
-       return $arrayOffer;
+        $offer = new Trade($result,true);
+        
+        $arrayCategory = $this->ut->getArrayCategoryTrade();
+        $offer->setCategory($arrayCategory[$result['category_id']]);
+        
+        $this->offer = $offer;
+
    }
    
    private function saveOffer(Request $request){
@@ -120,7 +147,6 @@ class OfferUserController extends Controller{
         $informacion['data'] = json_encode($data);
         $result = $ch->resultApiRed($informacion, $filePhotos);
 
-        print_r($result);
         if($result['result'] == 'ok'):
             $idsPhotos = '';
             
@@ -134,7 +160,7 @@ class OfferUserController extends Controller{
            
             return $idsPhotos;
         else:
-            $this->flashMessageErrorSearch($result['result']);
+           // $this->flashMessageErrorSearch($result['result']);
         endif;
         
     }
@@ -152,25 +178,6 @@ class OfferUserController extends Controller{
         $info['photos_id'] = $ids;
 
         $result = $ch->resultApiRed($info, $filePhotos);
-        print_r($result);
-        $this->flashMessageGeneral($result);   
+        
     }
-   
-   private function flashMessageGeneral($result){
-       
-       if($result['result'] == 'ok'):
-           $this->addFlash('messageSuccess','Datos actualizados correctamente');
-        else:
-            $this->addFlash('messageFail','Error al actualizar');
-        endif;
-           
-   }
-   
-   private function flashMessageErrorSearch($result){
-       
-       if($result['result'] != 'ok')
-            $this->addFlash('messageFail','Ups ha ocurrido algún problema, inténtelo de nuevo más tarde');
-       
-   }
-
 }

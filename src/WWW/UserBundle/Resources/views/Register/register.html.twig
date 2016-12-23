@@ -249,6 +249,12 @@
                $('.registroUsuario_nif').css('display','none'); 
             }
         }
+        
+        if($('#registroUsuario_isEnterprise').prop('checked')){
+            $('.registroUsuario_nif').css('display','block');
+            $('#registroUsuario_nif').attr('required','required');
+        }
+        
     });
 </script>
 {% endblock %}

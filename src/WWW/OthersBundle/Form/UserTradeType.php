@@ -21,8 +21,7 @@ use WWW\UserBundle\Entity\User;
 class UserTradeType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-       echo "<br><br>USER TRADE TYPE<BR><BR>";
-       print_r($options['data']->getTrades());
+       
         $builder
             ->add('trades',CollectionType::class, array('entry_type' => TradeType::class,  
                                                        ))    

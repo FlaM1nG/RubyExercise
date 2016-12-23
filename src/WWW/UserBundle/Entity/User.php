@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\OthersBundle\Entity\TradeCategory;
+use WWW\GlobalBundle\Entity\Photo;
 
 
 /**
@@ -42,14 +43,27 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * @var string
      * 
-     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"email","register"})
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"register","password"})
      * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/",
      *               message="La contraseña debe contener letras y números",
-     *               groups = {"email","register"})
-     * @Assert\Length(min=8, groups = {"email","register"})
+     *               groups = {"register","password"})
+     * @Assert\Length(min=8, groups = {"register","password"})
      * 
      */
     private $password;
+    
+    /**
+     * @var string
+     * 
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"email","password"})
+     * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/",
+     *               message="La contraseña debe contener letras y números",
+     *               groups = {"email","password"})
+     * @Assert\Length(min=8, groups = {"email","password"})
+     * 
+     */
+    
+    private $passwordEnClaro;
 
     /**
      * @var string
@@ -65,6 +79,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
      * @var \DateTime
      * 
      * @Assert\Date(groups = {"register"})
+     * @Assert\NotBlank(groups={"personalData"})
      */
     private $birthdate;
 
@@ -128,7 +143,13 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     private $photo;
 
     /**
-     * @var integer
+     * @var string
+     * @Assert\Length(min=9, max=9, groups = {"register"})
+     * @Assert\Regex(
+     *     pattern="/(^\d{8}[A-Z]$)|(^[A-Z]\d{8}$)/",
+     *     match=false,
+     *     message="El formato es X00000000 o 00000000X"
+     * )
      * 
      */
     private $nif;
@@ -156,8 +177,9 @@ class User implements UserInterface, GroupSequenceProviderInterface{
 
     /**
      * @var string
-     * @Assert\Length(max=24)
+     * @Assert\Length(max=24,groups={"bank"})
      * @Assert\NotBlank(groups={"bank"})
+     * @Assert\Iban(message="formato incorrecto",groups={"bank"})
      */
     private $numAccount;
 
@@ -194,14 +216,14 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $trades;
+    private $offers;
 
     /**
      * Constructor
      */
     public function __construct(Array $user=null){  
         
-        if(!empty($user)): 
+        if(!empty($user)):  
             $this->birthdate = date_create_from_format('Y-m-d', $user['birthdate']);
             $this->email = $user['email'];
             $this->id = $user['id'];
@@ -212,10 +234,10 @@ class User implements UserInterface, GroupSequenceProviderInterface{
             $this->surname = $user['surname'];
             $this->username = $user['username'];
             $this->password = $user['password'];
-            $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+            //$this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
             $this->numAccount = $user['num_account'];
             $this->prefix = $user['prefix'];
-            $this->trades = $this->searchTrades();
+            $this->offers = $this->searchOffers();
             
             foreach($user['addresses'] as $address):
                
@@ -224,8 +246,8 @@ class User implements UserInterface, GroupSequenceProviderInterface{
             
             endforeach;
         else:
-            $this->addresses = new ArrayCollection();
-            $this->trades = Array();
+           // $this->addresses = new ArrayCollection();
+            $this->offers = Array();
         endif;
         
     }
@@ -331,6 +353,28 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     {
         return $this->password;
     }
+    
+    /**
+     * Get passwordEnClaro
+     *
+     * @return string 
+     */
+    public function getPasswordEnClaro(){
+        return $this->passwordEnClaro;
+    }
+    
+    /**
+     * Set password
+     *
+     * @param string passwordEnClaro
+     * @return User
+     */
+    public function setPasswordEnClaro($passwordEnClaro){
+        
+        $this->passwordEnClaro = $passwordEnClaro;
+        return $this->passwordEnClaro;
+        
+    }
 
     /**
      * Set salt
@@ -429,9 +473,9 @@ class User implements UserInterface, GroupSequenceProviderInterface{
      *
      * @param string $linkInvitation
      * @return User
-     */
+     */             
     public function setLinkInvitation($linkInvitation)
-    {
+    { 
         $this->linkInvitation = $linkInvitation;
 
         return $this;
@@ -666,12 +710,17 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * Set photo
      *
-     * @param \WWW\GlobalBundle\Entity\Photo $photo
+     * @param  $photo
      * @return User
      */
-    public function setPhoto(\WWW\GlobalBundle\Entity\Photo $photo = null)
+    public function setPhoto( $photo = null)
     {
-        $this->photo = $photo;
+        if(gettype($photo) == 'array'):
+            $this->photo = new Photo($photo);
+        else:
+            $this->photo = $photo;
+        endif;
+        
 
         return $this;
     }
@@ -689,15 +738,23 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * Add addresses
      *
-     * @param \WWW\GlobalBundle\Entity\Address $addresses
+     * @param $addresses
      * @return User
      */
-    public function addAddress(\WWW\GlobalBundle\Entity\Address $addresses)
-    {
-        $arrayAddresses = $addresses->toArray();
-        $this->addresses[$arrayAddresses['id']] = $addresses->toArray();
+    public function addAddress($addresses)
+    {  
+        if(gettype($addresses) == 'array'):
+            $newAddresses = new Address($addresses);
+            $this->addresses[] = $newAddresses;
+        else:
+            $this->addresses[] = $addresses;
+        endif;
+        /*$arrayAddresses = $addresses->toArray();
+        $this->addresses[$arrayAddresses['id']] = $addresses->toArray();*/
 
         return $this;
+        echo "<br><br>HOLA";
+        print_r($this->addresses);
     }
 
     /**
@@ -988,30 +1045,37 @@ class User implements UserInterface, GroupSequenceProviderInterface{
      * @param type $index
      * @return Array
      */
-    public function getTrades($index = null){
+    public function getOffers($index = null){
         
-       
-        if(!is_null($index)){
-            return $this->trades[$index];
-        }else{ 
-            return $this->trades;
-        
-        }
+       return $this->offers;
         
     }
     
-    public function setTrades(Array $trades = null){
+    public function setOffers($offers = null){
         
-        $this->trades = $trades;
+        $this->offers = $offers;
         
     }
     
-    public function deleteTrade($id){
+    /*public function deleteTrade($id){
        
         unset($this->trades[$id]);
+    }*/
+    
+    private function searchOffers(){
+        $file = 'http://www.whatwantweb.com/api_rest/services/offer/get_all_user_offers.php';
+        $ch = new ApiRest();
+        
+        $data = array();
+        $data['username'] = $this->username;
+        $data['id'] = $this->id;
+        $data['password'] = $this->password;
+        
+        $result = $ch->resultApiRed($data, $file);
+        print_r($result);
     }
     
-    private function searchTrades(){
+    /*private function searchTrades(){
         
         $arrayOffer = array();
         $file = 'http://www.whatwantweb.com/api_rest/services/offer/get_user_offers.php';
@@ -1038,9 +1102,9 @@ class User implements UserInterface, GroupSequenceProviderInterface{
         endforeach;
       
         return $arrayOffer;
-    }
+    }*/
     
-    private function tradeCategory(){
+    /*private function tradeCategory(){
         
         $arrayCategory = array();
         
@@ -1057,7 +1121,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
         endif;  
         
         return $arrayCategory;
-    }
+    }*/
     /*
      * @return Array de grupos
      */
@@ -1065,7 +1129,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     {
         $groups = array('User');
 
-        if ($this->isPremium()) {
+        if ($this->isEmail()) {
             
             $groups[] = 'email';
             
@@ -1078,7 +1142,16 @@ class User implements UserInterface, GroupSequenceProviderInterface{
            $groups[] = "personalData";
            
         }
+        elseif($this->isPassword()){
+            
+           $groups[] = "password";
+           
+        }
 
         return $groups;
+    }
+    
+    public function getLastAddress(){
+        return end($this->getAddresses());
     }
 }

@@ -108,7 +108,7 @@
             </a>
         </li>
     </ul>
-           
+   {{form_start(formulario)}}        
     <div class="tab-content">
         {% block content3 %}
             {% for flash_message in app.session.flashbag.get('messageSuccess') %}
@@ -121,171 +121,142 @@
                 {{ alerts.alert('alert-warning', flash_message, null) }}
             {% endfor %}    
         {% endblock %}
+        {{ form_errors(formulario) }}
         
         <div class="tab-pane {{tabActive == 'personal' or tabActive is empty ? 'active'}}" name="personal" id="personal">
+
+                {{ form_row(formulario.username) }}
+                {{ form_row(formulario.name) }}
+                {{ form_row(formulario.surname) }}
+                {{ form_row(formulario.sex) }}
+                {{ form_row(formulario.birthdate) }}
+                {{ form_widget(formulario.nif, { 'attr': {style:'display:none'} } )}}
+                {{ form_row(formulario.savePersonalData) }}
+                {{ form_row(formulario.linkInvitation) }}
+                  
             
-            {{ form_start(formPersonal) }}
-                {{ form_row(formPersonal.saveData)}}
-                {{ form_row(formPersonal.username) }}
-                {{ form_row(formPersonal.name) }}
-                {{ form_row(formPersonal.surname) }}
-                {{ form_row(formPersonal.birthdate) }}
-                {{ form_row(formPersonal.sex) }}
-                {{ form_row(formPersonal.linkInvitation) }}
-            {{ form_end(formPersonal)}}    
-                
         </div>
         
         <div class="tab-pane {{tabActive == 'email' ? 'active'}}" name="email" id="email">
-          
-            Email actual: {{ usuario.email }}
-            {{ form_start(formEmail) }}
-                {{ form_row(formEmail.email) }}
-                {{ form_row(formEmail.password) }}
-                
-            {{ form_end(formEmail)}}      
-                
+            Email actual: {{ email }} 
+            {{ form_row(formulario.email)}}
+            {{ form_row(formulario.passwordEnClaro) }}
+            {{ form_row(formulario.saveEmail) }}<br>
+        
         </div>
         
         <div class="tab-pane {{tabActive == 'password' ? 'active'}}" name="password" id="password">
-            {{ form_errors(formPassword) }}
-            {{ form_start(formPassword) }}
-                {{ form_row(formPassword.oldPassword) }}
-                {{ form_row(formPassword.password) }}
-            {{ form_end(formPassword)}}    
+            
+            <div class="form-group">
+                <label class="control-label" for="profileUser_passwordEnClaro">
+                    Contraseña
+                </label>
+                <input type="password" id="profileUser_passwordEnClaro" name="profileUser[passwordEnClaro]" class="form-control">
+            </div>
+            {{ form_row(formulario.password) }}
+            {{ form_row(formulario.savePassword) }}
                 
         </div>
         
         <div class="tab-pane {{tabActive == 'phone' ? 'active'}}" name="phone" id="phone">
+            <!-- Los dos próximos campos no se deberían de ver, deberían de 
+            saltar después de darge a guardar que es cuando se envía el código -->
+            {{ form_row(formulario.confirmPhone) }}
+            {{ form_row(formulario.codConfirmation) }}
+            <!-- Botón para que te envíe el código, el teléfono no se guarda 
+            hasta que no se ha confirmado -->
+            {{ form_row(formulario.savePhone) }}
+            {{ form_row(formulario.prefix) }}
+            {{ form_row(formulario.phone) }}
             
-            {{ form_start(formPhone) }}
-                {{ form_row(formPhone.confirmPhone)}}
-                {{ form_row(formPhone.savePhone)}}
-                {{ form_row(formPhone.prefix)}}
-                {{ form_row(formPhone.phone) }}
-                {{ form_row(formPhone.codConfirmation)}}
-                {{ form_row(formPhone.confirmPhone)}}
-            {{ form_end(formPhone)}}
                 
         </div>
         
         <div class="tab-pane {{tabActive == 'photo' ? 'active'}}" name="photo" id="photo">
             
-            {{ form_start(formPhoto) }}
-                {{ form_row(formPhoto.photo) }}
-            {{ form_end(formPhoto)}}    
+            {{ form_row(formulario.photo.id) }}
+            {{ form_row(formulario.photo.url, { 'attr': {style:'display:none'} }) }}
+            {% if formulario.photo.url.vars.value is not empty %}
+                <img src="{{formulario.photo.url.vars.value}}" width="100" height="100" >
+            {% endif %}    
+            {{ form_row(formulario.photo.checkPhoto, { 'attr': {style:'display:none'} } ) }}
+            
+            <div id="profileImage">
+                <!-- contenedor donde se previsualizará la imagen a subir -->
+            </div>  
+            
+            {{ form_row(formulario.fileImage) }}
+            {{ form_row(formulario.savePhoto)}}
             
         </div>
             
         <div class="tab-pane {{tabActive == 'bank' ? 'active'}}" name="bank" id="bank">
             
-            {{ form_start(formBank) }}
-                {{ form_row(formBank.num_account)}}
-            {#{ form_end(formBank) }#}
-        </form>
+                {{ form_row(formulario.saveBank) }}
+                {{ form_row(formulario.numAccount) }}
+       
         </div>
         
         <div class="tab-pane {{tabActive == 'myOffer' ? 'active'}}" name="myOffer" id="myOffer">
             
-            {{ form_start(formOfferts) }}
-                {{form_row(formOfferts.deleteOffers)}}
-                {% for offer in formOfferts.trades %}
+            {% for offer in usuario.offers %}
+                
+                <div style="border:solid 1px orange; margin-top: 2em">
                     <h4>
-                        <a href="{{path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.offer.vars.value.id})}}">
-                            {{offer.offer.vars.value.title}}
-                        </a>    
-                    </h4>    
-                    {{offer.offer.vars.value.description}}<br>    
-                    {{offer.vars.value.price}}€
-                    {{offer.category.vars.data.name}}
+                        <a href="{{path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.id})}}">
+                            {{offer.title}}                  
+                        </a> 
+                    </h4>   
+                    {{offer.description}}
+                    <img src="{{offer.photos.0.url}}" />    
 
-                    {% if offer.offer.photos|length > 0%}
-                        <img src="{{offer.offer.photos.0.url.vars.value}}" height="42" width="42">
-                    {% endif %}    
-                    {{form_row(offer.checkOffer)}}
-
-                {% endfor%}
-                {{form_row(formOfferts.idsDeleteOffers)}}
-            </form>
-             
+                </div>
+                        
+            {% endfor %}    
+                
         </div>
         <div class="tab-pane {{tabActive == 'address' ? 'active'}}" name="address" id="address">
             
-           {{ form_start(formAddress, {'attr': {'novalidate': 'novalidate'}}) }}  
-                {{ form_row(formAddress.section)}}
-                <div class="contentAddress">
+            {% for address in formulario.addresses %}
+                <div class="dataAddress" data-id="{{address.vars.value.id}}" style="border:solid 1px orange;">
+                    {{form_widget(address.checkDeleteAddress, { 'attr': {'data-id' : address.vars.value.id } })}}
+                    <h4>{{address.vars.value.name}}</h4><br>
+                    {{address.vars.value.country}}<br>
+                    {{address.vars.value.region}}<br>
+                    {{address.vars.value.city}}<br>
+                    {{address.vars.value.street}}<br>
+                    {{address.vars.value.zipCode}}
+                    {{form_row(address.id)}}
                     
-                    {% set readOnly = "" %}
-                    {% set cont = 0 %}
-                    {% set disableButton = "" %}
-                    {% set nameButton = "saveAddress" %}
-                    {% set valueButton = "Guardar" %}
-                    
-                    
-                    {% for address in formAddress.addresses %}
-                        
-                        {% if address.vars.value.id != 0 %}
-                        
-                            {% set readOnly = "readonly= true" %}
-                            {% set nameButton = "editar" %}
-                            {% set valueButton = "Editar" %}
-                            {% set disableButton = "disabled" %}
-                            
-                        {% endif %}
-                    
-                        <div id="address{{address.vars.value.id}}">
-                       
-                        {{ form_label(address.name)}}
-                        <input type="text" id="profileUser_addresses_{{cont}}}_name" 
-                               name="profileUser[addresses][{{cont}}][name]" 
-                               required="required" 
-                               class="form-control"
-                               {{readOnly}}
-                               value="{{address.name.vars.value}}">
-                        
-                        {{ form_label(address.street) }}
-                        <input type="text" id="profileUser_addresses_{{cont}}}_street" 
-                               name="profileUser[addresses][{{cont}}][street]" 
-                               required="required" 
-                               class="form-control"
-                               {{readOnly}}
-                               value="{{address.street.vars.value}}">
-
-                        {{ form_label(address.isDefault) }}
-                        <input type="checkbox" id="profileUser_addresses_{{cont}}_isDefault" 
-                               name="profileUser[addresses][{{cont}}][isDefault]" 
-                               {{ disableButton }}
-                               required="required"
-                               {{address.vars.value.isDefault == 1 ? 'checked' : ''}}>
-                        {% set cont = cont+1%}       
-                        {{ form_row(address.id)}}
-
-                        {{ form_row(address.zipCode)}}
-                        {{ form_row(address.city)}}
-                       
-                        {{ form_row(address.region)}}
-                        {{ form_row(address.country)}}
-                        {{ form_row(address.idZipCode)}}
-                        
-                        <button type="submit" name="{{ nameButton }}" class="buttonEditAddress">{{ valueButton }}</button>
-                        {% if address.vars.value.id != 0 %}
-                           <input class="posArrayAddress" type ="hidden" name="posArrayAddress" value="{{address.vars.name}}">
-                           <button type="submit" name="eliminar" class="buttonDeleteAddress">Eliminar</button>
-                        {% endif %}   
-                   </div>
-                    {% endfor %}   
+                    <button type="submit" name="profileUser[editAddress]" data-id: {{ address.vars.value.id }} 
+                            class="btn-default btn editAddress">Editar </button>
                 </div>
-                <input type="submit" value="+" name="buttonAddAddress" id="buttonAddAddress">
-                {#{form_end(formAddress)}#}
+                
+                <div style="border:solid 1px orange; display: none">
+                    {{form_row(address.isDefault)}}
+                    {{form_row(address.name)}}
+                    {{form_row(address.country)}}
+                    {{form_row(address.region)}}
+                    {{form_row(address.city)}}
+                    {{form_row(address.street)}}
+                    {{form_row(address.zipCode)}}
+                    {{form_row(address.editAddress)}}
+                    
+                </div>
+            {% endfor %}
+            {{ form_row(formulario.idDeletesAddresses) }}
+            
+            <ul class="newAddress" data-prototype="{{ form_widget(formulario.addresses.vars.prototype)|e('html_attr') }}">
+     
+            </ul>
+            {{ form_row(formulario.deleteAddresses) }}
+            {{ form_row(formulario.addAddress, { 'attr': {style:'display:none'}})}}
+            
         </div>
         
     </div>    
 
-                
-                <input type="hidden" value="sectionPersonal" name="section" id="sectionUser">
-                <input type="hidden" value="" name="idChangeAddress" id="idChangeAddress">
-                <input type="hidden" value="" name="idDeleteAddress" id="idDeleteAddress">
-                <input type="hidden" value="" name="addAddress" id="addAddress">
+{{form_end(formulario)}}
               
 {% endblock %}
 
@@ -311,6 +282,128 @@
         }
     });
     
+    </script>
+    
+    <script type="text/javascript">
+        //Previsualización de las imágenes
+        function archivo(evt) { 
+                  var files = evt.target.files; // FileList object
+             
+                  // Obtenemos la imagen del campo "file".
+                  for (var i = 0 ; i< files.length; i++) {
+                        var f = files[i];
+             
+                    var reader = new FileReader();
+             
+                    reader.onload = (function(theFile) {
+                        return function(e) {
+                          // Insertamos la imagen
+                         document.getElementById("profileImage").innerHTML = ['<img height="100" widht="100" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+                        };
+                    })(f);
+             
+                    reader.readAsDataURL(f);
+                  }
+              }
+             
+              document.getElementById('profileUser_fileImage').addEventListener('change', archivo, false);
+
+    </script>
+    
+    <script type="text/javascript">
+
+
+        $(document).ready(function() {
+            
+            var $collectionHolder;
+
+            // setup an "add a tag" link
+            var $addTagLink = $('<button class="add_tag_link">Nueva Dirección</button>');
+            var $newLinkLi = $('<li></li>').append($addTagLink);
+
+            jQuery(document).ready(function() {
+                // Get the ul that holds the collection of tags
+                $collectionHolder = $('ul.newAddress');
+
+                // add the "add a tag" anchor and li to the tags ul
+                $collectionHolder.append($newLinkLi);
+
+                // count the current form inputs we have (e.g. 2), use that as the new
+                // index when inserting a new item (e.g. 2)
+                $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+                $addTagLink.on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+
+                    // add a new tag form (see next code block)
+                    addTagForm($collectionHolder, $newLinkLi);
+                    
+                    $('#profileUser_deleteAddresses').css('display','none');
+                    //Solo se permite añadir una dirección de una vez, 
+                    //así que ocultamos el botón
+                    $('.add_tag_link').css('display','none');
+                    //Mostramos el botón de guardar una dirección nueva
+                    $('#profileUser_addAddress').css('display','block');
+                });
+            });
+            
+            function addTagForm($collectionHolder, $newLinkLi) {
+                // Get the data-prototype explained earlier
+                var prototype = $collectionHolder.data('prototype');
+
+                // get the new index
+                var index = $collectionHolder.data('index');
+
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+
+                // increase the index with one for the next item
+                $collectionHolder.data('index', index + 1);
+
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormLi = $('<li></li>').append(newForm);
+                $newLinkLi.before($newFormLi);
+                
+            }
+           
+            
+            $(document).on('click','.checkDeleteAddress', deleteAddresses);
+            $(document).on('click','.editAddress', editAddress);
+            $(document).on('click','.add_tag_link',showHiddenButtonAdd);
+            
+            function deleteAddresses(){
+                
+                var idsAddress =''; 
+                
+                $('.checkDeleteAddress:checked').each(function() {
+                    
+                    idsAddress = idsAddress + $(this).attr('data-id') + ',';  
+                });
+                
+        
+                //idsAddress = idsAddress.substr(-1);
+                $('#profileUser_idDeletesAddresses').val(idsAddress);
+                
+            }
+            
+            function editAddress(e){
+                e.preventDefault();
+                
+                $('.dataAddress').css('display','none');
+                $(this).parent().next().css('display','block');
+                $('.add_tag_link').css('display','none');
+                $('.editAddress').css('display','block');
+                $('#profileUser_deleteAddresses').css('display','none');
+            }
+            
+            function showHiddenButtonAdd(e){
+                
+            }
+        });
+
+
     </script>
     
     <script type="text/javascript" src="{{ asset('js/profile.js') }}">  </script>
