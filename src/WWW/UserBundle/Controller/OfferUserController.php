@@ -17,35 +17,42 @@ class OfferUserController extends Controller{
     private $session = null;
     private $ut = null;
     
+    
    public function showOfferAction(Request $request){ 
-       $this->session = $request->getSession();
-       $this->ut = new Utilities();
        
-       $formulario = $this->searchOffer($request->get('idOffer'),$request);
+        $this->session = $request->getSession();
+        $this->ut = new Utilities();
+       
+        $formulario = $this->searchOffer($request,$request->get('idOffer'));
 
-       $typeService = $this->nameService($this->service);
+        $typeService = $this->nameService($this->service);
        
-       /*$this->service = $arrayOffer['service'];
-       $this->offer = $arrayOffer['offer'];
-       $formulario = $this->createForm(TradeType::class,$this->offer);
-       $typeService = "";
-       
-       if($this->service == 1):                      
-            
-            $typeService = 'trade';
-            $formulario = $this->createForm(TradeType::class,$this->offer);
-       endif;
-       
-       $formulario->handleRequest($request);
-       
-       if($formulario->isSubmitted()):
-          
-           $this->saveOffer($request);
-       endif;
-       */
+        $formulario->handleRequest($request);
+        
+        if($formulario->isSubmitted() && $formulario->isValid()):  
+            //echo $typeService;
+                
+                switch($typeService):
+                    case 'trade':   $this->offerTypeTrade($request,$formulario);
+                                    break;
+                endswitch;
+        endif;    
+
+       $formulario = $this->createForm(TradeType::class,$this->offer); 
        return $this->render('UserBundle:Offers:'.$typeService.'.html.twig',
                        array('formulario' => $formulario->createView(),
                              'offer' => $this->offer));
+   }
+   
+   private function offerTypeTrade(Request $request, $formulario){
+       
+        if($formulario->get('saveTrade')->isClicked()):
+           $this->saveTrade($request);
+        
+        elseif($formulario->get('deletePhotos')->isClicked()):   
+            $this->deleteImages($request);
+           
+        endif;    
    }
    
    private function nameService($idService){
@@ -61,7 +68,7 @@ class OfferUserController extends Controller{
        return $nameService;
    }
 
-   private function searchOffer($id,$request){
+   private function searchOffer(Request $request, $id){
        
        $file = "http://www.whatwantweb.com/api_rest/services/offer/get_offer.php";
        $ch = new ApiRest();
@@ -106,7 +113,12 @@ class OfferUserController extends Controller{
    }
    
     private function saveTrade(Request $request){
-        $arrayImage = $request->files->get('trade')['offer']['fileImage'];   
+        
+        $arrayImage = $request->files->get('trade')['offer']['fileImage'];
+        if(!empty($arrayImage[0])):
+            //Guardar imágenes
+        endif;
+        
         $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/services/offer/update_offer.php";
         
@@ -121,19 +133,57 @@ class OfferUserController extends Controller{
         $data['sub_values']['dimensions'] = "'".$this->offer->getDimensions()."'";
         $data['sub_values']['weight'] = $this->offer->getWeight();
         $data['sub_values']['region'] = "'".$this->offer->getRegion()."'";
+        $data['sub_values']['category_id'] = $this->offer->getCategory()->getId();
         
         $info['data']= json_encode($data);
        
+        
         $result = $ch->resultApiRed($info, $file);
         
-        if($result['result'] == 'ok'):
-            if(!empty($arrayImage[0])):
-                $ids = $this->uploadImage ($arrayImage);
-                $this->insertPhotoOffer($ids);
+        $this->ut->flashMessage("general", $request, $result);
+       
+    }
+           
+    private function deleteImages(Request $request){
+        $arrayPhotos = $request->get('trade')['offer']['photos'];
+        
+        $idsPhotos = array();
+        $flashMessage['result'] = 'ok'; 
+
+        foreach($arrayPhotos as $key => $photo):
+            if(key_exists('checkPhoto', $photo)):
+                $idsPhotos[] = array('id'=> $photo['id'], 'pos' => $key);
             endif;
+        endforeach;
+
+        if(!empty($idsPhotos)):
+            
+            $file = "http://www.whatwantweb.com/api_rest/services/photos/delete_offer_photo.php";
+            $data['id'] = $this->session->get('id');
+            $data['username'] = $this->session->get('username');
+            $data['password'] = $this->session->get('password');
+            $data['offer_id'] = $this->offer->getId();
+            
+            foreach($idsPhotos as $photo):
+                
+                $data['photos_id'] = $photo['id'];
+            
+                $ch = new ApiRest();
+                $result = $ch->resultApiRed($data, $file);
+                $result['result'] = 'ok';
+                if($result['result'] == 'ok'): 
+
+                    $this->offer->getOffer()->removePhotoByPos($photo['pos']);
+                else:
+                    $flashMessage['result'] = 'ko';
+                endif;
+            endforeach;
+            
+            $this->ut->flashMessage("general", $request, $result);
         endif;
-   }
-   
+
+    }   
+    
     private function uploadImage($arrayImage){
         $arrayPhotos = null;
         $ut = new Utilities();
@@ -160,24 +210,9 @@ class OfferUserController extends Controller{
            
             return $idsPhotos;
         else:
-           // $this->flashMessageErrorSearch($result['result']);
+            $this->flashMessageErrorSearch($result['result']);
         endif;
         
     }
     
-    private function insertPhotoOffer($ids){
-        
-        $filePhotos = "http://www.whatwantweb.com/api_rest/services/photos/insert_offer_photo.php";
-        
-        $ch = new ApiRest();
-        
-        $info['id'] = $this->session->get('id');
-        $info['username'] = $this->session->get('username');
-        $info['password'] = $this->session->get('password');
-        $info['offer_id'] = $this->offer->getId();
-        $info['photos_id'] = $ids;
-
-        $result = $ch->resultApiRed($info, $filePhotos);
-        
-    }
 }

@@ -46,7 +46,6 @@ class OfferType extends AbstractType{
                                                          'attr' => array('accept'=>'image/*')))
                 ->add('title','text', array('label'=>'Título'))
                 ->add('expired',HiddenType::class)
-                ->add('deletePhotos','submit', array('label' => 'Eliminar imágenes'))
                 ->add('description','textarea', array('label'=>'Descripción',
                                                   'required' => false ));
                 

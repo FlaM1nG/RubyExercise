@@ -15,10 +15,11 @@
             {{  alerts.alert(null, flash_message, null) }}
         {% endfor %}
     {% endblock %}
-
+    {{ form_errors(formulario) }}
+{#{dump(offer)}#}
     {{ form_start(formulario) }}
     
-        {{ form_row(formulario.guardar) }}
+        {{ form_row(formulario.saveTrade) }}
         {{ form_row(formulario.category) }}
         {{ form_row(formulario.region) }}
         {{ form_row(formulario.offer.title) }}
@@ -31,14 +32,18 @@
                     <img src="{{ photo.vars.value.url }}" width="40" height="40">
                     {{form_row(photo.id)}}
                     {{form_row(photo.checkPhoto)}}
+                    {{form_row(photo.url, { 'attr': {style:'display:none'} }) }}
             {% endfor %}    
         </ul>
         <output id="list"></output>
+        {{ form_row(formulario.deletePhotos) }}
         {{ form_row(formulario.offer.fileImage) }}
-
+        {{ form_row(formulario.offer.expired) }}
 
         {{ form_row(formulario.weight) }}
-        {{ form_row(formulario.price) }}  
+        {{ form_row(formulario.price) }} 
+        {{ form_row(formulario.checkOffer, { 'attr': {style:'display:none'} }) }}
+    {{ form_end(formulario) }}    
         
 {% endblock %}
 

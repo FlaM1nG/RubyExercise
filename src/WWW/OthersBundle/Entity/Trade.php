@@ -273,4 +273,6 @@ class Trade
     {
         return $this->region;
     }
+    
+    
 }

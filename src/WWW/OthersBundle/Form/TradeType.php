@@ -62,8 +62,8 @@ class TradeType extends AbstractType{
             ->add('checkOffer',CheckboxType::class,array('label' => ' ',
                                                          'mapped' => false,
                                                          'required' => false))                                                      
-            ->add('guardar','submit',array('label'=>'Guardar'));
-
+            ->add('saveTrade','submit',array('label'=>'Guardar'))
+            ->add('deletePhotos','submit', array('label' => 'Eliminar imágenes'));                                                
             
         
     }
@@ -71,7 +71,8 @@ class TradeType extends AbstractType{
     
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data_class'=>Trade::class));
+        $resolver->setDefaults(array('data_class'=>Trade::class,
+                                     'allow_extra_fields' => true,));
     }
 
     private function arrayCategories(){

@@ -74,7 +74,7 @@ class Offer
      * Constructor
      */
     public function __construct($data = null){ 
-      //print_r($data);
+      
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         
         if(gettype($data == 'array')):
@@ -353,6 +353,16 @@ class Offer
     public function removePhoto(\WWW\GlobalBundle\Entity\Photo $photos)
     {
         $this->photos->removeElement($photos);
+    }
+    
+    /**
+     * Remove photo by position
+     *  
+     * @param type $pos
+     */
+    public function removePhotoByPos($pos){
+        
+        unset($this->photos[$pos]);
     }
 
     /**
