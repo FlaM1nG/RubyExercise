@@ -72,8 +72,6 @@ class ProfileController extends Controller{
                 
                 $this->updateTabActive($form);
             endif;    
-        else:
-            echo "<br>no eviado o fallo al validar<br>";
             
         endif;
        
