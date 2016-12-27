@@ -1,0 +1,4 @@
+services:
+#    s_gestion_admin.example:
+#        class: SGestion\AdminBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
