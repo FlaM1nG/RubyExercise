@@ -208,7 +208,17 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * @var \WWW\GlobalBundle\Entity\Address
      */
-    private $defaultAddress;
+    private $defaultAddress;    
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sent;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $received;
     
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -684,7 +694,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * Set nif
      *
-     * @param integer $nif
+     * @param string $nif
      * @return User
      */
     public function setNif($nif)
@@ -697,7 +707,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * Get nif
      *
-     * @return integer 
+     * @return string
      */
     public function getNif()
     {
@@ -1150,5 +1160,70 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     
     public function getLastAddress(){
         return end($this->getAddresses());
+    }    
+    /**
+     * Add sent
+     *
+     * @param \WWW\UserBundle\Entity\Message $sent
+     * @return User
+     */
+    public function addSent(\WWW\UserBundle\Entity\Message $sent)
+    {
+        $this->sent[] = $sent;
+
+        return $this;
+    }
+
+    /**
+     * Remove sent
+     *
+     * @param \WWW\UserBundle\Entity\Message $sent
+     */
+    public function removeSent(\WWW\UserBundle\Entity\Message $sent)
+    {
+        $this->sent->removeElement($sent);
+    }
+
+    /**
+     * Get sent
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSent()
+    {
+        return $this->sent;
+    }
+
+    /**
+     * Add received
+     *
+     * @param \WWW\UserBundle\Entity\Message $received
+     * @return User
+     */
+    public function addReceived(\WWW\UserBundle\Entity\Message $received)
+    {
+        $this->received[] = $received;
+
+        return $this;
+    }
+
+    /**
+     * Remove received
+     *
+     * @param \WWW\UserBundle\Entity\Message $received
+     */
+    public function removeReceived(\WWW\UserBundle\Entity\Message $received)
+    {
+        $this->received->removeElement($received);
+    }
+
+    /**
+     * Get received
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReceived()
+    {
+        return $this->received;
     }
 }

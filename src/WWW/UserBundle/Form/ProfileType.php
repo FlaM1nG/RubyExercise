@@ -156,7 +156,7 @@ class ProfileType extends AbstractType{
         
         return $arrayPrefix;
     }
-    
+
     public function configureOptions(OptionsResolver $resolver){
         
         $resolver->setDefaults(array('data_class'=>'WWW\UserBundle\Entity\User',

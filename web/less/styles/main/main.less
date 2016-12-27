@@ -208,11 +208,31 @@ p{
 }
 /* ##### FIN PARALLAX ##### */
 
-/* ***** ***** */
+/* ***** ALERTS ***** */
 .alert {
     margin-top: 20px;
 }
-/* ##### FIN  ##### */
+/* ##### FIN ALERTS ##### */
+
+
+/* ***** RRSS ***** */
+.a2a_kit.a2a_kit_size_48.a2a_default_style{
+    display: flex; 
+    justify-content: center;
+    margin-bottom: 20px;
+    
+    .a2a_svg, .a2a_count { 
+        border-radius: 25px !important; 
+    }
+    
+    a:focus, a:hover{
+        .a2a_svg{ 
+            background-color: @brand-primary !important;
+            opacity: 1;
+        }
+    }
+}
+/* ##### FIN RRSS ##### */
 
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
 @media only screen and (max-height : 1050px){

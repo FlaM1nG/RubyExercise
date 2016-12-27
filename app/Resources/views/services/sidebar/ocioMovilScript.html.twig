@@ -1,0 +1,19 @@
+<script type="text/javascript">
+    $('.btn-sid-pulse').affix({
+        offset: {
+            bottom: ($('footer').outerHeight(true) + $('.cont-foo').outerHeight(true)) + 10
+        }
+    });
+    
+    $('#restaurantes').on('shown.bs.modal', function () {
+        $('#myInput').focus();
+    });
+    
+    $('#ocio').on('shown.bs.modal', function () {
+        $('#myInput').focus();
+    });
+    
+    $('#tiendas').on('shown.bs.modal', function () {
+        $('#myInput').focus();
+    });
+</script>

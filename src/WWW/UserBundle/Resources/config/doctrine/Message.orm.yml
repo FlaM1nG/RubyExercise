@@ -1,0 +1,62 @@
+WWW\UserBundle\Entity\Message:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\MessageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        subject:
+            type: string
+            length: 255
+            nullable: true
+        message:
+            type: string
+            length: 255
+            nullable: true
+        status:
+            type: integer        
+        revisionDate:
+            type: datetime
+            nullable: true
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        fromDeleted:
+            type: boolean
+            nullable: true
+        toDeleted:
+            type: boolean
+            nullable: true
+    manyToOne:
+        from:
+            targetEntity: User
+            inversedBy: Message
+            joinColumn:
+                referencedColumnName: id
+        to:
+            targetEntity: User
+            inversedBy: Message
+            joinColumn:
+                referencedColumnName: id
+        revisionUser:
+            targetEntity: User
+            inversedBy: Message
+            joinColumn:
+                referencedColumnName: id
+        offer:
+            nullable: true
+            targetEntity: WWW\ServiceBundle\Entity\Offer
+            inversedBy: Message
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

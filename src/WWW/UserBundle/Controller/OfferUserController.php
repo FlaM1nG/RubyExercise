@@ -39,6 +39,7 @@ class OfferUserController extends Controller{
         endif;    
 
        $formulario = $this->createForm(TradeType::class,$this->offer); 
+       
        return $this->render('UserBundle:Offers:'.$typeService.'.html.twig',
                        array('formulario' => $formulario->createView(),
                              'offer' => $this->offer));

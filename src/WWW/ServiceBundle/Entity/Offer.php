@@ -75,11 +75,11 @@ class Offer
      * Constructor
      */
     public function __construct($data = null){ 
-      
+     print_r($data);
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         
         if(gettype($data == 'array')):
-            $keyPhoto = 'offer_photo';
+            $keyPhoto = '';
             foreach ($data as $key => $value):
                 $key = Inflector::camelize($key);
                 
@@ -108,18 +108,24 @@ class Offer
              */
             if(array_key_exists('url', $data)):
                 $keyPhoto = 'url';
+            elseif(array_key_exists('offer_photo', $data)):
+                 $keyPhoto = 'offer_photo';
             endif;
             
-            $photoOffer = new Photo();
-            $photoOffer->setUrl($data[$keyPhoto]);
-            $this->photos[] = $photoOffer;
+            if(!empty($keyPhoto)):
+                $photoOffer = new Photo();
+                $photoOffer->setUrl($data[$keyPhoto]);
+                $this->photos[] = $photoOffer;
+            endif;    
             
-            $user = new User();
-            $user->setUsername($data['username']);
-            $photoUser = new Photo();
-            $photoUser->setUrl($data['user_photo']);
-            $user->setPhoto($photoUser);
-            $this->userAdmin = $user;
+            if(array_key_exists('username', $data) && array_key_exists('user_photo', $data)):
+                $user = new User();
+                $user->setUsername($data['username']);
+                $photoUser = new Photo();
+                $photoUser->setUrl($data['user_photo']);
+                $user->setPhoto($photoUser);
+                $this->userAdmin = $user;
+            endif;    
         endif;
         
         /*if(!empty($data) && empty($isOffer)): 

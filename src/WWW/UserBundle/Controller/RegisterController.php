@@ -17,7 +17,9 @@ use WWW\GlobalBundle\Entity\Utilities;
 
 /**
  * Description of RegisterController
- *
+ *Matches /registro/*
+ * 
+ * @Route("/registro/{token}", name="user_register")
  * @author Rocio
  */
 class RegisterController extends Controller{
@@ -49,8 +51,9 @@ class RegisterController extends Controller{
             else:
                 return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
             endif;
+
         else:
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
         endif;
                 
     }

@@ -1,6 +1,6 @@
 user_register:
-    path: /register/
-    defaults: { _controller: UserBundle:Register:register }
+    path: /register/{token}
+    defaults: { _controller: UserBundle:Register:register,token:null  }
     
 user_login:
     path: /login/
@@ -26,4 +26,8 @@ user_forgot:
     
 user_change:
     path: /change/{token}
-    defaults: { _controller: UserBundle:Default:changePass }    
+    defaults: { _controller: UserBundle:Default:changePass }
+    
+user_resend:
+    path: /resend
+    defaults: { _controller: UserBundle:Default:resend }
