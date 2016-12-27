@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\GlobalBundle\Entity\Photo;
+use WWW\UserBundle\Entity\User;
 
 /**
  * Offer
@@ -78,10 +79,10 @@ class Offer
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         
         if(gettype($data == 'array')):
-            
+            $keyPhoto = 'offer_photo';
             foreach ($data as $key => $value):
                 $key = Inflector::camelize($key);
-        
+                
                 if(property_exists('WWW\ServiceBundle\Entity\Offer',$key)):
                     if($key == 'photos'):
                         foreach($value as $photo):
@@ -94,15 +95,31 @@ class Offer
                     
                 endif;
             endforeach;
+            /*
+             * Dependiendo de por donde se llame al constructor el id puede que 
+             * venga en el campo offer_id
+             */
+            if(array_key_exists('offer_id',$data)):
+                $this->id = $data['offer_id'];
+            endif;
+            
             /*Al buscar todas las ofertas de un usuario en el array en vez de 
              photo viene el campo url
              */
-            
             if(array_key_exists('url', $data)):
-                $photo = new Photo();
-                $photo->setUrl($data['url']);
-                $this->photos[] = $photo;
+                $keyPhoto = 'url';
             endif;
+            
+            $photoOffer = new Photo();
+            $photoOffer->setUrl($data[$keyPhoto]);
+            $this->photos[] = $photoOffer;
+            
+            $user = new User();
+            $user->setUsername($data['username']);
+            $photoUser = new Photo();
+            $photoUser->setUrl($data['user_photo']);
+            $user->setPhoto($photoUser);
+            $this->userAdmin = $user;
         endif;
         
         /*if(!empty($data) && empty($isOffer)): 

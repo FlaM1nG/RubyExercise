@@ -6,12 +6,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\GroupSequenceProviderInterface;
 use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Collections\ArrayCollection;
-use WWW\OthersBundle\Entity\Trade;
 use WWW\GlobalBundle\Entity\ApiRest;
-use WWW\OthersBundle\Entity\TradeCategory;
 use WWW\GlobalBundle\Entity\Photo;
-
+use Doctrine\Common\Util\Inflector as Inflector;
 
 /**
  * User

@@ -3,6 +3,7 @@
 namespace WWW\OthersBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Util\Inflector as Inflector;
 
 /**
  * TradeCategory
@@ -31,6 +32,7 @@ class TradeCategory
 
     
     public function __construct($arrayData = null,$id = null) {
+        
         if(!empty($arrayData)):
             $this->id = (int)$arrayData['id'];
             $this->name = $arrayData['name'];

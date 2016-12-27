@@ -35,8 +35,6 @@ class TradeController extends Controller{
          if($formTrade->isSubmitted()):
              
              $this->saveTrade($request,$trade);
-             //echo "enviado";
-
          endif;
         
         return $this->render('OthersBundle:Trade:offerTrade.html.twig',
@@ -45,7 +43,6 @@ class TradeController extends Controller{
     }
     
     private function saveTrade(Request $request, Trade $trade){
-        //print_r($trade);
         
         $service = $request->server->all()['PATH_INFO'];
         $dataTrade['photos'] = array();
@@ -131,5 +128,31 @@ class TradeController extends Controller{
         else:
             $this->addFlash('messageFail','Error al guardar');
         endif;
+    }
+    
+    public function searchOfferAction(Request $result){
+        
+        $ch = new ApiRest();
+        
+        $file = "http://www.whatwantweb.com/api_rest/services/trade/list_trades.php";
+        $arrayOffers = array();
+        
+        $data['service'] = 'trade';
+        $data['search'] = '';
+        
+        $informacion['data'] = json_encode($data);
+        
+        $result = $ch->resultApiRed($informacion, $file);
+        
+        if($result['result'] == 'ok'):
+            foreach($result['offers'] as $trade):
+                $newTrade = new Trade($trade);
+                array_push($arrayOffers, $newTrade);
+            endforeach;
+        endif;
+        
+        return $this->render('services/serTrade.html.twig',array(
+                             'arrayTrades' => $arrayOffers
+        ));
     }
 }

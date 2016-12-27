@@ -3,17 +3,13 @@
     
     <!-- BODY -->
     <div class="tra-cont-elem">
-        
+        {#{dump(trade.offer.photos.0.url)}#}
             <!-- IMAGEN -->
             <div class="row row-tra-mar">
                 <a href="#ARTICULO">
                     <img class="img-responsive tra-grid-img" 
-                        src="
-                    {{ random([asset('img/seat.jpg'), 
-                           asset('img/articulo1.jpg'), 
-                           asset('img/macbook.png'),
-                           asset('img/alquilerTuristico3.jpg')]) }} 
-                    " alt="">
+                        src="{{ trade.offer.photos.0.url }}"
+                        alt="">
                 </a>
             </div>
             <!-- FIN IMAGEN -->
@@ -23,11 +19,7 @@
             <div class="row row-tra-title-grid">
                 <h4>
                     <a href="#ARTICULO" class="tra-title-elem">
-                        {{ random(['Titulo objeto en venta', 
-                            'Aleatorio para que el texto sea diferentes', 
-                            'Yo soy corto', 
-                            'Soy un titulo para ver que aparece', 
-                            'Te ha tocado la loteria!!']) }}
+                        {{trade.offer.title }}
                     </a>
                 </h4>
             </div>
@@ -36,11 +28,11 @@
 
             <!-- CATEGORIAS -->
             <div class="row row-tra-cat-grid">
-               {% for i in 0..3 %}
-                   <a href="#CATEGORIA" class="tra-cat-grid">
-                       <span class="">Categoria{{ i }} </span>
-                   </a>
-               {% endfor %}
+               
+                <a href="#CATEGORIA" class="tra-cat-grid">
+                    <span class="">{{ trade.category.name}} </span>
+                </a>
+               
             </div>
             <!-- FIN CATEGORIAS -->
 
@@ -57,7 +49,7 @@
                         <a href="#USUARIO">
                             <img class="center-block img-circle 
                                 img-responsive" 
-                                src="{{ asset('img/usuario1.jpg') }}" 
+                                src="{{ trade.offer.userAdmin.photo.url }}" 
                                 width="50" alt="">
                         </a>
                    </div>
@@ -65,7 +57,7 @@
 
                    <!-- NOMBRE USUARIO -->
                    <div class="row row-tra-grid-name">
-                       <a href="#USUARIO">Paco J</a>
+                       <a href="#USUARIO">{{ trade.offer.userAdmin.username }}</a>
                    </div>
                    <!-- FIN NOMBRE USUARIO -->
 
@@ -78,7 +70,7 @@
                     col-tra-grid-price">
                     
                     <span class="tra-price">
-                        28€
+                        {{trade.price}}€
                     </span>
                 </div>
                 <!-- FIN PRECIO -->
