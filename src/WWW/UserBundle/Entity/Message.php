@@ -73,6 +73,12 @@ class Message
      * @var \WWW\UserBundle\Entity\User
      */
     private $revisionUser;
+    
+    
+    /**
+     * @var \WWW\ServiceBundle\Entity\Offer
+     */
+    private $offer;
 
     /**
      * Get id
@@ -358,5 +364,29 @@ class Message
     public function getRevisionUser()
     {
         return $this->revisionUser;
+    }
+
+
+    /**
+     * Set offer
+     *
+     * @param \WWW\ServiceBundle\Entity\Offer $offer
+     * @return Message
+     */
+    public function setOffer(\WWW\ServiceBundle\Entity\Offer $offer = null)
+    {
+        $this->offer = $offer;
+
+        return $this;
+    }
+
+    /**
+     * Get offer
+     *
+     * @return \WWW\ServiceBundle\Entity\Offer 
+     */
+    public function getOffer()
+    {
+        return $this->offer;
     }
 }

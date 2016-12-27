@@ -53,4 +53,10 @@ WWW\UserBundle\Entity\Message:
             inversedBy: Message
             joinColumn:
                 referencedColumnName: id
+        offer:
+            nullable: true
+            targetEntity: WWW\ServiceBundle\Entity\Offer
+            inversedBy: Message
+            joinColumn:
+                referencedColumnName: id
     lifecycleCallbacks: {  }
