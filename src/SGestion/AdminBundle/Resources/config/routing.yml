@@ -1,0 +1,3 @@
+s_gestion_admin_homepage:
+    path:     /
+    defaults: { _controller: SGestionAdminBundle:Default:index }

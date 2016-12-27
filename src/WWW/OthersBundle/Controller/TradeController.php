@@ -13,6 +13,7 @@ use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Form\TradeType;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\Entity\Utilities;
 
 /**
  * Description of TradeController
@@ -23,6 +24,7 @@ class TradeController extends Controller{
     
     private $sesion;
     private $trade;
+    private $ut;
     
     public function createOfferAction(Request $request){
         //print_r($request);
@@ -130,7 +132,7 @@ class TradeController extends Controller{
         endif;
     }
     
-    public function searchOfferAction(Request $result){
+    public function listTradeAction(){
         
         $ch = new ApiRest();
         
@@ -153,6 +155,27 @@ class TradeController extends Controller{
         
         return $this->render('services/serTrade.html.twig',array(
                              'arrayTrades' => $arrayOffers
+        ));
+    }
+    
+    public function showTradeAction(Request $request){
+        $ch = new ApiRest();
+        $ut = new Utilities();
+        $trade = null;
+        $file = "http://www.whatwantweb.com/api_rest/services/trade/get_trade.php";
+        
+        $data['id'] = $request->get('idOffer');
+        
+        $result = $ch->resultApiRed($data, $file);
+        
+        if($result['result'] == 'ok'):
+            $trade = new Trade($result);
+        else:
+            $ut->flashMessage("general", $request);
+        endif;
+        
+        return $this->render('offer/offTrade.html.twig',array(
+                             'trade' => $trade
         ));
     }
 }

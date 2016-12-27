@@ -13,8 +13,8 @@
     
 }
 
-.row-tra-base{
-    /*margin: -25px 0 0;
+/*.row-tra-base{
+    margin: -25px 0 0;
     
     -moz-column-width: 19em;
     -webkit-column-width: 19em;
@@ -22,8 +22,8 @@
     
     -moz-column-gap: 1em;
     -webkit-column-gap: 1em;
-    column-gap: 1em;*/
-}
+    column-gap: 1em;
+}*/
 
 .row-tra-mar{
     margin: 0px 0 0;
@@ -60,6 +60,7 @@
     .row-tra-mar-reset;
     .row-tra-padd-grid-elem;
     padding-bottom: 20px;
+    text-align: right;
 }
 
 .row-tra-upr-grid{
@@ -91,6 +92,9 @@
     background-color: #fff;
     -webkit-border-radius: 10px;
     border-radius: 10px;
+    width: 220px !important;
+/*    padding-left: 15px;
+    padding-right: 15px;*/
 }
 
 .col-tra-user{
@@ -137,6 +141,9 @@
         
     }
     
+    .row-tra-base{
+        margin: 0 auto !important;
+    }
 }
 
 .tra-grid-img{
@@ -153,10 +160,14 @@
 }
 
 .tra-price{
-    font-size: 30px;
+    font-size: 18px;
     color: @brand-primary;
     font-weight: 700;
     letter-spacing: 1px;
+}
+
+#tra-cont-base{
+    margin: 0 auto;
 }
 /* ##### FIN GRID ##### */
 
@@ -206,7 +217,9 @@
 
 /*######################   RANGO ANCHO [1200 �  992[  ######################*/
 @media only screen and (max-width : 1200px) {
-    
+    .col-tra-elem {
+        /*width: 350px !important;*/
+    }
     
     @media only screen and (max-height : 768px){
         
@@ -219,11 +232,16 @@
 
 /*######################   RANGO ANCHO [992�  768[  ######################*/
 @media only screen and (max-width : 992px) {
-        
+    .col-tra-elem {
+        /*width: 345px !important;*/
+    }
+    
     @media only screen and (max-height : 500px){
         
     }
 }
+
+
 
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width : 768px) {
@@ -248,9 +266,41 @@
     }
 }
 
+@media only screen and (max-width : 740px) {
+    .col-tra-elem {
+        /*width: 330px !important;*/
+    }
+}
+
+@media only screen and (max-width : 700px) {
+    .col-tra-elem {
+        /*width: 300px !important;*/
+    }
+}
+
+@media only screen and (max-width : 660px) {
+    .col-tra-elem {
+        /*width: 280px !important;*/
+    }
+}
+
+@media only screen and (max-width : 620px) {
+    .col-tra-elem {
+        /*width: 270px !important;*/
+    }
+}
+
+@media only screen and (max-width : 590px) {
+    .col-tra-elem {
+        /*width: 250px !important;*/
+    }
+}
+
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 @media only screen and (max-width : 480px) {
-    
+    .col-tra-elem {
+        /*width: 300px !important;*/
+    }
         
     @media only screen and (max-height : 667px){
         
@@ -263,7 +313,9 @@
 
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 @media only screen and (max-width : 320px) {
-    
+    .col-tra-elem {
+        /*width: 250px !important;*/
+    }
     
     @media only screen and (max-height : 534px){
         

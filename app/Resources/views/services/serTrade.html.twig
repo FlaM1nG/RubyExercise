@@ -1,4 +1,5 @@
 {% extends '::services/layoutService.html.twig' %}
+{% import '::macros/tradeList.html.twig' as trades %}
 
 {% block title %}
     Trade
@@ -46,13 +47,31 @@ sha-header-title
 
 <script src=" {{ asset('js/masonry.pkgd.min.js') }}"></script>
 <script type="text/javascript">
-    $('.row-tra-base').masonry({
-    // options
-    columnWidth: '.col-tra-size',
-    itemSelector: '.col-tra-elem',
-    percentPosition: true,
-    transitionDuration: 0.0
-  });
+    
+    $(document).ready(function(){
+        var e = $(".row-tra-base");
+        e.length > 0 && e.masonry({
+            // options
+            columnWidth: '.col-tra-elem',
+            itemSelector: '.col-tra-elem',
+            //percentPosition: true,
+            transitionDuration: 0.2,
+            isFitWidth: true,
+            gutter: 20
+        });
+        
+        
+    });
+    
+    /*var e = $(".row-tra-base");
+    e.length > 0 && (e.masonry({
+        transitionDuration: 0,
+        itemSelector: ".col-tra-elem",
+        columnWidth: ".col-tra-elem",
+        gutter: 20,
+        percentPosition: true,
+    });*/
+    
 </script>
 {% endblock %}
 

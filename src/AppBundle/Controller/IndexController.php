@@ -67,4 +67,20 @@ class IndexController extends Controller
     public function offTradeAction() {
         return $this->render('offer/offTrade.html.twig');
     }
+    
+    public function offHouseRentsAction() {
+        return $this->render('offer/offHouseRents.html.twig');
+    }
+    
+    public function offShareCarAction() {
+        return $this->render('offer/offShareCar.html.twig');
+    }
+    
+    public function blogAction() {
+        return $this->render('blog/blog.html.twig');
+    }
+    
+    public function adminAction() {
+        return $this->render('admin/baseAdmin.html.twig');
+    }
 }

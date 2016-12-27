@@ -75,7 +75,7 @@ class Offer
      * Constructor
      */
     public function __construct($data = null){ 
-     print_r($data);
+     
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         
         if(gettype($data == 'array')):

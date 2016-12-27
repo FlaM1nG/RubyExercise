@@ -54,6 +54,7 @@
 .voto-post{
     text-align: right;
     font-size: 16px;
+    padding-left: 0;
 }
 
 .titulo-post{
@@ -118,7 +119,6 @@ a.titulo-post-peque:hover, a.titulo-post-peque:focus {
 
 .post-peque{
     padding: 0px 15px 15px;
-    margin: 0px;
 }
 
 .leer-post{
@@ -144,10 +144,6 @@ a.boton-leer-post:hover, a.boton-leer-post:focus {
     text-decoration: none;
 }
 
-.row-blog{
-    margin: 0px;
-}
-
 .row-date-big{
     height: 80px;
 }
@@ -157,7 +153,7 @@ a.boton-leer-post:hover, a.boton-leer-post:focus {
 }
 
 .row-body-big{
-    height: 175px;
+    height: 194px;
 }
 
 .row-boton-big{
@@ -184,6 +180,17 @@ a.boton-leer-post:hover, a.boton-leer-post:focus {
     margin: 0px;
 }
 
+.col-blog-big{
+    
+    .row-col-image-post{
+        margin: 0;
+    }
+    
+    .row-post-big{
+        margin: 0;
+    }
+}
+
 /* ##### FIN HOMEPAGE BLOG ##### */
 
 
@@ -205,7 +212,7 @@ a.boton-leer-post:hover, a.boton-leer-post:focus {
 }
 
 
-/*######################   RANGO ANCHO [1600 – 1200[ ######################*/
+/*######################   RANGO ANCHO [1600 ï¿½ 1200[ ######################*/
 @media only screen and (max-width : 1600px) {
     
     
@@ -230,7 +237,7 @@ a.boton-leer-post:hover, a.boton-leer-post:focus {
     }
 }
 
-/*######################   RANGO ANCHO [1200 –  992[  ######################*/
+/*######################   RANGO ANCHO [1200 ï¿½  992[  ######################*/
 @media only screen and (max-width : 1200px) {
     .row-col-image-post {
         padding-bottom: 0px !important;
@@ -253,31 +260,27 @@ a.boton-leer-post:hover, a.boton-leer-post:focus {
     }
     
     .col-blog-big{
-        .separacion-inferior;
+        padding: 0 0 15px;
     }
     
     .row-blog {
-        margin: 0px -15px;
+        margin: 0px -30px;
     }
     
     .row-date-peque{
         height: 45px;
-        .row-blog;
     }
 
     .row-title-peque{
         height: 100px;
-        .row-blog;
     }
 
     .row-body-peque{
         height: 105px;
-        .row-blog;
     }
 
     .row-boton-peque{
         height: 65px;
-        .row-blog;
     }
     
     .col-peque-i{
@@ -297,7 +300,7 @@ a.boton-leer-post:hover, a.boton-leer-post:focus {
     }
 }
 
-/*######################   RANGO ANCHO [992–  768[  ######################*/
+/*######################   RANGO ANCHO [992ï¿½  768[  ######################*/
 @media only screen and (max-width : 992px) {
     .col-peque-i{
         padding-right: 15px;
@@ -337,10 +340,18 @@ a.boton-leer-post:hover, a.boton-leer-post:focus {
     }
 }
 
-/*######################   RANGO ANCHO [768 – 480[  ######################*/
+/*######################   RANGO ANCHO [768 ï¿½ 480[  ######################*/
 @media only screen and (max-width : 768px) {
     .titulo-post, a.titulo-post {
         margin: 20px 0 10px;
+    }
+    
+    .row-blog {
+        margin: 0 -15px;
+    }
+    
+    .col-blog-big {
+         padding: 0 15px 15px; 
     }
        
     @media only screen and (max-height : 1024px){
@@ -360,7 +371,7 @@ a.boton-leer-post:hover, a.boton-leer-post:focus {
     }
 }
 
-/*######################   RANGO ANCHO [480 – 320[  ######################*/
+/*######################   RANGO ANCHO [480 ï¿½ 320[  ######################*/
 @media only screen and (max-width : 480px) {
     .row-date-big {
         height: inherit;
@@ -403,7 +414,7 @@ a.boton-leer-post:hover, a.boton-leer-post:focus {
     }
 }
 
-/*######################   RANGO ANCHO [320 – 1]  ######################*/
+/*######################   RANGO ANCHO [320 ï¿½ 1]  ######################*/
 @media only screen and (max-width : 320px) {
     
     

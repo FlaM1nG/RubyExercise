@@ -1,4 +1,5 @@
 {% extends '::services/layoutService.html.twig' %}
+{% import '::macros/shareCarList.html.twig' as shares %}
 
 {% block title %}
     Share Car
@@ -26,7 +27,13 @@ sha-header-title
             
 {% block serviceList %}
     {% for i in 0..7 %}
-        {{ include('services/lists/shareCarList.html.twig') }}
+        {#{ include('services/lists/shareCarList.html.twig') }#}
+        
+        {% set img = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
+        {% set dia = "now"|date() %}
+        
+        {{ shares.element('#SHARE', img, dia, 'granada', 'madrid', random(4), 
+            '#USER', asset('img/usuario1.jpg'), 'Paco J', random(50) ) }}
     {% endfor %}
     <!-- Modal -->
 {% endblock %}

@@ -6,7 +6,7 @@
         {#{dump(trade.offer.photos.0.url)}#}
             <!-- IMAGEN -->
             <div class="row row-tra-mar">
-                <a href="#ARTICULO">
+                <a href="{{path('service_trade' , {offer: 'offer' ,idOffer: trade.id})}}">
                     <img class="img-responsive tra-grid-img" 
                         src="{{ trade.offer.photos.0.url }}"
                         alt="">
@@ -18,7 +18,7 @@
             <!-- TITLE-->
             <div class="row row-tra-title-grid">
                 <h4>
-                    <a href="#ARTICULO" class="tra-title-elem">
+                    <a href="{{path('service_trade' , {offer: 'offer' ,idOffer: trade.offer.id})}}" class="tra-title-elem">
                         {{trade.offer.title }}
                     </a>
                 </h4>
@@ -41,8 +41,7 @@
             <div class="row row-tra-upr-grid">
                 
                 <!-- USER -->
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-tra-user"
-                     data-href='url://link-for-first-row/'>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-tra-user">
 
                    <!-- IMAGEN USUARIO -->
                    <div class="row row-tra-grid-user-img">

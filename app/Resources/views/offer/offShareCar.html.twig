@@ -1,0 +1,219 @@
+{% extends '::offer/layoutOffer.html.twig' %}
+{% import '::macros/offer.html.twig' as offers %}
+
+{#{ BLOQUES -->     offerImage 
+                    offerUser
+                    offerTitle
+                    offerPrice
+                    offerVote
+                    offerDate
+                    offerDescription
+                    offerVariableData
+                    offerRelacionadas
+                    offerComments
+                    offerPublicidad
+                    offerDestacadas 
+                    offerOtherData 
+}#}
+
+
+
+{% block offerImage %}
+    <div id="off-img-big" class="owl-carousel">
+        {% set imgGallery = []  %}
+        
+        {% for i in 0..6 %}
+            
+            {% set imageOff = random([asset('img/seat.jpg'), 
+                asset('img/articulo1.jpg'), 
+                asset('img/macbook.png'),
+                asset('img/alquilerTuristico3.jpg')]) %}
+
+
+            {% set imgGallery = imgGallery|merge([imageOff] ) %}
+            <div class="item">
+                <div class="off-img-marco-grande">
+                    <a href="{{ imageOff }}" 
+                        data-lightbox="offer-item">
+                        
+                        <img class="img-responsive off-img-expo" 
+                            src="{{ imageOff }}" 
+                            alt="">
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="off-img-small" class="owl-carousel">
+        {% for i in 0..6 %}
+        <div class="item off-item-dime">
+            <div class="off-img-marco-peque">
+                <img class="img-responsive off-img-slid" 
+                    src="{{ imgGallery[i] }}" 
+                    alt="">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+
+{% block offerUser %} 
+    <!-- IMAGEN USUARIO -->
+    <div class="row row-off-user-name">
+        <a class="off-user-image" href="#USUARIO">
+            <img class=" img-circle img-responsive" 
+                src="{{ asset('img/usuario1.jpg') }}" 
+                width="50" alt="">
+        </a>
+                    
+        <a class="off-user-name" href="#USUARIO">Paco J</a>
+        
+    </div>
+    <!-- FIN NOMBRE USUARIO -->
+{% endblock %}
+
+
+{% block offerTitle %}
+    Granada
+    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    Madrid
+{% endblock %}
+
+
+{% block offerPrice %} 
+    {{ random(20)|number_format(2, ',') }}€
+{% endblock %}
+
+
+{% block offerVote %} 
+{% endblock %}
+
+
+{% block offerDate %} 
+    {{ 'now'|date('d/m/Y') }} {{ ' a las '  }} {{ 'now'|date('H:i')  }}
+{% endblock %} 
+
+
+{% block offerDescription %}
+    {{ offers.atriShaCar('salida', 'fa-sign-out', 'granada') }}
+    
+    {{ offers.atriShaCar('destino', 'fa-map-marker', 'Madrid') }}
+    
+    {% set fecha = 'now'|date('d/m/Y')%}
+    {% set hora = 'now'|date('H:i')%}
+    {{ offers.atriShaCar('fecha', 'fa-calendar-check-o', 
+        fecha ~ ' a las ' ~ hora) }}
+    
+    {{ offers.atriShaCar('vehículo', 'fa-car', 'Renaul Megane', 
+        'off-row-tra-last') }}
+{% endblock %}
+
+
+{% block offerVariableData %}
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>
+                Caracteristicas Viaje
+            </h4>
+            <hr>
+        </div>
+    </div>
+    
+    
+    {% set datos = ['Fumar', 'Mascotas', 'Música', 'Conversar'] %}
+        
+    {% set col = 0 %}
+    
+    {% for dato in datos|sort %}
+        {% if col == 0 %}
+            <div class="row off-row-date-second">
+        {% endif %}
+        
+        
+        <!-- DATO -->
+        {{ offers.atriOffer(dato) }}
+        <!-- DATO -->
+                
+                
+        {% if col < 3 %}
+            {% set col = 1 + col %}
+        {% else %}
+            {% set col = 0 %}
+             </div>
+        {% endif %}
+            
+   
+    {% endfor %}
+    
+    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
+    {% if col != 0 %}
+        </div>
+    {% endif %}
+    
+    
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>
+                Descripción del Conductor para el viaje
+            </h4>
+            <hr>
+        </div>
+        
+        
+    </div>
+    
+    
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>
+                {{ include('macros/text.html.twig') }}
+            </p>
+            
+            
+        </div>
+        
+        
+    </div>
+{% endblock %}
+
+
+{% block offerRelacionadas %} 
+    {% for i in 0..2 %}
+        {#{ include('services/lists/tradeList.html.twig') }#}
+    {% endfor %}
+{% endblock %}
+
+
+{% block offerComments %}
+    <p>COMENTARIOS</p>
+{% endblock %}
+
+
+{% block offerPublicidad %}
+    <h3>
+        Publicidad
+    </h3>
+    <hr>
+    <img src="{{ asset('img/publicidad.jpg') }}" 
+        class="img-responsive center-block"
+        alt="publicidad">
+{% endblock %}
+
+
+{% block offerDestacadas %} 
+    <p>DESTACADOS</p>
+{% endblock %}
+
+
+{% block offerOtherData %} 
+    <h3>
+        Recompensa por tu compra <span class="off-special">¡Gratis!</span>
+    </h3>
+    <hr>
+    <p>
+        {{ include('macros/text.html.twig') }}
+    </p>
+{% endblock %}
