@@ -29,7 +29,9 @@ sha-header-title
     <div class="row row-tra-base" id="tra-cont-base">
     {% for trade in arrayTrades %}
         {#{ include('services/lists/tradeList.html.twig') }#}
+        
         {% set url = path('service_trade' , {offer: 'offer' ,idOffer: trade.offer.id}) %}
+        
         {{ trades.element(url , trade.offer.photos.0.url, trade.offer.title, trade.category.name, '#CATEGORIA', 
             '#USER', asset(trade.offer.userAdmin.photo.url), trade.offer.userAdmin.username , trade.price) }}
     {% endfor %}
