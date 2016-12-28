@@ -3,9 +3,9 @@
 <div class="row">
     <a href="{{ href|default('#')|e }}">
         <img class="center-block img-circle 
-            img-responsive" 
-            src="{{ src|e }}" 
-            width="50" alt="">
+            img-responsive us-perfil-list" 
+            src="{{ src|e|default(asset('img/userDefault.jpg')) }}" 
+            alt="img-perfil-{{ nombre|e }}">
     </a>
             
             

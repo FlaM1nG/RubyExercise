@@ -33,7 +33,7 @@ sha-header-title
         {% set url = path('service_trade' , {offer: 'offer' ,idOffer: trade.offer.id}) %}
         
         {{ trades.element(url, trade.offer.photos.0.url, trade.offer.title, trade.category.name, '#CATEGORIA', 
-            '#USER', asset(trade.offer.userAdmin.photo.url), trade.offer.userAdmin.username , trade.price) }}
+            '#USER', trade.offer.userAdmin.photo.url, trade.offer.userAdmin.username , trade.price) }}
     {% endfor %}
     </div>
 {% endblock %}
