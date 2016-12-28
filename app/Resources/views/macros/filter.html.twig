@@ -75,11 +75,7 @@
         
         {% for i in 0..count %}
             $(".checkTrade{{ i }}").click(function(){
-                console.log("ENTRO{{ i }} " + $(this));
-                console.log($(this));
-
                 $(".checkTrade{{ i }}").prop('checked', true);
-                console.log("SALGO{{ i }}");
             });
         {% endfor%}
         
