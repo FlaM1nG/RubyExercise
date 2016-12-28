@@ -27,7 +27,9 @@ class TradeController extends Controller{
     private $ut;
     
     public function createOfferAction(Request $request){
-        //print_r($request);
+        
+        $this->ut = new Utilities();
+        
         $this->sesion = $request->getSession();
         
         $trade = new Trade();
@@ -47,79 +49,52 @@ class TradeController extends Controller{
     private function saveTrade(Request $request, Trade $trade){
         
         $service = $request->server->all()['PATH_INFO'];
-        $dataTrade['photos'] = array();
-       
-        $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/api_rest/services/offer/insert_offer.php";
-        $dataOffer = array("id" => $this->sesion->get('id'),
-                      "username" => $this->sesion->get('username'),
-                      "password" =>$this->sesion->get('password'),
-                      "title" => $trade->getOffer()->getTitle(),
-                      "description" => $trade->getOffer()->getDescription(),
-                      "service_id" => 1);
-        $dataTrade = array();
         
-        if(array_key_exists('trade', $request->files->all()))
-            $dataTrade['photos'] = $this->uploadImage($request);
-         
-        $dataTrade['values'] = array("category_id" => $trade->getCategory()->getId(),
-                           "price" => $trade->getPrice(),
-                           "dimensions" => "'".$trade->getDimensions()."'",
-                           "weight" => $trade->getWeight(),
-                           "region" => "'".$trade->getRegion()."'");
+        $dataExtra['url']=$this->uploadImage($request);
         
-        $result = $ch->sendSeveralInformation($dataOffer, $dataTrade, $file);
-        $this->flashMessageGeneral($result['result']);
-                
+        if($this->uploadImage($request) == false):
+            $result['result'] = 'ko';
+            $this->ut->flashMessage("tradeImageN", $request, $result);
+            return false;
+        else:
+            $ch = new ApiRest();
+            $file = "http://www.whatwantweb.com/api_rest/services/offer/insert_offer.php";
+            $dataOffer = array("id" => $this->sesion->get('id'),
+                             "username" => $this->sesion->get('username'),
+                            "password" =>$this->sesion->get('password'),
+                            "title" => $trade->getOffer()->getTitle(),
+                            "description" => $trade->getOffer()->getDescription(),
+                            "service_id" => 1);
+
+            $dataExtra['values'] = array("category_id" => $trade->getCategory()->getId(),
+                               "price" => $trade->getPrice(),
+                               "dimensions" => "'".$trade->getDimensions()."'",
+                               "weight" => $trade->getWeight(),
+                               "region" => "'".$trade->getRegion()."'");
+
+
+            $dataOffer['data'] = json_encode($dataExtra);
+
+            $result = $ch->resultApiRed($dataOffer, $file);
+            $this->ut->flashMessage("general", $request, $result);
+        endif;        
     }
     
     private function uploadImage(Request $request){
         
-        $filePhotos = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
-        $arrayFiles = $request->files->all()['trade']['offer']['photos'][1]['fileImage'];
-        $arrayPhotos = null;
-        $i = 1;
+        $arrayFiles = $request->files->all()['trade']['offer']['fileImage'];
+        $arrayUrls = false;
         
-        $directorio = 'C:/xampp/htdocs/img/'.$this->usuario->getId();;
-        //$directorio = 'http://www.whatwantweb.com/img/user_'.$this->usuario->getId();
-        
-        if(!file_exists($directorio)):
-            mkdir($directorio, 0777, true);
-        
-        else:
-            
-            $i = count(scandir($directorio))+1;
-        
+        if(!empty($arrayFiles[0])): 
+            if(count($arrayFiles) > 5): 
+                
+                return $arrayUrls;
+            else:     
+                $arrayUrls = $this->ut->uploadImage($arrayFiles, $this->sesion->get('id'));
+            endif;
         endif;
-
-        foreach($arrayFiles as $file):
-            $tmpName = $file->getPathname();
-            $extension = $file->getClientoriginalExtension();
-            $nameImg = 'image_'.$i.$extension;
-            $arrayPhotos[] = $directorio.'/'.$nameImg;
-            move_uploaded_file($tmpName,$directorio.'/'.$nameImg);
-            
-            $i++;
-        endforeach;
         
-        $ch = new ApiRest();
-        
-        $data['url'] = $arrayPhotos; 
-        $informacion['data'] = json_encode($data);
-        
-        $result = $ch->resultApiRed($informacion, $filePhotos);
-        
-        if($result['result'] == 'ok'):
-            $arrayPhotos = null;
-            
-            foreach($result['photos'] as $photo):
-               $arrayPhotos[] = $photo['id'];
-            endforeach;
-            
-            return $arrayPhotos;
-        else:
-            $this->flashMessageGeneral($result['result']);
-        endif;
+        return $arrayUrls;
         
     }
     

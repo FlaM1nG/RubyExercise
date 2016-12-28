@@ -130,6 +130,7 @@ class ProfileController extends Controller{
     }
     
     private function fillUser($result){
+        
         foreach($result as $key => $value):
             
             $key = Inflector::camelize($key);

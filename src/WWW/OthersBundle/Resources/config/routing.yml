@@ -1,5 +1,3 @@
-
-    
 service_newTrade:
     path: /newTrade
     defaults: { _controller: OthersBundle:Trade:createOffer }
