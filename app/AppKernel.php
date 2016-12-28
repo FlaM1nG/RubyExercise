@@ -20,7 +20,8 @@ class AppKernel extends Kernel
             new WWW\GlobalBundle\GlobalBundle(),
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
             new SGestion\AdminBundle\SGestionAdminBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle()
+            new WWW\ServiceBundle\ServiceBundle(),
+            new WWW\OthersBundle\OthersBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

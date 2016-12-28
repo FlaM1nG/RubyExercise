@@ -11,6 +11,7 @@ use WWW\GlobalBundle\Entity\ApiRest;
 class LoginController extends Controller{
     
     public function loginAction(Request $request){
+        
         $session=$request->getSession();
         
         
@@ -45,7 +46,7 @@ class LoginController extends Controller{
                $session->set("password",$result['password']);
                $session->set('intentoLogin',0);
                
-               return $this->redirect($this->generateUrl('user_homepage'));
+               return $this->redirect($this->generateUrl('homepage'));
             else:
                 $session->set('intentoLogin',$session->get('intentoLogin')+1);
             

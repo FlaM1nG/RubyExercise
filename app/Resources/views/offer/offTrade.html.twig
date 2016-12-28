@@ -18,9 +18,9 @@
 
 {% block offerImage %}
     <div id="off-img-big" class="owl-carousel">
-        {% set imgGallery = []  %}
-        
-        {% for i in 0..6 %}
+        {#% set imgGallery = []  %#}
+        {#{dump(trade)}#}
+        {#% for i in 0..6 %}
             
             {% set imageOff = random([asset('img/seat.jpg'), 
                 asset('img/articulo1.jpg'), 
@@ -28,27 +28,27 @@
                 asset('img/alquilerTuristico3.jpg')]) %}
 
 
-            {% set imgGallery = imgGallery|merge([imageOff] ) %}
+            {% set imgGallery = imgGallery|merge([imageOff] ) %#}
             <div class="item">
                 <div class="off-img-marco-grande">
-                    <a href="{{ imageOff }}" 
+                    <a href="{{asset(trade.offer.photos.0.url) }}" 
                         data-lightbox="offer-item">
                         
                         <img class="img-responsive off-img-expo" 
-                            src="{{ imageOff }}" 
+                            src="{{ asset(trade.offer.photos.0.url) }}" 
                             alt="">
                     </a>
                 </div>
             </div>
-        {% endfor %}
+        {#% endfor %#}
     </div>
 
     <div id="off-img-small" class="owl-carousel">
-        {% for i in 0..6 %}
+        {% for photo in trade.offer.photos %}
         <div class="item off-item-dime">
             <div class="off-img-marco-peque">
                 <img class="img-responsive off-img-slid" 
-                    src="{{ imgGallery[i] }}" 
+                    src="{{ asset(photo.url) }}" 
                     alt="">
             </div>
         </div>
@@ -63,11 +63,11 @@
     <div class="row row-off-user-name">
         <a class="off-user-image" href="#USUARIO">
             <img class=" img-circle img-responsive" 
-                src="{{ asset('img/usuario1.jpg') }}" 
+                src="{{ asset(trade.offer.userAdmin.photo.url) }}" 
                 width="50" alt="">
         </a>
                     
-        <a class="off-user-name" href="#USUARIO">Paco J</a>
+        <a class="off-user-name" href="#USUARIO">{{trade.offer.userAdmin.username}}</a>
         
     </div>
     <!-- FIN NOMBRE USUARIO -->
@@ -75,16 +75,12 @@
 
 
 {% block offerTitle %}
-    {{ random(['Titulo objeto en venta', 
-            'Aleatorio para que el texto sea diferentes', 
-            'Yo soy corto', 
-            'Soy un titulo para ver que aparece', 
-            'Te ha tocado la loteria!!']) }}
+    {{ trade.offer.title }}
 {% endblock %}
 
 
 {% block offerPrice %} 
-    {{ random(999) }} €
+    {{ trade.price }} €
 {% endblock %}
 
 
@@ -102,13 +98,13 @@
 
 
 {% block offerDate %} 
-    {{ 'now'|date('d/m/Y') }}
+    {{ trade.offer.modifiedDate|date('d/m/Y') }}
 {% endblock %} 
 
 
 {% block offerDescription %}
     <p>
-        {{ include('macros/text.html.twig') }} 
+        {{ trade.offer.description }} 
     </p>
 {% endblock %}
 

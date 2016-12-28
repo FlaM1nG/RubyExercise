@@ -56,9 +56,9 @@ class IndexController extends Controller
         return $this->render('services/serShareCar.html.twig');
     }
     
-    public function serTradeAction() {
+    /*public function serTradeAction() {
         return $this->render('services/serTrade.html.twig');
-    }
+    }*/
     
     public function serHouseRentsAction() {
         return $this->render('services/serHouseRents.html.twig');

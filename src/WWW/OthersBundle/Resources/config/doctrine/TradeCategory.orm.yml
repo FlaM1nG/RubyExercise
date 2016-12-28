@@ -1,0 +1,20 @@
+WWW\OthersBundle\Entity\TradeCategory:
+    type: entity
+    table: null
+    repositoryClass: WWW\OthersBundle\Repository\TradeCategoryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        deleted:
+            type: boolean
+    lifecycleCallbacks: {  }

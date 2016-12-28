@@ -18,6 +18,11 @@ class Role
      * @var string
      */
     private $name;
+        
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $permissions;
 
     /**
      * Get id
@@ -51,17 +56,18 @@ class Role
     {
         return $this->name;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $permissions;
 
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($arrayData = null)
     {
         $this->permissions = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        if(!empty($arrayData)):
+            $this->id = $arrayData['id'];
+            $this->name = $arrayData['name'];
+        endif;
     }
 
     /**

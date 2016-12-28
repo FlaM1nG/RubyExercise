@@ -1,0 +1,23 @@
+WWW\ServiceBundle\Entity\ServiceCategory:
+    type: entity
+    table: null
+    repositoryClass: WWW\ServiceBundle\Repository\ServiceCategoryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+    oneToOne:        
+        photo:
+            targetEntity: WWW\GlobalBundle\Entity\Photo
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

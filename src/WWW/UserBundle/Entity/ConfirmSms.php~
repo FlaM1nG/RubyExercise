@@ -28,6 +28,21 @@ class ConfirmSms
      * @var bool
      */
     private $clicked;
+        
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;    
+    
+    /**
+     * @var integer
+     */
+    private $phone;
+
+    /**
+     * @var string
+     */
+    private $prefix;
 
 
     /**
@@ -108,10 +123,6 @@ class ConfirmSms
     {
         return $this->clicked;
     }
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $user;
 
 
     /**
@@ -136,15 +147,6 @@ class ConfirmSms
     {
         return $this->user;
     }
-    /**
-     * @var integer
-     */
-    private $phone;
-
-    /**
-     * @var string
-     */
-    private $prefix;
 
 
     /**

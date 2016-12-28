@@ -3,11 +3,14 @@
 namespace WWW\GlobalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Util\Inflector as Inflector;
+use Symfony\Component\Validator\GroupSequenceProviderInterface;
 
 /**
  * Address
  */
-class Address
+class Address implements GroupSequenceProviderInterface
 {
     /**
      * @var int
@@ -16,10 +19,12 @@ class Address
 
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
     private $street;
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
     private $name;
 
@@ -47,28 +52,63 @@ class Address
      * @var boolean
      */
     private $isDeleted;
+            
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;    
+    
+    /**
+     * @var integer
+     * @Assert\NotBlank(groups={"address"})
+     */
+    private $zipCode;
 
     /**
-     * @var \WWW\GlobalBundle\Entity\ZipCode
+     * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
-    private $zipcode;
+    private $city;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(groups={"address"})
+     */
+    
+    private $region;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(groups={"address"})
+     */
+    private $country;
+
 
      public function __construct(Array $address=null){
          
         if($address != null):
-             
-            $this->id = $address['id'];
-            $this->street = $address['street'];
-            $this->name = $address['name'];
-            $this->isDefault = $address['is_default'];
-            $this->createdDate = $address['created_date'];
-            $this->modifiedDate = $address['modified_date'];
-            $this->deletedDate = $address['deleted_date'];
-            $this->isDeleted = $address['is_deleted'];
-            //S$this->user = $address['user'];
-            //$this->cp = $address['cp'];
-             
+            foreach($address as $key => $value):
+                $keyCamelize = Inflector::camelize($key);
+               
+                if(property_exists("WWW\GlobalBundle\Entity\Address", $keyCamelize)):
+                    $this->$keyCamelize = $value;
+                endif;  
+            endforeach;
+        else:
+            $this->id = 0;
+            $this->street = "";
+            $this->name = "";
+            $this->isDefault = "";
+            $this->createdDate = "";
+            $this->modifiedDate = "";
+            $this->deletedDate = "";
+            $this->isDeleted = "";
         endif;
+
+    }
+    
+    public function setId($id){
+        $this->id = $id;
     }
 
     /**
@@ -243,34 +283,6 @@ class Address
     }
 
     /**
-     * Set zipcode
-     *
-     * @param \WWW\GlobalBundle\Entity\ZipCode $zipcode
-     * @return Address
-     */
-    public function setZipcode(\WWW\GlobalBundle\Entity\ZipCode $zipcode = null)
-    {
-        $this->zipcode = $zipcode;
-
-        return $this;
-    }
-
-    /**
-     * Get zipcode
-     *
-     * @return \WWW\GlobalBundle\Entity\ZipCode 
-     */
-    public function getZipcode()
-    {
-        return $this->zipcode;
-    }
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $user;
-
-
-    /**
      * Set user
      *
      * @param \WWW\UserBundle\Entity\User $user
@@ -305,6 +317,114 @@ class Address
             'deletedDate' => $this->getDeletedDate(),
             'isDeleted' => $this->getIsDeleted(),
         );    
+    }
+
+    /**
+     * Set zipCode
+     *
+     * @param integer $zipCode
+     * @return Address
+     */
+    public function setZipCode($zipCode)
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    /**
+     * Get zipCode
+     *
+     * @return integer 
+     */
+    public function getZipCode()
+    {
+        return $this->zipCode;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return Address
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set region
+     *
+     * @param string $region
+     * @return Address
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return string 
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     * @return Address
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string 
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+    
+    /*
+     * @return Array de grupos
+     */
+    public function getGroupSequence()
+    {
+        $groups = array('Address');
+
+        if ($this->isAddress()) {
+            
+            $groups[] = 'Address';
+            
+        }
+
+        return $groups;
     }
 
 }
