@@ -138,13 +138,14 @@ class TradeController extends Controller{
         $ut = new Utilities();
         $trade = null;
         $file = "http://www.whatwantweb.com/api_rest/services/trade/get_trade.php";
-        
+       
         $data['id'] = $request->get('idOffer');
         
         $result = $ch->resultApiRed($data, $file);
         
         if($result['result'] == 'ok'):
             $trade = new Trade($result);
+        
         else:
             $ut->flashMessage("general", $request);
         endif;
