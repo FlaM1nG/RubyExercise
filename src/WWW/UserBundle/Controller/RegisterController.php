@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use WWW\UserBundle\Entity\User as User;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\UserBundle\Form\RegisterType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use WWW\GlobalBundle\Entity\Utilities;
 
 /**
