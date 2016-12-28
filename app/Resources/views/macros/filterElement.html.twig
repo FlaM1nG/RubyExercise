@@ -1,0 +1,23 @@
+{% macro filterInput(forLabel, message, type, classInput, idInput) %}
+    <div class="form-group">
+        <label for="{{ forLabel|e }}">
+            {{ message|e }}
+        </label>
+        <input 
+            type="{{ type|lower|e }}" 
+            class="{{ classInput|e }}" 
+            id="{{ idInput|e }}" 
+            placeholder="{{ message|e }}">
+    </div>
+{% endmacro %}
+
+
+{% macro filterCheckBox(message, classInput) %}
+    <div class="checkbox">
+      <label>
+          <input type="checkbox" value="" class="{{ classInput|e }}">
+          {{ message|e }}
+      </label>
+    </div>
+{% endmacro %}
+

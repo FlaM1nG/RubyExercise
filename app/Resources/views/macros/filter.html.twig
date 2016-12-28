@@ -1,0 +1,88 @@
+{% macro filterTrade() %}
+    {% import '::macros/filterElement.html.twig' as filtersElements %}
+    <form class="filt-form" >
+        {#<div class="form-group">
+            <label for="exampleInputEmail1">
+                ¿Qué esta usted buscando?
+            </label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="exampleInputEmail1" 
+                placeholder="¿Qué esta usted buscando?">
+        </div>#}
+        
+        {{ filtersElements.filterInput('object', '¿Qué esta usted buscando?', 
+            'text', 'form-control objetoTrade') }}
+            
+        {{ filtersElements.filterInput('city', 'Ciudad', 
+            'text', 'form-control ciudadTrade') }}
+        
+        <h5 class="filt-top">Precio</h5>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                {{ filtersElements.filterInput('minPrice', 'Min', 
+                    'text', 'form-control minTrade') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                {{ filtersElements.filterInput('maxPrice', 'Max', 
+                    'text', 'form-control maxTrade') }}
+            </div>
+        </div>
+            
+            
+        <h5 class="filt-top">Categorias</h5>
+        <div class="row">
+            {% for i in 0..10 %}
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                {{ filtersElements.filterCheckBox('Prueba' ~ i, 
+                    'checkTrade' ~ i) }}
+            </div>
+            {% endfor %}
+        </div>
+        
+        
+        <button type="submit" class="btn btn-default filt-marg-top">
+            Buscar
+        </button>
+    </form>
+{% endmacro %}
+
+
+
+
+{% macro filterTradeScript(count) %}
+<script>
+    $(document).ready(function(){
+        $(".objetoTrade").keyup(function(){
+            $(".objetoTrade").val($(this).val());
+        });
+        
+        
+        $(".ciudadTrade").keyup(function(){
+            $(".ciudadTrade").val($(this).val());
+        });
+        
+        
+        $(".minTrade").keyup(function(){
+            $(".minTrade").val($(this).val());
+        });
+        
+        
+        $(".maxTrade").keyup(function(){
+            $(".maxTrade").val($(this).val());
+        });
+        
+        {% for i in 0..count %}
+            $(".checkTrade{{ i }}").click(function(){
+                console.log("ENTRO{{ i }} " + $(this));
+                console.log($(this));
+
+                $(".checkTrade{{ i }}").prop('checked', true);
+                console.log("SALGO{{ i }}");
+            });
+        {% endfor%}
+        
+    });
+</script>
+{% endmacro %}
