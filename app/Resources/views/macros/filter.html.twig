@@ -1,6 +1,8 @@
-{% macro filterTrade() %}
+{% macro filterTrade(method, action) %}
     {% import '::macros/filterElement.html.twig' as filtersElements %}
-    <form class="filt-form" >
+    <form class="filt-form" 
+        method="{{ method|e }}" 
+        action="{{ action|e }}">
         {#<div class="form-group">
             <label for="exampleInputEmail1">
                 ¿Qué esta usted buscando?
@@ -12,20 +14,20 @@
                 placeholder="¿Qué esta usted buscando?">
         </div>#}
         
-        {{ filtersElements.filterInput('object', '¿Qué esta usted buscando?', 
+        {{ filtersElements.filterInput('object', 'object', '¿Qué esta usted buscando?', 
             'text', 'form-control objetoTrade') }}
             
-        {{ filtersElements.filterInput('city', 'Ciudad', 
+        {{ filtersElements.filterInput('city', 'city', 'Ciudad', 
             'text', 'form-control ciudadTrade') }}
         
         <h5 class="filt-top">Precio</h5>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                {{ filtersElements.filterInput('minPrice', 'Min', 
+                {{ filtersElements.filterInput('minPrice', 'minPrice', 'Min', 
                     'text', 'form-control minTrade') }}
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                {{ filtersElements.filterInput('maxPrice', 'Max', 
+                {{ filtersElements.filterInput('maxPrice', 'maxPrice', 'Max', 
                     'text', 'form-control maxTrade') }}
             </div>
         </div>
@@ -35,16 +37,13 @@
         <div class="row">
             {% for i in 0..10 %}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                {{ filtersElements.filterCheckBox('Prueba' ~ i, 
+                {{ filtersElements.filterCheckBox('Prueba' ~ i, 'Prueba' ~ i, 
                     'checkTrade' ~ i) }}
             </div>
             {% endfor %}
         </div>
         
-        
-        <button type="submit" class="btn btn-default filt-marg-top">
-            Buscar
-        </button>
+        {{ filtersElements.filterButton('boton', 'submit', 'Buscar') }}
     </form>
 {% endmacro %}
 
