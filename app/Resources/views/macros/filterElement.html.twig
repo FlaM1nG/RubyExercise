@@ -1,6 +1,6 @@
 {% macro filterInput(name, forLabel, message, type, classInput, idInput) %}
     <div class="form-group">
-        <label name="{{ name|e }}"
+        <label 
             for="{{ forLabel|e }}">
             {{ message|e }}
         </label>
@@ -8,6 +8,7 @@
             type="{{ type|lower|e }}" 
             class="{{ classInput|e }}" 
             id="{{ idInput|e }}" 
+            name="{{ name|e }}"
             placeholder="{{ message|e }}">
     </div>
 {% endmacro %}

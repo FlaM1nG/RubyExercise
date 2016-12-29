@@ -107,9 +107,10 @@ class TradeController extends Controller{
         endif;
     }
     
-    public function listTradeAction(){
-        
+    public function listTradeAction(Request $request){
+        print_r($request);
         $ch = new ApiRest();
+        $this->ut = new Utilities();
         
         $file = "http://www.whatwantweb.com/api_rest/services/trade/list_trades.php";
         $arrayOffers = array();
@@ -129,7 +130,8 @@ class TradeController extends Controller{
         endif;
         
         return $this->render('services/serTrade.html.twig',array(
-                             'arrayTrades' => $arrayOffers
+                             'arrayTrades' => $arrayOffers,
+                             'categories' => $this->ut->getArrayCategoryTrade()
         ));
     }
     

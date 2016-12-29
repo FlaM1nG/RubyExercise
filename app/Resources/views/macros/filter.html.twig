@@ -1,4 +1,4 @@
-{% macro filterTrade(method, action) %}
+{% macro filterTrade(method, action, categories) %}
     {% import '::macros/filterElement.html.twig' as filtersElements %}
     <form class="filt-form" 
         method="{{ method|e }}" 
@@ -35,10 +35,10 @@
             
         <h5 class="filt-top">Categorias</h5>
         <div class="row">
-            {% for i in 0..10 %}
+            {% for cat in categories %}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                {{ filtersElements.filterCheckBox('Prueba' ~ i, 'Prueba' ~ i, 
-                    'checkTrade' ~ i) }}
+                {{ filtersElements.filterCheckBox('category_' ~ cat.id, cat.name, 
+                    'checkTrade' ~ cat.id) }}
             </div>
             {% endfor %}
         </div>
@@ -46,7 +46,6 @@
         {{ filtersElements.filterButton('boton', 'submit', 'Buscar') }}
     </form>
 {% endmacro %}
-
 
 
 
