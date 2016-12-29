@@ -88,9 +88,9 @@ class ProfileType extends AbstractType{
                 ->add('numAccount',TextType::class, array('label' => 'Número de cuenta',
                                                           'required' => false))
                 
-                ->add('linkInvitation',TextType::class,array('label'=>'Invitación',
-                                                    'required' => false,
-                                                    'read_only' => true))
+//                ->add('linkInvitation',TextType::class,array('label'=>'Invitación',
+//                                                    'required' => false,
+//                                                    'read_only' => true))
                 ->add('phone','number',array('label'=>' ',
                                          'required' => false))
 
