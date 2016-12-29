@@ -16,12 +16,12 @@
 
 
 
-{% macro filterCheckBox(name, message, classInput) %}
+{% macro filterCheckBox(name, message, classInput, value) %}
     <div class="checkbox">
       <label>
             <input name="{{ name|e }}" 
                 type="checkbox" 
-                value="" 
+                value="{{value|e}}" 
                 class="{{ classInput|e }}">
           {{ message|e }}
       </label>
