@@ -11,7 +11,6 @@ namespace WWW\GlobalBundle\Entity;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\OthersBundle\Entity\TradeCategory;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Description of Utilities
@@ -46,7 +45,7 @@ class Utilities{
         $i = 1;
         
         $directorio = 'C:/xampp/htdocs/img/user_'.$id;
-        //$directorio = 'http://www.whatwantweb.com/img/user_'.$this->usuario->getId();
+        //$directorio = 'http://www.whatwantweb.com/img/user_'.$id;
         
         if(!file_exists($directorio)):
             mkdir($directorio, 0777, true);
@@ -110,6 +109,8 @@ class Utilities{
                                     $error = "El email ya existe";
                                 break;
             case 'confirmTlfn': $success = "Se le ha enviado un código al teléfono";
+            case 'tradeImageN': $error = "Debe introducir de 1 a 5 fotos";
+                                break;
                                         
         endswitch;
         

@@ -189,6 +189,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
      * @var \WWW\UserBundle\Entity\User
      */
     private $hostUser;
+    
      /**
      * @var string
      * @Assert\NotBlank(groups="register")

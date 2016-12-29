@@ -24,7 +24,7 @@ sha-header-title
 
 {% block serviceFilters %} 
     {#{{ include('services/filters/shareCarFilter.html.twig') }}#}
-    {{ filters.filterTrade('post') }}
+    {{ filters.filterTrade('post',path('service_listTrade'),categories) }}
 {% endblock %}
             
 {% block serviceList %}
@@ -32,7 +32,7 @@ sha-header-title
     {% for trade in arrayTrades %}
         {#{ include('services/lists/tradeList.html.twig') }#}
         
-        {% set url = path('service_trade' , {offer: 'offer' ,idOffer: trade.offer.id}) %}
+        {% set url = path('service_trade' , {offer: 'offer' ,idOffer: trade.id}) %}
         
         {{ trades.element(url, trade.offer.photos.0.url, trade.offer.title, trade.category.name, '#CATEGORIA', 
             '#USER', trade.offer.userAdmin.photo.url, trade.offer.userAdmin.username , trade.price) }}
@@ -42,7 +42,7 @@ sha-header-title
 
 {% block filtroMovilBody %}
 {#    {{ include('services/filters/shareCarFilter.html.twig') }}#}
-    {{ filters.filterTrade('post') }}
+    {{ filters.filterTrade('post',path('service_listTrade'),categories) }}
 {% endblock %}
 
 {% block serviceSidebar %}
@@ -72,7 +72,7 @@ sha-header-title
 </script>
 
 {#{{ include('services/filters/filterTradeScript.html.twig') }}#}
-{{ filters.filterTradeScript(10) }}
+{{ filters.filterTradeScript(categories|length) }}
 
 {% endblock %}
 

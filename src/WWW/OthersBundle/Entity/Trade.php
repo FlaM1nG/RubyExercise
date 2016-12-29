@@ -61,31 +61,24 @@ class Trade
      */
     private $region;
     
-    public function __construct($arrayData = null,$isOffert = null) {
-       //print_r($arrayData);
-        /*if(!empty($arrayData)):
-            $this->id = $arrayData['id'];
-            $this->price = $arrayData['price'];
-            $this->dimensions = $arrayData['dimensions'];
-            $this->weight = $arrayData['weight'];
-            $this->region = $arrayData['region'];
-            $this->offer = new Offer($arrayData,$isOffert);
-            $this->category = new TradeCategory(null,$arrayData['category_id']);
-        endif;*/
-        foreach($arrayData as $key => $value):
-            $key = Inflector::camelize($key);
-            
-            if(property_exists('WWW\OthersBundle\Entity\Trade',$key)):
-                $this->$key = $value;
-            
+    public function __construct($arrayData = null) {
+        
+        if(!empty($arrayData)):
+            foreach($arrayData as $key => $value):
+                $key = Inflector::camelize($key);
+
+                if(property_exists('WWW\OthersBundle\Entity\Trade',$key)):
+                    $this->$key = $value;
+
+                endif;
+            endforeach;
+
+            $this->offer = new Offer($arrayData);
+
+            if(key_exists('category_id', $arrayData) && key_exists('category', $arrayData)):
+                $this->category = new TradeCategory(null,$arrayData['category_id']);
+                $this->category->setName($arrayData['category']);
             endif;
-        endforeach;
-        
-        $this->offer = new Offer($arrayData);
-        
-        if(key_exists('category_id', $arrayData) && key_exists('category', $arrayData)):
-            $this->category = new TradeCategory(null,$arrayData['category_id']);
-            $this->category->setName($arrayData['category']);
         endif;    
     }
     /**

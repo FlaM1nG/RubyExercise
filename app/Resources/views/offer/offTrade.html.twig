@@ -16,7 +16,7 @@
 
 
 
-{% block offerImage %}
+{% block offerImage %} 
     <div id="off-img-big" class="owl-carousel">
         {#% set imgGallery = []  %#}
         {#{dump(trade)}#}
@@ -31,11 +31,11 @@
             {% set imgGallery = imgGallery|merge([imageOff] ) %#}
             <div class="item">
                 <div class="off-img-marco-grande">
-                    <a href="{{asset(trade.offer.photos.0.url) }}" 
+                    <a href="{{trade.offer.photos.0.url }}" 
                         data-lightbox="offer-item">
                         
                         <img class="img-responsive off-img-expo" 
-                            src="{{ asset(trade.offer.photos.0.url) }}" 
+                            src="{{ trade.offer.photos.0.url }}" 
                             alt="">
                     </a>
                 </div>

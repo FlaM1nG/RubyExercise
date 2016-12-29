@@ -75,10 +75,10 @@ class Offer
      * Constructor
      */
     public function __construct($data = null){ 
-     
+     //var_dump($data);
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         
-        if(gettype($data == 'array')):
+        if(gettype($data) == 'array'):
             $keyPhoto = '';
             foreach ($data as $key => $value):
                 $key = Inflector::camelize($key);
