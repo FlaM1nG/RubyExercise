@@ -1,5 +1,6 @@
 {% extends '::services/layoutService.html.twig' %}
 {% import '::macros/tradeList.html.twig' as trades %}
+{% import '::macros/filter.html.twig' as filters %}
 
 {% block title %}
     Trade
@@ -22,7 +23,8 @@ sha-header-title
 {% endblock %}
 
 {% block serviceFilters %} 
-    {{ include('services/filters/shareCarFilter.html.twig') }}
+    {#{{ include('services/filters/shareCarFilter.html.twig') }}#}
+    {{ filters.filterTrade() }}
 {% endblock %}
             
 {% block serviceList %}
@@ -32,14 +34,15 @@ sha-header-title
         
         {% set url = path('service_trade' , {offer: 'offer' ,idOffer: trade.id}) %}
         
-        {{ trades.element(url , trade.offer.photos.0.url, trade.offer.title, trade.category.name, '#CATEGORIA', 
+        {{ trades.element(url, trade.offer.photos.0.url, trade.offer.title, trade.category.name, '#CATEGORIA', 
             '#USER', trade.offer.userAdmin.photo.url, trade.offer.userAdmin.username , trade.price) }}
     {% endfor %}
     </div>
 {% endblock %}
 
 {% block filtroMovilBody %}
-    {{ include('services/filters/shareCarFilter.html.twig') }}
+{#    {{ include('services/filters/shareCarFilter.html.twig') }}#}
+    {{ filters.filterTrade() }}
 {% endblock %}
 
 {% block serviceSidebar %}
@@ -77,5 +80,9 @@ sha-header-title
     });*/
     
 </script>
+
+{#{{ include('services/filters/filterTradeScript.html.twig') }}#}
+{{ filters.filterTradeScript(10) }}
+
 {% endblock %}
 

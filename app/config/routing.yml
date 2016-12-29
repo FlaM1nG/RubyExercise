@@ -1,7 +1,6 @@
 #s_gestion_admin:
 #    resource: "@SGestionAdminBundle/Resources/config/routing.yml"
 #    prefix:   /
-
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /user
@@ -11,95 +10,67 @@ app:
     type:     annotation
 
 aboutUs:
-    path: /about-us/
+    path: /about-us
     defaults: { _controller: AppBundle:Index:aboutUs }
     
 siteMap:
-    path: /site-map/
+    path: /site-map
     defaults: { _controller: AppBundle:Index:siteMap }
     
+orders:
+    path: /orders
+    defaults: { _controller: AppBundle:Index:orders }
+    
+devolutions:
+    path: /devolutions
+    defaults: { _controller: AppBundle:Index:devolutions }
+    
 contact:
-    path: /contact/
+    path: /contact
     defaults: { _controller: AppBundle:Index:contact }
     
 shipping:
-    path: /shipping/
+    path: /shipping
     defaults: { _controller: AppBundle:Index:shipping }
     
 privacyPolicy:
-    path: /privacy-policy/
+    path: /privacy-policy
     defaults: { _controller: AppBundle:Index:privacyPolicy }
     
 paymentMethod:
-    path: /payment-method/
+    path: /payment-method
     defaults: { _controller: AppBundle:Index:paymentMethod }
     
 serShareCar:
-    path: /services/share-car/
+    path: /services/share-car
     defaults: { _controller: AppBundle:Index:serShareCar }
     
 serHouseRents:
-    path: /services/house-rents/
+    path: /services/house-rents
     defaults: { _controller: AppBundle:Index:serHouseRents }
     
 offTrade:
-    path: /services/trade/offer/
+    path: /services/trade/offer
     defaults: { _controller: AppBundle:Index:offTrade }   
     
 offShareCar:
-    path: /services/share-car/offer/
+    path: /services/share-car/offer
     defaults: { _controller: AppBundle:Index:offShareCar }   
     
 offHouseRents:
-    path: /services/house-rents/offer/
+    path: /services/house-rents/offer
     defaults: { _controller: AppBundle:Index:offHouseRents }
     
 blog:
-    path: /blog/
+    path: /blog
     defaults: { _controller: AppBundle:Index:blog }      
     
 admin:
-    path: /admin/
+    path: /admin
     defaults: { _controller: AppBundle:Index:admin }  
     
 gregwar_captcha_routing:
    resource: "@GregwarCaptchaBundle/Resources/config/routing/routing.yml"
-#user_change:
-#    path: /change/{token}
-#    defaults: { _controller: UserBundle:Default:changePass }
-
-#user_forgot:
-#    path: /forgot
-#    defaults: { _controller: UserBundle:Default:forgotPass }
-
-#user_register:
-#    path: /registro
-#    defaults: { _controller: UserBundle:Register:register }
-    
-#user_login:
-#    path: /login
-#    defaults: { _controller: UserBundle:Login:login }
-    
-#user_logout:
-#    path: /logout
-#    defaults: { _controller: UserBundle:Login:logout }
-    
-#user_profiler:
-#    path: /perfil
-#    defaults: { _controller: UserBundle:Default:profile }
-
-    
-orders:
-    path: /orders/
-    defaults: { _controller: AppBundle:Index:orders }
-    
-devolutions:
-    path: /devolutions/
-    defaults: { _controller: AppBundle:Index:devolutions }
-    
-#serTrade:
-#    path: /services/trade
-#    defaults: { _controller: AppBundle:Index:serTrade }
     
 trade:
     resource: "@OthersBundle/Resources/config/routing.yml"

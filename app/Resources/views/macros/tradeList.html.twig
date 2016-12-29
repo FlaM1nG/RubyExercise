@@ -9,9 +9,9 @@
     <div class="tra-cont-elem">
         <!-- IMAGEN -->
         <div class="row row-tra-mar">
-            <a href="/{{ hrefOffer|e }}">
+            <a href="{{ hrefOffer|e }}">
                 <img class="img-responsive tra-grid-img" 
-                    src="{{ srcImg|e }}" 
+                     src="{{ srcImg|e|default(asset('img/placeholder.jpg')) }}" 
                     alt="">
             </a>
                     
@@ -23,7 +23,7 @@
         <!-- TITLE-->
         <div class="row row-tra-title-grid">
             <h4>
-                <a href="/{{ hrefOffer|e }}" class="tra-title-elem">
+                <a href="{{ hrefOffer|e }}" class="tra-title-elem">
                     {{ title|e }}
                 </a>
             </h4>
@@ -47,14 +47,12 @@
             <!-- CATEGORIAS  -->
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7
                 col-tra-grid-price">
-                {% for i in 0..3 %}
-                <a href="/{{ hrefCategoria|e }}" class="tra-cat-grid">
+                {#{% for i in 0..3 %}
+                <a href="{{ hrefCategoria|e }}" class="tra-cat-grid">
                     <span class="">{{ categoria|e|capitalize }} </span>
                 </a>
-
-
-
-            {% endfor %}
+                {% endfor %}#}
+                <span class="">{{ categoria|e|capitalize }} </span>
                 
                 
             </div>

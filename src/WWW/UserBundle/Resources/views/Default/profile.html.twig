@@ -107,6 +107,18 @@
                 Mis ofertas
             </a>
         </li>
+        
+        <li role="presentation" {{tabActive == 'myMessage' ? 'class= "active"' }}>
+            <a href="#myMessage" 
+               name="myMessage" 
+               id="sectionMyMessage"
+               aria-controls="myMessage"
+               role="tab" 
+               data-toggle="tab">
+                Mis mensajes
+            </a>
+        </li>
+        
     </ul>
    {{form_start(formulario)}}        
     <div class="tab-content">
@@ -253,7 +265,10 @@
             {{ form_row(formulario.addAddress, { 'attr': {style:'display:none'}})}}
             
         </div>
-        
+            
+        <div class="tab-pane {{tabActive == 'myMessage' ? 'active'}}" name="myMessage" id="myMessage">
+    
+        </div>    
     </div>    
 
 {{form_end(formulario)}}

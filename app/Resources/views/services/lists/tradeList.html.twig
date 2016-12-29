@@ -8,7 +8,7 @@
             <div class="row row-tra-mar">
                 <a href="{{path('service_trade' , {offer: 'offer' ,idOffer: trade.id})}}">
                     <img class="img-responsive tra-grid-img" 
-                        src="{{ trade.offer.photos.0.url }}"
+                         src="{{ trade.offer.photos.0.url|default(asset('img/placeholder.png')) }}"
                         alt="">
                 </a>
             </div>
@@ -29,9 +29,11 @@
             <!-- CATEGORIAS -->
             <div class="row row-tra-cat-grid">
                
-                <a href="#CATEGORIA" class="tra-cat-grid">
-                    <span class="">{{ trade.category.name}} </span>
-                </a>
+                
+                
+                <span class="tra-price">
+                    {{trade.price}}€
+                </span>
                
             </div>
             <!-- FIN CATEGORIAS -->
@@ -68,9 +70,9 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 
                     col-tra-grid-price">
                     
-                    <span class="tra-price">
-                        {{trade.price}}€
-                    </span>
+                    <a href="#CATEGORIA" class="tra-cat-grid">
+                        <span class="">{{ trade.category.name}} </span>
+                    </a>
                 </div>
                 <!-- FIN PRECIO -->
 
