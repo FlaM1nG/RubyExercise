@@ -27,8 +27,11 @@ security:
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
             form_login:
+                always_use_default_target_path: true
+                default_target_path: user_profiler
                 login_path:  user_login
                 check_path:  user_login_check
+               
             logout:
                 path:       user_logout
             remember_me:
@@ -37,7 +40,8 @@ security:
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     access_control:
-       # - { path: ^/user/profile, roles: ROLE_USER }        
-
+             
+        - { path: ^/user/profile, roles: ROLE_USER } 
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY } 
     encoders:
         WWW\UserBundle\Entity\User: bcrypt

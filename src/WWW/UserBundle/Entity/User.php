@@ -6,15 +6,21 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+//use Serializable;
 
 
 /**
  * User
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="WWW\UserBundle\Entity\User")
  * 
  */
 class User implements UserInterface
 {
     /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
      * @var int
      */
     private $id;
@@ -203,12 +209,15 @@ class User implements UserInterface
             $this->prefix = $user['prefix'];
           //  $this->role = $user['ROLE_USER'];
             
-            foreach($user['addresses'] as $address):
-               
-                $auxAddress = new Address($address);
-                $this->addresses[] = $auxAddress->toArray();
+            if(array_key_exists('addresses', $user)):
+                foreach($user['addresses'] as $address):
+
+                    $auxAddress = new Address($address);
+                    $this->addresses[] = $auxAddress->toArray();
+
+                endforeach;
+            endif;    
             
-            endforeach;
         else:
             $this->addresses = new ArrayCollection();
         endif;
@@ -573,7 +582,7 @@ class User implements UserInterface
      * Devuelve los roles de un usuario autenticado
      */
     public function getRoles(){
-        return array('ROLE_USARIO');
+        return array('ROLE_USER');
     }
     
     /**
@@ -593,24 +602,35 @@ class User implements UserInterface
 
        return $this->birthdate <= new\DateTime('today - 18 years'); 
     }
+    
+     public function __sleep()
+    {
+        return array('id');
+    }
+    
     /** @see \Serializable::serialize() */
-    public function serialize() {
-            
+    public function serialize()
+    {
         return serialize(array(
-            $this->id
+            $this->id,
+            $this->username,
+            $this->password,
             // see section on salt below
-            // $this->salt,
+             $this->salt,
         ));
     }
+
     /** @see \Serializable::unserialize() */
-    public function unserialize($serialized) {
+    public function unserialize($serialized)
+    {
         list (
-            $this->id
+            $this->id,
+            $this->username,
+            $this->password,
             // see section on salt below
-            // $this->salt
+             $this->salt
         ) = unserialize($serialized);
     }
-
     /**
      * Set role
      *

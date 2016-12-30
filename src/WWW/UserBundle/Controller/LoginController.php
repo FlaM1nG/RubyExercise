@@ -8,6 +8,8 @@ use Symfony\Component\Validator\Validation;
 use WWW\UserBundle\Entity\User as User;
 use WWW\GlobalBundle\Entity\ApiRest;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class LoginController extends Controller{
     
@@ -36,7 +38,7 @@ class LoginController extends Controller{
             
             $result = $ch->sendInformation($data, $file, "parameters");
             
-            $user = new User();
+            $user = new User($result);
             
             $authenticationUtils = $this->get('security.authentication_utils');
                 // get the login error if there is one
@@ -45,20 +47,24 @@ class LoginController extends Controller{
                 $lastUsername = $authenticationUtils->getLastUsername();
                 
             if($result['result'] == 'ok'):
+                if(!$this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')){        
+                    $this->get('app.manager.usuario_manager')->login($user);
+                }
+//                // Authenticating user
+//                $token = new UsernamePasswordToken($user, null, 'user', $user->getRoles());
+//                $this->get('security.token_storage')->setToken($token);
+//                $this->get('session')->set('_security_secured_area', serialize($token));
                 
-               $this->get('app.manager.usuario_manager')->login($user);
-               $tokenRoleUser=$this->get('security.token_storage')->getToken();
             
                $session=$request->getSession();
-               $session->set('tokenRole', $tokenRoleUser);
+               
                $session->set("id",$result['id']);
                $session->set("username",$result['username']);
                $session->set("password",$result['password']);
                $session->set('intentoLogin',0);
                
-                
-                
-                return $this->render('UserBundle:Default:login.html.twig',array('last_username' => $lastUsername,'error' => $error,'formulario'=>$formulario->createView()));
+              //  return $this->redirectToRoute('user_profiler');
+               return $this->render('UserBundle:Default:login.html.twig',array('last_username' => $lastUsername,'error' => $error,'formulario'=>$formulario->createView()));
             else:
                 $session->set('intentoLogin',$session->get('intentoLogin')+1);
             

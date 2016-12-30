@@ -53,11 +53,7 @@ class ProfileController extends Controller{
         
             $this->usuario = new User($result);
         if($result['result'] == 'ok'):
-           
-            if(!$this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')){        
-                $this->get('app.manager.usuario_manager')->login($this->usuario);
-            }
-            
+                       
             if($this->usuario->getAddresses()->isEmpty()):
                 $address = new Address();
                 $this->usuario->addAddress($address);

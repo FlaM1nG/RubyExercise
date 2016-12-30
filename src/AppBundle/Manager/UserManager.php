@@ -34,7 +34,7 @@ class UserManager
      */
     public function login(User $user)
     {
-        $token = new UsernamePasswordToken($user, null, 'frontend', $user->getRoles());
+        $token = new UsernamePasswordToken($user, null, 'user', $user->getRoles());
         $this->tokenStorage->setToken($token);
     }
 }
