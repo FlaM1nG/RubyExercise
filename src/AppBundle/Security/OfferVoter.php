@@ -31,7 +31,7 @@ class OfferVoter extends Voter
         }
 
         // sólo votar en objetos Post dentro de este voter
-        if (!$subject instanceof Post) {
+        if (!$subject instanceof Offer) {
             return false;
         }
 
