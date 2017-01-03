@@ -1,0 +1,42 @@
+{% macro filterInput(name, forLabel, message, type, classInput, idInput) %}
+    <div class="form-group">
+        <label 
+            for="{{ forLabel|e }}">
+            {{ message|e }}
+        </label>
+        <input 
+            type="{{ type|lower|e }}" 
+            class="{{ classInput|e }}" 
+            id="{{ idInput|e }}" 
+            name="{{ name|e }}"
+            placeholder="{{ message|e }}">
+    </div>
+{% endmacro %}
+
+
+
+
+{% macro filterCheckBox(name, message, classInput) %}
+    <div class="checkbox">
+      <label>
+            <input name="{{ name|e }}" 
+                type="checkbox" 
+                value="" 
+                class="{{ classInput|e }}">
+          {{ message|e }}
+      </label>
+    </div>
+{% endmacro %}
+
+
+
+
+{% macro filterButton(name, type, message) %}
+    <button name="{{ name|e }}" 
+        type="{{ type|e }}" 
+        class="btn btn-default filt-marg-top">
+        {{ message|e|capitalize }}
+        
+        
+    </button>
+{% endmacro %}

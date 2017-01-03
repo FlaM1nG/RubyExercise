@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
 
+
 {% block header %}
     {{ parent() }}
     {{ include('nav/menu.html.twig') }}
@@ -15,7 +16,19 @@
 
 {{ form_start(formulario, {'action':path('user_register'),
     'attr':{'onsubmit':'return validaRegistro()'}}) }}
+  {{ form_errors(formulario) }}
+  
+  {% block alert %}
+        
+        {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+           {{  alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %}
 
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{  alerts.alert('alert-warning', flash_message, null) }}
+        {% endfor %}
+   {% endblock %}
+    
 <!-- CUERPO FORMULARIO -->
 <div class="container cd-main-content">
 
@@ -63,6 +76,8 @@
         </div>
         <!-- FIN FILA USUARIO EMAIL Y PASS -->
 
+        {{ form_row(formulario.isEnterprise) }}
+        {{ form_row(formulario.nif) }}
 
         <!-- FILA USUARIO FECHA NACIMIENTO -->
         <div class="row">
@@ -81,6 +96,7 @@
                     Selecciona 3 preferencias que se identifique con tus gustos
                     y aficiones.
                 </h3>
+                
                 <hr>
                 {% set imageHobby = "" %}
                 {% set i = 0 %}
@@ -114,7 +130,11 @@
         </div>
         <!-- FIN FILA USUARIO HOBBIES -->
 
-
+        {{ form_errors(formulario.acepto) }}
+        {{ form_widget(formulario.acepto) }} 
+        <span>
+            Acepto las condiciones ...
+        </span>
         <!-- FILA USUARIO CAPTCHA -->
         <div class="row">
             <div class="us-register-captcha center-block">
@@ -213,6 +233,28 @@
 
             e.preventDefault();
         });
+    });
+</script>
+    
+<script>
+    $(document).ready(function(){ 
+        $(document).on('click','#registroUsuario_isEnterprise',mostrarOcultarCIF);
+        
+        function mostrarOcultarCIF(){
+            
+            if($('#registroUsuario_isEnterprise').prop('checked')){
+                $('.registroUsuario_nif').css('display','block');
+                $('#registroUsuario_nif').attr('required','required');
+            }else{
+               $('.registroUsuario_nif').css('display','none'); 
+            }
+        }
+        
+        if($('#registroUsuario_isEnterprise').prop('checked')){
+            $('.registroUsuario_nif').css('display','block');
+            $('#registroUsuario_nif').attr('required','required');
+        }
+        
     });
 </script>
 {% endblock %}

@@ -3,11 +3,14 @@
 namespace WWW\GlobalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Util\Inflector as Inflector;
+use Symfony\Component\Validator\GroupSequenceProviderInterface;
 
 /**
  * Address
  */
-class Address
+class Address implements GroupSequenceProviderInterface
 {
     /**
      * @var int
@@ -16,10 +19,12 @@ class Address
 
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
     private $street;
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
     private $name;
 
@@ -55,21 +60,26 @@ class Address
     
     /**
      * @var integer
+     * @Assert\NotBlank(groups={"address"})
      */
     private $zipCode;
 
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
     private $city;
 
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
+    
     private $region;
 
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
     private $country;
 
@@ -77,18 +87,13 @@ class Address
      public function __construct(Array $address=null){
          
         if($address != null):
-             
-            $this->id = $address['id'];
-            $this->street = $address['street'];
-            $this->name = $address['name'];
-            $this->isDefault = $address['is_default'];
-            $this->createdDate = $address['created_date'];
-            $this->modifiedDate = $address['modified_date'];
-            $this->deletedDate = $address['deleted_date'];
-            $this->isDeleted = $address['is_deleted'];
-            //$this->user = $address['user'];
-            //$this->cp = $address['cp'];
-             
+            foreach($address as $key => $value):
+                $keyCamelize = Inflector::camelize($key);
+               
+                if(property_exists("WWW\GlobalBundle\Entity\Address", $keyCamelize)):
+                    $this->$keyCamelize = $value;
+                endif;  
+            endforeach;
         else:
             $this->id = 0;
             $this->street = "";
@@ -99,6 +104,11 @@ class Address
             $this->deletedDate = "";
             $this->isDeleted = "";
         endif;
+
+    }
+    
+    public function setId($id){
+        $this->id = $id;
     }
 
     /**
@@ -400,4 +410,21 @@ class Address
     {
         return $this->country;
     }
+    
+    /*
+     * @return Array de grupos
+     */
+    public function getGroupSequence()
+    {
+        $groups = array('Address');
+
+        if ($this->isAddress()) {
+            
+            $groups[] = 'Address';
+            
+        }
+
+        return $groups;
+    }
+
 }

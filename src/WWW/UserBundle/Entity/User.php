@@ -3,21 +3,25 @@
 namespace WWW\UserBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\GroupSequenceProviderInterface;
 use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 //use Serializable;
 
+use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\Entity\Photo;
+use Doctrine\Common\Util\Inflector as Inflector;
 
 /**
  * User
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="WWW\UserBundle\Entity\User")
  * 
+ * @Assert\GroupSequenceProvider
  */
-class User implements UserInterface
-{
+class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -38,19 +42,34 @@ class User implements UserInterface
     /**
      * @var string
      * 
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups = {"email","register"})
      */
     private $username;
 
     /**
      * @var string
      * 
-     * @Assert\NotBlank(message="Por favor rellene este campo")
-     * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/", message="La contraseña debe contener letras y números")
-     * @Assert\Length(min=8)
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"register","password"})
+     * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/",
+     *               message="La contraseña debe contener letras y números",
+     *               groups = {"register","password"})
+     * @Assert\Length(min=8, groups = {"register","password"})
      * 
      */
     private $password;
+    
+    /**
+     * @var string
+     * 
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"email","password"})
+     * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/",
+     *               message="La contraseña debe contener letras y números",
+     *               groups = {"email","password"})
+     * @Assert\Length(min=8, groups = {"email","password"})
+     * 
+     */
+    
+    private $passwordEnClaro;
 
     /**
      * @var string
@@ -65,17 +84,19 @@ class User implements UserInterface
     /**
      * @var \DateTime
      * 
-     * @Assert\Date()
+     * @Assert\Date(groups = {"register"})
+     * @Assert\NotBlank(groups={"personalData"})
      */
     private $birthdate;
 
     /**
      * @var string
      * 
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups = {"email","register"})
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = true
+     *     checkMX = true,
+     *     groups = {"email","register"}
      * )
      *
      */
@@ -93,7 +114,7 @@ class User implements UserInterface
 
     /**
      * @var integer
-     * 
+     * @Assert\NotBlank(groups={"register"})
      */
     private $phone;
 
@@ -128,7 +149,14 @@ class User implements UserInterface
     private $photo;
 
     /**
-     * @var integer
+     * @var string
+     * @Assert\Length(min=9, max=9, groups = {"register"})
+     * @Assert\Regex(
+     *     pattern="/(^\d{8}[A-Z]$)|(^[A-Z]\d{8}$)/",
+     *     match=false,
+     *     message="El formato es X00000000 o 00000000X"
+     * )
+     * 
      */
     private $nif;
     
@@ -155,7 +183,9 @@ class User implements UserInterface
 
     /**
      * @var string
-     * @Assert\Length(max=24)
+     * @Assert\Length(max=24,groups={"bank"})
+     * @Assert\NotBlank(groups={"bank"})
+     * @Assert\Iban(message="formato incorrecto",groups={"bank"})
      */
     private $numAccount;
 
@@ -168,8 +198,10 @@ class User implements UserInterface
      * @var \WWW\UserBundle\Entity\User
      */
     private $hostUser;
+    
      /**
      * @var string
+     * @Assert\NotBlank(groups="register")
      */
     private $prefix;
     
@@ -186,14 +218,29 @@ class User implements UserInterface
     /**
      * @var \WWW\GlobalBundle\Entity\Address
      */
-    private $defaultAddress;
+    private $defaultAddress;    
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sent;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $received;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $offers;
 
     /**
      * Constructor
      */
     public function __construct(Array $user=null){  
         
-        if(!empty($user)): 
+        if(!empty($user)):  
             $this->birthdate = date_create_from_format('Y-m-d', $user['birthdate']);
             $this->email = $user['email'];
             $this->id = $user['id'];
@@ -204,10 +251,11 @@ class User implements UserInterface
             $this->surname = $user['surname'];
             $this->username = $user['username'];
             $this->password = $user['password'];
-            $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+            //$this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
             $this->numAccount = $user['num_account'];
             $this->prefix = $user['prefix'];
           //  $this->role = $user['ROLE_USER'];
+            $this->offers = $this->searchOffers();
             
             if(array_key_exists('addresses', $user)):
                 foreach($user['addresses'] as $address):
@@ -219,7 +267,8 @@ class User implements UserInterface
             endif;    
             
         else:
-            $this->addresses = new ArrayCollection();
+           // $this->addresses = new ArrayCollection();
+            $this->offers = Array();
         endif;
         
     }
@@ -325,6 +374,28 @@ class User implements UserInterface
     {
         return $this->password;
     }
+    
+    /**
+     * Get passwordEnClaro
+     *
+     * @return string 
+     */
+    public function getPasswordEnClaro(){
+        return $this->passwordEnClaro;
+    }
+    
+    /**
+     * Set password
+     *
+     * @param string passwordEnClaro
+     * @return User
+     */
+    public function setPasswordEnClaro($passwordEnClaro){
+        
+        $this->passwordEnClaro = $passwordEnClaro;
+        return $this->passwordEnClaro;
+        
+    }
 
     /**
      * Set salt
@@ -423,9 +494,9 @@ class User implements UserInterface
      *
      * @param string $linkInvitation
      * @return User
-     */
+     */             
     public function setLinkInvitation($linkInvitation)
-    {
+    { 
         $this->linkInvitation = $linkInvitation;
 
         return $this;
@@ -596,7 +667,7 @@ class User implements UserInterface
     /**
      * Validación para que los usuarios sean mayores de 18
      * 
-     * @Assert\True(message = "Debes tener al menos 18 años")
+     * @Assert\True(message = "Debes tener al menos 18 años", groups={"personalData", "register"})
      */
     public function isAdult(){
 
@@ -657,7 +728,7 @@ class User implements UserInterface
     /**
      * Set nif
      *
-     * @param integer $nif
+     * @param string $nif
      * @return User
      */
     public function setNif($nif)
@@ -670,7 +741,7 @@ class User implements UserInterface
     /**
      * Get nif
      *
-     * @return integer 
+     * @return string
      */
     public function getNif()
     {
@@ -680,12 +751,17 @@ class User implements UserInterface
     /**
      * Set photo
      *
-     * @param \WWW\GlobalBundle\Entity\Photo $photo
+     * @param  $photo
      * @return User
      */
-    public function setPhoto(\WWW\GlobalBundle\Entity\Photo $photo = null)
+    public function setPhoto( $photo = null)
     {
-        $this->photo = $photo;
+        if(gettype($photo) == 'array'):
+            $this->photo = new Photo($photo);
+        else:
+            $this->photo = $photo;
+        endif;
+        
 
         return $this;
     }
@@ -703,15 +779,23 @@ class User implements UserInterface
     /**
      * Add addresses
      *
-     * @param \WWW\GlobalBundle\Entity\Address $addresses
+     * @param $addresses
      * @return User
      */
-    public function addAddress(\WWW\GlobalBundle\Entity\Address $addresses)
-    {
-        $arrayAddresses = $addresses->toArray();
-        $this->addresses[$arrayAddresses['id']] = $addresses->toArray();
+    public function addAddress($addresses)
+    {  
+        if(gettype($addresses) == 'array'):
+            $newAddresses = new Address($addresses);
+            $this->addresses[] = $newAddresses;
+        else:
+            $this->addresses[] = $addresses;
+        endif;
+        /*$arrayAddresses = $addresses->toArray();
+        $this->addresses[$arrayAddresses['id']] = $addresses->toArray();*/
 
         return $this;
+        echo "<br><br>HOLA";
+        print_r($this->addresses);
     }
 
     /**
@@ -995,5 +1079,185 @@ class User implements UserInterface
     public function getDefaultAddress()
     {
         return $this->defaultAddress;
+    }
+    
+    /**
+     * 
+     * @param type $index
+     * @return Array
+     */
+    public function getOffers($index = null){
+        
+       return $this->offers;
+        
+    }
+    
+    public function setOffers($offers = null){
+        
+        $this->offers = $offers;
+        
+    }
+    
+    /*public function deleteTrade($id){
+       
+        unset($this->trades[$id]);
+    }*/
+    
+    private function searchOffers(){
+        $file = 'http://www.whatwantweb.com/api_rest/services/offer/get_all_user_offers.php';
+        $ch = new ApiRest();
+        
+        $data = array();
+        $data['username'] = $this->username;
+        $data['id'] = $this->id;
+        $data['password'] = $this->password;
+        
+        $result = $ch->resultApiRed($data, $file);
+        print_r($result);
+    }
+    
+    /*private function searchTrades(){
+        
+        $arrayOffer = array();
+        $file = 'http://www.whatwantweb.com/api_rest/services/offer/get_user_offers.php';
+        
+        $ch = new ApiRest();
+        
+        $data = array();
+        $data['username'] = $this->username;
+        $data['id'] = $this->id;
+        $data['password'] = $this->password;
+        $data['service'] = 'trade';
+        
+        $result = $ch->resultApiRed($data, $file);
+        
+        $arrayCategory = $this->tradeCategory();
+        
+
+        foreach($result['offers'] as $offer):
+
+            $trade = new Trade($offer,true);
+
+            $trade->setCategory($arrayCategory[$offer['category_id']]);
+            $arrayOffer[] = $trade;
+        endforeach;
+      
+        return $arrayOffer;
+    }*/
+    
+    /*private function tradeCategory(){
+        
+        $arrayCategory = array();
+        
+        $fileCategory = "http://www.whatwantweb.com/api_rest/services/trade/get_categories.php";
+       
+        $ch = new ApiRest();
+        
+        $result = $ch->sendInformationWihoutParameters($fileCategory);
+
+        if(!empty($result)):
+            foreach($result as $category):
+                $arrayCategory[$category['id']] = new TradeCategory($category);
+            endforeach;
+        endif;  
+        
+        return $arrayCategory;
+    }*/
+    /*
+     * @return Array de grupos
+     */
+    public function getGroupSequence()
+    {
+        $groups = array('User');
+
+        if ($this->isEmail()) {
+            
+            $groups[] = 'email';
+            
+        }elseif($this->isRegister()){
+            
+            $groups[] = "register";
+            
+        }elseif($this->isPersonalData()){
+            
+           $groups[] = "personalData";
+           
+        }
+        elseif($this->isPassword()){
+            
+           $groups[] = "password";
+           
+        }
+
+        return $groups;
+    }
+    
+    public function getLastAddress(){
+        return end($this->getAddresses());
+    }    
+    /**
+     * Add sent
+     *
+     * @param \WWW\UserBundle\Entity\Message $sent
+     * @return User
+     */
+    public function addSent(\WWW\UserBundle\Entity\Message $sent)
+    {
+        $this->sent[] = $sent;
+
+        return $this;
+    }
+
+    /**
+     * Remove sent
+     *
+     * @param \WWW\UserBundle\Entity\Message $sent
+     */
+    public function removeSent(\WWW\UserBundle\Entity\Message $sent)
+    {
+        $this->sent->removeElement($sent);
+    }
+
+    /**
+     * Get sent
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSent()
+    {
+        return $this->sent;
+    }
+
+    /**
+     * Add received
+     *
+     * @param \WWW\UserBundle\Entity\Message $received
+     * @return User
+     */
+    public function addReceived(\WWW\UserBundle\Entity\Message $received)
+    {
+        $this->received[] = $received;
+
+        return $this;
+    }
+
+    /**
+     * Remove received
+     *
+     * @param \WWW\UserBundle\Entity\Message $received
+     */
+    public function removeReceived(\WWW\UserBundle\Entity\Message $received)
+    {
+        $this->received->removeElement($received);
+    }
+
+    /**
+     * Get received
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReceived()
+    {
+        return $this->received;
     }
 }

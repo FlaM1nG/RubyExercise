@@ -7,30 +7,31 @@
        
 {% block body %}
     {% block alert %}
-        {% for flash_message in app.session.flashbag.get('mensaje') %}
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
            {{  alerts.alert('alert-warning', flash_message, null) }}
         {% endfor %}
 
-        {% for flash_message in app.session.flashbag.get('mensaje2') %}
-            {{  alerts.alert(null, flash_message, null) }}
+        {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{  alerts.alert('alert-success', flash_message, null) }}
         {% endfor %}
     {% endblock %}
 
     {{ form_start(formTrade) }}
-        {{ form_row(formTrade.guardar) }}
+        {{ form_row(formTrade.saveTrade) }}
         {{ form_row(formTrade.category) }}
         {{ form_row(formTrade.region) }}
         {{ form_row(formTrade.offer.title) }}
         {{ form_row(formTrade.offer.description) }}
         {{ form_row(formTrade.dimensions) }}
 
-        <ul class="photosTrade" data-prototype="{{ form_widget(formTrade.offer.photos.vars.prototype)|e('html_attr') }}">
+        <!--ul class="photosTrade" data-prototype="{{ form_widget(formTrade.offer.photos.vars.prototype)|e('html_attr') }}">
      
-        </ul>
+        </ul-->
 
-
+        {{ form_row(formTrade.offer.fileImage) }}
         {{ form_row(formTrade.weight) }}
         {{ form_row(formTrade.price) }}  
+
         
 {% endblock %}
 
@@ -104,6 +105,10 @@
                     $tagFormLi.remove();
                 });
             }
+            
+            $(':file').change(function(){
+                console.log($(this));
+            })
         });
 
 

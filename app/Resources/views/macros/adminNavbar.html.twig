@@ -1,0 +1,33 @@
+{#{ alert-success | alert-info | alert-warning | alert-danger }#}
+
+{% macro list(href, collapse, name) %}
+<li>
+    <a class="adm-nav-ref" href="{{ href|e }}" data-toggle="{{ collapse|e|default('collapse') }}">
+        {{ name|e|capitalize }}
+        <span class="glyphicon glyphicon-chevron-down 
+              adm-collapse-icon" 
+          aria-hidden="true"></span>
+    </a>
+
+    
+</li>
+{% endmacro %}
+
+
+
+
+{% macro sublist(idSubList, arrayHref, arraySubList, x) %}
+<div class="collapse" id="{{ idSubList|e }}">
+    {% for i in 0..x %}
+        <li class="adm-collapse">
+            <a href="{{ arrayHref[i]|e }}" data-toggle="">
+                {{ arraySubList[i]|e|capitalize }}
+            </a>
+            
+            
+        </li>
+    {% endfor %}
+    
+    
+</div>
+{% endmacro %}

@@ -23,7 +23,14 @@
 
 .off-vote {
     display: inline-block;
-    
+    padding-right: 20px;
+}
+
+.off-date{
+    display: inline-block;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 2;
 }
 
 .off-img-marco-grande {
@@ -130,13 +137,92 @@
     }
 }
 
+.off-icon-prin{
+    color: @brand-primary;
+    font-size: 32px;
+}
+
+.off-icon-secund-ok{
+    color: @brand-primary;
+    font-size: 20px;
+    width: 0px !important;
+    padding-right: 25px;
+}
+
+.off-icon-secund-no{
+    font-size: 20px;
+    width: 0px !important;
+    padding-right: 25px;
+}
+
+.off-target-prin-text{
+    .off-target-prin;
+    font-weight: 100;
+    display: block;
+    margin: 0 auto;
+}
+
+.off-target-secon{
+    font-size: 20px;
+}
+
+.off-row-date-second{
+    padding-bottom: 15px;
+}
+
+.off-row-date-prin{
+    padding-bottom: 25px;
+    font-weight: 900;
+}
+
+.off-col-other-date{
+    text-align: center;
+    line-height: 2;
+}
+
+.off-icon-prin {
+    font-size: 30px;
+    display: block;
+    margin: 0 auto;
+}
+
+.off-target-prin {
+    font-weight: 600;
+    display: block;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+
 /* ##### FIN OFFER ##### */
 
 
 
 /* ***** TRADE ***** */
+.off-row-tra-last{
+    padding-bottom: 15px;
+}
 
+.off-col-tra{
+    font-size: 24px;
+    line-height: 1.8;
+}
+
+.off-col-tra-data{
+    .off-col-tra;
+    font-weight: 600;
+}
+
+.off-tra-icon{
+    color: @brand-primary;
+}
 /* ##### FIN TRADE ##### */
+
+
+
+/* ***** HOUSE-RENTS ***** */
+
+/* ##### FIN HOUSE-RENTS ##### */
 
 
 
@@ -185,7 +271,29 @@
 
 /*######################   RANGO ANCHO [1200 �  992[  ######################*/
 @media only screen and (max-width : 1200px) {
+    .off-row-date-prin{
+        padding-bottom: 0;
+    }
     
+    .off-col-other-date{
+        padding-bottom: 20px;
+    }
+    
+    .off-row-date-second{
+        padding-bottom: 0;
+    }
+    
+    .off-col-other-date-sec{
+        padding-bottom: 15px;
+    }
+    
+    .off-icon-secund-ok{
+        width: inherit;
+    }
+
+    .off-icon-secund-no{
+        width: inherit;
+    }
     
     @media only screen and (max-height : 768px){
         
@@ -218,6 +326,11 @@
         display: none !important;
     }
     
+    .off-col-other-date-sec {
+        padding-bottom: 0px;
+        min-height: 50px;
+    }
+    
     @media only screen and (max-height : 1024px){
         
     }
@@ -237,7 +350,35 @@
 
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 @media only screen and (max-width : 480px) {
+    .off-target-prin-text {
+        font-size: 16px;
+    }
     
+    .off-target-secon{
+        font-size: 14px;
+    }
+    
+    .off-icon-prin {
+        font-size: 30px;
+    }
+    
+    .off-col-tra{
+        display: none;
+    }
+    
+    .off-col-tra-data{
+        width: 100%;
+    }
+    
+    /*.off-icon-prin {
+        font-size: 30px;
+        display: block;
+        margin: 0 auto;
+    }
+    
+    .off-target-prin {
+        font-weight: 600;
+    }*/
         
     @media only screen and (max-height : 667px){
         
@@ -250,7 +391,9 @@
 
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 @media only screen and (max-width : 320px) {
-    
+    .off-col-other-date {
+        min-height: 90px;
+    }
     
     @media only screen and (max-height : 534px){
         

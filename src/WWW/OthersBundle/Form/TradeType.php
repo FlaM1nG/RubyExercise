@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use WWW\ServiceBundle\Form\OfferType;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Entity\TradeCategory;
@@ -25,17 +26,18 @@ use WWW\GlobalBundle\Entity\ApiRest;
  */
 class TradeType extends AbstractType{
     
-    private $typeService;
+    private $typeForm;
     
-    /*public function __construct($servicio = null) {
+    public function __construct($typeForm = null) {
         
         //Tipo de servicio para añadir unos campo u otros a la oferta
-        $this->typeService = $servicio; 
-    }*/
+        $this->typeForm = $typeForm;
+    }
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-        
+        //print_r($options);
         $arrayCategory = $this->arrayCategories();
+        
         $builder
             ->add('offer',OfferType::class)    
             ->add('price',MoneyType::class, array('label' => 'Precio',
@@ -45,7 +47,6 @@ class TradeType extends AbstractType{
             ->add('dimensions','text', array('label' => 'Dimensiones'))
             ->add('weight','number', array('label' => 'Peso'))
             ->add('category',ChoiceType::class, array('label' => 'Categoria',
-                                                         'data_class' => TradeCategory::class,
                                                          'required' => false,
                                                          'empty_value' => false,
                                                          'choices' => $arrayCategory,
@@ -55,10 +56,14 @@ class TradeType extends AbstractType{
                                                                 return ucfirst($category->getName());
                                                             },
                                                          'choice_value' => 'id'
-                                                    )) 
+                                                         )) 
             
-            ->add('region',TextType::class, array('label' => 'Provincia'))                                                        
-            ->add('guardar','submit',array('label'=>'Guardar'));
+            ->add('region',TextType::class, array('label' => 'Provincia'))
+            ->add('checkOffer',CheckboxType::class,array('label' => ' ',
+                                                         'mapped' => false,
+                                                         'required' => false))                                                      
+            ->add('saveTrade','submit',array('label'=>'Guardar'))
+            ->add('deletePhotos','submit', array('label' => 'Eliminar imágenes'));                                                
             
         
     }
@@ -66,7 +71,8 @@ class TradeType extends AbstractType{
     
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data-class'=>Trade::class));
+        $resolver->setDefaults(array('data_class'=>Trade::class,
+                                     'allow_extra_fields' => true,));
     }
 
     private function arrayCategories(){
@@ -82,6 +88,7 @@ class TradeType extends AbstractType{
         if(!empty($result)):
             foreach($result as $category):
                 $arrayCategory[$category['id']] = new TradeCategory($category);
+        //array_push($arrayCategory,new TradeCategory($category));
             endforeach;
         endif;  
         

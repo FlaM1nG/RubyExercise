@@ -3,22 +3,28 @@ user_register:
     defaults: { _controller: UserBundle:Register:register,token:null  }
     
 user_login:
-    path: /login
+    path: /login/
     defaults: { _controller: UserBundle:Login:login }
 
 user_login_check:
     pattern:   /login
     methods:   [POST]
 user_logout:
-    path: /logout
+    path: /logout/
     defaults: { _controller: UserBundle:Login:logout }
     
 user_profiler:
-    path: /profile
+    path: /profile/
     defaults: { _controller: UserBundle:Profile:profile }
+    
+user_profiler_offers:
+    path: /profile/{offer}/{idOffer}
+    defaults: { _controller: UserBundle:OfferUser:showOffer }
+    requirements:
+        idOffer: \d+
 
 user_forgot:
-    path: /forgot
+    path: /forgot/
     defaults: { _controller: UserBundle:Default:forgotPass }
     
 user_change:

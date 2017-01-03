@@ -54,9 +54,11 @@
             </p>
         </div>
 
+        
     </div>
     <!-- FIN NUESTROS VALORES -->
 
+    
     <!-- TEXTO E IMAGENES -->
     <div class="container-fluid cd-main-content">
         <div class="row">
@@ -87,11 +89,11 @@
             </div>
             <!-- FIN QUE ES WWW -->
 
+            
         </div>
 
 
         <div class="row">
-            
             <!-- NUESTROS OBJETIVOS -->
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-text-ob">
                 <h3>
@@ -112,16 +114,20 @@
             </div>
             <!-- FIN NUESTROS OBJETIVOS -->
 
+            
             <!-- IMAGEN 2 -->
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-img2">
 
             </div>
             <!-- FIN IMAGEN 2 -->
 
+            
         </div>
 
+        
     </div>
     <!-- FIN TEXTO E IMAGENES -->
+    
     
     <!-- NUESTRO EQUIPO -->
     <div class="container-fluid aus-bg cd-main-content">
@@ -146,6 +152,7 @@
                         </div>
                         <!-- FIN IMAGEN PERSONA -->
                         
+                        
                         <!-- TEXTO PERSONA -->
                         <div class="aus-text-peo">
                             <span class="aus-name">
@@ -165,14 +172,18 @@
                         </div>
                         <!-- FIN TEXTO PERSONA -->
                         
+                        
                     </div>
                     <!-- FIN EFECTO -->
+                    
                     
                 </div>
                 <!-- FIN PERSONA -->
                 
+                
             </div>
             <!-- FIN UNA PERSONA -->
+            
             
             <!-- TRES PERSONAS -->
             <div class="row">
@@ -188,6 +199,7 @@
                                  alt="person">
                         </div>
                         <!-- FIN IMAGEN PERSONA -->
+                        
                         
                         <!-- TEXTO PERSONA -->
                         <div class="aus-text-peo">
@@ -207,6 +219,7 @@
                             </a>
                         </div>
                         <!-- FIN TEXTO PERSONA -->
+                        
                         
                     </div>
                     <!-- FIN EFECTO -->
@@ -499,17 +512,5 @@
 
 {% block javascriptsFooter %}
 {{ parent() }}    
-<script type="text/javascript">
-    $(document).scroll(function(e){
-        var scrollTop = $(document).scrollTop();
-        if(scrollTop > $('#menuAdministracion').height()){
-            //console.log(scrollTop);
-            $('#cbp-hrmenu').css("position","fixed");
-            $('#cbp-hrmenu').css("top","0");
-            $('#cbp-hrmenu').css("z-index","999");
-        } else {
-            $('#cbp-hrmenu').css("position","relative");
-        }
-    });
-</script>
+{{ include('nav/menuScript.html.twig') }}
 {% endblock %}

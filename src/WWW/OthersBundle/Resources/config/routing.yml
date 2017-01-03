@@ -1,5 +1,13 @@
-
-    
 service_newTrade:
     path: /newTrade
     defaults: { _controller: OthersBundle:Trade:createOffer }
+
+service_listTrade:
+    path: /
+    defaults: { _controller: OthersBundle:Trade:listTrade }
+    
+service_trade:
+    path: /{offer}/{idOffer}/
+    defaults: { _controller: OthersBundle:Trade:showTrade }
+    requirements:
+        idOffer: \d+

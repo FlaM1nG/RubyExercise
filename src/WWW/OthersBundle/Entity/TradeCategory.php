@@ -3,6 +3,7 @@
 namespace WWW\OthersBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Util\Inflector as Inflector;
 
 /**
  * TradeCategory
@@ -30,12 +31,15 @@ class TradeCategory
     private $deleted;
 
     
-    public function __construct($arrayData = null) {
+    public function __construct($arrayData = null,$id = null) {
+        
         if(!empty($arrayData)):
             $this->id = (int)$arrayData['id'];
             $this->name = $arrayData['name'];
             $this->description = $arrayData['description'];
             $this->deleted = (bool)$arrayData['deleted'];
+        elseif(!empty($id)):
+            $this->id = $id;
         endif;    
     }
     
@@ -121,4 +125,6 @@ class TradeCategory
     public function cast(TradeCategory $object){
         return $object;
     }
+    
+    
 }

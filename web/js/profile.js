@@ -6,12 +6,12 @@
 
 
 $(document).ready(function(){
-   console.log("jquery");
     
     $(document).on('click','.buttonEditAddress',activateEditAddress);
     $(document).on('click','.buttonDeleteAddress', deleteAddress);
     $(document).on('click','#buttonAddAddress', addFormAddress);
-    $(document).on('blur','.zipCode', autoCompleteZipCode);
+    
+    //function
     
     function activateEditAddress(e){
         e.stopPropagation();
@@ -60,30 +60,4 @@ $(document).ready(function(){
         $('#idDeleteAddress').val(posArrayAddress);
     }
     
-    function autoCompleteZipCode(e){
-        e.preventDefault();
-        
-        console.log("entro");
-        var url = $(this).attr('href');
-        var zipCode = $(this).attr('value');
-        console.log($(this).attr('value'));
-        
-        
-        $.ajax({
-            url: "/api_rest/user/addresses/get_zipcode.php",
-            data: { zipcode : zipCode },
-            dataType: "json",
-            method: "POST",
-            success: function (data) {
-               console.log(data);
-            },
-            fail: function () {
-                console.log("error");
-            },
-            complete: function (data) {
-                console.log("complete");
-                console.log(data);
-            }
-        })
-    }
 });

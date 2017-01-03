@@ -13,6 +13,7 @@ use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Form\TradeType;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\Entity\Utilities;
 
 /**
  * Description of TradeController
@@ -23,9 +24,12 @@ class TradeController extends Controller{
     
     private $sesion;
     private $trade;
+    private $ut;
     
     public function createOfferAction(Request $request){
-        //print_r($request);
+        
+        $this->ut = new Utilities();
+        
         $this->sesion = $request->getSession();
         
         $trade = new Trade();
@@ -35,8 +39,6 @@ class TradeController extends Controller{
          if($formTrade->isSubmitted()):
              
              $this->saveTrade($request,$trade);
-             //echo "enviado";
-
          endif;
         
         return $this->render('OthersBundle:Trade:offerTrade.html.twig',
@@ -45,84 +47,54 @@ class TradeController extends Controller{
     }
     
     private function saveTrade(Request $request, Trade $trade){
-        //print_r($trade);
         
         $service = $request->server->all()['PATH_INFO'];
-        $dataTrade['photos'] = array();
-       
-        $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/api_rest/services/offer/insert_offer.php";
-        $dataOffer = array("id" => $this->sesion->get('id'),
-                      "username" => $this->sesion->get('username'),
-                      "password" =>$this->sesion->get('password'),
-                      "title" => $trade->getOffer()->getTitle(),
-                      "description" => $trade->getOffer()->getDescription(),
-                      "service_id" => 1);
-        $dataTrade = array();
         
-        if(array_key_exists('trade', $request->files->all()))
-            $dataTrade['photos'] = $this->uploadImage($request);
-         
-        $dataTrade['values'] = array("category_id" => $trade->getCategory()->getId(),
-                           "price" => $trade->getPrice(),
-                           "dimensions" => "'".$trade->getDimensions()."'",
-                           "weight" => $trade->getWeight(),
-                           "region" => "'".$trade->getRegion()."'");
-        print_r($dataTrade);
+        $dataExtra['url']=$this->uploadImage($request);
         
-        $result = $ch->sendSeveralInformation($dataOffer, $dataTrade, $file);
-        print_r($result);
-        $this->flashMessageGeneral($result['result']);
-                
+        if($this->uploadImage($request) == false):
+            $result['result'] = 'ko';
+            $this->ut->flashMessage("tradeImageN", $request, $result);
+            return false;
+        else:
+            $ch = new ApiRest();
+            $file = "http://www.whatwantweb.com/api_rest/services/offer/insert_offer.php";
+            $dataOffer = array("id" => $this->sesion->get('id'),
+                             "username" => $this->sesion->get('username'),
+                            "password" =>$this->sesion->get('password'),
+                            "title" => $trade->getOffer()->getTitle(),
+                            "description" => $trade->getOffer()->getDescription(),
+                            "service_id" => 1);
+
+            $dataExtra['values'] = array("category_id" => $trade->getCategory()->getId(),
+                               "price" => $trade->getPrice(),
+                               "dimensions" => "'".$trade->getDimensions()."'",
+                               "weight" => $trade->getWeight(),
+                               "region" => "'".$trade->getRegion()."'");
+
+
+            $dataOffer['data'] = json_encode($dataExtra);
+
+            $result = $ch->resultApiRed($dataOffer, $file);
+            $this->ut->flashMessage("general", $request, $result);
+        endif;        
     }
     
     private function uploadImage(Request $request){
         
-        $filePhotos = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
-        $arrayFiles = $request->files->all()['trade']['offer']['photos'][1]['fileImage'];
-        $arrayPhotos = null;
-        $i = 1;
+        $arrayFiles = $request->files->all()['trade']['offer']['fileImage'];
+        $arrayUrls = false;
         
-        $directorio = 'C:/xampp/htdocs/img/user_1';
-        //$directorio = 'http://www.whatwantweb.com/img/user_'.$this->usuario->getId();
-        
-        if(!file_exists($directorio)):
-            mkdir($directorio, 0777, true);
-        
-        else:
-            
-            $i = count(scandir($directorio))+1;
-        
+        if(!empty($arrayFiles[0])): 
+            if(count($arrayFiles) > 5): 
+                
+                return $arrayUrls;
+            else:     
+                $arrayUrls = $this->ut->uploadImage($arrayFiles, $this->sesion->get('id'));
+            endif;
         endif;
-
-        foreach($arrayFiles as $file):
-            $tmpName = $file->getPathname();
-            $extension = $file->getClientoriginalExtension();
-            $nameImg = 'image_'.$i.$extension;
-            $arrayPhotos[] = $directorio.'/'.$nameImg;
-            move_uploaded_file($tmpName,$directorio.'/'.$nameImg);
-            
-            $i++;
-        endforeach;
         
-        $ch = new ApiRest();
-        
-        $data['url'] = $arrayPhotos; 
-        $informacion['data'] = json_encode($data);
-        
-        $result = $ch->resultApiRed($informacion, $filePhotos);
-        
-        if($result['result'] == 'ok'):
-            $arrayPhotos = null;
-            
-            foreach($result['photos'] as $photo):
-               $arrayPhotos[] = $photo['id'];
-            endforeach;
-            
-            return $arrayPhotos;
-        else:
-            $this->flashMessageGeneral($result['result']);
-        endif;
+        return $arrayUrls;
         
     }
     
@@ -133,5 +105,55 @@ class TradeController extends Controller{
         else:
             $this->addFlash('messageFail','Error al guardar');
         endif;
+    }
+    
+    public function listTradeAction(Request $request){
+        print_r($request);
+        $ch = new ApiRest();
+        $this->ut = new Utilities();
+        
+        $file = "http://www.whatwantweb.com/api_rest/services/trade/list_trades.php";
+        $arrayOffers = array();
+        
+        $data['service'] = 'trade';
+        $data['search'] = '';
+        
+        $informacion['data'] = json_encode($data);
+        
+        $result = $ch->resultApiRed($informacion, $file);
+        
+        if($result['result'] == 'ok'):
+            foreach($result['offers'] as $trade):
+                $newTrade = new Trade($trade);
+                array_push($arrayOffers, $newTrade);
+            endforeach;
+        endif;
+        
+        return $this->render('services/serTrade.html.twig',array(
+                             'arrayTrades' => $arrayOffers,
+                             'categories' => $this->ut->getArrayCategoryTrade()
+        ));
+    }
+    
+    public function showTradeAction(Request $request){
+        $ch = new ApiRest();
+        $ut = new Utilities();
+        $trade = null;
+        $file = "http://www.whatwantweb.com/api_rest/services/trade/get_trade.php";
+       
+        $data['id'] = $request->get('idOffer');
+        
+        $result = $ch->resultApiRed($data, $file);
+        
+        if($result['result'] == 'ok'):
+            $trade = new Trade($result);
+        
+        else:
+            $ut->flashMessage("general", $request);
+        endif;
+        
+        return $this->render('offer/offTrade.html.twig',array(
+                             'trade' => $trade
+        ));
     }
 }

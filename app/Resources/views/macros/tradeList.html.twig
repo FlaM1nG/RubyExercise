@@ -1,0 +1,81 @@
+{% macro element(hrefOffer, srcImg, title, categoria, hrefCategoria, hrefUser, 
+    srcImgUser, nameUser, price) %}
+    
+    {% import 'macros/user.html.twig' as users %}
+    
+<!-- ELEMENTO-->
+<div class="col-tra-elem {#col-lg-4 col-md-4 col-sm-6 col-xs-12#}">
+    <!-- BODY -->
+    <div class="tra-cont-elem">
+        <!-- IMAGEN -->
+        <div class="row row-tra-mar">
+            <a href="{{ hrefOffer|e }}">
+                <img class="img-responsive tra-grid-img" 
+                     src="{{ srcImg|e|default(asset('img/placeholder.jpg')) }}" 
+                    alt="">
+            </a>
+                    
+                    
+        </div>
+        <!-- FIN IMAGEN -->
+
+
+        <!-- TITLE-->
+        <div class="row row-tra-title-grid">
+            <h4>
+                <a href="{{ hrefOffer|e }}" class="tra-title-elem">
+                    {{ title|e }}
+                </a>
+            </h4>
+                
+                
+        </div>
+        <!-- FIN TITLE -->
+        
+        
+        <!-- PRECIO -->
+        <div class="row row-tra-cat-grid">
+            <span class="tra-price">
+                {{ price|e|number_format(2, '.', '') }}€
+            </span>
+        </div>
+        <!-- FIN PRECIO -->
+
+
+        <!-- USER Y PRECIO -->
+        <div class="row row-tra-upr-grid">
+            <!-- CATEGORIAS  -->
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7
+                col-tra-grid-price">
+                {#{% for i in 0..3 %}
+                <a href="{{ hrefCategoria|e }}" class="tra-cat-grid">
+                    <span class="">{{ categoria|e|capitalize }} </span>
+                </a>
+                {% endfor %}#}
+                <span class="">{{ categoria|e|capitalize }} </span>
+                
+                
+            </div>
+            <!-- FIN CATEGORIAS -->
+            
+            
+            <!-- USER -->
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 col-tra-user">
+                {{ users.userList(hrefUser, srcImgUser, nameUser) }}
+                
+                
+            </div>
+            <!-- FIN USER -->
+
+
+        </div>
+        <!-- FIN USER Y PRECIO -->
+        
+        
+    </div>
+    <!-- BODY -->
+    
+     
+ </div>
+<!-- FIN ELEMENTO-->
+{% endmacro %}

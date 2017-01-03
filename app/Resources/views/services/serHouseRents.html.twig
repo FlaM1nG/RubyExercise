@@ -1,6 +1,7 @@
 {% extends '::services/layoutService.html.twig' %}
 {% import 'macros/popup.html.twig' as popups %}
 {% import 'macros/sidebar.html.twig' as sidebars %}
+{% import 'macros/houseRentsList.html.twig' as houses %}
 
 {% block title %}
     House Rents
@@ -28,7 +29,18 @@ sha-header-title
             
 {% block serviceList %}
     {% for i in 0..9 %}
-        {{ include('services/lists/houseRentsList.html.twig') }}
+        {#{ include('services/lists/houseRentsList.html.twig') }#}
+        {% set imgBig = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
+                            
+        {% set imgSmall1 = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
+                            
+        {% set imgSmall2 = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
+                            
+        {% set titlehouse = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}
+                            
+        {{ houses.element('#ELEMENT', imgBig, imgSmall1, imgSmall2, titlehouse, 
+            random(8), random(4), random(3), '#USER', asset('img/usuario1.jpg'), 
+            'Paco J', random(999) ) }}
     {% endfor %}
         
 {% endblock %}

@@ -60,9 +60,14 @@ class Role
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($arrayData = null)
     {
         $this->permissions = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        if(!empty($arrayData)):
+            $this->id = $arrayData['id'];
+            $this->name = $arrayData['name'];
+        endif;
     }
 
     /**

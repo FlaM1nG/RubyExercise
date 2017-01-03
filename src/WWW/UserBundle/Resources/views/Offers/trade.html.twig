@@ -1,0 +1,78 @@
+{% extends '::base.html.twig' %}
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+       
+{% block body %}
+    {% block alert %}
+        {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+           {{  alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %}
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{  alerts.alert('alert-warning', flash_message, null) }}
+        {% endfor %}
+    {% endblock %}
+    {{ form_errors(formulario) }}
+{#{dump(offer)}#}
+    {{ form_start(formulario) }}
+    
+        {{ form_row(formulario.saveTrade) }}
+        {{ form_row(formulario.category) }}
+        {{ form_row(formulario.region) }}
+        {{ form_row(formulario.offer.title) }}
+        {{ form_row(formulario.offer.description) }}
+        {{ form_row(formulario.offer.expired) }}
+        {{ form_row(formulario.dimensions) }}
+
+        <ul class="photosTrade">
+            {% for photo in formulario.offer.photos %}
+                    <img src="{{ photo.vars.value.url }}" width="40" height="40">
+                    {{form_row(photo.id)}}
+                    {{form_row(photo.checkPhoto)}}
+                    {{form_row(photo.url, { 'attr': {style:'display:none'} }) }}
+            {% endfor %}    
+        </ul>
+        <output id="list"></output>
+        {{ form_row(formulario.deletePhotos) }}
+        {{ form_row(formulario.offer.fileImage) }}
+        {{ form_row(formulario.offer.expired) }}
+
+        {{ form_row(formulario.weight) }}
+        {{ form_row(formulario.price) }} 
+        {{ form_row(formulario.checkOffer, { 'attr': {style:'display:none'} }) }}
+    {{ form_end(formulario) }}    
+        
+{% endblock %}
+
+{% block javascriptsFooter %}   
+      {{ parent() }}
+    <script type="text/javascript">
+
+        function archivo(evt) {
+                  var files = evt.target.files; // FileList object
+             
+                  // Obtenemos la imagen del campo "file".
+                  for (var i = 0 ; i< files.length; i++) {
+                        var f = files[i];
+                        console.log(f);
+             
+                    var reader = new FileReader();
+             
+                    reader.onload = (function(theFile) {
+                        return function(e) {
+                          // Insertamos la imagen
+                         document.getElementById("list").innerHTML = ['<img height="100" widht="100" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+                        };
+                    })(f);
+             
+                    reader.readAsDataURL(f);
+                  }
+              }
+             
+              document.getElementById('trade_offer_fileImage').addEventListener('change', archivo, false);
+
+    </script>
+{% endblock %}

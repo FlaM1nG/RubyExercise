@@ -1,0 +1,325 @@
+/* ------------------ MENU DE ADMINISTRACI�N  ------------------
+******************************************************************/
+@time-menu: 0.8s;
+
+/* ***** BODY ***** */
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all @time-menu ease;
+    -moz-transition: all @time-menu ease;
+    -o-transition: all @time-menu ease;
+    transition: all @time-menu ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    
+    background: @gray-base;
+    -webkit-transition: all @time-menu ease;
+    -moz-transition: all @time-menu ease;
+    -o-transition: all @time-menu ease;
+    transition: all @time-menu ease;
+    /*border-right: 5px solid @brand-primary;*/
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: fixed;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: @brand-secondary;
+}
+
+/*.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: @brand-secondary;
+    background: @brand-primary;
+}*/
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 50px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+/* ##### FIN NAVBAR ##### */
+
+
+
+/* ##### ALERTS ##### */
+.adm-first-cont{
+    margin-top: 50px;
+}
+/* ##### FIN ALERTS ##### */
+
+
+
+/* ##### NAVBAR ##### */
+#navbar{
+    left: 250px;
+    -webkit-transition: all @time-menu ease;
+    -moz-transition: all @time-menu ease;
+    -o-transition: all @time-menu ease;
+    transition: all @time-menu ease;
+    /*background-color: @gray-base;*/
+    background-color: @gray-darker;
+    color: @brand-secondary;
+    /*padding: 12px 15px 0px;*/
+}
+
+#navbar.toggled{
+    left: 0px;
+}
+
+.adm-plegable{
+    font-size: 22px;
+    padding: 12px 15px 0px;
+}
+
+.adm-logo{
+    margin: 15px auto;
+}
+
+span#menu-toggle:hover{
+    color: @gray-light;
+}
+
+.adm-collapse{
+    background-color: @gray-darker;
+    
+    a:hover{
+        background-color: @brand-primary;
+    }
+}
+
+.adm-collapse-icon{
+    text-align: right !important;
+    float: right;
+    padding: 0px 15px 0 0;
+    line-height: 40px;
+}
+
+.adm-user{
+    width: 125px;
+    height: 125px;
+}
+
+.col-adm-user{
+    color: @brand-secondary;
+    line-height: 1.5;
+    padding-bottom: 20px;
+    
+    span{
+        display: block;
+    }
+    
+    .adm-saludo{
+        color: @gray-light;
+    }
+}
+
+.row-adm-user{
+    text-align: center;
+}
+/* ##### NAVBAR ##### */
+
+
+
+/* #####   ##### */
+
+/* #####   ##### */
+
+
+/*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
+@media only screen and (max-height : 1050px){
+    
+}
+
+@media only screen and (max-height : 810px){
+    
+}
+
+@media only screen and (max-height : 780px){
+    
+}
+
+
+/*######################   RANGO ANCHO [1600 � 1200[ ######################*/
+@media only screen and (max-width : 1600px) {
+    
+    
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 960px){
+        
+    }
+    
+    @media only screen and (max-height : 900px){
+        
+    }
+    
+    @media only screen and (max-height : 800px){
+        
+    }
+    
+    @media only screen and (max-height : 720px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [1200 �  992[  ######################*/
+@media only screen and (max-width : 1200px) {
+    
+    
+    @media only screen and (max-height : 768px){
+        
+    }
+    
+    @media only screen and (max-height : 600px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [992�  768[  ######################*/
+@media only screen and (max-width : 992px) {
+        
+    @media only screen and (max-height : 500px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [768 � 480[  ######################*/
+@media only screen and (max-width : 768px) {
+    #navbar{
+        left: 0px;
+    }
+
+    #navbar.toggled{
+        left: 250px;
+    }
+       
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 850px){
+        
+    }
+    
+    @media only screen and (max-height : 740px){
+        
+    }
+    
+    @media only screen and (max-height : 360px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [480 � 320[  ######################*/
+@media only screen and (max-width : 480px) {
+    
+        
+    @media only screen and (max-height : 667px){
+        
+    }
+    
+    @media only screen and (max-height : 640px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [320 � 1]  ######################*/
+@media only screen and (max-width : 320px) {
+    
+    
+    @media only screen and (max-height : 534px){
+        
+    }
+    
+    @media only screen and (max-height : 480px){
+        
+    }
+}
