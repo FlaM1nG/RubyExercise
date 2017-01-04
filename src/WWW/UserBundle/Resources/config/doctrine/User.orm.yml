@@ -48,6 +48,12 @@ WWW\UserBundle\Entity\User:
             type: integer
             nullable: true
             column: invit_num
+        avgScore:
+            type: float
+            nullable: true
+        valorationNum:
+            type: integer
+            nullable: true
         phone:
             type: integer
             nullable: true

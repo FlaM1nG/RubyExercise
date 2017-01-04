@@ -141,7 +141,6 @@ class User implements UserInterface
      */
     private $smsConfirmed;
 
-
     /**
      * @var string
      */
@@ -190,7 +189,17 @@ class User implements UserInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $received;
+    private $received;    
+    
+    /**
+     * @var float
+     */
+    private $avgScore;
+
+    /**
+     * @var integer
+     */
+    private $valorationNum;
 
     /**
      * Constructor
@@ -1041,5 +1050,51 @@ class User implements UserInterface
     public function getReceived()
     {
         return $this->received;
+    }
+
+    /**
+     * Set avgScore
+     *
+     * @param float $avgScore
+     * @return User
+     */
+    public function setAvgScore($avgScore)
+    {
+        $this->avgScore = $avgScore;
+
+        return $this;
+    }
+
+    /**
+     * Get avgScore
+     *
+     * @return float 
+     */
+    public function getAvgScore()
+    {
+        return $this->avgScore;
+    }
+
+    /**
+     * Set valorationNum
+     *
+     * @param integer $valorationNum
+     * @return User
+     */
+    public function setValorationNum($valorationNum)
+    {
+        $this->valorationNum = $valorationNum;
+
+        return $this;
+    }
+
+    /**
+     * Get valorationNum
+     *
+     * @return integer 
+     */
+    public function getValorationNum()
+    {
+        return $this->valorationNum;
     }
 }
