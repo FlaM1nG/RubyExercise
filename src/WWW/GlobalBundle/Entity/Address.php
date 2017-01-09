@@ -466,4 +466,21 @@ class Address implements GroupSequenceProviderInterface
     {
         return $this->prefix;
     }
+    
+    /*
+     * @return Array de grupos
+     */
+    public function getGroupSequence()
+    {
+        $groups = array('Address');
+
+        if ($this->isAddress()) {
+            
+            $groups[] = 'Address';
+            
+        }
+
+        return $groups;
+    }
+
 }

@@ -1,5 +1,7 @@
 {% extends '::base.html.twig' %}
 {% import 'macros/alert.html.twig' as alerts %}
+
+
 {% block title %}
     Profile
 {% endblock %}
@@ -10,28 +12,47 @@
 {% endblock %}
 
 {% block alert %}
-    {% for flash_message in app.session.flashbag.get('mensaje') %}
-       {{  alerts.alert('alert-warning', flash_message, null) }}
-    {% endfor %}
     
-    {% for flash_message in app.session.flashbag.get('mensaje2') %}
-        {{  alerts.alert(null, flash_message, null) }}
-     {% endfor %}
-{% endblock %}
-       
-{% block body %}
+{% endblock %} 
 
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" {{tabActive == 'personal' or tabActive is empty ? 'class="active"'}}>
-            <a href="#personal" 
-               name="personal" 
-               id="sectionPersonal"
-               aria-controls="personal" 
-               role="tab" 
-               data-toggle="tab">
-               Personal
-            </a>
-        </li>
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+    {#<script src="{{ asset('js/plugins/canvas-to-blob.min.js') }}" 
+        type="text/javascript"></script>
+    <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+         This must be loaded before fileinput.min.js -->
+    <script src="{{ asset('js/plugins/sortable.js') }}" 
+        type="text/javascript"></script>
+    <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.
+         This must be loaded before fileinput.min.js -->
+    <script src="{{ asset('js/plugins/purify.min.js') }}" 
+        type="text/javascript"></script>
+    <!-- the main fileinput plugin file -->
+    <script src="{{ asset('js/fileinput.min.js') }}"></script>
+
+    <!-- optionally if you need translation for your language then include 
+        locale file as mentioned below -->
+    <script src="{{ asset('js/locales/es.js') }}"></script>#}
+{% endblock %}
+      
+
+
+
+{% block body %}
+    <!-- TABULADOR DE PESTAÑAS -->
+    <div class="container-fluid">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" {{tabActive == 'personal' or tabActive is empty ? 'class="active"'}}>
+                <a href="#personal" 
+                   name="personal" 
+                   id="sectionPersonal"
+                   aria-controls="personal" 
+                   role="tab" 
+                   data-toggle="tab">
+                   Personal
+                </a>
+            </li>
 
         <li role="presentation" {{tabActive == 'email' ? 'class="active"'}}>
             <a href="#email" 
@@ -120,19 +141,18 @@
         </li>
         
     </ul>
-          
-    <div class="tab-content">
-        {% block content3 %}
-            {% for flash_message in app.session.flashbag.get('messageSuccess') %}
-                {{ alerts.alert('alert-success', flash_message, null) }}
-            {% endfor %}    
-        {% endblock %}
-        
-        {% block content4 %}
-            {% for flash_message in app.session.flashbag.get('messageFail') %}
-                {{ alerts.alert('alert-warning', flash_message, null) }}
-            {% endfor %}    
-        {% endblock %}
+    <!-- FIN TABULADOR DE PESTAÑAS -->
+    
+     <!-- ERRORES EN EL FORMULARIO DE USUARIO -->            
+    <div class="container">
+        {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+        {% endfor %}
+
         {{ form_errors(formPersonalData) }}
         {{ form_errors(formEmail) }}
         {{ form_errors(formPassword) }}
@@ -141,37 +161,167 @@
         {{ form_errors(formAddresses) }}
         {{ form_errors(formBank) }}
         
-        <div class="tab-pane {{tabActive == 'personal' or tabActive is empty ? 'active'}}" name="personal" id="personal">
-            {{form_start(formPersonalData)}} 
-                {{ form_row(formPersonalData.username) }}
-                {{ form_row(formPersonalData.name) }}
-                {{ form_row(formPersonalData.surname) }}
-                {{ form_row(formPersonalData.sex) }}
-                {{ form_row(formPersonalData.birthdate) }}
-                {{ form_widget(formPersonalData.nif, { 'attr': {style:'display:none'} } )}}
-                {{ form_row(formPersonalData.savePersonalData) }}
-            {{form_end(formPersonalData)}}        
+    </div>
+    <!-- FIN ERRORES EN EL FORMULARIO DE USUARIO -->  
+          
+    <div class="tab-content">
+         <!-- PERSONAL -->
+            <div class="tab-pane 
+                 {{tabActive == 'personal' or tabActive is empty ? 'active'}}" 
+                 name="personal" id="personal">
+                
+                {{form_start(formPersonalData)}} 
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+                        {{ form_row(formPersonalData.username) }}
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+                            {{ form_row(formPersonalData.name) }}
+                        </div>
+
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+                            {{ form_row(formPersonalData.surname) }}
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+                            {{ form_row(formPersonalData.sex) }}
+                        </div>
+
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+                            {{ form_row(formPersonalData.birthdate) }}
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-col-pad">
+                        {{ form_widget(formPersonalData.nif, { 'attr': {style:'display:none'} } )}}
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+    {#                    {{ form_row(formulario.linkInvitation) }}#}
+                            <label class="control-label" 
+                                   for="profileUser_email_first">
+                                Enlace de invitación
+                            </label>
+                            <p>{{ usuario.linkInvitation }}</p>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-col-pad">
+                        {{ form_row(formPersonalData.savePersonalData) }}
+                        </div>
+                    </div>
+                 {{form_end(formPersonalData)}}    
+                    
+            </div>
+            <!-- FIN PERSONAL -->      
+            
+            <!-- EMAIL -->
+            <div class="tab-pane {{tabActive == 'email' ? 'active'}}" name="email" id="email">
+                {{form_start(formEmail)}} 
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-col-pad">
+                        <label class="control-label" 
+                               for="profileUser_email_first">
+                            Email actual
+                        </label>
+                        <p>{{ email }}</p>
+                    </div>
+                </div>
+                    
+                    
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+                        {{ form_label(formEmail.email.first) }}
+                        {{ form_widget(formEmail.email.first) }}
+{#                {{ form_row(formulario.email)}}#}
+                    </div>
+                    
+                    
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+                        {{ form_label(formEmail.email.second) }}
+                        {{ form_widget(formEmail.email.second) }}
+                    </div>
+                </div>
+                
+                    
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+                        {{ form_row(formEmail.passwordEnClaro) }}
+                    </div>
+                </div>
+                    
+                    
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-col-pad">
+                        {{ form_row(formEmail.saveEmail) }}
+                    </div>
+                </div>
+                    
+                {{form_end(formEmail)}}    
+                
         </div>
-        
-        <div class="tab-pane {{tabActive == 'email' ? 'active'}}" name="email" id="email">
-            {{form_start(formEmail)}} 
-                Email actual: {{ email }} 
-                {{ form_row(formEmail.email)}}
-                {{ form_row(formEmail.passwordEnClaro) }}
-                {{ form_row(formEmail.saveEmail) }}<br>
-            {{form_end(formEmail)}}
-        </div>
-        
-        <div class="tab-pane {{tabActive == 'password' ? 'active'}}" name="password" id="password">
-         {{form_start(formPassword)}}    
-            {{ form_row(formPassword.passwordEnClaro) }}
-            {{ form_row(formPassword.password) }}
-            {{ form_row(formPassword.savePassword) }}
-        {{form_end(formPassword)}}    
-        </div>
-        
-        <div class="tab-pane {{tabActive == 'phone' ? 'active'}}" name="phone" id="phone">
-            {{form_start(formPhone)}} 
+            <!-- FIN EMAIL -->
+            
+            <!-- PASSWORD -->
+            <div class="tab-pane {{tabActive == 'password' ? 'active'}}" name="password" id="password">
+                {{form_start(formPassword)}} 
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-col-pad">
+                        <label class="control-label" 
+                            for="profileUser_passwordEnClaro">
+                            Contraseña actual
+                        </label>
+                        <input type="password" id="profileUser_passwordEnClaro" 
+                            name="profileUser[passwordEnClaro]" 
+                            class="form-control">
+                    </div>
+                </div>
+                    
+                    
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+                        {{ form_label(formPassword.password.first) }}
+                        {{ form_widget(formPassword.password.first) }}
+                    </div>
+                    
+                    
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+                        {{ form_label(formPassword.password.second) }}
+                        {{ form_widget(formPassword.password.second) }}
+                    </div>
+                </div>
+                
+                
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-col-pad">
+                        {{ form_row(formPassword.savePassword) }}
+                    </div>
+                </div>
+                 
+                {{ form_end(formPassword)}}    
+                
+            </div>
+            <!-- FIN PASSWORD -->
+
+         <!-- PHONE -->
+            <div class="tab-pane {{tabActive == 'phone' ? 'active'}}" name="phone" id="phone">
+                {{form_start(formPhone)}} 
                 <!-- Los dos próximos campos no se deberían de ver, deberían de 
                 saltar después de darge a guardar que es cuando se envía el código -->
                 {{ form_row(formPhone.confirmPhone) }}
@@ -182,69 +332,179 @@
                 {{ form_row(formPhone.prefix) }}
                 {{ form_row(formPhone.phone) }}
             {{form_end(formPhone)}}    
-                
-        </div>
-        
+            </div>
+        <!-- END -->
+
+        <!-- PHOTO -->
         <div class="tab-pane {{tabActive == 'photo' ? 'active'}}" name="photo" id="photo">
             {{form_start(formPhoto)}} 
                 {{ form_row(formPhoto.photo.id) }}
                 {{ form_row(formPhoto.photo.url, { 'attr': {style:'display:none'} }) }}
                 {% if formPhoto.photo.url.vars.value is not empty %}
-                    <img src="{{formPhoto.photo.url.vars.value}}" width="100" height="100" >
+                    <img src="{{ formPhoto.photo.url.vars.value }}" width="100" height="100" >
                 {% endif %}    
                 {{ form_row(formPhoto.photo.checkPhoto, { 'attr': {style:'display:none'} } ) }}
 
-                <div id="profileImage">
+                {#<div id="profileImage">
                     <!-- contenedor donde se previsualizará la imagen a subir -->
-                </div>  
+                </div>  #}
 
                 {{ form_row(formPhoto.fileImage) }}
-                {{ form_row(formPhoto.savePhoto)}}
-            {{form_end(formPhoto)}}
-        </div>
-            
-        <div class="tab-pane {{tabActive == 'bank' ? 'active'}}" name="bank" id="bank">
-            {{form_start(formBank)}} 
-                {{ form_row(formBank.saveBank) }}
-                {{ form_row(formBank.numAccount) }}
-                {{ form_widget(formBank._token) }}
-            {{form_end(formBank)}}
-        </div>
-        
-        <div class="tab-pane {{tabActive == 'myOffer' ? 'active'}}" name="myOffer" id="myOffer">
-            
-            {% for offer in usuario.offers %}
-                
-                <div style="border:solid 1px orange; margin-top: 2em">
-                    <h4>
-                        <a href="{{path('user_profiler_offers' , {idOffer: offer.id})}}">
-                            {{offer.title}}                  
-                        </a> 
-                    </h4>   
-                    {{offer.description}}
-                    <img src="{{offer.photos.0.url}}" />    
+{#                <label class="control-label">Selecciona tu imagen de perfil</label>#}
+{#                <input id="input-1" name="profileUser[fileImage]" type="file" class="file" accept="image/*">#}
+                {#<input id="profileUser_fileImage" 
+                       class="file" 
+                       type="file" 
+                       multiple data-min-file-count="1">#}
 
-                </div>
-                        
-            {% endfor %}    
+                {{ form_row(formPhoto.savePhoto)}}
+                {#<label class="control-label">Select File</label>#}
+{#                <input id="input-1" type="file" class="file">#}
+                
+            {{form_end(formPhoto)}}    
                 
         </div>
+       
+        <!-- BANK -->
+            <div class="tab-pane {{tabActive == 'bank' ? 'active'}}" name="bank" id="bank">
+                {{form_start(formBank)}}     
+                    {{ form_row(formBank.saveBank) }}
+                    {{ form_row(formBank.numAccount) }}
+                {{form_end(formBank)}}
+            </div>
+        <!-- FIN BANK -->     
+
+        <!-- OFFER -->
+            <div class="tab-pane {{tabActive == 'myOffer' ? 'active'}}" name="myOffer" id="myOffer">
+
+                {% for offer in usuario.offers %}
+
+                    {#<div style="border:solid 1px orange; margin-top: 2em">
+                        <h4>
+                            <a href="{{path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.id})}}">
+                                {{offer.title}}                  
+                            </a> 
+                        </h4>   
+                        {{offer.description}}
+                        <img src="{{offer.photos.0.url}}" />    
+
+                    </div>#}
+                    <div class="row us-col-pad">
+                        <div class="us-offer-target">    
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <a href="{{ path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.id}) }}">                  
+                                        <img class="img-responsive us-offer-img" 
+                                             {#src="{{offer.photos.0.url|default(asset('img/placeholder.jpg'))}}"#} 
+                                             src="{{ asset('img/placeholder.jpg') }}"/>
+                                    </a>
+
+
+                                </div>
+
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <h4>
+                                                <a href="{{ path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.id}) }}">
+                                                    {{ offer.title }}                  
+                                                </a> 
+                                            </h4>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <p>{{ offer.description }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <a href="{{ path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.id}) }}"
+                                               class="btn-default btn us-btn-edit-address">
+                                                Editar
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                                    
+                                    
+                    </div>
+
+                {% endfor %}    
+
+        </div>
+        <!-- FIN OFFER -->    
+        
+        <!-- ADDRESS -->    
         <div class="tab-pane {{tabActive == 'address' ? 'active'}}" name="address" id="address">
+            
             {{form_start(formAddresses)}}
                 {% for address in formAddresses.addresses %}
-                    <div class="dataAddress" data-id="{{address.vars.value.id}}" style="border:solid 1px orange;">
-                        {{form_widget(address.checkDeleteAddress, { 'attr': {'data-id' : address.vars.value.id } })}}
-                        <h4>{{address.vars.value.name}}</h4><br>
-                        {{address.vars.value.country}}<br>
-                        {{address.vars.value.region}}<br>
-                        {{address.vars.value.city}}<br>
-                        {{address.vars.value.street}}<br>
-                        {{address.vars.value.zipCode}}
+                    <div class="us-address-target" data-id="{{address.vars.value.id}}">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <h4>{{address.vars.value.name|e|capitalize}}</h4>
+                            </div>
+
+
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                {{form_widget(address.checkDeleteAddress, { 'attr': {'data-id' : address.vars.value.id } })}}
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <p>{{address.vars.value.street}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <p>{{address.vars.value.zipCode}} - {{address.vars.value.region}}, {{address.vars.value.city}} ({{address.vars.value.country}})</p>
+                            </div>
+                        </div>
+                            
+                        
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <button type="submit" name="profileUser[editAddress]" data-id: {{ address.vars.value.id }} 
+                                class="btn-default btn editAddress">Editar </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+                    
+                    
+                {% for address in formAddresses.addresses %}
+{#                    <div class="dataAddress" data-id="{{address.vars.value.id}}" style="border:solid 1px orange;">#}
+{#                        {{form_widget(address.checkDeleteAddress, { 'attr': {'data-id' : address.vars.value.id } })}}#}
+{#                        <h4>{{address.vars.value.name}}</h4><br>#}
+{#                        {{address.vars.value.country}}<br>#}
+{#                        {{address.vars.value.region}}<br>#}
+                        {#{{address.vars.value.city}}#}<br>
+{#                        {{address.vars.value.street}}<br>#}
+{#                        {{address.vars.value.zipCode}}#}
                         {{form_row(address.id)}}
 
-                        <button type="submit" name="profileUser[editAddress]" data-id: {{ address.vars.value.id }} 
-                                class="btn-default btn editAddress">Editar </button>
-                    </div>
+                        {#<button type="submit" name="profileUser[editAddress]" data-id: {{ address.vars.value.id }} 
+                                class="btn-default btn editAddress">Editar </button>#}
+{#                    </div>#}
 
                     <div style="border:solid 1px orange; display: none">
                         {{form_row(address.isDefault)}}
@@ -258,23 +518,27 @@
 
                     </div>
                 {% endfor %}
-       
 
                 <ul class="newAddress" data-prototype="{{ form_widget(formAddresses.addresses.vars.prototype)|e('html_attr') }}">
 
                 </ul>
                 {{ form_row(formAddresses.deleteAddresses) }}
                 {{ form_row(formAddresses.addAddress, { 'attr': {style:'display:none'}})}}
-            {{form_end(formAddresses)}}
+
+            {{form_end(formAddresses)}}    
         </div>
+        <!-- FIN ADDRESS -->
             
+        <!-- MESSAGE -->
         <div class="tab-pane {{tabActive == 'myMessage' ? 'active'}}" name="myMessage" id="myMessage">
+            
             {{ render(controller('UserBundle:Message:message',{request: app.request,'user': usuario})) }}
-        </div>    
+            
+        </div>
+        <!-- FIN MESSAGE -->    
+  
     </div>    
 
-
-              
 {% endblock %}
 
 {% block javascriptsFooter %}
@@ -439,4 +703,45 @@
     </script>
  
     <script type="text/javascript" src="{{ asset('js/profile.js') }}">  </script>
+    
+    
+    <script src="{{ asset('js/plugins/canvas-to-blob.min.js') }}" 
+        type="text/javascript"></script>
+    <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+         This must be loaded before fileinput.min.js -->
+    <script src="{{ asset('js/plugins/sortable.js') }}" 
+        type="text/javascript"></script>
+    <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.
+         This must be loaded before fileinput.min.js -->
+    <script src="{{ asset('js/plugins/purify.min.js') }}" 
+        type="text/javascript"></script>
+    <!-- the main fileinput plugin file -->
+    <script src="{{ asset('js/fileinput.js') }}"></script>
+
+    <!-- optionally if you need translation for your language then include 
+        locale file as mentioned below -->
+    <script src="{{ asset('js/locales/es.js') }}"></script>
+    
+    <script>
+        $(document).ready(function(){
+            $("#profileUser_fileImage").fileinput({
+                showUpload: false, 
+                previewFileType: 'image',
+                initialPreview: [
+                    'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg',
+                    'http://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Earth_Eastern_Hemisphere.jpg/600px-Earth_Eastern_Hemisphere.jpg'
+                ],
+                initialPreviewAsData: true,
+                initialPreviewConfig: [
+                    {caption: "Moon.jpg", size: 930321, width: "120px", key: 1},
+                    {caption: "Earth.jpg", size: 1218822, width: "120px", key: 2}
+                ],
+                deleteUrl: "/site/file-delete",
+                overwriteInitial: false,
+                maxFileSize: 100,
+                initialCaption: "Selecciona tu imagen de perfil"
+            });
+        });
+    </script>
+    
 {% endblock %}

@@ -21,16 +21,18 @@ class MessageController extends Controller{
     public function messageAction(Request $request,User $user){
         //print_r($request);
         $this->setUpVars($request,$user);
-        
+
         $this->searchMessageFrom($request);
         $this->searchMessageTo($request);
         
         $formMessage = $this->createForm(MessageType::class,$this->message); 
+        
         $formListMessages = $this->createForm(ProfileMessageType::class, $this->user);
        
         $formMessage->handleRequest($request);
-        $formListMessages->handleRequest($request);
         
+        $formListMessages->handleRequest($request);
+
         if($formListMessages->isSubmitted()):
             if($formMessage->get('enviar')->isClicked()):
                 $this->sendMessage($request);

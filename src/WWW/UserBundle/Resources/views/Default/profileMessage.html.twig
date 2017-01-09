@@ -15,6 +15,7 @@
        - El mensaje habría que mostrar los X primeros caracteres 
     #}
 {#    {{ dump(formListMessages) }}#}
+
     {{ form_start(formListMessages,{'attr':{'class': 'formMessage'} })}}
     <BR>Mensajes Enviados <br>
         {% for mensajes in formListMessages.sent %}

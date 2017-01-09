@@ -1,4 +1,6 @@
 {% extends '::offer/layoutOffer.html.twig' %}
+{% import 'macros/popup.html.twig' as popups %}
+{% import 'macros/sidebar.html.twig' as sidebars %}
 
 {#{ BLOQUES -->     offerImage 
                     offerUser
@@ -68,6 +70,16 @@
         </a>
                     
         <a class="off-user-name" href="#USUARIO">{{trade.offer.userAdmin.username}}</a>
+        
+    </div>
+        
+    <div class="row">
+            
+        <button class="btn-default btn off-btn-write"
+            data-toggle="modal" 
+            data-target="#writeUser">
+            Escribeme
+        </button>
         
     </div>
     <!-- FIN NOMBRE USUARIO -->
@@ -153,4 +165,9 @@
         peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
         Diodeno amatomaa pecador diodeno sexuarl. 
     </p>
+{% endblock %}
+
+{% block popupBlock %}
+    {{ popups.popup('writeUser', 'Enviar Mensaje a ...', 
+        sidebars.sidebarElementDemo()) }}
 {% endblock %}
