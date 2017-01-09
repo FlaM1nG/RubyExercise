@@ -75,3 +75,9 @@ gregwar_captcha:
     width: 200
     height: 50
     length: 4
+    
+easy_admin:
+    entities:
+        - WWW\OthersBundle\Entity\Trade
+        - WWW\ServiceBundle\Entity\Offer
+        - WWW\UserBundle\Entity\User
