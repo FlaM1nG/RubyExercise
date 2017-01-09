@@ -9,7 +9,7 @@
 /**
  * Description of MessageType
  *
- * @author Julio
+ * @author Rocio
  */
 
 namespace WWW\UserBundle\Form;
@@ -19,27 +19,36 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use WWW\UserBundle\Form\UserType;
 
       
-class ProfileType extends AbstractType{
+class MessageType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
         
         $builder
-                ->add('id_from',TextType::class,array('attr'=>array('class'=>'form-control')))
-                ->add('subject',TextType::class,array('attr'=>array('class'=>'form-control')))
-                ->add('message',TextareaType::class,array('attr'=>array('class'=>'form-control')))
+                ->add('id',HiddenType::class)
+                ->add('from',UserType::class, array('label' => 'De','required' => false, ))
+                ->add('to',UserType::class, array('label' => 'Para',
+                                                  'required' => false,
+                                                ))
+                ->add('subject',TextType::class,array('label' => 'Asunto',
+                                                      'required' => false  ))
+                ->add('message',TextareaType::class,array('label' => '',
+                                                          'required' => false))
                 
-                ->add('enviar', 'submit', array('label' => 'Guardar'));
+                ->add('enviar', 'submit', array('label' => 'Enviar'))
+                ->add('borrar','submit', array('label' => 'Borrar',
+                                               'attr' => array('class' => 'buttonDeleteMessage') ));
     }
 
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data-class'=>'WWW\UserBundle\Entity\User'));
+        $resolver->setDefaults(array('data_class'=>'WWW\UserBundle\Entity\Message'
+                                ));
     }
-    
-   
-    
+        
     public function getBlockPrefix(){
         return 'message';
     }

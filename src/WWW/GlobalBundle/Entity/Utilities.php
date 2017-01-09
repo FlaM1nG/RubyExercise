@@ -111,6 +111,7 @@ class Utilities{
             case 'confirmTlfn': $success = "Se le ha enviado un código al teléfono";
             case 'tradeImageN': $error = "Debe introducir de 1 a 5 fotos";
                                 break;
+            case 'message':     $success = "Mensaje enviado";                
                                         
         endswitch;
         

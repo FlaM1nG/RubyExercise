@@ -137,6 +137,8 @@ class ProfileType extends AbstractType{
                 
                 ->add('addAddress',SubmitType::class,array('label' => 'Añadir',
                                                             'validation_groups' => false ));
+                
+               // ->add('newMessage', SubmitType::class, array('label' => 'Nuevo mensaje'));
                                                             
     }
          

@@ -3,6 +3,8 @@
 namespace WWW\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Util\Inflector as Inflector;
+use WWW\UserBundle\Entity\User;
 
 /**
  * Message
@@ -79,6 +81,37 @@ class Message
      * @var \WWW\ServiceBundle\Entity\Offer
      */
     private $offer;
+    
+    
+    
+    public function __construct($data = null) {
+        
+        if(!empty($data)):
+            
+            foreach($data as $key => $value):
+                $key = Inflector::camelize($key);
+
+                if(property_exists('WWW\UserBundle\Entity\Message',$key)):
+                    $this->$key = $value;
+
+                endif;
+            endforeach;
+
+            if(array_key_exists('from_id', $data)):
+                $userFrom = new User();
+                $userFrom->setId($data['from_id']);
+                $userFrom->setUsername($data['from_nick']);
+                $this->from = $userFrom;
+            endif;    
+            
+            if(array_key_exists('to_id', $data)):
+                $userTo = new User();
+                $userTo->setId($data['to_id']);
+                $userTo->setUsername($data['to_nick']);
+                $this->to = $userTo;
+            endif;    
+        endif;
+    }
 
     /**
      * Get id

@@ -154,7 +154,7 @@ class TradeController extends Controller{
         $file = "http://www.whatwantweb.com/api_rest/services/trade/list_trades.php";
         
         $informacion['data'] = json_encode($data);
-         print_r($informacion);
+         
         $result = $ch->resultApiRed($informacion, $file);
         
         if($result['result'] == 'ok'):

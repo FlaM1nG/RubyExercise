@@ -120,7 +120,7 @@
         </li>
         
     </ul>
-   {{form_start(formulario)}}        
+          
     <div class="tab-content">
         {% block content3 %}
             {% for flash_message in app.session.flashbag.get('messageSuccess') %}
@@ -133,81 +133,82 @@
                 {{ alerts.alert('alert-warning', flash_message, null) }}
             {% endfor %}    
         {% endblock %}
-        {{ form_errors(formulario) }}
+        {{ form_errors(formPersonalData) }}
+        {{ form_errors(formEmail) }}
+        {{ form_errors(formPassword) }}
+        {{ form_errors(formPhoto) }}
+        {{ form_errors(formPhone) }}
+        {{ form_errors(formAddresses) }}
+        {{ form_errors(formBank) }}
         
         <div class="tab-pane {{tabActive == 'personal' or tabActive is empty ? 'active'}}" name="personal" id="personal">
-
-                {{ form_row(formulario.username) }}
-                {{ form_row(formulario.name) }}
-                {{ form_row(formulario.surname) }}
-                {{ form_row(formulario.sex) }}
-                {{ form_row(formulario.birthdate) }}
-                {{ form_widget(formulario.nif, { 'attr': {style:'display:none'} } )}}
-                {{ form_row(formulario.savePersonalData) }}
-                {{ form_row(formulario.linkInvitation) }}
-                  
-            
+            {{form_start(formPersonalData)}} 
+                {{ form_row(formPersonalData.username) }}
+                {{ form_row(formPersonalData.name) }}
+                {{ form_row(formPersonalData.surname) }}
+                {{ form_row(formPersonalData.sex) }}
+                {{ form_row(formPersonalData.birthdate) }}
+                {{ form_widget(formPersonalData.nif, { 'attr': {style:'display:none'} } )}}
+                {{ form_row(formPersonalData.savePersonalData) }}
+            {{form_end(formPersonalData)}}        
         </div>
         
         <div class="tab-pane {{tabActive == 'email' ? 'active'}}" name="email" id="email">
-            
-            Email actual: {{ email }}
-            {{ form_row(formulario.email)}}
-            {{ form_row(formulario.passwordEnClaro) }}
-            {{ form_row(formulario.saveEmail) }}<br>
-        
+            {{form_start(formEmail)}} 
+                Email actual: {{ email }} 
+                {{ form_row(formEmail.email)}}
+                {{ form_row(formEmail.passwordEnClaro) }}
+                {{ form_row(formEmail.saveEmail) }}<br>
+            {{form_end(formEmail)}}
         </div>
         
         <div class="tab-pane {{tabActive == 'password' ? 'active'}}" name="password" id="password">
-            
-            <div class="form-group">
-                <label class="control-label" for="profileUser_passwordEnClaro">
-                    Contraseña
-                </label>
-                <input type="password" id="profileUser_passwordEnClaro" name="profileUser[passwordEnClaro]" class="form-control">
-            </div>
-            {{ form_row(formulario.password) }}
-            {{ form_row(formulario.savePassword) }}
-                
+         {{form_start(formPassword)}}    
+            {{ form_row(formPassword.passwordEnClaro) }}
+            {{ form_row(formPassword.password) }}
+            {{ form_row(formPassword.savePassword) }}
+        {{form_end(formPassword)}}    
         </div>
         
         <div class="tab-pane {{tabActive == 'phone' ? 'active'}}" name="phone" id="phone">
-            <!-- Los dos próximos campos no se deberían de ver, deberían de 
-            saltar después de darge a guardar que es cuando se envía el código -->
-            {{ form_row(formulario.confirmPhone) }}
-            {{ form_row(formulario.codConfirmation) }}
-            <!-- Botón para que te envíe el código, el teléfono no se guarda 
-            hasta que no se ha confirmado -->
-            {{ form_row(formulario.savePhone) }}
-            {{ form_row(formulario.prefix) }}
-            {{ form_row(formulario.phone) }}
-            
+            {{form_start(formPhone)}} 
+                <!-- Los dos próximos campos no se deberían de ver, deberían de 
+                saltar después de darge a guardar que es cuando se envía el código -->
+                {{ form_row(formPhone.confirmPhone) }}
+                {{ form_row(formPhone.codConfirmation) }}
+                <!-- Botón para que te envíe el código, el teléfono no se guarda 
+                hasta que no se ha confirmado -->
+                {{ form_row(formPhone.savePhone) }}
+                {{ form_row(formPhone.prefix) }}
+                {{ form_row(formPhone.phone) }}
+            {{form_end(formPhone)}}    
                 
         </div>
         
         <div class="tab-pane {{tabActive == 'photo' ? 'active'}}" name="photo" id="photo">
-            
-            {{ form_row(formulario.photo.id) }}
-            {{ form_row(formulario.photo.url, { 'attr': {style:'display:none'} }) }}
-            {% if formulario.photo.url.vars.value is not empty %}
-                <img src="{{formulario.photo.url.vars.value}}" width="100" height="100" >
-            {% endif %}    
-            {{ form_row(formulario.photo.checkPhoto, { 'attr': {style:'display:none'} } ) }}
-            
-            <div id="profileImage">
-                <!-- contenedor donde se previsualizará la imagen a subir -->
-            </div>  
-            
-            {{ form_row(formulario.fileImage) }}
-            {{ form_row(formulario.savePhoto)}}
-            
+            {{form_start(formPhoto)}} 
+                {{ form_row(formPhoto.photo.id) }}
+                {{ form_row(formPhoto.photo.url, { 'attr': {style:'display:none'} }) }}
+                {% if formPhoto.photo.url.vars.value is not empty %}
+                    <img src="{{formPhoto.photo.url.vars.value}}" width="100" height="100" >
+                {% endif %}    
+                {{ form_row(formPhoto.photo.checkPhoto, { 'attr': {style:'display:none'} } ) }}
+
+                <div id="profileImage">
+                    <!-- contenedor donde se previsualizará la imagen a subir -->
+                </div>  
+
+                {{ form_row(formPhoto.fileImage) }}
+                {{ form_row(formPhoto.savePhoto)}}
+            {{form_end(formPhoto)}}
         </div>
             
         <div class="tab-pane {{tabActive == 'bank' ? 'active'}}" name="bank" id="bank">
-            
-                {{ form_row(formulario.saveBank) }}
-                {{ form_row(formulario.numAccount) }}
-       
+            {{form_start(formBank)}} 
+                {{ form_row(formBank.saveBank) }}
+                {{ form_row(formBank.numAccount) }}
+                {{ form_widget(formBank._token) }}
+            {{form_end(formBank)}}
         </div>
         
         <div class="tab-pane {{tabActive == 'myOffer' ? 'active'}}" name="myOffer" id="myOffer">
@@ -216,7 +217,7 @@
                 
                 <div style="border:solid 1px orange; margin-top: 2em">
                     <h4>
-                        <a href="{{path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.id})}}">
+                        <a href="{{path('user_profiler_offers' , {idOffer: offer.id})}}">
                             {{offer.title}}                  
                         </a> 
                     </h4>   
@@ -229,50 +230,50 @@
                 
         </div>
         <div class="tab-pane {{tabActive == 'address' ? 'active'}}" name="address" id="address">
-            
-            {% for address in formulario.addresses %}
-                <div class="dataAddress" data-id="{{address.vars.value.id}}" style="border:solid 1px orange;">
-                    {{form_widget(address.checkDeleteAddress, { 'attr': {'data-id' : address.vars.value.id } })}}
-                    <h4>{{address.vars.value.name}}</h4><br>
-                    {{address.vars.value.country}}<br>
-                    {{address.vars.value.region}}<br>
-                    {{address.vars.value.city}}<br>
-                    {{address.vars.value.street}}<br>
-                    {{address.vars.value.zipCode}}
-                    {{form_row(address.id)}}
-                    
-                    <button type="submit" name="profileUser[editAddress]" data-id: {{ address.vars.value.id }} 
-                            class="btn-default btn editAddress">Editar </button>
-                </div>
-                
-                <div style="border:solid 1px orange; display: none">
-                    {{form_row(address.isDefault)}}
-                    {{form_row(address.name)}}
-                    {{form_row(address.country)}}
-                    {{form_row(address.region)}}
-                    {{form_row(address.city)}}
-                    {{form_row(address.street)}}
-                    {{form_row(address.zipCode)}}
-                    {{form_row(address.editAddress)}}
-                    
-                </div>
-            {% endfor %}
-            {{ form_row(formulario.idDeletesAddresses) }}
-            
-            <ul class="newAddress" data-prototype="{{ form_widget(formulario.addresses.vars.prototype)|e('html_attr') }}">
-     
-            </ul>
-            {{ form_row(formulario.deleteAddresses) }}
-            {{ form_row(formulario.addAddress, { 'attr': {style:'display:none'}})}}
-            
+            {{form_start(formAddresses)}}
+                {% for address in formAddresses.addresses %}
+                    <div class="dataAddress" data-id="{{address.vars.value.id}}" style="border:solid 1px orange;">
+                        {{form_widget(address.checkDeleteAddress, { 'attr': {'data-id' : address.vars.value.id } })}}
+                        <h4>{{address.vars.value.name}}</h4><br>
+                        {{address.vars.value.country}}<br>
+                        {{address.vars.value.region}}<br>
+                        {{address.vars.value.city}}<br>
+                        {{address.vars.value.street}}<br>
+                        {{address.vars.value.zipCode}}
+                        {{form_row(address.id)}}
+
+                        <button type="submit" name="profileUser[editAddress]" data-id: {{ address.vars.value.id }} 
+                                class="btn-default btn editAddress">Editar </button>
+                    </div>
+
+                    <div style="border:solid 1px orange; display: none">
+                        {{form_row(address.isDefault)}}
+                        {{form_row(address.name)}}
+                        {{form_row(address.country)}}
+                        {{form_row(address.region)}}
+                        {{form_row(address.city)}}
+                        {{form_row(address.street)}}
+                        {{form_row(address.zipCode)}}
+                        {{form_row(address.editAddress)}}
+
+                    </div>
+                {% endfor %}
+       
+
+                <ul class="newAddress" data-prototype="{{ form_widget(formAddresses.addresses.vars.prototype)|e('html_attr') }}">
+
+                </ul>
+                {{ form_row(formAddresses.deleteAddresses) }}
+                {{ form_row(formAddresses.addAddress, { 'attr': {style:'display:none'}})}}
+            {{form_end(formAddresses)}}
         </div>
             
         <div class="tab-pane {{tabActive == 'myMessage' ? 'active'}}" name="myMessage" id="myMessage">
-    
+            {{ render(controller('UserBundle:Message:message',{request: app.request,'user': usuario})) }}
         </div>    
     </div>    
 
-{{form_end(formulario)}}
+
               
 {% endblock %}
 
@@ -322,7 +323,7 @@
                   }
               }
              
-              document.getElementById('profileUser_fileImage').addEventListener('change', archivo, false);
+              document.getElementById('profilePhoto_fileImage').addEventListener('change', archivo, false);
 
     </script>
     
@@ -355,12 +356,12 @@
                     // add a new tag form (see next code block)
                     addTagForm($collectionHolder, $newLinkLi);
                     
-                    $('#profileUser_deleteAddresses').css('display','none');
+                    $('#profileAddress_deleteAddresses').css('display','none');
                     //Solo se permite añadir una dirección de una vez, 
                     //así que ocultamos el botón
                     $('.add_tag_link').css('display','none');
                     //Mostramos el botón de guardar una dirección nueva
-                    $('#profileUser_addAddress').css('display','block');
+                    $('#profileAddress_addAddress').css('display','block');
                 });
             });
             
@@ -385,23 +386,38 @@
             }
            
             
-            $(document).on('click','.checkDeleteAddress', deleteAddresses);
-            $(document).on('click','.editAddress', editAddress);
+            //$(document).on('click','.checkDeleteAddress', deleteAddresses);
             $(document).on('click','.add_tag_link',showHiddenButtonAdd);
+            $(document).on('click','.newMessageButton', showFormNewMessage);
+            $(document).on('click','.buttonDeleteMessage', deleteMessage);
             
-            function deleteAddresses(){
+            
+            
+            function deleteMessage(e){
+                e.stopPropagation();
+                //e.preventDefault();
+                var arrayName = $(this).attr('id').split('_');
+                var posArray = arrayName[2];
+                var typeMessage = arrayName[1];
                 
-                var idsAddress =''; 
+                $('#profileMessage_idRemove').val(posArray);
+                $('#profileMessage_fromTo').val(typeMessage);
+            }
+            
+            function showFormNewMessage(e){
+                e.preventDefault();
                 
-                $('.checkDeleteAddress:checked').each(function() {
+                if($('.containeMessages').is(':visible')){
+                    $('.containeMessages').hide();
+                    $('#message_to, #message_message').attr('required',true);
+                    $('.newMessage').show();
                     
-                    idsAddress = idsAddress + $(this).attr('data-id') + ',';  
-                });
-                
-        
-                //idsAddress = idsAddress.substr(-1);
-                $('#profileUser_idDeletesAddresses').val(idsAddress);
-                
+                }else{
+                    
+                    $('.containeMessages').show();
+                    $('#message_to, #message_message').attr('required',false);
+                    $('.newMessage').hide();
+                }
             }
             
             function editAddress(e){
@@ -421,6 +437,6 @@
 
 
     </script>
-    
+ 
     <script type="text/javascript" src="{{ asset('js/profile.js') }}">  </script>
 {% endblock %}
