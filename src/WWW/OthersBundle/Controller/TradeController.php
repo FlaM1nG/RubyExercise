@@ -16,6 +16,7 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\ServiceBundle\Entity\Comment;
 use WWW\ServiceBundle\Form\CommentType;
+use WWW\GlobalBundle\MyConstants;
 
 /**
  * Description of TradeController
@@ -62,7 +63,7 @@ class TradeController extends Controller{
             return false;
         else:
             $ch = new ApiRest();
-            $file = "http://www.whatwantweb.com/api_rest/services/offer/insert_offer.php";
+            $file = MyConstants::PATH_APIREST."services/offer/insert_offer.php";
             $dataOffer = array("id" => $this->session->get('id'),
                              "username" => $this->session->get('username'),
                             "password" =>$this->session->get('password'),
@@ -155,7 +156,7 @@ class TradeController extends Controller{
         
         $arrayOffers = array();
         $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/api_rest/services/trade/list_trades.php";
+        $file = MyConstants::PATH_APIREST."services/trade/list_trades.php";
         
         $informacion['data'] = json_encode($data);
          
@@ -176,6 +177,7 @@ class TradeController extends Controller{
         $trade = null;
         
         $trade = $this->getTrade($request);
+//        print_r($trade);
         $comment = new Comment();
         
         $formComment = $this->createForm(CommentType::class, $comment);
@@ -198,7 +200,8 @@ class TradeController extends Controller{
         $this->setUpVars($request);
         
         $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/api_rest/services/trade/get_trade.php";
+        $file = MyConstants::PATH_APIREST."services/trade/get_trade.php";
+
         $trade = null;
        
         $data['id'] = $request->get('idOffer');
@@ -207,11 +210,10 @@ class TradeController extends Controller{
         
          
         if($result['result'] == 'ok'):
-            print_r($result);
             $trade = new Trade($result);
         
         else:
-            $ut->flashMessage("general", $request);
+            $this->ut->flashMessage("general", $request);
         endif;
         
         return $trade;
@@ -224,7 +226,7 @@ class TradeController extends Controller{
     private function saveComment(Request $request, $idOffer){
         
         $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/api_rest/services/inscription/comment.php";
+        $file = MyConstants::PATH_APIREST."services/inscription/comment.php";
         
         $data['id'] = $this->session->get('id');
         $data['username'] = $this->session->get('username');

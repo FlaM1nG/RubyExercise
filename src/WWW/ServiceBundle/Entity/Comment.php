@@ -4,6 +4,7 @@ namespace WWW\ServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Util\Inflector as Inflector;
+use WWW\UserBundle\Entity\User;
 
 
 /**
@@ -53,16 +54,21 @@ class Comment
     private $offer;
     
     public function __construct($array = null) {
+        
         if(!empty($array)):
             foreach ($array as $key => $value):
                 $key = Inflector::camelize($key);
                 
-                if(property_exists('WWW\ServiceBundle\Entity\Comment',$key)):
-                    
-                    $this->$key = $value;
-                    
+                if(property_exists('WWW\ServiceBundle\Entity\Comment',$key)):    
+                    $this->$key = $value;   
                 endif;
             endforeach;
+            
+            $user = new User();
+            $user->setId($array['user_id']);
+            $user->setUsername($array['username']);
+            $user->setPhoto($array['user_photo']);
+            $this->user = $user;
         endif;
     }
 

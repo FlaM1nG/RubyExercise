@@ -71,18 +71,46 @@
                     
                     <!-- PRICE AND VOTE OFFER -->
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <span class="off-price"> 
-                                {% block offerPrice %} {% endblock %} 
-                            </span>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <span class="off-date"> 
+                                        {% block offerDate %} {% endblock %} 
+                                    </span>
+                                </div>
+                            </div>
                             
-                            <span class="off-vote"> 
-                                {% block offerVote %} {% endblock %} 
-                            </span>
                             
-                            <span class="off-date"> 
-                                {% block offerDate %} {% endblock %} 
-                            </span>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <span class="off-price"> 
+                                        {% block offerPrice %} {% endblock %} 
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                            
+                        
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            {% block offerUser %} {% endblock %}
+                            
+                            
+                            <div class="row off-row-rating">
+                                <span class="off-vote"> 
+                                    {% block offerVote %} {% endblock %} 
+                                </span>
+                            </div>
+                                
+                                
+                            <div class="row">
+                                <button class="btn-default btn off-btn-write"
+                                    data-toggle="modal" 
+                                    data-target="#writeUser">
+                                    Escribeme
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <!-- FIN PRICE AND VOTE OFFER -->
@@ -91,7 +119,6 @@
                     <!-- DATE -->
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            
                         </div>
                     </div>
                     <!-- FIN DATE -->
@@ -107,8 +134,18 @@
                     <!-- FIN DESCRIPTION OFFER -->
                     
                     
-                    <!-- BUY OFFER AND USER -->
                     <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-default 
+                                btn-off-buy">
+                               Comprar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- BUY OFFER AND USER -->
+                    {#<div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <button type="submit" class="btn btn-default 
                                 btn-off-buy">
@@ -119,10 +156,26 @@
                         
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             {% block offerUser %} {% endblock %}
+                            
+                            
+                            <div class="row off-row-rating">
+                                <span class="off-vote"> 
+                                    {% block offerVote %} {% endblock %} 
+                                </span>
+                            </div>
+                                
+                                
+                            <div class="row">
+                                <button class="btn-default btn off-btn-write"
+                                    data-toggle="modal" 
+                                    data-target="#writeUser">
+                                    Escribeme
+                                </button>
+                            </div>
                         </div>
                         
                         
-                    </div>
+                    </div>#}
                     <!-- FIN BUY OFFER AND USER -->
                     
                     
