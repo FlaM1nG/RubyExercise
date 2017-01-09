@@ -427,4 +427,53 @@ class Address implements GroupSequenceProviderInterface
         return $groups;
     }
 
+    /**
+     * Get phone
+     *
+     * @return integer 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set prefix
+     *
+     * @param string $prefix
+     * @return Address
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * Get prefix
+     *
+     * @return string 
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+    
+    /*
+     * @return Array de grupos
+     */
+    public function getGroupSequence()
+    {
+        $groups = array('Address');
+
+        if ($this->isAddress()) {
+            
+            $groups[] = 'Address';
+            
+        }
+
+        return $groups;
+    }
+
 }
