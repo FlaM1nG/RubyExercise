@@ -32,7 +32,7 @@ class ProfileController extends Controller{
     
     private $user = null;
     private $session = null;
-    private $tabActive = 'personal';
+    private $tabActive = 'myMessage';
     private $ut;
     private $email = "";
     
@@ -41,90 +41,105 @@ class ProfileController extends Controller{
                 
         
         $this->sesion = $request->getSession();
-        $this->tabActive = 'personal';
+        $this->tabActive = 'myMessage';
         $this->ut = new Utilities();
         
         $this->user = new User();
         $this->getUserExist($request);
         
-        $form = $this->createForm(ProfileType::class,$this->user); 
         
-        $form->handleRequest($request);
+        $formPersonalData = $this->createForm(ProfilePersonalDataType::class,$this->user); 
+        $formEmail = $this->createForm(ProfileEmailType::class,$this->user);
+        $formPassword = $this->createForm(ProfilePasswordType::class,$this->user);
+        $formPhone = $this->createForm(ProfilePhoneType::class,$this->user);
+        $formPhoto = $this->createForm(ProfilePhotoType::class,$this->user);
+        $formAddresses = $this->createForm(ProfileAddressesType::class,$this->user);
+        $formBank = $this->createForm(ProfileBankType::class,$this->user);
         
-        if($form->isSubmitted()):  
-            if($form->isValid()): 
-                if($form->get('savePersonalData')->isClicked()):
-                    $this->savePersonalData($request);
+        $formPersonalData->handleRequest($request);
+        $formEmail->handleRequest($request);
+        $formPassword->handleRequest($request);
+        $formPhone->handleRequest($request);
+        $formPhoto->handleRequest($request);
+        $formAddresses->handleRequest($request);
+        $formBank->handleRequest($request);        
+        
+        if($formPersonalData->isSubmitted()):
+            $this->tabActive = 'personal';
+        
+            if($formPersonalData->isValid()):
+                $this->savePersonalData($request);
+            endif;
+        elseif($formEmail->isSubmitted()):
+            $this->tabActive = 'email';
+        
+            if($formEmail->isValid()):
+                $this->saveEmail($request);
+            endif;
+        elseif($formPassword->isSubmitted()):
+            $this->tabActive = 'password';
+        
+            if($formPassword->isValid()):
+                $this->savePassword($request);
+            endif;
+        elseif($formPhone->isSubmitted()):
+            $this->tabActive = 'phone';
+        
+            if($formPhone->isValid()):
+                if($formPhone->get('savePhone')->isClicked()):
+                        //envia email para confirmar
+                        $this->sendSMS($request);
 
-                elseif($form->get('saveEmail')->isClicked()):
-                    $this->saveEmail($request);
-
-                elseif($form->get('savePassword')->isClicked()): 
-                    $this->savePassword($request);
-
-                elseif($form->get('savePhone')->isClicked()):
-                    //envia email para confirmar
-                    $this->sendSMS($request);
-                
-                elseif($form->get('confirmPhone')->isClicked()):
-                    //guarda el móvil después de introducir el código de confirmación
-                    $this->savePhone($request);
-
-                elseif($form->get('savePhoto')->isClicked()):
-                    $this->savePhoto($request);
-
-                elseif($form->get('saveBank')->isClicked()):
-                    $this->saveBank($request);
-
-                elseif($form->get('addAddress')->isClicked()): "debería entrar";
-                   $this->newAddresses($request);
-                
-                elseif($form->get('deleteAddresses')->isClicked()):
+                elseif($formPhone->get('confirmPhone')->isClicked()):
+                        //guarda el móvil después de introducir el código de confirmación
+                        $this->savePhone($request);
+                endif;
+            endif;
+        elseif($formPhoto->isSubmitted()):
+            $this->tabActive = 'photo';
+        
+            if($formPhoto->isValid()):
+                $this->savePhoto($request);
+            endif;
+        elseif($formBank->isSubmitted()):
+            $this->tabActive = 'bank';
+        
+            if($formBank->isValid()):
+                $this->saveBank($request);
+            endif;
+            
+        elseif($formAddresses->isSubmitted()):
+            $this->tabActive = 'addresses';
+            echo "estoy en Address<br>";
+            if($formAddresses->isValid()):
+                echo "formAddress validado<br>";
+                if($formAddresses->get('addAddress')->isClicked()): 
+                    echo "pinchada nuevaDirección<br>";
+                    $this->newAddresses($request);
+                elseif($formAddresses->get('deleteAddresses')->isClicked()):
+                    echo "pincho borrar<br>";
                     $this->deleteAddresses($request);
-                    $form = $this->createForm(ProfileType::class,$this->user); 
+                    $formAddresses = $this->createForm(ProfileAddressesType::class,$this->user); 
                 else: 
+                    echo "actualizo dirección <br>";
                     $this->updateAddresses($request);
                 endif;
-            else: 
-                
-                $this->updateTabActive($form);
             endif;    
-            
-        endif;
-       
+        endif;    
+
         return $this->render('UserBundle:Default:profile.html.twig',
-                             array('formulario'=>$form->createView(),
+                             array('formPersonalData'=>$formPersonalData->createView(),
+                                   'formEmail'=>$formEmail->createView(),
+                                   'formPassword'=>$formPassword->createView(),
+                                   'formPhone'=>$formPhone->createView(),
+                                   'formPhoto'=>$formPhoto->createView(),
+                                   'formAddresses'=>$formAddresses->createView(),
+                                   'formBank'=>$formBank->createView(), 
                                    'usuario' => $this->user,
                                    'email' => $this->email, 
                                    'tabActive' => $this->tabActive));
         
-    }
-    
-    private function updateTabActive($form){
-        
-        if($form->get('savePersonalData')->isClicked()):
-            $this->tabActive = 'personal';
-
-        elseif($form->get('saveEmail')->isClicked()):
-            $this->tabActive = 'email';
-
-        elseif($form->get('savePassword')->isClicked()):
-            $this->tabActive = 'password';
-
-        elseif($form->get('savePhone')->isClicked()):
-            $this->tabActive = 'phone';
-
-        elseif($form->get('savePhoto')->isClicked()):
-            $this->tabActive = 'photo';
-
-        elseif($form->get('saveBank')->isClicked()):
-            $this->tabActive = 'bank';
-
-        elseif($form->get('addAddress')->isClicked()): 
-            $this->tabActive = 'addresses';
-
-        endif;
-    }
+    }    
     
     private function getUserExist(Request $request){
         
@@ -138,7 +153,7 @@ class ProfileController extends Controller{
                            "password" => $this->session->get('password'));
         
         $result = $ch->sendInformation($arrayData, $file, "parameters");
-        
+        //print_r($result);
         if($result['result'] == 'ok')
             $this->fillUser($result);
         
@@ -346,7 +361,7 @@ class ProfileController extends Controller{
         
         $this->tabActive = "photo";
  
-        $foto = $request->files->all()['profileUser']['fileImage'];
+        $foto = $request->files->all()['profilePhoto']['fileImage'];
         
         if(!empty($foto)):
            
@@ -421,7 +436,7 @@ class ProfileController extends Controller{
     }
     
     private function saveBank(Request $request){
-        echo "saveBank";
+        
         $this->tabActive = "bank";
         
         $ch = new ApiRest();
@@ -441,7 +456,7 @@ class ProfileController extends Controller{
     }
     
     private function newAddresses(Request $request){
-        
+        echo "nueva dirección";
         $this->tabActive = "address";
         
         $arrayAddress = $this->user->getAddresses();
@@ -459,6 +474,7 @@ class ProfileController extends Controller{
         $data['country'] = "'".$address->getCountry()."'";
         $data['city'] = "'".$address->getCity()."'";
         $data['zip_code'] = "'".$address->getZipCode()."'";
+        
         if(!empty($address->getIsDefault()))
             $data['is_default'] = 1;
         else $data['is_default'] = 0;
@@ -481,27 +497,28 @@ class ProfileController extends Controller{
     private function deleteAddresses(Request $request){
         
         $this->tabActive = "address";
-        $auxDirecciones = substr($request->request->all()['profileUser']['idDeletesAddresses'],0,-1);
-        $arrayAddresses = explode(',',$auxDirecciones);
+        $arrayAddresses = $request->request->all()['profileAddress']['addresses'];
+        
         $resultDelete['result'] = 'ok';
         
-        $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/user/addresses/delete_address.php";
         
         $data = array("username" => $this->session->get('username'),
                       "password" => $this->session->get('password'),
                       "id_user" => $this->session->get('id'));
         
-        foreach($arrayAddresses as $idAddress):
-            $data["id"] = $idAddress;
-            $result = $ch->resultApiRed($data, $file);
-            
-            if($result['result'] == 'ok'):
-                $this->updateAddressUser($idAddress);
-            else:
-                $resultDelete['result'] = 'ko';
+        foreach($arrayAddresses as $address):
+            if(array_key_exists('checkDeleteAddress', $address)):
+                $ch = new ApiRest();
+                $data["id"] = $address['id'];
+                $result = $ch->resultApiRed($data, $file);
+                
+                if($result['result'] == 'ok'):
+                    $this->updateAddressUser($address['id']);
+                else:
+                    $resultDelete['result'] = 'ko';
+                endif;
             endif;
-            
         endforeach;
         
         $this->ut->flashMessage("general", $request, $result);
@@ -523,7 +540,7 @@ class ProfileController extends Controller{
         
         $this->tabActive = "address";
         
-        $arrayAddresses = $request->request->all()['profileUser']['addresses'];
+        $arrayAddresses = $request->request->all()['profileAddress']['addresses'];
         $addressUpdate = null;
         $data = null;
         
@@ -556,6 +573,5 @@ class ProfileController extends Controller{
         $this->ut->flashMessage("general", $request, $result);
 
     }
-
 
 }

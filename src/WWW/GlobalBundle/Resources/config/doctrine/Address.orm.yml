@@ -34,6 +34,13 @@ WWW\GlobalBundle\Entity\Address:
             type: string
             length: 255
             nullable: true  
+        phone:
+            type: integer
+            nullable: true
+        prefix:
+            type: string
+            length: 255
+            nullable: true
         createdDate:
             type: datetime
             nullable: true

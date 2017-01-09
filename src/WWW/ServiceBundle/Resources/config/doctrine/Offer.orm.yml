@@ -18,6 +18,9 @@ WWW\ServiceBundle\Entity\Offer:
             nullable: true
         expired:
             type: boolean
+        holders:
+            type: integer
+            nullable: true
         createdDate:
             type: datetime
             nullable: true
@@ -55,4 +58,14 @@ WWW\ServiceBundle\Entity\Offer:
               photo_id:
                 referencedColumnName: id
                 onDelete: CASCADE
+    oneToMany:
+        inscriptions:
+            targetEntity: Inscription
+            mappedBy: Offer
+        comments:
+            targetEntity: Comment
+            mappedBy: Offer
+        valorations:
+            targetEntity: Valoration
+            mappedBy: Valoration
     lifecycleCallbacks: {  }

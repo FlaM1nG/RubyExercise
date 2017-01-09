@@ -18,10 +18,16 @@ user_profiler:
     defaults: { _controller: UserBundle:Profile:profile }
     
 user_profiler_offers:
-    path: /profile/{offer}/{idOffer}
+    path: /profile/offer/{idOffer}
     defaults: { _controller: UserBundle:OfferUser:showOffer }
     requirements:
         idOffer: \d+
+        
+user_profiler_message:
+    path: /profile/message/{idMessage}
+    defaults: { _controller: UserBundle:Message:searchMessage }
+    requirements:
+        idMessage: \d+        
 
 user_forgot:
     path: /forgot/

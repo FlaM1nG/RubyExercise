@@ -114,15 +114,51 @@ class TradeController extends Controller{
         
         $ch = new ApiRest();
         $this->ut = new Utilities();
+        $varPost = $request->request->all();
         
-        $file = "http://www.whatwantweb.com/api_rest/services/trade/list_trades.php";
-        $arrayOffers = array();
         
         $data['service'] = 'trade';
         $data['search'] = '';
         
-        $informacion['data'] = json_encode($data);
+        if(!empty($varPost)):
+            
+            if(!empty($request->get('object')))
+                $data['search'] = $request->get('object');
+            
+            if(!empty($request->get('city')))
+                $data['filters']['location'] = $request->get('city'); 
+            
+            if(!empty($request->get('minPrice'))):
+                $data['filters']['min_price'] = (int)$request->get('minPrice'); 
+            endif;
+            
+            if(!empty($request->get('maxPrice')))
+                $data['filters']['max_price'] = (int)$request->get('maxPrice'); 
+            
+            if(array_key_exists('category', $varPost)):
+                foreach($request->get('category') as $cat):
+                    $data['filters']['categories'][] = (int)$cat;
+                endforeach;
+            endif;     
+             
+        endif;
         
+        $arrayOffers = $this->searchTrades($data);
+        
+        return $this->render('services/serTrade.html.twig',array(
+                             'arrayTrades' => $arrayOffers,
+                             'categories' => $this->ut->getArrayCategoryTrade()
+        ));
+    }
+    
+    private function searchTrades($data){
+        
+        $arrayOffers = array();
+        $ch = new ApiRest();
+        $file = "http://www.whatwantweb.com/api_rest/services/trade/list_trades.php";
+        
+        $informacion['data'] = json_encode($data);
+         
         $result = $ch->resultApiRed($informacion, $file);
         
         if($result['result'] == 'ok'):
@@ -131,32 +167,36 @@ class TradeController extends Controller{
                 array_push($arrayOffers, $newTrade);
             endforeach;
         endif;
-        
-        return $this->render('services/serTrade.html.twig',array(
-                             'arrayTrades' => $arrayOffers,
-                             'categories' => $this->ut->getArrayCategoryTrade()
-        ));
+        return $arrayOffers;
     }
     
     public function showTradeAction(Request $request){
-        $ch = new ApiRest();
+        echo "hola";
+       
         $ut = new Utilities();
         $trade = null;
+        
+       
+        
+        return $this->render('offer/offTrade.html.twig',array(
+                             'trade' => $trade
+        ));
+    }
+    
+    public function getTrade($request){
+        $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/services/trade/get_trade.php";
        
         $data['id'] = $request->get('idOffer');
         
         $result = $ch->resultApiRed($data, $file);
         
+         
         if($result['result'] == 'ok'):
             $trade = new Trade($result);
         
         else:
             $ut->flashMessage("general", $request);
         endif;
-        
-        return $this->render('offer/offTrade.html.twig',array(
-                             'trade' => $trade
-        ));
     }
 }

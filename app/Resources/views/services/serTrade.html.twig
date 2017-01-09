@@ -24,7 +24,7 @@ sha-header-title
 
 {% block serviceFilters %} 
     {#{{ include('services/filters/shareCarFilter.html.twig') }}#}
-    {{ filters.filterTrade('post',path('service_listTrade'),categories) }}
+    {{ filters.filterTrade('get',path('service_listTrade'),categories) }}
 {% endblock %}
             
 {% block serviceList %}
@@ -42,7 +42,7 @@ sha-header-title
 
 {% block filtroMovilBody %}
 {#    {{ include('services/filters/shareCarFilter.html.twig') }}#}
-    {{ filters.filterTrade('post',path('service_listTrade'),categories) }}
+    {{ filters.filterTrade('get',path('service_listTrade'),categories) }}
 {% endblock %}
 
 {% block serviceSidebar %}

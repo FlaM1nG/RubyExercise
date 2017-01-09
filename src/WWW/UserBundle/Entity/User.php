@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Photo;
-use Doctrine\Common\Util\Inflector as Inflector;
 
 /**
  * User
@@ -175,7 +174,6 @@ class User implements UserInterface, GroupSequenceProviderInterface{
      */
     private $smsConfirmed;
 
-
     /**
      * @var string
      */
@@ -228,12 +226,17 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $received;
+    private $received;    
     
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var float
      */
-    private $offers;
+    private $avgScore;
+
+    /**
+     * @var integer
+     */
+    private $valorationNum;
 
     /**
      * Constructor
@@ -273,6 +276,11 @@ class User implements UserInterface, GroupSequenceProviderInterface{
         
     }
 
+    public function setId($id){
+        
+        $this->id = $id;
+    }
+    
     /**
      * Get id
      *
@@ -794,8 +802,8 @@ class User implements UserInterface, GroupSequenceProviderInterface{
         $this->addresses[$arrayAddresses['id']] = $addresses->toArray();*/
 
         return $this;
-        echo "<br><br>HOLA";
-        print_r($this->addresses);
+        
+        
     }
 
     /**
@@ -1116,53 +1124,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
         print_r($result);
     }
     
-    /*private function searchTrades(){
-        
-        $arrayOffer = array();
-        $file = 'http://www.whatwantweb.com/api_rest/services/offer/get_user_offers.php';
-        
-        $ch = new ApiRest();
-        
-        $data = array();
-        $data['username'] = $this->username;
-        $data['id'] = $this->id;
-        $data['password'] = $this->password;
-        $data['service'] = 'trade';
-        
-        $result = $ch->resultApiRed($data, $file);
-        
-        $arrayCategory = $this->tradeCategory();
-        
-
-        foreach($result['offers'] as $offer):
-
-            $trade = new Trade($offer,true);
-
-            $trade->setCategory($arrayCategory[$offer['category_id']]);
-            $arrayOffer[] = $trade;
-        endforeach;
-      
-        return $arrayOffer;
-    }*/
-    
-    /*private function tradeCategory(){
-        
-        $arrayCategory = array();
-        
-        $fileCategory = "http://www.whatwantweb.com/api_rest/services/trade/get_categories.php";
-       
-        $ch = new ApiRest();
-        
-        $result = $ch->sendInformationWihoutParameters($fileCategory);
-
-        if(!empty($result)):
-            foreach($result as $category):
-                $arrayCategory[$category['id']] = new TradeCategory($category);
-            endforeach;
-        endif;  
-        
-        return $arrayCategory;
-    }*/
+   
     /*
      * @return Array de grupos
      */
@@ -1211,12 +1173,16 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * Remove sent
      *
-     * @param \WWW\UserBundle\Entity\Message $sent
+     * @param $pos del array
      */
-    public function removeSent(\WWW\UserBundle\Entity\Message $sent)
-    {
-        $this->sent->removeElement($sent);
+    public function removeSent($pos)
+    { echo "****";
+        
+        unset($this->sent[$pos]);
+        
     }
+    
+    //public function removeMessage(\WWW\UserBundle\Entity\Message $message)
 
     /**
      * Get sent
@@ -1244,11 +1210,11 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * Remove received
      *
-     * @param \WWW\UserBundle\Entity\Message $received
+     * @param $pos
      */
-    public function removeReceived(\WWW\UserBundle\Entity\Message $received)
-    {
-        $this->received->removeElement($received);
+    public function removeReceived($pos)
+    { echo "RECEIVED";
+        unset($this->received[$pos]);
     }
 
     /**
@@ -1259,5 +1225,51 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     public function getReceived()
     {
         return $this->received;
+    }
+
+    /**
+     * Set avgScore
+     *
+     * @param float $avgScore
+     * @return User
+     */
+    public function setAvgScore($avgScore)
+    {
+        $this->avgScore = $avgScore;
+
+        return $this;
+    }
+
+    /**
+     * Get avgScore
+     *
+     * @return float 
+     */
+    public function getAvgScore()
+    {
+        return $this->avgScore;
+    }
+
+    /**
+     * Set valorationNum
+     *
+     * @param integer $valorationNum
+     * @return User
+     */
+    public function setValorationNum($valorationNum)
+    {
+        $this->valorationNum = $valorationNum;
+
+        return $this;
+    }
+
+    /**
+     * Get valorationNum
+     *
+     * @return integer 
+     */
+    public function getValorationNum()
+    {
+        return $this->valorationNum;
     }
 }
