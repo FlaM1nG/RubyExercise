@@ -3,6 +3,8 @@
 namespace WWW\ServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Util\Inflector as Inflector;
+
 
 /**
  * Comment
@@ -49,6 +51,20 @@ class Comment
      */
     
     private $offer;
+    
+    public function __construct($array = null) {
+        if(!empty($array)):
+            foreach ($array as $key => $value):
+                $key = Inflector::camelize($key);
+                
+                if(property_exists('WWW\ServiceBundle\Entity\Comment',$key)):
+                    
+                    $this->$key = $value;
+                    
+                endif;
+            endforeach;
+        endif;
+    }
 
     /**
      * Get id

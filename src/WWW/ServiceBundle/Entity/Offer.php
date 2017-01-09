@@ -98,7 +98,9 @@ class Offer
      */
     public function __construct($data = null){ 
      //var_dump($data);
+        print_r($data);
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = Array();
         
         if(gettype($data) == 'array'):
             $keyPhoto = '';

@@ -14,6 +14,8 @@ use WWW\OthersBundle\Form\TradeType;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
+use WWW\ServiceBundle\Entity\Comment;
+use WWW\ServiceBundle\Form\CommentType;
 
 /**
  * Description of TradeController
@@ -22,16 +24,13 @@ use WWW\GlobalBundle\Entity\Utilities;
  */
 class TradeController extends Controller{
     
-    private $sesion;
+    private $session;
     private $trade;
     private $ut;
     
     public function createOfferAction(Request $request){
-        
-        $this->ut = new Utilities();
-        
-        $this->sesion = $request->getSession();
-        
+
+        $this->setUpVars($request);
         $trade = new Trade();
         $formTrade = $this->createForm(TradeType::class,$trade);
         $formTrade->handleRequest($request);
@@ -44,6 +43,11 @@ class TradeController extends Controller{
         return $this->render('OthersBundle:Trade:offerTrade.html.twig',
                        array('formTrade' => $formTrade->createView(),
                              'trade' => $trade));
+    }
+    
+    public function setUpVars(Request $request){
+        $this->ut = new Utilities(); 
+        $this->session = $request->getSession();
     }
     
     private function saveTrade(Request $request, Trade $trade){
@@ -59,9 +63,9 @@ class TradeController extends Controller{
         else:
             $ch = new ApiRest();
             $file = "http://www.whatwantweb.com/api_rest/services/offer/insert_offer.php";
-            $dataOffer = array("id" => $this->sesion->get('id'),
-                             "username" => $this->sesion->get('username'),
-                            "password" =>$this->sesion->get('password'),
+            $dataOffer = array("id" => $this->session->get('id'),
+                             "username" => $this->session->get('username'),
+                            "password" =>$this->session->get('password'),
                             "title" => $trade->getOffer()->getTitle(),
                             "description" => $trade->getOffer()->getDescription(),
                             "service_id" => 1);
@@ -90,7 +94,7 @@ class TradeController extends Controller{
                 
                 return $arrayUrls;
             else:     
-                $arrayUrls = $this->ut->uploadImage($arrayFiles, $this->sesion->get('id'));
+                $arrayUrls = $this->ut->uploadImage($arrayFiles, $this->session->get('id'));
             endif;
         endif;
         
@@ -108,8 +112,8 @@ class TradeController extends Controller{
     }
     
     public function listTradeAction(Request $request){
-       // print_r($request);
-        $this->ut = new Utilities();
+       
+        $this->setUpVars($request);
         $varPost = $request->request->all();
         
         
@@ -167,21 +171,35 @@ class TradeController extends Controller{
     }
     
     public function showTradeAction(Request $request){
-        echo "hola";
        
-        $ut = new Utilities();
+        $this->setUpVars($request);
         $trade = null;
         
-       
+        $trade = $this->getTrade($request);
+        $comment = new Comment();
+        
+        $formComment = $this->createForm(CommentType::class, $comment);
+        
+        $formComment->handleRequest($request);
+        
+        if($formComment->isSubmitted()){
+            $this->saveComment($request, $trade->getOffer()->getId());
+            $formComment = $this->createForm(CommentType::class, new Comment());
+        }
         
         return $this->render('offer/offTrade.html.twig',array(
-                             'trade' => $trade
+                             'trade' => $trade,
+                             'formComment' => $formComment->createView()   
         ));
     }
     
-    public function getTrade($request){
+    private function getTrade($request){
+        
+        $this->setUpVars($request);
+        
         $ch = new ApiRest();
         $file = "http://www.whatwantweb.com/api_rest/services/trade/get_trade.php";
+        $trade = null;
        
         $data['id'] = $request->get('idOffer');
         
@@ -189,10 +207,33 @@ class TradeController extends Controller{
         
          
         if($result['result'] == 'ok'):
+            print_r($result);
             $trade = new Trade($result);
         
         else:
             $ut->flashMessage("general", $request);
         endif;
+        
+        return $trade;
+    }
+    
+    private function listComments(){
+        
+    }
+    
+    private function saveComment(Request $request, $idOffer){
+        
+        $ch = new ApiRest();
+        $file = "http://www.whatwantweb.com/api_rest/services/inscription/comment.php";
+        
+        $data['id'] = $this->session->get('id');
+        $data['username'] = $this->session->get('username');
+        $data['password'] = $this->session->get('password');
+        $data['offer_id'] = $idOffer;
+        $data['comment'] = $request->get('comment')['comment'];
+        
+        $result = $ch->resultApiRed($data, $file);
+
+        $this->ut->flashMessage("comment", $request, $result);
     }
 }
