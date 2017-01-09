@@ -38,7 +38,7 @@ class LoginController extends Controller{
             
             $result = $ch->sendInformation($data, $file, "parameters");
             
-            $user = new User($result);
+            
             
             $authenticationUtils = $this->get('security.authentication_utils');
                 // get the login error if there is one
@@ -47,6 +47,7 @@ class LoginController extends Controller{
                 $lastUsername = $authenticationUtils->getLastUsername();
                 
             if($result['result'] == 'ok'):
+                $user = new User($result);
                 if(!$this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')){        
                     $this->get('app.manager.usuario_manager')->login($user);
                 }
@@ -63,8 +64,8 @@ class LoginController extends Controller{
                $session->set("password",$result['password']);
                $session->set('intentoLogin',0);
                
-              //  return $this->redirectToRoute('user_profiler');
-               return $this->render('UserBundle:Default:login.html.twig',array('last_username' => $lastUsername,'error' => $error,'formulario'=>$formulario->createView()));
+                return $this->redirectToRoute('homepage');
+              // return $this->render('UserBundle:Default:login.html.twig',array('last_username' => $lastUsername,'error' => $error,'formulario'=>$formulario->createView()));
             else:
                 $session->set('intentoLogin',$session->get('intentoLogin')+1);
             

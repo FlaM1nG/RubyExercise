@@ -105,10 +105,9 @@
                         </div>
                     </div>
                     <!-- FIN DESCRIPTION OFFER -->
-                    
-                    
-                    <!-- BUY OFFER AND USER -->
-                    <div class="row">
+
+                    {% if is_granted('select_offer', trade) %}
+                         <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <button type="submit" class="btn btn-default 
                                 btn-off-buy">
@@ -116,6 +115,9 @@
                             </button>
                         </div>
                         
+                    {% endif %}
+                    <!-- BUY OFFER AND USER -->
+                  
                         
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             {% block offerUser %} {% endblock %}

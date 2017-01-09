@@ -33,6 +33,9 @@ class TradeController extends Controller{
         $this->sesion = $request->getSession();
         
         $trade = new Trade();
+        
+        $this->denyAccessUnlessGranted('create_offer', $trade);
+        
         $formTrade = $this->createForm(TradeType::class,$trade);
         $formTrade->handleRequest($request);
         
@@ -108,7 +111,7 @@ class TradeController extends Controller{
     }
     
     public function listTradeAction(Request $request){
-        print_r($request);
+        
         $ch = new ApiRest();
         $this->ut = new Utilities();
         

@@ -29,7 +29,13 @@ security:
             form_login:
                 login_path:  user_login
                 check_path:  user_login_check
-               
+                
+                # login success redirecting options (read further below)
+                always_use_default_target_path: true
+                default_target_path:            default_security_target
+                
+                use_referer:                    true
+                
             logout:
                 path:       user_logout
             remember_me:
@@ -39,7 +45,8 @@ security:
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     access_control:
              
-        - { path: ^/user/profile, roles: ROLE_USER } 
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY } 
+        - { path: ^/user/profile,           roles: ROLE_USER } 
+        - { path: ^/,                       roles: IS_AUTHENTICATED_ANONYMOUSLY } 
+        - { path: ^/services/trade/newTrade, roles: ROLE_USER}
     encoders:
         WWW\UserBundle\Entity\User: bcrypt
