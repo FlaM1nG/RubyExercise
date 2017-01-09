@@ -70,6 +70,28 @@ class Offer
      * @var \WWW\ServiceBundle\Entity\Service
      */
     private $service;
+    
+    
+    /**
+     * @var integer
+     */
+    private $holders;    
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $inscriptions;
+    
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $valorations;
 
     /**
      * Constructor
@@ -422,5 +444,127 @@ class Offer
         return $this->service;
     }
     
-    
+
+    /**
+     * Set holders
+     *
+     * @param integer $holders
+     * @return Offer
+     */
+    public function setHolders($holders)
+    {
+        $this->holders = $holders;
+
+        return $this;
+    }
+
+    /**
+     * Get holders
+     *
+     * @return integer 
+     */
+    public function getHolders()
+    {
+        return $this->holders;
+    }
+
+    /**
+     * Add inscriptions
+     *
+     * @param \WWW\ServiceBundle\Entity\Inscription $inscriptions
+     * @return Offer
+     */
+    public function addInscription(\WWW\ServiceBundle\Entity\Inscription $inscriptions)
+    {
+        $this->inscriptions[] = $inscriptions;
+
+        return $this;
+    }
+
+    /**
+     * Remove inscriptions
+     *
+     * @param \WWW\ServiceBundle\Entity\Inscription $inscriptions
+     */
+    public function removeInscription(\WWW\ServiceBundle\Entity\Inscription $inscriptions)
+    {
+        $this->inscriptions->removeElement($inscriptions);
+    }
+
+    /**
+     * Get inscriptions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInscriptions()
+    {
+        return $this->inscriptions;
+    }
+
+
+    /**
+     * Add comments
+     *
+     * @param \WWW\ServiceBundle\Entity\Comment $comments
+     * @return Offer
+     */
+    public function addComment(\WWW\ServiceBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \WWW\ServiceBundle\Entity\Comment $comments
+     */
+    public function removeComment(\WWW\ServiceBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add valorations
+     *
+     * @param \WWW\ServiceBundle\Entity\Valoration $valorations
+     * @return Offer
+     */
+    public function addValoration(\WWW\ServiceBundle\Entity\Valoration $valorations)
+    {
+        $this->valorations[] = $valorations;
+
+        return $this;
+    }
+
+    /**
+     * Remove valorations
+     *
+     * @param \WWW\ServiceBundle\Entity\Valoration $valorations
+     */
+    public function removeValoration(\WWW\ServiceBundle\Entity\Valoration $valorations)
+    {
+        $this->valorations->removeElement($valorations);
+    }
+
+    /**
+     * Get valorations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getValorations()
+    {
+        return $this->valorations;
+    }
 }
