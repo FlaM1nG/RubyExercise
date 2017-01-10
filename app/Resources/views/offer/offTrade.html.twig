@@ -141,8 +141,10 @@
             
             {{ form_widget(formComment.comment, { 'attr': { 'class': 'custom-control',
                                                   'rows': '3', 'style': 'resize:none' } }) }}
-            {{ form_widget(formComment.newComment, { 'attr': { 'class': 'input-group-addon btn btn-primary' } }) }}
-            
+                                                  
+            <span class="input-group-btn">
+            {{ form_widget(formComment.newComment, { 'attr': { 'class': 'btn btn-primary off-com-btn' } }) }}
+            </span>
         </div>
 
     </div>
