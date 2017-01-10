@@ -41,7 +41,7 @@
 
 {% block body %}
 <!-- TABULADOR DE PESTAÑAS -->
-<div class="container-fluid cd-main-content">
+<div class="container-fluid cd-main-content us-profile-panel">
     <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" {{tabActive == 'personal' or tabActive is empty ? 'class="active"'}}>
                 <a href="#personal" 
@@ -532,7 +532,31 @@
             
             <!-- MESSAGE -->
             <div class="tab-pane {{tabActive == 'myMessage' ? 'active'}}" name="myMessage" id="myMessage">
-
+                <nav class="navbar navbar-fixed-left navbar-minimal animate" role="navigation">
+		<div class="navbar-toggler animate">
+			<span class="menu-icon"></span>
+		</div>
+		<ul class="navbar-menu animate">
+			<li>
+				<a href="#about-us" class="animate">
+					<span class="desc animate"> Who We Are </span>
+					<span class="glyphicon glyphicon-user"></span>
+				</a>
+			</li>
+			<li>
+				<a href="#blog" class="animate">
+					<span class="desc animate"> What We Say </span>
+					<span class="glyphicon glyphicon-info-sign"></span>
+				</a>
+			</li>
+			<li>
+				<a href="#contact-us" class="animate">
+					<span class="desc animate"> How To Reach Us </span>
+					<span class="glyphicon glyphicon-comment"></span>
+				</a>
+			</li>
+		</ul>
+	</nav>
                 {{ render(controller('UserBundle:Message:message',{request: app.request,'user': usuario})) }}
 
             </div>
@@ -746,6 +770,15 @@
                 overwriteInitial: false,
                 maxFileSize: 100,
                 initialCaption: "Selecciona tu imagen de perfil"
+            });
+        });
+    </script>
+    
+    <script>
+        $(function () {
+            $('.navbar-toggler').on('click', function(event) {
+                event.preventDefault();
+                $(this).closest('.navbar-minimal').toggleClass('open');
             });
         });
     </script>
