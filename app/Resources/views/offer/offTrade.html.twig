@@ -198,6 +198,6 @@
 {% endblock %}
 
 {% block popupBlock %}
-    {{ popups.popup('writeUser', 'Enviar Mensaje a ...', 
-        sidebars.sidebarElementDemo()) }}
+    {% set title = 'Enviar mensaje a ' ~ trade.offer.userAdmin.username %}
+    {{ popups.popup('writeUser', title, include('offer/offPrivateMessage.html.twig') ) }}
 {% endblock %}

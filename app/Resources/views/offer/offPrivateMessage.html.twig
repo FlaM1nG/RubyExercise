@@ -1,0 +1,6 @@
+{# empty Twig template #}
+{{ form_start(formMessage) }}
+    {{ form_widget(formMessage.subject, { 'attr': {'readonly':'readonly' } })}}
+    {{ form_widget(formMessage.message) }}
+    {{ form_widget(formMessage.enviar) }}
+    {{ form_row(formMessage._token) }}

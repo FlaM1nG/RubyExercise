@@ -17,6 +17,9 @@ use WWW\GlobalBundle\Entity\Utilities;
 use WWW\ServiceBundle\Entity\Comment;
 use WWW\ServiceBundle\Form\CommentType;
 use WWW\GlobalBundle\MyConstants;
+use WWW\UserBundle\Entity\Message;
+use WWW\UserBundle\Form\MessageType;
+use WWW\UserBundle\Entity\User;
 
 /**
  * Description of TradeController
@@ -172,27 +175,54 @@ class TradeController extends Controller{
     }
     
     public function showTradeAction(Request $request){
-       
-        $this->setUpVars($request);
-        $trade = null;
         
+        $this->setUpVars($request);
+        
+        $trade = null;
         $trade = $this->getTrade($request);
 //        print_r($trade);
         $comment = new Comment();
+        $message = $this->fillMessage($trade);
         
         $formComment = $this->createForm(CommentType::class, $comment);
+        $formMessage = $this->createForm(MessageType::class, $message);
         
         $formComment->handleRequest($request);
+        $formMessage->handleRequest($request);
         
-        if($formComment->isSubmitted()){
+        if($formComment->isSubmitted()):
             $this->saveComment($request, $trade->getOffer()->getId());
             $formComment = $this->createForm(CommentType::class, new Comment());
-        }
+            
+        elseif($formMessage->isSubmitted()):
+            $this->sendMessage($request,$trade);
+            echo "ENTRO";
+            //($message);
+        endif;
         
         return $this->render('offer/offTrade.html.twig',array(
                              'trade' => $trade,
-                             'formComment' => $formComment->createView()   
+                             'formComment' => $formComment->createView(),
+                             'formMessage' => $formMessage->createView()   
         ));
+    }
+    
+    private function fillMessage($trade){
+        $message = new Message();
+        
+        $user = new User();
+        $user->setId($this->session->get('id'));
+        $user->setUsername($this->session->get('username'));
+        
+        $userTo = new User();
+        $userTo->setId($trade->getOffer()->getUserAdmin()->getId());
+        $userTo->setUsername($trade->getOffer()->getUserAdmin()->getUsername());
+        
+        $message->setFrom($user);
+        $message->setTo($userTo);
+        $message->setSubject('Oferta: '.$trade->getOffer()->getTitle());
+        
+        return $message;
     }
     
     private function getTrade($request){
@@ -237,5 +267,19 @@ class TradeController extends Controller{
         $result = $ch->resultApiRed($data, $file);
 
         $this->ut->flashMessage("comment", $request, $result);
+    }
+    
+    private function sendMessage(Request $request, $trade){
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."user/messages/send_message.php";
+        
+        $data['id'] = $this->session->get('id');
+        $data['username'] = $this->session->get('username');
+        $data['password'] = $this->session->get('password');
+        $data['to'] = $trade->getOffer()->getUserAdmin()->getUsername();
+        $data['subject'] = $request->get('message')['subject'];
+        $data['message'] = $request->get('message')['message'];
+        
+        print_r($data);
     }
 }
