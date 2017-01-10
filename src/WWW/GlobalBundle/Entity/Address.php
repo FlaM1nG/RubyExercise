@@ -82,6 +82,16 @@ class Address implements GroupSequenceProviderInterface
      * @Assert\NotBlank(groups={"address"})
      */
     private $country;
+    
+        /**
+     * @var integer
+     */
+    private $phone;
+
+    /**
+     * @var string
+     */
+    private $prefix;
 
 
      public function __construct(Array $address=null){
@@ -410,15 +420,6 @@ class Address implements GroupSequenceProviderInterface
     {
         return $this->country;
     }
-    /**
-     * @var integer
-     */
-    private $phone;
-
-    /**
-     * @var string
-     */
-    private $prefix;
 
 
     /**

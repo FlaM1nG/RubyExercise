@@ -34,7 +34,13 @@
                             <span class="glyphicon glyphicon-user size-icon">
                                 
                             </span>
-                            Mi Cuenta
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                Mi cuenta
+                            {% elseif is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                Mi cuenta
+                            {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                Entra
+                            {% endif %}
                         </a>
                     </li>
                     
