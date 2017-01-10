@@ -11,3 +11,9 @@ service_trade:
     defaults: { _controller: OthersBundle:Trade:showTrade }
     requirements:
         idOffer: \d+
+
+ajax_rating:
+    path: /ajax/ajax_rating
+    defaults: { _controller: OthersBundle:Trade:prueba }
+        
+

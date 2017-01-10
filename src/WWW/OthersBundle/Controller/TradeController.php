@@ -20,6 +20,16 @@ use WWW\GlobalBundle\MyConstants;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
 use WWW\UserBundle\Entity\User;
+use WWW\ServiceBundle\Form\OfferSuscribeType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\JsonResponse;
+ 
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * Description of TradeController
@@ -186,9 +196,11 @@ class TradeController extends Controller{
         
         $formComment = $this->createForm(CommentType::class, $comment);
         $formMessage = $this->createForm(MessageType::class, $message);
+        $formSubscribe = $this->createForm(OfferSuscribeType::class);
         
         $formComment->handleRequest($request);
         $formMessage->handleRequest($request);
+        $formSubscribe->handleRequest($request);
         
         if($formComment->isSubmitted()):
             $this->saveComment($request, $trade->getOffer()->getId());
@@ -196,14 +208,17 @@ class TradeController extends Controller{
             
         elseif($formMessage->isSubmitted()):
             $this->sendMessage($request,$trade);
-            echo "ENTRO";
-            //($message);
+        
+        elseif($formSubscribe->isSubmitted()):
+            $this->offerSubscribe($trade);
+        
         endif;
         
         return $this->render('offer/offTrade.html.twig',array(
                              'trade' => $trade,
                              'formComment' => $formComment->createView(),
-                             'formMessage' => $formMessage->createView()   
+                             'formMessage' => $formMessage->createView()  ,
+                             'formSubscribe' => $formSubscribe->createView()
         ));
     }
     
@@ -280,6 +295,46 @@ class TradeController extends Controller{
         $data['subject'] = $request->get('message')['subject'];
         $data['message'] = $request->get('message')['message'];
         
-        print_r($data);
+        $result = $ch->resultApiRed($data, $file);
+        
+        $this->ut->flashMessage("message", $request, $result);
+    }
+    
+    private function offerSubscribe($trade){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/inscription/subscribe_user.php";
+        
+        $data = $this->formArrayData();
+        $data['offer_id'] = $trade->getOffer()->getId();
+        
+        $result = $ch->resultApiRed($data, $file);
+
+    }
+    
+    private function formArrayData(){
+        
+        $data['id'] = $this->session->get('id');
+        $data['username'] = $this->session->get('username');
+        $data['password'] = $this->session->get('password');
+        
+        return $data;
+    }
+    
+    /**
+     * @Route("/ajax/rating", name="ajax_rating")
+     * @Method({"POST"})
+     */
+    
+    public function pruebaAction(Request $request){
+        $newRating = $request->get('rating');
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/inscription/rate.php";
+        
+        $data = $this->formArrayData();
+        
+        $response = new JsonResponse();
+        return $response;
     }
 }
