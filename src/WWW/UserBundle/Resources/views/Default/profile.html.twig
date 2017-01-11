@@ -144,7 +144,7 @@
     <!-- FIN TABULADOR DE PESTAÑAS -->
     
      <!-- ERRORES EN EL FORMULARIO DE USUARIO -->            
-    <div class="container">
+    <div class="container errorContainer">
         {% for flash_message in app.session.flashbag.get('messageSuccess') %}
             {{ alerts.alert('alert-success', flash_message, null) }}
         {% endfor %} 
@@ -683,19 +683,58 @@
             //$(document).on('click','.checkDeleteAddress', deleteAddresses);
             $(document).on('click','.add_tag_link',showHiddenButtonAdd);
             $(document).on('click','.newMessageButton', showFormNewMessage);
-            $(document).on('click','.buttonDeleteMessage', deleteMessage);
+            $(document).on('click','.bDeleteMessage', deleteMessage);
             
             
             
             function deleteMessage(e){
-                e.stopPropagation();
-                //e.preventDefault();
-                var arrayName = $(this).attr('id').split('_');
-                var posArray = arrayName[2];
-                var typeMessage = arrayName[1];
+                var type = $(this).attr('data-type');
+                var id = $(this).attr('data-id');
                 
-                $('#profileMessage_idRemove').val(posArray);
-                $('#profileMessage_fromTo').val(typeMessage);
+                var data = {};
+                data['id'] = id;
+                data['type'] = type;
+                
+                $.ajax({                        
+                    type: "POST",                 
+                    url: "{{ url('user_ajax_message') }}",                     
+                    data: data, 
+                    success: function(data)             
+                    {
+                        if(data['result'] === 'ok'){
+                            $('.containerMessage_'+id).remove();  
+                            $('.errorContainer').html("<div class='alert "+
+                            "alert-success alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }else{
+                            $('.errorContainer').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }
+                        
+                    },
+                    error: function(data)             
+                    {
+                        $('.errorContainer').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
+         
+                    }        
+                });
             }
             
             function showFormNewMessage(e){
