@@ -30,7 +30,7 @@ class LoginController extends Controller{
             $email=$request->request->all()['loginUser']['_username'];
             $password=$request->request->all()['loginUser']['_password'];  
          
-            $file = "http://www.whatwantweb.com/api_rest/user/registration/login_user.php";
+            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/registration/login_user.php";
             $data = array("username" => $email,
                           "password" => $password);
             

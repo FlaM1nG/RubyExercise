@@ -29,10 +29,10 @@ sha-header-title
             
 {% block serviceList %}
     <div class="row row-tra-base" id="tra-cont-base">
-    {% for trade in arrayTrades %}
+    {% for trade in arrayTrades %} 
         {#{ include('services/lists/tradeList.html.twig') }#}
         
-        {% set url = path('service_trade' , {offer: 'offer' ,idOffer: trade.id}) %}
+        {% set url = path('service_trade' , {idOffer: trade.id}) %}
         
         {{ trades.element(url, trade.offer.photos.0.url, trade.offer.title, trade.category.name, '#CATEGORIA', 
             '#USER', trade.offer.userAdmin.photo.url, trade.offer.userAdmin.username , trade.price) }}

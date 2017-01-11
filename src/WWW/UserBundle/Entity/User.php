@@ -766,7 +766,10 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     {
         if(gettype($photo) == 'array'):
             $this->photo = new Photo($photo);
-        else:
+        elseif(gettype($photo) == 'String'):
+            $this->photo = new Photo();
+            $this->photo->setUrl($photo);
+        else:    
             $this->photo = $photo;
         endif;
         

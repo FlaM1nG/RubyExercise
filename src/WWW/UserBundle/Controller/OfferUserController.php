@@ -71,7 +71,7 @@ class OfferUserController extends Controller{
 
    private function searchOffer(Request $request, $id){
        
-       $file = "http://www.whatwantweb.com/api_rest/services/offer/get_offer.php";
+       $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/services/offer/get_offer.php";
        $ch = new ApiRest();
        
        $data['id'] = $id;
@@ -121,7 +121,7 @@ class OfferUserController extends Controller{
         endif;
         
         $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/api_rest/services/offer/update_offer.php";
+        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/services/offer/update_offer.php";
         
         $info['id'] = $this->session->get('id');
         $info['username'] = $this->session->get('username');
@@ -159,7 +159,7 @@ class OfferUserController extends Controller{
 
         if(!empty($idsPhotos)):
             
-            $file = "http://www.whatwantweb.com/api_rest/services/photos/delete_offer_photo.php";
+            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/services/photos/delete_offer_photo.php";
             $data['id'] = $this->session->get('id');
             $data['username'] = $this->session->get('username');
             $data['password'] = $this->session->get('password');
@@ -190,7 +190,7 @@ class OfferUserController extends Controller{
         $ut = new Utilities();
         $arrayPhotos = $ut->uploadImage($arrayImage, $this->session->get('id'));
         
-        $filePhotos = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
+        $filePhotos = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/global/photo/add_photos.php";
         
         $ch = new ApiRest();
         

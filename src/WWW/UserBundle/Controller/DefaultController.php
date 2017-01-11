@@ -33,7 +33,7 @@ class DefaultController extends Controller{
         
         if(!empty($usuario->getPassword())):
             
-            $file = "http://www.whatwantweb.com/api_rest/user/passwords/new_password.php";
+            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/passwords/new_password.php";
             $ch = new ApiRest();
             $data = array("password" => $usuario->getPassword(),
                              "token" => $token);
@@ -57,7 +57,7 @@ class DefaultController extends Controller{
         
         if(!empty($usuario->getEmail())):
             
-            $file = "http://www.whatwantweb.com/api_rest/user/passwords/forget_password.php";
+            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/passwords/forget_password.php";
             $data = array("email" => $usuario->getEmail());
         
             $ch = new ApiRest();
@@ -79,7 +79,7 @@ class DefaultController extends Controller{
         
         if(!empty($usuario->getEmail())):            
 
-            $file = "http://www.whatwantweb.com/api_rest/user/email/resend_email.php";
+            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/email/resend_email.php";
             $data = array("email" => $usuario->getEmail());
             $ch = new ApiRest();
             $result = $ch->sendInformation($data, $file, "parameters");            

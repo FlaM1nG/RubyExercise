@@ -77,7 +77,30 @@ gregwar_captcha:
     length: 4
     
 easy_admin:
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
+    design:
+        brand_color: '#f60'
+    site_name: 'WhatWantWeb_Management'
     entities:
-        - WWW\OthersBundle\Entity\Trade
-        - WWW\ServiceBundle\Entity\Offer
-        - WWW\UserBundle\Entity\User
+        Photo:
+            class: WWW\GlobalBundle\Entity\Photo
+            list:
+                fields:
+                    - id
+                    - { property: 'url', type: 'image', base_path: 'http://whatwantweb.com/' }
+                    - { property: 'created_date',format: 'j/n/Y'}
+        Trade:
+            class: WWW\OthersBundle\Entity\Trade
+        Offer:    
+            class: WWW\ServiceBundle\Entity\Offer
+        User:
+            class: WWW\UserBundle\Entity\User
+        Message:
+            class: WWW\UserBundle\Entity\Message
+        Address:
+            class: WWW\GlobalBundle\Entity\Address
+         
+        

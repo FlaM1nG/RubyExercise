@@ -23,7 +23,7 @@ class Utilities{
 
         $arrayCategory = array();
 
-        $fileCategory = "http://www.whatwantweb.com/api_rest/services/trade/get_categories.php";
+        $fileCategory = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/services/trade/get_categories.php";
 
         $ch = new ApiRest();
 
@@ -111,7 +111,8 @@ class Utilities{
             case 'confirmTlfn': $success = "Se le ha enviado un código al teléfono";
             case 'tradeImageN': $error = "Debe introducir de 1 a 5 fotos";
                                 break;
-            case 'message':     $success = "Mensaje enviado";                
+            case 'message':     $success = "Mensaje enviado";
+            case 'comment':     $success = "Comentario enviado";    
                                         
         endswitch;
         

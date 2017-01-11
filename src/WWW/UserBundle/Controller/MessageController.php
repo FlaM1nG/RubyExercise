@@ -65,7 +65,7 @@ class MessageController extends Controller{
     
     private function searchMessageFrom(Request $request){
         
-        $file = "http://www.whatwantweb.com/api_rest/user/messages/list_messages.php";
+        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/messages/list_messages.php";
         $ch = new ApiRest();
         
         $data['username'] = $this->session->get('username');
@@ -87,7 +87,7 @@ class MessageController extends Controller{
     
      private function searchMessageTo(Request $request){
         
-        $file = "http://www.whatwantweb.com/api_rest/user/messages/list_messages.php";
+        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/messages/list_messages.php";
         $ch = new ApiRest();
         
         $data['username'] = $this->session->get('username');
@@ -130,7 +130,7 @@ class MessageController extends Controller{
     
     public function getMessage(Request $request, $id){
    
-        $file = "http://www.whatwantweb.com/api_rest/user/messages/get_message.php"; 
+        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/messages/get_message.php"; 
         $ch = new ApiRest();
         
         $data['username'] = $this->session->get('username');
@@ -149,7 +149,7 @@ class MessageController extends Controller{
     
     private function sendMessage(Request $request){
         
-        $file = "http://www.whatwantweb.com/api_rest/user/messages/send_message.php"; 
+        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/messages/send_message.php"; 
         $ch = new ApiRest();
         
         $data['username'] = $this->session->get('username');
@@ -178,7 +178,7 @@ class MessageController extends Controller{
             $idMessage = $this->user->getReceived()[$posArray]->getId();
         endif;
 
-        $file = "http://www.whatwantweb.com/api_rest/user/messages/delete_message.php";
+        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/messages/delete_message.php";
         $ch = new ApiRest();
         
         $data['username'] = $this->session->get('username');

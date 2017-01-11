@@ -1,6 +1,7 @@
 {% extends '::offer/layoutOffer.html.twig' %}
 {% import 'macros/popup.html.twig' as popups %}
 {% import 'macros/sidebar.html.twig' as sidebars %}
+{% import 'macros/user.html.twig' as users %}
 
 {#{ BLOQUES -->     offerImage 
                     offerUser
@@ -72,16 +73,6 @@
         <a class="off-user-name" href="#USUARIO">{{trade.offer.userAdmin.username}}</a>
         
     </div>
-        
-    <div class="row">
-            
-        <button class="btn-default btn off-btn-write"
-            data-toggle="modal" 
-            data-target="#writeUser">
-            Escribeme
-        </button>
-        
-    </div>
     <!-- FIN NOMBRE USUARIO -->
 {% endblock %}
 
@@ -134,7 +125,46 @@
 
 
 {% block offerComments %}
-    <p>COMENTARIOS</p>
+    <h4>COMENTARIOS</h4>
+    <hr>
+    
+    <div class="off-form-comment">
+        <div class="input-group">
+            {#<textarea class="form-control custom-control" 
+                rows="3" 
+                style="resize:none">
+                    
+            </textarea>
+            <span class="input-group-addon btn btn-primary">
+                Enviar
+            </span>#}
+            
+            {{ form_widget(formComment.comment, { 'attr': { 'class': 'custom-control',
+                                                  'rows': '3', 'style': 'resize:none' } }) }}
+            {{ form_widget(formComment.newComment, { 'attr': { 'class': 'input-group-addon btn btn-primary' } }) }}
+            
+        </div>
+
+    </div>
+    
+    {% set i = 0 %}
+    {% for comment in trade.offer.comments %}
+    <div class="off-comment-target">
+        <div class="row">        
+            <div class="col-lg-2 col-md-4 col-sm-3 col-xs-4">
+                {{ users.userComments('#urlPerfilUser?',comment.user.photo,comment.user.username,comment.createdDate,i) }}
+            </div>
+
+
+            <div class="col-lg-10 col-md-8 col-sm-9 col-xs-8 off-col-comment">
+                <p>{{ comment.comment }}</p>
+            </div>
+        </div>
+            
+            
+    </div>
+    {% set i = i+1 %}
+    {% endfor %}
     
 {% endblock %}
 
@@ -168,6 +198,6 @@
 {% endblock %}
 
 {% block popupBlock %}
-    {{ popups.popup('writeUser', 'Enviar Mensaje a ...', 
-        sidebars.sidebarElementDemo()) }}
+    {% set title = 'Enviar mensaje a ' ~ trade.offer.userAdmin.username %}
+    {{ popups.popup('writeUser', title, include('offer/offPrivateMessage.html.twig') ) }}
 {% endblock %}

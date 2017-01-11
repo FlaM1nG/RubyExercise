@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\GlobalBundle\Entity\Photo;
 use WWW\UserBundle\Entity\User;
+use WWW\ServiceBundle\Entity\Comment;
 
 /**
  * Offer
@@ -98,7 +99,9 @@ class Offer
      */
     public function __construct($data = null){ 
      //var_dump($data);
+//        print_r($data);echo "<br><br>";
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = Array();
         
         if(gettype($data) == 'array'):
             $keyPhoto = '';
@@ -110,6 +113,13 @@ class Offer
                         foreach($value as $photo):
                             $newPhoto = new Photo($photo);
                             $this->photos[] = $newPhoto;
+                        endforeach;
+                    elseif($key == 'comments'):
+                        $this->comments = Array();
+                    
+                        foreach($value as $aComment):
+                            $comment = new Comment($aComment);
+                            array_push($this->comments, $comment);
                         endforeach;
                     else:
                         $this->$key = $value;

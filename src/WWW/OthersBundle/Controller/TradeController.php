@@ -14,6 +14,12 @@ use WWW\OthersBundle\Form\TradeType;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
+use WWW\ServiceBundle\Entity\Comment;
+use WWW\ServiceBundle\Form\CommentType;
+use WWW\GlobalBundle\MyConstants;
+use WWW\UserBundle\Entity\Message;
+use WWW\UserBundle\Form\MessageType;
+use WWW\UserBundle\Entity\User;
 
 /**
  * Description of TradeController
@@ -22,16 +28,13 @@ use WWW\GlobalBundle\Entity\Utilities;
  */
 class TradeController extends Controller{
     
-    private $sesion;
+    private $session;
     private $trade;
     private $ut;
     
     public function createOfferAction(Request $request){
-        
-        $this->ut = new Utilities();
-        
-        $this->sesion = $request->getSession();
-        
+
+        $this->setUpVars($request);
         $trade = new Trade();
         
         $this->denyAccessUnlessGranted('create_offer', $trade);
@@ -49,6 +52,11 @@ class TradeController extends Controller{
                              'trade' => $trade));
     }
     
+    public function setUpVars(Request $request){
+        $this->ut = new Utilities(); 
+        $this->session = $request->getSession();
+    }
+    
     private function saveTrade(Request $request, Trade $trade){
         
         $service = $request->server->all()['PATH_INFO'];
@@ -61,10 +69,10 @@ class TradeController extends Controller{
             return false;
         else:
             $ch = new ApiRest();
-            $file = "http://www.whatwantweb.com/api_rest/services/offer/insert_offer.php";
-            $dataOffer = array("id" => $this->sesion->get('id'),
-                             "username" => $this->sesion->get('username'),
-                            "password" =>$this->sesion->get('password'),
+            $file = MyConstants::PATH_APIREST."services/offer/insert_offer.php";
+            $dataOffer = array("id" => $this->session->get('id'),
+                             "username" => $this->session->get('username'),
+                            "password" =>$this->session->get('password'),
                             "title" => $trade->getOffer()->getTitle(),
                             "description" => $trade->getOffer()->getDescription(),
                             "service_id" => 1);
@@ -93,7 +101,7 @@ class TradeController extends Controller{
                 
                 return $arrayUrls;
             else:     
-                $arrayUrls = $this->ut->uploadImage($arrayFiles, $this->sesion->get('id'));
+                $arrayUrls = $this->ut->uploadImage($arrayFiles, $this->session->get('id'));
             endif;
         endif;
         
@@ -111,9 +119,8 @@ class TradeController extends Controller{
     }
     
     public function listTradeAction(Request $request){
-        
-        $ch = new ApiRest();
-        $this->ut = new Utilities();
+       
+        $this->setUpVars($request);
         $varPost = $request->request->all();
         
         
@@ -155,7 +162,7 @@ class TradeController extends Controller{
         
         $arrayOffers = array();
         $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/api_rest/services/trade/list_trades.php";
+        $file = MyConstants::PATH_APIREST."services/trade/list_trades.php";
         
         $informacion['data'] = json_encode($data);
          
@@ -171,21 +178,64 @@ class TradeController extends Controller{
     }
     
     public function showTradeAction(Request $request){
-        echo "hola";
-       
-        $ut = new Utilities();
-        $trade = null;
         
-       
+        $this->setUpVars($request);
+        
+        $trade = null;
+        $trade = $this->getTrade($request);
+//        print_r($trade);
+        $comment = new Comment();
+        $message = $this->fillMessage($trade);
+        
+        $formComment = $this->createForm(CommentType::class, $comment);
+        $formMessage = $this->createForm(MessageType::class, $message);
+        
+        $formComment->handleRequest($request);
+        $formMessage->handleRequest($request);
+        
+        if($formComment->isSubmitted()):
+            $this->saveComment($request, $trade->getOffer()->getId());
+            $formComment = $this->createForm(CommentType::class, new Comment());
+            
+        elseif($formMessage->isSubmitted()):
+            $this->sendMessage($request,$trade);
+            echo "ENTRO";
+            //($message);
+        endif;
         
         return $this->render('offer/offTrade.html.twig',array(
-                             'trade' => $trade
+                             'trade' => $trade,
+                             'formComment' => $formComment->createView(),
+                             'formMessage' => $formMessage->createView()   
         ));
     }
     
-    public function getTrade($request){
+    private function fillMessage($trade){
+        $message = new Message();
+        
+        $user = new User();
+        $user->setId($this->session->get('id'));
+        $user->setUsername($this->session->get('username'));
+        
+        $userTo = new User();
+        $userTo->setId($trade->getOffer()->getUserAdmin()->getId());
+        $userTo->setUsername($trade->getOffer()->getUserAdmin()->getUsername());
+        
+        $message->setFrom($user);
+        $message->setTo($userTo);
+        $message->setSubject('Oferta: '.$trade->getOffer()->getTitle());
+        
+        return $message;
+    }
+    
+    private function getTrade($request){
+        
+        $this->setUpVars($request);
+        
         $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/api_rest/services/trade/get_trade.php";
+        $file = MyConstants::PATH_APIREST."services/trade/get_trade.php";
+
+        $trade = null;
        
         $data['id'] = $request->get('idOffer');
         
@@ -196,7 +246,43 @@ class TradeController extends Controller{
             $trade = new Trade($result);
         
         else:
-            $ut->flashMessage("general", $request);
+            $this->ut->flashMessage("general", $request);
         endif;
+        
+        return $trade;
+    }
+    
+    private function listComments(){
+        
+    }
+    
+    private function saveComment(Request $request, $idOffer){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/inscription/comment.php";
+        
+        $data['id'] = $this->session->get('id');
+        $data['username'] = $this->session->get('username');
+        $data['password'] = $this->session->get('password');
+        $data['offer_id'] = $idOffer;
+        $data['comment'] = $request->get('comment')['comment'];
+        
+        $result = $ch->resultApiRed($data, $file);
+
+        $this->ut->flashMessage("comment", $request, $result);
+    }
+    
+    private function sendMessage(Request $request, $trade){
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."user/messages/send_message.php";
+        
+        $data['id'] = $this->session->get('id');
+        $data['username'] = $this->session->get('username');
+        $data['password'] = $this->session->get('password');
+        $data['to'] = $trade->getOffer()->getUserAdmin()->getUsername();
+        $data['subject'] = $request->get('message')['subject'];
+        $data['message'] = $request->get('message')['message'];
+        
+        print_r($data);
     }
 }
