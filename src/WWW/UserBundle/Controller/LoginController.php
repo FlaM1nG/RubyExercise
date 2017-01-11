@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\UserBundle\Entity\User as User;
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 
 class LoginController extends Controller{
     
@@ -27,7 +28,7 @@ class LoginController extends Controller{
             $email=$request->request->all()['loginUser']['username'];
             $password=$request->request->all()['loginUser']['password'];  
          
-            $file = "http://www.whatwantweb.com/api_rest/user/registration/login_user.php";
+            $file = MyConstants::PATH_APIREST."user/registration/login_user.php";
             $data = array("username" => $email,
                           "password" => $password);
             

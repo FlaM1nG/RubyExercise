@@ -95,12 +95,7 @@
         <span>★</span>
         <span>★</span>
     </div>
-    <div class="row lead">
-        <p>Also you can give a default rating by adding attribute data-rating</p>
-        <div id="hearts-existing" class="starrr" data-rating='2'></div>
-        You gave a rating of <span id="count-existing">4</span> star(s)
-    </div>
-{#    <div id="hearts-existing" class='starrr'  data-rating='2'></div>#}
+   
     <!-- FIN VALORACIONES -->
 {% endblock %}
 
@@ -135,21 +130,13 @@
     
     <div class="off-form-comment">
         <div class="input-group">
-            {#<textarea class="form-control custom-control" 
-                rows="3" 
-                style="resize:none">
-                    
-            </textarea>
-            <span class="input-group-addon btn btn-primary">
-                Enviar
-            </span>#}
-            {{ form_start(formComment) }}
-                {{ form_widget(formComment.comment, { 'attr': { 'class': 'custom-control',
-                                                      'rows': '3', 'style': 'resize:none' } }) }}
-
-
-                {{ form_widget(formComment.newComment, { 'attr': { 'class': 'input-group-addon btn btn-primary'} }) }}
-            {{ form_end(formComment) }}
+            
+            {{ form_widget(formComment.comment, { 'attr': { 'class': 'custom-control',
+                                                  'rows': '3', 'style': 'resize:none' } }) }}
+                                                  
+            <span class="input-group-btn">
+            {{ form_widget(formComment.newComment, { 'attr': { 'class': 'btn btn-primary off-com-btn' } }) }}
+            </span>
         </div>
 
     </div>
@@ -209,41 +196,3 @@
     {{ popups.popup('writeUser', title, include('offer/offPrivateMessage.html.twig') ) }}
 {% endblock %}
 
-{% block javascriptsFooter %}
-    {{ parent() }}
-    
-    <script src="{{ asset('js/plugins/starrr.js') }}"></script>
-    
-    <script>
-        
-        $(document).ready(function(){
-            var dataRating = $('.starrr').attr('data-rating');
-
-            $('.starrr').starrr({
-                rating: dataRating
-            })
-
-            $('.starrr').on('starrr:change', function(e, value){
-                
-                var data = {};
-                data['rating'] = value;
-                console.log(data);
-                 $.ajax({                        
-                    type: "POST",                 
-                    url: "{{ url('ajax_rating') }}",                     
-                    data: data, 
-                    success: function(data)             
-                    {
-                      console.log('exito');              
-                    },
-                    error: function(data)             
-                    {
-                      console.log('error');          
-                    }        
-                });
-            })
-        });    
-        
-    </script>    
-    
-{% endblock %}    

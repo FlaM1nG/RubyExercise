@@ -252,7 +252,7 @@ class TradeController extends Controller{
         $data['id'] = $request->get('idOffer');
         
         $result = $ch->resultApiRed($data, $file);
-        
+//        print_r($result);
          
         if($result['result'] == 'ok'):
             $trade = new Trade($result);
