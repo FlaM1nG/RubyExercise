@@ -136,10 +136,11 @@
                     {% if is_granted('select_offer', trade) %}
                          <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <button type="submit" class="btn btn-default 
-                                btn-off-buy">
-                               Comprar
-                            </button>
+                            {{form_start(formSubscribe)}}
+                            {{form_widget(formSubscribe.subscribeButton, 
+                                { 'attr': {'class': 'btn-default btn-off-buy'},
+                                  'label':'Comprar' })}}
+                            {{form_end(formSubscribe)}}
                         </div>
                         
                     {% endif %}

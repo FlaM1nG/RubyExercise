@@ -29,8 +29,15 @@
         <div class="col-lg-3 col-md-4 col-sm-8 hidden-xs colAdministracion">
             <div class="navegacion-usuario">
                 <ul style="border-right: 0;">
+                    
                     <li class="text-nav-user">
-                        <a href="#">
+                        <a href="
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            
+                            {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                            Identificarse
+                            {% endif %}
+                           ">
                             <span class="glyphicon glyphicon-user size-icon">
                                 
                             </span>
@@ -44,7 +51,8 @@
                         </a>
                     </li>
                     
-                    <li class="text-nav-user">
+                    
+                    {#<li class="text-nav-user">
                         <a href="#">
                             <span class="glyphicon glyphicon-shopping-cart 
                                 size-icon">
@@ -62,7 +70,7 @@
                             </span>
                             Bolsa
                         </a>
-                    </li>
+                    </li>#}
                     
                     <li class="text-nav-user">
                         <a href="#">

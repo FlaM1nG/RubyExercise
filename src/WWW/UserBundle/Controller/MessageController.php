@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
+use WWW\GlobalBundle\MyConstants;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
 use WWW\UserBundle\Form\ProfileMessageType;
@@ -65,7 +66,7 @@ class MessageController extends Controller{
     
     private function searchMessageFrom(Request $request){
         
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/messages/list_messages.php";
+        $file = MyConstants::PATH_APIREST."user/messages/list_messages.php";
         $ch = new ApiRest();
         
         $data['username'] = $this->session->get('username');
@@ -87,7 +88,7 @@ class MessageController extends Controller{
     
      private function searchMessageTo(Request $request){
         
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/messages/list_messages.php";
+        $file = MyConstants::PATH_APIREST."user/messages/list_messages.php";
         $ch = new ApiRest();
         
         $data['username'] = $this->session->get('username');
@@ -130,7 +131,7 @@ class MessageController extends Controller{
     
     public function getMessage(Request $request, $id){
    
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/messages/get_message.php"; 
+        $file = MyConstants::PATH_APIREST."user/messages/get_message.php"; 
         $ch = new ApiRest();
         
         $data['username'] = $this->session->get('username');
@@ -149,13 +150,13 @@ class MessageController extends Controller{
     
     private function sendMessage(Request $request){
         
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/messages/send_message.php"; 
+        $file = MyConstants::PATH_APIREST."user/messages/send_message.php"; 
         $ch = new ApiRest();
         
         $data['username'] = $this->session->get('username');
         $data['id'] = $this->session->get('id');
         $data['password'] = $this->session->get('password');
-        $data['to'] = $this->message->getTo()->getUsername();//$request->request->all()['message']['to'];
+        $data['to'] = $this->message->getTo()->getUsername();
         $data['subject'] = $this->message->getSubject(); 
         $data['message'] = $this->message->getMessage();       
 
@@ -178,7 +179,7 @@ class MessageController extends Controller{
             $idMessage = $this->user->getReceived()[$posArray]->getId();
         endif;
 
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/messages/delete_message.php";
+        $file = MyConstants::PATH_APIREST."user/messages/delete_message.php";
         $ch = new ApiRest();
         
         $data['username'] = $this->session->get('username');

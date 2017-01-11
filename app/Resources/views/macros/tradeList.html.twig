@@ -11,7 +11,7 @@
         <div class="row row-tra-mar">
             <a href="{{ hrefOffer|e }}">
                 <img class="img-responsive tra-grid-img" 
-                     src="{{ srcImg|e|default(asset('img/placeholder.jpg')) }}" 
+                     src="{{ 'http://www.whatwantweb.com/' ~ srcImg|e|default(asset('img/placeholder.jpg')) }}" 
                     alt="">
             </a>
                     
@@ -61,7 +61,7 @@
             
             <!-- USER -->
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 col-tra-user">
-                {{ users.userList(hrefUser, srcImgUser, nameUser) }}
+                {{ users.userList(hrefUser, 'http://www.whatwantweb.com/' ~ srcImgUser, nameUser) }}
                 
                 
             </div>

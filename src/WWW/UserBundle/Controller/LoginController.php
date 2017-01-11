@@ -4,9 +4,9 @@ namespace WWW\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Validation;
 use WWW\UserBundle\Entity\User as User;
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -30,7 +30,7 @@ class LoginController extends Controller{
             $email=$request->request->all()['loginUser']['_username'];
             $password=$request->request->all()['loginUser']['_password'];  
          
-            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/registration/login_user.php";
+            $file = MyConstants::PATH_APIREST."user/registration/login_user.php";
             $data = array("username" => $email,
                           "password" => $password);
             

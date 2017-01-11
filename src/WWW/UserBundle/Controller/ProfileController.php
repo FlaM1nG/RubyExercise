@@ -21,6 +21,7 @@ use WWW\GlobalBundle\Entity\Utilities;
 use WWW\ServiceBundle\Entity\Offer;
 use WWW\UserBundle\Form\ProfilePersonalDataType;
 use WWW\UserBundle\Form\ProfileAddressesType;
+use WWW\GlobalBundle\MyConstants;
 
 
 /**
@@ -149,7 +150,7 @@ class ProfileController extends Controller{
         
         $ch = new ApiRest();
         
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/data/get_info_user.php";
+        $file = MyConstants::PATH_APIREST."user/data/get_info_user.php";
         $arrayData = array("username" => $this->session->get('username'),
                            "id" => $this->session->get('id'),
                            "password" => $this->session->get('password'));
@@ -267,7 +268,7 @@ class ProfileController extends Controller{
     
     private function searchOffers(){
         
-        $file = 'http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/services/offer/get_all_user_offers.php';
+        $file = MyConstants::PATH_APIREST.'services/offer/get_all_user_offers.php';
         $ch = new ApiRest();
         $arrayOffers = array();
         
@@ -297,7 +298,7 @@ class ProfileController extends Controller{
             $fecha = $fecha->format('Y-m-d');
             $ch = new ApiRest();
         
-            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/data/update_user.php";
+            $file = MyConstants::PATH_APIREST."user/data/update_user.php";
 
             $data = array();
             $data['username'] = $this->session->get('username');
@@ -321,7 +322,7 @@ class ProfileController extends Controller{
     private function saveEmail(Request $request){
         $this->tabActive = 'email';
         
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/email/change_email.php";
+        $file = MyConstants::PATH_APIREST."user/email/change_email.php";
         $data = array('username' => $this->session->get('username'),
                       'id' =>$this->session->get('id'),
                       'password' =>$this->user->getPasswordEnClaro(),
@@ -343,7 +344,7 @@ class ProfileController extends Controller{
         $this->tabActive = 'password';
         
         $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/passwords/change_password.php";
+        $file = MyConstants::PATH_APIREST."user/passwords/change_password.php";
 
         $data = array("username" => $this->session->get('username'),
                       "old_password" => $this->user->getPasswordEnClaro(),
@@ -383,7 +384,7 @@ class ProfileController extends Controller{
     }
     
     private function addPhotoProfile(Request $request, $idPhoto){
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/data/update_user.php";
+        $file = MyConstants::PATH_APIREST."user/data/update_user.php";
         $ch = new ApiRest();
         $data = array();
         
@@ -404,7 +405,7 @@ class ProfileController extends Controller{
         
         $this->tabActive = 'phone';
         
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/phone/send_sms.php";
+        $file = MyConstants::PATH_APIREST."user/phone/send_sms.php";
 
         $data = array('username' => $this->session->get('username'),
                       'id' => $this->session->get('id'),
@@ -423,7 +424,7 @@ class ProfileController extends Controller{
         
         $this->tabActive = "phone";
         
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/phone/confirm_sms.php";
+        $file = MyConstants::PATH_APIREST."user/phone/confirm_sms.php";
         $data = array('username' => $this->session->get('username'),
                       'id' => $this->session->get('id'),
                       'password' => $this->session->get('password'),
@@ -444,7 +445,7 @@ class ProfileController extends Controller{
         $ch = new ApiRest();
         
         $data = array();
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/data/update_user.php";
+        $file = MyConstants::PATH_APIREST."user/data/update_user.php";
         
         $data['username']=$this->user->getUsername();
         $data['id']=$this->session->get('id');
@@ -484,7 +485,7 @@ class ProfileController extends Controller{
         $informacion['data'] = json_encode($data); 
 
         $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/addresses/insert_address.php";
+        $file = MyConstants::PATH_APIREST."user/addresses/insert_address.php";
          
         
         $result = $ch->resultApiRed($informacion, $file);
@@ -503,7 +504,7 @@ class ProfileController extends Controller{
         
         $resultDelete['result'] = 'ok';
         
-        $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/addresses/delete_address.php";
+        $file = MyConstants::PATH_APIREST."user/addresses/delete_address.php";
         
         $data = array("username" => $this->session->get('username'),
                       "password" => $this->session->get('password'),
@@ -554,7 +555,7 @@ class ProfileController extends Controller{
         endforeach;
         
         $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/api_rest/user/addresses/update_address.php";
+        $file = MyConstants::PATH_APIREST."user/addresses/update_address.php";
 
         $data['username'] = $this->session->get('username');
         $data['id_user'] = $this->session->get('id');

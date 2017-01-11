@@ -9,6 +9,7 @@
 namespace WWW\GlobalBundle\Entity;
 
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 use WWW\OthersBundle\Entity\TradeCategory;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,7 +24,7 @@ class Utilities{
 
         $arrayCategory = array();
 
-        $fileCategory = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/services/trade/get_categories.php";
+        $fileCategory = MyConstants::PATH_APIREST."services/trade/get_categories.php";
 
         $ch = new ApiRest();
 
@@ -79,7 +80,7 @@ class Utilities{
     
     public function saveFoto($arrayImage){
 
-        $filePhotos = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
+        $filePhotos = MyConstants::PATH_APIREST."global/photo/add_photos.php";
         
         $ch = new ApiRest();
         
