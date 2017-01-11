@@ -128,7 +128,7 @@ class TradeController extends Controller{
         
         $data['service'] = 'trade';
         $data['search'] = '';
-        var_dump($request->query->get('object'));
+        
         if(!empty($varPost)):
             
             if(!empty($request->query->get('object')))
@@ -167,7 +167,6 @@ class TradeController extends Controller{
         $file = MyConstants::PATH_APIREST."services/trade/list_trades.php";
         
         $informacion['data'] = json_encode($data);
-        print_r($informacion);
          
         $result = $ch->resultApiRed($informacion, $file);
         
