@@ -4,10 +4,10 @@ namespace WWW\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Validation;
 use WWW\UserBundle\Entity\User as User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 
 class DefaultController extends Controller{
     
@@ -33,7 +33,7 @@ class DefaultController extends Controller{
         
         if(!empty($usuario->getPassword())):
             
-            $file = "http://www.whatwantweb.com/api_rest/user/passwords/new_password.php";
+            $file = MyConstants::PATH_APIREST."user/passwords/new_password.php";
             $ch = new ApiRest();
             $data = array("password" => $usuario->getPassword(),
                              "token" => $token);
@@ -57,7 +57,7 @@ class DefaultController extends Controller{
         
         if(!empty($usuario->getEmail())):
             
-            $file = "http://www.whatwantweb.com/api_rest/user/passwords/forget_password.php";
+            $file = MyConstants::PATH_APIREST."user/passwords/forget_password.php";
             $data = array("email" => $usuario->getEmail());
         
             $ch = new ApiRest();

@@ -22,14 +22,8 @@ use WWW\UserBundle\Form\MessageType;
 use WWW\UserBundle\Entity\User;
 use WWW\ServiceBundle\Form\OfferSuscribeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
- 
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * Description of TradeController
@@ -126,31 +120,32 @@ class TradeController extends Controller{
     }
     
     public function listTradeAction(Request $request){
-       
+      // print_r($request);
+        
         $this->setUpVars($request);
-        $varPost = $request->request->all();
+        $varPost = $request->query->all();
         
         
         $data['service'] = 'trade';
         $data['search'] = '';
-        
+        var_dump($request->query->get('object'));
         if(!empty($varPost)):
             
-            if(!empty($request->get('object')))
-                $data['search'] = $request->get('object');
+            if(!empty($request->query->get('object')))
+                $data['search'] = $request->query->get('object');
             
-            if(!empty($request->get('city')))
-                $data['filters']['location'] = $request->get('city'); 
+            if(!empty($request->query->get('city')))
+                $data['filters']['location'] = $request->query->get('city'); 
             
-            if(!empty($request->get('minPrice'))):
-                $data['filters']['min_price'] = (int)$request->get('minPrice'); 
+            if(!empty($request->query->get('minPrice'))):
+                $data['filters']['min_price'] = (int)$request->query->get('minPrice'); 
             endif;
             
-            if(!empty($request->get('maxPrice')))
-                $data['filters']['max_price'] = (int)$request->get('maxPrice'); 
+            if(!empty($request->query->get('maxPrice')))
+                $data['filters']['max_price'] = (int)$request->query->get('maxPrice'); 
             
             if(array_key_exists('category', $varPost)):
-                foreach($request->get('category') as $cat):
+                foreach($request->query->get('category') as $cat):
                     $data['filters']['categories'][] = (int)$cat;
                 endforeach;
             endif;     
@@ -172,6 +167,7 @@ class TradeController extends Controller{
         $file = MyConstants::PATH_APIREST."services/trade/list_trades.php";
         
         $informacion['data'] = json_encode($data);
+        print_r($informacion);
          
         $result = $ch->resultApiRed($informacion, $file);
         

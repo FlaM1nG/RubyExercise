@@ -15,6 +15,7 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\UserBundle\Form\RegisterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use WWW\GlobalBundle\Entity\Utilities;
+use WWW\GlobalBundle\MyConstants;
 
 /**
  * Description of RegisterController
@@ -35,7 +36,7 @@ class RegisterController extends Controller{
         
         $ch = new ApiRest();
         
-        $resultHobbies = $ch->sendInformationWihoutParameters("http://www.whatwantweb.com/api_rest/user/data/get_hobbies.php");
+        $resultHobbies = $ch->sendInformationWihoutParameters(MyConstants::PATH_APIREST."user/data/get_hobbies.php");
         $totalHobbies = count($resultHobbies);
         $formulario = $this->createForm(RegisterType::class,$this->usuario);
         
@@ -95,7 +96,7 @@ class RegisterController extends Controller{
         if(!empty($this->usuario->getNif()))
             $role = 2;
         
-        $file = "http://www.whatwantweb.com/api_rest/user/registration/register_user.php";
+        $file = MyConstants::PATH_APIREST."user/registration/register_user.php";
         $data = array("username" => $this->usuario->getUsername(),
                       "email" => $this->usuario->getEmail(),
                       "date" => $nacimiento,

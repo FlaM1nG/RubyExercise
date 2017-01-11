@@ -8,6 +8,7 @@ use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Photo;
+use WWW\GlobalBundle\MyConstants;
 
 /**
  * User
@@ -1082,7 +1083,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     }*/
     
     private function searchOffers(){
-        $file = 'http://www.whatwantweb.com/api_rest/services/offer/get_all_user_offers.php';
+        $file = MyConstants::PATH_APIREST.'services/offer/get_all_user_offers.php';
         $ch = new ApiRest();
         
         $data = array();

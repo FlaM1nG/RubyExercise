@@ -4,6 +4,7 @@ namespace WWW\ServiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 
 class OffertsController extends Controller{
     
@@ -16,7 +17,7 @@ class OffertsController extends Controller{
       
         /*$ch = new ApiRest();
         
-        $file = "http://www.whatwantweb.com/api_rest/user/data/get_info_user.php";
+        $file = MyConstants::PATH_APIREST."user/data/get_info_user.php";
         $arrayData = array("username" => $this->session->get('username'),
                            "id" => $this->session->get('id'),
                            "password" => $this->session->get('password'));
