@@ -37,3 +37,11 @@ user_change:
 user_resend:
     path: /resend
     defaults: { _controller: UserBundle:Default:resend }
+    
+user_ajax_message:
+    path: /ajax/message
+    defaults: { _controller: UserBundle:Message:removeMessage}
+    
+user_ajax_deleteOffer:
+    path: /ajax/deleteOffer
+    defaults: { _controller: UserBundle:OfferUser:deleteOffer}    

@@ -379,22 +379,17 @@
             <div class="tab-pane {{tabActive == 'myOffer' ? 'active'}}" name="myOffer" id="myOffer">
 
                 {% for offer in usuario.offers %}
+                    {% set urlOffer = '' %}
+                    {% if offer.service.table == 'trade' %}
+                        {% set urlOffer = path('service_trade' , {idOffer: offer.id}) %}
+                    {% endif %}    
 
-                    {#<div style="border:solid 1px orange; margin-top: 2em">
-                        <h4>
-                            <a href="{{path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.id})}}">
-                                {{offer.title}}                  
-                            </a> 
-                        </h4>   
-                        {{offer.description}}
-                        <img src="{{offer.photos.0.url}}" />    
-
-                    </div>#}
-                    <div class="row us-col-pad">
+                    <div class="row us-col-pad containerOffer_{{offer.id}}">
                         <div class="us-offer-target">    
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <a href="{{ path('user_profiler_offers' , {idOffer: offer.id}) }}">                  
+                                    
+                                    <a href="{{ urlOffer }}">                  
                                         <img class="img-responsive us-offer-img" 
                                              {#src="{{offer.photos.0.url|default(asset('img/placeholder.jpg'))}}"#} 
                                              src="{{ asset('img/placeholder.jpg') }}"/>
@@ -408,7 +403,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <h4>
-                                                <a href="{{ path('user_profiler_offers' , {idOffer: offer.id}) }}">
+                                                <a href="{{ urlOffer }}">
                                                     {{ offer.title }}                  
                                                 </a> 
                                             </h4>
@@ -425,13 +420,22 @@
                                     
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <a href="{{ path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.id}) }}"
+                                            <a href="{{ path('user_profiler_offers' , {idOffer: offer.id}) }}"
                                                class="btn-default btn us-btn-edit-address">
                                                 Editar
                                             </a>
                                         </div>
                                     </div>
-
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <a href="#"
+                                               class="btn-default btn us-btn-edit-address bDeleteOffer"
+                                               data-id="{{ offer.id }}">
+                                                Borrar
+                                            </a>
+                                        </div>
+                                    </div>           
 
                                 </div>
 
@@ -684,6 +688,7 @@
             $(document).on('click','.add_tag_link',showHiddenButtonAdd);
             $(document).on('click','.newMessageButton', showFormNewMessage);
             $(document).on('click','.bDeleteMessage', deleteMessage);
+            $(document).on('click','.bDeleteOffer', deleteOffer);
             
             
             
@@ -703,6 +708,55 @@
                     {
                         if(data['result'] === 'ok'){
                             $('.containerMessage_'+id).remove();  
+                            $('.errorContainer').html("<div class='alert "+
+                            "alert-success alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }else{
+                            $('.errorContainer').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }
+                        
+                    },
+                    error: function(data)             
+                    {
+                        $('.errorContainer').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
+         
+                    }        
+                });
+            }
+            
+            function deleteOffer(e){
+                e.preventDefault();
+                var id = $(this).attr('data-id');
+                
+                var data = {};
+                data['id'] = id;
+                console.log(data);
+                $.ajax({                        
+                    type: "POST",                 
+                    url: "{{ url('user_ajax_deleteOffer') }}",                     
+                    data: data, 
+                    success: function(data)             
+                    {
+                        if(data['result'] === 'ok'){
+                            $('.containerOffer_'+id).remove();  
                             $('.errorContainer').html("<div class='alert "+
                             "alert-success alert-dismissible' role='alert'>"+
                             "<button type='button' class='close' "+

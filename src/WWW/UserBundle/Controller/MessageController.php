@@ -11,6 +11,7 @@ use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
 use WWW\UserBundle\Form\ProfileMessageType;
 use WWW\UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class MessageController extends Controller{
     
@@ -28,28 +29,29 @@ class MessageController extends Controller{
         
         $formMessage = $this->createForm(MessageType::class,$this->message); 
         
-        $formListMessages = $this->createForm(ProfileMessageType::class, $this->user);
+//        $formListMessages = $this->createForm(ProfileMessageType::class, $this->user);
        
         $formMessage->handleRequest($request);
         
-        $formListMessages->handleRequest($request);
+//        $formListMessages->handleRequest($request);
 
-        if($formListMessages->isSubmitted()):
+        if($formMessage->isSubmitted()):
             if($formMessage->get('enviar')->isClicked()):
                 $this->sendMessage($request);
-            else:  
-                if(!empty($request->request->all()['profileMessage']['fromTo'])): 
-                    $this->removeMessage($request);
-                    //Al haber actualizado el usuario hay que volver a crear el formulario
-                    $formListMessages = $this->createForm(ProfileMessageType::class, $this->user);
-                endif;
+//            else:  
+//                if(!empty($request->request->all()['profileMessage']['fromTo'])): 
+//                    $this->removeMessage($request);
+//                    //Al haber actualizado el usuario hay que volver a crear el formulario
+//                    $formListMessages = $this->createForm(ProfileMessageType::class, $this->user);
+//                endif;
         
             endif;
         endif;    
 
         return $this->render('UserBundle:Default:profileMessage.html.twig',
                              array('formMessage' => $formMessage->createView(),
-                                   'formListMessages'=> $formListMessages->createView() ));
+                                   'listMessagesSend' => $this->user->getSent(),
+                                   'listMessageReceived' => $this->user->getReceived() ));
 
     }
     
@@ -111,6 +113,7 @@ class MessageController extends Controller{
     }
     
     public function searchMessageAction(Request $request){
+        
         $this->setUpVars($request);
         $id = $request->get('idMessage');
 
@@ -156,7 +159,7 @@ class MessageController extends Controller{
         $data['username'] = $this->session->get('username');
         $data['id'] = $this->session->get('id');
         $data['password'] = $this->session->get('password');
-        $data['to'] = $this->message->getTo()->getUsername();
+        $data['to'] = $this->message->getFrom()->getUsername();
         $data['subject'] = $this->message->getSubject(); 
         $data['message'] = $this->message->getMessage();       
 
@@ -166,38 +169,36 @@ class MessageController extends Controller{
    
     }
     
-    private function removeMessage(Request $request){
+    public function removeMessageAction(Request $request){
+           
+        $id = $request->get('id');
+        $type = $request->get('type');
+        $session = $request->getSession();
         
-        $arrayData = $request->request->all()['profileMessage'];
-        $posArray = (int)$arrayData['idRemove'];
-        $type = $arrayData['fromTo'];
-        $idMessage = null;
-
-        if($type == 'sent'): 
-            $idMessage = $this->user->getSent()[$posArray]->getId();
-        else:  echo "entro en received<br>";
-            $idMessage = $this->user->getReceived()[$posArray]->getId();
-        endif;
-
+        $response = new JsonResponse();
+        
         $file = MyConstants::PATH_APIREST."user/messages/delete_message.php";
         $ch = new ApiRest();
         
-        $data['username'] = $this->session->get('username');
-        $data['id'] = $this->session->get('id');
-        $data['password'] = $this->session->get('password');
-        $data['message_id'] = $idMessage;
+        $data['username'] = $session->get('username');
+        $data['id'] = $session->get('id');
+        $data['password'] = $session->get('password');
+        $data['message_id'] = $id;
         
         $result = $ch->resultApiRed($data, $file);
-
+            
         if($result['result'] == 'ok'):
-            if($type == 'sent'): echo "<br>entro bien <br>";
-                $this->user->removeSent($posArray);
-            else: 
-                $this->user->removeReceived($posArray);
-            endif;
+            $response->setData(array(
+                'result' => 'ok',
+                'message' => 'Mensaje eliminado correctamente'));
+        else:
+             $response->setData(array(
+                'result' => 'ko',
+                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
         endif;
         
-        $this->ut->flashMessage("general", $request, $result);
+        return $response;
+               
     }
 
 }

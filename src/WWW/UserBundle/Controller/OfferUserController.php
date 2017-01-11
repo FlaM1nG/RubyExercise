@@ -10,6 +10,7 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\Entity\Photo;
 use WWW\GlobalBundle\MyConstants;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class OfferUserController extends Controller{
     
@@ -214,6 +215,37 @@ class OfferUserController extends Controller{
         else:
             $this->flashMessageErrorSearch($result['result']);
         endif;
+        
+    }
+    
+    public function deleteOfferAction(Request $request){
+        
+        $id = $request->get('id');
+        $session = $request->getSession();
+        
+        $response = new JsonResponse();
+        
+        $file = MyConstants::PATH_APIREST."services/offer/delete_offer.php";
+        $ch = new ApiRest();
+        
+        $data['username'] = $session->get('username');
+        $data['id'] = $session->get('id');
+        $data['password'] = $session->get('password');
+        $data['offer_id'] = $id;
+        
+        $result = $ch->resultApiRed($data, $file);
+            
+        if($result['result'] == 'ok'):
+            $response->setData(array(
+                'result' => 'ok',
+                'message' => 'Oferta eliminada correctamente'));
+        else:
+             $response->setData(array(
+                'result' => 'ko',
+                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
+        endif;
+        
+        return $response;
         
     }
     

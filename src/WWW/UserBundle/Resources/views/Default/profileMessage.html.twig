@@ -16,51 +16,49 @@
     #}
 {#    {{ dump(formListMessages) }}#}
 
-    {{ form_start(formListMessages,{'attr':{'class': 'formMessage'} })}}
+{#    {{ form_start(formListMessages,{'attr':{'class': 'formMessage'} })}}#}
     <BR>Mensajes Enviados <br>
-        {% for mensajes in formListMessages.sent %}
-            <div class="containerMessage">
-            <a href="{{path('user_profiler_message' , {idMessage: mensajes.vars.value.id} ) }}">
-                De: {{ mensajes.vars.value.from.username}}<br>
+        {% for mensajes in listMessagesSend %}
+            <div class="containerMessage_{{ mensajes.id }}">
+            <a href="{{path('user_profiler_message' , {idMessage: mensajes.id} ) }}">
+                De: {{ mensajes.from.username}}<br>
             </a>    
           
-            Para: {{ mensajes.vars.value.to.username }}<br>
+            Para: {{ mensajes.to.username }}<br>
             
-            Asunto: {{ mensajes.subject.vars.value}}<br>
+            Asunto: {{ mensajes.subject}}<br>
             
-            Mensaje: {{ mensajes.message.vars.value}}
+            Mensaje: {{ mensajes.message}}
+            
+            <button class="bDeleteMessage" data-id="{{ mensajes.id }}" data-type="send"> Borrar </button>
+            
             {# Para que funcione bien el borrado y después se muestren bien los 
                mensajes hay que hacerlo con formularios, lo suyo sería quitar 
                la parte de 'attr' y la de arriba, crear una clase que quite el 
                formato de formulario y que se vea como un listado 
             #}
-            {{ form_widget(mensajes.from.username, { 'attr': {style:'display:none', 'readonly': 'false' } }) }}
+            {#{{ form_widget(mensajes.from.username, { 'attr': {style:'display:none', 'readonly': 'false' } }) }}
             {{ form_widget(mensajes.to.username, { 'attr': {style:'display:none', 'readonly': 'false' } }) }}
             {{ form_widget(mensajes.subject, { 'attr': {style:'display:none', 'readonly': 'false' } }) }}
             {{ form_widget(mensajes.message, { 'attr': {style:'display:none', 'readonly': 'false'} }) }}
             
             {{ form_row(mensajes.id) }}
-            {{ form_widget(mensajes.borrar) }}
+            {{ form_widget(mensajes.borrar) }}#}
             </div>
             
         {% endfor %}     
-    {#<ul class="tags" data-prototype="{{ form_widget(formListMessages.sent.vars.prototype)|e('html_attr') }}">
-                
-    </ul>#}
+
     <BR><br>Mensajes recibidos <br><br>
-        {% for mensajes in formListMessages.received %}
-       <div class="containerMessage">
-           <a href="{{path('user_profiler_message' , {idMessage: mensajes.vars.value.id} ) }}">
-                De: {{ mensajes.vars.value.from.username}}<br>
-           </a>     
-            Para: {{ mensajes.vars.value.to.username }}<br>
-            Asunto: {{ mensajes.subject.vars.value }}<br>
-            Mensaje: {{ mensajes.subject.vars.value}}
+        {% for mensajes in listMessageReceived %}
             
-            {{ form_widget(mensajes.subject, { 'attr': {style:'display:none', 'readonly': 'false' } }) }}
-            {{ form_widget(mensajes.message, { 'attr': {style:'display:none', 'readonly': 'false'} }) }}
-            {{ form_widget(mensajes.borrar) }}
-            {{ form_row(mensajes.id) }}
+       <div class="containerMessage_{{ mensajes.id}}">
+           <a href="{{path('user_profiler_message' , {idMessage: mensajes.id} ) }}">
+                De: {{ mensajes.from.username}}<br>
+           </a>     
+            Para: {{ mensajes.to.username }}<br>
+            Asunto: {{ mensajes.subject }}<br>
+            Mensaje: {{ mensajes.subject}}
+            <button class="bDeleteMessage" data-id="{{ mensajes.id }}" data-type="received"> Borrar </button>
        </div>
         {% endfor %} 
         
@@ -70,11 +68,11 @@
             dentro div   
     </div>
     <br>despues div antes token#}
-    {{ form_row(formListMessages.idRemove) }}
+ {#   {{ form_row(formListMessages.idRemove) }}
     {{ form_row(formListMessages.fromTo) }}
-    {{ form_row(formListMessages._token)}} 
+    {{ form_row(formListMessages._token)}} #}
 </div>
-{{ form_row(formListMessages.newMessageButton)}}
+{#{{ form_row(formListMessages.newMessageButton)}}#}
 
 
 <div class="newMessage" style="display: none">
