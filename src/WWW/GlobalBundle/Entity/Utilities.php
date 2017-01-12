@@ -99,7 +99,7 @@ class Utilities{
         $error = "Se ha producido un error, por favor vuelva a intentarlo";
         
         switch($type):
-            case 'general':     $success = "Datos actualizados correctamente";
+            case 'general':     $success = "Datos actualizados";
                                 break;
             case 'offer':       $success = "Oferta creada";  
                                 break;   
@@ -113,7 +113,12 @@ class Utilities{
             case 'tradeImageN': $error = "Debe introducir de 1 a 5 fotos";
                                 break;
             case 'message':     $success = "Mensaje enviado";
-            case 'comment':     $success = "Comentario enviado";    
+                                break;
+            case 'comment':     $success = "Comentario enviado";  
+                                break;
+            default:
+                                $success = $type;
+                                break;    
                                         
         endswitch;
         

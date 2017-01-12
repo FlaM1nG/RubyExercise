@@ -236,6 +236,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     public function __construct(Array $user=null){  
         
         if(!empty($user)):  
+            
             $this->birthdate = date_create_from_format('Y-m-d', $user['birthdate']);
             $this->email = $user['email'];
             $this->id = $user['id'];
@@ -246,22 +247,32 @@ class User implements UserInterface, GroupSequenceProviderInterface{
             $this->surname = $user['surname'];
             $this->username = $user['username'];
             $this->password = $user['password'];
-            //$this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
             $this->numAccount = $user['num_account'];
             $this->prefix = $user['prefix'];
             $this->offers = $this->searchOffers();
             
-            foreach($user['addresses'] as $address):
-               
-                $auxAddress = new Address($address);
-                $this->addresses[] = $auxAddress->toArray();
-            
-            endforeach;
+            $this->createAddresses($user['addresses'], $user['default_address_id']);
+   
         else:
            // $this->addresses = new ArrayCollection();
             $this->offers = Array();
         endif;
         
+    }
+    
+    private function createAddresses($arrayAddress, $idDefaultAddress){
+
+        foreach($arrayAddress as $address):
+               
+            $auxAddress = new Address($address);
+        
+            if($auxAddress->getId() == $idDefaultAddress):
+                $this->defaultAddress = $auxAddress;
+            else:
+                $this->addresses[] = $auxAddress;
+            endif;
+            
+        endforeach;
     }
 
     public function setId($id){
@@ -1077,10 +1088,6 @@ class User implements UserInterface, GroupSequenceProviderInterface{
         
     }
     
-    /*public function deleteTrade($id){
-       
-        unset($this->trades[$id]);
-    }*/
     
     private function searchOffers(){
         $file = MyConstants::PATH_APIREST.'services/offer/get_all_user_offers.php';
@@ -1092,7 +1099,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
         $data['password'] = $this->password;
         
         $result = $ch->resultApiRed($data, $file);
-        print_r($result);
+        
     }
     
    

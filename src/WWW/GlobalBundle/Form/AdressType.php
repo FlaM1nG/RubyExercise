@@ -11,7 +11,9 @@ namespace WWW\GlobalBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 
 /**
  * Description of AdressType
@@ -20,7 +22,13 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
  */
 class AdressType extends AbstractType{
     
+    private $arrayPrefix;
+    private $arrayCountry;
+    
     public function buildForm(FormBuilderInterface $builder, array $options){
+        
+        $this->arrayPrefixCountry();
+        
         $builder
                 
                 ->add('name','text', array('label'=>'Nombre dirección',
@@ -28,10 +36,15 @@ class AdressType extends AbstractType{
                 
                 ->add('isDefault','checkbox', array('label' => 'Dirección principal',
                                                     'required' => false,
+                                                    'mapped' => false,
+                                                    'value' => "0"
                                                     ))
                 
-                ->add('country', CountryType::class , array('label' => 'País',
-                                                            'validation_groups' => array('address'),))
+                ->add('country', ChoiceType::class, array('label' => 'Pais',
+                                                        'required' => false,
+                                                        'empty_value' => false,
+                                                        'choices' => $this->arrayCountry,
+                                                        ))
                 
                 ->add('region','text', array('label' => 'Región',
                                              'validation_groups' => array('address') ))
@@ -46,16 +59,35 @@ class AdressType extends AbstractType{
                                               'attr' => array('class' => 'zipCode'),
                                               'validation_groups' => array('address')))
                 
+                ->add('prefix',ChoiceType::class, array('label' => 'Teléfono',
+                                                        'required' => false,
+                                                        'empty_value' => false,
+                                                        'choices' => $this->arrayPrefix,
+                                                        ))
                 
+                ->add('phone','number',array('label'=>' ',
+                                             'required' => false))
                      
                 ->add('id','hidden', array('label' => ' '))
                 ->add('editAddress','submit',array('label' => 'Guardar',
                                                    'validation_groups' => false,
-                                                    'attr' => array('class' => 'editAddressButton')))
-                ->add('checkDeleteAddress','checkbox', array('label' => '',
-                                                             'required' => false,
-                                                             'mapped' => false,
-                                                             'attr' => array('class' => 'checkDeleteAddress' )));
+                                                    'attr' => array('class' => 'editAddressButton')));
+    }
+    
+    private function arrayPrefixCountry(){
+        
+        $filePrefix = MyConstants::PATH_APIREST."global/prefix/get_prefixes.php";
+       
+        $ch = new ApiRest();
+        
+        $result = $ch->sendInformationWihoutParameters($filePrefix);
+
+        if(!empty($result)):
+            foreach($result as $prefix):
+                $this->arrayPrefix[$prefix['prefix']] =  $prefix['prefix'];
+                $this->arrayCountry[$prefix['country']] = $prefix['country'];
+            endforeach;
+        endif;
     }
     
     public function configureOptions(OptionsResolver $resolver){
@@ -67,16 +99,6 @@ class AdressType extends AbstractType{
     public function getBlockPrefix(){
         return 'adressUser';
     }
-    
-    function getName()
-    {
-        return 'address';
-    }
-     function getIdentifier()
-    {
-        return 'address';
-    }
 
-    
 }
  
