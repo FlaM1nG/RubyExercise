@@ -680,10 +680,12 @@ Sidebar
   position: absolute;
   z-index: 1;
   left: 0;
-  top: 0;
+  /*top: 0;*/
+  top: -5px;
   width: 100%;
-  padding: 45px 0 0;
-  background-color: #2c3136;
+  /*padding: 45px 0 0;*/
+  padding: 0;
+  background-color: @gray-base;
   visibility: hidden;
   opacity: 0;
   max-height: 100vh;
@@ -718,7 +720,7 @@ Sidebar
 .cd-side-nav .cd-label {
   text-transform: uppercase;
   font-weight: bold;
-  color: #646a6f;
+  color: @brand-secondary;
   font-size: 1rem;
   letter-spacing: .1em;
 }
