@@ -37,6 +37,7 @@
             {{ form_row(form.subject) }}
             {{ form_row(form.message) }}
             {{ form_row(form.enviar) }}
+            {{ form_row(form.cancelar) }}
             {{ form_row(form._token) }}
     </div>
 
@@ -48,14 +49,24 @@
     <script>
         $(document).ready(function() {  
             console.log("entro");
-            $(document).on('click','.buttonReplay', showHiddenReplay);
+            $(document).on('click','.buttonReplay', showReplay);
+            $(document).on('click', '.buttonCancel', hideReplay);
             
-            function showHiddenReplay(e){
+            function showReplay(e){
                 e.preventDefault();
-                console.log('click');
+                
                 if(!$('.containerReplay').is(':visible')){
                     $('.messageUser').hide();
                     $('.containerReplay').show();
+                }
+            }
+            
+            function hideReplay(e){
+                e.preventDefault();
+                
+                if($('.containerReplay').is(':visible')){
+                    $('.messageUser').show();
+                    $('.containerReplay').hide();
                 }
             }
         });    

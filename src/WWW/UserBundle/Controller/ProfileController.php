@@ -5,7 +5,6 @@ namespace WWW\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\UserBundle\Entity\User as User;
-use WWW\UserBundle\Entity\Role;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\UserBundle\Form\ProfilePersonalType;
 use WWW\UserBundle\Form\ProfileAddressType;
@@ -22,6 +21,7 @@ use WWW\ServiceBundle\Entity\Offer;
 use WWW\UserBundle\Form\ProfilePersonalDataType;
 use WWW\UserBundle\Form\ProfileAddressesType;
 use WWW\GlobalBundle\MyConstants;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 /**
@@ -35,16 +35,17 @@ class ProfileController extends Controller{
     
     private $user = null;
     private $session = null;
-    private $tabActive = 'myMessage';
+    private $tabActive = 'personal';
     private $ut;
     private $email = "";
     
     
-    public function profileAction(Request $request){ 
-                
+    public function profileAction(Request $request, $tabActive = null){ 
         
         $this->sesion = $request->getSession();
-        $this->tabActive = 'myMessage';
+        if(!empty($tabActive))
+            $this->tabActive = $tabActive;
+        
         $this->ut = new Utilities();
         
         $this->user = new User();
@@ -56,7 +57,7 @@ class ProfileController extends Controller{
         $formPassword = $this->createForm(ProfilePasswordType::class,$this->user);
         $formPhone = $this->createForm(ProfilePhoneType::class,$this->user);
         $formPhoto = $this->createForm(ProfilePhotoType::class,$this->user);
-        $formAddresses = $this->createForm(ProfileAddressesType::class,$this->user);
+        //$formAddresses = $this->createForm(ProfileAddressesType::class,$this->user);
         $formBank = $this->createForm(ProfileBankType::class,$this->user);
         
         $formPersonalData->handleRequest($request);
@@ -64,7 +65,7 @@ class ProfileController extends Controller{
         $formPassword->handleRequest($request);
         $formPhone->handleRequest($request);
         $formPhoto->handleRequest($request);
-        $formAddresses->handleRequest($request);
+        //$formAddresses->handleRequest($request);
         $formBank->handleRequest($request);        
         
         if($formPersonalData->isSubmitted()):
@@ -111,23 +112,23 @@ class ProfileController extends Controller{
                 $this->saveBank($request);
             endif;
             
-        elseif($formAddresses->isSubmitted()):
-            $this->tabActive = 'addresses';
-            echo "estoy en Address<br>";
-            if($formAddresses->isValid()):
-                echo "formAddress validado<br>";
-                if($formAddresses->get('addAddress')->isClicked()): 
-                    echo "pinchada nuevaDirección<br>";
-                    $this->newAddresses($request);
-                elseif($formAddresses->get('deleteAddresses')->isClicked()):
-                    echo "pincho borrar<br>";
-                    $this->deleteAddresses($request);
-                    $formAddresses = $this->createForm(ProfileAddressesType::class,$this->user); 
-                else: 
-                    echo "actualizo dirección <br>";
-                    $this->updateAddresses($request);
-                endif;
-            endif;    
+//        elseif($formAddresses->isSubmitted()):
+//            $this->tabActive = 'addresses';
+//            echo "estoy en Address<br>";
+//            if($formAddresses->isValid()):
+//                echo "formAddress validado<br>";
+//                if($formAddresses->get('addAddress')->isClicked()): 
+//                    echo "pinchada nuevaDirección<br>";
+//                    $this->newAddresses($request);
+//                elseif($formAddresses->get('deleteAddresses')->isClicked()):
+//                    echo "pincho borrar<br>";
+//                    $this->deleteAddresses($request);
+//                    $formAddresses = $this->createForm(ProfileAddressesType::class,$this->user); 
+//                else: 
+//                    echo "actualizo dirección <br>";
+//                    $this->updateAddresses($request);
+//                endif;
+//            endif;    
         endif;    
 
         return $this->render('UserBundle:Default:profile.html.twig',
@@ -136,7 +137,7 @@ class ProfileController extends Controller{
                                    'formPassword'=>$formPassword->createView(),
                                    'formPhone'=>$formPhone->createView(),
                                    'formPhoto'=>$formPhoto->createView(),
-                                   'formAddresses'=>$formAddresses->createView(),
+                                   //'formAddresses'=>$formAddresses->createView(),
                                    'formBank'=>$formBank->createView(), 
                                    'usuario' => $this->user,
                                    'email' => $this->email, 
@@ -155,11 +156,11 @@ class ProfileController extends Controller{
                            "id" => $this->session->get('id'),
                            "password" => $this->session->get('password'));
         
-        $result = $ch->sendInformation($arrayData, $file, "parameters");
+        $result = $ch->resultApiRed($arrayData, $file);
         //print_r($result);
         if($result['result'] == 'ok')
-            $this->fillUser($result);
-        
+            //$this->fillUser($result);
+            $this->user = new User($result);
         return $result;
  
         
@@ -275,7 +276,7 @@ class ProfileController extends Controller{
         $data = array();
         $data['username'] = $this->session->get('username');
         $data['id'] = $this->session->get('id');
-        $data['password'] = $this->session->get('password');
+       $data['password'] = $this->session->get('password');
         
         $result = $ch->resultApiRed($data, $file);
         
@@ -497,34 +498,31 @@ class ProfileController extends Controller{
         
     }
     
-    private function deleteAddresses(Request $request){
-        
-        $this->tabActive = "address";
-        $arrayAddresses = $request->request->all()['profileAddress']['addresses'];
-        
-        $resultDelete['result'] = 'ok';
-        
+    public function deleteAddressesAction(Request $request){
+
+        $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."user/addresses/delete_address.php";
         
-        $data = array("username" => $this->session->get('username'),
-                      "password" => $this->session->get('password'),
-                      "id_user" => $this->session->get('id'));
+        $data['id_user'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['id'] = $request->get('id');
         
-        foreach($arrayAddresses as $address):
-            if(array_key_exists('checkDeleteAddress', $address)):
-                $ch = new ApiRest();
-                $data["id"] = $address['id'];
-                $result = $ch->resultApiRed($data, $file);
-                
-                if($result['result'] == 'ok'):
-                    $this->updateAddressUser($address['id']);
-                else:
-                    $resultDelete['result'] = 'ko';
-                endif;
-            endif;
-        endforeach;
+        $result = $ch->resultApiRed($data, $file);
         
-        $this->ut->flashMessage("general", $request, $result);
+        $response = new JsonResponse();
+       
+        if($result['result'] == 'ok'):
+            $response->setData(array(
+                'result' => 'ok',
+                'message' => 'Datos actualizados correctamente'));
+        else:
+             $response->setData(array(
+                'result' => 'ko',
+                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
+        endif;
+        
+        return $response;
         
     }
     

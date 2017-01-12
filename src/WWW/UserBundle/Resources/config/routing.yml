@@ -17,6 +17,16 @@ user_profiler:
     path: /profile/
     defaults: { _controller: UserBundle:Profile:profile }
     
+user_profiler_editAdress:
+    path: /profile/address/{idAddress}/
+    defaults: { _controller: UserBundle:ProfileAddress:editAddress }
+    requirements:
+        idAddress: \d+
+    
+user_profiler_newAdress:
+    path: /profile/newAddress/
+    defaults: { _controller: UserBundle:ProfileAddress:newAddress }    
+    
 user_profiler_offers:
     path: /profile/offer/{idOffer}
     defaults: { _controller: UserBundle:OfferUser:showOffer }
@@ -40,3 +50,15 @@ user_change:
 user_resend:
     path: /resend
     defaults: { _controller: UserBundle:Default:resend }
+    
+user_ajax_message:
+    path: /ajax/message
+    defaults: { _controller: UserBundle:Message:removeMessage}
+    
+user_ajax_deleteOffer:
+    path: /ajax/deleteOffer
+    defaults: { _controller: UserBundle:OfferUser:deleteOffer}  
+    
+user_ajax_deleteAddress:
+    path: /ajax/deleteAddress
+    defaults: { _controller: UserBundle:Profile:deleteAddresses}      

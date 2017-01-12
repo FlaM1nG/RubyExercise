@@ -8,6 +8,7 @@ use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\GlobalBundle\Entity\Photo;
 use WWW\UserBundle\Entity\User;
 use WWW\ServiceBundle\Entity\Comment;
+use WWW\ServiceBundle\Entity\Service;
 
 /**
  * Offer
@@ -127,6 +128,8 @@ class Offer
                     
                 endif;
             endforeach;
+            if(array_key_exists('service_id', $data))
+                $this->setService((int)$data['service_id']);
             /*
              * Dependiendo de por donde se llame al constructor el id puede que 
              * venga en el campo offer_id
@@ -159,38 +162,7 @@ class Offer
                 $this->userAdmin = $user;
             endif;    
         endif;
-        
-        /*if(!empty($data) && empty($isOffer)): 
-            foreach($data as $key => $value){
-                $this->$key = $value;
-            }
-        else: 
-            foreach ($data as $key => $value):
-                $key = Inflector::camelize($key);
-        
-                if($key != 'id' && $key != 'photos' && property_exists('WWW\ServiceBundle\Entity\Offer',$key)){
-                        $this->$key = $value;
-                }
-            endforeach;
-            
-            $this->id = $data['offer_id'];
-            if( !empty($data['photos']) ):
-                
-                foreach( $data['photos'] as $photo ):
-                    $newPhoto = new Photo($photo);
-                    
-                    $this->photos[]= $newPhoto;
-                    
-                endforeach;
-                
-            endif;    
-            
-            if(!empty($data['url'])):
-                $photo = new Photo();
-                $photo->setUrl($data['url']);
-                $this->photos[] = $photo;
-            endif; 
-        endif;*/
+
     }
     /**
      * Get id
@@ -437,9 +409,18 @@ class Offer
      * @param \WWW\ServiceBundle\Entity\Service $service
      * @return Offer
      */
-    public function setService(\WWW\ServiceBundle\Entity\Service $service = null)
+    public function setService($service = null)
     {
-        $this->service = $service;
+        if(gettype($service == 'int')):
+            if($service == 1):
+                $newService = new Service();
+                $newService->setTable('trade');
+                $this->service = $newService;
+                
+            endif;
+        else:    
+            $this->service = $service;
+        endif;
 
         return $this;
     }

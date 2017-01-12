@@ -243,14 +243,14 @@ class TradeController extends Controller{
         $this->setUpVars($request);
         
         $ch = new ApiRest();
-        $file = MyConstants::PATH_APIREST."services/trade/get_trade.php";
+//        $file = MyConstants::PATH_APIREST."services/trade/get_trade.php";
+        $file = MyConstants::PATH_APIREST."services/offer/get_offer.php";
 
         $trade = null;
        
         $data['id'] = $request->get('idOffer');
         
         $result = $ch->resultApiRed($data, $file);
-//        print_r($result);
          
         if($result['result'] == 'ok'):
             $trade = new Trade($result);

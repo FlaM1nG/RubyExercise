@@ -94,7 +94,7 @@ class Address implements GroupSequenceProviderInterface
     private $prefix;
 
 
-     public function __construct(Array $address=null){
+    public function __construct(Array $address=null){
          
         if($address != null):
             foreach($address as $key => $value):
