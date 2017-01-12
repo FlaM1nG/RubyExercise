@@ -85,21 +85,30 @@ easy_admin:
         brand_color: '#f60'
     site_name: 'WhatWantWeb_Management'
     entities:
+        Message:
+            class: WWW\UserBundle\Entity\Message
+            list:
+                fields: ['id','subject','message','status','revisionDate','createdDate','from','to']
+            form:
+                fields:
+                    - status
+                    - { property: 'revisionDate',format: 'j/n/Y' }
         Photo:
             class: WWW\GlobalBundle\Entity\Photo
             list:
                 fields:
                     - id
                     - { property: 'url', type: 'image', base_path: 'http://whatwantweb.com/' }
-                    - { property: 'created_date',format: 'j/n/Y'}
+                    - { property: 'createdDate',format: 'j/n/Y'}
+                    - { property: 'modifiedDate',format: 'j/n/Y'}
         Trade:
             class: WWW\OthersBundle\Entity\Trade
         Offer:    
             class: WWW\ServiceBundle\Entity\Offer
         User:
             class: WWW\UserBundle\Entity\User
-        Message:
-            class: WWW\UserBundle\Entity\Message
+
+                    
         Address:
             class: WWW\GlobalBundle\Entity\Address
          

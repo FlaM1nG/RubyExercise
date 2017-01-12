@@ -131,21 +131,36 @@
                             {% block offerDescription %} {% endblock %}
                         </div>
                     </div>
-                    <!-- FIN DESCRIPTION OFFER -->
+                    <!-- FIN DESCRIPTION OFFER -->   
+                    
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                    {% if is_granted('select_offer', trade) %}
-                         <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                         {% if is_granted('select_offer', trade) %}                            
                             {{form_start(formSubscribe)}}
                             {{form_widget(formSubscribe.subscribeButton, 
                                 { 'attr': {'class': 'btn-default btn-off-buy'},
                                   'label':'Comprar' })}}
-                            {{form_end(formSubscribe)}}
+                            {{form_end(formSubscribe)}} 
+                            {#<button type="submit" class="btn btn-default 
+                                btn-off-buy">
+                               Comprar
+                            </button>#}
+
+                         {% endif %}                            
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- BUY OFFER AND USER -->
+                    {#<div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <button type="submit" class="btn btn-default 
+                                btn-off-buy">
+                               Comprar
+                            </button>
                         </div>
                         
-                    {% endif %}
-                    <!-- BUY OFFER AND USER -->
-                  
                         
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             {% block offerUser %} {% endblock %}
@@ -281,4 +296,3 @@
     {{ include('footer/sponsorFooter.html.twig') }}
     {{ parent() }}
 {% endblock %} 
-
