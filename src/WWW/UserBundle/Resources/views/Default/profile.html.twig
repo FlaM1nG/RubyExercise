@@ -78,9 +78,10 @@
         <main class="cd-main-content">
             <nav class="cd-side-nav">
                 <ul>
-                    <li class="cd-label">Personal</li>
+                    {#<li class="cd-label">Personal</li>#}
                     <li class="has-children overview">
-                        <a href="#0">Mis datos</a>
+                        {#<i class="fa fa-user" aria-hidden="true"></i>#}
+                        <a href="#0">Mis datos</a>  
 
                         <ul>
                             <li><a href="#0">Email</a></li>
@@ -101,7 +102,8 @@
                             <li><a href="#0">Enviados</a></li>
                         </ul>
                     </li>
-
+                    
+                    {% for i in 0..10 %}
                     <li class="has-children notifications">
                         <a href="#0">Ofertas</a>
 
@@ -111,42 +113,8 @@
                             <li><a href="#0">Inscripciones</a></li>
                         </ul>
                     </li>
-                </ul>
-
-                <ul>
-                    <li class="cd-label">Secondary</li>
-                    <li class="has-children bookmarks">
-                        <a href="#0">Bookmarks</a>
-
-                        <ul>
-                            <li><a href="#0">All Bookmarks</a></li>
-                            <li><a href="#0">Edit Bookmark</a></li>
-                            <li><a href="#0">Import Bookmark</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-children images">
-                        <a href="#0">Images</a>
-
-                        <ul>
-                            <li><a href="#0">All Images</a></li>
-                            <li><a href="#0">Edit Image</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="has-children users">
-                        <a href="#0">Users</a>
-
-                        <ul>
-                            <li><a href="#0">All Users</a></li>
-                            <li><a href="#0">Edit User</a></li>
-                            <li><a href="#0">Add User</a></li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <ul>
-                    <li class="cd-label">Action</li>
-                    <li class="action-btn"><a href="#0">+ Button</a></li>
+                    {% endfor %}
+                    
                 </ul>
             </nav>
 
