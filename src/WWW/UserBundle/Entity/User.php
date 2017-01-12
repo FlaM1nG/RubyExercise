@@ -261,8 +261,13 @@ class User implements UserInterface, GroupSequenceProviderInterface{
           //  $this->role = $user['ROLE_USER'];
             $this->offers = $this->searchOffers();
             
-            $this->createAddresses($user['addresses'], $user['default_address_id']);
-   
+            
+             if(array_key_exists('addresses', $user)):
+                foreach($user['addresses'] as $address):
+
+                  $this->createAddresses($user['addresses'], $user['default_address_id']);
+                endforeach;
+            endif; 
         else:
            // $this->addresses = new ArrayCollection();
             $this->offers = Array();
