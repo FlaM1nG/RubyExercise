@@ -32,17 +32,19 @@
 
 
             {% set imgGallery = imgGallery|merge([imageOff] ) %#}
+        {% for photo in trade.offer.photos %}
             <div class="item">
                 <div class="off-img-marco-grande">
-                    <a href="{{trade.offer.photos.0.url }}" 
+                    <a href="{{ 'http://www.whatwantweb.com/' ~ photo.url }}" 
                         data-lightbox="offer-item">
                         
                         <img class="img-responsive off-img-expo" 
-                            src="{{ trade.offer.photos.0.url }}" 
+                            src="{{ 'http://www.whatwantweb.com/' ~ photo.url }}" 
                             alt="">
                     </a>
                 </div>
             </div>
+        {% endfor %}
         {#% endfor %#}
     </div>
 
@@ -51,7 +53,7 @@
         <div class="item off-item-dime">
             <div class="off-img-marco-peque">
                 <img class="img-responsive off-img-slid" 
-                    src="{{ asset(photo.url) }}" 
+                    src="{{ 'http://www.whatwantweb.com/' ~ photo.url }}" 
                     alt="">
             </div>
         </div>
