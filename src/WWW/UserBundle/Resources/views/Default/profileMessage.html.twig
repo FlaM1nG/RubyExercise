@@ -1,0 +1,90 @@
+{# empty Twig template #}
+
+{#  Para acceder al status de los mensajes message.status
+    Status:
+        0: enviado
+        1: revisado cancelado
+        2: revisado aceptado
+        3: leído
+#}
+<div class="containeMessages">
+    {# 
+       - Las palabras De, para, asunto y mensaje las he puesto para entenderme yo 
+       - La clase containeMessages es para ocultar o mostrar los mensajes cuando
+       pinchamos en nuevo mensaje
+       - El mensaje habría que mostrar los X primeros caracteres 
+    #}
+{#    {{ dump(formListMessages) }}#}
+
+    {{ form_start(formListMessages,{'attr':{'class': 'formMessage'} })}}
+    <BR>Mensajes Enviados <br>
+        {% for mensajes in formListMessages.sent %}
+            <div class="containerMessage">
+            <a href="{{path('user_profiler_message' , {idMessage: mensajes.vars.value.id} ) }}">
+                De: {{ mensajes.vars.value.from.username}}<br>
+            </a>    
+          
+            Para: {{ mensajes.vars.value.to.username }}<br>
+            
+            Asunto: {{ mensajes.subject.vars.value}}<br>
+            
+            Mensaje: {{ mensajes.message.vars.value}}
+            {# Para que funcione bien el borrado y después se muestren bien los 
+               mensajes hay que hacerlo con formularios, lo suyo sería quitar 
+               la parte de 'attr' y la de arriba, crear una clase que quite el 
+               formato de formulario y que se vea como un listado 
+            #}
+            {{ form_widget(mensajes.from.username, { 'attr': {style:'display:none', 'readonly': 'false' } }) }}
+            {{ form_widget(mensajes.to.username, { 'attr': {style:'display:none', 'readonly': 'false' } }) }}
+            {{ form_widget(mensajes.subject, { 'attr': {style:'display:none', 'readonly': 'false' } }) }}
+            {{ form_widget(mensajes.message, { 'attr': {style:'display:none', 'readonly': 'false'} }) }}
+            
+            {{ form_row(mensajes.id) }}
+            {{ form_widget(mensajes.borrar) }}
+            </div>
+            
+        {% endfor %}     
+    {#<ul class="tags" data-prototype="{{ form_widget(formListMessages.sent.vars.prototype)|e('html_attr') }}">
+                
+    </ul>#}
+    <BR><br>Mensajes recibidos <br><br>
+        {% for mensajes in formListMessages.received %}
+       <div class="containerMessage">
+           <a href="{{path('user_profiler_message' , {idMessage: mensajes.vars.value.id} ) }}">
+                De: {{ mensajes.vars.value.from.username}}<br>
+           </a>     
+            Para: {{ mensajes.vars.value.to.username }}<br>
+            Asunto: {{ mensajes.subject.vars.value }}<br>
+            Mensaje: {{ mensajes.subject.vars.value}}
+            
+            {{ form_widget(mensajes.subject, { 'attr': {style:'display:none', 'readonly': 'false' } }) }}
+            {{ form_widget(mensajes.message, { 'attr': {style:'display:none', 'readonly': 'false'} }) }}
+            {{ form_widget(mensajes.borrar) }}
+            {{ form_row(mensajes.id) }}
+       </div>
+        {% endfor %} 
+        
+        
+       
+    {#<div class="addMessage" data-prototype="{{ form_widget(formListMessages.received.vars.prototype)|e('html_attr') }}">
+            dentro div   
+    </div>
+    <br>despues div antes token#}
+    {{ form_row(formListMessages.idRemove) }}
+    {{ form_row(formListMessages.fromTo) }}
+    {{ form_row(formListMessages._token)}} 
+</div>
+{{ form_row(formListMessages.newMessageButton)}}
+
+
+<div class="newMessage" style="display: none">
+      {#Mediante javascript controlar que en el campo destinatario solo se pueda 
+        usar comas para separar los usernames    #}
+    {{ form_start(formMessage) }}
+        {{ form_row(formMessage.to )}}
+        {{ form_row(formMessage.subject) }}
+        {{ form_row(formMessage.message) }}
+        {{ form_row(formMessage.enviar) }}
+        {{ form_row(formMessage._token) }}
+</div>    
+

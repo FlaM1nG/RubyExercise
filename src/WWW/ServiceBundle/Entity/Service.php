@@ -167,4 +167,32 @@ class Service
     {
         return $this->table;
     }
+    /**
+     * @var integer
+     */
+    private $defaultStatus;
+
+
+    /**
+     * Set defaultStatus
+     *
+     * @param integer $defaultStatus
+     * @return Service
+     */
+    public function setDefaultStatus($defaultStatus)
+    {
+        $this->defaultStatus = $defaultStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get defaultStatus
+     *
+     * @return integer 
+     */
+    public function getDefaultStatus()
+    {
+        return $this->defaultStatus;
+    }
 }

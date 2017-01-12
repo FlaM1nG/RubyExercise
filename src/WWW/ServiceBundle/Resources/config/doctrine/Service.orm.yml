@@ -18,6 +18,8 @@ WWW\ServiceBundle\Entity\Service:
         table:
             type: string
             length: 255
+        defaultStatus:
+            type: integer
     oneToOne:        
         photo:
             targetEntity: WWW\GlobalBundle\Entity\Photo
