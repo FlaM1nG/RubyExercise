@@ -35,7 +35,7 @@ class OfferVoter extends Voter
 
         // sólo votar en objetos Post dentro de este voter
         if (!$subject instanceof \WWW\OthersBundle\Entity\Trade) {
-            
+            print_r("el objeto no es trade");
             return false;
         }
 
@@ -75,11 +75,11 @@ class OfferVoter extends Voter
          $user = $token->getUser();
          
         
-        
+
         
         // esto asume que el objeto tiene un método getOwner()
         // para obtener la entidad del usuario que posee este objeto
-        if( $user->getUsername() != $trade->getOffer()->getUserAdmin()->getUsername() & $trade->getOffer()->getExpired()){
+        if( $user->getUsername() != $trade->getOffer()->getUserAdmin()->getUsername() && !$trade->getOffer()->getExpired()){
             return true;
             
         }
