@@ -123,7 +123,9 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <h1>Responsive Sidebar Navigation</h1>
+                            {% for i in 0..10 %}
                             <p>{{ include('macros/text.html.twig') }}</p>
+                            {% endfor %}
                         </div>
                     </div>
 {#                    <h1>Responsive Sidebar Navigation</h1>#}
@@ -139,7 +141,27 @@
 {% block javascriptsFooter %}
     {{ parent() }}
     <script>
-        
+        $(document).ready(function(){
+{#            console.log($('.content-wrapper').height());#}
+            if($(window).width() > 768){
+                $('.cd-side-nav').css('height', '0');
+                $('.cd-side-nav').css('height', $('.content-wrapper').height());
+            }else{
+                $('.cd-side-nav').css('height', 'inherit');
+            }
+        });
+    
+        $(window).resize(function(){
+{#            console.log($('.content-wrapper').height());#}
+            if($(window).width() > 768){
+                $('.cd-side-nav').css('height', '0');
+                $('.cd-side-nav').css('height', $('.content-wrapper').height());
+            }else{
+                $('.cd-side-nav').css('height', 'inherit');
+            }
+            
+            
+        });
     </script>
     <script src="{{ asset('js/jquery.menu-aim.js') }}"></script>
     <script src="{{ asset('js/mainUserMenu.js') }}"></script> <!-- Resource jQuery -->

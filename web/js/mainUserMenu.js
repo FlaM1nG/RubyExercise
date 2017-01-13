@@ -117,14 +117,15 @@ jQuery(document).ready(function(){
 	function checkScrollbarPosition() {
 		var mq = checkMQ();
 		
-		if( mq != 'mobile' ) {
-			var sidebarHeight = sidebar.outerHeight(),
-				windowHeight = $(window).height(),
-				mainContentHeight = mainContent.outerHeight(),
-				scrollTop = $('#menuAdministracion').scrollTop();
-
-			( ( scrollTop + windowHeight > sidebarHeight ) && ( mainContentHeight - sidebarHeight != 0 ) ) ? sidebar.addClass('is-fixed').css('bottom', 0) : sidebar.removeClass('is-fixed').attr('style', '');
-		}
+//		if( mq != 'mobile' ) {
+//			var sidebarHeight = sidebar.outerHeight(),
+//				windowHeight = $(window).height(),
+//				mainContentHeight = mainContent.outerHeight(),
+////				scrollTop = $(window).scrollTop();
+//				scrollTop = $('#menuAdministracion').scrollTop();
+//
+//			( ( scrollTop + windowHeight > sidebarHeight ) && ( mainContentHeight - sidebarHeight != 0 ) ) ? sidebar.addClass('is-fixed').css('bottom', 0) : sidebar.removeClass('is-fixed').attr('style', '');
+//		}
 		scrolling = false;
 	}
 });
