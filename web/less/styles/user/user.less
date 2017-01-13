@@ -752,34 +752,49 @@ Sidebar
   height: 16px;
   width: 16px;
   /*background: url(../img/userMenu/cd-nav-icons.svg) no-repeat 0 0;*/
-  font-size: 16px;
+/*  font-size: 16px;*/
   
 }
-.cd-side-nav > ul > li.overview > a::before {
+
+.user-icon-menu{
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    content: "\f007";
     font-size: 16px;
-  
+}
+
+.cd-side-nav > ul > li.misDatos > a::before {
+/*    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;*/
+    content: "\f007";
+    /*font-size: 16px;*/
+    .user-icon-menu;
 }
 .cd-side-nav > ul > li.notifications > a::before {
-  background-position: -80px 0;
+    background-position: -80px 0;
 }
 .cd-side-nav > ul > li.comments > a::before {
-  background-position: -48px 0;
+    .user-icon-menu;
+    content: "\f075";
 }
-.cd-side-nav > ul > li.bookmarks > a::before {
-  background-position: -32px 0;
+.cd-side-nav > ul > li.addressUser > a::before {
+    /*background-position: -32px 0;*/
+    .user-icon-menu;
+    content: "\f041";
 }
-.cd-side-nav > ul > li.images > a::before {
-  background-position: 0 0;
+.cd-side-nav > ul > li.offerUser > a::before {
+    /*background-position: 0 0;*/
+    .user-icon-menu;
+    content: "\f290";
 }
-.cd-side-nav > ul > li.users > a::before {
+/*.cd-side-nav > ul > li.users > a::before {
   background-position: -16px 0;
-}
+}*/
 .cd-side-nav .count {
   /* notification badge */
   position: absolute;
@@ -946,7 +961,7 @@ Sidebar
   position: relative;
   width: 100%;
   display: none;
-  background-color: @gray-base;
+  background-color: @gray-dark;
 }
 .has-children > a::after {
   /* arrow icon */
