@@ -30,7 +30,7 @@ WWW\ServiceBundle\Entity\Valoration:
     manyToOne:
         user:
             targetEntity: WWW\UserBundle\Entity\User
-            inversedBy: Comment
+            inversedBy: valorations
             joinColumn:
                 referencedColumnName: id
         offer:

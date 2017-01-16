@@ -112,6 +112,12 @@ WWW\UserBundle\Entity\User:
         offers:
             targetEntity: WWW\ServiceBundle\Entity\Offer
             mappedBy: userAdmin
+        inscriptions:
+            targetEntity: WWW\ServiceBundle\Entity\Inscription
+            mappedBy: user              
+        valorations:
+            targetEntity: WWW\ServiceBundle\Entity\Valoration
+            mappedBy: user 
     oneToOne:        
         photo:
             nullable: true

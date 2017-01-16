@@ -26,7 +26,7 @@ WWW\ServiceBundle\Entity\Inscription:
     manyToOne:
         user:
             targetEntity: WWW\UserBundle\Entity\User
-            inversedBy: Inscription
+            inversedBy: inscriptions
             joinColumn:
                 referencedColumnName: id
         offer:

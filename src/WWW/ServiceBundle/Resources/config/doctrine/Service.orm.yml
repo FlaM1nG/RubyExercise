@@ -28,7 +28,7 @@ WWW\ServiceBundle\Entity\Service:
     manyToOne:
         category:
             targetEntity: ServiceCategory
-            inversedBy: Service
+            inversedBy: services
             joinColumn:
                 referencedColumnName: id
     oneToMany:

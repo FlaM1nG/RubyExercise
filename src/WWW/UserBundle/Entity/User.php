@@ -166,10 +166,19 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     private $addresses;
     
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \WWW\UserBundle\Entity\Hobby
      */
     private $hobbies;
     
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $inscriptions;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $valorations;    
     /**
      * @var boolean
      */
@@ -880,7 +889,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * Get hobbies
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Hobby
      */
     public function getHobbies()
     {
