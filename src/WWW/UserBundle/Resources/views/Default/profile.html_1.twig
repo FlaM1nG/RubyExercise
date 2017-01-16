@@ -40,92 +40,141 @@
 
 
 {% block body %}
-    
 <!-- TABULADOR DE PESTAÑAS -->
 <div class="container-fluid cd-main-content us-profile-panel">
-    <div class="row">
-        <header class="cd-main-header">
-            {#<a href="#0" class="cd-logo"><img src="img/cd-logo.svg" alt="Logo"></a>
+    <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" {{tabActive == 'personal' or tabActive is empty ? 'class="active"'}}>
+                <a href="#personal" 
+                   name="personal" 
+                   id="sectionPersonal"
+                   aria-controls="personal" 
+                   role="tab" 
+                   data-toggle="tab">
+                   Personal
+                </a>
+            </li>
 
-            <div class="cd-search is-hidden">
-                <form action="#0">
-                    <input type="search" placeholder="Search...">
-                </form>
-            </div> <!-- cd-search -->#}
+        <li role="presentation" {{tabActive == 'email' ? 'class="active"'}}>
+            <a href="#email" 
+               name="email" 
+               id="sectionEmail"
+               aria-controls="email" 
+               role="tab" 
+               data-toggle="tab">
+               Email
+            </a>
+        </li>
 
-            <a href="#0" class="cd-nav-trigger">Menu<span></span></a>
+        <li role="presentation" {{tabActive == 'password' ? 'class="active"'}}>
+            <a href="#password" 
+               name="password" 
+               id="sectionPassword"
+               aria-controls="password"
+               role="tab" 
+               data-toggle="tab">
+                Contraseña
+            </a>
+        </li>
 
-            <nav class="cd-nav">
-                {#<ul class="cd-top-nav">
-                    <li><a href="#0">Tour</a></li>
-                    <li><a href="#0">Support</a></li>
-                    <li class="has-children account">
-                        <a href="#0">
-                            <img src="img/cd-avatar.png" alt="avatar">
-                            Account
-                        </a>
+        <li role="presentation" {{tabActive == 'phone' ? 'class="active"'}}>
+            <a href="#phone" 
+               name="phone" 
+               id="sectionTlfn"
+               aria-controls="phone"
+               role="tab" 
+               data-toggle="tab">Teléfono</a>
+        </li>
 
-                        <ul>
+        <li role="presentation" {{tabActive == 'photo' ? 'class="active"'}}>
+            <a href="#photo" 
+               name="photo" 
+               id="sectionPhoto"
+               aria-controls="photo"
+               role="tab" 
+               data-toggle="tab">
+                Foto
+            </a>
+        </li>
 
-                            <li><a href="#0">My Account</a></li>
-                            <li><a href="#0">Edit Account</a></li>
-                            <li><a href="#0">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>#}
-            </nav>
-        </header> <!-- .cd-main-header -->
-        <main class="cd-main-content us-content-user">
-            <nav class="cd-side-nav">
-                <ul>
-                    {#<li class="cd-label">Personal</li>#}
-                    <li class="has-children misDatos">
-                        {#<i class="fa fa-user" aria-hidden="true"></i>#}
-                        <a href="#0">Mis datos</a>  
+        <li role="presentation" {{tabActive == 'address' ? 'class="active"'}}>
+            <a href="#address" 
+               name="address" 
+               id="sectionAddress"
+               aria-controls="address"
+               role="tab" 
+               data-toggle="tab">
+                Direcciones
+            </a>
+        </li>
 
-                        <ul>
-                            <li><a href="#0">Email</a></li>
-                            <li><a href="#0">Contraseña</a></li>
-                            <li><a href="#0">Teléfono</a></li>
-                            <li><a href="#0">Foto Personal</a></li>
-                        </ul>
-                    </li>
-                    <li class="addressUser">
-                        <a href="#0">Direcciones</a>
-                    </li>
-                    <li class="has-children comments active">
-                        <a href="#0">Mensajes<span class="count">3</span></a>
+        <li role="presentation" {{tabActive == 'bank' ? 'class="active"'}}>
+            <a href="#bank" 
+               name="bank" 
+               id="sectionBank"
+               aria-controls="bank"
+               role="tab" 
+               data-toggle="tab">
+                Datos bancarios
+            </a>
+        </li>
+        
+        <li role="presentation" {{tabActive == 'myOffer' ? 'class= "active"' }}>
+            <a href="#myOffer" 
+               name="myOffer" 
+               id="sectionMyOffer"
+               aria-controls="myOffer"
+               role="tab" 
+               data-toggle="tab">
+                Mis ofertas
+            </a>
+        </li>
+        
+        <li role="presentation" {{tabActive == 'myMessage' ? 'class= "active"' }}>
+            <a href="#myMessage" 
+               name="myMessage" 
+               id="sectionMyMessage"
+               aria-controls="myMessage"
+               role="tab" 
+               data-toggle="tab">
+                Mis mensajes
+            </a>
+        </li>
+        
+    </ul>
+    <!-- FIN TABULADOR DE PESTAÑAS -->
+    
+     <!-- ERRORES EN EL FORMULARIO DE USUARIO -->            
+    <div class="container">
+        {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
 
-                        <ul>
-                            <li><a href="#0">Redactar</a></li>
-                            <li><a href="#0">Recibidos</a></li>
-                            <li><a href="#0">Enviados</a></li>
-                        </ul>
-                    </li>
-                    
-{#                    {% for i in 0..10 %}#}
-                    <li class="has-children offerUser">
-                        <a href="#0">Ofertas</a>
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+        {% endfor %}
 
-                        <ul>
-                            <li><a href="#0">Mis ofertas</a></li>
-                            <li><a href="#0">Compras</a></li>
-                            <li><a href="#0">Inscripciones</a></li>
-                        </ul>
-                    </li>
-{#                    {% endfor %}#}
-                    
-                </ul>
-            </nav>
-
-            <div class="content-wrapper">
-{#                <div class="container">#}
+        {{ form_errors(formPersonalData) }}
+        {{ form_errors(formEmail) }}
+        {{ form_errors(formPassword) }}
+        {{ form_errors(formPhoto) }}
+        {{ form_errors(formPhone) }}
+        {{ form_errors(formAddresses) }}
+        {{ form_errors(formBank) }}
+        
+    </div>
+    <!-- FIN ERRORES EN EL FORMULARIO DE USUARIO -->  
+    
+    <div class="container">      
+        <div class="tab-content">
+            <!-- PERSONAL -->
+            <div class="tab-pane 
+                 {{tabActive == 'personal' or tabActive is empty ? 'active'}}" 
+                 name="personal" id="personal">
+                
+                {{form_start(formPersonalData)}} 
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <h1>Responsive Sidebar Navigation</h1>
-                            {% for i in 0..10 %}
-                            <p>{{ include('macros/text.html.twig') }}</p>
-                            {% endfor %}
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-col-pad">
+                        {{ form_row(formPersonalData.username) }}
                         </div>
                     </div>
 
@@ -330,17 +379,22 @@
             <div class="tab-pane {{tabActive == 'myOffer' ? 'active'}}" name="myOffer" id="myOffer">
 
                 {% for offer in usuario.offers %}
-                    {% set urlOffer = '' %}
-                    {% if offer.service.table == 'trade' %}
-                        {% set urlOffer = path('service_trade' , {idOffer: offer.id}) %}
-                    {% endif %}    
 
-                    <div class="row us-col-pad containerOffer_{{offer.id}}">
+                    {#<div style="border:solid 1px orange; margin-top: 2em">
+                        <h4>
+                            <a href="{{path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.id})}}">
+                                {{offer.title}}                  
+                            </a> 
+                        </h4>   
+                        {{offer.description}}
+                        <img src="{{offer.photos.0.url}}" />    
+
+                    </div>#}
+                    <div class="row us-col-pad">
                         <div class="us-offer-target">    
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    
-                                    <a href="{{ urlOffer }}">                  
+                                    <a href="{{ path('user_profiler_offers' , {idOffer: offer.id}) }}">                  
                                         <img class="img-responsive us-offer-img" 
                                              {#src="{{offer.photos.0.url|default(asset('img/placeholder.jpg'))}}"#} 
                                              src="{{ asset('img/placeholder.jpg') }}"/>
@@ -354,7 +408,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <h4>
-                                                <a href="{{ urlOffer }}">
+                                                <a href="{{ path('user_profiler_offers' , {idOffer: offer.id}) }}">
                                                     {{ offer.title }}                  
                                                 </a> 
                                             </h4>
@@ -371,22 +425,13 @@
                                     
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <a href="{{ path('user_profiler_offers' , {idOffer: offer.id}) }}"
+                                            <a href="{{ path('user_profiler_offers' , {offer: 'offer' ,idOffer: offer.id}) }}"
                                                class="btn-default btn us-btn-edit-address">
                                                 Editar
                                             </a>
                                         </div>
                                     </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <a href="#"
-                                               class="btn-default btn us-btn-edit-address bDeleteOffer"
-                                               data-id="{{ offer.id }}">
-                                                Borrar
-                                            </a>
-                                        </div>
-                                    </div>           
+
 
                                 </div>
 
@@ -406,123 +451,112 @@
         
             <!-- ADDRESS -->    
             <div class="tab-pane {{tabActive == 'address' ? 'active'}}" name="address" id="address">
-                
-                <a href="{{ path('user_profiler_newAdress') }}"
-                   class="btn btn-default"> Nueva </a>
-                
-                <!-- ADDRESS DEFAULT -->
-                <div class="us-address-target containerAddress_{{ usuario.defaultAddress.id }}">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <h4>{{ usuario.defaultAddress.name|e|capitalize }}</h4>
+
+                {{form_start(formAddresses)}}
+                    {% for address in formAddresses.addresses %}
+                        <div class="us-address-target" data-id="{{address.vars.value.id}}">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <h4>{{address.vars.value.name|e|capitalize}}</h4>
+                                </div>
+
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    {{form_widget(address.checkDeleteAddress, { 'attr': {'data-id' : address.vars.value.id } })}}
+                                </div>
                             </div>
 
-                        </div>
 
-
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <p>{{ usuario.defaultAddress.street}}</p>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <p>{{ usuario.defaultAddress.zipCode }} - 
-                                   {{ usuario.defaultAddress.region }}, 
-                                   {{ usuario.defaultAddress.city }} 
-                                   ({{ usuario.defaultAddress.country }})</p>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <a href="{{ path('user_profiler_editAdress',{ idAddress:usuario.defaultAddress.id }) }}" 
-                                class="btn-default btn editAddress">Editar </a>
-                            </div>
-                        </div>
-                                
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <button data-id="{{ usuario.defaultAddress.id }}" 
-                                class="btn-default btn deleteAddress">Borrar </button>
-                            </div>
-                        </div>        
-                    </div>
-                <!-- END DEFAULT ADDRESS -->                
-
-                {% for address in usuario.addresses %}
-                    <div class="us-address-target containerAddress_{{ address.id }}">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <h4>{{address.name|e|capitalize}}</h4>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <p>{{address.vars.value.street}}</p>
+                                </div>
                             </div>
 
-                        </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <p>{{address.vars.value.zipCode}} - {{address.vars.value.region}}, {{address.vars.value.city}} ({{address.vars.value.country}})</p>
+                                </div>
+                            </div>
 
 
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <p>{{address.street}}</p>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <button type="submit" name="profileUser[editAddress]" data-id: {{ address.vars.value.id }} 
+                                    class="btn-default btn editAddress">Editar </button>
+                                </div>
                             </div>
                         </div>
+                    {% endfor %}
 
 
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <p>{{address.zipCode}} - {{address.region}}, {{address.city}} ({{address.country}})</p>
-                            </div>
+
+                    {% for address in formAddresses.addresses %}
+    {#                    <div class="dataAddress" data-id="{{address.vars.value.id}}" style="border:solid 1px orange;">#}
+    {#                        {{form_widget(address.checkDeleteAddress, { 'attr': {'data-id' : address.vars.value.id } })}}#}
+    {#                        <h4>{{address.vars.value.name}}</h4><br>#}
+    {#                        {{address.vars.value.country}}<br>#}
+    {#                        {{address.vars.value.region}}<br>#}
+                            {#{{address.vars.value.city}}#}<br>
+    {#                        {{address.vars.value.street}}<br>#}
+    {#                        {{address.vars.value.zipCode}}#}
+                            {{form_row(address.id)}}
+
+                            {#<button type="submit" name="profileUser[editAddress]" data-id: {{ address.vars.value.id }} 
+                                    class="btn-default btn editAddress">Editar </button>#}
+    {#                    </div>#}
+
+                        <div style="border:solid 1px orange; display: none">
+                            {{form_row(address.isDefault)}}
+                            {{form_row(address.name)}}
+                            {{form_row(address.country)}}
+                            {{form_row(address.region)}}
+                            {{form_row(address.city)}}
+                            {{form_row(address.street)}}
+                            {{form_row(address.zipCode)}}
+                            {{form_row(address.editAddress)}}
+
                         </div>
+                    {% endfor %}
 
+                    <ul class="newAddress" data-prototype="{{ form_widget(formAddresses.addresses.vars.prototype)|e('html_attr') }}">
 
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <a href="{{ path('user_profiler_editAdress',{ idAddress:address.id }) }}"  
-                                class="btn-default btn editAddress">Editar </a>
-                            </div>
-                        </div>
-                                
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <button data-id="{{ address.id }}" 
-                                class="btn-default btn deleteAddress">Borrar </button>
-                            </div>
-                        </div>         
-                    </div>
-                {% endfor %}
-   
+                    </ul>
+                    {{ form_row(formAddresses.deleteAddresses) }}
+                    {{ form_row(formAddresses.addAddress, { 'attr': {style:'display:none'}})}}
+
+                {{form_end(formAddresses)}}    
             </div>
             <!-- FIN ADDRESS -->
             
             <!-- MESSAGE -->
             <div class="tab-pane {{tabActive == 'myMessage' ? 'active'}}" name="myMessage" id="myMessage">
                 <nav class="navbar navbar-fixed-left navbar-minimal animate" role="navigation">
-		<div class="navbar-toggler animate">
-			<span class="menu-icon"></span>
-		</div>
-		<ul class="navbar-menu animate">
-			<li>
-				<a href="#about-us" class="animate">
-					<span class="desc animate"> Who We Are </span>
-					<span class="glyphicon glyphicon-user"></span>
-				</a>
-			</li>
-			<li>
-				<a href="#blog" class="animate">
-					<span class="desc animate"> What We Say </span>
-					<span class="glyphicon glyphicon-info-sign"></span>
-				</a>
-			</li>
-			<li>
-				<a href="#contact-us" class="animate">
-					<span class="desc animate"> How To Reach Us </span>
-					<span class="glyphicon glyphicon-comment"></span>
-				</a>
-			</li>
-		</ul>
-	</nav>
+                    <div class="navbar-toggler animate">
+                        <span class="menu-icon"></span>
+                    </div>
+                    <ul class="navbar-menu animate">
+                        <li>
+                            <a href="#about-us" class="animate">
+                                <span class="desc animate"> Redactar </span>
+                                <span class="fa fa-pencil"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#blog" class="animate">
+                                <span class="desc animate"> Recibidos </span>
+                                <span class="fa fa-envelope-open"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact-us" class="animate">
+                                <span class="desc animate"> Enviados </span>
+                                <span class="fa fa-paper-plane"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
                 {{ render(controller('UserBundle:Message:message',{request: app.request,'user': usuario})) }}
 
             </div>
@@ -531,10 +565,6 @@
         </div>
                 
                 
-{#                    <h1>Responsive Sidebar Navigation</h1>#}
-{#                </div>#}
-            </div> <!-- .content-wrapper -->
-        </main> <!-- .cd-main-content -->
     </div>
                 
 </div>
@@ -543,32 +573,6 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
-    <script>
-        $(document).ready(function(){
-{#            console.log($('.content-wrapper').height());#}
-            if($(window).width() > 768){
-                $('.cd-side-nav').css('height', '0');
-                $('.cd-side-nav').css('height', $('.content-wrapper').height());
-            }else{
-                $('.cd-side-nav').css('height', 'inherit');
-            }
-        });
-    
-        $(window).resize(function(){
-{#            console.log($('.content-wrapper').height());#}
-            if($(window).width() > 768){
-                $('.cd-side-nav').css('height', '0');
-                $('.cd-side-nav').css('height', $('.content-wrapper').height());
-            }else{
-                $('.cd-side-nav').css('height', 'inherit');
-            }
-            
-            
-        });
-    </script>
-    <script src="{{ asset('js/jquery.menu-aim.js') }}"></script>
-    <script src="{{ asset('js/mainUserMenu.js') }}"></script> <!-- Resource jQuery -->
-    
     <script>
         $('#myTabs a').click(function (e) {
             e.preventDefault();
@@ -613,7 +617,7 @@
                   }
               }
              
-{#              document.getElementById('profilePhoto_fileImage').addEventListener('change', archivo, false);#}
+              document.getElementById('profilePhoto_fileImage').addEventListener('change', archivo, false);
 
     </script>
     
@@ -621,122 +625,77 @@
 
 
         $(document).ready(function() {
+            
+            var $collectionHolder;
+
+            // setup an "add a tag" link
+            var $addTagLink = $('<button class="add_tag_link">Nueva Dirección</button>');
+            var $newLinkLi = $('<li></li>').append($addTagLink);
+
+            jQuery(document).ready(function() {
+                // Get the ul that holds the collection of tags
+                $collectionHolder = $('ul.newAddress');
+
+                // add the "add a tag" anchor and li to the tags ul
+                $collectionHolder.append($newLinkLi);
+
+                // count the current form inputs we have (e.g. 2), use that as the new
+                // index when inserting a new item (e.g. 2)
+                $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+                $addTagLink.on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+
+                    // add a new tag form (see next code block)
+                    addTagForm($collectionHolder, $newLinkLi);
+                    
+                    $('#profileAddress_deleteAddresses').css('display','none');
+                    //Solo se permite añadir una dirección de una vez, 
+                    //así que ocultamos el botón
+                    $('.add_tag_link').css('display','none');
+                    //Mostramos el botón de guardar una dirección nueva
+                    $('#profileAddress_addAddress').css('display','block');
+                });
+            });
+            
+            function addTagForm($collectionHolder, $newLinkLi) {
+                // Get the data-prototype explained earlier
+                var prototype = $collectionHolder.data('prototype');
+
+                // get the new index
+                var index = $collectionHolder.data('index');
+
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+
+                // increase the index with one for the next item
+                $collectionHolder.data('index', index + 1);
+
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormLi = $('<li></li>').append(newForm);
+                $newLinkLi.before($newFormLi);
+                
+            }
            
+            
+            //$(document).on('click','.checkDeleteAddress', deleteAddresses);
             $(document).on('click','.add_tag_link',showHiddenButtonAdd);
             $(document).on('click','.newMessageButton', showFormNewMessage);
-            $(document).on('click','.bDeleteMessage', deleteMessage);
-            $(document).on('click','.bDeleteOffer', deleteObject);
-            $(document).on('click','.deleteAddress', deleteObject);
+            $(document).on('click','.buttonDeleteMessage', deleteMessage);
             
             
             
             function deleteMessage(e){
-                var type = $(this).attr('data-type');
-                var id = $(this).attr('data-id');
+                e.stopPropagation();
+                //e.preventDefault();
+                var arrayName = $(this).attr('id').split('_');
+                var posArray = arrayName[2];
+                var typeMessage = arrayName[1];
                 
-                var data = {};
-                data['id'] = id;
-                data['type'] = type;
-                
-                $.ajax({                        
-                    type: "POST",                 
-                    url: "{{ url('user_ajax_message') }}",                     
-                    data: data, 
-                    success: function(data)             
-                    {
-                        if(data['result'] === 'ok'){
-                            $('.containerMessage_'+id).remove();  
-                            $('.errorContainer').html("<div class='alert "+
-                            "alert-success alert-dismissible' role='alert'>"+
-                            "<button type='button' class='close' "+
-                            "data-dismiss='alert' aria-label='Close'>"+
-                            "<span aria-hidden='true'>×</span>"+
-                            "</button><strong></strong>"+
-                            data['message']+"</div>");
-
-                        }else{
-                            $('.errorContainer').html("<div class='alert "+
-                            "alert-warning alert-dismissible' role='alert'>"+
-                            "<button type='button' class='close' "+
-                            "data-dismiss='alert' aria-label='Close'>"+
-                            "<span aria-hidden='true'>×</span>"+
-                            "</button><strong></strong>"+
-                            data['message']+"</div>");
-
-                        }
-                        
-                    },
-                    error: function(data)             
-                    {
-                        $('.errorContainer').html("<div class='alert "+
-                            "alert-warning alert-dismissible' role='alert'>"+
-                            "<button type='button' class='close' "+
-                            "data-dismiss='alert' aria-label='Close'>"+
-                            "<span aria-hidden='true'>×</span>"+
-                            "</button><strong></strong>"+
-                            "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
-         
-                    }        
-                });
-            }
-            
-            function deleteObject(e){
-                e.preventDefault();
-                var id = $(this).attr('data-id');
-                var data = {};
-                var url = "";
-                var container = "";
-                
-                if($(this).hasClass('deleteAddress')){
-                    url = "{{ url('user_ajax_deleteAddress') }}";
-                    container = '.containerAddress_'+id;
-                   
-                }else if($(this).hasClass('bDeleteOffer')){      
-                    url = "{{ url('user_ajax_deleteOffer') }}";
-                    container = '.containerOffer_'+id;
-                }
-                data['id'] = id;
-                
-                $.ajax({                        
-                    type: "POST",                 
-                    url: url,                     
-                    data: data, 
-                    success: function(data)             
-                    {
-                        if(data['result'] === 'ok'){
-                            $(container).remove();  
-                            $('.errorContainer').html("<div class='alert "+
-                            "alert-success alert-dismissible' role='alert'>"+
-                            "<button type='button' class='close' "+
-                            "data-dismiss='alert' aria-label='Close'>"+
-                            "<span aria-hidden='true'>×</span>"+
-                            "</button><strong></strong>"+
-                            data['message']+"</div>");
-
-                        }else{
-                            $('.errorContainer').html("<div class='alert "+
-                            "alert-warning alert-dismissible' role='alert'>"+
-                            "<button type='button' class='close' "+
-                            "data-dismiss='alert' aria-label='Close'>"+
-                            "<span aria-hidden='true'>×</span>"+
-                            "</button><strong></strong>"+
-                            data['message']+"</div>");
-
-                        }
-                        
-                    },
-                    error: function(data)             
-                    {
-                        $('.errorContainer').html("<div class='alert "+
-                            "alert-warning alert-dismissible' role='alert'>"+
-                            "<button type='button' class='close' "+
-                            "data-dismiss='alert' aria-label='Close'>"+
-                            "<span aria-hidden='true'>×</span>"+
-                            "</button><strong></strong>"+
-                            "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
-         
-                    }        
-                });
+                $('#profileMessage_idRemove').val(posArray);
+                $('#profileMessage_fromTo').val(typeMessage);
             }
             
             function showFormNewMessage(e){
@@ -815,13 +774,13 @@
         });
     </script>
     
-    {#<script>
+    <script>
         $(function () {
             $('.navbar-toggler').on('click', function(event) {
                 event.preventDefault();
                 $(this).closest('.navbar-minimal').toggleClass('open');
             });
         });
-    </script>#}
+    </script>
     
 {% endblock %}

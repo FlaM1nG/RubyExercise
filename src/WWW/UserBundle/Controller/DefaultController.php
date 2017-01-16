@@ -70,4 +70,8 @@ class DefaultController extends Controller{
         endif;
                 
     }
+    
+    public function publicProfileAction(Request $request){
+        return $this->render('UserBundle:Default:profilePublic.html.twig');
+    }
 }

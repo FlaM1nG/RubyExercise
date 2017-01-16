@@ -14,6 +14,10 @@ user_profiler:
     path: /profile/
     defaults: { _controller: UserBundle:Profile:profile }
     
+user_profiler:
+    path:/profile/changeEmail/
+    defaults:{ _controller: UserBundle:}
+    
 user_profiler_editAdress:
     path: /profile/address/{idAddress}/
     defaults: { _controller: UserBundle:ProfileAddress:editAddress }
@@ -59,3 +63,7 @@ user_ajax_deleteOffer:
 user_ajax_deleteAddress:
     path: /ajax/deleteAddress
     defaults: { _controller: UserBundle:Profile:deleteAddresses}      
+
+user_public_profile:
+    path: /profile/public
+    defaults: { _controller: UserBundle:Default:publicProfile }
