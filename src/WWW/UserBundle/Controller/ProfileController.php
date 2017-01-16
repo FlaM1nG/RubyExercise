@@ -491,5 +491,9 @@ class ProfileController extends Controller{
         $this->ut->flashMessage("general", $request, $result);
 
     }
+    
+    public function profilePublicAction(Request $request){
+        return $this->render('UserBundle:Profile:publicProfile.html.twig');
+    }
 
 }

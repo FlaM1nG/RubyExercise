@@ -31,23 +31,28 @@
                 <ul style="border-right: 0;">
                     
                     <li class="text-nav-user">
-                        <a href="
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                            
-                            {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-                            {{ path('user_login') }}
-                            {% endif %}
-                           ">
-                            <span class="glyphicon glyphicon-user size-icon">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <a href="{{ path('user_profiler') }}">
+                                <span class="glyphicon glyphicon-user size-icon">
+                                </span>
+                                Mi Cuenta
+                            </a>
                                 
-                            </span>
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                            Mi Cuenta
-                            {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-                            Identificarse
-                            {% endif %}
+                                
+                            <a href="{{ path('user_logout') }}">
+                                <span class="glyphicon glyphicon-log-out size-icon">
+                                </span>
+                                Cerrar sesión
+                            </a>
+                        {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                            <a href="{{ path('user_login') }}">
+                                <span class="glyphicon glyphicon-log-in size-icon">
+                                </span>
+                                Login
+                            </a>
+                        {% endif %}
                             
-                        </a>
+                        
                     </li>
                     
                     

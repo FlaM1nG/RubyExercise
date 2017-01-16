@@ -40,4 +40,4 @@ user_resend:
 
 user_public_profile:
     path: /profile/public
-    defaults: { _controller: UserBundle:Default:publicProfile }
+    defaults: { _controller: UserBundle:Profile:profilePublic }
