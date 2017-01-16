@@ -57,8 +57,9 @@ WWW\GlobalBundle\Entity\Address:
         user:
             nullable: true
             targetEntity: WWW\UserBundle\Entity\User
-            inversedBy: Address
+            inversedBy: addresses
             joinColumn:
+                name: user_id
                 referencedColumnName: id
                 onDelete: CASCADE
     lifecycleCallbacks: {  }

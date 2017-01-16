@@ -77,6 +77,9 @@ gregwar_captcha:
     length: 4
     
 easy_admin:
+    disabled_actions: ['new']
+    list:
+        actions: ['edit', 'search','show']
     formats:
         date:     'd/m/Y'
         time:     'H:i'
@@ -106,8 +109,10 @@ easy_admin:
         Offer:    
             class: WWW\ServiceBundle\Entity\Offer
         User:
+            disabled_actions: ['show']
             class: WWW\UserBundle\Entity\User
-
+            list:
+                fields: ['id','name','surname','username','email','phone','isBanned']
                     
         Address:
             class: WWW\GlobalBundle\Entity\Address

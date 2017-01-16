@@ -96,7 +96,7 @@ WWW\UserBundle\Entity\User:
     oneToMany:
         addresses:
             targetEntity: WWW\GlobalBundle\Entity\Address
-            mappedBy: User
+            mappedBy: user
         inviteds:
             targetEntity: User
             mappedBy: hostUser
@@ -121,7 +121,7 @@ WWW\UserBundle\Entity\User:
         role:
             nullable: true
             targetEntity: Role
-            inversedBy: User
+            inversedBy: user
             joinColumn:
                 referencedColumnName: id
         hostUser:
