@@ -116,7 +116,7 @@ class ProfileController extends Controller{
             endif;    
         endif;    
 
-        return $this->render('UserBundle:Default:profile.html.twig',
+        return $this->render('UserBundle:Profile:indexProfile.html.twig',
                              array('formPersonalData'=>$formPersonalData->createView(),
                                    'formEmail'=>$formEmail->createView(),
                                    'formPassword'=>$formPassword->createView(),
