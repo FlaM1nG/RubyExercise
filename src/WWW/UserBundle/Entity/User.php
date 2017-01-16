@@ -210,6 +210,17 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     private $inviteds;    
     
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $revised;    
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $offers;    
+        
+    
+    /**
      * @var boolean
      */
     private $isBanned;    

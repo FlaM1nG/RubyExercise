@@ -106,6 +106,12 @@ WWW\UserBundle\Entity\User:
         received:
             targetEntity: Message
             mappedBy: to
+        revised:
+            targetEntity: Message
+            mappedBy: revisionUser
+        offers:
+            targetEntity: WWW\ServiceBundle\Entity\Offer
+            mappedBy: userAdmin
     oneToOne:        
         photo:
             nullable: true
@@ -121,7 +127,7 @@ WWW\UserBundle\Entity\User:
         role:
             nullable: true
             targetEntity: Role
-            inversedBy: user
+            inversedBy: users
             joinColumn:
                 referencedColumnName: id
         hostUser:

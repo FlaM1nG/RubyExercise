@@ -23,4 +23,9 @@ WWW\UserBundle\Entity\Role:
             inverseJoinColumns:
               permission_id:
                 referencedColumnName: id
+                
+    oneToMany:
+        users:
+            targetEntity: WWW\UserBundle\Entity\User
+            mappedBy: role
     lifecycleCallbacks: {  }

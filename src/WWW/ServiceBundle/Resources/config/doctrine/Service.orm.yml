@@ -31,4 +31,8 @@ WWW\ServiceBundle\Entity\Service:
             inversedBy: Service
             joinColumn:
                 referencedColumnName: id
+    oneToMany:
+        offers:
+            targetEntity: Offer
+            mappedBy: service
     lifecycleCallbacks: {  }

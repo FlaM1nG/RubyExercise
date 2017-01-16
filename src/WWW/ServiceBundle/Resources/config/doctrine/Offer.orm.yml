@@ -37,12 +37,12 @@ WWW\ServiceBundle\Entity\Offer:
         userAdmin:
             nullable: true
             targetEntity: WWW\UserBundle\Entity\User
-            inversedBy: Offer
+            inversedBy: offers
             joinColumn:
                 referencedColumnName: id
         service:
             targetEntity: Service
-            inversedBy: Offer
+            inversedBy: offers
             joinColumn:
                 referencedColumnName: id
     manyToMany:
@@ -61,11 +61,11 @@ WWW\ServiceBundle\Entity\Offer:
     oneToMany:
         inscriptions:
             targetEntity: Inscription
-            mappedBy: Offer
+            mappedBy: offer
         comments:
-            targetEntity: Comment
-            mappedBy: Offer
+            targetEntity: WWW\UserBundle\Entity\Message
+            mappedBy: offer
         valorations:
             targetEntity: Valoration
-            mappedBy: Valoration
+            mappedBy: offer
     lifecycleCallbacks: {  }

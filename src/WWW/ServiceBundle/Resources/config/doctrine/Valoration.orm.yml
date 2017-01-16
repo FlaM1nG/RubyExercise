@@ -35,7 +35,7 @@ WWW\ServiceBundle\Entity\Valoration:
                 referencedColumnName: id
         offer:
             targetEntity: Offer
-            inversedBy: Comment
+            inversedBy: valorations
             joinColumn:
                 referencedColumnName: id
     lifecycleCallbacks: {  }

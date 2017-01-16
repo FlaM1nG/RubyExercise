@@ -31,7 +31,7 @@ WWW\ServiceBundle\Entity\Inscription:
                 referencedColumnName: id
         offer:
             targetEntity: Offer
-            inversedBy: Inscription
+            inversedBy: inscriptions
             joinColumn:
                 referencedColumnName: id
     lifecycleCallbacks: {  }

@@ -29,6 +29,8 @@ class TradeCategory
      * @var boolean
      */
     private $deleted;
+    
+    private $trades;
 
     
     public function __construct($arrayData = null,$id = null) {
