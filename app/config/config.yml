@@ -109,7 +109,7 @@ easy_admin:
         Offer:    
             class: WWW\ServiceBundle\Entity\Offer
         User:
-#            disabled_actions: ['show']
+            disabled_actions: ['show']
             class: WWW\UserBundle\Entity\User
             list:
                 fields: ['id','name','surname','username','email','phone','isBanned']
