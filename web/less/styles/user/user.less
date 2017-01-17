@@ -139,6 +139,62 @@
     padding: 2%;
     margin-bottom: 20px;
 }
+
+.us-mess-element{
+    border-left: 4px solid @brand-primary;
+    padding: 0 2%;
+    margin-bottom: 40px;
+    font-weight: 900;
+}
+
+.us-mess-element-read,
+.us-mess-element-send{
+    border-left: 4px solid @gray-base;
+    padding: 0 2%;
+    margin-bottom: 40px;
+}
+
+.us-mess-element-read{
+    .us-mess-title{
+        h3{
+            font-weight: 600;
+        }
+    }
+}
+
+.us-mess-rem{
+    span{
+        font-weight: 600;
+    }
+}
+
+.us-mess-date{
+    text-align: right;
+    
+    span{
+        font-weight: 600;
+    }
+}
+
+.us-mess-title{
+    h3{
+        margin: 10px 0;
+    }
+}
+
+
+
+.us-mess-btn{
+    padding: 7px 12px;
+    float: none;
+}
+
+.us-mess-sent-element{
+    .us-open-mess{
+        margin: 0 auto;
+        float: none;
+    }
+}
 /* ***** FIN PROFILE ***** */
 
 
@@ -1313,7 +1369,9 @@ Sidebar
         }
     }
 
-
+    .us-mess-date{
+        text-align: left;
+    }
 
     @media only screen and (max-height : 1024px){
 

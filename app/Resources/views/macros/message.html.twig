@@ -1,0 +1,287 @@
+{% macro messElementReceivedNot(userSender, fecha, titleMessage, message,
+    identificador, hrefLeer, dataLeer, hrefBorrar, dataBorrar) %}
+    <div class="us-mess-element" 
+         id="{{ identificador|default('message-element')|e }}">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-mess-rem">
+                <p>
+                    Remitente: <span>{{ userSender|e }}</span>
+                </p>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-mess-date">
+                <p>
+                    Fecha: <span>{{ fecha|date('d-m-Y H:i') }}</span>
+                </p>
+            </div>
+        </div>
+        
+        
+        <div class="row us-mess-title">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a href="{{ hrefLeer|e }}">
+                    <h3>
+                        {{ titleMessage|e }}
+                    </h3>
+                </a>
+            </div>
+        </div>
+                
+              
+        <div class="row us-mess-text">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    {{ message|e|slice(0, 140) ~ '...' }}
+                </p>
+            </div>
+        </div>
+                
+                
+        <div class="row us-mess-buttons">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">                
+                <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                    data-id="{{ dataBorrar|e }}"
+                    data-toggle="tooltip" 
+                    data-placement="bottom" 
+                    title="{{ dataBorrar|e|capitalize }}">
+                     <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+    
+    
+    
+{% macro messElementReceived(userSender, fecha, titleMessage, message,
+    identificador, hrefLeer, dataLeer, hrefBorrar, dataBorrar) %}
+    <div class="us-mess-element-read" 
+         id="{{ identificador|default('message-element')|e }}">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-mess-rem">
+                <p>
+                    Remitente: <span>{{ userSender|e }}</span>
+                </p>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-mess-date">
+                <p>
+                    Fecha: <span>{{ fecha|date('d-m-Y H:i') }}</span>
+                </p>
+            </div>
+        </div>
+        
+        
+        <div class="row us-mess-title">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a href="{{ hrefLeer|e }}">
+                    <h3>
+                        {{ titleMessage|e }}
+                    </h3>
+                </a>
+            </div>
+        </div>
+                
+              
+        <div class="row us-mess-text">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    {{ message|e|slice(0, 140) ~ '...' }}
+                </p>
+            </div>
+        </div>
+                
+                
+        <div class="row us-mess-buttons">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">                
+                <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                    data-id="{{ dataBorrar|e }}"
+                    data-toggle="tooltip" 
+                    data-placement="bottom" 
+                    title="{{ dataBorrar|e|capitalize }}">
+                     <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+    
+    
+    
+{% macro messElementSent(userSender, fecha, titleMessage, message,
+    identificador, hrefLeer, hrefBorrar, dataBorrar) %}
+    <div class="us-mess-element-send"
+         id="{{ identificador|default('message-element')|e }}">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-mess-rem">
+                <p>
+                    Enviado a: <span>{{ userSender|e }}</span>
+                </p>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-mess-date">
+                <p>
+                    Fecha: <span>{{ fecha|date('d-m-Y H:i') }}</span>
+                </p>
+            </div>
+        </div>
+        
+        
+        <div class="row us-mess-title">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a href="{{ hrefLeer|e }}">
+                    <h3>
+                        {{ titleMessage|e }}
+                    </h3>
+                </a>
+            </div>
+        </div>
+                
+              
+        <div class="row us-mess-text">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    {{ (message|e|slice(0, 140) ~ '...') }}
+                </p>
+            </div>
+        </div>
+                
+                
+        <div class="row us-mess-buttons">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">                
+                <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                    data-id="{{ dataBorrar|e }}"
+                    data-toggle="tooltip" 
+                    data-placement="bottom" 
+                    title="{{ dataBorrar|e|capitalize }}">
+                     <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+    
+    
+    
+    
+{% macro messElementReceivedOpen(userSender, fecha, titleMessage, message,
+    identificador, hrefBorrar, dataBorrar, hrefContestar, dataContestar) %}
+    <div class="us-mess-sent-element">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-8 col-xs-12 us-open-mess">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h2>
+                            {{ titleMessage|e }}
+                        </h2>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-mess-rem">
+                        <p>
+                            Remitente: <span>{{ userSender|e }}</span>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-mess-date">
+                        <p>
+                            Fecha: <span>{{ fecha|date('d-m-Y H:i') }}</span>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="row us-mess-text">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            {{ message|e }}
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="row us-mess-buttons">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a href="{{ hrefContestar|e }}" class="btn btn-default us-mess-btn"
+                           data-id="{{ dataContestar|e }}"
+                           data-toggle="tooltip" 
+                           data-placement="bottom" 
+                           title="{{ 'Contestar'|e|capitalize }}">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                        </a>
+                            
+                            
+                        <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                           data-id="{{ dataBorrar|e }}"
+                           data-toggle="tooltip" 
+                           data-placement="bottom" 
+                           title="{{ dataBorrar|e|capitalize }}">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+    
+    
+    
+    
+{% macro messElementSentOpen(userSender, fecha, titleMessage, message,
+    identificador, hrefBorrar, dataBorrar) %}
+    <div class="us-mess-sent-element">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-8 col-xs-12 us-open-mess">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h2>
+                            {{ titleMessage|e }}
+                        </h2>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-mess-rem">
+                        <p>
+                            Enviado a: <span>{{ userSender|e }}</span>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-mess-date">
+                        <p>
+                            Fecha: <span>{{ fecha|date('d-m-Y H:i') }}</span>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="row us-mess-text">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            {{ message|e }}
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="row us-mess-buttons">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                           data-id="{{ dataBorrar|e }}"
+                           data-toggle="tooltip" 
+                           data-placement="bottom" 
+                           title="{{ dataBorrar|e|capitalize }}">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
