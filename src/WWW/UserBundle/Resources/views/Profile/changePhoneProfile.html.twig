@@ -1,0 +1,48 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+
+
+{% block title %}
+    Teléfono
+{% endblock %}
+
+{% block alert %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+{#    {{ form_errors(form) }}#}
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+
+    {{form_start(form)}}
+        {{form_row(form.prefix)}}
+        {{form_row(form.phone)}}
+        {{form_row(form.savePhone)}}
+        {{form_row(form._token)}}
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    
+    <
+    </script>
+    
+    
+{% endblock %}
+    

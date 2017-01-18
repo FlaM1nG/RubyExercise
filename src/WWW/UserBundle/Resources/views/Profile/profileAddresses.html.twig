@@ -1,0 +1,177 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+
+
+{% block title %}
+    Datos Personales
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    <a href="{{path('user_profiler_newAdress')}}">Nueva dirección</a>
+    <!-- Default Address -->
+    <div class="us-address-target containerAddress_{{ usuario.defaultAddress.id }}">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <h4>{{ usuario.defaultAddress.name|e|capitalize }}</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p>{{ usuario.defaultAddress.street}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p>{{ usuario.defaultAddress.zipCode }} - 
+                   {{ usuario.defaultAddress.region }}, 
+                   {{ usuario.defaultAddress.city }} 
+                   ({{ usuario.defaultAddress.country }})</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a href="{{ path('user_profiler_editAdress',{ idAddress:usuario.defaultAddress.id }) }}" 
+                class="btn-default btn editAddress">Editar </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <button data-id="{{ usuario.defaultAddress.id }}" 
+                class="btn-default btn deleteAddress">Borrar </button>
+            </div>
+        </div>        
+    </div>
+    <!-- END DEFAULT ADDRESS -->                
+
+    {% for address in usuario.addresses.0 %}
+
+        <div class="us-address-target containerAddress_{{ address.id }}">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h4>{{address.name|e|capitalize}}</h4>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p>{{address.street}}</p>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p>{{address.zipCode}} - {{address.region}}, {{address.city}} ({{address.country}})</p>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a href="{{ path('user_profiler_editAdress',{ idAddress:address.id }) }}"  
+                    class="btn-default btn editAddress">Editar </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button data-id="{{ address.id }}" 
+                    class="btn-default btn deleteAddress">Borrar </button>
+                </div>
+            </div>         
+        </div>
+    {% endfor %}
+
+    <!-- FIN ADDRESS -->
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(document).on('click','.deleteAddress', deleteAddress);
+            
+            function deleteAddress(e){
+                e.preventDefault();
+                var id = $(this).attr('data-id');
+                var data = {};
+                var url = "{{ url('user_ajax_deleteAddress') }}";
+                var container = container = '.containerAddress_'+id;
+                
+                
+                data['id'] = id;
+                
+                $.ajax({                        
+                    type: "POST",                 
+                    url: url,                     
+                    data: data, 
+                    success: function(data)             
+                    {
+                        if(data['result'] === 'ok'){
+                            $(container).remove();  
+                            $('.contentAlert').html("<div class='alert "+
+                            "alert-success alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }else{
+                            $('.contentAlert').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }
+                        
+                    },
+                    error: function()             
+                    {
+                        $('.contentAlert').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
+         
+                    }        
+                });
+            }
+        });
+    </script>
+{% endblock %}
+    

@@ -1,0 +1,52 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+
+
+{% block title %}
+    Datos Personales
+{% endblock %}
+
+{% block alert %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+    {{ form_errors(form) }}
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    
+    {{ form_start(form) }}
+    
+        {{ user.username }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.surname) }}
+        {{ form_row(form.sex) }}
+        {{ form_row(form.birthdate) }}
+        
+        {% if user.nif is not empty %}
+            {{ form_row(form.nif) }}
+        {% endif %}
+        
+        {{ user.linkInvitation }}
+        {{ form_row(form._token) }}
+        {{ form_row(form.savePersonalData)}}
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+{% endblock %}
+    

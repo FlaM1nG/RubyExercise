@@ -1,0 +1,60 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+
+
+{% block title %}
+    Teléfono
+{% endblock %}
+
+{% block alert %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+{#    {{ form_errors(form) }}#}
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+{#    {{dump(app.user)}}#}
+    {% if app.user.phone is not empty %}
+        Tlfn: {{app.user.prefix}} &nbsp; {{ app.user.phone }}    
+    
+        {% if app.user.smsConfirmed %}
+            <a href="{{path('user_profileChangePhone')}}" id="changePhone" data="confirm" > Cambiar tlfn </a>
+        {% else %}
+            <a href="">Confirmar tlfn</a>
+        {% endif %}    
+    
+    {% endif %}    
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            $(document).on('click','#changePhone',alertChangePhone);
+            
+            function alertChangePhone(e){
+                e.stopPropagation();
+                alert("El teléfono actual está confirmado,al cambiarlo deberá de confirmar el tlfn nuevo");
+            }
+        });
+    </script>    
+{% endblock %}
+    
