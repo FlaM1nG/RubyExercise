@@ -65,17 +65,18 @@
                     {#<li class="cd-label">Personal</li>#}
                     <li class="has-children misDatos">
                         {#<i class="fa fa-user" aria-hidden="true"></i>#}
-                        <a href="#0">Mis datos</a>  
+                        <a href="{{path('user_profiler')}}">Mis datos</a>  
 
                         <ul>
-                            <li><a href="#0">Email</a></li>
-                            <li><a href="#0">Contraseña</a></li>
-                            <li><a href="#0">Teléfono</a></li>
-                            <li><a href="#0">Foto Personal</a></li>
+                            <li><a href="{{ path('user_profilerPersonal') }}">Datos Personales</a></li>
+                            <li><a href="{{ path('user_profilerEmail') }}">Email</a></li>
+                            <li><a href="{{ path('user_profilePassword') }}">Contraseña</a></li>
+                            <li><a href="{{ path('user_profilePhone') }}">Teléfono</a></li>
+                            <li><a href="{{ path('user_profilePhoto') }}">Foto Personal</a></li>
                         </ul>
                     </li>
                     <li class="addressUser">
-                        <a href="#0">Direcciones</a>
+                        <a href="{{ path('user_profileAddress') }}">Direcciones</a>
                     </li>
                     <li class="has-children comments active">
                         <a href="#0">Mensajes<span class="count">3</span></a>
@@ -106,6 +107,10 @@
 {#                <div class="container">#}
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="contentAlert">   
+                                {% block alertProfile %}
+                                {% endblock %}
+                            </div>
                             {% block bodyProfile %}
                             {% endblock %}
                             {#<h1>Responsive Sidebar Navigationn</h1>

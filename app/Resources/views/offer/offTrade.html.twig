@@ -29,7 +29,7 @@
                 asset('img/macbook.png'),
                 asset('img/alquilerTuristico3.jpg')]) %}
 
-
+                
             {% set imgGallery = imgGallery|merge([imageOff] ) %#}
         {% for photo in trade.offer.photos %}
             <div class="item">
@@ -44,11 +44,10 @@
                 </div>
             </div>
         {% endfor %}
-        {#% endfor %#}
     </div>
 
     <div id="off-img-small" class="owl-carousel">
-        {% for photo in trade.offer.photos %}
+       {% for photo in trade.offer.photos %}
         <div class="item off-item-dime">
             <div class="off-img-marco-peque">
                 <img class="img-responsive off-img-slid" 

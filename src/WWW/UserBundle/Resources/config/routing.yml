@@ -5,7 +5,10 @@ user_register:
 user_login:
     path: /login/
     defaults: { _controller: UserBundle:Login:login }
-    
+
+user_login_check:
+    pattern:   /login
+    methods:   [POST]
 user_logout:
     path: /logout/
     defaults: { _controller: UserBundle:Login:logout }
@@ -14,9 +17,33 @@ user_profiler:
     path: /profile/
     defaults: { _controller: UserBundle:Profile:profile }
     
-user_profiler:
-    path:/profile/changeEmail/
-    defaults:{ _controller: UserBundle:}
+user_profilerPersonal:
+    path: /profile/personalData/
+    defaults: { _controller: UserBundle:ProfilePersonalData:personalData }
+  
+user_profilerEmail:
+    path: /profile/email/
+    defaults: { _controller: UserBundle:ProfileEmail:profileEmail}        
+    
+user_profilePassword:
+    path: /profile/password/
+    defaults: { _controller: UserBundle:ProfilePassword:profilePassword}
+    
+user_profilePhone:
+    path: /profile/phone/
+    defaults: { _controller: UserBundle:ProfilePhone:profilePhone}
+    
+user_profileChangePhone:
+    path: /profile/phone/changePhone/
+    defaults: { _controller: UserBundle:ProfilePhone:profileChangePhone}    
+
+user_profilePhoto:
+    path: /profile/photo/
+    defaults: { _controller: UserBundle:ProfilePhoto:profilePhoto}
+    
+user_profileAddress:
+    path: /profile/address/
+    defaults: { _controller: UserBundle:ProfileAddress:listAddress}
     
 user_profiler_editAdress:
     path: /profile/address/{idAddress}/
@@ -28,6 +55,7 @@ user_profiler_newAdress:
     path: /profile/newAddress/
     defaults: { _controller: UserBundle:ProfileAddress:newAddress }    
     
+   
 user_profiler_offers:
     path: /profile/offer/{idOffer}
     defaults: { _controller: UserBundle:OfferUser:showOffer }
@@ -62,7 +90,7 @@ user_ajax_deleteOffer:
     
 user_ajax_deleteAddress:
     path: /ajax/deleteAddress
-    defaults: { _controller: UserBundle:Profile:deleteAddresses}      
+    defaults: { _controller: UserBundle:ProfileAddress:deleteAddresses}      
 
 user_public_profile:
     path: /profile/public

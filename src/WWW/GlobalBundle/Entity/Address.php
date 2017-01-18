@@ -10,8 +10,7 @@ use Symfony\Component\Validator\GroupSequenceProviderInterface;
 /**
  * Address
  */
-class Address implements GroupSequenceProviderInterface
-{
+class Address implements GroupSequenceProviderInterface, \Serializable {
     /**
      * @var int
      */
@@ -82,8 +81,8 @@ class Address implements GroupSequenceProviderInterface
      * @Assert\NotBlank(groups={"address"})
      */
     private $country;
-
-    /**
+    
+        /**
      * @var integer
      */
     private $phone;
@@ -92,27 +91,26 @@ class Address implements GroupSequenceProviderInterface
      * @var string
      */
     private $prefix;
-    
-    
+
     public function __construct(Array $address=null){
-         
+       
         if($address != null):
             foreach($address as $key => $value):
                 $keyCamelize = Inflector::camelize($key);
                
-                if(property_exists("WWW\GlobalBundle\Entity\Address", $keyCamelize)):
+                if(property_exists("WWW\GlobalBundle\Entity\Address", $keyCamelize) && !empty($value)):
                     $this->$keyCamelize = $value;
                 endif;  
             endforeach;
-        else:
-            $this->id = 0;
-            $this->street = "";
-            $this->name = "";
-            $this->isDefault = "";
-            $this->createdDate = "";
-            $this->modifiedDate = "";
-            $this->deletedDate = "";
-            $this->isDeleted = "";
+//        else:
+//            $this->id = 0;
+//            $this->street = "";
+//            $this->name = "";
+//            $this->isDefault = "";
+//            $this->createdDate = "";
+//            $this->modifiedDate = "";
+//            $this->deletedDate = "";
+//            $this->isDeleted = "";
         endif;
 
     }
@@ -184,7 +182,7 @@ class Address implements GroupSequenceProviderInterface
      * @return Address
      */
     public function setIsDefault($isDefault)
-    {
+    { 
         $this->isDefault = $isDefault;
 
         return $this;
@@ -484,4 +482,21 @@ class Address implements GroupSequenceProviderInterface
         return $groups;
     }
 
+     /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->user->getId()
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->userId    
+        ) = unserialize($serialized);
+    }
 }

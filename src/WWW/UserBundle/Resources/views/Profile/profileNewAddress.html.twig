@@ -1,34 +1,39 @@
-{% extends '::base.html.twig' %}
-{% import 'macros/alert.html.twig' as alerts %}
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
 
 
 {% block title %}
-    Profile
+    Direcciones
 {% endblock %}
 
-{% block nav %}
-    {{ parent() }}
-    {{ include('nav/menu.html.twig') }}
-{% endblock %}
-
-{% block alert %}
+{% block alertProfile %}
+    
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
-        {{ alerts.alert('alert-success', flash_message, null) }}
-    {% endfor %} 
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
 
-    {% for flash_message in app.session.flashbag.get('messageFail') %}
-        {{ alerts.alert('alert-warning', flash_message, null) }}
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
     {% endfor %}
+
 {% endblock %} 
 
-{% block body %}
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
     
-    {{ form(form) }}
+    {{form(form)}}
+
     
 {% endblock %}
 
+
+
 {% block javascriptsFooter %}
-    
     {{ parent() }}
+
+{% endblock %}
     
-{% endblock %}    

@@ -31,10 +31,10 @@ class PhotoType extends AbstractType{
                 ->add('id',HiddenType::class)
                 ->add('url',UrlType::class, array('label'=>' ',
                                                   'read_only' =>true,
-                                                ))
-                ->add('checkPhoto',CheckboxType::class,array('label' => ' ',
-                                                             'mapped' => false,
-                                                             'required' => false ));
+                                                ));
+//                ->add('checkPhoto',CheckboxType::class,array('label' => ' ',
+//                                                             'mapped' => false,
+//                                                             'required' => false ));
                 
     }
     

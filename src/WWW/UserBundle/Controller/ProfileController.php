@@ -6,17 +6,31 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\UserBundle\Entity\User as User;
 use WWW\GlobalBundle\Entity\ApiRest;
-use WWW\UserBundle\Form\ProfilePersonalDataType;
+use WWW\UserBundle\Form\ProfilePersonalType;
+use WWW\UserBundle\Form\ProfileAddressType;
+use WWW\UserBundle\Form\ProfileBankType;
 use WWW\UserBundle\Form\ProfileEmailType;
 use WWW\UserBundle\Form\ProfilePasswordType;
 use WWW\UserBundle\Form\ProfilePhoneType;
 use WWW\UserBundle\Form\ProfilePhotoType;
-use WWW\UserBundle\Form\ProfileBankType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use WWW\UserBundle\Form\ProfileType;
+use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\ServiceBundle\Entity\Offer;
+use WWW\UserBundle\Form\ProfilePersonalDataType;
+use WWW\UserBundle\Form\ProfileAddressesType;
 use WWW\GlobalBundle\MyConstants;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+
+/**
+ * Description of ProfileController
+ * 
+ * 
+ *
+ * @author Rocio
+ */
 class ProfileController extends Controller{
     
     private $user = null;
@@ -27,76 +41,87 @@ class ProfileController extends Controller{
     
     
     public function profileAction(Request $request, $tabActive = null){ 
-        
-        $this->sesion = $request->getSession();
-        if(!empty($tabActive))
-            $this->tabActive = $tabActive;
-        
-        $this->ut = new Utilities();
-        
-        $this->user = new User();
-        $this->getUserExist($request);
-        
-        
-        $formPersonalData = $this->createForm(ProfilePersonalDataType::class,$this->user); 
-        $formEmail = $this->createForm(ProfileEmailType::class,$this->user);
-        $formPassword = $this->createForm(ProfilePasswordType::class,$this->user);
-        $formPhone = $this->createForm(ProfilePhoneType::class,$this->user);
-        $formPhoto = $this->createForm(ProfilePhotoType::class,$this->user);
-        //$formAddresses = $this->createForm(ProfileAddressesType::class,$this->user);
-        $formBank = $this->createForm(ProfileBankType::class,$this->user);
-        
-        $formPersonalData->handleRequest($request);
-        $formEmail->handleRequest($request);
-        $formPassword->handleRequest($request);
-        $formPhone->handleRequest($request);
-        $formPhoto->handleRequest($request);
-        //$formAddresses->handleRequest($request);
-        $formBank->handleRequest($request);        
-        
-        if($formPersonalData->isSubmitted()):
-            $this->tabActive = 'personal';
-        
-            if($formPersonalData->isValid()):
-                $this->savePersonalData($request);
-            endif;
-        elseif($formEmail->isSubmitted()):
-            $this->tabActive = 'email';
-        
-            if($formEmail->isValid()):
-                $this->saveEmail($request);
-            endif;
-        elseif($formPassword->isSubmitted()):
-            $this->tabActive = 'password';
-        
-            if($formPassword->isValid()):
-                $this->savePassword($request);
-            endif;
-        elseif($formPhone->isSubmitted()):
-            $this->tabActive = 'phone';
-        
-            if($formPhone->isValid()):
-                if($formPhone->get('savePhone')->isClicked()):
-                        //envia email para confirmar
-                        $this->sendSMS($request);
+//        echo "ENTRO";
+//       \Doctrine\Common\Util\Debug::dump((object)$this->getUser());
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
 
-                elseif($formPhone->get('confirmPhone')->isClicked()):
-                        //guarda el móvil después de introducir el código de confirmación
-                        $this->savePhone($request);
-                endif;
-            endif;
-        elseif($formPhoto->isSubmitted()):
-            $this->tabActive = 'photo';
+
+//        $user = $this->getUser();
+
+//        $this->user = $this->getUser();
         
-            if($formPhoto->isValid()):
-                $this->savePhoto($request);
-            endif;
-        elseif($formBank->isSubmitted()):
-            $this->tabActive = 'bank';
-        
-            if($formBank->isValid()):
-                $this->saveBank($request);
-            endif;
+//        print_r($this->user);
+//        $this->sesion = $request->getSession();
+//        if(!empty($tabActive))
+//            $this->tabActive = $tabActive;
+//        
+//        $this->ut = new Utilities();
+//        
+//        $this->user = new User();
+//        $this->getUserExist($request);
+//        
+//        
+//        $formPersonalData = $this->createForm(ProfilePersonalDataType::class,$this->user); 
+//        $formEmail = $this->createForm(ProfileEmailType::class,$this->user);
+//        $formPassword = $this->createForm(ProfilePasswordType::class,$this->user);
+//        $formPhone = $this->createForm(ProfilePhoneType::class,$this->user);
+//        $formPhoto = $this->createForm(ProfilePhotoType::class,$this->user);
+//        //$formAddresses = $this->createForm(ProfileAddressesType::class,$this->user);
+//        $formBank = $this->createForm(ProfileBankType::class,$this->user);
+//        
+//        $formPersonalData->handleRequest($request);
+//        $formEmail->handleRequest($request);
+//        $formPassword->handleRequest($request);
+//        $formPhone->handleRequest($request);
+//        $formPhoto->handleRequest($request);
+//        //$formAddresses->handleRequest($request);
+//        $formBank->handleRequest($request);        
+//        
+//        if($formPersonalData->isSubmitted()):
+//            $this->tabActive = 'personal';
+//        
+//            if($formPersonalData->isValid()):
+//                $this->savePersonalData($request);
+//            endif;
+//        elseif($formEmail->isSubmitted()):
+//            $this->tabActive = 'email';
+//        
+//            if($formEmail->isValid()):
+//                $this->saveEmail($request);
+//            endif;
+//        elseif($formPassword->isSubmitted()):
+//            $this->tabActive = 'password';
+//        
+//            if($formPassword->isValid()):
+//                $this->savePassword($request);
+//            endif;
+//        elseif($formPhone->isSubmitted()):
+//            $this->tabActive = 'phone';
+//        
+//            if($formPhone->isValid()):
+//                if($formPhone->get('savePhone')->isClicked()):
+//                        //envia email para confirmar
+//                        $this->sendSMS($request);
+//
+//                elseif($formPhone->get('confirmPhone')->isClicked()):
+//                        //guarda el móvil después de introducir el código de confirmación
+//                        $this->savePhone($request);
+//                endif;
+//            endif;
+//        elseif($formPhoto->isSubmitted()):
+//            $this->tabActive = 'photo';
+//        
+//            if($formPhoto->isValid()):
+//                $this->savePhoto($request);
+//            endif;
+//        elseif($formBank->isSubmitted()):
+//            $this->tabActive = 'bank';
+//        
+//            if($formBank->isValid()):
+//                $this->saveBank($request);
+//            endif;
             
 //        elseif($formAddresses->isSubmitted()):
 //            $this->tabActive = 'addresses';
@@ -115,26 +140,42 @@ class ProfileController extends Controller{
 //                    $this->updateAddresses($request);
 //                endif;
 //            endif;    
-        endif;    
+//        endif;    
 
         return $this->render('UserBundle:Profile:indexProfile.html.twig',
-                             array('formPersonalData'=>$formPersonalData->createView(),
-                                   'formEmail'=>$formEmail->createView(),
-                                   'formPassword'=>$formPassword->createView(),
-                                   'formPhone'=>$formPhone->createView(),
-                                   'formPhoto'=>$formPhoto->createView(),
-                                   //'formAddresses'=>$formAddresses->createView(),
-                                   'formBank'=>$formBank->createView(), 
+                             array(//'formPersonalData'=>$formPersonalData->createView(),
+//                                   'formEmail'=>$formEmail->createView(),
+//                                   'formPassword'=>$formPassword->createView(),
+//                                   'formPhone'=>$formPhone->createView(),
+//                                   'formPhoto'=>$formPhoto->createView(),
+//                                   //'formAddresses'=>$formAddresses->createView(),
+//                                   'formBank'=>$formBank->createView(), 
                                    'usuario' => $this->user,
-                                   'email' => $this->email, 
-                                   'tabActive' => $this->tabActive));
+//                                   'email' => $this->email, 
+//                                   'tabActive' => $this->tabActive)
+                ));
         
     }    
     
+    public function personalDataAction(Request $request){
+        
+        $this->user = $this->getUser();
+        $formPersonalData = $this->createForm(ProfilePersonalDataType::class,$this->user);
+        $formPersonalData->handleRequest($request);
+        
+        if($formPersonalData->isSubmitted() && $formPersonalData->isValid()):
+            $this->savePersonalData($request);
+        endif;
+        
+        return $this->render('UserBundle:Profile:dataPersonal.html.twig',
+                             array('form' => $formPersonalData->createView(),
+                                   'user' => $this->user));
+        
+    }
     private function getUserExist(Request $request){
         
         $this->session = $request->getSession();
-      
+        
         $ch = new ApiRest();
         
         $file = MyConstants::PATH_APIREST."user/data/get_info_user.php";
@@ -149,6 +190,108 @@ class ProfileController extends Controller{
             $this->user = new User($result);
         return $result;
  
+        
+            $this->usuario = new User($result);
+        if($result['result'] == 'ok'):
+                       
+            if($this->usuario->getAddresses()->isEmpty()):
+                $address = new Address();
+                $this->usuario->addAddress($address);
+            endif;
+        
+            $formPersonal = $this->createForm(ProfilePersonalType::class,$this->usuario);
+            $formEmail = $this->createForm(ProfileEmailType::class,$this->usuario);
+            $formPassword = $this->createForm(ProfilePasswordType::class,$this->usuario);
+            $formPhone = $this->createForm(ProfilePhoneType::class,$this->usuario);
+            $formPhoto = $this->createForm(ProfilePhotoType::class,$this->usuario);
+            $formAddress = $this->createForm(ProfileAddressType::class,$this->usuario);
+            $formBank = $this->createForm(ProfileBankType::class,$this->usuario);
+        
+            if($request->getMethod()=="POST"):
+                
+                $this->dataProfile = $request->request->all()['profileUser'];
+                $section = $this->dataProfile['section'];
+                
+                if($section == 'personal'):
+                    $formPersonal->handleRequest($request);
+                    
+                    $this->sectionActive = 'personal';
+                    $this->updateProfile();
+                    
+                elseif($section == 'email'):
+                    $this->sectionActive = 'email';
+                    $this->changeEmail();
+                elseif($section == 'password'):
+                    $this->sectionActive ='password';
+                    $this->changePassword();
+     
+                elseif($section == 'phone'):
+                    $this->sectionActive = 'phone';
+                    $this->changePhone($request);
+                elseif($section == 'photo'):
+                    $this->sectionActive = 'photo';
+                    $this->changePhoto();
+                elseif($section == 'address'):
+                    $this->sectionActive = 'address';
+                    $this->profileAddress($request);
+                elseif($section == 'bank'):
+                    $this->sectionActive = 'bank';
+                    $this->changeBank();
+                endif;
+              
+            endif;
+           
+        endif;
+        
+        $formPersonal = $this->createForm(ProfilePersonalType::class,$this->usuario);
+        $formEmail = $this->createForm(ProfileEmailType::class,$this->usuario);
+        $formPassword = $this->createForm(ProfilePasswordType::class,$this->usuario);
+        $formPhone = $this->createForm(ProfilePhoneType::class,$this->usuario);
+        $formPhoto = $this->createForm(ProfilePhotoType::class,$this->usuario);
+        $formAddress = $this->createForm(ProfileAddressType::class,$this->usuario);
+        $formBank = $this->createForm(ProfileBankType::class,$this->usuario);
+        
+        return $this->render('UserBundle:Default:profile.html.twig',
+                array('formPersonal'=>$formPersonal->createView(),
+                      'formEmail'=>$formEmail->createView(),
+                      'formPassword'=>$formPassword->createView(),
+                      'formPhone'=>$formPhone->createView(),
+                      'formPhoto'=>$formPhoto->createView(),
+                      'formAddress'=>$formAddress->createView(),
+                      'formBank'=>$formBank->createView(),
+                      'usuario'=>$this->usuario,
+                      'tabActive' => $this->sectionActive));
+    }
+    
+    private function fillUser($result){
+        
+        foreach($result as $key => $value):
+            
+            $key = Inflector::camelize($key);
+            $function = "set".ucwords($key);
+            
+            if($key == 'birthdate') 
+                $value = \DateTime::createFromFormat('Y-m-d', $value);
+        
+            if($key != 'addresses' && $key != 'role' && $key!= 'hobbies' && 
+               $key != 'id' && $key != 'inviteds' && $key != 'invit_num' &&     
+               property_exists('WWW\UserBundle\Entity\User',$key)):
+                
+                $this->user->$function($value);
+            endif;    
+            
+            if($key == 'addresses'):
+                foreach($value as $arrayAddress):
+                    $this->user->addAddress($arrayAddress);
+                    
+                endforeach;
+            endif;
+                
+            $role = new Role($result['role']);
+            $this->user->setRole($role);
+        endforeach;
+        $this->email = $this->user->getEmail();
+        $this->searchOffers();
     }
     
     private function searchOffers(){
@@ -175,20 +318,20 @@ class ProfileController extends Controller{
     }
     
     private function savePersonalData(Request $request){
-        
-        $this->tabActive = "personal";
+        print_r($this->get('security.token_storage')->getToken()->getUser());
+//        $this->tabActive = "personal";
         $fecha = $this->user->getBirthdate();
         
-        if($fecha < new\DateTime('today - 18 years')):
+//        if($fecha < new\DateTime('today - 18 years')):
             $fecha = $fecha->format('Y-m-d');
             $ch = new ApiRest();
         
             $file = MyConstants::PATH_APIREST."user/data/update_user.php";
-
+//print_r($this->user->getAddresses());
             $data = array();
-            $data['username'] = $this->session->get('username');
-            $data['id'] = $this->session->get('id');
-            $data['password'] = $this->session->get('password');
+            $data['username'] = $this->user->getUsername();
+            $data['id'] = $this->user->getId();
+            $data['password'] = $this->user->getPassword();
             
             $data['name']="'".$this->user->getName()."'";
             $data['surname']="'".$this->user->getSurname()."'";
@@ -196,11 +339,11 @@ class ProfileController extends Controller{
             $data['sex'] = "'".$this->user->getSex()."'";
             $data['nif'] = "'".$this->user->getNif()."'";
             $informacion['data'] = json_encode($data); 
-            
-            $result = $ch->resultApiRed($informacion, $file);
-           
-            $this->ut->flashMessage("general", $request, $result);
-        endif;
+            print_r($data);
+//            $result = $ch->resultApiRed($informacion, $file);
+//           
+//            $this->ut->flashMessage("general", $request, $result);
+//        endif;
        
     }
     

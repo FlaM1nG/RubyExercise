@@ -41,7 +41,7 @@ class ProfilePhoneType extends AbstractType{
                                                         'mapped' => false,
                                                         'required' => false))
 
-                ->add('confirmPhone', 'submit', array('label' => 'Confirmar',
+                ->add('confirmPhone',SubmitType::class, array('label' => 'Confirmar',
                                                       'validation_groups' => false)) 
                 
                 ->add('savePhone',SubmitType::class,array('label' => 'Guardar',

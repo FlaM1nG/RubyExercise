@@ -29,7 +29,7 @@ class RegisterController extends Controller{
     private $usuario = null;
     private $ut = null;
     
-    public function registerAction(Request $request){
+    public function registerAction(Request $request,$token){
         
         $this->usuario = new User();
         $this->ut =  new Utilities();
@@ -53,7 +53,27 @@ class RegisterController extends Controller{
             else:
                 return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
             endif;
-
+            
+            $nacimiento =$arrayBirthdate['year']."-".$mes.'-'.$dia;
+            $this->get('app.manager.usuario_manager')->login($usuario);
+            $tokenRoleUser=$this->get('security.token_storage')->getToken();
+            $request->getSession()->set('tokenRole', $tokenRoleUser);
+            $request->getSession()->save();
+            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/registration/register_user.php";
+            $data = array("username" => $usuario->getUsername(),
+                          "email" => $usuario->getEmail(),
+                          "date" => $nacimiento,
+                          "password" => $usuario->getPassword(),
+                          "prefix" => $usuario->getPrefix(),
+                          "phone" => $usuario->getPhone(),
+                          "hobbies" => $hobbies,
++                         "token"=>$token
+                );
+            
+            $ch = new ApiRest();
+            
+            $result = $ch->sendInformation($data, $file, "parameters");
+            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
         else:
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
         endif;

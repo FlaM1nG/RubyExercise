@@ -74,4 +74,26 @@ class DefaultController extends Controller{
     public function publicProfileAction(Request $request){
         return $this->render('UserBundle:Default:profilePublic.html.twig');
     }
+    
+    public function ResendAction(Request $request){
+        $usuario = new User();
+        $formulario = $this->createForm('WWW\UserBundle\Form\ForgotPassType',$usuario);
+         
+        //El usuario del formulario se asocia al objeto $usuario
+        $formulario->handleRequest($request);
+        
+        if(!empty($usuario->getEmail())):            
+
+            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/email/resend_email.php";
+            $data = array("email" => $usuario->getEmail());
+            $ch = new ApiRest();
+            $result = $ch->sendInformation($data, $file, "parameters");            
+
+            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
+        else:
+            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
+
+        endif;
+
+    }
 }

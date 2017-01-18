@@ -24,9 +24,9 @@ class ProfilePasswordType extends AbstractType{
         
         $builder
 
-                ->add('passwordEnClaro', 'password', array('label' => 'Contraseña',
+                ->add('passwordEnClaro', 'password', array('label' => 'Contraseña actual',
                                                             'required'=>false,
-                                                            'validation_groups' => array('email','password')))
+                                                            'validation_groups' => array('password')))
                 
                 ->add('password','repeated',array('type'=>'password',
                                                 'first_options' => array('label' => 'Nueva Contraseña',
@@ -46,7 +46,7 @@ class ProfilePasswordType extends AbstractType{
     public function configureOptions(OptionsResolver $resolver){
         
         $resolver->setDefaults(array('data_class'=>'WWW\UserBundle\Entity\User',
-                                     'validation_groups' => array('email','password')
+                                     'validation_groups' => array('password')
             ));
     }
     

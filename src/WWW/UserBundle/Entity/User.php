@@ -6,16 +6,23 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\GroupSequenceProviderInterface;
 use WWW\GlobalBundle\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Photo;
 use WWW\GlobalBundle\MyConstants;
 
 /**
  * User
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="WWW\UserBundle\Entity\User")
+ * 
  * @Assert\GroupSequenceProvider
  */
-class User implements UserInterface, GroupSequenceProviderInterface{
+class User implements UserInterface, GroupSequenceProviderInterface, \Serializable{
     /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
      * @var int
      */
     private $id;
@@ -157,10 +164,19 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     private $addresses;
     
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \WWW\UserBundle\Entity\Hobby
      */
     private $hobbies;
     
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $inscriptions;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $valorations;    
     /**
      * @var boolean
      */
@@ -201,6 +217,17 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     private $inviteds;    
     
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $revised;    
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $offers;    
+        
+    
+    /**
      * @var boolean
      */
     private $isBanned;    
@@ -235,6 +262,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
      */
     public function __construct(Array $user=null){  
         
+//        print_r($user);
         if(!empty($user)):  
             
             $this->birthdate = date_create_from_format('Y-m-d', $user['birthdate']);
@@ -249,19 +277,27 @@ class User implements UserInterface, GroupSequenceProviderInterface{
             $this->password = $user['password'];
             $this->numAccount = $user['num_account'];
             $this->prefix = $user['prefix'];
+            $this->smsConfirmed = $user['sms_confirmed'];
+          //  $this->role = $user['ROLE_USER'];
             $this->offers = $this->searchOffers();
+            if(array_key_exists('photo', $user)):
+                $this->photo = new Photo($user['photo']);
+            else:
+                $this->photo = new Photo();
+            endif;
             
             $this->createAddresses($user['addresses'], $user['default_address_id']);
    
         else:
-           // $this->addresses = new ArrayCollection();
+            $this->addresses = new ArrayCollection();
             $this->offers = Array();
         endif;
         
     }
     
     private function createAddresses($arrayAddress, $idDefaultAddress){
-
+//        $this->addresses = Array();
+//        print_r($arrayAddress);
         foreach($arrayAddress as $address):
                
             $auxAddress = new Address($address);
@@ -660,7 +696,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
      * Devuelve los roles de un usuario autenticado
      */
     public function getRoles(){
-        return array('ROLE_USARIO');
+        return array('ROLE_USER');
     }
     
     /**
@@ -681,14 +717,34 @@ class User implements UserInterface, GroupSequenceProviderInterface{
        return $this->birthdate <= new\DateTime('today - 18 years'); 
     }
     
-    public function serialize() {
-        
+     public function __sleep()
+    {
+        return array('id');
+    }
+    
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+//            $this->username,
+//            $this->password,
+            // see section on salt below
+//            $this->salt,
+        ));
     }
 
-    public function unserialize($serialized) {
-        
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+//            $this->username,
+//            $this->password,
+            // see section on salt below
+//            $this->salt 
+        ) = unserialize($serialized);
     }
-
     /**
      * Set role
      *
@@ -805,7 +861,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
      */
     public function getAddresses()
     {
-        return $this->addresses;
+        return array($this->addresses);
     }
 
     /**
@@ -834,7 +890,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     /**
      * Get hobbies
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Hobby
      */
     public function getHobbies()
     {
@@ -1154,7 +1210,7 @@ class User implements UserInterface, GroupSequenceProviderInterface{
      * @param $pos del array
      */
     public function removeSent($pos)
-    { echo "****";
+    { 
         
         unset($this->sent[$pos]);
         
@@ -1249,5 +1305,9 @@ class User implements UserInterface, GroupSequenceProviderInterface{
     public function getValorationNum()
     {
         return $this->valorationNum;
+    }
+    
+    public function getUser(){
+        return $this;
     }
 }

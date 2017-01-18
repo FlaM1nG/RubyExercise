@@ -17,4 +17,10 @@ WWW\OthersBundle\Entity\TradeCategory:
             length: 255
         deleted:
             type: boolean
+            
+    oneToMany:
+        trades:
+            targetEntity: Trade
+            mappedBy: category
+            
     lifecycleCallbacks: {  }

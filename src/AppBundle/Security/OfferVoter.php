@@ -25,13 +25,17 @@ class OfferVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
+        
         // si el atributo no es uno de los que soportamos, devolver false
-        if (!in_array($attribute, array(self::CREATE, self::EDIT, self::DELETE,self::SELECT))) {
+        if (!in_array($attribute, array(self::SELECT,  self::CREATE))) {
+           
+           // print_r('1');
             return false;
         }
 
         // sólo votar en objetos Post dentro de este voter
-        if (!$subject instanceof Post) {
+        if (!$subject instanceof \WWW\OthersBundle\Entity\Trade) {
+            print_r("el objeto no es trade");
             return false;
         }
 
@@ -42,58 +46,57 @@ class OfferVoter extends Voter
     {
         $user = $token->getUser();
 
+        
         if (!$user instanceof User) {
             // el usuario debe estar logeado; sino, denegar el acceso
+            var_dump('El objeto no es de tipo usuario');
             return false;
         }
 
         // $subject es un objeto Post, gracias al método supports
         /** @var Post $post */
-        $post = $subject;
+        $trade = $subject;
 
         switch($attribute) {
-            case self::CREATE:
-                return $this->canCreate($post, $user);
-            case self::EDIT:
-                return $this->canEdit($post, $user);
-            case self::DELETE:
-                return $this->canDelete($post, $user);
+            
             case self::SELECT:
-                return $this->canSelect($post, $user);
+                return $this->canSelect($trade, $user,$token );
+            case self::CREATE:
+                return $this->canCreate($token );
         }
 
         throw new \LogicException('Este código no debería ser visto');
     }
 
-    private function canCreate(Post $post, User $user, TokenInterface $token)
+    
+  
+    private function canSelect(\WWW\OthersBundle\Entity\Trade $trade, User $user ,TokenInterface $token)
     {
-        // si pueden editar, pueden ver
-        if ($this->decisionManager->decide($token, array($user->getRole()))) {
+         $user = $token->getUser();
+         
+        
+
+        
+        // esto asume que el objeto tiene un método getOwner()
+        // para obtener la entidad del usuario que posee este objeto
+        if( $user->getUsername() != $trade->getOffer()->getUserAdmin()->getUsername() && !$trade->getOffer()->getExpired()){
+            return true;
+            
+        }
+        else{
+            return false;
+        }
+    }
+    private function canCreate( TokenInterface $token)
+    {
+        
+        // ROLE_SUPER_ADMIN can do anything! The power!
+        if ($this->decisionManager->decide($token, array('ROLE_USER'))) {
             return true;
         }
-
-        // el objeto Post podría tener, por ejemplo, un método isPrivate()
-        // que comprueba la propiedad booleana $private
-        return !$post->isPrivate();
+        else{
+            print_r("no deberia entrar aqui");
+        }
     }
-
-    private function canEdit(Post $post, User $user)
-    {
-        // esto asume que el objeto tiene un método getOwner()
-        // para obtener la entidad del usuario que posee este objeto
-        return $user === $post->getOwner();
-    }
-    private function canDelete(Post $post, User $user)
-    {
-        // esto asume que el objeto tiene un método getOwner()
-        // para obtener la entidad del usuario que posee este objeto
-        return $user === $post->getOwner();
-    }
-    private function canSelect(Post $post, User $user)
-    {
-        // esto asume que el objeto tiene un método getOwner()
-        // para obtener la entidad del usuario que posee este objeto
-        return $user === $post->getOwner();
-    }
-}
+}   
 ?>

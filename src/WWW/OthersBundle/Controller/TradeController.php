@@ -40,6 +40,9 @@ class TradeController extends Controller{
 
         $this->setUpVars($request);
         $trade = new Trade();
+        
+        $this->denyAccessUnlessGranted('create_offer', $trade);
+        
         $formTrade = $this->createForm(TradeType::class,$trade);
         $formTrade->handleRequest($request);
         

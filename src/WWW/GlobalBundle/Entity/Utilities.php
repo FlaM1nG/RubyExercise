@@ -13,6 +13,7 @@ use WWW\GlobalBundle\MyConstants;
 use WWW\OthersBundle\Entity\TradeCategory;
 use Symfony\Component\HttpFoundation\Request;
 
+
 /**
  * Description of Utilities
  *
