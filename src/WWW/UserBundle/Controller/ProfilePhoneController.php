@@ -14,6 +14,7 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
 use WWW\UserBundle\Form\ProfilePhoneType;
+use WWW\UserBundle\Form\ConfirmCodePhoneType;
 use WWW\UserBundle\Entity\User;
 
 /**
@@ -23,9 +24,11 @@ use WWW\UserBundle\Entity\User;
  */
 class ProfilePhoneController extends Controller{
     
-    public function profilePhoneAction(){
-        
-        return $this->render('UserBundle:Profile:phoneProfile.html.twig' );
+    public function profilePhoneAction(Request $request){
+        $result = $this->getInfoPhone($request);
+ 
+        return $this->render('UserBundle:Profile:phoneProfile.html.twig',
+                       array('phones' => $result['phones']));
     }
     
     private function getUserProfile(Request $request){
@@ -44,7 +47,22 @@ class ProfilePhoneController extends Controller{
             $user = new User($result);
         endif;
 
+        
         return $user;
+    }
+    
+    private function getInfoPhone(Request $request){
+        
+        $ch = new ApiRest();
+        $file =  MyConstants::PATH_APIREST."user/phone/unconfirmed_phones.php";
+        
+        $data['id'] = $this->getUser()->getId();
+        $data['username'] = $this->getUser()->getUsername();
+        $data['password'] = $request->getSession()->get('password');
+        
+        $result = $ch->resultApiRed($data, $file);
+        
+        return $result;
     }
     
     public function profileChangePhoneAction(Request $request){
@@ -74,8 +92,43 @@ class ProfilePhoneController extends Controller{
         $data['prefix'] = $user->getPrefix();
         
         $result = $ch->resultApiRed($data, $file);
-        print_r($result);
+        
         $ut->flashMessage("general", $request, $result);
         
+    }
+    
+    public function confirmCodeAction(Request $request){
+        
+        $form = $this->createForm(ConfirmCodePhoneType::class);
+        
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted()):
+            $result = $this->confirmPhone($request);
+            if($result == 'ok'):
+                return $this->forward('UserBundle:ProfilePhone:profilePhone');
+            endif;
+        endif;
+        
+        return $this->render('UserBundle:Profile:confirmPhone.html.twig',
+                       array('form' => $form->createView()));
+    }
+    
+    private function confirmPhone(Request $request){
+        
+        $ut = new Utilities();
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."user/phone/confirm_sms.php";
+        
+        $data['id'] = $this->getUser()->getId();
+        $data['username'] = $this->getUser()->getUsername();
+        $data['password'] = $request->getSession()->get('password');
+        $data['token'] = $request->get('profilePhone')['codConfirmation'];
+        
+        $result = $ch->resultApiRed($data, $file);
+        
+        $ut->flashMessage("Número confirmado", $request, $result, "Código no válido o expirado");
+        
+        return $result['result'];
     }
 }

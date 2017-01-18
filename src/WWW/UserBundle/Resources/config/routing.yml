@@ -32,6 +32,10 @@ user_profilePassword:
 user_profilePhone:
     path: /profile/phone/
     defaults: { _controller: UserBundle:ProfilePhone:profilePhone}
+
+user_profileConfirmPhone:
+    path: /profile/phone/confirm/
+    defaults: { _controller: UserBundle:ProfilePhone:confirmCode}
     
 user_profileChangePhone:
     path: /profile/phone/changePhone/
