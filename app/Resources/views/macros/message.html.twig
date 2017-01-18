@@ -1,5 +1,5 @@
 {% macro messElementReceivedNot(userSender, fecha, titleMessage, message,
-    identificador, hrefLeer, dataLeer, hrefBorrar, dataBorrar) %}
+    identificador, hrefLeer, hrefBorrar, dataBorrar) %}
     <div class="us-mess-element" 
          id="{{ identificador|default('message-element')|e }}">
         <div class="row">
@@ -55,7 +55,7 @@
     
     
 {% macro messElementReceived(userSender, fecha, titleMessage, message,
-    identificador, hrefLeer, dataLeer, hrefBorrar, dataBorrar) %}
+    identificador, hrefLeer, hrefBorrar, dataBorrar) %}
     <div class="us-mess-element-read" 
          id="{{ identificador|default('message-element')|e }}">
         <div class="row">

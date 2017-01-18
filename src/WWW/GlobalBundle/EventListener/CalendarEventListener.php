@@ -32,7 +32,7 @@ class CalendarEventListener
         // load events using your custom logic here,
         // for instance, retrieving events from a repository
 
-        $companyEvents = $this->entityManager->getRepository('AcmeDemoBundle:MyCompanyEvents')
+        $companyEvents = $this->entityManager->getRepository('GlobalBundle:MyCompanyEvents')
                           ->createQueryBuilder('company_events')
                           ->where('company_events.event_datetime BETWEEN :startDate and :endDate')
                           ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
