@@ -1,5 +1,6 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
-
+{% import 'macros/message.html.twig' as message %}
+{% import 'macros/offer.html.twig' as offers %}
 
 {% block title %}
     Profile
@@ -16,12 +17,54 @@
 
 
 {% block bodyProfile %}
-    <h2>PRUEBA DE BLOQUE</h2>
+    <h2>LISTA OFERTA</h2>
+    {% for i in 0..4 %}
+        {{ offers.offUser('#oferta', '' ,'Title Offer', 
+            include('macros/text.html.twig'), 'leer', '#editar', 
+            'editar', '#borrar', 'borrar') }}
+    {% endfor %}
+    
+    <h2>MENSAJES RECIBIDO ABIERTO</h2>
+    {{ message.messElementReceivedOpen('Usuario', "now",
+        'Title Message', include('macros/text.html.twig'),
+        'id', '#borrar', 'borrar', '#contestar', 'contestar') }}
+    
+    <h2>MENSAJES ENVIADO ABIERTO</h2>
+    {{ message.messElementSentOpen('Usuario', "now",
+        'Title Message', include('macros/text.html.twig'),
+        'id', '#borrar', 'borrar') }}
+    
+    <h2>MENSAJES RECIBIDOS</h2>
+    {% for i in 0..2 %}
+        
+        {{ message.messElementReceivedNot('Usuario', "now",
+            'Title Message'~i, include('macros/text.html.twig'),
+            'id', 'leer', '#borrar', 'borrar') }}
+            
+        {{ message.messElementReceived('Usuario', "now",
+            'Title Message'~i, include('macros/text.html.twig'),
+            'id', 'leer', '#borrar', 'borrar') }}
+    {% endfor %}
+    
+    <h2>MENSAJES ENVIADOS</h2>
+    {% for i in 0..4 %}
+        
+        {{ message.messElementSent('Usuario', "now",
+            'Title Message'~i, include('macros/text.html.twig'),
+            'id', 'leer', '#borrar', 'borrar') }}
+    {% endfor %}
 {% endblock %}
 
 
 
 {% block javascriptsFooter %}
     {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        });
+    </script>
 {% endblock %}
     

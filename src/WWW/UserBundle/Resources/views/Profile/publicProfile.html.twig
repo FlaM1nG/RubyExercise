@@ -1,0 +1,216 @@
+{% extends '::base.html.twig' %}
+{% import 'macros/alert.html.twig' as alerts %}
+
+
+{% block title %}
+    Profile Public
+{% endblock %}
+
+{% block nav %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block alert %}
+
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+<div class="container cd-main-content us-pro-public-cont">
+    <!-- FILA IMG PROFILE AND USERNAME -->
+    <div class="row us-row-header-public">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="us-pro-pub-marco">
+                <img class="img-responsive img-circle us-pro-public-img" 
+                     src="{{ asset('img/userDefault.jpg') }}"/>
+            </div>
+        </div>
+
+
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <h2>Username</h2>
+            <p>
+                Alta: 
+                <span class="us-date-ing">{{ "now"|date('d/m/Y') }}</span>
+            </p>
+            <div class="row off-row-rating">
+                <div class="col-lg-12">
+                    <span class="off-vote"> 
+                        <!-- VALORACIONES -->
+                        <div class="rating">
+                            <span>☆</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                        </div>
+                        <!-- FIN VALORACIONES -->
+
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN FILA IMG PROFILE AND USERNAME -->
+
+
+    <div class="row us-row-sep">
+        <div class="col-lg-12">
+            <h3>
+                Valoraciones recibidas
+            </h3>
+            <hr/>
+        </div>
+    </div>
+
+    <!-- ELEMENTO VALORACION USER -->
+    {% for i in 0..4 %}
+    <div class="us-val-elem">
+        <div class="row">
+            <!-- USER VALORACION -->
+            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 us-col-username">
+                <div class="row">
+                    <div class="us-pub-img-small">
+                        <a href="#">
+                            <img class="img-responsive img-circle"
+                                src="{{ asset('img/userDefault.jpg') }}"/>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <a href="#"> 
+                        <h5>USER NAME</h5>
+                    </a>
+                </div>
+
+
+                <div class="row off-row-rating">
+                    <div class="col-lg-12">
+                        <span class="off-vote"> 
+                            <!-- VALORACIONES -->
+                            <div class="rating">
+                                <span>☆</span>
+                                <span>★</span>
+                                <span>★</span>
+                                <span>★</span>
+                                <span>★</span>
+                            </div>
+                            <!-- FIN VALORACIONES -->
+
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <!-- FIN USER VALORACION -->
+
+
+            <!-- DATOS VALORACION -->
+            <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                <p>
+                    {{ include ('macros/text.html.twig') }}
+                </p>
+            </div>
+            <!-- FIN DATOS VALORACION -->
+
+
+        </div>
+
+
+    </div>
+    {% endfor %}
+    <!-- FIN ELEMENTO VALORACION USER -->
+    
+    
+    <div class="row us-row-more">
+        <div class="col-lg-12">
+            <div class="us-see-more">
+                <a href="#">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <span>Ver más</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row us-row-sep">
+        <div class="col-lg-12">
+            <h3>
+                Ofertas del usuario
+            </h3>
+            <hr/>
+        </div>
+    </div>
+
+
+    <!-- ELEMENTO OFERTA USER -->
+    {% for i in 0..4 %}
+    <div class="us-off-elem">
+        <div class="row">
+            <!-- IMAGEN OFERTA -->
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="us-off-img-small">
+                    <a href="#">
+                        <img class="img-responsive us-img-off-publi"
+                            src="{{ asset('img/articulo4.jpg') }}"/>
+                    </a>
+                </div>
+            </div>
+            <!-- FIN IMAGEN OFERTA -->
+
+
+            <!-- DATOS OFERTA -->
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                <a href="">
+                    <h3>
+                        Title offer
+                    </h3>
+                </a>
+                <p>
+                    {{ include ('macros/text.html.twig')|length > 140 ? include ('macros/text.html.twig')|slice(0, 140) ~ '...' : include ('macros/text.html.twig') }}
+                </p>
+                <span class="btn btn-default">
+                    Ver Oferta
+                </span>
+            </div>
+            <!-- FIN DATOS OFERTA -->
+
+
+        </div>
+
+
+    </div>
+    {% endfor %}
+    <!-- ELEMENTO OFERTA USER  -->
+    
+    
+    <div class="row us-row-more">
+        <div class="col-lg-12">
+            <div class="us-see-more">
+                <a href="#">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <span>Ver más</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    {{ include('nav/menuScript.html.twig') }}
+
+{% endblock %}

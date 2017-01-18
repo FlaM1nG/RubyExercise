@@ -46,19 +46,19 @@ jQuery(document).ready(function($){
         
         $(window).resize(function(){
             if ($(window).width() >= 768) { 
-                if( !$(event.target).is('#cd-menu-trigger, #cd-menu-trigger span') ) {
-			$lateral_menu_trigger.removeClass('is-clicked');
-			$navigation.removeClass('lateral-menu-is-open');
-			$content_wrapper.removeClass('lateral-menu-is-open').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
-				$('body').removeClass('overflow-hidden');
-			});
-			$('#cd-lateral-nav').removeClass('lateral-menu-is-open');
-			//check if transitions are not supported
-			if($('html').hasClass('no-csstransitions')) {
-				$('body').removeClass('overflow-hidden');
-			}
-
-		}
+//                if( !$(event.target).is('#cd-menu-trigger, #cd-menu-trigger span') ) {
+//			$lateral_menu_trigger.removeClass('is-clicked');
+//			$navigation.removeClass('lateral-menu-is-open');
+//			$content_wrapper.removeClass('lateral-menu-is-open').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+//				$('body').removeClass('overflow-hidden');
+//			});
+//			$('#cd-lateral-nav').removeClass('lateral-menu-is-open');
+//			//check if transitions are not supported
+//			if($('html').hasClass('no-csstransitions')) {
+//				$('body').removeClass('overflow-hidden');
+//			}
+//
+//		}
             }     
 
         });

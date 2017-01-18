@@ -124,7 +124,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <h1>Responsive Sidebar Navigation</h1>
                             {% for i in 0..10 %}
-                            <p>{{ include('macros/text.html.twig') }}</p>
+                                <p>{{ include('macros/text.html.twig') }}</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -569,27 +569,7 @@
     <script src="{{ asset('js/jquery.menu-aim.js') }}"></script>
     <script src="{{ asset('js/mainUserMenu.js') }}"></script> <!-- Resource jQuery -->
     
-    <script>
-        $('#myTabs a').click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        });
-    </script>
-    
-    <script type="text/javascript">
-    $(document).scroll(function(e){
-        var scrollTop = $(document).scrollTop();
-        if(scrollTop > $('#menuAdministracion').height()){
-            //console.log(scrollTop);
-            $('#cbp-hrmenu').css("position","fixed");
-            $('#cbp-hrmenu').css("top","0");
-            $('#cbp-hrmenu').css("z-index","999");
-        } else {
-            $('#cbp-hrmenu').css("position","relative");
-        }
-    });
-    
-    </script>
+    {{ include('nav/menuScript.html.twig') }}
     
     <script type="text/javascript">
         //Previsualización de las imágenes
