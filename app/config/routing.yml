@@ -82,4 +82,4 @@ fos_js_routing:
     
 # app/config/routing.yml
 adesigns_calendar:
-  resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"    
+    resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"    
