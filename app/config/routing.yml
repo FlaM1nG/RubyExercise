@@ -75,3 +75,11 @@ gregwar_captcha_routing:
 trade:
     resource: "@OthersBundle/Resources/config/routing.yml"
     prefix:   /services/trade  
+
+# app/config/routing.yml
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    
+# app/config/routing.yml
+adesigns_calendar:
+  resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"    

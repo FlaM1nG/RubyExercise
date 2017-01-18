@@ -21,7 +21,9 @@ class AppKernel extends Kernel
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
             new SGestion\AdminBundle\SGestionAdminBundle(),
             new WWW\ServiceBundle\ServiceBundle(),
-            new WWW\OthersBundle\OthersBundle()
+            new WWW\OthersBundle\OthersBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new ADesigns\CalendarBundle\ADesignsCalendarBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
