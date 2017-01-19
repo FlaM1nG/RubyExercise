@@ -2,10 +2,10 @@
 
 
 {% block title %}
-    Direcciones
+    Teléfono
 {% endblock %}
 
-{% block alertProfile %}
+{% block alert %}
     
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
             {{ alerts.alert('alert-success', flash_message, null) }}
@@ -15,6 +15,7 @@
             {{ alerts.alert('alert-warning', flash_message, null) }}
     {% endfor %}
 
+{#    {{ form_errors(form) }}#}
    
 {% endblock %} 
 
@@ -25,9 +26,12 @@
 
 
 {% block bodyProfile %}
-    
-    {{form(form)}}
 
+    {{form_start(form)}}
+        {{form_row(form.prefix)}}
+        {{form_row(form.phone)}}
+        {{form_row(form.savePhone)}}
+        {{form_row(form._token)}}
     
 {% endblock %}
 
@@ -35,6 +39,10 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
-
+    
+    <
+    </script>
+    
+    
 {% endblock %}
     

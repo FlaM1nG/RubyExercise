@@ -2,10 +2,10 @@
 
 
 {% block title %}
-    Direcciones
+    Teléfono
 {% endblock %}
 
-{% block alertProfile %}
+{% block alert %}
     
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
             {{ alerts.alert('alert-success', flash_message, null) }}
@@ -15,6 +15,7 @@
             {{ alerts.alert('alert-warning', flash_message, null) }}
     {% endfor %}
 
+{#    {{ form_errors(form) }}#}
    
 {% endblock %} 
 
@@ -27,7 +28,6 @@
 {% block bodyProfile %}
     
     {{form(form)}}
-
     
 {% endblock %}
 
@@ -35,6 +35,6 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
-
+  
 {% endblock %}
     

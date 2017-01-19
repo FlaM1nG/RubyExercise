@@ -37,13 +37,6 @@ class ProfilePhoneType extends AbstractType{
                 ->add('phone','number',array('label'=>' ',
                                              'required' => false))
                 
-                ->add('codConfirmation', 'text', array('label' => 'Código de confirmación',
-                                                        'mapped' => false,
-                                                        'required' => false))
-
-                ->add('confirmPhone', 'submit', array('label' => 'Confirmar',
-                                                      'validation_groups' => false)) 
-                
                 ->add('savePhone',SubmitType::class,array('label' => 'Guardar',
                                                           'validation_groups' => false ));
 

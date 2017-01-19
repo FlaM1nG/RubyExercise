@@ -35,15 +35,14 @@ class AdressType extends AbstractType{
                                            'validation_groups' => array('address') ))
                 
                 ->add('isDefault','checkbox', array('label' => 'Dirección principal',
-                                                    'required' => false,
-                                                    'mapped' => false,
-                                                    'value' => "0"
+                                                    'required' => false
                                                     ))
                 
                 ->add('country', ChoiceType::class, array('label' => 'Pais',
                                                         'required' => false,
                                                         'empty_value' => false,
                                                         'choices' => $this->arrayCountry,
+                                                        'preferred_choices' => array('Spain')
                                                         ))
                 
                 ->add('region','text', array('label' => 'Región',
@@ -63,6 +62,7 @@ class AdressType extends AbstractType{
                                                         'required' => false,
                                                         'empty_value' => false,
                                                         'choices' => $this->arrayPrefix,
+                                                        'preferred_choices' => array('+34')
                                                         ))
                 
                 ->add('phone','number',array('label'=>' ',

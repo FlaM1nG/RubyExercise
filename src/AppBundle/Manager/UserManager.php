@@ -22,6 +22,7 @@ class UserManager
     private $encoderFactory;
     /** @var TokenStorageInterface */
     private $tokenStorage;
+    
     public function __construct(ObjectManager $entityManager, EncoderFactoryInterface $encoderFactory, TokenStorageInterface $tokenStorage)
     {
         $this->em = $entityManager;
@@ -34,6 +35,7 @@ class UserManager
      */
     public function login(User $user)
     {
+//        print_r($user);exit;
         $token = new UsernamePasswordToken($user, null, 'user', $user->getRoles());
         $this->tokenStorage->setToken($token);
     }

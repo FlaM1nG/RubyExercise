@@ -1,0 +1,72 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+
+{% block stylesheets %}
+    
+    {{ parent() }}
+            
+    <link href="{{ asset('css/styles/imgAreaSelect/imgareaselect-default.css') }}" rel="stylesheet" 
+                  type="text/css">
+{% endblock %}
+
+{% block title %}
+    Foto de Perfil
+{% endblock %}
+
+{% block alert %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+    {{ form_errors(form) }}
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    
+    {{ form_start(form) }}
+
+    <img src="http://whatwantweb.com/{{ form.photo.url.vars.value }}" id="photo" height="500"/>
+        {{ form_row(form.photo) }}
+        {{ form_row(form.fileImage) }}
+        {{ form_row(form._token) }}
+        {{ form_row(form.savePhoto)}}
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+   
+    <script src="{{ asset('js/jquery.imgareaselect.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+             $('#photo').imgAreaSelect({
+                 x1: 0,
+                 y1: 0,
+                 x2: 300,
+                 y2: 300,
+                 hide: false,
+                 maxWidth: 300, 
+                 maxHeight: 300,
+                 minWidth: 300,
+                 minHeight: 300,
+                 zIndex: 10,
+                 resizable: false,
+{#                 handles: true #}
+             });
+        });
+    </script>
+{% endblock %}
+    

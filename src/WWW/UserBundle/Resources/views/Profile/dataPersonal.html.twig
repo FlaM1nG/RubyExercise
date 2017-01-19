@@ -2,10 +2,10 @@
 
 
 {% block title %}
-    Direcciones
+    Datos Personales
 {% endblock %}
 
-{% block alertProfile %}
+{% block alert %}
     
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
             {{ alerts.alert('alert-success', flash_message, null) }}
@@ -15,6 +15,7 @@
             {{ alerts.alert('alert-warning', flash_message, null) }}
     {% endfor %}
 
+    {{ form_errors(form) }}
    
 {% endblock %} 
 
@@ -26,15 +27,26 @@
 
 {% block bodyProfile %}
     
-    {{form(form)}}
-
+    {{ form_start(form) }}
     
+        {{ user.username }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.surname) }}
+        {{ form_row(form.sex) }}
+        {{ form_row(form.birthdate) }}
+        
+        {% if user.nif is not empty %}
+            {{ form_row(form.nif) }}
+        {% endif %}
+        
+        {{ user.linkInvitation }}
+        {{ form_row(form._token) }}
+        {{ form_row(form.savePersonalData)}}
 {% endblock %}
 
 
 
 {% block javascriptsFooter %}
     {{ parent() }}
-
 {% endblock %}
     

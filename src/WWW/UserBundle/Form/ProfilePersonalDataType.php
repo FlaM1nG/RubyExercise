@@ -26,7 +26,6 @@ class ProfilePersonalDataType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
 
        $builder
-                ->add('username',TextType::class, array('label'=>'Usuario'))
                 
                 ->add('name', TextType::class, array('label' => 'Nombre',
                                                      'required' => false))

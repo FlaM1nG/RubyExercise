@@ -1,0 +1,163 @@
+{% extends '::base.html.twig' %}
+{% import 'macros/alert.html.twig' as alerts %}
+
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block nav %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block alert %}
+    
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+      
+
+
+
+{% block body %}
+    
+<!-- TABULADOR DE PESTAÑAS -->
+<div class="container-fluid cd-main-content us-profile-panel">
+    <div class="row">
+        <header class="cd-main-header">
+            {#<a href="#0" class="cd-logo"><img src="img/cd-logo.svg" alt="Logo"></a>
+
+            <div class="cd-search is-hidden">
+                <form action="#0">
+                    <input type="search" placeholder="Search...">
+                </form>
+            </div> <!-- cd-search -->#}
+
+            <a href="#0" class="cd-nav-trigger">Menu<span></span></a>
+
+            <nav class="cd-nav">
+                {#<ul class="cd-top-nav">
+                    <li><a href="#0">Tour</a></li>
+                    <li><a href="#0">Support</a></li>
+                    <li class="has-children account">
+                        <a href="#0">
+                            <img src="img/cd-avatar.png" alt="avatar">
+                            Account
+                        </a>
+
+                        <ul>
+
+                            <li><a href="#0">My Account</a></li>
+                            <li><a href="#0">Edit Account</a></li>
+                            <li><a href="#0">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>#}
+            </nav>
+        </header> <!-- .cd-main-header -->
+        <main class="cd-main-content us-content-user">
+            <nav class="cd-side-nav">
+                <ul>
+                    {#<li class="cd-label">Personal</li>#}
+                    <li class="has-children misDatos">
+                        {#<i class="fa fa-user" aria-hidden="true"></i>#}
+                        <a href="{{path('user_profiler')}}">Mis datos</a>  
+
+                        <ul>
+                            <li><a href="{{ path('user_profilerPersonal') }}">Datos Personales</a></li>
+                            <li><a href="{{ path('user_profilerEmail') }}">Email</a></li>
+                            <li><a href="{{ path('user_profilePassword') }}">Contraseña</a></li>
+                            <li><a href="{{ path('user_profilePhone') }}">Teléfono</a></li>
+                            <li><a href="{{ path('user_profilePhoto') }}">Foto Personal</a></li>
+                        </ul>
+                    </li>
+                    <li class="addressUser">
+                        <a href="{{ path('user_profileAddress') }}">Direcciones</a>
+                    </li>
+                    <li class="has-children comments active">
+                        <a href="#0">Mensajes<span class="count">3</span></a>
+
+                        <ul>
+                            <li><a href="#0">Redactar</a></li>
+                            <li><a href="#0">Recibidos</a></li>
+                            <li><a href="#0">Enviados</a></li>
+                        </ul>
+                    </li>
+                    
+{#                    {% for i in 0..10 %}#}
+                    <li class="has-children offerUser">
+                        <a href="#0">Ofertas</a>
+
+                        <ul>
+                            <li><a href="#0">Mis ofertas</a></li>
+                            <li><a href="#0">Compras</a></li>
+                            <li><a href="#0">Inscripciones</a></li>
+                        </ul>
+                    </li>
+{#                    {% endfor %}#}
+                    
+                </ul>
+            </nav>
+
+            <div class="content-wrapper">
+{#                <div class="container">#}
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="contentAlert">   
+                                {% block alertProfile %}
+                                {% endblock %}
+                            </div>
+                            {% block bodyProfile %}
+                            {% endblock %}
+                            {#<h1>Responsive Sidebar Navigationn</h1>
+                            {% for i in 0..10 %}
+                            <p>{{ include('macros/text.html.twig') }}</p>
+                            {% endfor %}#}
+                        </div>
+                    </div>
+{#                    <h1>Responsive Sidebar Navigation</h1>#}
+{#                </div>#}
+            </div> <!-- .content-wrapper -->
+        </main> <!-- .cd-main-content -->
+    </div>
+                
+</div>
+
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+{#            console.log($('.content-wrapper').height());#}
+            if($(window).width() > 768){
+                $('.cd-side-nav').css('height', '0');
+                $('.cd-side-nav').css('height', $('.content-wrapper').height());
+            }else{
+                $('.cd-side-nav').css('height', 'inherit');
+            }
+        });
+    
+        $(window).resize(function(){
+{#            console.log($('.content-wrapper').height());#}
+            if($(window).width() > 768){
+                $('.cd-side-nav').css('height', '0');
+                $('.cd-side-nav').css('height', $('.content-wrapper').height());
+            }else{
+                $('.cd-side-nav').css('height', 'inherit');
+            }
+            
+            
+        });
+    </script>
+    <script src="{{ asset('js/jquery.menu-aim.js') }}"></script>
+    <script src="{{ asset('js/mainUserMenu.js') }}"></script> <!-- Resource jQuery -->
+
+    
+    {{ include('nav/menuScript.html.twig') }}
+    
+{% endblock %}

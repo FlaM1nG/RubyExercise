@@ -31,24 +31,28 @@
                 <ul style="border-right: 0;">
                     
                     <li class="text-nav-user">
-                        <a href="
+                        
                             {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                            
+                                  <a href="{{ path('user_profiler') }}">
+                                 <span class="glyphicon glyphicon-user size-icon">
+                                </span>
+                                Mi cuenta
+                            </a>
                             {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-                            {{ path('user_login') }}
+                                <a href="{{ path('user_login') }}">
+                                <span class="glyphicon glyphicon-log-in size-icon">
+                                </span>
+                                Login
+                            </a>
                             {% endif %}
-                           ">
-                            <span class="glyphicon glyphicon-user size-icon">
+                          
+                           
                                 
-                            </span>
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                Mi cuenta
-                            {% elseif is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                                Mi cuenta
-                            {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-                                Entra
-                            {% endif %}
-                        </a>
+                                
+                           
+{#                       
+                            
+                        
                     </li>
                     
                     

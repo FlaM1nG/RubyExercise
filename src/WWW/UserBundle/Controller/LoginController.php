@@ -37,26 +37,31 @@ class LoginController extends Controller{
             $ch = new ApiRest();
             
             $result = $ch->sendInformation($data, $file, "parameters");
-            
-            
-            
+
             $authenticationUtils = $this->get('security.authentication_utils');
-                // get the login error if there is one
-                $error = $authenticationUtils->getLastAuthenticationError();
-                // last username entered by the user
-                $lastUsername = $authenticationUtils->getLastUsername();
+            // get the login error if there is one
+            $error = $authenticationUtils->getLastAuthenticationError();
+            // last username entered by the user
+            $lastUsername = $authenticationUtils->getLastUsername();
+            
                 
             if($result['result'] == 'ok'):
-                $user = new User($result);
+                
+                $file = MyConstants::PATH_APIREST."user/data/get_info_user.php";
+                $ch = new ApiRest();
+                $data['id'] = $result['id'];
+                $data['username'] = $result['username'];
+                $data['password'] = $result['password'];
+                
+                $resultUser = $ch->resultApiRed($data, $file);
+                
+                $user = new User($resultUser);
+//                print_r($user->getAddresses()); exit;
+            
                 if(!$this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')){        
                     $this->get('app.manager.usuario_manager')->login($user);
                 }
-//                // Authenticating user
-//                $token = new UsernamePasswordToken($user, null, 'user', $user->getRoles());
-//                $this->get('security.token_storage')->setToken($token);
-//                $this->get('session')->set('_security_secured_area', serialize($token));
-                
-            
+
                $session=$request->getSession();
                
                $session->set("id",$result['id']);
@@ -65,7 +70,7 @@ class LoginController extends Controller{
                $session->set('intentoLogin',0);
                
                 return $this->redirectToRoute('homepage');
-              // return $this->render('UserBundle:Default:login.html.twig',array('last_username' => $lastUsername,'error' => $error,'formulario'=>$formulario->createView()));
+
             else:
                 $session->set('intentoLogin',$session->get('intentoLogin')+1);
             

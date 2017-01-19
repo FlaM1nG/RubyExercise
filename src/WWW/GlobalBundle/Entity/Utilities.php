@@ -13,6 +13,7 @@ use WWW\GlobalBundle\MyConstants;
 use WWW\OthersBundle\Entity\TradeCategory;
 use Symfony\Component\HttpFoundation\Request;
 
+
 /**
  * Description of Utilities
  *
@@ -93,10 +94,12 @@ class Utilities{
 
     }
     
-    public function flashMessage($type, Request $request, $result = null){
+    public function flashMessage($type, Request $request, $result = null,$messageError = null){
 
         $success = "";
         $error = "Se ha producido un error, por favor vuelva a intentarlo";
+        
+        if(!empty($messageError)) $error = $messageError;
         
         switch($type):
             case 'general':     $success = "Datos actualizados";
