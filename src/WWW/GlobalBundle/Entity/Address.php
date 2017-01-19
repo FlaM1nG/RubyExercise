@@ -83,16 +83,17 @@ class Address implements GroupSequenceProviderInterface
      */
     private $country;
     
-        /**
-     * @var integer
-     */
-    private $phone;
+
 
     /**
      * @var string
      */
     private $prefix;
 
+    /**
+     * @var integer
+     */
+    private $phone;
 
     public function __construct(Array $address=null){
          
