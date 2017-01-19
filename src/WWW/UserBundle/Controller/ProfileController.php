@@ -40,9 +40,7 @@ class ProfileController extends Controller{
     private $email = "";
     
     
-    public function profileAction(Request $request, $tabActive = null){ 
-//        echo "ENTRO";
-//       \Doctrine\Common\Util\Debug::dump((object)$this->getUser());
+    public function profileAction(Request $request, $tabActive = null){       
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createAccessDeniedException();
         }

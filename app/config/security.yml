@@ -6,10 +6,12 @@ security:
         ROLE_ADMIN:         [ROLE_USER, ROLE_ASSISTANT, ROLE_ALLOWED_TO_SWITCH]
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~     
+#        in_memory:
+#            memory: ~     
         users:
-            entity: {class: WWW\UserBundle\Entity\User, property: username }
+            entity: 
+                class: WWW\UserBundle\Entity\User
+                property: username 
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -19,6 +21,7 @@ security:
         main:
             anonymous: ~
             pattern: ^/
+            provider: users
         user:
             pattern: ^/user/*            
             provider: users

@@ -16,7 +16,6 @@ class LoginController extends Controller{
     public function loginAction(Request $request){
         $session=$request->getSession();
         
-        
         if(empty($session->get('intentoLogin')))
             $session->set('intentoLogin',0);
         
@@ -68,7 +67,7 @@ class LoginController extends Controller{
                $session->set("username",$result['username']);
                $session->set("password",$result['password']);
                $session->set('intentoLogin',0);
-               
+                  
                 return $this->redirectToRoute('homepage');
 
             else:
