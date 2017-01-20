@@ -35,125 +35,31 @@ class ProfileController extends Controller{
     
     private $user = null;
     private $session = null;
-    private $tabActive = 'personal';
     private $ut;
     private $email = "";
     
     
-    public function profileAction(Request $request, $tabActive = null){       
+    public function profileAction(Request $request){ 
+//        echo "ENTRO";
+//       \Doctrine\Common\Util\Debug::dump((object)$this->getUser());
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createAccessDeniedException();
         }
-
-
-//        $user = $this->getUser();
-
-//        $this->user = $this->getUser();
+        $ut = new Utilities();
+        $numMessage = $ut->messageNoRead($request);
         
-//        print_r($this->user);
-//        $this->sesion = $request->getSession();
-//        if(!empty($tabActive))
-//            $this->tabActive = $tabActive;
-//        
-//        $this->ut = new Utilities();
-//        
-//        $this->user = new User();
-//        $this->getUserExist($request);
-//        
-//        
-//        $formPersonalData = $this->createForm(ProfilePersonalDataType::class,$this->user); 
-//        $formEmail = $this->createForm(ProfileEmailType::class,$this->user);
-//        $formPassword = $this->createForm(ProfilePasswordType::class,$this->user);
-//        $formPhone = $this->createForm(ProfilePhoneType::class,$this->user);
-//        $formPhoto = $this->createForm(ProfilePhotoType::class,$this->user);
-//        //$formAddresses = $this->createForm(ProfileAddressesType::class,$this->user);
-//        $formBank = $this->createForm(ProfileBankType::class,$this->user);
-//        
-//        $formPersonalData->handleRequest($request);
-//        $formEmail->handleRequest($request);
-//        $formPassword->handleRequest($request);
-//        $formPhone->handleRequest($request);
-//        $formPhoto->handleRequest($request);
-//        //$formAddresses->handleRequest($request);
-//        $formBank->handleRequest($request);        
-//        
-//        if($formPersonalData->isSubmitted()):
-//            $this->tabActive = 'personal';
-//        
-//            if($formPersonalData->isValid()):
-//                $this->savePersonalData($request);
-//            endif;
-//        elseif($formEmail->isSubmitted()):
-//            $this->tabActive = 'email';
-//        
-//            if($formEmail->isValid()):
-//                $this->saveEmail($request);
-//            endif;
-//        elseif($formPassword->isSubmitted()):
-//            $this->tabActive = 'password';
-//        
-//            if($formPassword->isValid()):
-//                $this->savePassword($request);
-//            endif;
-//        elseif($formPhone->isSubmitted()):
-//            $this->tabActive = 'phone';
-//        
-//            if($formPhone->isValid()):
-//                if($formPhone->get('savePhone')->isClicked()):
-//                        //envia email para confirmar
-//                        $this->sendSMS($request);
-//
-//                elseif($formPhone->get('confirmPhone')->isClicked()):
-//                        //guarda el móvil después de introducir el código de confirmación
-//                        $this->savePhone($request);
-//                endif;
-//            endif;
-//        elseif($formPhoto->isSubmitted()):
-//            $this->tabActive = 'photo';
-//        
-//            if($formPhoto->isValid()):
-//                $this->savePhoto($request);
-//            endif;
-//        elseif($formBank->isSubmitted()):
-//            $this->tabActive = 'bank';
-//        
-//            if($formBank->isValid()):
-//                $this->saveBank($request);
-//            endif;
-            
-//        elseif($formAddresses->isSubmitted()):
-//            $this->tabActive = 'addresses';
-//            echo "estoy en Address<br>";
-//            if($formAddresses->isValid()):
-//                echo "formAddress validado<br>";
-//                if($formAddresses->get('addAddress')->isClicked()): 
-//                    echo "pinchada nuevaDirección<br>";
-//                    $this->newAddresses($request);
-//                elseif($formAddresses->get('deleteAddresses')->isClicked()):
-//                    echo "pincho borrar<br>";
-//                    $this->deleteAddresses($request);
-//                    $formAddresses = $this->createForm(ProfileAddressesType::class,$this->user); 
-//                else: 
-//                    echo "actualizo dirección <br>";
-//                    $this->updateAddresses($request);
-//                endif;
-//            endif;    
-//        endif;    
-
+        $session = $request->getSession();
+        if(empty($session->get('numMessage'))):
+            $session->set("numMessage",$numMessage);
+        endif;
+        
         return $this->render('UserBundle:Profile:indexProfile.html.twig',
-                             array(//'formPersonalData'=>$formPersonalData->createView(),
-//                                   'formEmail'=>$formEmail->createView(),
-//                                   'formPassword'=>$formPassword->createView(),
-//                                   'formPhone'=>$formPhone->createView(),
-//                                   'formPhoto'=>$formPhoto->createView(),
-//                                   //'formAddresses'=>$formAddresses->createView(),
-//                                   'formBank'=>$formBank->createView(), 
-                                   'usuario' => $this->user,
-//                                   'email' => $this->email, 
-//                                   'tabActive' => $this->tabActive)
-                ));
+                             array('usuario' => $this->user 
+                            ));
         
-    }    
+    }
+    
+    
     
     public function personalDataAction(Request $request){
         

@@ -60,11 +60,11 @@ class TradeType extends AbstractType{
                                                          )) 
             
             ->add('region',TextType::class, array('label' => 'Provincia'))
-            ->add('checkOffer',CheckboxType::class,array('label' => ' ',
-                                                         'mapped' => false,
-                                                         'required' => false))                                                      
-            ->add('saveTrade','submit',array('label'=>'Guardar'))
-            ->add('deletePhotos','submit', array('label' => 'Eliminar imágenes'));                                                
+//            ->add('checkOffer',CheckboxType::class,array('label' => ' ',
+//                                                         'mapped' => false,
+//                                                         'required' => false))                                                      
+            ->add('saveTrade','submit',array('label'=>'Guardar'));
+//            ->add('deletePhotos','submit', array('label' => 'Eliminar imágenes'));                                                
             
         
     }

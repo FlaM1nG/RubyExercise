@@ -1,0 +1,137 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+
+{% block title %}
+    Ofertas
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    
+    {{form_start(form)}}
+        {{form_row(form.offer.title)}}
+        {{form_row(form.category)}}
+        {{form_row(form.offer.description)}}
+        {{form_row(form.region)}}
+        {{form_row(form.dimensions)}}
+        {{form_row(form.weight)}}
+        {{form_row(form.price)}}
+        
+{#        {% if form.offer.photos.url.vars.value is not empty %}#}
+            {% for photo in form.offer.photos %}
+                <div id="containerPhoto_{{photo.id.vars.value}}">
+                    <img src="{{photo.url.vars.value}}" />
+                    {{form_widget(photo.checkPhoto,{'attr': {'data-id': photo.id.vars.value} }) }}
+                </div>    
+            {% endfor %} 
+            <button id="bDeletePhoto">Borrar imágenes</button>
+{#        {% endif %}   #}
+        
+        {{form_row(form.offer.fileImage)}}
+        {{form_row(form.offer.id)}}
+        {{form_row(form.saveTrade)}}
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+           
+           $(document).on('click','#bDeletePhoto', deletePhotos);
+           
+           function deletePhotos(e){
+               e.preventDefault();
+               
+               var idImage = '';
+               var idOffer = $('.idOffer').val();
+               var data = {};
+               var url = "{{ url('user_ajax_deleteImageOffer') }}";
+               
+               $(':checkbox:checked').each(
+                    function() {   
+                        idImage = idImage+ ',' +$(this).attr('data-id');
+                    }            
+                );
+        console.log(idImage);
+                if(idImage.length > 0){
+                    console.log('entro');
+                    idImage = idImage.substr(1);
+                    data['idOffer'] = idOffer;
+                    data['idImages'] = idImage;
+
+                    $.ajax({                        
+                        type: "POST",                 
+                        url: url,                     
+                        data: data, 
+                        success: function(data)             
+                        {
+                            if(data['result'] === 'ok'){
+
+                                var arrayImage = idImage.split(',');
+
+                                $.each(arrayImage, function(ind, elem) {   
+                                        $('#containerPhoto_'+elem).remove();
+                                    }
+                                );            
+
+                                console.log("ok");
+                                $('.contentAlert').html("<div class='alert "+
+                                "alert-success alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                data['message']+"</div>");
+
+                            }else{
+                                $('.contentAlert').html("<div class='alert "+
+                                "alert-warning alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                data['message']+"</div>");
+
+                            }
+
+                        },
+                        error: function()             
+                        {
+                            $('.contentAlert').html("<div class='alert "+
+                                "alert-warning alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
+
+                        }        
+                    });
+                }    
+           }
+        });
+    </script>
+       
+{% endblock %}
+    

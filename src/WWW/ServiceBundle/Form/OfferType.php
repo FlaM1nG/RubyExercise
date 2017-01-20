@@ -21,15 +21,7 @@ use WWW\GlobalBundle\Form\PhotoType;
  * @author Rocio
  */
 class OfferType extends AbstractType{
-    
-    private $typeService;
-    
-    /*public function __construct($servicio = null) {
-        
-        //Tipo de servicio para añadir unos campo u otros a la oferta
-        $this->typeService = $servicio; 
-    }*/
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
@@ -46,6 +38,7 @@ class OfferType extends AbstractType{
                                                          'attr' => array('accept'=>'image/*')))
                 ->add('title','text', array('label'=>'Título'))
                 ->add('expired',HiddenType::class)
+                ->add('id',HiddenType::class, array('attr' => array('class' => 'idOffer') ))
                 ->add('description','textarea', array('label'=>'Descripción',
                                                   'required' => false ));
                 

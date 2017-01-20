@@ -1,0 +1,46 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/message.html.twig' as message %}
+
+{% block title %}
+    Mensajes
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+
+    {{form_start(form)}}
+        {{form_label(form.to)}}
+        {{form_widget(form.to.username)}}
+        {{form_row(form.subject)}}
+        {{form_row(form.message)}}
+        {{form_row(form.enviar)}}
+        <a href="{{path('user_profileMessage')}}" class="btn-default btn"> Cancelar </a>
+        {{form_row(form._token)}}
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    
+{% endblock %}
+    
