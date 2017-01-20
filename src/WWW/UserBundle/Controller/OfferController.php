@@ -27,6 +27,7 @@ use WWW\OthersBundle\Form\TradeType;
 class OfferController extends Controller{
     
     private $ut;
+    private $offer;
     
     public function myOffersAction(Request $request){
         
@@ -63,8 +64,39 @@ class OfferController extends Controller{
         $this->ut = new Utilities();
         $form = $this->searchOffer($request);
         
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted()):
+            $this->updateOffer($request);
+        endif;
+        
         return $this->render('UserBundle:Profile:offers/profileEditOffer.html.twig',
                         array('form' =>$form->createView()));
+    }
+    
+    private function updateOffer(Request $request){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/offer/update_offer.php";
+        
+        $info['id'] = $request->getSession()->get('id');
+        $info['username'] = $request->getSession()->get('username');
+        $info['password'] = $request->getSession()->get('password');
+        $info['offer_id'] = $this->offer->getId();
+ 
+        $data['values']['title'] = "'".$this->offer->getOffer()->getTitle()."'"; 
+        $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'"; 
+        $data['sub_values']['price'] = $this->offer->getPrice();
+        $data['sub_values']['dimensions'] = "'".$this->offer->getDimensions()."'";
+        $data['sub_values']['weight'] = $this->offer->getWeight();
+        $data['sub_values']['region'] = "'".$this->offer->getRegion()."'";
+        $data['sub_values']['category_id'] = $this->offer->getCategory()->getId();
+        
+        $info['data']= json_encode($data);
+        
+        $result = $ch->resultApiRed($info, $file);
+
+        $this->ut->flashMessage("general", $request, $result);
     }
     
     private function searchOffer(Request $request){
@@ -106,18 +138,16 @@ class OfferController extends Controller{
        
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/photos/delete_offer_photo.php";
-        echo $file."<br>";
+        
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
         $data['offer_id  '] = $request->get('idOffer');
         $data['photos_id'] = $request->get('idImages');
-        
-        print_r($data);
-//        $result = $ch->resultApiRed($data, $file);
+ 
+        $result = $ch->resultApiRed($data, $file);
         
         $response = new JsonResponse();
-        $result['result'] = 'ok';
         
         if($result['result'] == 'ok'):
             $response->setData(array(
