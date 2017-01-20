@@ -33,6 +33,10 @@ framework:
         handler_id:  ~
     fragments:       ~
     http_method_override: true
+    assets:
+        packages:
+            img: 
+                base_urls: 'http://whatwantweb.com/'
 
 # Twig Configuration
 twig:

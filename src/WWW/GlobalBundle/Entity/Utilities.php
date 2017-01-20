@@ -131,5 +131,23 @@ class Utilities{
             $request->getSession()->getFlashBag()->add('messageFail', $error);
         endif;
     }
+    
+    public function messageNoRead(Request $request){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."user/messages/get_num_messages.php";
+        $numMessage = 0;
+        
+        $data['id'] =  $request->getSession()->get('id');
+        $data['username'] =  $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        
+        $result = $ch->resultApiRed($data, $file);
+        
+        if($result['result'] == 'ok')
+            $numMessage = $result['num_messages'];
+        
+        return $numMessage;
+    }
 }
 

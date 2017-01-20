@@ -1,5 +1,5 @@
 {% macro messElementReceivedNot(userSender, fecha, titleMessage, message,
-    identificador, hrefLeer, dataLeer, hrefBorrar, dataBorrar) %}
+    identificador, hrefLeer, hrefBorrar, dataBorrar) %}
     <div class="us-mess-element" 
          id="{{ identificador|default('message-element')|e }}">
         <div class="row">
@@ -39,7 +39,7 @@
                 
         <div class="row us-mess-buttons">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">                
-                <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn bDeleteMessage"
                     data-id="{{ dataBorrar|e }}"
                     data-toggle="tooltip" 
                     data-placement="bottom" 
@@ -55,7 +55,7 @@
     
     
 {% macro messElementReceived(userSender, fecha, titleMessage, message,
-    identificador, hrefLeer, dataLeer, hrefBorrar, dataBorrar) %}
+    identificador, hrefLeer, hrefBorrar, dataBorrar) %}
     <div class="us-mess-element-read" 
          id="{{ identificador|default('message-element')|e }}">
         <div class="row">
@@ -95,7 +95,7 @@
                 
         <div class="row us-mess-buttons">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">                
-                <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn bDeleteMessage"
                     data-id="{{ dataBorrar|e }}"
                     data-toggle="tooltip" 
                     data-placement="bottom" 
@@ -151,7 +151,7 @@
                 
         <div class="row us-mess-buttons">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">                
-                <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn bDeleteMessage"
                     data-id="{{ dataBorrar|e }}"
                     data-toggle="tooltip" 
                     data-placement="bottom" 
@@ -168,7 +168,7 @@
     
 {% macro messElementReceivedOpen(userSender, fecha, titleMessage, message,
     identificador, hrefBorrar, dataBorrar, hrefContestar, dataContestar) %}
-    <div class="us-mess-sent-element">
+    <div class="us-mess-sent-element containerMessage">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-8 col-xs-12 us-open-mess">
                 <div class="row">
@@ -207,6 +207,7 @@
                 <div class="row us-mess-buttons">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <a href="{{ hrefContestar|e }}" class="btn btn-default us-mess-btn"
+                           id="buttonReply"
                            data-id="{{ dataContestar|e }}"
                            data-toggle="tooltip" 
                            data-placement="bottom" 
@@ -215,7 +216,7 @@
                         </a>
                             
                             
-                        <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                        <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn bDeleteMessage"
                            data-id="{{ dataBorrar|e }}"
                            data-toggle="tooltip" 
                            data-placement="bottom" 
@@ -234,7 +235,7 @@
     
 {% macro messElementSentOpen(userSender, fecha, titleMessage, message,
     identificador, hrefBorrar, dataBorrar) %}
-    <div class="us-mess-sent-element">
+    <div class="us-mess-sent-element containerMessage">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-8 col-xs-12 us-open-mess">
                 <div class="row">
@@ -272,7 +273,7 @@
 
                 <div class="row us-mess-buttons">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                        <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn bDeleteMessage"
                            data-id="{{ dataBorrar|e }}"
                            data-toggle="tooltip" 
                            data-placement="bottom" 

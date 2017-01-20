@@ -79,23 +79,23 @@
                         <a href="{{ path('user_profileAddress') }}">Direcciones</a>
                     </li>
                     <li class="has-children comments active">
-                        <a href="#0">Mensajes<span class="count">3</span></a>
+                        <a href="{{path('user_profileMessage')}}">Mensajes<span class="count">{{app.session.get('numMessage')}}</span></a>
 
                         <ul>
-                            <li><a href="#0">Redactar</a></li>
-                            <li><a href="#0">Recibidos</a></li>
-                            <li><a href="#0">Enviados</a></li>
+                            <li><a href="{{path('user_profileNewMessage')}}">Redactar</a></li>
+                            <li><a href="{{path('user_profileMessage')}}">Recibidos</a></li>
+                            <li><a href="{{path('user_profileMessageSent')}}">Enviados</a></li>
                         </ul>
                     </li>
                     
 {#                    {% for i in 0..10 %}#}
                     <li class="has-children offerUser">
-                        <a href="#0">Ofertas</a>
+                        <a href="">Ofertas</a>
 
                         <ul>
-                            <li><a href="#0">Mis ofertas</a></li>
-                            <li><a href="#0">Compras</a></li>
-                            <li><a href="#0">Inscripciones</a></li>
+                            <li><a href="{{path('user_profiler_offers')}}">Mis ofertas</a></li>
+                            <li><a href="{{path('user_profiler_purchases')}}">Compras</a></li>
+                            <li><a href="{{path('user_profiler_inscriptions')}}">Inscripciones</a></li>
                         </ul>
                     </li>
 {#                    {% endfor %}#}

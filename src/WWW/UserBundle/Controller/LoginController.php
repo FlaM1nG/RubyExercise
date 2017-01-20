@@ -15,8 +15,7 @@ class LoginController extends Controller{
     
     public function loginAction(Request $request){
         $session=$request->getSession();
-        
-        
+
         if(empty($session->get('intentoLogin')))
             $session->set('intentoLogin',0);
         
