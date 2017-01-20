@@ -268,6 +268,8 @@ class TradeController extends Controller{
     
     private function saveComment(Request $request, $idOffer){
         
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Please login to comment this offer!!');
+        
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/inscription/comment.php";
         
@@ -283,6 +285,9 @@ class TradeController extends Controller{
     }
     
     private function sendMessage(Request $request, $trade){
+        
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Please login to send a message!!');
+        
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."user/messages/send_message.php";
         
@@ -299,6 +304,7 @@ class TradeController extends Controller{
     }
     
     private function offerSubscribe($trade){
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Please login to subscribe this offer!!');
         
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/inscription/subscribe_user.php";
