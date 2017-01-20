@@ -21,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use WWW\GlobalBundle\Form\PhotoType;
 use WWW\GlobalBundle\Form\AdressType;
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 
 /**
  * Description of ProfileType
@@ -144,7 +145,7 @@ class ProfileType extends AbstractType{
          
     private function getPrefixes(){
         $arrayPrefix = array();
-        $filePrefix = "http://www.whatwantweb.com/api_rest/global/prefix/get_prefixes.php";
+        $filePrefix = MyConstants::PATH_APIREST."global/prefix/get_prefixes.php";
        
         $ch = new ApiRest();
         

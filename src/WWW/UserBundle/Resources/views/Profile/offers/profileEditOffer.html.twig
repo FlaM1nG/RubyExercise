@@ -1,0 +1,180 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+
+{% block title %}
+    Ofertas
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    
+    {{form_start(form)}}
+        {{form_row(form.offer.title)}}
+        {{form_row(form.category)}}
+        {{form_row(form.offer.description)}}
+        {{form_row(form.region)}}
+        {{form_row(form.dimensions)}}
+        {{form_row(form.weight)}}
+        {{form_row(form.price)}}
+        
+{#        {% if form.offer.photos.url.vars.value is not empty %}#}
+            {%set arrayUrl = "" %}
+            {% for photo in form.offer.photos %}
+                
+                {% set arrayUrl = arrayUrl~"'"~ asset(photo.url.vars.value,'img')~"'" %}
+                <div id="containerPhoto_{{photo.id.vars.value}}">
+                    <img src="{{photo.url.vars.value}}" />
+                    {{form_widget(photo.checkPhoto,{'attr': {'data-id': photo.id.vars.value} }) }}
+                </div>    
+                
+                
+            {% endfor %} 
+            <input id="urlsImage" value="{{arrayUrl}}">
+            <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading">
+            <button id="bDeletePhoto">Borrar imágenes</button>
+{#        {% endif %}   #}
+        
+        {{form_row(form.offer.fileImage)}}
+        {{form_row(form.offer.id)}}
+        {{form_row(form.saveTrade)}}
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    
+    <script src="{{ asset('js/plugins/canvas-to-blob.min.js') }}" 
+        type="text/javascript"></script>
+    <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+         This must be loaded before fileinput.min.js -->
+    <script src="{{ asset('js/plugins/sortable.js') }}" 
+        type="text/javascript"></script>
+    <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.
+         This must be loaded before fileinput.min.js -->
+    <script src="{{ asset('js/plugins/purify.min.js') }}" 
+        type="text/javascript"></script>
+    <!-- the main fileinput plugin file -->
+    <script src="{{ asset('js/fileinput.js') }}"></script>
+
+    <!-- optionally if you need translation for your language then include 
+        locale file as mentioned below -->
+    <script src="{{ asset('js/locales/es.js') }}"></script>
+    
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+           
+           $(document).on('click','#bDeletePhoto', deletePhotos);
+           
+           function deletePhotos(e){
+               e.preventDefault();
+               
+               var idImage = '';
+               var idOffer = $('.idOffer').val();
+               var data = {};
+               var url = "{{ url('user_ajax_deleteImageOffer') }}";
+               
+               $(':checkbox:checked').each(
+                    function() {   
+                        idImage = idImage+ ',' +$(this).attr('data-id');
+                    }            
+                );
+        
+                if(idImage.length > 0){
+                    
+                    idImage = idImage.substr(1);
+                    data['idOffer'] = idOffer;
+                    data['idImages'] = idImage;
+
+                    $.ajax({                        
+                        type: "POST",                 
+                        url: url,                     
+                        data: data, 
+                        success: function(data)             
+                        {
+                            if(data['result'] === 'ok'){
+
+                                var arrayImage = idImage.split(',');
+
+                                $.each(arrayImage, function(ind, elem) {   
+                                        $('#containerPhoto_'+elem).remove();
+                                    }
+                                );            
+
+                                console.log("ok");
+                                $('.contentAlert').html("<div class='alert "+
+                                "alert-success alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                data['message']+"</div>");
+
+                            }else{
+                                $('.contentAlert').html("<div class='alert "+
+                                "alert-warning alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                data['message']+"</div>");
+
+                            }
+
+                        },
+                        error: function()             
+                        {
+                            $('.contentAlert').html("<div class='alert "+
+                                "alert-warning alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
+
+                        }        
+                    });
+                }    
+           }
+           
+           $("#profileUser_fileImage").fileinput({
+                showUpload: false, 
+                previewFileType: 'image',
+                initialPreview: [
+                    'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg',
+                    'http://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Earth_Eastern_Hemisphere.jpg/600px-Earth_Eastern_Hemisphere.jpg'
+                ],
+                initialPreviewAsData: true,
+                initialPreviewConfig: [
+                    {caption: "Moon.jpg", size: 930321, width: "120px", key: 1},
+                    {caption: "Earth.jpg", size: 1218822, width: "120px", key: 2}
+                ],
+                deleteUrl: "/site/file-delete",
+                overwriteInitial: false,
+                maxFileSize: 100,
+                initialCaption: "Selecciona tu imagen de perfil"
+            });
+        });
+    </script>
+       
+{% endblock %}
+    

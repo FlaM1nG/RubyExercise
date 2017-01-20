@@ -38,7 +38,7 @@ WWW\OthersBundle\Entity\Trade:
     manyToOne:
         category:
             targetEntity: TradeCategory
-            inversedBy: Trade
+            inversedBy: trades
             joinColumn:
                 referencedColumnName: id
     lifecycleCallbacks: {  }

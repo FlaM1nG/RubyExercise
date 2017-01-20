@@ -18,6 +18,7 @@ use WWW\ServiceBundle\Form\OfferType;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Entity\TradeCategory;
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 
 /**
  * Description of TradeType
@@ -59,11 +60,11 @@ class TradeType extends AbstractType{
                                                          )) 
             
             ->add('region',TextType::class, array('label' => 'Provincia'))
-            ->add('checkOffer',CheckboxType::class,array('label' => ' ',
-                                                         'mapped' => false,
-                                                         'required' => false))                                                      
-            ->add('saveTrade','submit',array('label'=>'Guardar'))
-            ->add('deletePhotos','submit', array('label' => 'Eliminar imágenes'));                                                
+//            ->add('checkOffer',CheckboxType::class,array('label' => ' ',
+//                                                         'mapped' => false,
+//                                                         'required' => false))                                                      
+            ->add('saveTrade','submit',array('label'=>'Guardar'));
+//            ->add('deletePhotos','submit', array('label' => 'Eliminar imágenes'));                                                
             
         
     }
@@ -79,7 +80,7 @@ class TradeType extends AbstractType{
         
         $arrayCategory = array();
         
-        $fileCategory = "http://www.whatwantweb.com/api_rest/services/trade/get_categories.php";
+        $fileCategory = MyConstants::PATH_APIREST."services/trade/get_categories.php";
        
         $ch = new ApiRest();
         

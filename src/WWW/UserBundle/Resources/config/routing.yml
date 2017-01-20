@@ -5,7 +5,10 @@ user_register:
 user_login:
     path: /login/
     defaults: { _controller: UserBundle:Login:login }
-    
+
+user_login_check:
+    pattern:   /login
+    methods:   [POST]
 user_logout:
     path: /logout/
     defaults: { _controller: UserBundle:Login:logout }
@@ -14,18 +17,92 @@ user_profiler:
     path: /profile/
     defaults: { _controller: UserBundle:Profile:profile }
     
+user_profilerPersonal:
+    path: /profile/personalData/
+    defaults: { _controller: UserBundle:ProfilePersonalData:personalData }
+  
+user_profilerEmail:
+    path: /profile/email/
+    defaults: { _controller: UserBundle:ProfileEmail:profileEmail}        
+    
+user_profilePassword:
+    path: /profile/password/
+    defaults: { _controller: UserBundle:ProfilePassword:profilePassword}
+    
+user_profilePhone:
+    path: /profile/phone/
+    defaults: { _controller: UserBundle:ProfilePhone:profilePhone}
+
+user_profileConfirmPhone:
+    path: /profile/phone/confirm/
+    defaults: { _controller: UserBundle:ProfilePhone:confirmCode}
+    
+user_profileChangePhone:
+    path: /profile/phone/changePhone/
+    defaults: { _controller: UserBundle:ProfilePhone:profileChangePhone}    
+
+user_profilePhoto:
+    path: /profile/photo/
+    defaults: { _controller: UserBundle:ProfilePhoto:profilePhoto}
+    
+user_profileChangeBank:
+    path: /profile/bank/changeBank/
+    defaults: { _controller: UserBundle:ProfileBank:profileBank}
+    
+user_profileAddress:
+    path: /profile/address/
+    defaults: { _controller: UserBundle:ProfileAddress:listAddress}
+    
+user_profiler_editAdress:
+    path: /profile/address/{idAddress}/
+    defaults: { _controller: UserBundle:ProfileAddress:editAddress }
+    requirements:
+        idAddress: \d+
+    
+user_profiler_newAdress:
+    path: /profile/newAddress/
+    defaults: { _controller: UserBundle:ProfileAddress:newAddress }    
+       
 user_profiler_offers:
+    path: /profile/offers/
+    defaults: { _controller: UserBundle:Offer:myOffers }
+        
+user_profiler_editOffer:    
     path: /profile/offer/{idOffer}
-    defaults: { _controller: UserBundle:OfferUser:showOffer }
+    defaults: { _controller: UserBundle:Offer:editOffer }
     requirements:
         idOffer: \d+
+
+user_profiler_purchases:
+    path: /profile/purchases/
+    defaults: { _controller: UserBundle:Purchases:myPurchases }
+    
+user_profiler_inscriptions:
+    path: /profile/inscription/
+    defaults: { _controller: UserBundle:Inscriptions:myInscriptions }
+    
+user_profileMessage:
+    path: /profile/message/
+    defaults: { _controller: UserBundle:Message:listMessageReceived}
+    
+user_profileNewMessage:
+    path: /profile/message/new/
+    defaults: { _controller: UserBundle:Message:newMessage}
+    
+user_profileMessageSent:
+    path: /profile/message/sent/
+    defaults: { _controller: UserBundle:Message:listMessageSent}
+    
+user_profileMessageReceived:
+    path: /profile/message/received/
+    defaults: { _controller: UserBundle:Message:listMessageReceived}    
         
-user_profiler_message:
+user_profiler_readMessage:
     path: /profile/message/{idMessage}
     defaults: { _controller: UserBundle:Message:searchMessage }
     requirements:
         idMessage: \d+        
-
+       
 user_forgot:
     path: /forgot/
     defaults: { _controller: UserBundle:Default:forgotPass }
@@ -37,7 +114,23 @@ user_change:
 user_resend:
     path: /resend
     defaults: { _controller: UserBundle:Default:resend }
+    
+user_ajax_deleteMessage:
+    path: /ajax/message
+    defaults: { _controller: UserBundle:Message:removeMessage }
+    
+user_ajax_deleteOffer:
+    path: /ajax/deleteOffer
+    defaults: { _controller: UserBundle:OfferUser:deleteOffer }  
+    
+user_ajax_deleteImageOffer:
+    path: /ajax/deleteImageOffer
+    defaults: { _controller: UserBundle:Offer:deleteImageOffer }
+    
+user_ajax_deleteAddress:
+    path: /ajax/deleteAddress
+    defaults: { _controller: UserBundle:ProfileAddress:deleteAddresses }    
 
 user_public_profile:
     path: /profile/public
-    defaults: { _controller: UserBundle:Profile:profilePublic }
+    defaults: { _controller: UserBundle:Default:publicProfile }

@@ -20,4 +20,9 @@ WWW\ServiceBundle\Entity\ServiceCategory:
             targetEntity: WWW\GlobalBundle\Entity\Photo
             joinColumn:
                 referencedColumnName: id
+                
+    oneToMany:
+        services:
+            targetEntity: Service
+            mappedBy: category
     lifecycleCallbacks: {  }

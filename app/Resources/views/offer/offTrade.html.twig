@@ -1,6 +1,5 @@
 {% extends '::offer/layoutOffer.html.twig' %}
 {% import 'macros/popup.html.twig' as popups %}
-{% import 'macros/sidebar.html.twig' as sidebars %}
 {% import 'macros/user.html.twig' as users %}
 
 {#{ BLOQUES -->     offerImage 
@@ -30,7 +29,7 @@
                 asset('img/macbook.png'),
                 asset('img/alquilerTuristico3.jpg')]) %}
 
-
+                
             {% set imgGallery = imgGallery|merge([imageOff] ) %#}
         {% for photo in trade.offer.photos %}
             <div class="item">
@@ -45,11 +44,10 @@
                 </div>
             </div>
         {% endfor %}
-        {#% endfor %#}
     </div>
 
     <div id="off-img-small" class="owl-carousel">
-        {% for photo in trade.offer.photos %}
+       {% for photo in trade.offer.photos %}
         <div class="item off-item-dime">
             <div class="off-img-marco-peque">
                 <img class="img-responsive off-img-slid" 
@@ -98,6 +96,7 @@
         <span>★</span>
         <span>★</span>
     </div>
+   
     <!-- FIN VALORACIONES -->
 {% endblock %}
 
@@ -129,28 +128,22 @@
 {% block offerComments %}
     <h4>COMENTARIOS</h4>
     <hr>
-    
+    {{ form_start(formComment) }}
     <div class="off-form-comment">
         <div class="input-group">
-            {#<textarea class="form-control custom-control" 
-                rows="3" 
-                style="resize:none">
-                    
-            </textarea>
-            <span class="input-group-addon btn btn-primary">
-                Enviar
-            </span>#}
             
-            {{ form_widget(formComment.comment, { 'attr': { 'class': 'custom-control',
-                                                  'rows': '3', 'style': 'resize:none' } }) }}
-                                                  
-            <span class="input-group-btn">
-            {{ form_widget(formComment.newComment, { 'attr': { 'class': 'btn btn-primary off-com-btn' } }) }}
-            </span>
+            
+                {{ form_widget(formComment.comment, { 'attr': { 'class': 'custom-control',
+                                                      'rows': '3', 'style': 'resize:none' } }) }}
+
+                <span class="input-group-btn">
+                {{ form_widget(formComment.newComment, { 'attr': { 'class': 'btn btn-primary off-com-btn' } }) }}
+                </span>
+               
         </div>
 
     </div>
-    
+    {{ form_end(formComment) }} 
     {% set i = 0 %}
     {% for comment in trade.offer.comments %}
     <div class="off-comment-target">
@@ -205,3 +198,4 @@
     {% set title = 'Enviar mensaje a ' ~ trade.offer.userAdmin.username %}
     {{ popups.popup('writeUser', title, include('offer/offPrivateMessage.html.twig') ) }}
 {% endblock %}
+

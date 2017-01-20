@@ -1,0 +1,45 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/offer.html.twig' as offers %}
+
+{% block title %}
+    Ofertas
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    
+    <h2>LISTA OFERTA</h2>
+    {% for offer in listOffers %}
+        
+        {{ offers.offUser('#oferta', offer.photos.0.url ,offer.title, 
+            offer.description, 'leer', path('user_profiler_editOffer',{idOffer:offer.id}), 
+            'editar', '#borrar', 'borrar') }}
+    {% endfor %}
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+       
+{% endblock %}
+    

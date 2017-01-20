@@ -1,0 +1,133 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/message.html.twig' as message %}
+
+{% block title %}
+    Mensajes
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    
+    {% if type == 'send' %}
+        <h2>MENSAJES ENVIADO ABIERTO</h2>
+        {{ message.messElementSentOpen(mensaje.to.username, mensaje.createdDate,
+            mensaje.subject, mensaje.message,
+            mensaje.id, '#borrar', 'borrar') }}
+            
+    {% else %}
+        
+        <h2>MENSAJES RECIBIDO ABIERTO</h2>
+        {{ message.messElementReceivedOpen(mensaje.from.username, mensaje.createdDate,
+            mensaje.subject, mensaje.message,
+            mensaje.id, '#borrar', mensaje.id, '#contestar', 'contestar') }}
+            
+        <div id="replyForm" style="display:none">
+            {{form_start(form)}}
+                {{form_row(form.id)}}
+                {{form_row(form.to.username,{'attr':{'readonly':'true'} })}}
+                {{form_row(form.subject,{'attr':{'readonly':'true'} })}}
+                {{form_row(form.message)}}
+                {{form_row(form.enviar)}}
+                {{form_row(form.cancelar)}}
+                {{form_row(form._token)}}
+        </div>    
+    {% endif %}
+    
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+         $(document).ready(function() {
+             
+             $(document).on('click','#buttonReply, #message_cancelar', showForm);
+             $(document).on('click','.bDeleteMessage', deleteMessage);
+             
+             function showForm(e){
+                 e.preventDefault;
+                 
+                 if($('.containerMessage').is(':visible')){
+                     $('.containerMessage').hide();
+                     $('#replyForm').show();
+                 }else{
+                     $('.containerMessage').show();
+                     $('#replyForm').hide();
+                 }
+             }
+             
+             function deleteMessage(e){
+                e.preventDefault();
+                
+                var id = $(this).attr('data-id');
+                var data = {};
+                
+                data['id'] = id;
+                
+                $.ajax({                        
+                    type: "POST",                 
+                    url: "{{ url('user_ajax_deleteMessage') }}",                     
+                    data: data, 
+                    success: function(data)             
+                    {
+                        if(data['result'] === 'ok'){
+                            $('.containerMessage').remove();  
+                            $('.contentAlert').html("<div class='alert "+
+                            "alert-success alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }else{
+                            $('.contentAlert').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }
+                        
+                    },
+                    error: function(data)             
+                    {
+                        $('.contentAlert').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
+         
+                    }        
+                });
+            }
+         });
+    </script>    
+    
+{% endblock %}
+    

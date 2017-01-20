@@ -39,8 +39,8 @@ class MessageType extends AbstractType{
                                                           'required' => false))
                 
                 ->add('enviar', 'submit', array('label' => 'Enviar'))
-                ->add('borrar','submit', array('label' => 'Borrar',
-                                               'attr' => array('class' => 'buttonDeleteMessage') ));
+                ->add('cancelar','submit', array('label' => 'Cancelar',
+                                               'attr' => array('class' => 'btn-default buttonCancel') ));
     }
 
     public function configureOptions(OptionsResolver $resolver){

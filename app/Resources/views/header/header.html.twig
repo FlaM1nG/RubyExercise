@@ -31,6 +31,7 @@
                 <ul style="border-right: 0;">
                     
                     <li class="text-nav-user">
+                        
                         {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <a href="{{ path('user_profiler') }}">
                                 <span class="glyphicon glyphicon-user size-icon">

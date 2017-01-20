@@ -40,23 +40,23 @@ WWW\UserBundle\Entity\Message:
     manyToOne:
         from:
             targetEntity: User
-            inversedBy: Message
+            inversedBy: sent
             joinColumn:
                 referencedColumnName: id
         to:
             targetEntity: User
-            inversedBy: Message
+            inversedBy: received
             joinColumn:
                 referencedColumnName: id
         revisionUser:
             targetEntity: User
-            inversedBy: Message
+            inversedBy: revised
             joinColumn:
                 referencedColumnName: id
         offer:
             nullable: true
             targetEntity: WWW\ServiceBundle\Entity\Offer
-            inversedBy: Message
+            inversedBy: comments
             joinColumn:
                 referencedColumnName: id
     lifecycleCallbacks: {  }

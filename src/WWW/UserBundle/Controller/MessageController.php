@@ -6,67 +6,73 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
+use WWW\GlobalBundle\MyConstants;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
-use WWW\UserBundle\Form\ProfileMessageType;
-use WWW\UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class MessageController extends Controller{
     
     private $session;
     private $ut;
-    private $message;
-    private $user;
     
-    public function messageAction(Request $request,User $user){
-        //print_r($request);
-        $this->setUpVars($request,$user);
-
-        $this->searchMessageFrom($request);
-        $this->searchMessageTo($request);
+    public function listMessageSentAction(Request $request){
+        $this->setUpVars($request);
         
-        $formMessage = $this->createForm(MessageType::class,$this->message); 
+        $messageSent = $this->searchMessageFrom($request);
         
-        $formListMessages = $this->createForm(ProfileMessageType::class, $this->user);
-       
-        $formMessage->handleRequest($request);
+        return $this->render('UserBundle:Profile:messageSent.html.twig',
+                       array('messages' => $messageSent));
         
-        $formListMessages->handleRequest($request);
-
-        if($formListMessages->isSubmitted()):
-            if($formMessage->get('enviar')->isClicked()):
-                $this->sendMessage($request);
-            else:  
-                if(!empty($request->request->all()['profileMessage']['fromTo'])): 
-                    $this->removeMessage($request);
-                    //Al haber actualizado el usuario hay que volver a crear el formulario
-                    $formListMessages = $this->createForm(ProfileMessageType::class, $this->user);
-                endif;
-        
-            endif;
-        endif;    
-
-        return $this->render('UserBundle:Default:profileMessage.html.twig',
-                             array('formMessage' => $formMessage->createView(),
-                                   'formListMessages'=> $formListMessages->createView() ));
-
     }
     
-    private function setUpVars(Request $request,$user = null){
+    public function listMessageReceivedAction(Request $request){
+        $this->setUpVars($request);
+        
+        $messageReceived = $this->searchMessageTo($request);
+        
+        return $this->render('UserBundle:Profile:messageReceived.html.twig',
+                       array('messages' => $messageReceived));
+        
+    }
+    
+    public function newMessageAction(Request $request){
+        $this->setUpVars($request);
+        
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted()):
+            $result = $this->sendMessage($request, $message);
+            if($result == 'ok'):
+                return $this->forward('UserBundle:Message:listMessageSent');
+            endif;
+        endif;
+        
+        return $this->render('UserBundle:Profile:newMessageProfile.html.twig',
+                        array('form' => $form->createView())   
+                );
+    }
+    
+    private function setUpVars(Request $request){
         
         $this->session = $request->getSession();
         
         $this->ut = new Utilities();
-        
-        $this->message = new Message();
-        $this->user = $user;
+       
+        if(empty($this->session->get('num_messages'))): 
+            $this->session->set('numMessage',$this->ut->messageNoRead($request));
+        endif;
 
     }
     
     private function searchMessageFrom(Request $request){
         
-        $file = "http://www.whatwantweb.com/api_rest/user/messages/list_messages.php";
+        $file = MyConstants::PATH_APIREST."user/messages/list_messages.php";
         $ch = new ApiRest();
+        $arraySent = null;
         
         $data['username'] = $this->session->get('username');
         $data['id'] = $this->session->get('id');
@@ -80,15 +86,18 @@ class MessageController extends Controller{
         else:    
             
             foreach($result['messages'] as $data):
-               $this->user->addSent(new Message($data));
+               $arraySent[] = new Message($data);
             endforeach;
         endif;
+        
+        return $arraySent;
     }
     
-     private function searchMessageTo(Request $request){
+    private function searchMessageTo(Request $request){
         
-        $file = "http://www.whatwantweb.com/api_rest/user/messages/list_messages.php";
+        $file = MyConstants::PATH_APIREST."user/messages/list_messages.php";
         $ch = new ApiRest();
+        $messages = null;
         
         $data['username'] = $this->session->get('username');
         $data['id'] = $this->session->get('id');
@@ -102,36 +111,56 @@ class MessageController extends Controller{
             return null;
         else:
             foreach($result['messages'] as $data):
-                $this->user->addReceived(new Message($data));
+                $messages[] = new Message($data);
             endforeach; 
         endif;    
         
-        
+        return $messages;
     }
     
     public function searchMessageAction(Request $request){
+        
+        $formMessage = null;
+        $messageReply = null;
         $this->setUpVars($request);
         $id = $request->get('idMessage');
 
-        $this->getMessage($request, $id);
-
-        $form = $this->createForm(MessageType::class,$this->message); 
-        $form->handleRequest($request);
-       
-        if($form->isSubmitted()):
-            $this->sendMessage($request);
-            return $this->redirectToRoute('user_profiler');
+        $message = $this->getMessage($id);
+        $type = 'received';
+        
+        if($message->getFrom()->getId() == $request->getSession()->get('id')):
+            $type = 'send';
+        else:
+            $messageReply = new Message();
+            $messageReply->setSubject('Re: '.$message->getSubject());
+            $messageReply->setFrom($message->getTo());
+            $messageReply->setTo($message->getFrom());
+            
+            $form = $this->createForm(MessageType::class,$messageReply);
+            $formMessage = $form->createView();
+            
+            $form->handleRequest($request);
+            
+            if($form->isSubmitted() && $form->get('enviar')->isClicked()):
+                $result = $this->sendMessage($request, $messageReply);
+            
+                if($result == 'ok'):
+                    $this->forward('UserBundle:Message:listMessageReceived');
+                endif;
+            endif;
         endif;
         
-        return $this->render("UserBundle:Message:showMessage.html.twig",
-                             array('message' => $this->message,
-                                   'form' => $form->createView()));
+        return $this->render("UserBundle:Profile:readMessage.html.twig",
+                             array('mensaje' => $message,
+                                   'type' => $type,
+                                   'form' => $formMessage));
     }
     
-    public function getMessage(Request $request, $id){
+    public function getMessage($id){
    
-        $file = "http://www.whatwantweb.com/api_rest/user/messages/get_message.php"; 
+        $file = MyConstants::PATH_APIREST."user/messages/get_message.php"; 
         $ch = new ApiRest();
+        $message = null;
         
         $data['username'] = $this->session->get('username');
         $data['id'] = $this->session->get('id');
@@ -140,63 +169,62 @@ class MessageController extends Controller{
         
         $result = $ch->resultApiRed($data, $file);
 
-        $this->message = new Message($result);
+        if($result['result'] == 'ok')
+            $message = new Message($result);
         
-        if(array_key_exists('result', $result))
-            $this->ut->flashMessage("general", $request, $result);
+        return $message;
         
     }
     
-    private function sendMessage(Request $request){
+    private function sendMessage(Request $request, $message){
         
-        $file = "http://www.whatwantweb.com/api_rest/user/messages/send_message.php"; 
+        $file = MyConstants::PATH_APIREST."user/messages/send_message.php"; 
         $ch = new ApiRest();
         
         $data['username'] = $this->session->get('username');
         $data['id'] = $this->session->get('id');
         $data['password'] = $this->session->get('password');
-        $data['to'] = $this->message->getTo()->getUsername();//$request->request->all()['message']['to'];
-        $data['subject'] = $this->message->getSubject(); 
-        $data['message'] = $this->message->getMessage();       
+        $data['to'] = $message->getTo()->getUsername();
+        $data['subject'] = $message->getSubject(); 
+        $data['message'] = $message->getMessage();       
 
         $result = $ch->resultApiRed($data, $file);
 
         $this->ut->flashMessage("message", $request, $result);
+        
+        return $result['result'];
    
     }
     
-    private function removeMessage(Request $request){
+    public function removeMessageAction(Request $request){
+           
+        $id = $request->get('id');
+        $session = $request->getSession();
         
-        $arrayData = $request->request->all()['profileMessage'];
-        $posArray = (int)$arrayData['idRemove'];
-        $type = $arrayData['fromTo'];
-        $idMessage = null;
-
-        if($type == 'sent'): 
-            $idMessage = $this->user->getSent()[$posArray]->getId();
-        else:  echo "entro en received<br>";
-            $idMessage = $this->user->getReceived()[$posArray]->getId();
-        endif;
-
-        $file = "http://www.whatwantweb.com/api_rest/user/messages/delete_message.php";
+        $response = new JsonResponse();
+        
+        $file = MyConstants::PATH_APIREST."user/messages/delete_message.php";
         $ch = new ApiRest();
         
-        $data['username'] = $this->session->get('username');
-        $data['id'] = $this->session->get('id');
-        $data['password'] = $this->session->get('password');
-        $data['message_id'] = $idMessage;
+        $data['username'] = $session->get('username');
+        $data['id'] = $session->get('id');
+        $data['password'] = $session->get('password');
+        $data['message_id'] = $id;
         
         $result = $ch->resultApiRed($data, $file);
-
+        
         if($result['result'] == 'ok'):
-            if($type == 'sent'): echo "<br>entro bien <br>";
-                $this->user->removeSent($posArray);
-            else: 
-                $this->user->removeReceived($posArray);
-            endif;
+            $response->setData(array(
+                'result' => 'ok',
+                'message' => 'Mensaje eliminado correctamente'));
+        else:
+             $response->setData(array(
+                'result' => 'ko',
+                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
         endif;
         
-        $this->ut->flashMessage("general", $request, $result);
+        return $response;
+               
     }
 
 }

@@ -1,0 +1,112 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/message.html.twig' as message %}
+
+{% block title %}
+    Mensajes
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+
+    <h2>MENSAJES RECIBIDOS</h2>
+    {% for mensaje in messages %}
+        {% if mensaje.status == 3 %}
+            {{ message.messElementReceived(mensaje.from.username, mensaje.createdDate,
+                mensaje.subject, mensaje.message,
+                'containerMessage_'~mensaje.id, path('user_profiler_readMessage', {idMessage:mensaje.id} ), '#borrar', mensaje.id) }}
+        {% else %}   
+            
+            {{ mensaje.messElementReceivedNot(
+                mensaje.from.username, 
+                mensaje.createdDate,
+                mensaje.subject, 
+                mensaje.message,
+                'containerMessage_'~mensaje.id,
+                path('user_profiler_readMessage', {idMessage:mensaje.id} ), 
+                'leer', 
+                '#borrar', 
+                mensaje.id) }}
+        {% endif %}        
+        
+    {% endfor %}
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+         $(document).ready(function() {
+            $(document).on('click','.bDeleteMessage', deleteMessage);
+            
+            function deleteMessage(e){
+                
+                var id = $(this).attr('data-id');
+                var data = {};
+                
+                data['id'] = id;
+                
+                $.ajax({                        
+                    type: "POST",                 
+                    url: "{{ url('user_ajax_deleteMessage') }}",                     
+                    data: data, 
+                    success: function(data)             
+                    {
+                        if(data['result'] === 'ok'){
+                            $('#containerMessage_'+id).remove();  
+                            $('.contentAlert').html("<div class='alert "+
+                            "alert-success alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }else{
+                            $('.contentAlert').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }
+                        
+                    },
+                    error: function(data)             
+                    {
+                        $('.contentAlert').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
+         
+                    }        
+                });
+            }
+         });
+    </script>    
+{% endblock %}
+    

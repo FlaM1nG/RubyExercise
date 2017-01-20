@@ -96,7 +96,7 @@ WWW\UserBundle\Entity\User:
     oneToMany:
         addresses:
             targetEntity: WWW\GlobalBundle\Entity\Address
-            mappedBy: User
+            mappedBy: user
         inviteds:
             targetEntity: User
             mappedBy: hostUser
@@ -106,6 +106,18 @@ WWW\UserBundle\Entity\User:
         received:
             targetEntity: Message
             mappedBy: to
+        revised:
+            targetEntity: Message
+            mappedBy: revisionUser
+        offers:
+            targetEntity: WWW\ServiceBundle\Entity\Offer
+            mappedBy: userAdmin
+        inscriptions:
+            targetEntity: WWW\ServiceBundle\Entity\Inscription
+            mappedBy: user              
+        valorations:
+            targetEntity: WWW\ServiceBundle\Entity\Valoration
+            mappedBy: user 
     oneToOne:        
         photo:
             nullable: true
@@ -121,7 +133,7 @@ WWW\UserBundle\Entity\User:
         role:
             nullable: true
             targetEntity: Role
-            inversedBy: User
+            inversedBy: users
             joinColumn:
                 referencedColumnName: id
         hostUser:

@@ -23,6 +23,8 @@ class Role
      * @var \Doctrine\Common\Collections\Collection
      */
     private $permissions;
+    
+    private $users;
 
     /**
      * Get id

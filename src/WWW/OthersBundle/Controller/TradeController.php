@@ -20,6 +20,10 @@ use WWW\GlobalBundle\MyConstants;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
 use WWW\UserBundle\Entity\User;
+use WWW\ServiceBundle\Form\OfferSuscribeType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Description of TradeController
@@ -36,6 +40,9 @@ class TradeController extends Controller{
 
         $this->setUpVars($request);
         $trade = new Trade();
+        
+        $this->denyAccessUnlessGranted('create_offer', $trade);
+        
         $formTrade = $this->createForm(TradeType::class,$trade);
         $formTrade->handleRequest($request);
         
@@ -116,9 +123,10 @@ class TradeController extends Controller{
     }
     
     public function listTradeAction(Request $request){
-       
+      // print_r($request);
+        
         $this->setUpVars($request);
-        $varPost = $request->request->all();
+        $varPost = $request->query->all();
         
         
         $data['service'] = 'trade';
@@ -126,21 +134,21 @@ class TradeController extends Controller{
         
         if(!empty($varPost)):
             
-            if(!empty($request->get('object')))
-                $data['search'] = $request->get('object');
+            if(!empty($request->query->get('object')))
+                $data['search'] = $request->query->get('object');
             
-            if(!empty($request->get('city')))
-                $data['filters']['location'] = $request->get('city'); 
+            if(!empty($request->query->get('city')))
+                $data['filters']['location'] = $request->query->get('city'); 
             
-            if(!empty($request->get('minPrice'))):
-                $data['filters']['min_price'] = (int)$request->get('minPrice'); 
+            if(!empty($request->query->get('minPrice'))):
+                $data['filters']['min_price'] = (int)$request->query->get('minPrice'); 
             endif;
             
-            if(!empty($request->get('maxPrice')))
-                $data['filters']['max_price'] = (int)$request->get('maxPrice'); 
+            if(!empty($request->query->get('maxPrice')))
+                $data['filters']['max_price'] = (int)$request->query->get('maxPrice'); 
             
             if(array_key_exists('category', $varPost)):
-                foreach($request->get('category') as $cat):
+                foreach($request->query->get('category') as $cat):
                     $data['filters']['categories'][] = (int)$cat;
                 endforeach;
             endif;     
@@ -186,9 +194,11 @@ class TradeController extends Controller{
         
         $formComment = $this->createForm(CommentType::class, $comment);
         $formMessage = $this->createForm(MessageType::class, $message);
+        $formSubscribe = $this->createForm(OfferSuscribeType::class);
         
         $formComment->handleRequest($request);
         $formMessage->handleRequest($request);
+        $formSubscribe->handleRequest($request);
         
         if($formComment->isSubmitted()):
             $this->saveComment($request, $trade->getOffer()->getId());
@@ -196,14 +206,17 @@ class TradeController extends Controller{
             
         elseif($formMessage->isSubmitted()):
             $this->sendMessage($request,$trade);
-            echo "ENTRO";
-            //($message);
+        
+        elseif($formSubscribe->isSubmitted()):
+            $this->offerSubscribe($trade);
+        
         endif;
         
         return $this->render('offer/offTrade.html.twig',array(
                              'trade' => $trade,
                              'formComment' => $formComment->createView(),
-                             'formMessage' => $formMessage->createView()   
+                             'formMessage' => $formMessage->createView()  ,
+                             'formSubscribe' => $formSubscribe->createView()
         ));
     }
     
@@ -230,14 +243,14 @@ class TradeController extends Controller{
         $this->setUpVars($request);
         
         $ch = new ApiRest();
-        $file = MyConstants::PATH_APIREST."services/trade/get_trade.php";
+//        $file = MyConstants::PATH_APIREST."services/trade/get_trade.php";
+        $file = MyConstants::PATH_APIREST."services/offer/get_offer.php";
 
         $trade = null;
        
         $data['id'] = $request->get('idOffer');
         
         $result = $ch->resultApiRed($data, $file);
-        
          
         if($result['result'] == 'ok'):
             $trade = new Trade($result);
@@ -280,6 +293,46 @@ class TradeController extends Controller{
         $data['subject'] = $request->get('message')['subject'];
         $data['message'] = $request->get('message')['message'];
         
-        print_r($data);
+        $result = $ch->resultApiRed($data, $file);
+        
+        $this->ut->flashMessage("message", $request, $result);
+    }
+    
+    private function offerSubscribe($trade){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/inscription/subscribe_user.php";
+        
+        $data = $this->formArrayData();
+        $data['offer_id'] = $trade->getOffer()->getId();
+        
+        $result = $ch->resultApiRed($data, $file);
+
+    }
+    
+    private function formArrayData(){
+        
+        $data['id'] = $this->session->get('id');
+        $data['username'] = $this->session->get('username');
+        $data['password'] = $this->session->get('password');
+        
+        return $data;
+    }
+    
+    /**
+     * @Route("/ajax/rating", name="ajax_rating")
+     * @Method({"POST"})
+     */
+    
+    public function pruebaAction(Request $request){
+        $newRating = $request->get('rating');
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/inscription/rate.php";
+        
+        $data = $this->formArrayData();
+        
+        $response = new JsonResponse();
+        return $response;
     }
 }

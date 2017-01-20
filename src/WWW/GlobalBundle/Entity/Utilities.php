@@ -9,8 +9,10 @@
 namespace WWW\GlobalBundle\Entity;
 
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 use WWW\OthersBundle\Entity\TradeCategory;
 use Symfony\Component\HttpFoundation\Request;
+
 
 /**
  * Description of Utilities
@@ -23,7 +25,7 @@ class Utilities{
 
         $arrayCategory = array();
 
-        $fileCategory = "http://www.whatwantweb.com/api_rest/services/trade/get_categories.php";
+        $fileCategory = MyConstants::PATH_APIREST."services/trade/get_categories.php";
 
         $ch = new ApiRest();
 
@@ -79,7 +81,7 @@ class Utilities{
     
     public function saveFoto($arrayImage){
 
-        $filePhotos = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
+        $filePhotos = MyConstants::PATH_APIREST."global/photo/add_photos.php";
         
         $ch = new ApiRest();
         
@@ -92,13 +94,15 @@ class Utilities{
 
     }
     
-    public function flashMessage($type, Request $request, $result = null){
+    public function flashMessage($type, Request $request, $result = null,$messageError = null){
 
         $success = "";
         $error = "Se ha producido un error, por favor vuelva a intentarlo";
         
+        if(!empty($messageError)) $error = $messageError;
+        
         switch($type):
-            case 'general':     $success = "Datos actualizados correctamente";
+            case 'general':     $success = "Datos actualizados";
                                 break;
             case 'offer':       $success = "Oferta creada";  
                                 break;   
@@ -112,7 +116,12 @@ class Utilities{
             case 'tradeImageN': $error = "Debe introducir de 1 a 5 fotos";
                                 break;
             case 'message':     $success = "Mensaje enviado";
-            case 'comment':     $success = "Comentario enviado";    
+                                break;
+            case 'comment':     $success = "Comentario enviado";  
+                                break;
+            default:
+                                $success = $type;
+                                break;    
                                         
         endswitch;
         
@@ -121,6 +130,24 @@ class Utilities{
         else:
             $request->getSession()->getFlashBag()->add('messageFail', $error);
         endif;
+    }
+    
+    public function messageNoRead(Request $request){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."user/messages/get_num_messages.php";
+        $numMessage = 0;
+        
+        $data['id'] =  $request->getSession()->get('id');
+        $data['username'] =  $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        
+        $result = $ch->resultApiRed($data, $file);
+        
+        if($result['result'] == 'ok')
+            $numMessage = $result['num_messages'];
+        
+        return $numMessage;
     }
 }
 

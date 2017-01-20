@@ -9,6 +9,8 @@ use WWW\OthersBundle\Form\TradeType;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\Entity\Photo;
+use WWW\GlobalBundle\MyConstants;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class OfferUserController extends Controller{
     
@@ -71,7 +73,7 @@ class OfferUserController extends Controller{
 
    private function searchOffer(Request $request, $id){
        
-       $file = "http://www.whatwantweb.com/api_rest/services/offer/get_offer.php";
+       $file = MyConstants::PATH_APIREST."services/offer/get_offer.php";
        $ch = new ApiRest();
        
        $data['id'] = $id;
@@ -121,7 +123,7 @@ class OfferUserController extends Controller{
         endif;
         
         $ch = new ApiRest();
-        $file = "http://www.whatwantweb.com/api_rest/services/offer/update_offer.php";
+        $file = MyConstants::PATH_APIREST."services/offer/update_offer.php";
         
         $info['id'] = $this->session->get('id');
         $info['username'] = $this->session->get('username');
@@ -159,7 +161,7 @@ class OfferUserController extends Controller{
 
         if(!empty($idsPhotos)):
             
-            $file = "http://www.whatwantweb.com/api_rest/services/photos/delete_offer_photo.php";
+            $file = MyConstants::PATH_APIREST."services/photos/delete_offer_photo.php";
             $data['id'] = $this->session->get('id');
             $data['username'] = $this->session->get('username');
             $data['password'] = $this->session->get('password');
@@ -190,7 +192,7 @@ class OfferUserController extends Controller{
         $ut = new Utilities();
         $arrayPhotos = $ut->uploadImage($arrayImage, $this->session->get('id'));
         
-        $filePhotos = "http://www.whatwantweb.com/api_rest/global/photo/add_photos.php";
+        $filePhotos = MyConstants::PATH_APIREST."global/photo/add_photos.php";
         
         $ch = new ApiRest();
         
@@ -213,6 +215,37 @@ class OfferUserController extends Controller{
         else:
             $this->flashMessageErrorSearch($result['result']);
         endif;
+        
+    }
+    
+    public function deleteOfferAction(Request $request){
+        
+        $id = $request->get('id');
+        $session = $request->getSession();
+        
+        $response = new JsonResponse();
+        
+        $file = MyConstants::PATH_APIREST."services/offer/delete_offer.php";
+        $ch = new ApiRest();
+        
+        $data['username'] = $session->get('username');
+        $data['id'] = $session->get('id');
+        $data['password'] = $session->get('password');
+        $data['offer_id'] = $id;
+        
+        $result = $ch->resultApiRed($data, $file);
+            
+        if($result['result'] == 'ok'):
+            $response->setData(array(
+                'result' => 'ok',
+                'message' => 'Oferta eliminada correctamente'));
+        else:
+             $response->setData(array(
+                'result' => 'ko',
+                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
+        endif;
+        
+        return $response;
         
     }
     

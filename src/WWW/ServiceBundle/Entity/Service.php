@@ -38,6 +38,8 @@ class Service
      * @var string
      */
     private $table;
+    
+    private $offers;
 
     public function __construct($id = null) {
         $this->id = null;

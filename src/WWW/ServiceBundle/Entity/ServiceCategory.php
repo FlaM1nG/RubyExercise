@@ -29,7 +29,11 @@ class ServiceCategory
      */
     private $photo;
     
-    
+    private $services;
+
+
+
+
     /**
      * Get id
      *

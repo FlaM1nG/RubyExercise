@@ -56,7 +56,13 @@
             'Title Message'~i, include('macros/text.html.twig'),
             'id', 'leer', '#borrar', 'borrar') }}
     {% endfor %}
-    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        });
+    </script>
     <h2>MENSAJES ENVIADOS</h2>
     {% for i in 0..4 %}
         
