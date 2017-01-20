@@ -45,6 +45,10 @@ user_profilePhoto:
     path: /profile/photo/
     defaults: { _controller: UserBundle:ProfilePhoto:profilePhoto}
     
+user_profileChangeBank:
+    path: /profile/bank/changeBank/
+    defaults: { _controller: UserBundle:ProfileBank:profileBank}
+    
 user_profileAddress:
     path: /profile/address/
     defaults: { _controller: UserBundle:ProfileAddress:listAddress}
