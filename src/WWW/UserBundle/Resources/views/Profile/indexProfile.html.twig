@@ -17,6 +17,13 @@
 
 
 {% block bodyProfile %}
+    <h2>LISTA INSCRIPCIONES</h2>
+    {% for i in 0..2 %}
+        {{ offers.offUserInscription('#oferta', '' ,'Title Offer', 
+            include('macros/text.html.twig'), 'leer', '#Valorar', 
+            'Valorar') }}
+    {% endfor %}
+    
     <h2>LISTA OFERTA DISFRUTADAS</h2>
     {% for i in 0..4 %}
         {{ offers.offUserDisfrutadas('#oferta', '' ,'Title Offer', 'now', 
