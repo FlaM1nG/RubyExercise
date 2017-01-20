@@ -127,9 +127,8 @@
                 e.preventDefault();
                 var id = $(this).attr('data-id');
                 var data = {};
-                var url = "{{ url('user_ajax_deleteAddress') }}";
+                var url = "{{ path('user_ajax_deleteAddress') }}";
                 var container = container = '.containerAddress_'+id;
-                
                 
                 data['id'] = id;
                 

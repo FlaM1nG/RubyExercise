@@ -33,25 +33,11 @@
         {{form_row(form.dimensions)}}
         {{form_row(form.weight)}}
         {{form_row(form.price)}}
+  
+        <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading">
+{#        <button id="bDeletePhoto">Borrar imágenes</button>#}
         
-{#        {% if form.offer.photos.url.vars.value is not empty %}#}
-            {%set arrayUrl = "" %}
-            {% for photo in form.offer.photos %}
-                
-                {% set arrayUrl = arrayUrl~"'"~ asset(photo.url.vars.value,'img')~"'" %}
-                <div id="containerPhoto_{{photo.id.vars.value}}">
-                    <img src="{{photo.url.vars.value}}" />
-                    {{form_widget(photo.checkPhoto,{'attr': {'data-id': photo.id.vars.value} }) }}
-                </div>    
-                
-                
-            {% endfor %} 
-            <input id="urlsImage" value="{{arrayUrl}}">
-            <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading">
-            <button id="bDeletePhoto">Borrar imágenes</button>
-{#        {% endif %}   #}
-        
-        {{form_row(form.offer.fileImage)}}
+{#        {{form_row(form.offer.fileImage)}}#}
         {{form_row(form.offer.id)}}
         {{form_row(form.saveTrade)}}
     
@@ -82,96 +68,35 @@
     
     <script type="text/javascript">
         $(document).ready(function(){
+          
+            {% set arrayUrl = "" %} 
+            {% set arrayCaption = "" %}
+            {% for photo in form.offer.photos %}
+                
+                {% set arrayUrl = arrayUrl~"'"~asset(photo.url.vars.value,'img')~"'," %}  
+                {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~photo.id.vars.value~", extra: {idOffer:"~form.offer.id.vars.value~" } }," %}
+ 
+            {% endfor %} 
            
-           $(document).on('click','#bDeletePhoto', deletePhotos);
-           
-           function deletePhotos(e){
-               e.preventDefault();
+   
+           $("#imgOffer").fileinput({
                
-               var idImage = '';
-               var idOffer = $('.idOffer').val();
-               var data = {};
-               var url = "{{ url('user_ajax_deleteImageOffer') }}";
-               
-               $(':checkbox:checked').each(
-                    function() {   
-                        idImage = idImage+ ',' +$(this).attr('data-id');
-                    }            
-                );
-        
-                if(idImage.length > 0){
-                    
-                    idImage = idImage.substr(1);
-                    data['idOffer'] = idOffer;
-                    data['idImages'] = idImage;
-
-                    $.ajax({                        
-                        type: "POST",                 
-                        url: url,                     
-                        data: data, 
-                        success: function(data)             
-                        {
-                            if(data['result'] === 'ok'){
-
-                                var arrayImage = idImage.split(',');
-
-                                $.each(arrayImage, function(ind, elem) {   
-                                        $('#containerPhoto_'+elem).remove();
-                                    }
-                                );            
-
-                                console.log("ok");
-                                $('.contentAlert').html("<div class='alert "+
-                                "alert-success alert-dismissible' role='alert'>"+
-                                "<button type='button' class='close' "+
-                                "data-dismiss='alert' aria-label='Close'>"+
-                                "<span aria-hidden='true'>×</span>"+
-                                "</button><strong></strong>"+
-                                data['message']+"</div>");
-
-                            }else{
-                                $('.contentAlert').html("<div class='alert "+
-                                "alert-warning alert-dismissible' role='alert'>"+
-                                "<button type='button' class='close' "+
-                                "data-dismiss='alert' aria-label='Close'>"+
-                                "<span aria-hidden='true'>×</span>"+
-                                "</button><strong></strong>"+
-                                data['message']+"</div>");
-
-                            }
-
-                        },
-                        error: function()             
-                        {
-                            $('.contentAlert').html("<div class='alert "+
-                                "alert-warning alert-dismissible' role='alert'>"+
-                                "<button type='button' class='close' "+
-                                "data-dismiss='alert' aria-label='Close'>"+
-                                "<span aria-hidden='true'>×</span>"+
-                                "</button><strong></strong>"+
-                                "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
-
-                        }        
-                    });
-                }    
-           }
-           
-           $("#profileUser_fileImage").fileinput({
-                showUpload: false, 
-                previewFileType: 'image',
                 initialPreview: [
-                    'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg',
-                    'http://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Earth_Eastern_Hemisphere.jpg/600px-Earth_Eastern_Hemisphere.jpg'
+                    {{arrayUrl|raw}}
                 ],
                 initialPreviewAsData: true,
-                initialPreviewConfig: [
-                    {caption: "Moon.jpg", size: 930321, width: "120px", key: 1},
-                    {caption: "Earth.jpg", size: 1218822, width: "120px", key: 2}
+                
+                initialPreviewConfig: [ 
+                    {{arrayCaption|raw}}
                 ],
-                deleteUrl: "/site/file-delete",
+                deleteUrl: "{{ url('user_ajax_deleteImageOffer') }}",
                 overwriteInitial: false,
-                maxFileSize: 100,
-                initialCaption: "Selecciona tu imagen de perfil"
+                maxFileSize: 3072,
+                showRemove: false,
+                showUpload: false,
+                showZoom: false,
+                initialCaption: ''
+        
             });
         });
     </script>
