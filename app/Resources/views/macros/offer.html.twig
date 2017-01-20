@@ -64,7 +64,16 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
                 <a href="{{ hrefOffer|e }}">
-                    <img src="{{ asset(srcImage|e|default('img/placeholder.jpg'),'img') }}" class="img-responsive"/>
+{#                    <img src="{{ asset(srcImage|e|default('img/placeholder.jpg'),'img') }}" class="img-responsive"/>#}
+                    <img src="
+                        {% if srcImage %}
+                            {{ asset(srcImage|e,'img') }}
+                            
+                        {% else %}
+                            {{ 'http://whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/web/img/placeholder.jpg' }}
+                        {% endif %}
+                        " 
+                        class="img-responsive"/>
                 </a>
             </div>
             
