@@ -27,42 +27,45 @@
 {% block bodyProfile %}
     <a href="{{path('user_profiler_newAdress')}}">Nueva dirección</a>
     <!-- Default Address -->
-    <div class="us-address-target containerAddress_{{ usuario.defaultAddress.id }}">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <h4>{{ usuario.defaultAddress.name|e|capitalize }}</h4>
+    
+    {%if usuario.defaultAddress is not empty %}
+        <div class="us-address-target containerAddress_{{ usuario.defaultAddress.id }}">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h4>{{ usuario.defaultAddress.name|e|capitalize }}</h4>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <p>{{ usuario.defaultAddress.street}}</p>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p>{{ usuario.defaultAddress.street}}</p>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <p>{{ usuario.defaultAddress.zipCode }} - 
-                   {{ usuario.defaultAddress.region }}, 
-                   {{ usuario.defaultAddress.city }} 
-                   ({{ usuario.defaultAddress.country }})</p>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p>{{ usuario.defaultAddress.zipCode }} - 
+                       {{ usuario.defaultAddress.region }}, 
+                       {{ usuario.defaultAddress.city }} 
+                       ({{ usuario.defaultAddress.country }})</p>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <a href="{{ path('user_profiler_editAdress',{ idAddress:usuario.defaultAddress.id }) }}" 
-                class="btn-default btn editAddress">Editar </a>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a href="{{ path('user_profiler_editAdress',{ idAddress:usuario.defaultAddress.id }) }}" 
+                    class="btn-default btn editAddress">Editar </a>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <button data-id="{{ usuario.defaultAddress.id }}" 
-                class="btn-default btn deleteAddress">Borrar </button>
-            </div>
-        </div>        
-    </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button data-id="{{ usuario.defaultAddress.id }}" 
+                    class="btn-default btn deleteAddress">Borrar </button>
+                </div>
+            </div>        
+        </div>
+    {% endif %}                
     <!-- END DEFAULT ADDRESS -->                
 
     {% for address in usuario.addresses.0 %}
