@@ -59,21 +59,6 @@ class ProfilePhotoController extends Controller{
         return $user;
     }
     
-    private function changePassword(Request $request, User $user){
-                
-        $ut = new Utilities();
-        $file = MyConstants::PATH_APIREST."user/passwords/change_password.php";
-        $ch = new ApiRest();
-        
-        $data['id'] = $this->getUser()->getId();
-        $data['username'] = $this->getUser()->getUsername();
-        $data['old_password'] = $user->getPasswordEnClaro();
-        $data['new_password'] = $user->getPassword();
-        
-        $result = $ch->resultApiRed($data, $file);
-        print_r($result);
-        $ut->flashMessage("general", $request, $result);
-        
-    }
+
 
 }
