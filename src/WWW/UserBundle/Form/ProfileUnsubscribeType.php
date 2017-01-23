@@ -11,9 +11,7 @@ namespace WWW\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
@@ -21,14 +19,15 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  *
  * @author Rocio
  */
-class ProfilePersonalDataType extends AbstractType{
+class ProfileUnsubscribeType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
 
        $builder
                 
+               // ->add('reason',TextareaType::class, array('label' =>'Indíquenos el motivo de su baja.'))
 
-                ->add('unsubscribe',SubmitType::class,array('label' => 'Guardar',
+                ->add('unsubscribe',SubmitType::class,array('label' => 'Darse de baja',
                                                                  'validation_groups' => 'personalData'));
                 
                

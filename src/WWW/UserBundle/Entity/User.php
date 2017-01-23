@@ -256,7 +256,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @var integer
      */
     private $valorationNum;
-
+    
     /**
      * Constructor
      */

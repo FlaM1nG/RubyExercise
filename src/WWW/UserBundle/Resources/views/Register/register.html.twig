@@ -129,12 +129,28 @@
             </div>
         </div>
         <!-- FIN FILA USUARIO HOBBIES -->
-
-        {{ form_errors(formulario.acepto) }}
-        {{ form_widget(formulario.acepto) }} 
-        <span>
-            Acepto las condiciones ...
-        </span>
+        
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-label-terms">
+                {{ form_errors(formulario.acepto) }}
+                {{ form_widget(formulario.acepto) }}
+                <span>Acepto los términos y condiciones</span>
+            </div>
+        </div>
+                
+                
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="us-terms">
+                    {{ include('macros/text.html.twig') }}
+                    {{ include('macros/text.html.twig') }}
+                    {{ include('macros/text.html.twig') }}
+                    {{ include('macros/text.html.twig') }}
+                </div>
+            </div>
+        </div>
+                
+                
         <!-- FILA USUARIO CAPTCHA -->
         <div class="row">
             <div class="us-register-captcha center-block">
@@ -146,7 +162,7 @@
 
         <!-- FILA USUARIO CAPTCHA Y BOTON -->
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-save-register">
                 {{ form_row(formulario.guardar) }}
             </div>
         </div>
@@ -167,19 +183,7 @@
 
 {% block javascriptsFooter %}
 {{ parent() }}    
-<script type="text/javascript">
-    $(document).scroll(function(e){
-        var scrollTop = $(document).scrollTop();
-        if(scrollTop > $('#menuAdministracion').height()){
-            //console.log(scrollTop);
-            $('#cbp-hrmenu').css("position","fixed");
-            $('#cbp-hrmenu').css("top","0");
-            $('#cbp-hrmenu').css("z-index","999");
-        } else {
-            $('#cbp-hrmenu').css("position","relative");
-        }
-    });
-</script>
+{{ include('nav/menuScript.html.twig') }}
 
 <script type="text/javascript">
     

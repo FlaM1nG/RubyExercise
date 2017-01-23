@@ -35,7 +35,10 @@
         {{form_row(form.price)}}
         
 {#        {% if form.offer.photos.url.vars.value is not empty %}#}
+            {%set arrayUrl = "" %}
             {% for photo in form.offer.photos %}
+                
+                {% set arrayUrl = arrayUrl~"'"~ asset(photo.url.vars.value,'img')~"'" %}
                 <div id="containerPhoto_{{photo.id.vars.value}}">
                     <img src="{{photo.url.vars.value}}" />
                     {{form_widget(photo.checkPhoto,{'attr': {'data-id': photo.id.vars.value} }) }}
@@ -43,6 +46,7 @@
                 
                 
             {% endfor %} 
+            <input id="urlsImage" value="{{arrayUrl}}">
             <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading">
             <button id="bDeletePhoto">Borrar imágenes</button>
 {#        {% endif %}   #}

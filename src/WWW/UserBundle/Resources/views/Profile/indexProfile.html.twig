@@ -17,9 +17,27 @@
 
 
 {% block bodyProfile %}
-    <h2>LISTA OFERTA</h2>
+    <h2>LISTA INSCRIPCIONES</h2>
+    {% for i in 0..2 %}
+        {{ offers.offUserInscription('#oferta', '' ,'Title Offer', 'now',
+            include('macros/text.html.twig'), 'leer', '#Valorar', 
+            'Valorar') }}
+    {% endfor %}
+    
+    <h2>LISTA OFERTA DISFRUTADAS</h2>
     {% for i in 0..4 %}
+        {{ offers.offUserDisfrutadas('#oferta', '' ,'Title Offer', 'now', 
+            include('macros/text.html.twig'), 'leer', '#Valorar', 
+            'Valorar', '#PDF', 'PDF') }}
+    {% endfor %}
+    
+    <h2>LISTA OFERTA</h2>
+    {% for i in 0..2 %}
         {{ offers.offUser('#oferta', '' ,'Title Offer', 
+            include('macros/text.html.twig'), 'leer', '#editar', 
+            'editar', '#borrar', 'borrar') }}
+            
+        {{ offers.offUserExp('#oferta', '' ,'Title Offer', 
             include('macros/text.html.twig'), 'leer', '#editar', 
             'editar', '#borrar', 'borrar') }}
     {% endfor %}
