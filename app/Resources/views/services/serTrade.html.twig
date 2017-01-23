@@ -20,10 +20,14 @@ sha-header-title
 
 {% block serviceSubTitle %}  
     {#{ include('services/subTitles/shareCarSubTitle.html.twig') }#}
+    {#<a href="{{ path('service_newTrade') }}" type="button" class="btn btn-default off-butt-add">
+        Añadir oferta
+    </a>#}
 {% endblock %}
 
 {% block serviceFilters %} 
     {#{{ include('services/filters/shareCarFilter.html.twig') }}#}
+    
     {{ filters.filterTrade('get',path('service_listTrade'),categories) }}
 {% endblock %}
             

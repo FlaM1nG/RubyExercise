@@ -15,22 +15,28 @@
             {{  alerts.alert('alert-success', flash_message, null) }}
         {% endfor %}
     {% endblock %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                {{ form_start(formTrade) }}
+                {{ form_row(formTrade.saveTrade) }}
+                {{ form_row(formTrade.category) }}
+                {{ form_row(formTrade.region) }}
+                {{ form_row(formTrade.offer.title) }}
+                {{ form_row(formTrade.offer.description) }}
+                {{ form_row(formTrade.dimensions) }}
 
-    {{ form_start(formTrade) }}
-        {{ form_row(formTrade.saveTrade) }}
-        {{ form_row(formTrade.category) }}
-        {{ form_row(formTrade.region) }}
-        {{ form_row(formTrade.offer.title) }}
-        {{ form_row(formTrade.offer.description) }}
-        {{ form_row(formTrade.dimensions) }}
+                <!--ul class="photosTrade" data-prototype="{{ form_widget(formTrade.offer.photos.vars.prototype)|e('html_attr') }}">
 
-        <!--ul class="photosTrade" data-prototype="{{ form_widget(formTrade.offer.photos.vars.prototype)|e('html_attr') }}">
-     
-        </ul-->
+                </ul-->
 
-        {{ form_row(formTrade.offer.fileImage) }}
-        {{ form_row(formTrade.weight) }}
-        {{ form_row(formTrade.price) }}  
+                {{ form_row(formTrade.offer.fileImage) }}
+                {{ form_row(formTrade.weight) }}
+                {{ form_row(formTrade.price) }}  
+            </div>
+        </div>
+    </div>
+    
 
         
 {% endblock %}

@@ -121,4 +121,8 @@ easy_admin:
         Address:
             class: WWW\GlobalBundle\Entity\Address
          
-        
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~

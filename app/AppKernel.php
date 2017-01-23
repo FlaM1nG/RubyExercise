@@ -22,7 +22,8 @@ class AppKernel extends Kernel
             new SGestion\AdminBundle\SGestionAdminBundle(),
             new WWW\ServiceBundle\ServiceBundle(),
             new WWW\OthersBundle\OthersBundle(),
-            new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle()
+            new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
