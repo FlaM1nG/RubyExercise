@@ -134,3 +134,7 @@ user_ajax_deleteAddress:
 user_public_profile:
     path: /profile/public
     defaults: { _controller: UserBundle:Default:publicProfile }
+    
+user_unsubscribe:
+    path: /profile/unsubscribe
+    defaults: { _controller: UserBundle:Default:unSubscribe }

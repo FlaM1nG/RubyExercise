@@ -75,6 +75,10 @@ class DefaultController extends Controller{
         return $this->render('UserBundle:Default:profilePublic.html.twig');
     }
     
+    public function unSubscribeAction(Request $request){
+        return $this->render('UserBundle:Profile:unSubscribe.html.twig');
+    }
+    
     public function ResendAction(Request $request){
         $usuario = new User();
         $formulario = $this->createForm('WWW\UserBundle\Form\ForgotPassType',$usuario);
