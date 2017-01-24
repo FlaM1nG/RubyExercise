@@ -26,27 +26,120 @@
 
 
 {% block bodyProfile %}
+
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {{ form_start(form) }}
+            <h3>
+                Cambiar Datos Personales
+            </h3>
+            <hr/>
+
+            <label class="control-label">Nick*</label>
+            <p>
+                {{ user.username }}
+            </p>
+            {{ form_row(form.name) }}
+            {{ form_row(form.surname) }}
+            {{ form_row(form.sex) }}
+            {{ form_row(form.birthdate) }}
+
+            {% if user.nif is not empty %}
+                {{ form_row(form.nif) }}
+            {% endif %}
+
+            <label class="control-label">¡Enlace para invitar a tus amigos!</label>
+            <div class="input-group">
+                <input type="text" class="form-control"
+                       value="{{ 'http://whatwantweb.com/registration/'~user.linkInvitation }}"
+                       placeholder="{{ 'http://whatwantweb.com/registration/'~user.linkInvitation }}"
+                       id="copy-input" readonly>
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-copy" type="button" id="copy-button"
+                          data-toggle="tooltip" data-placement="button" data-clipboard-action="copy" data-clipboard-target="#copy-input"
+                          title="Copiar">
+                        <i class="fa fa-files-o" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+
+            {#{{ user.linkInvitation }}#}
+            {{ form_row(form._token) }}
+            {{ form_row(form.savePersonalData) }}
+
+            <div class="us-text-caution">
+                <p>
+                    * El nick no se puede cambiar de momento. Si desea cambiarlo pongase en contacto con nuestra atención al
+                    cliente. Muchas gracias.
+                </p>
+            </div>
+
+
+
+
+        </div>
+    </div>
     
-    {{ form_start(form) }}
-    
-        {{ user.username }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.surname) }}
-        {{ form_row(form.sex) }}
-        {{ form_row(form.birthdate) }}
-        
-        {% if user.nif is not empty %}
-            {{ form_row(form.nif) }}
-        {% endif %}
-        
-        {{ user.linkInvitation }}
-        {{ form_row(form._token) }}
-        {{ form_row(form.savePersonalData)}}
+
 {% endblock %}
 
 
 
 {% block javascriptsFooter %}
     {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('js/clipboard.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var clipboard = new Clipboard('.btn-copy');
+
+            clipboard.on('success', function(e) {
+                console.info('Action:', e.action);
+                console.info('Text:', e.text);
+                console.info('Trigger:', e.trigger);
+
+                e.clearSelection();
+            });
+
+            clipboard.on('error', function(e) {
+                console.error('Action:', e.action);
+                console.error('Trigger:', e.trigger);
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Initialize the tooltip.
+            $('#copy-button').tooltip();
+
+            // When the copy button is clicked, select the value of the text box, attempt
+            // to execute the copy command, and trigger event to update tooltip message
+            // to indicate whether the text was successfully copied.
+            $('#copy-button').bind('click', function() {
+                var input = document.querySelector('#copy-input');
+                input.setSelectionRange(0, input.value.length + 1);
+                try {
+                    var success = document.execCommand('copy');
+                    if (success) {
+                        $('#copy-button').trigger('copied', ['Copiado!']);
+                    } else {
+                        $('#copy-button').trigger('copied', ['Copia con Ctrl-c']);
+                    }
+                } catch (err) {
+                    $('#copy-button').trigger('copied', ['Copia con Ctrl-c']);
+                }
+            });
+
+            // Handler for updating the tooltip message.
+            $('#copy-button').bind('copied', function(event, message) {
+                $(this).attr('title', message)
+                        .tooltip('fixTitle')
+                        .tooltip('show')
+                        .attr('title', "Copy to Clipboard")
+                        .tooltip('fixTitle');
+            });
+        });
+    </script>
 {% endblock %}
     

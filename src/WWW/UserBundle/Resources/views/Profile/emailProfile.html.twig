@@ -26,14 +26,31 @@
 
 
 {% block bodyProfile %}
-    
-    {{ form_start(form) }}
-    
-        {{ user.email }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.passwordEnClaro) }}
-        {{ form_row(form._token) }}
-        {{ form_row(form.saveEmail)}}
+
+
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Cambiar Email
+            </h3>
+            <hr/>
+
+            {{ form_start(form) }}
+            <label class="control-label">
+                Email Actual
+            </label>
+            <p>
+                {{ user.email }}
+            </p>
+            {{ form_row(form.email) }}
+            <p>
+                Para confirmar finalmente que es usted quien cambia el email debe ingresar su contraseña para confirmarlo.
+            </p>
+            {{ form_row(form.passwordEnClaro) }}
+            {{ form_row(form._token) }}
+            {{ form_row(form.saveEmail)}}
+        </div>
+    </div>
 {% endblock %}
 
 
