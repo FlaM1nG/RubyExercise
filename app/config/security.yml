@@ -18,12 +18,13 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            anonymous: ~
-            pattern: ^/
-            provider: users
+#        main:
+#            anonymous: ~
+#            pattern: ^/
+#            provider: users
         user:
-            pattern: ^/user/*            
+#            pattern: ^/user/*      
+            pattern: ^/
             provider: users
             anonymous: ~           
             # activate different ways to authenticate
