@@ -30,7 +30,7 @@ class OfferController extends Controller{
     private $offer;
     
     public function myOffersAction(Request $request){
-        
+
         $offers = $this->listMyOffers($request);
         
         return $this->render('UserBundle:Profile:offers/profileMyOffers.html.twig',
@@ -175,5 +175,36 @@ class OfferController extends Controller{
         
         $result = $ch->resultApiRed($data, $file);
         print_r($result);
+   }
+   
+   public function valorationOfferAction(Request $request){
+
+       $file = MyConstants::PATH_APIREST."services/inscription/rate.php";
+       $ch = new ApiRest();
+
+       $rating = $request->get('rating');
+       $idOffer = $request->get('idOffer');
+       $comment = $request->get('comment');
+       
+       $data['id'] = $request->getSession()->get('id');
+       $data['username'] = $request->getSession()->get('username');
+       $data['password'] = $request->getSession()->get('password');
+       $data['offer_id'] = $idOffer;
+       $data['score'] = $rating;
+       $data['comment'] = $comment;
+
+       $result = $ch->resultApiRed($data, $file);
+
+       if($result['result'] == 'ok'):
+
+           return $this->forward('UserBundle:Offer:myOffers');
+
+       else:
+           $response = new JsonResponse();
+
+           return $response;
+       endif;
+
+
    }
 }
