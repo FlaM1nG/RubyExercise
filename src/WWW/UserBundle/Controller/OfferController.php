@@ -166,6 +166,7 @@ class OfferController extends Controller{
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
         $data['offer_id'] = $request->get('idOffer');
+        $data['photos'] = $request->files->get('imgOffer');
 
         $data['photos'] = $request->files;
 

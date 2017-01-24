@@ -34,8 +34,8 @@
 
 {% block bodyProfile %}
     
-    <label for="input-5" class="control-label">Rate This</label>
-    <input id="inputRating" name="inputRating" class="rating rating-loading" value="0" type="number">
+     <input id="rating-input" type="number" />
+
     
 {% endblock %}
 
@@ -44,15 +44,23 @@
 {% block javascriptsFooter %}
     {{ parent() }}
 
-    <script src="{{ asset('js/starRating/star-rating.min.js') }}"></script>
+    <script src="{{ asset('js/starRating/star-rating.js') }}"></script>
 
     <script>
         $(document).on('ready', function(){
-            $('#inputRating').rating({
-                min: 0, 
-                max: 5, 
-                step: 1, 
-                stars: 5});
+          
+           $('#rating-input').rating({
+              min: 0,
+              max: 5,
+              step: 1,
+              size: 'lg',
+              showClear: false
+           });
+
+            $('#rating-input').on('rating.change', function() {
+                alert($('#rating-input').val());
+            });
+
         });
     </script>
 {% endblock %}
