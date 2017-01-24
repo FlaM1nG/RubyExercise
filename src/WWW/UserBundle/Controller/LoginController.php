@@ -68,7 +68,13 @@ class LoginController extends Controller{
                $session->set("password",$result['password']);
                $session->set('intentoLogin',0);
                $path =$session->get('_security.user.target_path');
-               return $this->redirect($path);
+               if($path!=NULL){
+                   return $this->redirect($path);
+               }
+               else{
+                   return $this->redirectToRoute('homepage');
+               }
+                   
            else:
                 $session->set('intentoLogin',$session->get('intentoLogin')+1);
             
