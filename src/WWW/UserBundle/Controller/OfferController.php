@@ -160,13 +160,17 @@ class OfferController extends Controller{
    public function uploadImage(Request $request){
     
         $ch = new ApiRest();
-        $file = MyConstants::PATH_APIREST."services/photos/delete_offer_photo.php";
+        $file = MyConstants::PATH_APIREST."services/photos/insert_offer_photo.php";
         
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
         $data['offer_id'] = $request->get('idOffer');
-        $data['photos'] = $request->files->get('imgOffer');
+
+        $data['photos'] = $request->files;
+
+        
+        print_r($data);
         
         $result = $ch->resultApiRed($data, $file);
         print_r($result);

@@ -1,0 +1,59 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/offer.html.twig' as offers %}
+
+{% block stylesheets %}
+    {{parent()}}
+            
+    
+<link href="{{asset("css/styles/starRating/star-rating.css")}}" media="all" rel="stylesheet" type="text/css" />
+
+            
+{% endblock %}
+{% block title %}
+    Ofertas
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    
+    <label for="input-5" class="control-label">Rate This</label>
+    <input id="inputRating" name="inputRating" class="rating rating-loading" value="0" type="number">
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/starRating/star-rating.min.js') }}"></script>
+
+    <script>
+        $(document).on('ready', function(){
+            $('#inputRating').rating({
+                min: 0, 
+                max: 5, 
+                step: 1, 
+                stars: 5});
+        });
+    </script>
+{% endblock %}
+    

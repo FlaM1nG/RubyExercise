@@ -65,6 +65,8 @@ class ApiRest {
         curl_setopt($this->ch, CURLOPT_URL, $file);
         // indicamos el tipo de petición: POST
         curl_setopt($this->ch, CURLOPT_POST, TRUE);
+        
+        curl_setopt($this->ch,CURLOPT_HTTPHEADER,array('Content-Type: multipart/form-data'));
         // definimos cada uno de los parámetros
         curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
         // recibimos la respuesta y la guardamos en una variable
