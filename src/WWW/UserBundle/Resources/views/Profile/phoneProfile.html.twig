@@ -35,6 +35,7 @@
             {#{{dump(app.user)}}#}
             {% if app.user.phone is not empty %}
                 <label class="control-label">Teléfono</label>
+
                 <p>
                     {{app.user.prefix}} &nbsp; {{ app.user.phone }}
                 </p>
