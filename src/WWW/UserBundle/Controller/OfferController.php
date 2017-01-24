@@ -167,8 +167,13 @@ class OfferController extends Controller{
         $data['password'] = $request->getSession()->get('password');
         $data['offer_id'] = $request->get('idOffer');
 
-        $data['photos'] = $request->files;
-
+        $photos = $request->files->get('imgOffer');
+        $count = 0;
+        foreach($photos as $photo){
+            $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
+            $data['photos['.$count.']'] = $ch_photo;
+            $count += 1;
+        }
         
         print_r($data);
         
