@@ -107,16 +107,35 @@
     border: 2px solid @brand-primary;
 }
 
-.btn-default.btn.editAddress {
+.btn-default.btn.editAddress,
+.btn-default.btn.deleteAddress{
     padding: 5px 10px;
     margin-bottom: 0px;
     float: left;
+    margin-right: 10px;
 }
 
-.us-address-target{
+.us-address-target,
+.us-address-target2{
     border-left: 4px solid @brand-primary;
     padding: 2%;
     margin-bottom: 20px;
+}
+
+.us-address-target2{
+    background-color: @gray-base;
+    color: @brand-secondary;
+
+    .btn-default:hover {
+        border-color: @brand-primary;
+        border: 1px solid;
+    }
+
+    .btn-default{
+        border-color: @brand-primary;
+        border: 1px solid @brand-primary;
+    }
+
 }
 
 .us-offer-target{
@@ -195,6 +214,10 @@
         margin: 0 auto;
         float: none;
     }
+}
+
+.btn.btn-default.us-profileAddresses {
+    float: none;
 }
 /* ***** FIN PROFILE ***** */
 
