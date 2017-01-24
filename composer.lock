@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "316cf52a69cc0dfce5736e1d711dd8a3",
+    "hash": "60abe59b381b194be98c8d11b5a5f4f4",
+    "content-hash": "5ad9f43cedb97350a96f4eefe307edea",
     "packages": [
         {
             "name": "components/jquery",
@@ -419,16 +420,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "1.6.7",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "a01d99bc6c9a6c8a8ace0012690099dd957ce9b9"
+                "reference": "0f0c4df366bd1d36d38a27e2f5ff128e118ac969"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/a01d99bc6c9a6c8a8ace0012690099dd957ce9b9",
-                "reference": "a01d99bc6c9a6c8a8ace0012690099dd957ce9b9",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/0f0c4df366bd1d36d38a27e2f5ff128e118ac969",
+                "reference": "0f0c4df366bd1d36d38a27e2f5ff128e118ac969",
                 "shasum": ""
             },
             "require": {
@@ -496,7 +497,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2017-01-16T12:01:26+00:00"
+            "time": "2017-01-16 12:01:26"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -1093,16 +1094,16 @@
         },
         {
             "name": "javiereguiluz/easyadmin-bundle",
-            "version": "v1.16.5",
+            "version": "v1.16.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/javiereguiluz/EasyAdminBundle.git",
-                "reference": "68c3263e3184bd5f0b2655b46fad7cfedcbc52b9"
+                "reference": "2bf7a787902b5f20bcececd0a40602c1ca6e67b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/68c3263e3184bd5f0b2655b46fad7cfedcbc52b9",
-                "reference": "68c3263e3184bd5f0b2655b46fad7cfedcbc52b9",
+                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/2bf7a787902b5f20bcececd0a40602c1ca6e67b0",
+                "reference": "2bf7a787902b5f20bcececd0a40602c1ca6e67b0",
                 "shasum": ""
             },
             "require": {
@@ -1122,7 +1123,6 @@
                 "symfony/framework-bundle": "~2.3|~3.0",
                 "symfony/http-foundation": "~2.3|~3.0",
                 "symfony/http-kernel": "~2.3|~3.0",
-                "symfony/polyfill-mbstring": "^1.0",
                 "symfony/property-access": "~2.3|~3.0",
                 "symfony/security-bundle": "~2.3|~3.0",
                 "symfony/twig-bridge": "^2.3.4|~3.0",
@@ -1141,7 +1141,6 @@
                 "symfony/finder": "~2.3|~3.0",
                 "symfony/phpunit-bridge": "^2.7",
                 "symfony/validator": "~2.3|~3.0",
-                "symfony/var-dumper": "~2.3|~3.0",
                 "symfony/yaml": "~2.3|~3.0"
             },
             "type": "symfony-bundle",
@@ -1174,7 +1173,7 @@
                 "backend",
                 "generator"
             ],
-            "time": "2017-01-23T10:19:39+00:00"
+            "time": "2017-01-23 10:19:39"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1225,50 +1224,6 @@
                 "sql"
             ],
             "time": "2014-01-12T16:20:24+00:00"
-        },
-        {
-            "name": "kartik-v/bootstrap-star-rating",
-            "version": "v4.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
-                "reference": "d66083c14f9386ede23fccb76dea1a380db67ded"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/d66083c14f9386ede23fccb76dea1a380db67ded",
-                "reference": "d66083c14f9386ede23fccb76dea1a380db67ded",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0.x-dev"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Kartik Visweswaran",
-                    "email": "kartikv2@gmail.com",
-                    "homepage": "http://www.krajee.com/"
-                }
-            ],
-            "description": "A simple yet powerful JQuery star rating plugin for Bootstrap.",
-            "homepage": "https://github.com/kartik-v/bootstrap-star-rating",
-            "keywords": [
-                "Rating",
-                "awesome",
-                "bootstrap",
-                "font",
-                "glyphicon",
-                "star",
-                "svg"
-            ],
-            "time": "2016-02-28T16:13:18+00:00"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1906,76 +1861,6 @@
                 "mailer"
             ],
             "time": "2016-12-29T10:02:40+00:00"
-        },
-        {
-            "name": "symfony/assetic-bundle",
-            "version": "v2.8.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/assetic-bundle.git",
-                "reference": "0241b135ff64c6031048c6425cd833a8300da46b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/assetic-bundle/zipball/0241b135ff64c6031048c6425cd833a8300da46b",
-                "reference": "0241b135ff64c6031048c6425cd833a8300da46b",
-                "shasum": ""
-            },
-            "require": {
-                "kriswallsmith/assetic": "~1.4",
-                "php": ">=5.3.0",
-                "symfony/console": "~2.3|~3.0",
-                "symfony/dependency-injection": "~2.3|~3.0",
-                "symfony/framework-bundle": "~2.3|~3.0",
-                "symfony/yaml": "~2.3|~3.0"
-            },
-            "conflict": {
-                "kriswallsmith/spork": "<=0.2",
-                "twig/twig": "<1.27"
-            },
-            "require-dev": {
-                "kriswallsmith/spork": "~0.3",
-                "patchwork/jsqueeze": "~1.0",
-                "symfony/class-loader": "~2.3|~3.0",
-                "symfony/css-selector": "~2.3|~3.0",
-                "symfony/dom-crawler": "~2.3|~3.0",
-                "symfony/phpunit-bridge": "~2.7|~3.0",
-                "symfony/twig-bundle": "~2.3|~3.0"
-            },
-            "suggest": {
-                "kriswallsmith/spork": "to be able to dump assets in parallel",
-                "symfony/twig-bundle": "to use the Twig integration"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Bundle\\AsseticBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kris Wallsmith",
-                    "email": "kris.wallsmith@gmail.com",
-                    "homepage": "http://kriswallsmith.net/"
-                }
-            ],
-            "description": "Integrates Assetic into Symfony2",
-            "homepage": "https://github.com/symfony/AsseticBundle",
-            "keywords": [
-                "assets",
-                "compression",
-                "minification"
-            ],
-            "time": "2016-11-22T11:42:57+00:00"
         },
         {
             "name": "symfony/monolog-bundle",

@@ -61,6 +61,7 @@ class OfferController extends Controller{
     }
     
     public function editOfferAction(Request $request){
+        
         $this->ut = new Utilities();
         $form = $this->searchOffer($request);
         
@@ -94,9 +95,13 @@ class OfferController extends Controller{
         
         $info['data']= json_encode($data);
         
-        $result = $ch->resultApiRed($info, $file);
+        if(!empty($request->files->get('imgOffer')[0])):
+            $this->uploadImage($request);
+        endif;
+        
+//        $result = $ch->resultApiRed($info, $file);
 
-        $this->ut->flashMessage("general", $request, $result);
+//        $this->ut->flashMessage("general", $request, $result);
     }
     
     private function searchOffer(Request $request){
@@ -135,30 +140,40 @@ class OfferController extends Controller{
    }
    
    public function deleteImageOfferAction(Request $request){
-       
+      
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/photos/delete_offer_photo.php";
         
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
-        $data['offer_id  '] = $request->get('idOffer');
-        $data['photos_id'] = $request->get('idImages');
- 
+        $data['offer_id'] = $request->get('idOffer');
+        $data['photos_id'] = $request->get('key');
+
         $result = $ch->resultApiRed($data, $file);
-        
+
         $response = new JsonResponse();
         
-        if($result['result'] == 'ok'):
-            $response->setData(array(
-                'result' => 'ok',
-                'message' => 'Datos actualizados correctamente'));
-        else:
-             $response->setData(array(
-                'result' => 'ko',
-                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
-        endif;
-        
         return $response;
+   }
+   
+   public function uploadImage(Request $request){
+    
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/photos/insert_offer_photo.php";
+        
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['offer_id'] = $request->get('idOffer');
+        $data['photos'] = $request->files->get('imgOffer');
+
+        $data['photos'] = $request->files;
+
+        
+        print_r($data);
+        
+        $result = $ch->resultApiRed($data, $file);
+        print_r($result);
    }
 }

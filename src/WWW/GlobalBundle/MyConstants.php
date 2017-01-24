@@ -15,6 +15,6 @@ namespace WWW\GlobalBundle;
  */
 class MyConstants {
     
-    const PATH_APIREST = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/";
+    const PATH_APIREST = "http://www.whatwantweb.com/n19n382d23HnNY7b&b8nj0m9nyb988676HUUBY6g7J9JI/api_rest/";
 
 }

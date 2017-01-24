@@ -24,7 +24,7 @@
         "friendsofsymfony/jsrouting-bundle": "2.0.x-dev",
         "javiereguiluz/easyadmin-bundle": "^1.16",
         "kartik-v/bootstrap-star-rating": "v4.0.1",
-        "symfony/assetic-bundle": "v2.8.1"
+        "symfony/assetic-bundle": "* v2.8.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

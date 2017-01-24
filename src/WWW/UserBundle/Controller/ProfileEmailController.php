@@ -52,6 +52,7 @@ class ProfileEmailController extends Controller {
         $data['password'] = $request->getSession()->get('password');
         
         $result = $ch->resultApiRed($data, $file);
+      
         if($result['result'] == 'ok'):
             $user = new User($result);
         endif;
