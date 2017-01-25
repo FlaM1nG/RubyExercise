@@ -24,7 +24,7 @@ class LoginController extends Controller{
         
         $formulario->handleRequest($request);
 
-        if($request->getMethod()=="POST"):
+        if($formulario->isSubmitted()):
             
             $email=$request->request->all()['loginUser']['_username'];
             $password=$request->request->all()['loginUser']['_password'];  

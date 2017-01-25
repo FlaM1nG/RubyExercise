@@ -50,9 +50,9 @@ class RegisterController extends Controller{
             if ($result['result'] == 'ok'):
 //              Aqui guardamos el usuario registrado
 //              $this->get('app.manager.usuario_manager')->guardar($this->usuario);
-                $this->get('app.manager.usuario_manager')->login($this->usuario);
+//                $this->get('app.manager.usuario_manager')->login($this->usuario);
                 $this->ut->flashMessage('register', $request, null);
-                return $this->redirectToRoute('homepage');
+                return $this->forward('UserBundle:Login:login');
             else:
                 return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
             endif;
