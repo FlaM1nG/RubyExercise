@@ -88,20 +88,22 @@ class OfferController extends Controller{
         $data['values']['title'] = "'".$this->offer->getOffer()->getTitle()."'"; 
         $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'"; 
         $data['sub_values']['price'] = $this->offer->getPrice();
-        $data['sub_values']['dimensions'] = "'".$this->offer->getDimensions()."'";
+        $data['sub_values']['dimensions'] = "'".$request->get('trade')['width']."x".
+                                                $request->get('trade')['height']."x".
+                                                $request->get('trade')['long']."'";
         $data['sub_values']['weight'] = $this->offer->getWeight();
         $data['sub_values']['region'] = "'".$this->offer->getRegion()."'";
         $data['sub_values']['category_id'] = $this->offer->getCategory()->getId();
         
         $info['data']= json_encode($data);
-        
+
         if(!empty($request->files->get('imgOffer')[0])):
             $this->uploadImage($request);
         endif;
         
-//        $result = $ch->resultApiRed($info, $file);
+        $result = $ch->resultApiRed($info, $file);
 
-//        $this->ut->flashMessage("general", $request, $result);
+        $this->ut->flashMessage("general", $request, $result);
     }
     
     private function searchOffer(Request $request){
@@ -120,6 +122,13 @@ class OfferController extends Controller{
              if($result['service_id'] == 1):
                  $this->createTrade($result);
                  $formulario = $this->createForm(TradeType::class,$this->offer);
+                 $dimensions = explode('x',$this->offer->getDimensions());
+                 $width = $dimensions[0];
+                 $height = $dimensions[1];
+                 $long = $dimensions[2];
+                 $formulario->get('width')->setData($width);
+                 $formulario->get('height')->setData($height);
+                 $formulario->get('long')->setData($long);
              endif;
         else:     
             $this->ut->flashMessage("offer", $request, $result);
@@ -156,26 +165,7 @@ class OfferController extends Controller{
         
         return $response;
    }
-   
-   public function uploadImage(Request $request){
     
-        $ch = new ApiRest();
-        $file = MyConstants::PATH_APIREST."services/photos/insert_offer_photo.php";
-        
-        $data['id'] = $request->getSession()->get('id');
-        $data['username'] = $request->getSession()->get('username');
-        $data['password'] = $request->getSession()->get('password');
-        $data['offer_id'] = $request->get('idOffer');
-        $data['photos'] = $request->files->get('imgOffer');
-
-        $data['photos'] = $request->files;
-
-        
-        print_r($data);
-        
-        $result = $ch->resultApiRed($data, $file);
-        print_r($result);
-   }
    
    public function valorationOfferAction(Request $request){
 
