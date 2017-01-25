@@ -22,93 +22,42 @@
         {{ form_row(formTrade.region) }}
         {{ form_row(formTrade.offer.title) }}
         {{ form_row(formTrade.offer.description) }}
-        {{ form_row(formTrade.dimensions) }}
-
-        <!--ul class="photosTrade" data-prototype="{{ form_widget(formTrade.offer.photos.vars.prototype)|e('html_attr') }}">
-     
-        </ul-->
-
-        {{ form_row(formTrade.offer.fileImage) }}
+        <div class="form-group">
+            <label class="control-label required">Dimensiones</label>
+            {{ form_row(formTrade.width) }}
+            {{ form_row(formTrade.height) }}
+            {{ form_row(formTrade.long) }}
+        </div>
         {{ form_row(formTrade.weight) }}
         {{ form_row(formTrade.price) }}  
+        {{ form_row(formTrade._token) }}
+
+        <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading" required>
 
         
 {% endblock %}
 
 {% block javascriptsFooter %}   
       {{ parent() }}
+
+    <!-- the main fileinput plugin file -->
+    <script src="{{ asset('js/fileinput.js') }}"></script>
+
     <script type="text/javascript">
 
         $(document).ready(function() {
-            var $collectionHolder;
 
-            // setup an "add a tag" link
-            var $addTagLink = $('<button class="add_tag_link">Añadir imagen</button>');
-            var $newLinkLi = $('<li></li>').append($addTagLink);
+            $("#imgOffer").fileinput({
 
-            jQuery(document).ready(function() {
-                // Get the ul that holds the collection of tags
-                $collectionHolder = $('ul.photosTrade');
-
-                // add a delete link to all of the existing tag form li elements
-                $collectionHolder.find('li').each(function() {
-                    addTagFormDeleteLink($(this));
-                });
-
-                // add the "add a tag" anchor and li to the tags ul
-                $collectionHolder.append($newLinkLi);
-
-                // count the current form inputs we have (e.g. 2), use that as the new
-                // index when inserting a new item (e.g. 2)
-                $collectionHolder.data('index', $collectionHolder.find(':input').length);
-
-                $addTagLink.on('click', function(e) {
-                    // prevent the link from creating a "#" on the URL
-                    e.preventDefault();
-
-                    // add a new tag form (see next code block)
-                    addTagForm($collectionHolder, $newLinkLi);
-                });
+                initialPreviewAsData: true,
+                overwriteInitial: false,
+                maxFileSize: 3072,
+                showRemove: false,
+                showUpload: false,
+                showZoom: false,
+                initialCaption: '',
+                maxFileCount: 5,
             });
-            
-            function addTagForm($collectionHolder, $newLinkLi) {
-                // Get the data-prototype explained earlier
-                var prototype = $collectionHolder.data('prototype');
-
-                // get the new index
-                var index = $collectionHolder.data('index');
-
-                // Replace '__name__' in the prototype's HTML to
-                // instead be a number based on how many items we have
-                var newForm = prototype.replace(/__name__/g, index);
-
-                // increase the index with one for the next item
-                $collectionHolder.data('index', index + 1);
-
-                // Display the form in the page in an li, before the "Add a tag" link li
-                var $newFormLi = $('<li></li>').append(newForm);
-                $newLinkLi.before($newFormLi);
-                
-                 addTagFormDeleteLink($newFormLi);
-            }
-            
-            function addTagFormDeleteLink($tagFormLi) {
-                var $removeFormA = $('<button>Eliminar imagen</button>');
-               
-                $tagFormLi.append($removeFormA);
-
-                $removeFormA.on('click', function(e) {
-                    // prevent the link from creating a "#" on the URL
-                    e.preventDefault();
-
-                    // remove the li for the tag form
-                    $tagFormLi.remove();
-                });
-            }
-            
-            $(':file').change(function(){
-                console.log($(this));
-            })
         });
 
 
