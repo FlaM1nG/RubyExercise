@@ -41,7 +41,7 @@
             type="number" />
 
      <textarea id="comment" ></textarea>
-     <button id="sendValoration">Enviar</button>
+     <button id="sendValoration" class="btn btn-default" disabled>Enviar</button>
     
 {% endblock %}
 
@@ -61,8 +61,22 @@
               size: 'lg',
               showClear: false
            });
-           
-           $(document).on('click','#sendValoration',sendValoration)
+
+
+            $(document).on('change','#rating-input', activeDesactiveSend);
+            $(document).on('keyup','#comment', activeDesactiveSend);
+
+            function activeDesactiveSend(){
+
+                if($('#rating-input').val() > 0 && $('#comment').val()!=''){
+
+                    $('#sendValoration').attr('disabled',false);
+                }else{
+
+                    $('#sendValoration').attr('disabled',true);
+                }
+
+            }
 
             function sendValoration() {
                 

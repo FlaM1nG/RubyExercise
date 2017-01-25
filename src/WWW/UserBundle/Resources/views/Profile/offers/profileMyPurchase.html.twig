@@ -30,7 +30,7 @@
     {% for purchase in purchases %}
         
         {% set urlValoration = '' %}
-        {% if purchase.valorated is not empty %}
+        {% if purchase.valorated == 0%}
             {% set urlValoration = path('user_profiler_purchasesValoration',{idOffer: purchase.offer_id}) %}
         {% endif %}
 
@@ -45,11 +45,6 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
-    
-    <script src="path/to/js/star-rating.js" type="text/javascript"></script>
- 
-    <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
-    <script src="path/to/themes/krajee-svg/theme.js"></script>
        
 {% endblock %}
     
