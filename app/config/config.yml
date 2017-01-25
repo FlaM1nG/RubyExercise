@@ -37,7 +37,7 @@ framework:
     assets:  
         packages:
             img: 
-                base_urls: 'http://whatwantweb.com/'
+                base_urls: 'http://whatwantweb.com/n19n382d23HnNY7bb8nj0m9nyb988676HUUBY6g7J9JI/'
 
         
 # Twig Configuration
