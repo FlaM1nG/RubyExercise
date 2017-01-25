@@ -37,7 +37,9 @@ class TradeController extends Controller{
     private $ut;
     
     public function createOfferAction(Request $request){
-echo "entro";
+        
+        $service = $request->server->all()['PATH_INFO'];
+
         $this->setUpVars($request);
         $trade = new Trade();
         
@@ -47,8 +49,14 @@ echo "entro";
         $formTrade->handleRequest($request);
         
          if($formTrade->isSubmitted()):
-             
-             $this->saveTrade($request,$trade);
+             $result = $this->saveTrade($request,$trade);
+
+             if($result == 'ok'):
+                 echo $service;
+                 if($service == '/services/trade/newTrade'):
+                    return $this->redirectToRoute('service_listTrade');
+                 endif;
+             endif;
          endif;
         
         return $this->render('OthersBundle:Trade:offerTrade.html.twig',
@@ -62,59 +70,45 @@ echo "entro";
     }
     
     private function saveTrade(Request $request, Trade $trade){
-        
-        $service = $request->server->all()['PATH_INFO'];
-        
-//        $dataExtra['url']=$this->uploadImage($request);
-//        
-//        if($this->uploadImage($request) == false):
-//            $result['result'] = 'ko';
-//            $this->ut->flashMessage("tradeImageN", $request, $result);
-//            return false;
-//        else:
-            echo "trade else";
-            $ch = new ApiRest();
-            $file = MyConstants::PATH_APIREST."services/offer/insert_offer.php";
-            $dataOffer = array("id" => $this->session->get('id'),
-                             "username" => $this->session->get('username'),
+
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/offer/insert_offer.php";
+        $dataOffer = array("id" => $this->session->get('id'),
+                            "username" => $this->session->get('username'),
                             "password" =>$this->session->get('password'),
                             "title" => $trade->getOffer()->getTitle(),
                             "description" => $trade->getOffer()->getDescription(),
                             "service_id" => 1,
                             "holders" => 1);
 
-            $dataExtra['values'] = array("category_id" => $trade->getCategory()->getId(),
-                               "price" => $trade->getPrice(),
-                               "dimensions" => "'".$trade->getDimensions()."'",
-                               "weight" => $trade->getWeight(),
-                               "region" => "'".$trade->getRegion()."'");
+        $dataExtra = array("category_id" => $trade->getCategory()->getId(),
+                           "price" => $trade->getPrice(),
+                           "dimensions" => "'".$request->get('trade')['width']."x".
+                                               $request->get('trade')['height']."x".
+                                               $request->get('trade')['long']."'",
+                           "weight" => $trade->getWeight(),
+                           "region" => "'".$trade->getRegion()."'");
 
+        if(!empty($request->files->get('imgOffer')[0])):
+            $photos = $request->files->get('imgOffer');
+            $count = 0;
 
-            $dataOffer['data'] = json_encode($dataExtra);
-print_r($dataOffer);
-            $result = $ch->resultApiRed($dataOffer, $file);
-            echo "<br><br>"; print_r($result);
-            $this->ut->flashMessage("general", $request, $result);
-//        endif;        
-    }
-    
-    private function uploadImage(Request $request){
-        
-        $arrayFiles = $request->files->all()['trade']['offer']['fileImage'];
-        $arrayUrls = false;
-        
-        if(!empty($arrayFiles[0])): 
-            if(count($arrayFiles) > 5): 
-                
-                return $arrayUrls;
-            else:     
-                $arrayUrls = $this->ut->uploadImage($arrayFiles, $this->session->get('id'));
-            endif;
+            foreach($photos as $photo){
+                $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
+                $dataOffer['photos['.$count.']'] = $ch_photo;
+                $count += 1;
+            }
         endif;
-        
-        return $arrayUrls;
-        
+
+        $dataOffer['data'] = json_encode($dataExtra);
+
+        $result = $ch->resultApiRed($dataOffer, $file);
+
+        $this->ut->flashMessage("general", $request, $result);
+
+        return $result['result'];
     }
+
     
     private function flashMessageGeneral($result){
         
@@ -126,7 +120,7 @@ print_r($dataOffer);
     }
     
     public function listTradeAction(Request $request){
-      // print_r($request);
+      
         
         $this->setUpVars($request);
         $varPost = $request->query->all();
@@ -191,7 +185,7 @@ print_r($dataOffer);
         
         $trade = null;
         $trade = $this->getTrade($request);
-//        print_r($trade);
+
         $comment = new Comment();
         $message = $this->fillMessage($trade);
         
@@ -246,7 +240,6 @@ print_r($dataOffer);
         $this->setUpVars($request);
         
         $ch = new ApiRest();
-//        $file = MyConstants::PATH_APIREST."services/trade/get_trade.php";
         $file = MyConstants::PATH_APIREST."services/offer/get_offer.php";
 
         $trade = null;
