@@ -59,6 +59,7 @@ class ApiRest {
         
         return $this->resultApiRed($information, $file);
     }
+    
     public function resultApiRed($data, $file){
         
         // definimos la URL a la que hacemos la petición

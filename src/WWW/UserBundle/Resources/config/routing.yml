@@ -9,6 +9,7 @@ user_login:
 user_login_check:
     pattern:   /login
     methods:   [POST]
+
 user_logout:
     path: /logout/
     defaults: { _controller: UserBundle:Login:logout }
@@ -120,6 +121,10 @@ user_change:
 user_resend:
     path: /resend
     defaults: { _controller: UserBundle:Default:resend }
+    
+user_ajax_valorationOffer:
+    path: /ajax/valorationOffer
+    defaults: { _controller: UserBundle:Offer:valorationOffer }
     
 user_ajax_deleteMessage:
     path: /ajax/message

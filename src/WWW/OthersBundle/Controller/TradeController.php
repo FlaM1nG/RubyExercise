@@ -37,7 +37,7 @@ class TradeController extends Controller{
     private $ut;
     
     public function createOfferAction(Request $request){
-
+echo "entro";
         $this->setUpVars($request);
         $trade = new Trade();
         
@@ -65,13 +65,14 @@ class TradeController extends Controller{
         
         $service = $request->server->all()['PATH_INFO'];
         
-        $dataExtra['url']=$this->uploadImage($request);
-        
-        if($this->uploadImage($request) == false):
-            $result['result'] = 'ko';
-            $this->ut->flashMessage("tradeImageN", $request, $result);
-            return false;
-        else:
+//        $dataExtra['url']=$this->uploadImage($request);
+//        
+//        if($this->uploadImage($request) == false):
+//            $result['result'] = 'ko';
+//            $this->ut->flashMessage("tradeImageN", $request, $result);
+//            return false;
+//        else:
+            echo "trade else";
             $ch = new ApiRest();
             $file = MyConstants::PATH_APIREST."services/offer/insert_offer.php";
             $dataOffer = array("id" => $this->session->get('id'),
@@ -79,7 +80,8 @@ class TradeController extends Controller{
                             "password" =>$this->session->get('password'),
                             "title" => $trade->getOffer()->getTitle(),
                             "description" => $trade->getOffer()->getDescription(),
-                            "service_id" => 1);
+                            "service_id" => 1,
+                            "holders" => 1);
 
             $dataExtra['values'] = array("category_id" => $trade->getCategory()->getId(),
                                "price" => $trade->getPrice(),
@@ -89,10 +91,11 @@ class TradeController extends Controller{
 
 
             $dataOffer['data'] = json_encode($dataExtra);
-
+print_r($dataOffer);
             $result = $ch->resultApiRed($dataOffer, $file);
+            echo "<br><br>"; print_r($result);
             $this->ut->flashMessage("general", $request, $result);
-        endif;        
+//        endif;        
     }
     
     private function uploadImage(Request $request){
