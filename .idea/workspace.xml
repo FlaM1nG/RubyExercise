@@ -4,39 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/WWW/OthersBundle/Controller/TradeController.php" line="106" mnemonic="7" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="091e3b9f-3025-42bf-9a49-69b8814707d1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/commandlinetools/Composer_24_01_17_15_08_c.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/commandlinetools/Symfony_24_01_17_15_08_s.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/LANG.js" afterPath="$PROJECT_DIR$/web/js/locales/LANG.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/ar.js" afterPath="$PROJECT_DIR$/web/js/locales/ar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/bg.js" afterPath="$PROJECT_DIR$/web/js/locales/bg.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/ca.js" afterPath="$PROJECT_DIR$/web/js/locales/ca.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/cr.js" afterPath="$PROJECT_DIR$/web/js/locales/cr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/cz.js" afterPath="$PROJECT_DIR$/web/js/locales/cz.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/da.js" afterPath="$PROJECT_DIR$/web/js/locales/da.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/de.js" afterPath="$PROJECT_DIR$/web/js/locales/de.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/fa.js" afterPath="$PROJECT_DIR$/web/js/locales/fa.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/fi.js" afterPath="$PROJECT_DIR$/web/js/locales/fi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/fr.js" afterPath="$PROJECT_DIR$/web/js/locales/fr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/id.js" afterPath="$PROJECT_DIR$/web/js/locales/id.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/it.js" afterPath="$PROJECT_DIR$/web/js/locales/it.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/ja.js" afterPath="$PROJECT_DIR$/web/js/locales/ja.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/nl.js" afterPath="$PROJECT_DIR$/web/js/locales/nl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/pl.js" afterPath="$PROJECT_DIR$/web/js/locales/pl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/pt-BR.js" afterPath="$PROJECT_DIR$/web/js/locales/pt-BR.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/pt.js" afterPath="$PROJECT_DIR$/web/js/locales/pt.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/ro.js" afterPath="$PROJECT_DIR$/web/js/locales/ro.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/ru.js" afterPath="$PROJECT_DIR$/web/js/locales/ru.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/sk.js" afterPath="$PROJECT_DIR$/web/js/locales/sk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/sl.js" afterPath="$PROJECT_DIR$/web/js/locales/sl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/th.js" afterPath="$PROJECT_DIR$/web/js/locales/th.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/tr.js" afterPath="$PROJECT_DIR$/web/js/locales/tr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/uk.js" afterPath="$PROJECT_DIR$/web/js/locales/uk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/vi.js" afterPath="$PROJECT_DIR$/web/js/locales/vi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/zh-TW.js" afterPath="$PROJECT_DIR$/web/js/locales/zh-TW.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/locales/zh.js" afterPath="$PROJECT_DIR$/web/js/locales/zh.js" />
-    </list>
+    <list default="true" id="091e3b9f-3025-42bf-9a49-69b8814707d1" name="Default" comment="" />
     <list id="9c262b20-a705-41af-9c6d-05b693f8b49a" name="Revert: comit raro" comment="" />
     <ignored path="wwweb.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -326,12 +294,12 @@
       <workItem from="1485266132772" duration="2744000" />
       <workItem from="1485269737613" duration="89000" />
       <workItem from="1485269848438" duration="3719000" />
-      <workItem from="1485329224194" duration="17537000" />
+      <workItem from="1485329224194" duration="17593000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25322000" />
+    <option name="totallyTimeSpent" value="25378000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
