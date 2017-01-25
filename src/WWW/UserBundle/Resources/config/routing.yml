@@ -7,7 +7,7 @@ user_login:
     defaults: { _controller: UserBundle:Login:login }
 
 user_login_check:
-    pattern:   /login
+    pattern:   /login/
     methods:   [POST]
 
 user_logout:
