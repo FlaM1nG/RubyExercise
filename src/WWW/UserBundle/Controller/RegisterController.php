@@ -47,34 +47,21 @@ class RegisterController extends Controller{
             
             $result = $this->newUser($request, $totalHobbies);
             
-            if($result == 'ok'):
+            if ($result['result'] == 'ok'):
+//              Aqui guardamos el usuario registrado
+//              $this->get('app.manager.usuario_manager')->guardar($this->usuario);
+//                $this->get('app.manager.usuario_manager')->login($this->usuario);
                 $this->ut->flashMessage('register', $request, null);
                 return $this->redirectToRoute('homepage');
+                //return $this->forward('UserBundle:Login:login');
+               // return $this->render('UserBundle:Default:login.html.twig',array('formulario'=>$formulario->createView()));
             else:
                 return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
             endif;
-            
-            $nacimiento =$arrayBirthdate['year']."-".$mes.'-'.$dia;
-            $this->get('app.manager.usuario_manager')->login($usuario);
-            $tokenRoleUser=$this->get('security.token_storage')->getToken();
-            $request->getSession()->set('tokenRole', $tokenRoleUser);
-            $request->getSession()->save();
-            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/registration/register_user.php";
-            $data = array("username" => $usuario->getUsername(),
-                          "email" => $usuario->getEmail(),
-                          "date" => $nacimiento,
-                          "password" => $usuario->getPassword(),
-                          "prefix" => $usuario->getPrefix(),
-                          "phone" => $usuario->getPhone(),
-                          "hobbies" => $hobbies,
-+                         "token"=>$token
-                );
-            
+                      
+
             $ch = new ApiRest();
-            
-            $result = $ch->sendInformation($data, $file, "parameters");
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
-        else:
+        else:                       
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
         endif;
                 

@@ -29,30 +29,29 @@
         <div class="col-lg-3 col-md-4 col-sm-8 hidden-xs colAdministracion">
             <div class="navegacion-usuario">
                 <ul style="border-right: 0;">
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <li class="text-nav-user">
-                            <a href="{{ path('user_profiler') }}">
-                                <span class="glyphicon glyphicon-user size-icon">
+                    
+                    <li class="text-nav-user">
+                        
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                  <a href="{{ path('user_profiler') }}">
+                                 <span class="glyphicon glyphicon-user size-icon">
                                 </span>
-                                Mi Cuenta
+                                Mi cuenta
                             </a>
-                        </li>
-
-                        <li class="text-nav-user">
-                            <a href="{{ path('user_logout') }}">
-                                <span class="glyphicon glyphicon-log-out size-icon">
-                                </span>
-                                Cerrar sesión
-                            </a>
-                        </li>
-                    {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-                        <li class="text-nav-user">
-                            <a href="{{ path('user_login') }}">
+                            {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                <a href="{{ path('user_login') }}">
                                 <span class="glyphicon glyphicon-log-in size-icon">
                                 </span>
                                 Acceder
                             </a>
-                        </li>
+                            {% endif %}
+                          
+                           
+                                
+                                
+                           
+{#                       
+                            
                         
                         <li class="text-nav-user">
                             <a href="{{ path('user_register') }}">
