@@ -45,7 +45,7 @@ class AdressType extends AbstractType{
                                                         'preferred_choices' => array('Spain')
                                                         ))
                 
-                ->add('region','text', array('label' => 'Región',
+                ->add('region','text', array('label' => 'Población',
                                              'validation_groups' => array('address') ))
                 
                 ->add('city','text', array('label'=>'Ciudad',
@@ -71,7 +71,7 @@ class AdressType extends AbstractType{
                 ->add('id','hidden', array('label' => ' '))
                 ->add('editAddress','submit',array('label' => 'Guardar',
                                                    'validation_groups' => false,
-                                                    'attr' => array('class' => 'editAddressButton')));
+                                                    'attr' => array('class' => 'btn-default editAddressButton')));
     }
     
     private function arrayPrefixCountry(){
