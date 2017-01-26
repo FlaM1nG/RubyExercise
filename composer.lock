@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2abe5f161659646003bfacf95b443dda",
-    "content-hash": "5ad9f43cedb97350a96f4eefe307edea",
+    "hash": "4a2bb4359ce642b369bfa2d57df3a88e",
+    "content-hash": "e1e177bd86d816790ca615aacb2eff4e",
     "packages": [
         {
             "name": "components/jquery",
@@ -1347,6 +1347,60 @@
                 "minification"
             ],
             "time": "2016-11-11 18:43:20"
+        },
+        {
+            "name": "marrouchi/upload-crop-image-bundle",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anis-marrouchi/UploadCropImageBundle.git",
+                "reference": "98bc11c02582fbc6eeb61ccd9986e317aefbec90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anis-marrouchi/UploadCropImageBundle/zipball/98bc11c02582fbc6eeb61ccd9986e317aefbec90",
+                "reference": "98bc11c02582fbc6eeb61ccd9986e317aefbec90",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "friendsofsymfony/jsrouting-bundle": "*",
+                "php": ">=5.3.9",
+                "symfony/framework-bundle": "~2.3"
+            },
+            "require-dev": {
+                "symfony/symfony": "2.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Marrouchi\\UploadCropImageBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anis Marrouchi",
+                    "email": "anismarrouchi@hotmail.com",
+                    "homepage": "http://www.twittstrap.com/"
+                }
+            ],
+            "description": "Basic server side cropping behavior for Symfony2",
+            "homepage": "https://github.com/anis-marrouchi/UploadCropImageBundle",
+            "keywords": [
+                "crop",
+                "image",
+                "upload"
+            ],
+            "time": "2015-06-30 01:29:02"
         },
         {
             "name": "moment/moment",
