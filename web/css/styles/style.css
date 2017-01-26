@@ -12337,15 +12337,30 @@ a.boton-leer-post:focus {
 #profileImage {
   border: 2px solid #ff6600;
 }
-.btn-default.btn.editAddress {
+.btn-default.btn.editAddress,
+.btn-default.btn.deleteAddress {
   padding: 5px 10px;
   margin-bottom: 0px;
   float: left;
+  margin-right: 10px;
 }
-.us-address-target {
+.us-address-target,
+.us-address-target2 {
   border-left: 4px solid #ff6600;
   padding: 2%;
   margin-bottom: 20px;
+}
+.us-address-target2 {
+  background-color: #333333;
+  color: #ffffff;
+}
+.us-address-target2 .btn-default:hover {
+  border-color: #ff6600;
+  border: 1px solid;
+}
+.us-address-target2 .btn-default {
+  border-color: #ff6600;
+  border: 1px solid #ff6600;
 }
 .us-offer-target {
   border-left: 4px solid #ff6600;
@@ -12398,6 +12413,9 @@ a.boton-leer-post:focus {
 }
 .us-mess-sent-element .us-open-mess {
   margin: 0 auto;
+  float: none;
+}
+.btn.btn-default.us-profileAddresses {
   float: none;
 }
 /* ***** FIN PROFILE ***** */
@@ -12525,6 +12543,25 @@ input#registroUsuario_captcha {
   width: 50px;
   height: 50px;
 }
+.us-label-terms {
+  display: flex;
+}
+.us-label-terms span {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+.us-terms {
+  /*width: 600px;*/
+  height: 150px;
+  border: 1px solid #aaaaaa;
+  background: #f4f4f4;
+  padding: 6px;
+  overflow: auto;
+  margin-bottom: 40px;
+}
+.us-save-register {
+  padding-bottom: 20px;
+}
 /* ##### FIN REGISTER ##### */
 /* ***** LOGIN ***** */
 .us-login-cont #loginUser_username {
@@ -12558,6 +12595,25 @@ input#registroUsuario_captcha {
 }
 .us-profile-panel {
   min-height: 400px;
+}
+.us-dataPersonal-row {
+  padding: 40px 20% 20px 18%;
+}
+#profilePersonalData_savePersonalData {
+  float: none;
+}
+#copy-button {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+.us-text-caution {
+  color: #666666;
+  font-size: 12px;
+  font-style: italic;
+}
+.us-btn-phoneProfile {
+  padding: 6px 12px;
+  float: left;
 }
 /* ##### FIN  ##### */
 /* *****  ***** */
@@ -13475,6 +13531,9 @@ Sidebar
   .us-mess-date {
     text-align: left;
   }
+  .us-dataPersonal-row {
+    padding: 0px 0 20px;
+  }
 }
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 @media only screen and (max-width: 480px) {
@@ -13919,6 +13978,7 @@ video.aus-video {
 ******************************************************************/
 /* ***** HEADER SERVICE ***** */
 .service-header {
+  text-align: center;
   padding-top: 50px;
 }
 .service-header h1 {
@@ -14465,6 +14525,9 @@ textarea {
   width: 220px !important;
   /*    padding-left: 15px;
     padding-right: 15px;*/
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.15);
 }
 .col-tra-user {
   text-align: center;
@@ -14487,6 +14550,7 @@ textarea {
   -o-transition: all 200ms linear 0s;
   transition: all 200ms linear 0s;
   text-decoration: none;
+  border: 3px solid #333333;
 }
 .tra-cont-elem:hover,
 .tra-cont-elem:focus {
@@ -15234,6 +15298,10 @@ textarea {
 .off-col-user-text-dis p {
   margin-top: 20px;
   margin-bottom: 10px;
+}
+.off-butt-add {
+  float: none;
+  padding: 7px 12px;
 }
 /* ##### FIN USER-LIST-OFFERS ##### */
 /* ***** HOUSE-RENTS ***** */
