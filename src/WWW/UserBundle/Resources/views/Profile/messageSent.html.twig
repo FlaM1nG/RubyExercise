@@ -26,28 +26,21 @@
 
 {% block bodyProfile %}
 
-    <div class="row us-dataPersonal-row us-writte-message">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h3>
-                Mensajes enviados
-            </h3>
-            <hr/>
-            {% for mensaje in messages %}
-
-                {{ message.messElementSent(
-                        mensaje.to.username,
-                        mensaje.createdDate,
-                        mensaje.subject,
-                        mensaje.message,
-                        'containerMessage_'~mensaje.id,
-                        path('user_profiler_readMessage' ,
-                        {idMessage: mensaje.id}),
-                        '#borrar',
-                        mensaje.id)
-                }}
-            {% endfor %}
-        </div>
-    </div>
+    <h2>MENSAJES ENVIADOS</h2>
+    {% for mensaje in messages %}
+        
+        {{ message.messElementSent(
+                mensaje.to.username,
+                mensaje.createdDate,
+                mensaje.subject, 
+                mensaje.message,
+                'containerMessage_'~mensaje.id,  
+                path('user_profiler_readMessage' , 
+                {idMessage: mensaje.id}), 
+                '#borrar', 
+                mensaje.id) 
+        }}
+    {% endfor %}
     
 {% endblock %}
 

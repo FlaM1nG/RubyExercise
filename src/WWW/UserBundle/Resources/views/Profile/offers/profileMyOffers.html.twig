@@ -25,19 +25,17 @@
 
 
 {% block bodyProfile %}
-    <h3>
-        Mis ofertas publicadas
-    </h3>
-    <hr/>
-
+    
+    <h2>LISTA OFERTA</h2>
+    
     {% for offer in listOffers %}
-
+        
         {% if offer.service.table == 'trade' %}
             {% set url = path('service_trade' , {idOffer: offer.id}) %}
         {% endif%}
-
-        {{ offers.offUser(url, offer.photos.0.url ,offer.title,
-            offer.description, 'leer', path('user_profiler_editOffer',{idOffer:offer.id}),
+        
+        {{ offers.offUser(url, offer.photos.0.url ,offer.title, 
+            offer.description, 'leer', path('user_profiler_editOffer',{idOffer:offer.id}), 
             'editar', '#borrar', 'borrar') }}
     {% endfor %}
     
