@@ -24,23 +24,29 @@
 
 
 {% block bodyProfile %}
-    
-    {{form_start(form)}}
-        {{form_row(form.offer.title)}}
-        {{form_row(form.category)}}
-        {{form_row(form.offer.description)}}
-        {{form_row(form.region)}}
-        {{form_row(form.width)}}
-        {{form_row(form.height)}}
-        {{form_row(form.long)}}
-        {{form_row(form.weight)}}
-        {{form_row(form.price)}}
-  
-        <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading">
+    <div class="row us-dataPersonal-row us-trade-offer">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Editar la oferta
+            </h3>
+            <hr/>
+            {{form_start(form)}}
+            {{form_row(form.offer.title)}}
+            {{form_row(form.category)}}
+            {{form_row(form.offer.description)}}
+            {{form_row(form.region)}}
+            {{form_row(form.width)}}
+            {{form_row(form.height)}}
+            {{form_row(form.long)}}
+            {{form_row(form.weight)}}
+            {{form_row(form.price)}}
 
-        {{form_row(form.offer.id)}}
-        {{form_row(form.saveTrade)}}
-    
+            <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading">
+
+            {{form_row(form.offer.id)}}
+            {{form_row(form.saveTrade)}}
+        </div>
+    </div>
 {% endblock %}
 
 
@@ -52,7 +58,7 @@
         type="text/javascript"></script>
     <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
          This must be loaded before fileinput.min.js -->
-    <script src="{{ asset('js/plugins/sortable.js') }}" 
+    <script src="{{ asset('js/plugins/sortable.js') }}"
         type="text/javascript"></script>
     <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.
          This must be loaded before fileinput.min.js -->
@@ -74,7 +80,11 @@
             {% for photo in form.offer.photos %}
                 
                 {% set arrayUrl = arrayUrl~"'"~asset(photo.url.vars.value,'img')~"'," %}  
-                {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~photo.id.vars.value~", extra: {idOffer:"~form.offer.id.vars.value~" } }," %}
+                {% set arrayCaption = arrayCaption~"{
+                    caption: '', width: '120px',
+                    showZoom: false,
+                    key: "~photo.id.vars.value~",
+                    extra: {idOffer:"~form.offer.id.vars.value~"}}," %}
  
             {% endfor %} 
            
@@ -101,6 +111,29 @@
             });
         });
     </script>
-       
+
+
+    <script>
+        $(document).ready(function(){
+            {#            console.log($('.content-wrapper').height());#}
+            if($(window).width() > 768){
+                $('.cd-side-nav').css('height', '0');
+                $('.cd-side-nav').css('height', $('.content-wrapper').height());
+            }else{
+                $('.cd-side-nav').css('height', 'inherit');
+            }
+        });
+
+        $(window).resize(function(){
+                        console.log($('.content-wrapper').height());
+            if($(window).width() > 768){
+                $('.cd-side-nav').css('height', '0');
+                $('.cd-side-nav').css('height', $('.content-wrapper').height());
+            }else{
+                $('.cd-side-nav').css('height', 'inherit');
+            }
+        });
+    </script>
+
 {% endblock %}
     

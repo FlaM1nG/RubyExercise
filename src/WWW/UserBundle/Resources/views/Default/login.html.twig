@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block title %}
-    Login
+    Acceder a What Want Web
 {% endblock %}
 
 {% block nav %}
@@ -25,7 +25,7 @@
     
     <div class="container cd-main-content us-login-cont">
         <h1>
-            Login
+            Acceder a What Want Web
         </h1>
         <hr>
     </div>
@@ -36,6 +36,16 @@
     {{ form_start(formulario) }}
 
     <div class="container cd-main-content us-login-cont">
+
+        <div class="row us-login-register">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a href="{{ path('user_register') }}">
+                    <p>
+                        ¿No tienes cuenta? Regístrate
+                    </p>
+                </a>
+            </div>
+        </div>
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -59,13 +69,22 @@
             {% endif %}    
             </div>
         </div>
+
+        <div class="row us-login-forgot">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a href="{{ path('user_forgot') }}">
+                    <p>
+                        ¿Has olvidado tu contraseña?
+                    </p>
+                </a>
+            </div>
+        </div>
             
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             {{ form_row(formulario.enviar)}}   
             </div>
         </div>
-    
         
         {{ form(formulario._token)}}
     </div>

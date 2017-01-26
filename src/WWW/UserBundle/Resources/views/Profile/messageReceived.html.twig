@@ -26,27 +26,34 @@
 
 {% block bodyProfile %}
 
-    <h2>MENSAJES RECIBIDOS</h2>
-    {% for mensaje in messages %}
-        {% if mensaje.status == 3 %}
-            {{ message.messElementReceived(mensaje.from.username, mensaje.createdDate,
-                mensaje.subject, mensaje.message,
-                'containerMessage_'~mensaje.id, path('user_profiler_readMessage', {idMessage:mensaje.id} ), '#borrar', mensaje.id) }}
-        {% else %}   
-            
-            {{ mensaje.messElementReceivedNot(
-                mensaje.from.username, 
-                mensaje.createdDate,
-                mensaje.subject, 
-                mensaje.message,
-                'containerMessage_'~mensaje.id,
-                path('user_profiler_readMessage', {idMessage:mensaje.id} ), 
-                'leer', 
-                '#borrar', 
-                mensaje.id) }}
-        {% endif %}        
-        
-    {% endfor %}
+    <div class="row us-dataPersonal-row us-writte-message">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Mensajes recibidos
+            </h3>
+            <hr/>
+            {% for mensaje in messages %}
+                {% if mensaje.status == 3 %}
+                    {{ message.messElementReceived(mensaje.from.username, mensaje.createdDate,
+                        mensaje.subject, mensaje.message,
+                        'containerMessage_'~mensaje.id, path('user_profiler_readMessage', {idMessage:mensaje.id} ), '#borrar', mensaje.id) }}
+                {% else %}
+
+                    {{ mensaje.messElementReceivedNot(
+                        mensaje.from.username,
+                        mensaje.createdDate,
+                        mensaje.subject,
+                        mensaje.message,
+                        'containerMessage_'~mensaje.id,
+                        path('user_profiler_readMessage', {idMessage:mensaje.id} ),
+                        'leer',
+                        '#borrar',
+                        mensaje.id) }}
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
 
 
