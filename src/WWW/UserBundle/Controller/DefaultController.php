@@ -72,7 +72,7 @@ class DefaultController extends Controller{
     }
     
     public function publicProfileAction(Request $request){
-        return $this->render('UserBundle:Default:profilePublic.html.twig');
+        return $this->render('UserBundle:Profile:publicProfile.html.twig');
     }
     
     public function unSubscribeAction(Request $request){
