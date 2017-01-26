@@ -22,53 +22,42 @@
         {{ form_row(formTrade.region) }}
         {{ form_row(formTrade.offer.title) }}
         {{ form_row(formTrade.offer.description) }}
-        {{ form_row(formTrade.dimensions) }}
-
-        <!--ul class="photosTrade" data-prototype="{{ form_widget(formTrade.offer.photos.vars.prototype)|e('html_attr') }}">
-     
-        </ul-->
-
-        {{ form_row(formTrade.offer.fileImage) }}
+        <div class="form-group">
+            <label class="control-label required">Dimensiones</label>
+            {{ form_row(formTrade.width) }}
+            {{ form_row(formTrade.height) }}
+            {{ form_row(formTrade.long) }}
+        </div>
         {{ form_row(formTrade.weight) }}
-        {{ form_row(formTrade.price) }}  
+        {{ form_row(formTrade.price) }}
+        {{ form_row(formTrade._token) }}
+
+        <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading" required>
 
         
 {% endblock %}
 
 {% block javascriptsFooter %}   
       {{ parent() }}
+
+    <!-- the main fileinput plugin file -->
+    <script src="{{ asset('js/fileinput.js') }}"></script>
+
     <script type="text/javascript">
 
         $(document).ready(function() {
             var $collectionHolder;
 
-            // setup an "add a tag" link
-            var $addTagLink = $('<button class="add_tag_link">Añadir imagen</button>');
-            var $newLinkLi = $('<li></li>').append($addTagLink);
+            $("#imgOffer").fileinput({
 
-            jQuery(document).ready(function() {
-                // Get the ul that holds the collection of tags
-                $collectionHolder = $('ul.photosTrade');
-
-                // add a delete link to all of the existing tag form li elements
-                $collectionHolder.find('li').each(function() {
-                    addTagFormDeleteLink($(this));
-                });
-
-                // add the "add a tag" anchor and li to the tags ul
-                $collectionHolder.append($newLinkLi);
-
-                // count the current form inputs we have (e.g. 2), use that as the new
-                // index when inserting a new item (e.g. 2)
-                $collectionHolder.data('index', $collectionHolder.find(':input').length);
-
-                $addTagLink.on('click', function(e) {
-                    // prevent the link from creating a "#" on the URL
-                    e.preventDefault();
-
-                    // add a new tag form (see next code block)
-                    addTagForm($collectionHolder, $newLinkLi);
-                });
+                initialPreviewAsData: true,
+                overwriteInitial: false,
+                maxFileSize: 3072,
+                showRemove: false,
+                showUpload: false,
+                showZoom: false,
+                initialCaption: '',
+                maxFileCount: 5,
             });
             
             function addTagForm($collectionHolder, $newLinkLi) {

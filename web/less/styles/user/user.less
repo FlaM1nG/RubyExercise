@@ -20,6 +20,7 @@
     
 }
 
+
 .us-date-ing{
     font-style: italic;
 }
@@ -106,16 +107,35 @@
     border: 2px solid @brand-primary;
 }
 
-.btn-default.btn.editAddress {
+.btn-default.btn.editAddress,
+.btn-default.btn.deleteAddress{
     padding: 5px 10px;
     margin-bottom: 0px;
     float: left;
+    margin-right: 10px;
 }
 
-.us-address-target{
+.us-address-target,
+.us-address-target2{
     border-left: 4px solid @brand-primary;
     padding: 2%;
     margin-bottom: 20px;
+}
+
+.us-address-target2{
+    background-color: @gray-base;
+    color: @brand-secondary;
+
+    .btn-default:hover {
+        border-color: @brand-primary;
+        border: 1px solid;
+    }
+
+    .btn-default{
+        border-color: @brand-primary;
+        border: 1px solid @brand-primary;
+    }
+
 }
 
 .us-offer-target{
@@ -194,6 +214,10 @@
         margin: 0 auto;
         float: none;
     }
+}
+
+.btn.btn-default.us-profileAddresses {
+    float: none;
 }
 /* ***** FIN PROFILE ***** */
 
@@ -419,6 +443,32 @@ input#registroUsuario_captcha {
 
 .us-profile-panel{
     min-height: 400px;
+}
+
+.us-dataPersonal-row{
+    padding: 40px 20% 20px 18%;
+    //padding-top: 40px;
+    //padding-bottom: 20px;
+}
+
+#profilePersonalData_savePersonalData {
+    float: none;
+}
+
+#copy-button {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.us-text-caution{
+    color: @gray-dark;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.us-btn-phoneProfile{
+    padding: 6px 12px;
+    float: left;
 }
 /* ##### FIN  ##### */
 
@@ -1396,6 +1446,10 @@ Sidebar
         text-align: left;
     }
 
+    .us-dataPersonal-row{
+        padding: 0px 0 20px;
+    }
+
     @media only screen and (max-height : 1024px){
 
     }
@@ -1453,6 +1507,8 @@ Sidebar
     .us-address-target{
         border-left: 0px solid @brand-primary;
     }
+
+
 
     @media only screen and (max-height : 667px){
 

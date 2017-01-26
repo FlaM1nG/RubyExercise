@@ -59,12 +59,14 @@ class ApiRest {
         
         return $this->resultApiRed($information, $file);
     }
+    
     public function resultApiRed($data, $file){
         
         // definimos la URL a la que hacemos la petición
         curl_setopt($this->ch, CURLOPT_URL, $file);
         // indicamos el tipo de petición: POST
         curl_setopt($this->ch, CURLOPT_POST, TRUE);
+        
         // definimos cada uno de los parámetros
         curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
         // recibimos la respuesta y la guardamos en una variable

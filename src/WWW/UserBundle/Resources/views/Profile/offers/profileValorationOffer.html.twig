@@ -1,0 +1,111 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/offer.html.twig' as offers %}
+
+{% block stylesheets %}
+    {{parent()}}
+
+<link href="{{asset("css/styles/starRating/star-rating.css")}}" media="all" rel="stylesheet" type="text/css" />
+
+{% endblock %}
+
+{% block title %}
+    Ofertas
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+
+     <input id="rating-input" 
+            class="rating rating-loading"  
+            data-show-clear="false" 
+            data-show-caption="false"
+            data-step="1"
+            type="number" />
+
+     <textarea id="comment" ></textarea>
+     <button id="sendValoration" class="btn btn-default" disabled>Enviar</button>
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/starRating/star-rating.js') }}"></script>
+
+    <script>
+        $(document).ready( function(){
+     
+           $('#rating-input').rating({
+              min: 0,
+              max: 5,
+              size: 'lg',
+              showClear: false
+           });
+
+
+            $(document).on('change','#rating-input', activeDesactiveSend);
+            $(document).on('keyup','#comment', activeDesactiveSend);
+
+            function activeDesactiveSend(){
+
+                if($('#rating-input').val() > 0 && $('#comment').val()!=''){
+
+                    $('#sendValoration').attr('disabled',false);
+                }else{
+
+                    $('#sendValoration').attr('disabled',true);
+                }
+
+            }
+
+            function sendValoration() {
+                
+                var rating = $('#rating-input').val();
+                var idOffer = {{ app.request.attributes.get('idOffer') }};
+                var comment = $('#comment').val();
+                var data = {};
+                data["rating"] = rating;
+                data["idOffer"] = idOffer;
+                data["comment"] = comment;
+                
+                    
+                $.ajax({                        
+                    type: "POST",                 
+                    url: "{{ url('user_ajax_valorationOffer') }}",                     
+                    data: data, 
+                    success: function(data)             
+                    {
+                        location.href='{{ path('user_profiler_purchases') }}';
+                    },
+                    error: function()             
+                    {
+                        console.log('error');
+         
+                    }
+                });
+            };
+
+        });
+    </script>
+{% endblock %}
+    

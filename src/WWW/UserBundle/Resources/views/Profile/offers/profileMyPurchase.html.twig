@@ -25,7 +25,19 @@
 
 
 {% block bodyProfile %}
+    <h2>LISTA OFERTA DISFRUTADAS</h2>
     
+    {% for purchase in purchases %}
+        
+        {% set urlValoration = '' %}
+        {% if purchase.valorated == 0%}
+            {% set urlValoration = path('user_profiler_purchasesValoration',{idOffer: purchase.offer_id}) %}
+        {% endif %}
+
+        {{ offers.offUserDisfrutadas('', purchase.offer_photo ,purchase.title, purchase.created_date, 
+            purchase.description, 'leer', urlValoration, 
+            'Valorar', '#PDF', 'PDF') }}
+    {% endfor %}
     
 {% endblock %}
 

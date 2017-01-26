@@ -35,7 +35,7 @@ class LoginController extends Controller{
             
             $ch = new ApiRest();
             
-            $result = $ch->sendInformation($data, $file, "parameters");
+            $result = $ch->resultApiRed($data, $file);
 
             $authenticationUtils = $this->get('security.authentication_utils');
             // get the login error if there is one

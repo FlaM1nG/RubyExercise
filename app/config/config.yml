@@ -33,11 +33,13 @@ framework:
         handler_id:  ~
     fragments:       ~
     http_method_override: true
-    assets:
+
+    assets:  
         packages:
             img: 
                 base_urls: 'http://whatwantweb.com/n19n382d23HnNY7bb8nj0m9nyb988676HUUBY6g7J9JI/'
 
+        
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
@@ -121,4 +123,8 @@ easy_admin:
         Address:
             class: WWW\GlobalBundle\Entity\Address
          
-        
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~

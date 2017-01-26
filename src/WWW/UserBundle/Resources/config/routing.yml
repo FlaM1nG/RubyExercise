@@ -7,8 +7,9 @@ user_login:
     defaults: { _controller: UserBundle:Login:login }
 
 user_login_check:
-    pattern:   /login
+    pattern:   /login/
     methods:   [POST]
+
 user_logout:
     path: /logout/
     defaults: { _controller: UserBundle:Login:logout }
@@ -68,7 +69,7 @@ user_profiler_offers:
     defaults: { _controller: UserBundle:Offer:myOffers }
         
 user_profiler_editOffer:    
-    path: /profile/offer/{idOffer}
+    path: /profile/offer/{idOffer}/
     defaults: { _controller: UserBundle:Offer:editOffer }
     requirements:
         idOffer: \d+
@@ -77,6 +78,12 @@ user_profiler_purchases:
     path: /profile/purchases/
     defaults: { _controller: UserBundle:Purchases:myPurchases }
     
+user_profiler_purchasesValoration:
+    path: /profile/purchases/valoration/{idOffer}/
+    defaults: { _controller: UserBundle:Purchases:valoration }
+    requirements:
+        idOffer: \d+
+        
 user_profiler_inscriptions:
     path: /profile/inscription/
     defaults: { _controller: UserBundle:Inscriptions:myInscriptions }
@@ -114,6 +121,10 @@ user_change:
 user_resend:
     path: /resend
     defaults: { _controller: UserBundle:Default:resend }
+    
+user_ajax_valorationOffer:
+    path: /ajax/valorationOffer
+    defaults: { _controller: UserBundle:Offer:valorationOffer }
     
 user_ajax_deleteMessage:
     path: /ajax/message

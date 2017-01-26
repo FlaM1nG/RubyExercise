@@ -26,23 +26,45 @@
 
 
 {% block bodyProfile %}
-    {#{{dump(app.user)}}#}
-    {% if app.user.phone is not empty %}
-        Tlfn: {{app.user.prefix}} &nbsp; {{ app.user.phone }}   <br> 
-    
-        {% if app.user.smsConfirmed %}
-            <a href="{{path('user_profileChangePhone')}}" id="changePhone" data="confirm" > Cambiar tlfn </a>
-            <br>
-            {% if phones is not empty %}
-                <a href="{{path('user_profileConfirmPhone')}}">Introducir código de confirmación</a>
-                * No verá el el tlfn nuevo hasta que lo confirmes
-            {% endif %}    
-        {% else %}
-            <a href="">Confirmar tlfn</a>
-        {% endif %}    
-    
-    {% endif %}    
-    
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Cambiar Teléfono
+            </h3>
+            <hr/>
+            {#{{dump(app.user)}}#}
+            {% if app.user.phone is not empty %}
+                <label class="control-label">Teléfono</label>
+
+                <p>
+                    {{app.user.prefix}} &nbsp; {{ app.user.phone }}
+                </p>
+
+                {% if app.user.smsConfirmed %}
+                    <a class="btn btn-default us-btn-phoneProfile" href="{{ path('user_profileChangePhone') }}"
+                       id="changePhone"
+                       data="confirm" >
+                        Cambiar teléfono
+                    </a>
+
+                    {% if phones is not empty %}
+                        <a href="{{path('user_profileConfirmPhone')}}">
+                            Introducir código de confirmación
+                        </a>
+
+                        * No verá el tlfn nuevo hasta que lo confirme
+                    {% endif %}
+
+                {% else %}
+                    <a class="btn btn-default us-btn-phoneProfile" href="#">
+                        Confirmar teléfono
+                    </a>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
+
 {% endblock %}
 
 
