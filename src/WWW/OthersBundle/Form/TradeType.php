@@ -13,7 +13,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use WWW\ServiceBundle\Form\OfferType;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Entity\TradeCategory;
@@ -36,7 +37,7 @@ class TradeType extends AbstractType{
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-        //print_r($options);
+
         $arrayCategory = $this->arrayCategories();
         
         $builder
@@ -45,8 +46,14 @@ class TradeType extends AbstractType{
                                                       'attr' => array('placeholder' => '2.5'),
                                                       'precision' => 2,
                                                       'grouping' => true))
-            ->add('dimensions','text', array('label' => 'Dimensiones'))
-            ->add('weight','number', array('label' => 'Peso'))
+            ->add('width',NumberType::class, array('label' => 'Ancho',
+                                          'mapped' => false ))
+            ->add('height',NumberType::class, array('label' => 'Alto',
+                                           'mapped' => false ))
+            ->add('long',NumberType::class, array('label' => 'Profundidad',
+                                          'mapped' => false ))
+
+            ->add('weight',NumberType::class, array('label' => 'Peso'))
             ->add('category',ChoiceType::class, array('label' => 'Categoria',
                                                          'required' => false,
                                                          'empty_value' => false,
@@ -60,11 +67,7 @@ class TradeType extends AbstractType{
                                                          )) 
             
             ->add('region',TextType::class, array('label' => 'Provincia'))
-//            ->add('checkOffer',CheckboxType::class,array('label' => ' ',
-//                                                         'mapped' => false,
-//                                                         'required' => false))                                                      
-            ->add('saveTrade','submit',array('label'=>'Guardar'));
-//            ->add('deletePhotos','submit', array('label' => 'Eliminar imágenes'));                                                
+            ->add('saveTrade',SubmitType::class,array('label'=>'Guardar'));
             
         
     }

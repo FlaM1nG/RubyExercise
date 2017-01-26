@@ -15,6 +15,30 @@
             {{  alerts.alert('alert-success', flash_message, null) }}
         {% endfor %}
     {% endblock %}
+<<<<<<< HEAD
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                {{ form_start(formTrade) }}
+                {{ form_row(formTrade.saveTrade) }}
+                {{ form_row(formTrade.category) }}
+                {{ form_row(formTrade.region) }}
+                {{ form_row(formTrade.offer.title) }}
+                {{ form_row(formTrade.offer.description) }}
+                {{ form_row(formTrade.dimensions) }}
+
+                <!--ul class="photosTrade" data-prototype="{{ form_widget(formTrade.offer.photos.vars.prototype)|e('html_attr') }}">
+
+                </ul-->
+
+                {{ form_row(formTrade.offer.fileImage) }}
+                {{ form_row(formTrade.weight) }}
+                {{ form_row(formTrade.price) }}  
+            </div>
+        </div>
+    </div>
+    
+=======
 
     {{ form_start(formTrade) }}
         {{ form_row(formTrade.saveTrade) }}
@@ -29,10 +53,11 @@
             {{ form_row(formTrade.long) }}
         </div>
         {{ form_row(formTrade.weight) }}
-        {{ form_row(formTrade.price) }}
+        {{ form_row(formTrade.price) }}  
         {{ form_row(formTrade._token) }}
 
         <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading" required>
+>>>>>>> PruebaProfileNew
 
         
 {% endblock %}
@@ -46,7 +71,6 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
-            var $collectionHolder;
 
             $("#imgOffer").fileinput({
 
@@ -59,45 +83,6 @@
                 initialCaption: '',
                 maxFileCount: 5,
             });
-            
-            function addTagForm($collectionHolder, $newLinkLi) {
-                // Get the data-prototype explained earlier
-                var prototype = $collectionHolder.data('prototype');
-
-                // get the new index
-                var index = $collectionHolder.data('index');
-
-                // Replace '__name__' in the prototype's HTML to
-                // instead be a number based on how many items we have
-                var newForm = prototype.replace(/__name__/g, index);
-
-                // increase the index with one for the next item
-                $collectionHolder.data('index', index + 1);
-
-                // Display the form in the page in an li, before the "Add a tag" link li
-                var $newFormLi = $('<li></li>').append(newForm);
-                $newLinkLi.before($newFormLi);
-                
-                 addTagFormDeleteLink($newFormLi);
-            }
-            
-            function addTagFormDeleteLink($tagFormLi) {
-                var $removeFormA = $('<button>Eliminar imagen</button>');
-               
-                $tagFormLi.append($removeFormA);
-
-                $removeFormA.on('click', function(e) {
-                    // prevent the link from creating a "#" on the URL
-                    e.preventDefault();
-
-                    // remove the li for the tag form
-                    $tagFormLi.remove();
-                });
-            }
-            
-            $(':file').change(function(){
-                console.log($(this));
-            })
         });
 
 

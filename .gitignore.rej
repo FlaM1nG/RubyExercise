@@ -1,0 +1,9 @@
+diff a/.gitignore b/.gitignore	(rejected hunks)
+@@ -10,4 +10,5 @@
+ /vendor/
+ /bin/
+ /composer.phar
+-/nbproject/private/
+\ No newline at end of file
++/nbproject/private/
++src/WWW/GlobalBundle/pruebaUtility.php

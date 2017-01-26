@@ -30,14 +30,14 @@
         {{form_row(form.category)}}
         {{form_row(form.offer.description)}}
         {{form_row(form.region)}}
-        {{form_row(form.dimensions)}}
+        {{form_row(form.width)}}
+        {{form_row(form.height)}}
+        {{form_row(form.long)}}
         {{form_row(form.weight)}}
         {{form_row(form.price)}}
   
         <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading">
-{#        <button id="bDeletePhoto">Borrar imágenes</button>#}
-        
-{#        {{form_row(form.offer.fileImage)}}#}
+
         {{form_row(form.offer.id)}}
         {{form_row(form.saveTrade)}}
     
@@ -95,8 +95,9 @@
                 showRemove: false,
                 showUpload: false,
                 showZoom: false,
-                initialCaption: ''
-        
+                initialCaption: '',
+                validateInitialCount: true,
+                maxFileCount: 5,
             });
         });
     </script>
