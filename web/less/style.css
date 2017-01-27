@@ -12267,6 +12267,15 @@ a.boton-leer-post:focus {
   overflow: hidden;
   border: 5px #ff6600 solid;
   float: right;
+  padding: 0;
+  position: relative;
+}
+.us-pro-public-img {
+  max-width: none;
+  position: absolute;
+  left: -50%;
+  top: -50%;
+  min-width: 100%;
 }
 .us-redactar-mess {
   margin-bottom: 20px;

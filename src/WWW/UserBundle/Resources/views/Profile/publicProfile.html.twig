@@ -4,7 +4,7 @@
 {% block stylesheets %}
     {{parent()}}
 
-    <link href="{{asset("css/styles/starRating/star-rating.css")}}" media="all" rel="stylesheet" type="text/css" />
+    {#<link href="{{asset("css/styles/starRating/star-rating.css")}}" media="all" rel="stylesheet" type="text/css" />#}
 
 {% endblock %}
 
@@ -34,7 +34,7 @@
     <div class="row us-row-header-public">
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="us-pro-pub-marco">
-                <img class="img-responsive img-circle us-pro-public-img" 
+                <img class="img-responsive us-pro-public-img"
                      src="{{ asset(profile.photo.url|default('web/img/userDefault.jpg'),'img') }}"/>
             </div>
         </div>
