@@ -68,6 +68,7 @@ class TradeController extends Controller{
     public function setUpVars(Request $request){
         $this->ut = new Utilities(); 
         $this->session = $request->getSession();
+        $this->trade = null;
     }
     
     private function saveTrade(Request $request, Trade $trade){
@@ -179,38 +180,41 @@ class TradeController extends Controller{
         endif;
         return $arrayOffers;
     }
-    
+
     public function showTradeAction(Request $request){
-        
+
         $this->setUpVars($request);
-        
-        $trade = null;
+
         $this->getTrade($request);
 
         $comment = new Comment();
         $message = $this->fillMessage();
-        
+
         $formComment = $this->createForm(CommentType::class, $comment);
         $formMessage = $this->createForm(MessageType::class, $message);
         $formSubscribe = $this->createForm(OfferSuscribeType::class);
-        
+
         $formComment->handleRequest($request);
         $formMessage->handleRequest($request);
         $formSubscribe->handleRequest($request);
-        
+
         if($formComment->isSubmitted()):
 
-            $this->saveComment($request, $this->trade->getOffer()->getId(), $comment);
+            $result = $this->saveComment($request, $this->trade->getOffer()->getId(), $comment);
             $formComment = $this->createForm(CommentType::class, new Comment());
             
+            if($result == 'ok'):
+                return $this->redirectToRoute('service_trade',array('idOffer'=> $this->trade->getOffer()->getId()));
+            endif;
+        
         elseif($formMessage->isSubmitted()):
             $this->sendMessage($request);
-        
+
         elseif($formSubscribe->isSubmitted()):
             $this->offerSubscribe($this->trade);
-        
+
         endif;
-        
+
         return $this->render('offer/offTrade.html.twig',array(
                              'trade' => $this->trade,
                              'formComment' => $formComment->createView(),
@@ -218,7 +222,7 @@ class TradeController extends Controller{
                              'formSubscribe' => $formSubscribe->createView()
         ));
     }
-    
+
     private function fillMessage(){
         $message = new Message();
         
@@ -258,10 +262,7 @@ class TradeController extends Controller{
         endif;
 
     }
-    
-    private function listComments(){
-        
-    }
+
     
     private function saveComment(Request $request, $idOffer, $comment){
         
@@ -275,13 +276,13 @@ class TradeController extends Controller{
         $data['comment'] = $comment->getComment();
         
         $result = $ch->resultApiRed($data, $file);
-//$result['result'] = 'ok';
-//        print_r($comment);
-//        if($result['result'] == 'ok'):
-//            $comment
-//            $this->trade->getOffer()->addComment($comment);
-//        endif;
-        $this->ut->flashMessage("comment", $request, $result);
+
+        if($result['result'] == 'ok'):
+            return $result['result'];
+        else:
+            $this->ut->flashMessage("comment", $request, $result);
+        endif;
+
     }
     
     private function sendMessage(Request $request){
