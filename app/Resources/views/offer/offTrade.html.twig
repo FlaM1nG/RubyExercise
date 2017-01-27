@@ -34,11 +34,11 @@
         {% for photo in trade.offer.photos %}
             <div class="item">
                 <div class="off-img-marco-grande">
-                    <a href="{{ 'http://www.whatwantweb.com/' ~ photo.url }}" 
+                    <a href="{{ asset(photo.url, 'img') }}"
                         data-lightbox="offer-item">
                         
                         <img class="img-responsive off-img-expo" 
-                            src="{{ 'http://www.whatwantweb.com/' ~ photo.url }}" 
+                            src="{{ asset(photo.url, 'img') }}"
                             alt="">
                     </a>
                 </div>
@@ -51,7 +51,7 @@
         <div class="item off-item-dime">
             <div class="off-img-marco-peque">
                 <img class="img-responsive off-img-slid" 
-                    src="{{ 'http://www.whatwantweb.com/' ~ photo.url }}" 
+                    src="{{ asset(photo.url, 'img') }}"
                     alt="">
             </div>
         </div>
@@ -64,13 +64,17 @@
 {% block offerUser %} 
     <!-- IMAGEN USUARIO -->
     <div class="row row-off-user-name">
-        <a class="off-user-image" href="#USUARIO">
+        <a class="off-user-image"
+           href="{{ path('user_public_profile', {username: trade.offer.userAdmin.username}) }}">
             <img class=" img-circle img-responsive" 
-                src="{{ 'http://www.whatwantweb.com/' ~ trade.offer.userAdmin.photo.url }}" 
+                src="{{ asset(trade.offer.userAdmin.photo.url, 'img') }}"
                 width="50" alt="">
         </a>
                     
-        <a class="off-user-name" href="#USUARIO">{{trade.offer.userAdmin.username}}</a>
+        <a class="off-user-name"
+           href="{{ path('user_public_profile', {username: trade.offer.userAdmin.username}) }}">
+            {{trade.offer.userAdmin.username}}
+        </a>
         
     </div>
     <!-- FIN NOMBRE USUARIO -->
