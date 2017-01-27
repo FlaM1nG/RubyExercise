@@ -27,25 +27,27 @@
 {% block bodyProfile %}
 
     <h2>MENSAJES RECIBIDOS</h2>
+
     {% for mensaje in messages %}
+
         {% if mensaje.status == 3 %}
             {{ message.messElementReceived(mensaje.from.username, mensaje.createdDate,
                 mensaje.subject, mensaje.message,
                 'containerMessage_'~mensaje.id, path('user_profiler_readMessage', {idMessage:mensaje.id} ), '#borrar', mensaje.id) }}
-        {% else %}   
-            
-            {{ mensaje.messElementReceivedNot(
-                mensaje.from.username, 
+        {% else %}
+            {{ message.messElementReceivedNot(
+                mensaje.from.username,
                 mensaje.createdDate,
-                mensaje.subject, 
-                mensaje.message,
+                mensaje.subject,
+                mensaje.message|e,
                 'containerMessage_'~mensaje.id,
-                path('user_profiler_readMessage', {idMessage:mensaje.id} ), 
-                'leer', 
-                '#borrar', 
+                path('user_profiler_readMessage', {idMessage:mensaje.id} ),
+                'leer',
+                '#borrar',
                 mensaje.id) }}
-        {% endif %}        
-        
+
+        {% endif %}
+
     {% endfor %}
 {% endblock %}
 
