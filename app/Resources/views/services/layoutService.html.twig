@@ -14,6 +14,9 @@
         <h1>
             {% block serviceTitle %}  {% endblock %}
         </h1>
+        <a href="{{ path('service_newTrade') }}" type="button" class="btn btn-default off-butt-add">
+            Añadir oferta
+        </a>
     </div>
 </div>
 
@@ -30,9 +33,19 @@
     <div class="row separacion-inferior">
         
         <!-- COLUMN FILTERS -->
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" 
-             id="filtro">
-            {% block serviceFilters %} {% endblock %}
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            {#<div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a href="{{ path('service_newTrade') }}" type="button" class="btn btn-default off-butt-add">
+                        Añadir oferta
+                    </a>
+                </div>
+            </div>#}
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="filtro">
+                    {% block serviceFilters %} {% endblock %}
+                </div>
+            </div>
         </div>
         <!-- END COLUMN FILTERS -->
         
