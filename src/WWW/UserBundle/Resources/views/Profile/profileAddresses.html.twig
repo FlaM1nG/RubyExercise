@@ -1,4 +1,5 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/user.html.twig' as addressMacro %}
 
 
 {% block title %}
@@ -25,91 +26,38 @@
 
 
 {% block bodyProfile %}
-    <a href="{{path('user_profiler_newAdress')}}">Nueva dirección</a>
-    <!-- Default Address -->
-    
-    {%if usuario.defaultAddress is not empty %}
-        <div class="us-address-target containerAddress_{{ usuario.defaultAddress.id }}">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <h4>{{ usuario.defaultAddress.name|e|capitalize }}</h4>
-                </div>
-            </div>
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Cambiar Datos Personales
+            </h3>
+            <hr/>
 
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p>{{ usuario.defaultAddress.street}}</p>
-                </div>
-            </div>
+            <a class="btn btn-default us-profileAddresses" href="{{path('user_profiler_newAdress')}}">
+                Nueva dirección
+            </a>
 
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p>{{ usuario.defaultAddress.zipCode }} - 
-                       {{ usuario.defaultAddress.region }}, 
-                       {{ usuario.defaultAddress.city }} 
-                       ({{ usuario.defaultAddress.country }})</p>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a href="{{ path('user_profiler_editAdress',{ idAddress:usuario.defaultAddress.id }) }}" 
-                    class="btn-default btn editAddress">Editar </a>
-                </div>
-            </div>
+            {%if usuario.defaultAddress is not empty %}
 
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <button data-id="{{ usuario.defaultAddress.id }}" 
-                    class="btn-default btn deleteAddress">Borrar </button>
-                </div>
-            </div>        
+                {{ addressMacro.userAddress(true, usuario.defaultAddress.id, usuario.defaultAddress.name,
+                usuario.defaultAddress.street, usuario.defaultAddress.zipCode, usuario.defaultAddress.region,
+                usuario.defaultAddress.city, usuario.defaultAddress.country,
+                path('user_profiler_editAdress',{ idAddress:usuario.defaultAddress.id }),
+                usuario.defaultAddress.id) }}
+
+            {% endif %}
+
+            {% for address in usuario.addresses.0 %}
+
+                {{ addressMacro.userAddress(false, address.id, address.name, address.street,
+                address.zipCode, address.region, address.region, address.country,
+                path('user_profiler_editAdress',{ idAddress:address.id }), address.id) }}
+
+            {% endfor %}
+
         </div>
-    {% endif %}                
-    <!-- END DEFAULT ADDRESS -->                
-
-    {% for address in usuario.addresses.0 %}
-
-        <div class="us-address-target containerAddress_{{ address.id }}">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <h4>{{address.name|e|capitalize}}</h4>
-                </div>
-
-            </div>
-
-
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p>{{address.street}}</p>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p>{{address.zipCode}} - {{address.region}}, {{address.city}} ({{address.country}})</p>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a href="{{ path('user_profiler_editAdress',{ idAddress:address.id }) }}"  
-                    class="btn-default btn editAddress">Editar </a>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <button data-id="{{ address.id }}" 
-                    class="btn-default btn deleteAddress">Borrar </button>
-                </div>
-            </div>         
-        </div>
-    {% endfor %}
-
-    <!-- FIN ADDRESS -->
+    </div>
     
 {% endblock %}
 
