@@ -16,6 +16,7 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\ServiceBundle\Entity\Comment;
 use WWW\ServiceBundle\Form\CommentType;
+use WWW\ServiceBundle\Entity\Offer;
 use WWW\GlobalBundle\MyConstants;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
@@ -169,7 +170,7 @@ class TradeController extends Controller{
         $informacion['data'] = json_encode($data);
          
         $result = $ch->resultApiRed($informacion, $file);
-        
+
         if($result['result'] == 'ok'):
             foreach($result['offers'] as $trade):
                 $newTrade = new Trade($trade);
@@ -184,10 +185,10 @@ class TradeController extends Controller{
         $this->setUpVars($request);
         
         $trade = null;
-        $trade = $this->getTrade($request);
+        $this->getTrade($request);
 
         $comment = new Comment();
-        $message = $this->fillMessage($trade);
+        $message = $this->fillMessage();
         
         $formComment = $this->createForm(CommentType::class, $comment);
         $formMessage = $this->createForm(MessageType::class, $message);
@@ -198,26 +199,27 @@ class TradeController extends Controller{
         $formSubscribe->handleRequest($request);
         
         if($formComment->isSubmitted()):
-            $this->saveComment($request, $trade->getOffer()->getId());
+
+            $this->saveComment($request, $this->trade->getOffer()->getId(), $comment);
             $formComment = $this->createForm(CommentType::class, new Comment());
             
         elseif($formMessage->isSubmitted()):
-            $this->sendMessage($request,$trade);
+            $this->sendMessage($request);
         
         elseif($formSubscribe->isSubmitted()):
-            $this->offerSubscribe($trade);
+            $this->offerSubscribe($this->trade);
         
         endif;
         
         return $this->render('offer/offTrade.html.twig',array(
-                             'trade' => $trade,
+                             'trade' => $this->trade,
                              'formComment' => $formComment->createView(),
                              'formMessage' => $formMessage->createView()  ,
                              'formSubscribe' => $formSubscribe->createView()
         ));
     }
     
-    private function fillMessage($trade){
+    private function fillMessage(){
         $message = new Message();
         
         $user = new User();
@@ -225,12 +227,12 @@ class TradeController extends Controller{
         $user->setUsername($this->session->get('username'));
         
         $userTo = new User();
-        $userTo->setId($trade->getOffer()->getUserAdmin()->getId());
-        $userTo->setUsername($trade->getOffer()->getUserAdmin()->getUsername());
+        $userTo->setId($this->trade->getOffer()->getUserAdmin()->getId());
+        $userTo->setUsername($this->trade->getOffer()->getUserAdmin()->getUsername());
         
         $message->setFrom($user);
         $message->setTo($userTo);
-        $message->setSubject('Oferta: '.$trade->getOffer()->getTitle());
+        $message->setSubject('Oferta: '.$this->trade->getOffer()->getTitle());
         
         return $message;
     }
@@ -249,22 +251,19 @@ class TradeController extends Controller{
         $result = $ch->resultApiRed($data, $file);
          
         if($result['result'] == 'ok'):
-            $trade = new Trade($result);
-        
+            $this->trade = new Trade($result);
+
         else:
             $this->ut->flashMessage("general", $request);
         endif;
-        
-        return $trade;
+
     }
     
     private function listComments(){
         
     }
     
-    private function saveComment(Request $request, $idOffer){
-        
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Please login to comment this offer!!');
+    private function saveComment(Request $request, $idOffer, $comment){
         
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/inscription/comment.php";
@@ -273,24 +272,26 @@ class TradeController extends Controller{
         $data['username'] = $this->session->get('username');
         $data['password'] = $this->session->get('password');
         $data['offer_id'] = $idOffer;
-        $data['comment'] = $request->get('comment')['comment'];
+        $data['comment'] = $comment->getComment();
         
         $result = $ch->resultApiRed($data, $file);
-
+//$result['result'] = 'ok';
+//        print_r($comment);
+//        if($result['result'] == 'ok'):
+//            $comment
+//            $this->trade->getOffer()->addComment($comment);
+//        endif;
         $this->ut->flashMessage("comment", $request, $result);
     }
     
-    private function sendMessage(Request $request, $trade){
-        
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Please login to send a message!!');
-        
+    private function sendMessage(Request $request){
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."user/messages/send_message.php";
         
         $data['id'] = $this->session->get('id');
         $data['username'] = $this->session->get('username');
         $data['password'] = $this->session->get('password');
-        $data['to'] = $trade->getOffer()->getUserAdmin()->getUsername();
+        $data['to'] = $this->trade->getOffer()->getUserAdmin()->getUsername();
         $data['subject'] = $request->get('message')['subject'];
         $data['message'] = $request->get('message')['message'];
         
@@ -300,7 +301,6 @@ class TradeController extends Controller{
     }
     
     private function offerSubscribe($trade){
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Please login to subscribe this offer!!');
         
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/inscription/subscribe_user.php";

@@ -46,33 +46,30 @@ class DefaultController extends Controller{
                 
     }
     
-    public function forgotPassAction(Request $request){
-        
+    public function forgotPassAction(Request $request)
+    {
+
         $usuario = new User();
-       
-        $formulario = $this->createForm('WWW\UserBundle\Form\ForgotPassType',$usuario);
-         
+
+        $formulario = $this->createForm('WWW\UserBundle\Form\ForgotPassType', $usuario);
+
         //El usuario del formulario se asocia al objeto $usuario
         $formulario->handleRequest($request);
-        
-        if(!empty($usuario->getEmail())):
-            
-            $file = MyConstants::PATH_APIREST."user/passwords/forget_password.php";
+
+        if (!empty($usuario->getEmail())):
+
+            $file = MyConstants::PATH_APIREST . "user/passwords/forget_password.php";
             $data = array("email" => $usuario->getEmail());
-        
+
             $ch = new ApiRest();
             $result = $ch->sendInformation($data, $file, "parameters");
-            
-            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
+
+            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig', array('formulario' => $formulario->createView()));
         else:
-            
-            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
+
+            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig', array('formulario' => $formulario->createView()));
         endif;
-                
-    }
-    
-    public function publicProfileAction(Request $request){
-        return $this->render('UserBundle:Profile:publicProfile.html.twig');
+
     }
     
     public function unSubscribeAction(Request $request){
