@@ -13071,6 +13071,42 @@ Sidebar
   font-size: 16px;
   content: "\f290";
 }
+.cd-side-nav > ul > li.userCar > a::before {
+  /*background-position: 0 0;*/
+  font: normal normal normal 14px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  content: "\f1b9";
+}
+.cd-side-nav > ul > li.userHouse > a::before {
+  /*background-position: 0 0;*/
+  font: normal normal normal 14px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  content: "\f015";
+}
+.cd-side-nav > ul > li.userShip > a::before {
+  /*background-position: 0 0;*/
+  font: normal normal normal 14px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  content: "\f21a";
+}
+.cd-side-nav > ul > li.userBike > a::before {
+  /*background-position: 0 0;*/
+  font: normal normal normal 14px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  content: "\f206";
+}
 /*.cd-side-nav > ul > li.users > a::before {
   background-position: -16px 0;
 }*/
@@ -15217,6 +15253,12 @@ textarea {
 .off-butt-add {
   float: none;
   padding: 7px 12px;
+}
+.off-col-btn-new-off {
+  margin-top: 20px;
+}
+.off-panel-dimension .panel-heading {
+  color: #ffffff;
 }
 /* ##### FIN USER-LIST-OFFERS ##### */
 /* ***** HOUSE-RENTS ***** */

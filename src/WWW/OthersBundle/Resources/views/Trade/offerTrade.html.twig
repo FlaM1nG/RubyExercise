@@ -15,24 +15,88 @@
             {{  alerts.alert('alert-success', flash_message, null) }}
         {% endfor %}
     {% endblock %}
-
-    {{ form_start(formTrade) }}
-        {{ form_row(formTrade.saveTrade) }}
-        {{ form_row(formTrade.category) }}
-        {{ form_row(formTrade.region) }}
-        {{ form_row(formTrade.offer.title) }}
-        {{ form_row(formTrade.offer.description) }}
-        <div class="form-group">
-            <label class="control-label required">Dimensiones</label>
-            {{ form_row(formTrade.width) }}
-            {{ form_row(formTrade.height) }}
-            {{ form_row(formTrade.long) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>
+                    Nueva Oferta de Trade
+                </h3>
+                <hr/>
+            </div>
         </div>
-        {{ form_row(formTrade.weight) }}
-        {{ form_row(formTrade.price) }}
-        {{ form_row(formTrade._token) }}
 
-        <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading" required>
+        <div class="row">
+            <div class="col-lg-12">
+                {{ form_start(formTrade) }}
+                {{ form_row(formTrade.category) }}
+                {{ form_row(formTrade.offer.title) }}
+                {{ form_row(formTrade.offer.description) }}
+                {{ form_row(formTrade.region) }}
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <div class="panel panel-default off-panel-dimension">
+                        <div class="panel-heading">
+                            Dimensiones del paquete donde se va a enviar
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    {{ form_row(formTrade.width) }}
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    {{ form_row(formTrade.height) }}
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    {{ form_row(formTrade.long) }}
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    {{ form_row(formTrade.weight) }}
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-lg-12 off-texto-matizar">
+                                    <p>
+                                        Debe introducir las dimensiones de manera precisa debido a que el cálculo de estas
+                                        afectan directamente al precio del paquete.<br>
+                                        Para obtener más información pincha <a href="#">aquí</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12 off-price-offer">
+                {{ form_row(formTrade.price) }}
+                {{ form_row(formTrade._token) }}
+
+                <label class="control-label" for="trade_price">Imágenes</label>
+                <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 off-col-btn-new-off">
+                {{ form_row(formTrade.saveTrade) }}
+            </div>
+        </div>
+
+    </div>
+
 
         
 {% endblock %}

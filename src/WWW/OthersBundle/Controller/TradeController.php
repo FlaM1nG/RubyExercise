@@ -38,8 +38,7 @@ class TradeController extends Controller{
     private $ut;
     
     public function createOfferAction(Request $request){
-        
-        $service = $request->server->all()['PATH_INFO'];
+        $service = $request->getPathInfo();
 
         $this->setUpVars($request);
         $trade = new Trade();
@@ -53,7 +52,7 @@ class TradeController extends Controller{
              $result = $this->saveTrade($request,$trade);
 
              if($result == 'ok'):
-                 echo $service;
+                 
                  if($service == '/services/trade/newTrade'):
                     return $this->redirectToRoute('service_listTrade');
                  endif;

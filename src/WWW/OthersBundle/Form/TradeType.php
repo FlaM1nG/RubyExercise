@@ -43,17 +43,25 @@ class TradeType extends AbstractType{
         $builder
             ->add('offer',OfferType::class)    
             ->add('price',MoneyType::class, array('label' => 'Precio',
-                                                      'attr' => array('placeholder' => '2.5'),
+                                                      'attr' => array('placeholder' => 'Introduzca la cantidad por la que desea vender el objeto'),
                                                       'precision' => 2,
                                                       'grouping' => true))
             ->add('width',NumberType::class, array('label' => 'Ancho',
-                                          'mapped' => false ))
+                                                    'mapped' => false,
+                                                    'attr' => array('placeholder' => 'Ancho en cm')
+                ))
             ->add('height',NumberType::class, array('label' => 'Alto',
-                                           'mapped' => false ))
-            ->add('long',NumberType::class, array('label' => 'Profundidad',
-                                          'mapped' => false ))
+                                           'mapped' => false,
+                                            'attr' => array('placeholder' => 'Alto en cm')
+                ))
+            ->add('long',NumberType::class, array('label' => 'Largo',
+                                                    'mapped' => false,
+                                                    'attr' => array('placeholder' => 'Largo en cm')
+                ))
 
-            ->add('weight',NumberType::class, array('label' => 'Peso'))
+            ->add('weight',NumberType::class, array('label' => 'Peso',
+                                                    'attr' => array('placeholder' => 'Peso en Kg')
+                ))
             ->add('category',ChoiceType::class, array('label' => 'Categoria',
                                                          'required' => false,
                                                          'empty_value' => false,
@@ -66,7 +74,10 @@ class TradeType extends AbstractType{
                                                          'choice_value' => 'id'
                                                          )) 
             
-            ->add('region',TextType::class, array('label' => 'Provincia'))
+            ->add('region',TextType::class, array('label' => 'Provincia',
+                                                    'attr' => array('placeholder' => 'Provincia en la que se encuentra el objeto')
+
+            ))
             ->add('saveTrade',SubmitType::class,array('label'=>'Guardar'));
             
         
