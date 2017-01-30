@@ -79,4 +79,9 @@ gregwar_captcha_routing:
     
 trade:
     resource: "@OthersBundle/Resources/config/routing.yml"
-    prefix:   /services/trade  
+    prefix:   /services/trade
+
+
+notFound:
+    path: /notFound
+    defaults: { _controller: AppBundle:Index:notFound }
