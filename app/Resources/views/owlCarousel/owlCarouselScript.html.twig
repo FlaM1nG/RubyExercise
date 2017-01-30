@@ -11,7 +11,7 @@
             singleItem : true,
             slideSpeed : 1000,
             navigation: false,
-            pagination:false,
+            pagination: true,
             afterAction : syncPosition,
             responsiveRefreshRate : 200,
         });
@@ -22,7 +22,9 @@
             itemsDesktopSmall     : [1450,3],
             itemsTablet       : [1200,2],
             itemsMobile       : [479,1],
-            pagination:false,
+            navigation: true,
+            pagination: false,
+            navigationText: ["<",">"],
             responsiveRefreshRate : 100,
             afterInit : function(el){
                 el.find(".owl-item").eq(0).addClass("synced");

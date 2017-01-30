@@ -45,9 +45,9 @@ class PurchasesController extends Controller{
         
         return $result['inscriptions'];
     }
-    
+
     public function valorationAction(Request $request){
-        
+
         return $this->render('UserBundle:Profile:offers/profileValorationOffer.html.twig');
     }
 }

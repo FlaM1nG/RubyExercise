@@ -29,21 +29,6 @@ class UserManager
         $this->encoderFactory = $encoderFactory;
         $this->tokenStorage = $tokenStorage;
     }
-//              Usar esta funcion para guardar con doctrine los usuarios en la base de datos y asi usar el getUser    
-//     /**
-//     * @param Usuario $usuario
-//     */
-//    public function guardar(User $usuario)
-//    {
-//        $isConfirmed='1';
-//        $smsConfirmed='1';
-//        $confirmationToken='131324342342';
-//        $usuario->setConfirmationToken($confirmationToken);
-//        $usuario->setSmsConfirmed($smsConfirmed);
-//        $usuario->setIsConfirmed($isConfirmed);
-//        $this->em->persist($usuario);
-//        $this->em->flush();
-//    }
     
     /**
      * @param User $user

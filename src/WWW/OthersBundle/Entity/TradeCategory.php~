@@ -3,6 +3,7 @@
 namespace WWW\OthersBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Util\Inflector as Inflector;
 
 /**
  * TradeCategory
@@ -14,6 +15,28 @@ class TradeCategory
      */
     private $id;
 
+   
+
+    
+    public function __construct($arrayData = null,$id = null) {
+        
+        if(!empty($arrayData)):
+            $this->id = (int)$arrayData['id'];
+            $this->name = $arrayData['name'];
+            $this->description = $arrayData['description'];
+            $this->deleted = (bool)$arrayData['deleted'];
+        elseif(!empty($id)):
+            $this->id = $id;
+        endif;    
+    }
+    
+    
+    
+    public function cast(TradeCategory $object){
+        return $object;
+    }
+    
+    
     /**
      * @var string
      */
@@ -29,20 +52,17 @@ class TradeCategory
      */
     private $deleted;
 
-    
-    public function __construct($arrayData = null) {
-        if(!empty($arrayData)):
-            $this->id = (int)$arrayData['id'];
-            $this->name = $arrayData['name'];
-            $this->description = $arrayData['description'];
-            $this->deleted = (bool)$arrayData['deleted'];
-        endif;    
-    }
-    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $trades;
+
+
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -53,6 +73,7 @@ class TradeCategory
      * Set name
      *
      * @param string $name
+     *
      * @return TradeCategory
      */
     public function setName($name)
@@ -65,7 +86,7 @@ class TradeCategory
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -76,6 +97,7 @@ class TradeCategory
      * Set description
      *
      * @param string $description
+     *
      * @return TradeCategory
      */
     public function setDescription($description)
@@ -88,7 +110,7 @@ class TradeCategory
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -99,6 +121,7 @@ class TradeCategory
      * Set deleted
      *
      * @param boolean $deleted
+     *
      * @return TradeCategory
      */
     public function setDeleted($deleted)
@@ -111,14 +134,45 @@ class TradeCategory
     /**
      * Get deleted
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getDeleted()
     {
         return $this->deleted;
     }
-    
-    public function cast(TradeCategory $object){
-        return $object;
+
+    /**
+     * Add trade
+     *
+     * @param \WWW\OthersBundle\Entity\Trade $trade
+     *
+     * @return TradeCategory
+     */
+    public function addTrade(\WWW\OthersBundle\Entity\Trade $trade)
+    {
+        $this->trades[] = $trade;
+
+        return $this;
     }
+
+    /**
+     * Remove trade
+     *
+     * @param \WWW\OthersBundle\Entity\Trade $trade
+     */
+    public function removeTrade(\WWW\OthersBundle\Entity\Trade $trade)
+    {
+        $this->trades->removeElement($trade);
+    }
+
+    /**
+     * Get trades
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTrades()
+    {
+        return $this->trades;
+    }
+
 }

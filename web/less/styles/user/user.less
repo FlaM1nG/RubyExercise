@@ -14,12 +14,49 @@
     overflow: hidden;
     border: 5px @brand-primary solid;
     float: right;
+    padding: 0;
+    position: relative;
 }
 
 .us-pro-public-img{
-    
+    max-width: none;
+    position: absolute;
+    left: -50%;
+    top: -50%;
+    min-width: 100%;
 }
 
+.us-redactar-mess{
+    margin-bottom: 20px;
+
+    .us-writte-btn{
+        padding: 6px 12px;
+        float: none;
+    }
+}
+
+.us-address-new-tel{
+    display: flex;
+
+    .us-pref-tel,
+    .us-num-tel{
+        display: inline-block;
+        height: 70px;
+    }
+
+    .us-pref-tel{
+        width: 170px;
+    }
+
+    .us-num-tel{
+        width: 100%;
+    }
+
+}
+
+.us-address-new{
+    margin-bottom: 20px;
+}
 
 .us-date-ing{
     font-style: italic;
@@ -30,7 +67,7 @@
     height: 50px;
     border-radius: 500px;
     overflow: hidden;
-    margin: 10px auto 0px;
+    margin: 10px auto 0;
 }
 
 .us-row-hea-pu,
@@ -54,7 +91,7 @@
     text-align: center;
     
     .off-vote{
-        padding-right: 0px;
+        padding-right: 0;
     }
 }
 
@@ -76,7 +113,7 @@
     padding-top: 70px;
     
     hr{
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 }
 
@@ -110,7 +147,7 @@
 .btn-default.btn.editAddress,
 .btn-default.btn.deleteAddress{
     padding: 5px 10px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     float: left;
     margin-right: 10px;
 }
@@ -127,12 +164,10 @@
     color: @brand-secondary;
 
     .btn-default:hover {
-        border-color: @brand-primary;
-        border: 1px solid;
+        border: 1px solid @brand-primary;
     }
 
     .btn-default{
-        border-color: @brand-primary;
         border: 1px solid @brand-primary;
     }
 
@@ -150,7 +185,7 @@
 
 .us-btn-edit-address{
     padding: 5px 10px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     float: left;
 }
 
@@ -224,12 +259,12 @@
 
 /* ***** REGISTER ***** */
 .us-profile{
-    padding: 20px 0px;
+    padding: 20px 0;
     min-height: 650px;
 }
 
 .tab-content {
-    margin: 20px 0px;
+    margin: 20px 0;
 }
 
 .nav-tabs > li > a {
@@ -274,7 +309,7 @@
 .us-check-group-element {
     display: inline-block;
     text-align: center;
-    padding: 0 0px 25px;
+    padding: 0 0 25px;
 }
 
 .us-register-text-hobby {
@@ -417,7 +452,24 @@ input#registroUsuario_captcha {
         width: 50%;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 10px;
     }
+
+    .us-login-register{
+        text-align: center;
+    }
+
+    .us-login-forgot{
+        text-align: right;
+        p{
+            font-size: 14px;
+        }
+
+    }
+}
+
+.us-forgot-pass{
+    min-height: 350px;
 }
 /* ##### FIN LOGIN ##### */
 
@@ -471,7 +523,34 @@ input#registroUsuario_captcha {
     float: left;
 }
 
+.us-writte-message{
+    #message_enviar,
+    #us-cancelar-message {
+        float: left;
+        padding: 6px 12px;
+        margin-right: 10px;
+    }
+}
 
+.us-trade-offer{
+    #trade_saveTrade {
+        float: none;
+        padding: 6px 12px;
+        margin-top: 20px;
+    }
+
+    samp {
+        display: none;
+    }
+
+    .file-drag-handle.drag-handle-init.text-info {
+        display: none;
+    }
+
+    .input-group-addon {
+        border: 1px solid #f4f4f4;
+    }
+}
 /* ##### FIN  ##### */
 
 
@@ -519,7 +598,7 @@ Main Page Content
     .cd-main-content .content-wrapper {
         margin-left: 110px;
         /*padding-top: 55px;*/
-        padding: 0px 5% 0em;
+        padding: 0 5% 0;
     }
     /*  .cd-main-content .content-wrapper h1 {
         padding: 4em 0;
@@ -533,7 +612,7 @@ Main Page Content
 @media only screen and (min-width: 1170px) {
     .cd-main-content .content-wrapper {
         margin-left: 200px;
-        padding: 0px 5% 0em;
+        padding: 0 5% 0;
     }
     .cd-main-content::before {
         content: 'desktop';
@@ -629,11 +708,11 @@ Header
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    -webkit-transform-origin: 0% 50%;
-    -moz-transform-origin: 0% 50%;
-    -ms-transform-origin: 0% 50%;
-    -o-transform-origin: 0% 50%;
-    transform-origin: 0% 50%;
+    -webkit-transform-origin: 0 50%;
+    -moz-transform-origin: 0 50%;
+    -ms-transform-origin: 0 50%;
+    -o-transform-origin: 0 50%;
+    transform-origin: 0 50%;
     -webkit-transition: -webkit-transform 0.2s;
     -moz-transition: -moz-transform 0.2s;
     transition: transform 0.2s;
@@ -841,7 +920,6 @@ Sidebar
 
 .user-icon-menu{
     font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -874,6 +952,26 @@ Sidebar
     /*background-position: 0 0;*/
     .user-icon-menu;
     content: "\f290";
+}
+.cd-side-nav > ul > li.userCar > a::before {
+    /*background-position: 0 0;*/
+    .user-icon-menu;
+    content: "\f1b9";
+}
+.cd-side-nav > ul > li.userHouse > a::before {
+    /*background-position: 0 0;*/
+    .user-icon-menu;
+    content: "\f015";
+}
+.cd-side-nav > ul > li.userShip > a::before {
+    /*background-position: 0 0;*/
+    .user-icon-menu;
+    content: "\f21a";
+}
+.cd-side-nav > ul > li.userBike > a::before {
+    /*background-position: 0 0;*/
+    .user-icon-menu;
+    content: "\f206";
 }
 /*.cd-side-nav > ul > li.users > a::before {
   background-position: -16px 0;
@@ -1274,7 +1372,7 @@ Sidebar
     }
 
     .us-login-cont{
-        padding-top: 0px;
+        padding-top: 0;
 
         .row{
             width: inherit;
@@ -1288,7 +1386,7 @@ Sidebar
     }
 
     .us-dataPersonal-row{
-        padding: 0px 0 20px;
+        padding: 0 0 20px;
     }
 
     @media only screen and (max-height : 1024px){
@@ -1336,17 +1434,17 @@ Sidebar
     .us-login-cont{
         .captcha_reload{
             font-size: inherit;
-            margin: 5px 0px;
+            margin: 5px 0;
             display: table;
         }
     }
 
     .us-offer-target{
-        border-left: 0px solid @brand-primary;
+        border-left: 0 solid @brand-primary;
     }
 
     .us-address-target{
-        border-left: 0px solid @brand-primary;
+        border-left: 0 solid @brand-primary;
     }
 
 
@@ -1372,7 +1470,7 @@ Sidebar
 
     .captcha_reload {
         font-size: inherit;
-        margin: 5px 0px;
+        margin: 5px 0;
         display: block;
         width: 35%;
     }

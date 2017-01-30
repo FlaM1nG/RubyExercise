@@ -40,16 +40,19 @@
                 Cambiar Imagen Personales
             </h3>
             <hr/>
-    
+
             {{ form_start(form) }}
 
-            <img src="http://whatwantweb.com/{{ form.photo.url.vars.value }}" id="photo" height="500"/>
-                {{ form_row(form.photo) }}
-                {{ form_row(form.fileImage) }}
-                {{ form_row(form._token) }}
-                {{ form_row(form.savePhoto)}}
-        </div>
-    </div>
+    <img src="{{ asset(form.photo.url.vars.value|default('web/img/userDefault.png'),'img') }}" id="photo"/>
+        {{ form_row(form._token) }}
+        {{ form_row(form.savePhoto)}}
+
+        <input type="hidden" name="x1" value="" />
+        <input type="hidden" name="y1" value="" />
+        <input type="hidden" name="x2" value="" />
+        <input type="hidden" name="y2" value="" />
+        <input type="submit" name="submit" value="Submit" />
+
 {% endblock %}
 
 
@@ -57,7 +60,7 @@
 {% block javascriptsFooter %}
     {{ parent() }}
    
-    <script src="{{ asset('js/jquery.imgareaselect.min.js') }}"></script>
+    <script src="{{ asset('js/selectArea/jquery.imgareaselect.pack.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             
@@ -67,13 +70,11 @@
                  x2: 300,
                  y2: 300,
                  hide: false,
-                 maxWidth: 300, 
+                 maxWidth: 300,
                  maxHeight: 300,
                  minWidth: 300,
                  minHeight: 300,
-                 zIndex: 10,
                  resizable: false,
-{#                 handles: true #}
              });
         });
     </script>

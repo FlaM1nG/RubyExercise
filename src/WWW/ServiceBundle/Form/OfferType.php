@@ -36,11 +36,16 @@ class OfferType extends AbstractType{
                                                          'multiple' => true,
                                                          'required' => false,
                                                          'attr' => array('accept'=>'image/*')))
-                ->add('title','text', array('label'=>'Título'))
+                ->add('title','text', array('label'=>'Título',
+                        'attr' => array('placeholder' => 'Titulo'),
+                    ))
                 ->add('expired',HiddenType::class)
                 ->add('id',HiddenType::class, array('attr' => array('class' => 'idOffer') ))
                 ->add('description','textarea', array('label'=>'Descripción',
-                                                  'required' => false ));
+                                                    'required' => false,
+                                                    'attr' => array('placeholder' => 'Introduzca la descripción que desea que se muestre con su oferta.'),
+
+                ));
                 
     }
     

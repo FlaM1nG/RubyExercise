@@ -64,29 +64,29 @@ class OfferController extends Controller{
         
         $this->ut = new Utilities();
         $form = $this->searchOffer($request);
-        
+
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted()):
             $this->updateOffer($request);
         endif;
-        
+
         return $this->render('UserBundle:Profile:offers/profileEditOffer.html.twig',
                         array('form' =>$form->createView()));
     }
-    
+
     private function updateOffer(Request $request){
-        
+
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/offer/update_offer.php";
-        
+
         $info['id'] = $request->getSession()->get('id');
         $info['username'] = $request->getSession()->get('username');
         $info['password'] = $request->getSession()->get('password');
         $info['offer_id'] = $this->offer->getId();
- 
-        $data['values']['title'] = "'".$this->offer->getOffer()->getTitle()."'"; 
-        $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'"; 
+
+        $data['values']['title'] = "'".$this->offer->getOffer()->getTitle()."'";
+        $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'";
         $data['sub_values']['price'] = $this->offer->getPrice();
         $data['sub_values']['dimensions'] = "'".$request->get('trade')['width']."x".
                                                 $request->get('trade')['height']."x".
@@ -94,27 +94,27 @@ class OfferController extends Controller{
         $data['sub_values']['weight'] = $this->offer->getWeight();
         $data['sub_values']['region'] = "'".$this->offer->getRegion()."'";
         $data['sub_values']['category_id'] = $this->offer->getCategory()->getId();
-        
+
         $info['data']= json_encode($data);
 
         if(!empty($request->files->get('imgOffer')[0])):
             $this->uploadImage($request);
         endif;
-        
+
         $result = $ch->resultApiRed($info, $file);
 
         $this->ut->flashMessage("general", $request, $result);
     }
-    
+
     private function searchOffer(Request $request){
-       
+
        $file = MyConstants::PATH_APIREST."services/offer/get_offer.php";
        $ch = new ApiRest();
-       
+
        $data['id'] = $request->get('idOffer');
        $result = $ch->resultApiRed($data, $file);
        $formulario = null;
-     
+
         if($result['result'] == 'ok'):
 
             $this->service = $result['service_id'];
@@ -165,7 +165,31 @@ class OfferController extends Controller{
         
         return $response;
    }
-    
+
+    public function uploadImage(Request $request){
+
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/photos/insert_offer_photo.php";
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['offer_id'] = $request->get('idOffer');
+
+        $photos = $request->files->get('imgOffer');
+        $count = 0;
+
+        foreach($photos as $photo){
+            $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
+            $data['photos['.$count.']'] = $ch_photo;
+            $count += 1;
+        }
+        print_r($data);
+
+        $result = $ch->resultApiRed($data, $file);
+        print_r($result);
+
+    }
    
    public function valorationOfferAction(Request $request){
 

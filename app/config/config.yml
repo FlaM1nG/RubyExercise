@@ -15,7 +15,7 @@ parameters:
 
 framework:
     #esi:             ~
-#    translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -136,8 +136,3 @@ easy_admin:
         Address:
             class: WWW\GlobalBundle\Entity\Address
          
-assetic:
-    debug:          '%kernel.debug%'
-    use_controller: '%kernel.debug%'
-    filters:
-        cssrewrite: ~

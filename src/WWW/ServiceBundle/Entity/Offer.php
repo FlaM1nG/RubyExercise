@@ -7,8 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\GlobalBundle\Entity\Photo;
 use WWW\UserBundle\Entity\User;
-use WWW\ServiceBundle\Entity\Comment;
-use WWW\ServiceBundle\Entity\Service;
+
 
 /**
  * Offer
@@ -155,11 +154,18 @@ class Offer
             
             if(array_key_exists('username', $data) && array_key_exists('user_photo', $data)):
                 $user = new User();
+
+                if(array_key_exists('avg_score',$data))
+                    $user->setAvgScore($data['avg_score']);
+
                 $user->setUsername($data['username']);
+                $user->setId($data['user_admin_id']);
                 $photoUser = new Photo();
                 $photoUser->setUrl($data['user_photo']);
                 $user->setPhoto($photoUser);
                 $this->userAdmin = $user;
+                if(array_key_exists('avg_score',$data))
+                    $user->setAvgScore($data['avg_score']);
             endif;    
         endif;
 
