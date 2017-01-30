@@ -17,10 +17,18 @@ WWW\OthersBundle\Entity\TradeCategory:
             length: 255
         deleted:
             type: boolean
+    
+    manyToOne:
+        service:
+            targetEntity: WWW\ServiceBundle\Entity\Service
+            inversedBy: services
+            joinColumn:
+                referencedColumnName: id    
             
     oneToMany:
         trades:
             targetEntity: Trade
             mappedBy: category
+    
             
     lifecycleCallbacks: {  }
