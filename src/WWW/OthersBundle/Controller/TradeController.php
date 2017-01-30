@@ -67,7 +67,8 @@ class TradeController extends Controller{
         
         return $this->render('OthersBundle:Trade:offerTrade.html.twig',
                        array('formOffer' => $formTrade->createView(),
-                             'offer' => $trade));
+                             'offer' => $trade,
+                             'service' => $this->service ));
     }
     
     public function setUpVars(Request $request){
@@ -92,6 +93,7 @@ class TradeController extends Controller{
 
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/offer/insert_offer.php";
+
         $dataOffer = array("id" => $this->session->get('id'),
                             "username" => $this->session->get('username'),
                             "password" =>$this->session->get('password'),
@@ -100,13 +102,17 @@ class TradeController extends Controller{
                             "service_id" => $this->service,
                             "holders" => 1);
 
-        $dataExtra = array("category_id" => $trade->getCategory()->getId(),
-                           "price" => $trade->getPrice(),
-                           "dimensions" => "'".$request->get('trade')['width']."x".
-                                               $request->get('trade')['height']."x".
-                                               $request->get('trade')['long']."'",
-                           "weight" => $trade->getWeight(),
-                           "region" => "'".$trade->getRegion()."'");
+        $dataExtra["category_id"] = $trade->getCategory()->getId();
+        $dataExtra["region"] = "'".$trade->getRegion()."'";
+        $dataExtra["price"] = 0;
+
+        if($this->service != 3):
+            $dataExtra["price"] = $trade->getPrice();
+            $dataExtra["dimensions"] = "'".$request->get('trade')['width']."x".
+                                                   $request->get('trade')['height']."x".
+                                                   $request->get('trade')['long']."'";
+            $dataExtra["weight"] = $trade->getWeight();
+        endif;
 
         if(!empty($request->files->get('imgOffer')[0])):
             $photos = $request->files->get('imgOffer');
@@ -139,9 +145,19 @@ class TradeController extends Controller{
     }
     
     public function listTradeAction(Request $request){
-   
+
         $this->setUpVars($request);
         $varPost = $request->query->all();
+
+        $title = '';
+
+        if($this->service == 1):
+            $title = 'Compra-Venta';
+        elseif($this->service == 2):
+            $title = 'Compra-Venta de Ropa';
+        elseif($this->service == 3):
+            $title = 'Trueque';
+        endif;
         
         $data['service_id'] = $this->service;
         $data['search'] = '';
@@ -173,7 +189,9 @@ class TradeController extends Controller{
         
         return $this->render('services/serTrade.html.twig',array(
                              'arrayTrades' => $arrayOffers,
-                             'categories' => $this->ut->getArrayCategoryTrade($this->service)
+                             'categories' => $this->ut->getArrayCategoryTrade($this->service),
+                             'title' => $title,
+                             'service' => $this->service
                             ));
     }
     
@@ -182,7 +200,7 @@ class TradeController extends Controller{
         $arrayOffers = array();
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/trade/list_trades.php";
-        
+
         $informacion['data'] = json_encode($data);
 
         $result = $ch->resultApiRed($informacion, $file);
@@ -234,7 +252,8 @@ class TradeController extends Controller{
                              'trade' => $this->trade,
                              'formComment' => $formComment->createView(),
                              'formMessage' => $formMessage->createView()  ,
-                             'formSubscribe' => $formSubscribe->createView()
+                             'formSubscribe' => $formSubscribe->createView(),
+                             'service' => $this->service
         ));
     }
 

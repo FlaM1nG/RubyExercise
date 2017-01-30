@@ -1,4 +1,4 @@
-{% macro filterTrade(method, action, categories) %}
+{% macro filterTrade(method, action, categories, service) %}
     {% import '::macros/filterElement.html.twig' as filtersElements %}
     <form class="filt-form" 
         method="{{ method|e }}" 
@@ -19,19 +19,20 @@
             
         {{ filtersElements.filterInput('city', 'city', 'Ciudad', 
             'text', 'form-control ciudadTrade') }}
-        
-        <h5 class="filt-top">Precio</h5>
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                {{ filtersElements.filterInput('minPrice', 'minPrice', 'Min', 
-                    'text', 'form-control minTrade') }}
+
+        {% if service != 3 %}
+            <h5 class="filt-top">Precio</h5>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    {{ filtersElements.filterInput('minPrice', 'minPrice', 'Min',
+                        'text', 'form-control minTrade') }}
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    {{ filtersElements.filterInput('maxPrice', 'maxPrice', 'Max',
+                        'text', 'form-control maxTrade') }}
+                </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                {{ filtersElements.filterInput('maxPrice', 'maxPrice', 'Max', 
-                    'text', 'form-control maxTrade') }}
-            </div>
-        </div>
-            
+        {% endif %}
             
         <h5 class="filt-top">Categorias</h5>
         <div class="row">

@@ -37,7 +37,7 @@
 
 {% endblock %}
 
-{% block offerImage %} 
+{% block offerImage %}
     <div id="off-img-big" class="owl-carousel">
         {% for photo in trade.offer.photos %}
             <div class="item">
@@ -92,8 +92,10 @@
 {% endblock %}
 
 
-{% block offerPrice %} 
-    {{ trade.price }} €
+{% block offerPrice %}
+    {% if service != 3 %}
+        {{ trade.price }} €
+    {% endif %}
 {% endblock %}
 
 

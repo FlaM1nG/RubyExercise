@@ -22,14 +22,16 @@
         {{ form_row(formOffer.region) }}
         {{ form_row(formOffer.offer.title) }}
         {{ form_row(formOffer.offer.description) }}
-        <div class="form-group">
-            <label class="control-label required">Dimensiones</label>
-            {{ form_row(formOffer.width) }}
-            {{ form_row(formOffer.height) }}
-            {{ form_row(formOffer.long) }}
-        </div>
-        {{ form_row(formOffer.weight) }}
-        {{ form_row(formOffer.price) }}
+        {% if service != 3 %}
+            <div class="form-group">
+                <label class="control-label required">Dimensiones</label>
+                {{ form_row(formOffer.width) }}
+                {{ form_row(formOffer.height) }}
+                {{ form_row(formOffer.long) }}
+            </div>
+            {{ form_row(formOffer.weight) }}
+            {{ form_row(formOffer.price) }}
+        {% endif %}
         {{ form_row(formOffer._token) }}
 
         <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading" required>

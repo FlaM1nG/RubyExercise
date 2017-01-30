@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/WWW/OthersBundle/Controller/TradeController.php" line="125" mnemonic="7" />
+    <bookmark url="file://$PROJECT_DIR$/src/WWW/OthersBundle/Controller/TradeController.php" line="131" mnemonic="7" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="091e3b9f-3025-42bf-9a49-69b8814707d1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/Barter/offerBarter.html.twig" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/Barter/offerBarter.html.twig" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/routing.yml" afterPath="$PROJECT_DIR$/app/config/routing.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WWW/GlobalBundle/Entity/Utilities.php" afterPath="$PROJECT_DIR$/src/WWW/GlobalBundle/Entity/Utilities.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/macros/filter.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/macros/filter.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/macros/tradeList.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/macros/tradeList.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/nav/subMenu/mgCatQue.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/nav/subMenu/mgCatQue.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/offer/layoutOffer.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/offer/layoutOffer.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/offer/offTrade.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/offer/offTrade.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/services/layoutService.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/services/layoutService.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/services/serTrade.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/services/serTrade.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WWW/OthersBundle/Controller/TradeController.php" afterPath="$PROJECT_DIR$/src/WWW/OthersBundle/Controller/TradeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WWW/OthersBundle/Entity/Trade.php" afterPath="$PROJECT_DIR$/src/WWW/OthersBundle/Entity/Trade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WWW/OthersBundle/Entity/TradeCategory.php" afterPath="$PROJECT_DIR$/src/WWW/OthersBundle/Entity/TradeCategory.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WWW/OthersBundle/Form/TradeType.php" afterPath="$PROJECT_DIR$/src/WWW/OthersBundle/Form/TradeType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WWW/OthersBundle/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/WWW/OthersBundle/Resources/config/routing.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/offerTrade.html.twig" afterPath="$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/offerTrade.html.twig" />
     </list>
     <list id="9c262b20-a705-41af-9c6d-05b693f8b49a" name="Revert: comit raro" comment="" />
@@ -41,17 +42,27 @@
       <file leaf-file-name="TradeController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Controller/TradeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="134" column="74" selection-start-line="134" selection-start-column="71" selection-end-line="134" selection-end-column="74" />
+            <state relative-caret-position="269">
+              <caret line="108" column="32" selection-start-line="108" selection-start-column="32" selection-end-line="108" selection-end-column="32" />
               <folding>
                 <element signature="e#233#290#0#PHP" expanded="true" />
                 <element signature="e#1766#1785#1#PHP" expanded="true" />
                 <element signature="e#1902#1922#1#PHP" expanded="true" />
                 <element signature="e#2023#2064#0#PHP" expanded="true" />
-                <element signature="e#5941#5970#0#PHP" expanded="true" />
-                <element signature="e#7623#7638#0#PHP" expanded="true" />
-                <element signature="e#7952#7978#0#PHP" expanded="true" />
+                <element signature="e#6318#6347#0#PHP" expanded="true" />
+                <element signature="e#8098#8113#0#PHP" expanded="true" />
+                <element signature="e#8427#8453#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="offerTrade.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/offerTrade.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="16" column="18" selection-start-line="8" selection-start-column="4" selection-end-line="16" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -73,21 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TradeCategory.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Entity/TradeCategory.php">
+      <file leaf-file-name="routing.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/config/routing.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="71" column="25" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Trade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Entity/Trade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="64" column="2" selection-start-line="64" selection-start-column="2" selection-end-line="64" selection-end-column="2" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -96,64 +97,69 @@
       <file leaf-file-name="serTrade.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/services/serTrade.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+            <state relative-caret-position="442">
+              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding>
-                <element signature="e#1022#1035#0#Twig" expanded="true" />
+                <element signature="e#119#136#0#Twig" expanded="true" />
+                <element signature="e#311#329#0#Twig" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TradeType.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Form/TradeType.php">
+      <file leaf-file-name="filter.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/macros/filter.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-238">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Offer.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/WWW/ServiceBundle/Entity/Offer.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7837">
-              <caret line="516" column="5" selection-start-line="516" selection-start-column="5" selection-end-line="516" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Service.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/WWW/ServiceBundle/Entity/Service.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-153">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="offerTrade.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/offerTrade.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="51" column="40" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="40" />
+            <state relative-caret-position="323">
+              <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
               <folding>
-                <element signature="e#12#28#0#Twig" expanded="false" />
+                <element signature="e#76#108#0#Twig" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="offerBarter.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/Barter/offerBarter.html.twig">
+      <file leaf-file-name="tradeList.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/macros/tradeList.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+            <state relative-caret-position="476">
+              <caret line="43" column="23" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="23" />
               <folding>
-                <element signature="e#12#28#0#Twig" expanded="false" />
+                <element signature="e#148#169#0#Twig" expanded="false" />
+                <marker date="1485787452902" expanded="true" signature="1102:1264" ph="{% if service_id != 3 ...%}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="offTrade.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/offer/offTrade.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding>
+                <element signature="e#12#41#0#Twig" expanded="false" />
+                <element signature="e#57#79#0#Twig" expanded="false" />
+                <element signature="e#105#126#0#Twig" expanded="false" />
+                <element signature="e#2225#2244#0#Twig" expanded="false" />
+                <element signature="e#2538#2557#0#Twig" expanded="false" />
+                <element signature="e#4589#4608#0#Twig" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mgCatQue.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/subMenu/mgCatQue.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="595">
+              <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+              <folding>
+                <element signature="e#29#46#0#Twig" expanded="false" />
+                <element signature="e#207#224#0#Twig" expanded="false" />
+                <element signature="e#406#423#0#Twig" expanded="false" />
+                <element signature="e#781#798#0#Twig" expanded="false" />
+                <element signature="e#969#986#0#Twig" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -172,7 +178,6 @@
         <option value="$PROJECT_DIR$/app/Resources/views/macros/offer.html.twig" />
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Form/ProfilePersonalDataType.php" />
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Controller/LoginController.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/macros/tradeList.html.twig" />
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/offers/profileEditOffer.html.twig" />
         <option value="$PROJECT_DIR$/src/WWW/GlobalBundle/Entity/PruebaImage.php" />
         <option value="$PROJECT_DIR$/composer.json" />
@@ -180,7 +185,6 @@
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/photoProfile.html.twig" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Controller/DefaultController.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/services/serTrade.html.twig" />
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Resources/config/routing.yml" />
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Controller/PurchasesController.php" />
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Entity/User.php" />
@@ -194,18 +198,25 @@
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/offers/profileMyPurchase.html.twig" />
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Controller/PublicProfileController.php" />
         <option value="$PROJECT_DIR$/src/WWW/ServiceBundle/Entity/Offer.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/offer/offTrade.html.twig" />
         <option value="$PROJECT_DIR$/../api_rest/user/registration/get_other_user.php" />
         <option value="$PROJECT_DIR$/app/config/routing.yml" />
         <option value="$PROJECT_DIR$/src/WWW/OthersBundle/Resources/config/routing.yml" />
         <option value="$PROJECT_DIR$/src/WWW/GlobalBundle/Entity/Utilities.php" />
-        <option value="$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/offerTrade.html.twig" />
         <option value="$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/Barter/offerBarter.html.twig" />
         <option value="$PROJECT_DIR$/src/WWW/OthersBundle/Entity/TradeCategory.php" />
         <option value="$PROJECT_DIR$/src/WWW/OthersBundle/Form/TradeType.php" />
         <option value="$PROJECT_DIR$/../api_rest/user/registration/insert_offer.php" />
-        <option value="$PROJECT_DIR$/src/WWW/OthersBundle/Controller/TradeController.php" />
         <option value="$PROJECT_DIR$/src/WWW/OthersBundle/Entity/Trade.php" />
+        <option value="$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/offerBarter.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/offer/offTrade.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/offer/layoutOffer.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/nav/subMenu/mgCatQue.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/macros/tradeList.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/macros/filter.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/services/layoutService.html.twig" />
+        <option value="$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/offerTrade.html.twig" />
+        <option value="$PROJECT_DIR$/src/WWW/OthersBundle/Controller/TradeController.php" />
+        <option value="$PROJECT_DIR$/app/Resources/views/services/serTrade.html.twig" />
       </list>
     </option>
   </component>
@@ -575,44 +586,6 @@
               <option name="myItemId" value="views" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Trade" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Barter" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wwweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wwweb" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WWW" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OthersBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -784,6 +757,54 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wwweb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wwweb" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wwweb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wwweb" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -813,6 +834,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\wwweb\src\WWW\OthersBundle\Resources\views\Trade" />
       <recent name="C:\xampp\htdocs\wwweb\web\css\styles" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -886,23 +908,23 @@
       <workItem from="1485415928404" duration="2977000" />
       <workItem from="1485420761585" duration="18760000" />
       <workItem from="1485501900630" duration="21470000" />
-      <workItem from="1485760993794" duration="11929000" />
+      <workItem from="1485760993794" duration="19163000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86271000" />
+    <option name="totallyTimeSpent" value="93505000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19515885" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26701966" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7713311" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43760684" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -956,57 +978,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="25" column="60" selection-start-line="25" selection-start-column="60" selection-end-line="25" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Controller/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="72" column="5" selection-start-line="72" selection-start-column="5" selection-end-line="72" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/ServiceBundle/Entity/Inscription.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Controller/PurchasesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="51" selection-end-column="5" />
-          <folding>
-            <element signature="e#231#288#0#PHP" expanded="false" />
-            <element signature="e#1500#1560#1#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Entity/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-357">
-          <caret line="254" column="7" selection-start-line="254" selection-start-column="7" selection-end-line="254" selection-end-column="7" />
-          <folding>
-            <element signature="e#41#96#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
@@ -1095,17 +1066,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/offer/layoutOffer.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="96" column="28" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/config/routing.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
           <caret line="144" column="19" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1120,6 +1085,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
           <caret line="42" column="20" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1191,17 +1157,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/offer/offTrade.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2737">
-          <caret line="161" column="0" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
-          <folding>
-            <element signature="e#57#79#0#Twig" expanded="false" />
-            <element signature="e#105#126#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../api_rest/user/registration/insert_offer_photo.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1268,14 +1223,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/config/routing.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="22" column="18" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../api_rest/user/registration/list_trades.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="558">
@@ -1298,26 +1245,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <marker date="1485776558507" expanded="true" signature="606:654" ph="SELECT * FRO... trade_category" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/offerTrade.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="51" column="40" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="40" />
-          <folding>
-            <element signature="e#12#28#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/Barter/offerBarter.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
-          <folding>
-            <element signature="e#12#28#0#Twig" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1346,6 +1273,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Entity/Trade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="64" column="2" selection-start-line="64" selection-start-column="2" selection-end-line="64" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Entity/TradeCategory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="71" column="25" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/ServiceBundle/Form/OfferType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/offer/layoutOffer.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="138" column="78" selection-start-line="138" selection-start-column="78" selection-end-line="138" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Controller/PurchasesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/subMenu/mgCatQue.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+          <folding>
+            <element signature="e#29#46#0#Twig" expanded="false" />
+            <element signature="e#207#224#0#Twig" expanded="false" />
+            <element signature="e#406#423#0#Twig" expanded="false" />
+            <element signature="e#781#798#0#Twig" expanded="false" />
+            <element signature="e#969#986#0#Twig" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/offerBarter.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../api_rest/user/registration/insert_offer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -1361,44 +1350,91 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/offer/offTrade.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding>
+            <element signature="e#12#41#0#Twig" expanded="false" />
+            <element signature="e#57#79#0#Twig" expanded="false" />
+            <element signature="e#105#126#0#Twig" expanded="false" />
+            <element signature="e#2225#2244#0#Twig" expanded="false" />
+            <element signature="e#2538#2557#0#Twig" expanded="false" />
+            <element signature="e#4589#4608#0#Twig" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/macros/tradeList.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="43" column="23" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="23" />
+          <folding>
+            <element signature="e#148#169#0#Twig" expanded="false" />
+            <marker date="1485787452902" expanded="true" signature="1102:1264" ph="{% if service_id != 3 ...%}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/macros/filter.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
+          <folding>
+            <element signature="e#76#108#0#Twig" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/services/layoutService.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+          <folding>
+            <element signature="e#12#28#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/config/routing.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Controller/TradeController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="134" column="74" selection-start-line="134" selection-start-column="71" selection-end-line="134" selection-end-column="74" />
+        <state relative-caret-position="269">
+          <caret line="108" column="32" selection-start-line="108" selection-start-column="32" selection-end-line="108" selection-end-column="32" />
           <folding>
             <element signature="e#233#290#0#PHP" expanded="true" />
             <element signature="e#1766#1785#1#PHP" expanded="true" />
             <element signature="e#1902#1922#1#PHP" expanded="true" />
             <element signature="e#2023#2064#0#PHP" expanded="true" />
-            <element signature="e#5941#5970#0#PHP" expanded="true" />
-            <element signature="e#7623#7638#0#PHP" expanded="true" />
-            <element signature="e#7952#7978#0#PHP" expanded="true" />
+            <element signature="e#6318#6347#0#PHP" expanded="true" />
+            <element signature="e#8098#8113#0#PHP" expanded="true" />
+            <element signature="e#8427#8453#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Entity/TradeCategory.php">
+    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/views/Trade/offerTrade.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="71" column="25" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Entity/Trade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="64" column="2" selection-start-line="64" selection-start-column="2" selection-end-line="64" selection-end-column="2" />
+        <state relative-caret-position="234">
+          <caret line="16" column="18" selection-start-line="8" selection-start-column="4" selection-end-line="16" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/services/serTrade.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        <state relative-caret-position="442">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding>
-            <element signature="e#1022#1035#0#Twig" expanded="true" />
+            <element signature="e#119#136#0#Twig" expanded="true" />
+            <element signature="e#311#329#0#Twig" expanded="true" />
           </folding>
         </state>
       </provider>

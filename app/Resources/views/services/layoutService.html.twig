@@ -14,9 +14,15 @@
         <h1>
             {% block serviceTitle %}  {% endblock %}
         </h1>
-        <a href="{{ path('service_newTrade') }}" type="button" class="btn btn-default off-butt-add">
-            Añadir oferta
-        </a>
+        {% if routingNewOffer is defined %}
+            <a href="{{ path(routingNewOffer) }}" type="button" class="btn btn-default off-butt-add">
+                Añadir oferta
+            </a>
+        {% else %}
+            <a href="#" type="button" class="btn btn-default off-butt-add">
+                Añadir oferta
+            </a>
+        {% endif %}
     </div>
 </div>
 
