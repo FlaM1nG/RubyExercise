@@ -36,17 +36,19 @@ class TradeController extends Controller{
     private $session;
     private $trade;
     private $ut;
+    private $service;
     
     public function createOfferAction(Request $request){
         
-        $service = $request->getPathInfo();
-        
         $this->setUpVars($request);
         $trade = new Trade();
+
+        $trade->getCategory()->setId($this->service);
         
         $this->denyAccessUnlessGranted('create_offer', $trade);
         
         $formTrade = $this->createForm(TradeType::class,$trade);
+
         $formTrade->handleRequest($request);
         
          if($formTrade->isSubmitted()):
@@ -54,21 +56,36 @@ class TradeController extends Controller{
 
              if($result == 'ok'):
 
-                 if($service == '/services/trade/newTrade'):
+                 if($this->service == 1):
                     return $this->redirectToRoute('service_listTrade');
+                 
+                 elseif($this->service == 3):
+                    return $this->redirectToRoute('service_listBarter');
                  endif;
              endif;
          endif;
         
         return $this->render('OthersBundle:Trade:offerTrade.html.twig',
-                       array('formTrade' => $formTrade->createView(),
-                             'trade' => $trade));
+                       array('formOffer' => $formTrade->createView(),
+                             'offer' => $trade));
     }
     
     public function setUpVars(Request $request){
+        
         $this->ut = new Utilities(); 
         $this->session = $request->getSession();
         $this->trade = null;
+
+        $path = $request->getPathInfo();
+ 
+        if(strstr($path,'trade')!== false): 
+            $this->service = 1;
+        elseif(strstr($path,'barter')!== false):
+            $this->service = 3;
+        else:
+            $this->service = 2;
+        endif;
+
     }
     
     private function saveTrade(Request $request, Trade $trade){
@@ -80,7 +97,7 @@ class TradeController extends Controller{
                             "password" =>$this->session->get('password'),
                             "title" => $trade->getOffer()->getTitle(),
                             "description" => $trade->getOffer()->getDescription(),
-                            "service_id" => 1,
+                            "service_id" => $this->service,
                             "holders" => 1);
 
         $dataExtra = array("category_id" => $trade->getCategory()->getId(),
@@ -122,13 +139,11 @@ class TradeController extends Controller{
     }
     
     public function listTradeAction(Request $request){
-      
-        
+   
         $this->setUpVars($request);
         $varPost = $request->query->all();
         
-        
-        $data['service'] = 'trade';
+        $data['service_id'] = $this->service;
         $data['search'] = '';
         
         if(!empty($varPost)):
@@ -158,8 +173,8 @@ class TradeController extends Controller{
         
         return $this->render('services/serTrade.html.twig',array(
                              'arrayTrades' => $arrayOffers,
-                             'categories' => $this->ut->getArrayCategoryTrade()
-        ));
+                             'categories' => $this->ut->getArrayCategoryTrade($this->service)
+                            ));
     }
     
     private function searchTrades($data){
@@ -169,7 +184,7 @@ class TradeController extends Controller{
         $file = MyConstants::PATH_APIREST."services/trade/list_trades.php";
         
         $informacion['data'] = json_encode($data);
-         
+
         $result = $ch->resultApiRed($informacion, $file);
 
         if($result['result'] == 'ok'):

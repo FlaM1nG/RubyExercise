@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Utilities{
     
-    public function getArrayCategoryTrade(){
+    public function getArrayCategoryTrade($id){
 
         $arrayCategory = array();
 
@@ -29,7 +29,8 @@ class Utilities{
 
         $ch = new ApiRest();
 
-        $result = $ch->sendInformationWihoutParameters($fileCategory);
+        $data['service_id'] = $id;
+        $result = $ch->resultApiRed($data,$fileCategory);
 
         if(!empty($result)):
             foreach($result as $category):

@@ -16,21 +16,21 @@
         {% endfor %}
     {% endblock %}
 
-    {{ form_start(formTrade) }}
-        {{ form_row(formTrade.saveTrade) }}
-        {{ form_row(formTrade.category) }}
-        {{ form_row(formTrade.region) }}
-        {{ form_row(formTrade.offer.title) }}
-        {{ form_row(formTrade.offer.description) }}
+    {{ form_start(formOffer) }}
+        {{ form_row(formOffer.saveTrade) }}
+        {{ form_row(formOffer.category) }}
+        {{ form_row(formOffer.region) }}
+        {{ form_row(formOffer.offer.title) }}
+        {{ form_row(formOffer.offer.description) }}
         <div class="form-group">
             <label class="control-label required">Dimensiones</label>
-            {{ form_row(formTrade.width) }}
-            {{ form_row(formTrade.height) }}
-            {{ form_row(formTrade.long) }}
+            {{ form_row(formOffer.width) }}
+            {{ form_row(formOffer.height) }}
+            {{ form_row(formOffer.long) }}
         </div>
-        {{ form_row(formTrade.weight) }}
-        {{ form_row(formTrade.price) }}
-        {{ form_row(formTrade._token) }}
+        {{ form_row(formOffer.weight) }}
+        {{ form_row(formOffer.price) }}
+        {{ form_row(formOffer._token) }}
 
         <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading" required>
 
