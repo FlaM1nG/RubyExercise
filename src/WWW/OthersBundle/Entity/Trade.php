@@ -62,7 +62,7 @@ class Trade
     private $region;
     
     public function __construct($arrayData = null) {
-        
+  
         if(!empty($arrayData)):
             foreach($arrayData as $key => $value):
                 $key = Inflector::camelize($key);
@@ -79,6 +79,8 @@ class Trade
                 $this->category = new TradeCategory(null,$arrayData['category_id']);
                 $this->category->setName($arrayData['category']);
             endif;
+        else:
+            $this->category = new TradeCategory();
         endif;    
     }
     /**

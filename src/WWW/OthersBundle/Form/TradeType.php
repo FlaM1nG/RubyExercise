@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use WWW\GlobalBundle\Entity\Utilities;
 use WWW\ServiceBundle\Form\OfferType;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Entity\TradeCategory;
@@ -27,33 +28,34 @@ use WWW\GlobalBundle\MyConstants;
  * @author Rocio
  */
 class TradeType extends AbstractType{
-    
-    private $typeForm;
-    
-    public function __construct($typeForm = null) {
-        
-        //Tipo de servicio para añadir unos campo u otros a la oferta
-        $this->typeForm = $typeForm;
-    }
+
     
     public function buildForm(FormBuilderInterface $builder, array $options){
 
-        $arrayCategory = $this->arrayCategories();
+        $arrayCategory = $this->arrayCategories($options['data']->getCategory()->getId());
         
         $builder
             ->add('offer',OfferType::class)    
             ->add('price',MoneyType::class, array('label' => 'Precio',
-                                                      'attr' => array('placeholder' => '2.5'),
+                                                      'attr' => array('placeholder' => 'Introduzca la cantidad por la que desea vender el objeto'),
                                                       'precision' => 2,
                                                       'grouping' => true))
             ->add('width',NumberType::class, array('label' => 'Ancho',
-                                          'mapped' => false ))
+                                                    'mapped' => false,
+                                                    'attr' => array('placeholder' => 'Ancho en cm')
+                ))
             ->add('height',NumberType::class, array('label' => 'Alto',
-                                           'mapped' => false ))
-            ->add('long',NumberType::class, array('label' => 'Profundidad',
-                                          'mapped' => false ))
+                                           'mapped' => false,
+                                            'attr' => array('placeholder' => 'Alto en cm')
+                ))
+            ->add('long',NumberType::class, array('label' => 'Largo',
+                                                    'mapped' => false,
+                                                    'attr' => array('placeholder' => 'Largo en cm')
+                ))
 
-            ->add('weight',NumberType::class, array('label' => 'Peso'))
+            ->add('weight',NumberType::class, array('label' => 'Peso',
+                                                    'attr' => array('placeholder' => 'Peso en Kg')
+                ))
             ->add('category',ChoiceType::class, array('label' => 'Categoria',
                                                          'required' => false,
                                                          'empty_value' => false,
@@ -64,9 +66,12 @@ class TradeType extends AbstractType{
                                                                 return ucfirst($category->getName());
                                                             },
                                                          'choice_value' => 'id'
-                                                         )) 
+                                                         ))
             
-            ->add('region',TextType::class, array('label' => 'Provincia'))
+            ->add('region',TextType::class, array('label' => 'Provincia',
+                                                    'attr' => array('placeholder' => 'Provincia en la que se encuentra el objeto')
+
+            ))
             ->add('saveTrade',SubmitType::class,array('label'=>'Guardar'));
             
         
@@ -79,24 +84,10 @@ class TradeType extends AbstractType{
                                      'allow_extra_fields' => true,));
     }
 
-    private function arrayCategories(){
-        
-        $arrayCategory = array();
-        
-        $fileCategory = MyConstants::PATH_APIREST."services/trade/get_categories.php";
-       
-        $ch = new ApiRest();
-        
-        $result = $ch->sendInformationWihoutParameters($fileCategory);
+    private function arrayCategories($id){
 
-        if(!empty($result)):
-            foreach($result as $category):
-                $arrayCategory[$category['id']] = new TradeCategory($category);
-        //array_push($arrayCategory,new TradeCategory($category));
-            endforeach;
-        endif;  
-        
-        return $arrayCategory;
+        $ut = new Utilities();
+        return $ut->getArrayCategoryTrade($id);
         
     }
 }

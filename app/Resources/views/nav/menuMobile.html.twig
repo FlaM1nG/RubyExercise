@@ -16,7 +16,7 @@
                 <a href="#0">Vehículos</a>
                 <ul class="sub-menu">
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serShareCar') }}">
                             <i class="fa fa-car faMovil">
                                 
                             </i>
@@ -25,7 +25,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serShareCar') }}">
                             <i class="fa fa-cab faMovil">
                                 
                             </i>
@@ -34,7 +34,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serShareCar') }}">
                             <i class="fa fa-truck faMovil">
                                 
                             </i>
@@ -43,7 +43,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serShareCar') }}">
                             <i class="fa fa-road faMovil">
                                 
                             </i>
@@ -52,7 +52,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serShareCar') }}">
                             <i class="fa fa-envelope faMovil">
                                 
                             </i>
@@ -61,7 +61,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serShareCar') }}">
                             <i class="fa fa-weixin faMovil">
                                 
                             </i>
@@ -70,7 +70,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serShareCar') }}">
                             <i class="fa fa-bicycle faMovil">
                                 
                             </i>
@@ -84,7 +84,7 @@
                 <a href="#0">Inmuebles</a>
                 <ul class="sub-menu">
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serHouseRents') }}">
                             <i class="fa fa-home faMovil">
                                 
                             </i>
@@ -93,7 +93,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serHouseRents') }}">
                             <i class="fa fa-exchange faMovil">
                                 
                             </i>
@@ -102,7 +102,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serHouseRents') }}">
                             <i class="fa fa-home faMovil">
                                 
                             </i>
@@ -111,7 +111,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serHouseRents') }}">
                             <i class="fa fa-exchange faMovil">
                                 
                             </i>
@@ -120,7 +120,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serHouseRents') }}">
                             <i class="fa fa-envira faMovil">
                                 
                             </i>
@@ -129,7 +129,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serHouseRents') }}">
                             <i class="fa fa-tree faMovil">
                                 
                             </i>
@@ -138,7 +138,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serHouseRents') }}">
                             <i class="fa fa-search faMovil">
                                 
                             </i>
@@ -147,7 +147,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('serHouseRents') }}">
                             <i class="fa fa-signing faMovil">
                                 
                             </i>Casa compartida
@@ -160,7 +160,7 @@
                 <a href="#0">¿Qué necesitas?</a>
                 <ul class="sub-menu">
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('service_listTrade') }}">
                             <i class="fa fa-child faMovil">
                                 
                             </i>
@@ -169,7 +169,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('service_listTrade') }}">
                             <i class="fa fa-money faMovil">
                                 
                             </i>
@@ -178,7 +178,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('service_listTrade') }}">
                             <i class="fa fa-building faMovil">
                                 
                             </i>
@@ -187,7 +187,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('service_listTrade') }}">
                             <i class="fa fa-refresh faMovil">
                                 
                             </i>
@@ -196,7 +196,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('service_listTrade') }}">
                             <i class="fa fa-ship faMovil">
                                 
                             </i>Alquiler barcos
@@ -204,7 +204,7 @@
                     </li>
                     
                     <li>
-                        <a href="#0">
+                        <a href="{{ path('service_listTrade') }}">
                             <i class="fa fa-ticket faMovil">
                                 
                             </i>
@@ -216,15 +216,41 @@
         </ul> <!-- cd-navigation -->
 
         <ul class="cd-navigation cd-single-item-wrapper">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <li>
-                <a href="#0">
+                <a href="{{ path('user_profiler') }}">
                     <span class="glyphicon glyphicon-user faMovil">
                         
                     </span>
                     Mi Cuenta
                 </a>
             </li>
-            
+            <li>
+                <a href="{{ path('user_logout') }}">
+                    <span class="glyphicon glyphicon-log-out faMovil">
+
+                    </span>
+                    Cerrar sesión
+                </a>
+            </li>
+            {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+            <li>
+                <a href="{{ path('user_login') }}">
+                    <span class="glyphicon glyphicon-log-in faMovil">
+
+                    </span>
+                    Acceder
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('user_register') }}">
+                    <span class="glyphicon glyphicon-edit faMovil">
+
+                    </span>
+                    Registrarse
+                </a>
+            </li>
+            {% endif %}
             {#<li>
                 <a href="#0">
                     <span class="glyphicon glyphicon-shopping-cart faMovil">
@@ -244,7 +270,7 @@
             </li>#}
             
             <li>
-                <a href="#0">
+                <a href="{{ path('service_listTrade') }}">
                     <span class="glyphicon glyphicon-bullhorn faMovil">
                         
                     </span>
@@ -260,5 +286,3 @@
                 Próximamente también podrá usar nuestro servicio de banco
             </span>
         </div>
-        
-   
