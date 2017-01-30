@@ -36,37 +36,56 @@ class TradeController extends Controller{
     private $session;
     private $trade;
     private $ut;
+    private $service;
     
     public function createOfferAction(Request $request){
-        $service = $request->getPathInfo();
-
+        
         $this->setUpVars($request);
         $trade = new Trade();
+
+        $trade->getCategory()->setId($this->service);
         
         $this->denyAccessUnlessGranted('create_offer', $trade);
         
         $formTrade = $this->createForm(TradeType::class,$trade);
+
         $formTrade->handleRequest($request);
         
          if($formTrade->isSubmitted()):
              $result = $this->saveTrade($request,$trade);
 
              if($result == 'ok'):
-                 
-                 if($service == '/services/trade/newTrade'):
+
+                 if($this->service == 1):
                     return $this->redirectToRoute('service_listTrade');
+                 
+                 elseif($this->service == 3):
+                    return $this->redirectToRoute('service_listBarter');
                  endif;
              endif;
          endif;
         
         return $this->render('OthersBundle:Trade:offerTrade.html.twig',
-                       array('formTrade' => $formTrade->createView(),
-                             'trade' => $trade));
+                       array('formOffer' => $formTrade->createView(),
+                             'offer' => $trade));
     }
     
     public function setUpVars(Request $request){
+        
         $this->ut = new Utilities(); 
         $this->session = $request->getSession();
+        $this->trade = null;
+
+        $path = $request->getPathInfo();
+ 
+        if(strstr($path,'trade')!== false): 
+            $this->service = 1;
+        elseif(strstr($path,'barter')!== false):
+            $this->service = 3;
+        else:
+            $this->service = 2;
+        endif;
+
     }
     
     private function saveTrade(Request $request, Trade $trade){
@@ -78,7 +97,7 @@ class TradeController extends Controller{
                             "password" =>$this->session->get('password'),
                             "title" => $trade->getOffer()->getTitle(),
                             "description" => $trade->getOffer()->getDescription(),
-                            "service_id" => 1,
+                            "service_id" => $this->service,
                             "holders" => 1);
 
         $dataExtra = array("category_id" => $trade->getCategory()->getId(),
@@ -120,13 +139,11 @@ class TradeController extends Controller{
     }
     
     public function listTradeAction(Request $request){
-      
-        
+   
         $this->setUpVars($request);
         $varPost = $request->query->all();
         
-        
-        $data['service'] = 'trade';
+        $data['service_id'] = $this->service;
         $data['search'] = '';
         
         if(!empty($varPost)):
@@ -156,8 +173,8 @@ class TradeController extends Controller{
         
         return $this->render('services/serTrade.html.twig',array(
                              'arrayTrades' => $arrayOffers,
-                             'categories' => $this->ut->getArrayCategoryTrade()
-        ));
+                             'categories' => $this->ut->getArrayCategoryTrade($this->service)
+                            ));
     }
     
     private function searchTrades($data){
@@ -167,7 +184,7 @@ class TradeController extends Controller{
         $file = MyConstants::PATH_APIREST."services/trade/list_trades.php";
         
         $informacion['data'] = json_encode($data);
-         
+
         $result = $ch->resultApiRed($informacion, $file);
 
         if($result['result'] == 'ok'):
@@ -178,38 +195,41 @@ class TradeController extends Controller{
         endif;
         return $arrayOffers;
     }
-    
+
     public function showTradeAction(Request $request){
-        
+
         $this->setUpVars($request);
-        
-        $trade = null;
+
         $this->getTrade($request);
 
         $comment = new Comment();
         $message = $this->fillMessage();
-        
+
         $formComment = $this->createForm(CommentType::class, $comment);
         $formMessage = $this->createForm(MessageType::class, $message);
         $formSubscribe = $this->createForm(OfferSuscribeType::class);
-        
+
         $formComment->handleRequest($request);
         $formMessage->handleRequest($request);
         $formSubscribe->handleRequest($request);
-        
+
         if($formComment->isSubmitted()):
 
-            $this->saveComment($request, $this->trade->getOffer()->getId(), $comment);
+            $result = $this->saveComment($request, $this->trade->getOffer()->getId(), $comment);
             $formComment = $this->createForm(CommentType::class, new Comment());
             
+            if($result == 'ok'):
+                return $this->redirectToRoute('service_trade',array('idOffer'=> $this->trade->getOffer()->getId()));
+            endif;
+        
         elseif($formMessage->isSubmitted()):
             $this->sendMessage($request);
-        
+
         elseif($formSubscribe->isSubmitted()):
             $this->offerSubscribe($this->trade);
-        
+
         endif;
-        
+
         return $this->render('offer/offTrade.html.twig',array(
                              'trade' => $this->trade,
                              'formComment' => $formComment->createView(),
@@ -217,7 +237,7 @@ class TradeController extends Controller{
                              'formSubscribe' => $formSubscribe->createView()
         ));
     }
-    
+
     private function fillMessage(){
         $message = new Message();
         
@@ -257,10 +277,7 @@ class TradeController extends Controller{
         endif;
 
     }
-    
-    private function listComments(){
-        
-    }
+
     
     private function saveComment(Request $request, $idOffer, $comment){
         
@@ -274,13 +291,13 @@ class TradeController extends Controller{
         $data['comment'] = $comment->getComment();
         
         $result = $ch->resultApiRed($data, $file);
-//$result['result'] = 'ok';
-//        print_r($comment);
-//        if($result['result'] == 'ok'):
-//            $comment
-//            $this->trade->getOffer()->addComment($comment);
-//        endif;
-        $this->ut->flashMessage("comment", $request, $result);
+
+        if($result['result'] == 'ok'):
+            return $result['result'];
+        else:
+            $this->ut->flashMessage("comment", $request, $result);
+        endif;
+
     }
     
     private function sendMessage(Request $request){

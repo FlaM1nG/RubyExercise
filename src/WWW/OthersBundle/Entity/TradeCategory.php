@@ -15,22 +15,7 @@ class TradeCategory
      */
     private $id;
 
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $description;
-
-    /**
-     * @var boolean
-     */
-    private $deleted;
-    
-    private $trades;
+   
 
     
     public function __construct($arrayData = null,$id = null) {
@@ -45,20 +30,55 @@ class TradeCategory
         endif;    
     }
     
+    
+    
+    public function cast(TradeCategory $object){
+        return $object;
+    }
+    
+    
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $description;
+
+    /**
+     * @var boolean
+     */
+    private $deleted;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $trades;
+
+
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
 
+    public function setId($id){
+
+        $this->id = $id;
+        
+    }
     /**
      * Set name
      *
      * @param string $name
+     *
      * @return TradeCategory
      */
     public function setName($name)
@@ -71,7 +91,7 @@ class TradeCategory
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -82,6 +102,7 @@ class TradeCategory
      * Set description
      *
      * @param string $description
+     *
      * @return TradeCategory
      */
     public function setDescription($description)
@@ -94,7 +115,7 @@ class TradeCategory
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -105,6 +126,7 @@ class TradeCategory
      * Set deleted
      *
      * @param boolean $deleted
+     *
      * @return TradeCategory
      */
     public function setDeleted($deleted)
@@ -117,16 +139,74 @@ class TradeCategory
     /**
      * Get deleted
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getDeleted()
     {
         return $this->deleted;
     }
-    
-    public function cast(TradeCategory $object){
-        return $object;
+
+    /**
+     * Add trade
+     *
+     * @param \WWW\OthersBundle\Entity\Trade $trade
+     *
+     * @return TradeCategory
+     */
+    public function addTrade(\WWW\OthersBundle\Entity\Trade $trade)
+    {
+        $this->trades[] = $trade;
+
+        return $this;
     }
-    
-    
+
+    /**
+     * Remove trade
+     *
+     * @param \WWW\OthersBundle\Entity\Trade $trade
+     */
+    public function removeTrade(\WWW\OthersBundle\Entity\Trade $trade)
+    {
+        $this->trades->removeElement($trade);
+    }
+
+    /**
+     * Get trades
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTrades()
+    {
+        return $this->trades;
+    }
+
+    /**
+     * @var \WWW\ServiceBundle\Entity\Service
+     */
+    private $service;
+
+
+    /**
+     * Set service
+     *
+     * @param \WWW\ServiceBundle\Entity\Service $service
+     *
+     * @return TradeCategory
+     */
+    public function setService(\WWW\ServiceBundle\Entity\Service $service = null)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return \WWW\ServiceBundle\Entity\Service
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
 }
