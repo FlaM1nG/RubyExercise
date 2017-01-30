@@ -39,14 +39,23 @@
             {{ form_row(form.city) }}
             {{ form_row(form.street) }}
             <div class="row us-address-new">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     {{ form_row(form.zipCode) }}
                 </div>
 
 
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-address-new-cp">
-                    {{ form_row(form.prefix) }}
-                    {{ form_row(form.phone) }}
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 us-address-new-tel">
+                    <div class="us-pref-tel">
+                        {{ form_row(form.prefix) }}
+                    </div>
+
+                    <div class="us-num-tel">
+                        <div class="form-group">
+                            <label class="control-label" for="adressUser_phone">&nbsp;</label>
+                            {{ form_widget(form.phone) }}
+                        </div>
+                    </div>
+
                 </div>
             </div>
             {{ form_row(form._token) }}
