@@ -3,12 +3,14 @@
 namespace WWW\GlobalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Util\Inflector as Inflector;
+use Symfony\Component\Validator\GroupSequenceProviderInterface;
 
 /**
  * Address
  */
-class Address
-{
+class Address implements GroupSequenceProviderInterface, \Serializable {
     /**
      * @var int
      */
@@ -16,10 +18,12 @@ class Address
 
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
     private $street;
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
     private $name;
 
@@ -55,50 +59,64 @@ class Address
     
     /**
      * @var integer
+     * @Assert\NotBlank(groups={"address"})
      */
     private $zipCode;
 
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
     private $city;
 
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
+    
     private $region;
 
     /**
      * @var string
+     * @Assert\NotBlank(groups={"address"})
      */
     private $country;
+    
+        /**
+     * @var integer
+     */
+    private $phone;
 
+    /**
+     * @var string
+     */
+    private $prefix;
 
-     public function __construct(Array $address=null){
-         
+    public function __construct(Array $address=null){
+       
         if($address != null):
-             
-            $this->id = $address['id'];
-            $this->street = $address['street'];
-            $this->name = $address['name'];
-            $this->isDefault = $address['is_default'];
-            $this->createdDate = $address['created_date'];
-            $this->modifiedDate = $address['modified_date'];
-            $this->deletedDate = $address['deleted_date'];
-            $this->isDeleted = $address['is_deleted'];
-            //$this->user = $address['user'];
-            //$this->cp = $address['cp'];
-             
-        else:
-            $this->id = 0;
-            $this->street = "";
-            $this->name = "";
-            $this->isDefault = "";
-            $this->createdDate = "";
-            $this->modifiedDate = "";
-            $this->deletedDate = "";
-            $this->isDeleted = "";
+            foreach($address as $key => $value):
+                $keyCamelize = Inflector::camelize($key);
+               
+                if(property_exists("WWW\GlobalBundle\Entity\Address", $keyCamelize) && !empty($value)):
+                    $this->$keyCamelize = $value;
+                endif;  
+            endforeach;
+//        else:
+//            $this->id = 0;
+//            $this->street = "";
+//            $this->name = "";
+//            $this->isDefault = "";
+//            $this->createdDate = "";
+//            $this->modifiedDate = "";
+//            $this->deletedDate = "";
+//            $this->isDeleted = "";
         endif;
+
+    }
+    
+    public function setId($id){
+        $this->id = $id;
     }
 
     /**
@@ -164,7 +182,7 @@ class Address
      * @return Address
      */
     public function setIsDefault($isDefault)
-    {
+    { 
         $this->isDefault = $isDefault;
 
         return $this;
@@ -399,5 +417,86 @@ class Address
     public function getCountry()
     {
         return $this->country;
+    }
+
+
+    /**
+     * Set phone
+     *
+     * @param integer $phone
+     * @return Address
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return integer 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set prefix
+     *
+     * @param string $prefix
+     * @return Address
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * Get prefix
+     *
+     * @return string 
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+    
+    /*
+     * @return Array de grupos
+     */
+    public function getGroupSequence()
+    {
+        $groups = array('Address');
+
+        if ($this->isAddress()) {
+            
+            $groups[] = 'Address';
+            
+        }
+
+        return $groups;
+    }
+
+     /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->user->getId()
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->userId    
+        ) = unserialize($serialized);
     }
 }

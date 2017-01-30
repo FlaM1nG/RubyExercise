@@ -13,17 +13,7 @@ class Service
      * @var int
      */
     private $id;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    
     /**
      * @var string
      */
@@ -48,7 +38,22 @@ class Service
      * @var string
      */
     private $table;
+    
+    private $offers;
 
+    public function __construct($id = null) {
+        $this->id = null;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set title
@@ -163,5 +168,33 @@ class Service
     public function getTable()
     {
         return $this->table;
+    }
+    /**
+     * @var integer
+     */
+    private $defaultStatus;
+
+
+    /**
+     * Set defaultStatus
+     *
+     * @param integer $defaultStatus
+     * @return Service
+     */
+    public function setDefaultStatus($defaultStatus)
+    {
+        $this->defaultStatus = $defaultStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get defaultStatus
+     *
+     * @return integer 
+     */
+    public function getDefaultStatus()
+    {
+        return $this->defaultStatus;
     }
 }

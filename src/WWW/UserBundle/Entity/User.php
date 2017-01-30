@@ -1310,4 +1310,169 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     public function getUser(){
         return $this;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $downs;
+
+
+    /**
+     * Add revised
+     *
+     * @param \WWW\UserBundle\Entity\Message $revised
+     *
+     * @return User
+     */
+    public function addRevised(\WWW\UserBundle\Entity\Message $revised)
+    {
+        $this->revised[] = $revised;
+
+        return $this;
+    }
+
+    /**
+     * Remove revised
+     *
+     * @param \WWW\UserBundle\Entity\Message $revised
+     */
+    public function removeRevised(\WWW\UserBundle\Entity\Message $revised)
+    {
+        $this->revised->removeElement($revised);
+    }
+
+    /**
+     * Get revised
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRevised()
+    {
+        return $this->revised;
+    }
+
+    /**
+     * Add offer
+     *
+     * @param \WWW\ServiceBundle\Entity\Offer $offer
+     *
+     * @return User
+     */
+    public function addOffer(\WWW\ServiceBundle\Entity\Offer $offer)
+    {
+        $this->offers[] = $offer;
+
+        return $this;
+    }
+
+    /**
+     * Remove offer
+     *
+     * @param \WWW\ServiceBundle\Entity\Offer $offer
+     */
+    public function removeOffer(\WWW\ServiceBundle\Entity\Offer $offer)
+    {
+        $this->offers->removeElement($offer);
+    }
+
+    /**
+     * Add inscription
+     *
+     * @param \WWW\ServiceBundle\Entity\Inscription $inscription
+     *
+     * @return User
+     */
+    public function addInscription(\WWW\ServiceBundle\Entity\Inscription $inscription)
+    {
+        $this->inscriptions[] = $inscription;
+
+        return $this;
+    }
+
+    /**
+     * Remove inscription
+     *
+     * @param \WWW\ServiceBundle\Entity\Inscription $inscription
+     */
+    public function removeInscription(\WWW\ServiceBundle\Entity\Inscription $inscription)
+    {
+        $this->inscriptions->removeElement($inscription);
+    }
+
+    /**
+     * Get inscriptions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInscriptions()
+    {
+        return $this->inscriptions;
+    }
+
+    /**
+     * Add valoration
+     *
+     * @param \WWW\ServiceBundle\Entity\Valoration $valoration
+     *
+     * @return User
+     */
+    public function addValoration(\WWW\ServiceBundle\Entity\Valoration $valoration)
+    {
+        $this->valorations[] = $valoration;
+
+        return $this;
+    }
+
+    /**
+     * Remove valoration
+     *
+     * @param \WWW\ServiceBundle\Entity\Valoration $valoration
+     */
+    public function removeValoration(\WWW\ServiceBundle\Entity\Valoration $valoration)
+    {
+        $this->valorations->removeElement($valoration);
+    }
+
+    /**
+     * Get valorations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getValorations()
+    {
+        return $this->valorations;
+    }
+
+    /**
+     * Add down
+     *
+     * @param \WWW\UserBundle\Entity\Down $down
+     *
+     * @return User
+     */
+    public function addDown(\WWW\UserBundle\Entity\Down $down)
+    {
+        $this->downs[] = $down;
+
+        return $this;
+    }
+
+    /**
+     * Remove down
+     *
+     * @param \WWW\UserBundle\Entity\Down $down
+     */
+    public function removeDown(\WWW\UserBundle\Entity\Down $down)
+    {
+        $this->downs->removeElement($down);
+    }
+
+    /**
+     * Get downs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDowns()
+    {
+        return $this->downs;
+    }
 }
