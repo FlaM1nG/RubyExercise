@@ -456,4 +456,166 @@ class Car
     {
         return $this->user;
     }
+    /**
+     * @var \DateTime
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $deletedDate;
+
+    /**
+     * @var boolean
+     */
+    private $isDeleted;
+
+
+    /**
+     * Set createdDate
+     *
+     * @param \DateTime $createdDate
+     *
+     * @return Car
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createdDate
+     *
+     * @return \DateTime
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * Set modifiedDate
+     *
+     * @param \DateTime $modifiedDate
+     *
+     * @return Car
+     */
+    public function setModifiedDate($modifiedDate)
+    {
+        $this->modifiedDate = $modifiedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedDate
+     *
+     * @return \DateTime
+     */
+    public function getModifiedDate()
+    {
+        return $this->modifiedDate;
+    }
+
+    /**
+     * Set deletedDate
+     *
+     * @param \DateTime $deletedDate
+     *
+     * @return Car
+     */
+    public function setDeletedDate($deletedDate)
+    {
+        $this->deletedDate = $deletedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedDate
+     *
+     * @return \DateTime
+     */
+    public function getDeletedDate()
+    {
+        return $this->deletedDate;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     *
+     * @return Car
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $photos;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add photo
+     *
+     * @param \WWW\GlobalBundle\Entity\Photo $photo
+     *
+     * @return Car
+     */
+    public function addPhoto(\WWW\GlobalBundle\Entity\Photo $photo)
+    {
+        $this->photos[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo
+     *
+     * @param \WWW\GlobalBundle\Entity\Photo $photo
+     */
+    public function removePhoto(\WWW\GlobalBundle\Entity\Photo $photo)
+    {
+        $this->photos->removeElement($photo);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
 }
