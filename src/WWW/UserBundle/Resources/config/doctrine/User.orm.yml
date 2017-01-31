@@ -121,6 +121,9 @@ WWW\UserBundle\Entity\User:
         downs:
             targetEntity: Down
             mappedBy: user
+        cars:
+            targetEntity: WWW\CarsBundle\Entity\Car
+            mappedBy: user
     oneToOne:        
         photo:
             nullable: true
