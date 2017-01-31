@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use WWW\ServiceBundle\Entity\Offer;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Form\TradeType;
+use WWW\ServiceBundle\Entity\Service;
 
 
 /**
@@ -49,19 +50,19 @@ class OfferController extends Controller{
         $data['password'] = $session->get('password');
         
         $result = $ch->resultApiRed($data, $file);
-        
+//        print_r($result);
         if($result['result'] == 'ok'):
             foreach($result['offers'] as $offer):
                 $arrayOffers[] = new Offer($offer);
             endforeach;
         endif;
-        
+//        print_r($arrayOffers);
         return $arrayOffers;
         
     }
     
     public function editOfferAction(Request $request){
-        
+
         $this->ut = new Utilities();
         $form = $this->searchOffer($request);
 
@@ -72,7 +73,8 @@ class OfferController extends Controller{
         endif;
 
         return $this->render('UserBundle:Profile:offers/profileEditOffer.html.twig',
-                        array('form' =>$form->createView()));
+                        array('form' => $form->createView(),
+                              'service' => $this->service ));
     }
 
     private function updateOffer(Request $request){
@@ -119,16 +121,19 @@ class OfferController extends Controller{
 
             $this->service = $result['service_id'];
 
-             if($result['service_id'] == 1):
+             if($result['service_id'] == 1 || $result['service_id'] == 2 || $result['service_id'] == 3):
                  $this->createTrade($result);
                  $formulario = $this->createForm(TradeType::class,$this->offer);
-                 $dimensions = explode('x',$this->offer->getDimensions());
-                 $width = $dimensions[0];
-                 $height = $dimensions[1];
-                 $long = $dimensions[2];
-                 $formulario->get('width')->setData($width);
-                 $formulario->get('height')->setData($height);
-                 $formulario->get('long')->setData($long);
+
+                 if($result['service_id'] != 3):
+                     $dimensions = explode('x',$this->offer->getDimensions());
+                     $width = $dimensions[0];
+                     $height = $dimensions[1];
+                     $long = $dimensions[2];
+                     $formulario->get('width')->setData($width);
+                     $formulario->get('height')->setData($height);
+                     $formulario->get('long')->setData($long);
+                 endif;
              endif;
         else:     
             $this->ut->flashMessage("offer", $request, $result);
@@ -139,9 +144,9 @@ class OfferController extends Controller{
    
    private function createTrade($result){
        
-        $offer = new Trade($result,true);
+        $offer = new Trade($result);
         
-        $arrayCategory = $this->ut->getArrayCategoryTrade();
+        $arrayCategory = $this->ut->getArrayCategoryTrade($result['service_id']);
         $offer->setCategory($arrayCategory[$result['category_id']]);
         
         $this->offer = $offer;

@@ -130,7 +130,8 @@ class Offer
             if(array_key_exists('service_id', $data)):
 
                 $service = new Service((int)$data['service_id']);
-                $service->setTitle($data['service']);
+                if(isset($data['service']))
+                    $service->setTitle($data['service']);
 
                 $this->setService($service);
             endif;

@@ -30,11 +30,13 @@
         {{form_row(form.category)}}
         {{form_row(form.offer.description)}}
         {{form_row(form.region)}}
-        {{form_row(form.width)}}
-        {{form_row(form.height)}}
-        {{form_row(form.long)}}
-        {{form_row(form.weight)}}
-        {{form_row(form.price)}}
+        {% if service != 3 %}
+            {{form_row(form.width)}}
+            {{form_row(form.height)}}
+            {{form_row(form.long)}}
+            {{form_row(form.weight)}}
+            {{form_row(form.price)}}
+        {% endif %}
   
         <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading">
 

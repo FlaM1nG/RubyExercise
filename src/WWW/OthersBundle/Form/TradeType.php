@@ -32,22 +32,15 @@ class TradeType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
 
-        $arrayCategory = $this->arrayCategories($options['data']->getCategory()->getId());
-        
+        $service = $options['data']->getOffer()->getService()->getId();
+        $arrayCategory = $this->arrayCategories($service);
+
         $builder
             ->add('offer',OfferType::class)    
             ->add('price',MoneyType::class, array('label' => 'Precio',
                                                       'attr' => array('placeholder' => '2.5'),
                                                       'precision' => 2,
                                                       'grouping' => true))
-            ->add('width',NumberType::class, array('label' => 'Ancho',
-                                          'mapped' => false ))
-            ->add('height',NumberType::class, array('label' => 'Alto',
-                                           'mapped' => false ))
-            ->add('long',NumberType::class, array('label' => 'Profundidad',
-                                          'mapped' => false ))
-
-            ->add('weight',NumberType::class, array('label' => 'Peso'))
 
             ->add('category',ChoiceType::class, array('label' => 'Categoria',
                                                          'required' => false,
@@ -63,6 +56,21 @@ class TradeType extends AbstractType{
             
             ->add('region',TextType::class, array('label' => 'Provincia'))
             ->add('saveTrade',SubmitType::class,array('label'=>'Guardar'));
+
+        if($service != 3):
+
+            $builder
+                ->add('width',NumberType::class, array('label' => 'Ancho',
+                                                        'mapped' => false ))
+
+                ->add('height',NumberType::class, array('label' => 'Alto',
+                                                        'mapped' => false ))
+
+                ->add('long',NumberType::class, array('label' => 'Profundidad',
+                                                        'mapped' => false ))
+
+                ->add('weight',NumberType::class, array('label' => 'Peso'));
+        endif;
             
         
     }
@@ -77,7 +85,8 @@ class TradeType extends AbstractType{
     private function arrayCategories($id){
 
         $ut = new Utilities();
-        return $ut->getArrayCategoryTrade($id);
-        
+        $array = $ut->getArrayCategoryTrade($id);
+
+        return $array;
     }
 }

@@ -30,8 +30,10 @@
     
     {% for offer in listOffers %}
         
-        {% if offer.service.table == 'trade' %}
+        {% if offer.service.id == 1 %}
             {% set url = path('service_trade' , {idOffer: offer.id}) %}
+        {% elseif offer.service.id == 3 %}
+            {% set url = path('service_barter' , {idOffer: offer.id}) %}
         {% endif%}
         
         {{ offers.offUser(url, offer.photos.0.url ,offer.title, 
