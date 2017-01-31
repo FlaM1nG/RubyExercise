@@ -9,7 +9,7 @@
 
 {% endblock %}
 
-{#{ BLOQUES -->     offerImage
+{#{ BLOQUES -->     offerImage 
                     offerUser
                     offerTitle
                     offerPrice
@@ -37,19 +37,8 @@
 
 {% endblock %}
 
-{% block offerImage %} 
+{% block offerImage %}
     <div id="off-img-big" class="owl-carousel">
-        {#% set imgGallery = []  %#}
-        {#{dump(trade)}#}
-        {#% for i in 0..6 %}
-            
-            {% set imageOff = random([asset('img/seat.jpg'), 
-                asset('img/articulo1.jpg'), 
-                asset('img/macbook.png'),
-                asset('img/alquilerTuristico3.jpg')]) %}
-
-                
-            {% set imgGallery = imgGallery|merge([imageOff] ) %#}
         {% for photo in trade.offer.photos %}
             <div class="item">
                 <div class="off-img-marco-grande">
@@ -108,8 +97,10 @@
 {% endblock %}
 
 
-{% block offerPrice %} 
-    {{ trade.price|number_format(2, ',') }} €
+{% block offerPrice %}
+    {% if service != 3 %}
+        {{ trade.price|number_format(2, ',') }} €
+    {% endif %}
 {% endblock %}
 
 

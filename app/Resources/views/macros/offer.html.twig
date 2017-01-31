@@ -57,10 +57,18 @@
 
 
 
+    {#
+    Añadido dataIdBorrar para tener el id de la oferta
 
+    Añadida clase al contenedor principal para poder eliminar el contenedor por ajax al borrar la oferta.
+    La clase es containerOffer_X donde x es el id de la oferta.
+
+    Añadida clase al enlace de borrar para poder controlar el borrado de offertas.
+
+    #}
 {% macro offUser(hrefOffer, srcImage, titleOffer, textOffer, dataVer,
-    hrefEditar, dataEditar, hrefBorrar, dataBorrar) %}        
-    <div class="us-off-element">
+    hrefEditar, dataEditar, hrefBorrar, dataBorrar, dataIdBorrar) %}
+    <div class="us-off-element containerOffer_{{ dataIdBorrar }}">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
                 <a href="{{ hrefOffer|e }}">
@@ -110,8 +118,8 @@
                         </a>
                             
                             
-                        <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
-                           data-id="{{ dataBorrar|e }}"
+                        <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn btnDelete"
+                           data-id="{{ dataIdBorrar|e }}"
                            data-toggle="tooltip" 
                            data-placement="bottom" 
                            title="{{ dataBorrar|e|capitalize }}">

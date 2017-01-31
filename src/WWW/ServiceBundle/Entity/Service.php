@@ -42,7 +42,7 @@ class Service
     private $offers;
 
     public function __construct($id = null) {
-        $this->id = null;
+        $this->id = $id;
     }
 
     /**
