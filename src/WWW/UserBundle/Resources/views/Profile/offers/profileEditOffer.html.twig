@@ -24,16 +24,16 @@
 
 
 {% block bodyProfile %}
-    
+
     {{form_start(form)}}
         {{form_row(form.offer.title)}}
         {{form_row(form.category)}}
         {{form_row(form.offer.description)}}
         {{form_row(form.region)}}
         {% if service != 3 %}
-            {{form_row(form.width)}}
-            {{form_row(form.height)}}
-            {{form_row(form.long)}}
+            {#{{form_row(form.width)}}#}
+            {#{{form_row(form.height)}}#}
+            {#{{form_row(form.long)}}#}
             {{form_row(form.weight)}}
             {{form_row(form.price)}}
         {% endif %}

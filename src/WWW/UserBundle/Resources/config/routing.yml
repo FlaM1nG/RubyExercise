@@ -132,7 +132,7 @@ user_ajax_deleteMessage:
     
 user_ajax_deleteOffer:
     path: /ajax/deleteOffer
-    defaults: { _controller: UserBundle:OfferUser:deleteOffer }  
+    defaults: { _controller: UserBundle:Offer:deleteOffer }
     
 user_ajax_deleteImageOffer:
     path: /ajax/deleteImageOffer

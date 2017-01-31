@@ -23,12 +23,12 @@
         {{ form_row(formOffer.offer.title) }}
         {{ form_row(formOffer.offer.description) }}
         {% if service != 3 %}
-            <div class="form-group">
-                <label class="control-label required">Dimensiones</label>
-                {{ form_row(formOffer.width) }}
-                {{ form_row(formOffer.height) }}
-                {{ form_row(formOffer.long) }}
-            </div>
+            {#<div class="form-group">#}
+                {#<label class="control-label required">Dimensiones</label>#}
+                {#{{ form_row(formOffer.width) }}#}
+                {#{{ form_row(formOffer.height) }}#}
+                {#{{ form_row(formOffer.long) }}#}
+            {#</div>#}
             {{ form_row(formOffer.weight) }}
             {{ form_row(formOffer.price) }}
         {% endif %}

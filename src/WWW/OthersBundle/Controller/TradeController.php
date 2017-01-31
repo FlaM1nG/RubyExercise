@@ -58,7 +58,10 @@ class TradeController extends Controller{
 
                  if($this->service == 1):
                     return $this->redirectToRoute('service_listTrade');
-                 
+
+                 elseif($this->service == 2):
+                    return $this->redirectToRoute('service_listClothes');
+
                  elseif($this->service == 3):
                     return $this->redirectToRoute('service_listBarter');
                  endif;
@@ -108,9 +111,9 @@ class TradeController extends Controller{
 
         if($this->service != 3):
             $dataExtra["price"] = $trade->getPrice();
-            $dataExtra["dimensions"] = "'".$request->get('trade')['width']."x".
-                                                   $request->get('trade')['height']."x".
-                                                   $request->get('trade')['long']."'";
+//            $dataExtra["dimensions"] = "'".$request->get('trade')['width']."x".
+//                                                   $request->get('trade')['height']."x".
+//                                                   $request->get('trade')['long']."'";
             $dataExtra["weight"] = $trade->getWeight();
         endif;
 

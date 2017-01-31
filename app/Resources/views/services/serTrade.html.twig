@@ -6,6 +6,11 @@
         {% set routingOffer = 'service_trade' %}
         {% set routingNewOffer = 'service_newTrade' %}
 
+    {% elseif service == 2 %}
+        {% set pathFilter = path('service_listClothes') %}
+        {% set routingOffer = 'service_clothes' %}
+        {% set routingNewOffer = 'service_newClothes' %}
+
     {% elseif service == 3 %}
         {% set pathFilter = path('service_listBarter') %}
         {% set routingOffer = 'service_barter' %}

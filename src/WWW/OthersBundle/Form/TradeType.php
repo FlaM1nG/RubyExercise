@@ -31,8 +31,7 @@ class TradeType extends AbstractType{
 
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-
-        $service = $options['data']->getOffer()->getService()->getId();
+        $service = $options['data']->getCategory()->getId();
         $arrayCategory = $this->arrayCategories($service);
 
         $builder
@@ -60,14 +59,14 @@ class TradeType extends AbstractType{
         if($service != 3):
 
             $builder
-                ->add('width',NumberType::class, array('label' => 'Ancho',
-                                                        'mapped' => false ))
-
-                ->add('height',NumberType::class, array('label' => 'Alto',
-                                                        'mapped' => false ))
-
-                ->add('long',NumberType::class, array('label' => 'Profundidad',
-                                                        'mapped' => false ))
+//                ->add('width',NumberType::class, array('label' => 'Ancho',
+//                                                        'mapped' => false ))
+//
+//                ->add('height',NumberType::class, array('label' => 'Alto',
+//                                                        'mapped' => false ))
+//
+//                ->add('long',NumberType::class, array('label' => 'Profundidad',
+//                                                        'mapped' => false ))
 
                 ->add('weight',NumberType::class, array('label' => 'Peso'));
         endif;
