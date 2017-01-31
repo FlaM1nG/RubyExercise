@@ -49,15 +49,15 @@ WWW\CarsBundle\Entity\Car:
         maxWidth:
             type: float
             nullable: true
-            column: max_dimension
+            column: max_width
         maxHeight:
             type: float
             nullable: true
-            column: max_dimension
+            column: max_height
         maxDepth:
             type: float
             nullable: true
-            column: max_dimension
+            column: max_depth
         maxWeight:
             type: float
             nullable: true
