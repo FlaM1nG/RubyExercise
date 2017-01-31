@@ -27,11 +27,11 @@
 
         <div class="row">
             <div class="col-lg-12">
-                {{ form_start(formTrade) }}
-                {{ form_row(formTrade.category) }}
-                {{ form_row(formTrade.offer.title) }}
-                {{ form_row(formTrade.offer.description) }}
-                {{ form_row(formTrade.region) }}
+                {{ form_start(formOffer) }}
+                {{ form_row(formOffer.category) }}
+                {{ form_row(formOffer.offer.title) }}
+                {{ form_row(formOffer.offer.description) }}
+                {{ form_row(formOffer.region) }}
             </div>
         </div>
 
@@ -44,40 +44,13 @@
                             Dimensiones del paquete donde se va a enviar
                         </div>
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                    {{ form_row(formTrade.width) }}
+                            {% if service != 3 %}
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        {{ form_row(formOffer.weight) }}
+                                    </div>
                                 </div>
-    {{ form_start(formOffer) }}
-        {{ form_row(formOffer.saveTrade) }}
-        {{ form_row(formOffer.category) }}
-        {{ form_row(formOffer.region) }}
-        {{ form_row(formOffer.offer.title) }}
-        {{ form_row(formOffer.offer.description) }}
-        {% if service != 3 %}
-            {#<div class="form-group">#}
-                {#<label class="control-label required">Dimensiones</label>#}
-                {#{{ form_row(formOffer.width) }}#}
-                {#{{ form_row(formOffer.height) }}#}
-                {#{{ form_row(formOffer.long) }}#}
-            {#</div>#}
-            {{ form_row(formOffer.weight) }}
-            {{ form_row(formOffer.price) }}
-        {% endif %}
-        {{ form_row(formOffer._token) }}
-
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                    {{ form_row(formTrade.height) }}
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                    {{ form_row(formTrade.long) }}
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                    {{ form_row(formTrade.weight) }}
-                                </div>
-                            </div>
+                            {% endif %}
 
 
                             <div class="row">
@@ -98,8 +71,11 @@
 
         <div class="row">
             <div class="col-lg-12 off-price-offer">
-                {{ form_row(formTrade.price) }}
-                {{ form_row(formTrade._token) }}
+                {% if service != 3 %}
+                    {{ form_row(formOffer.price) }}
+                {% endif %}
+
+                {{ form_row(formOffer._token) }}
 
                 <label class="control-label" for="trade_price">Imágenes</label>
                 <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading" required>
@@ -108,7 +84,7 @@
 
         <div class="row">
             <div class="col-lg-12 off-col-btn-new-off">
-                {{ form_row(formTrade.saveTrade) }}
+                {{ form_row(formOffer.saveTrade) }}
             </div>
         </div>
 
