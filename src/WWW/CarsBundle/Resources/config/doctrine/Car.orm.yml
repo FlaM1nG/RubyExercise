@@ -80,7 +80,7 @@ WWW\CarsBundle\Entity\Car:
             inversedBy: cars
             joinColumn:
                 referencedColumnName: id
-    ManyToMany:
+    manyToMany:
         photos:
           targetEntity: WWW\GlobalBundle\Entity\Photo
           joinTable:

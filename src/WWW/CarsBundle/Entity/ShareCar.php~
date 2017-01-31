@@ -138,5 +138,33 @@ class ShareCar
     {
         return $this->price;
     }
-}
+    /**
+     * @var \WWW\CarsBundle\Entity\Car
+     */
+    private $car;
 
+
+    /**
+     * Set car
+     *
+     * @param \WWW\CarsBundle\Entity\Car $car
+     *
+     * @return ShareCar
+     */
+    public function setCar(\WWW\CarsBundle\Entity\Car $car = null)
+    {
+        $this->car = $car;
+
+        return $this;
+    }
+
+    /**
+     * Get car
+     *
+     * @return \WWW\CarsBundle\Entity\Car
+     */
+    public function getCar()
+    {
+        return $this->car;
+    }
+}
