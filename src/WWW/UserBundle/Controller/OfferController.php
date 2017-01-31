@@ -95,9 +95,9 @@ class OfferController extends Controller{
         $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'";
 
         if($this->service != 3):
-            $data['sub_values']['dimensions'] = "'".$request->get('trade')['width']."x".
-                                                    $request->get('trade')['height']."x".
-                                                    $request->get('trade')['long']."'";
+//            $data['sub_values']['dimensions'] = "'".$request->get('trade')['width']."x".
+//                                                    $request->get('trade')['height']."x".
+//                                                    $request->get('trade')['long']."'";
             $data['sub_values']['weight'] = $this->offer->getWeight();
             $data['sub_values']['price'] = $this->offer->getPrice();
         endif;
@@ -119,11 +119,10 @@ class OfferController extends Controller{
         endif;
 
 
-        //$result = $ch->resultApiRed($info, $file);
-//print_r($result);
-//        $this->ut->flashMessage("general", $request, $result);
-//
-//        return $result['result'];
+        $result = $ch->resultApiRed($info, $file);
+        $this->ut->flashMessage("general", $request, $result);
+
+        return $result['result'];
     }
 
     private function searchOffer(Request $request){
@@ -143,15 +142,15 @@ class OfferController extends Controller{
                  $this->createTrade($result);
                  $formulario = $this->createForm(TradeType::class,$this->offer);
 
-                 if($result['service_id'] != 3):
-                     $dimensions = explode('x',$this->offer->getDimensions());
-                     $width = $dimensions[0];
-                     $height = $dimensions[1];
-                     $long = $dimensions[2];
-                     $formulario->get('width')->setData($width);
-                     $formulario->get('height')->setData($height);
-                     $formulario->get('long')->setData($long);
-                 endif;
+//                 if($result['service_id'] != 3):
+//                     $dimensions = explode('x',$this->offer->getDimensions());
+//                     $width = $dimensions[0];
+//                     $height = $dimensions[1];
+//                     $long = $dimensions[2];
+//                     $formulario->get('width')->setData($width);
+//                     $formulario->get('height')->setData($height);
+//                     $formulario->get('long')->setData($long);
+//                 endif;
              endif;
         else:     
             $this->ut->flashMessage("offer", $request, $result);
@@ -207,7 +206,7 @@ class OfferController extends Controller{
             $data['photos['.$count.']'] = $ch_photo;
             $count += 1;
         }
-        print_r($data);
+
 
         $result = $ch->resultApiRed($data, $file);
         print_r($result);
@@ -244,4 +243,35 @@ class OfferController extends Controller{
 
 
    }
+
+    public function deleteOfferAction(Request $request){
+
+        $id = $request->get('id');
+        $session = $request->getSession();
+
+        $response = new JsonResponse();
+
+        $file = MyConstants::PATH_APIREST."services/offer/delete_offer.php";
+        $ch = new ApiRest();
+
+        $data['username'] = $session->get('username');
+        $data['id'] = $session->get('id');
+        $data['password'] = $session->get('password');
+        $data['offer_id'] = $id;
+
+        $result = $ch->resultApiRed($data, $file);
+
+        if($result['result'] == 'ok'):
+            $response->setData(array(
+                'result' => 'ok',
+                'message' => 'Oferta eliminada correctamente'));
+        else:
+            $response->setData(array(
+                'result' => 'ko',
+                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
+        endif;
+
+        return $response;
+
+    }
 }
