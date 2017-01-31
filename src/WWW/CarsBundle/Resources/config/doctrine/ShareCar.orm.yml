@@ -1,0 +1,27 @@
+WWW\CarsBundle\Entity\ShareCar:
+    type: entity
+    table: null
+    repositoryClass: WWW\CarsBundle\Repository\ShareCarRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        fromPlace:
+            type: string
+            length: 255
+        toPlace:
+            type: string
+            length: 255
+        date:
+            type: datetime
+        price:
+            type: float
+    manyToOne:
+        car:
+            targetEntity: Car
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }
