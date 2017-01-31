@@ -1,3 +1,7 @@
+cars:
+    resource: "@CarsBundle/Resources/config/routing.yml"
+    prefix:   /
+
 #s_gestion_admin:
 #    resource: "@SGestionAdminBundle/Resources/config/routing.yml"
 #    prefix:   /
