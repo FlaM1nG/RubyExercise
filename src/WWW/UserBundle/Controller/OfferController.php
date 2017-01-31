@@ -69,18 +69,22 @@ class OfferController extends Controller{
         $form->handleRequest($request);
 
         if($form->isSubmitted()):
-            $this->updateOffer($request);
+            $result = $this->updateOffer($request);
+            if($result == 'ok'):
+                return $this->redirectToRoute('user_profiler_offers');
+            endif;
         endif;
 
         return $this->render('UserBundle:Profile:offers/profileEditOffer.html.twig',
                         array('form' => $form->createView(),
-                              'service' => $this->service ));
+                              'service' => $this->service,
+                              'offer' => $this->offer ));
     }
 
     private function updateOffer(Request $request){
 
         $ch = new ApiRest();
-        $file = MyConstants::PATH_APIREST."services/offer/update_offer.php";
+        $file = MyConstants::PATH_APIREST."services/offer/update_offer_photos.php";
 
         $info['id'] = $request->getSession()->get('id');
         $info['username'] = $request->getSession()->get('username');
@@ -89,23 +93,37 @@ class OfferController extends Controller{
 
         $data['values']['title'] = "'".$this->offer->getOffer()->getTitle()."'";
         $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'";
-        $data['sub_values']['price'] = $this->offer->getPrice();
-        $data['sub_values']['dimensions'] = "'".$request->get('trade')['width']."x".
-                                                $request->get('trade')['height']."x".
-                                                $request->get('trade')['long']."'";
-        $data['sub_values']['weight'] = $this->offer->getWeight();
+
+        if($this->service != 3):
+            $data['sub_values']['dimensions'] = "'".$request->get('trade')['width']."x".
+                                                    $request->get('trade')['height']."x".
+                                                    $request->get('trade')['long']."'";
+            $data['sub_values']['weight'] = $this->offer->getWeight();
+            $data['sub_values']['price'] = $this->offer->getPrice();
+        endif;
+
         $data['sub_values']['region'] = "'".$this->offer->getRegion()."'";
         $data['sub_values']['category_id'] = $this->offer->getCategory()->getId();
 
         $info['data']= json_encode($data);
 
         if(!empty($request->files->get('imgOffer')[0])):
-            $this->uploadImage($request);
+            $photos = $request->files->get('imgOffer');
+            $count = 0;
+
+            foreach($photos as $photo){
+                $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
+                $info['photos['.$count.']'] = $ch_photo;
+                $count += 1;
+            }
         endif;
 
-        $result = $ch->resultApiRed($info, $file);
 
-        $this->ut->flashMessage("general", $request, $result);
+        //$result = $ch->resultApiRed($info, $file);
+//print_r($result);
+//        $this->ut->flashMessage("general", $request, $result);
+//
+//        return $result['result'];
     }
 
     private function searchOffer(Request $request){

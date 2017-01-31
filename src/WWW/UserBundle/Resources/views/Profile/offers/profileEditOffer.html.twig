@@ -38,8 +38,7 @@
             {{form_row(form.price)}}
         {% endif %}
   
-        <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading">
-
+        <input id="imgOffer" name="imgOffer[]" type="file" accept="image/*" multiple class="file-loading">
         {{form_row(form.offer.id)}}
         {{form_row(form.saveTrade)}}
     
@@ -73,11 +72,11 @@
           
             {% set arrayUrl = "" %} 
             {% set arrayCaption = "" %}
-            {% for photo in form.offer.photos %}
+            {% for photo in offer.offer.photos %}
                 
-                {% set arrayUrl = arrayUrl~"'"~asset(photo.url.vars.value,'img')~"'," %}  
-                {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~photo.id.vars.value~", extra: {idOffer:"~form.offer.id.vars.value~" } }," %}
- 
+                {% set arrayUrl = arrayUrl~"'"~asset(photo.url,'img')~"'," %}
+                {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~photo.id|number_format~" }," %}
+
             {% endfor %} 
            
    
@@ -87,19 +86,23 @@
                     {{arrayUrl|raw}}
                 ],
                 initialPreviewAsData: true,
-                
-                initialPreviewConfig: [ 
+
+                initialPreviewConfig: [
                     {{arrayCaption|raw}}
                 ],
                 deleteUrl: "{{ url('user_ajax_deleteImageOffer') }}",
                 overwriteInitial: false,
                 maxFileSize: 3072,
-                showRemove: false,
-                showUpload: false,
                 showZoom: false,
                 initialCaption: '',
                 validateInitialCount: true,
+//                uploadUrl: "/file-upload-batch/2",
+                autoReplace: true,
                 maxFileCount: 5,
+                minFileCount:1,
+                showRemove: false,
+                showUpload: false,
+
             });
         });
     </script>
