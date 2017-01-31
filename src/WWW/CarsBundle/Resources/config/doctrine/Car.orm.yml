@@ -62,10 +62,35 @@ WWW\CarsBundle\Entity\Car:
             type: float
             nullable: true
             column: max_weight
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
     manyToOne:
         user:
             targetEntity: WWW\UserBundle\Entity\User
             inversedBy: cars
             joinColumn:
                 referencedColumnName: id
+    ManyToMany:
+        photos:
+          targetEntity: WWW\GlobalBundle\Entity\Photo
+          joinTable:
+            name: car_photos
+            joinColumns:
+              car_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+            inverseJoinColumns:
+              photo_id:
+                referencedColumnName: id
+                onDelete: CASCADE
     lifecycleCallbacks: {  }
