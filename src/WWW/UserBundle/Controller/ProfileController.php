@@ -52,6 +52,10 @@ class ProfileController extends Controller{
         if(empty($session->get('numMessage'))):
             $session->set("numMessage",$numMessage);
         endif;
+
+        print_r('ENTRA');
+        print_r($this->user);
+        die();
         
         return $this->render('UserBundle:Profile:indexProfile.html.twig',
                              array('usuario' => $this->user 
