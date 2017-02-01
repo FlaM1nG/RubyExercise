@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Payum\Bundle\PayumBundle\PayumBundle(),
             new WWW\PaymentBundle\PaymentBundle(),
+            new WWW\CarsBundle\CarsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

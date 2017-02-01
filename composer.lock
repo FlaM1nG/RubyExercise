@@ -1890,17 +1890,17 @@
         },
         {
             "name": "payum/core",
-            "version": "1.3.8",
+            "version": "1.3.9",
             "target-dir": "Payum/Core",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Payum/Core.git",
-                "reference": "fe690a69574b5c02cf53a7ae3d34e0909b66e206"
+                "reference": "da3222ca258392c81f9fae408c23d32e5e949445"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Payum/Core/zipball/fe690a69574b5c02cf53a7ae3d34e0909b66e206",
-                "reference": "fe690a69574b5c02cf53a7ae3d34e0909b66e206",
+                "url": "https://api.github.com/repos/Payum/Core/zipball/da3222ca258392c81f9fae408c23d32e5e949445",
+                "reference": "da3222ca258392c81f9fae408c23d32e5e949445",
                 "shasum": ""
             },
             "require": {
@@ -1909,7 +1909,7 @@
                 "php": "^5.5.0|^7.0",
                 "php-http/client-implementation": "^1.0",
                 "php-http/message": "^1.0",
-                "twig/twig": "~1.0"
+                "twig/twig": "~1.0|~2.0"
             },
             "require-dev": {
                 "doctrine/orm": "2.*",
@@ -1993,7 +1993,7 @@
                 "subscription",
                 "withdrawal"
             ],
-            "time": "2016-10-04 18:29:26"
+            "time": "2017-01-31 14:18:39"
         },
         {
             "name": "payum/iso4217",
