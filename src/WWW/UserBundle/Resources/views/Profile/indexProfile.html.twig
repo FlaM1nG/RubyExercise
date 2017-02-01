@@ -46,7 +46,7 @@
                                data-display-only="true"
                                type="number"
                                step="1"
-                               value="{#{{ usuario.avg_score }}#}" />
+                               value="{{ usuario.avgScore }}" />
 
                         <!-- FIN VALORACIONES -->
 
@@ -114,6 +114,17 @@
                 $('[data-toggle="tooltip"]').tooltip();
             });
         });
+    </script>
+
+    <script src="{{ asset('js/starRating/star-rating.js') }}"></script>
+
+    <script>
+        $(document).ready( function(){
+
+            $('.valoration').rating({
+                displayOnly: true,
+            });
+        })
     </script>
 {% endblock %}
     
