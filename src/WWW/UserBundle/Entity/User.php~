@@ -251,6 +251,14 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @var float
      */
     private $avgScore;
+<<<<<<< HEAD
+=======
+
+    /**
+     * @var integer
+     */
+    private $valorationNum;
+>>>>>>> messages
 
     /**
      * @var integer
@@ -291,6 +299,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
                 $this->photo = new Photo();
             endif;
             
+<<<<<<< HEAD
             
              if(array_key_exists('addresses', $user)):
                 foreach($user['addresses'] as $address):
@@ -298,6 +307,10 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
                   $this->createAddresses($user['addresses'], $user['default_address_id']);
                 endforeach;
             endif; 
+=======
+            $this->createAddresses($user['addresses'], $user['default_address_id']);
+   
+>>>>>>> messages
         else:
             $this->addresses = new ArrayCollection();
             $this->offers = Array();
@@ -737,10 +750,17 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         return serialize(array(
             $this->id,
+<<<<<<< HEAD
             $this->username,
             $this->password,
             // see section on salt below
             // $this->salt,
+=======
+//            $this->username,
+//            $this->password,
+            // see section on salt below
+//            $this->salt,
+>>>>>>> messages
         ));
     }
 
@@ -749,10 +769,17 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         list (
             $this->id,
+<<<<<<< HEAD
             $this->username,
             $this->password,
             // see section on salt below
             // $this->salt
+=======
+//            $this->username,
+//            $this->password,
+            // see section on salt below
+//            $this->salt 
+>>>>>>> messages
         ) = unserialize($serialized);
     }
     /**
@@ -1175,6 +1202,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     public function getGroupSequence()
     {
         $groups = array('User');
+<<<<<<< HEAD
 
         if ($this->isEmail()) {
             
@@ -1195,6 +1223,28 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
            
         }
 
+=======
+
+        if ($this->isEmail()) {
+            
+            $groups[] = 'email';
+            
+        }elseif($this->isRegister()){
+            
+            $groups[] = "register";
+            
+        }elseif($this->isPersonalData()){
+            
+           $groups[] = "personalData";
+           
+        }
+        elseif($this->isPassword()){
+            
+           $groups[] = "password";
+           
+        }
+
+>>>>>>> messages
         return $groups;
     }
     
@@ -1320,6 +1370,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     public function getUser(){
         return $this;
     }
+<<<<<<< HEAD
 
     /**
      * Add revised
@@ -1442,4 +1493,6 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         return $this->valorations;
     }
+=======
+>>>>>>> messages
 }

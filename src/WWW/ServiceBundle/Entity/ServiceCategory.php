@@ -112,4 +112,45 @@ class ServiceCategory
     {
         return $this->photo;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add service
+     *
+     * @param \WWW\ServiceBundle\Entity\Service $service
+     *
+     * @return ServiceCategory
+     */
+    public function addService(\WWW\ServiceBundle\Entity\Service $service)
+    {
+        $this->services[] = $service;
+
+        return $this;
+    }
+
+    /**
+     * Remove service
+     *
+     * @param \WWW\ServiceBundle\Entity\Service $service
+     */
+    public function removeService(\WWW\ServiceBundle\Entity\Service $service)
+    {
+        $this->services->removeElement($service);
+    }
+
+    /**
+     * Get services
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getServices()
+    {
+        return $this->services;
+    }
 }

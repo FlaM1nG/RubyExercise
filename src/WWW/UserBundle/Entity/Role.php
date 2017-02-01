@@ -106,32 +106,33 @@ class Role
     }
 
     /**
-     * Add users
+     * Add user
      *
-     * @param \WWW\UserBundle\Entity\User $users
+     * @param \WWW\UserBundle\Entity\User $user
+     *
      * @return Role
      */
-    public function addUser(\WWW\UserBundle\Entity\User $users)
+    public function addUser(\WWW\UserBundle\Entity\User $user)
     {
-        $this->users[] = $users;
+        $this->users[] = $user;
 
         return $this;
     }
 
     /**
-     * Remove users
+     * Remove user
      *
-     * @param \WWW\UserBundle\Entity\User $users
+     * @param \WWW\UserBundle\Entity\User $user
      */
-    public function removeUser(\WWW\UserBundle\Entity\User $users)
+    public function removeUser(\WWW\UserBundle\Entity\User $user)
     {
-        $this->users->removeElement($users);
+        $this->users->removeElement($user);
     }
 
     /**
      * Get users
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {
