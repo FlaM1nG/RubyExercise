@@ -30,7 +30,7 @@ class ProfilePhotoController extends Controller{
         if(!empty($request->files->get('avatar'))):
             $this->changePhotoProfile($request);
         endif;
-print_r($user);
+
         return $this->render('UserBundle:Profile:photoProfile.html.twig',
                        array(//'form' => $form->createView(),
                              'user' => $user)
