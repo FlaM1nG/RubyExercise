@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="091e3b9f-3025-42bf-9a49-69b8814707d1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/AppKernel.php" afterPath="$PROJECT_DIR$/app/AppKernel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
     </list>
     <list id="9c262b20-a705-41af-9c6d-05b693f8b49a" name="Revert: comit raro" comment="" />
     <ignored path="wwweb.iws" />
@@ -343,7 +341,7 @@
       <workItem from="1485934777559" duration="5534000" />
       <workItem from="1485947644265" duration="1075000" />
       <workItem from="1485950967490" duration="3622000" />
-      <workItem from="1485961944398" duration="2027000" />
+      <workItem from="1485961944398" duration="2050000" />
     </task>
     <task id="LOCAL-00001" summary="payment bundle">
       <created>1485785403544</created>
@@ -373,11 +371,18 @@
       <option name="project" value="LOCAL" />
       <updated>1485951830064</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="mergeo con dani">
+      <created>1485964332381</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1485964332381</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66701000" />
+    <option name="totallyTimeSpent" value="66724000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -429,7 +434,8 @@
     <MESSAGE value="payment bundle" />
     <MESSAGE value="commit" />
     <MESSAGE value="payumbundle para el pago" />
-    <option name="LAST_COMMIT_MESSAGE" value="payumbundle para el pago" />
+    <MESSAGE value="mergeo con dani" />
+    <option name="LAST_COMMIT_MESSAGE" value="mergeo con dani" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
   <component name="XDebuggerManager">
