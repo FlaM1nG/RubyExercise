@@ -104,4 +104,38 @@ class Role
     {
         return $this->permissions;
     }
+
+    /**
+     * Add user
+     *
+     * @param \WWW\UserBundle\Entity\User $user
+     *
+     * @return Role
+     */
+    public function addUser(\WWW\UserBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \WWW\UserBundle\Entity\User $user
+     */
+    public function removeUser(\WWW\UserBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
 }

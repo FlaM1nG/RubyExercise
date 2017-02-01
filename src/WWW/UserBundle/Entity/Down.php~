@@ -80,5 +80,33 @@ class Down
     {
         return $this->reason;
     }
-}
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;
 
+
+    /**
+     * Set user
+     *
+     * @param \WWW\UserBundle\Entity\User $user
+     *
+     * @return Down
+     */
+    public function setUser(\WWW\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \WWW\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

@@ -1480,4 +1480,43 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         return $this->downs;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $cars;
+
+
+    /**
+     * Add car
+     *
+     * @param \WWW\CarsBundle\Entity\Car $car
+     *
+     * @return User
+     */
+    public function addCar(\WWW\CarsBundle\Entity\Car $car)
+    {
+        $this->cars[] = $car;
+
+        return $this;
+    }
+
+    /**
+     * Remove car
+     *
+     * @param \WWW\CarsBundle\Entity\Car $car
+     */
+    public function removeCar(\WWW\CarsBundle\Entity\Car $car)
+    {
+        $this->cars->removeElement($car);
+    }
+
+    /**
+     * Get cars
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCars()
+    {
+        return $this->cars;
+    }
 }
