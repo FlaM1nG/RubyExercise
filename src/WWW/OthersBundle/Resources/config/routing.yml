@@ -30,5 +30,19 @@ service_barter:
     requirements:
         idOffer: \d+
 
+service_newClothes:
+    path: /clothes/newClothers/
+    defaults: { _controller: OthersBundle:Trade:createOffer }
+
+service_listClothes:
+    path: /clothes/
+    defaults: { _controller: OthersBundle:Trade:listTrade }
+
+service_clothes:
+    path: /clothes/offer/{idOffer}/
+    defaults: { _controller: OthersBundle:Trade:showTrade }
+    requirements:
+        idOffer: \d+
+
         
 

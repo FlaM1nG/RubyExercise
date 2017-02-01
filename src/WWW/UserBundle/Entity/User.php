@@ -256,13 +256,17 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @var integer
      */
     private $valorationNum;
-    
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $downs;
+
     /**
      * Constructor
      */
     public function __construct(Array $user=null){  
-        
-//        print_r($user);
+
         if(!empty($user)):  
             
             $this->birthdate = date_create_from_format('Y-m-d', $user['birthdate']);
@@ -285,7 +289,14 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
             else:
                 $this->photo = new Photo();
             endif;
-            
+
+            if(array_key_exists('avg_score',$user)):
+                if(empty($user['avg_score'])):
+                    $this->avgScore = 0;
+                else:
+                    $this->avgScore = $user['avg_score'];
+                endif;
+            endif;
             
              if(array_key_exists('addresses', $user)):
                 foreach($user['addresses'] as $address):
@@ -735,7 +746,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
             $this->username,
             $this->password,
             // see section on salt below
-            // $this->salt,
+//            $this->salt,
         ));
     }
 
@@ -1320,6 +1331,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * Add revised
      *
      * @param \WWW\UserBundle\Entity\Message $revised
+     *
      * @return User
      */
     public function addRevised(\WWW\UserBundle\Entity\Message $revised)
@@ -1342,7 +1354,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     /**
      * Get revised
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRevised()
     {
@@ -1350,55 +1362,57 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     }
 
     /**
-     * Add offers
+     * Add offer
      *
-     * @param \WWW\ServiceBundle\Entity\Offer $offers
+     * @param \WWW\ServiceBundle\Entity\Offer $offer
+     *
      * @return User
      */
-    public function addOffer(\WWW\ServiceBundle\Entity\Offer $offers)
+    public function addOffer(\WWW\ServiceBundle\Entity\Offer $offer)
     {
-        $this->offers[] = $offers;
+        $this->offers[] = $offer;
 
         return $this;
     }
 
     /**
-     * Remove offers
+     * Remove offer
      *
-     * @param \WWW\ServiceBundle\Entity\Offer $offers
+     * @param \WWW\ServiceBundle\Entity\Offer $offer
      */
-    public function removeOffer(\WWW\ServiceBundle\Entity\Offer $offers)
+    public function removeOffer(\WWW\ServiceBundle\Entity\Offer $offer)
     {
-        $this->offers->removeElement($offers);
+        $this->offers->removeElement($offer);
     }
 
     /**
-     * Add inscriptions
+     * Add inscription
      *
-     * @param \WWW\ServiceBundle\Entity\Inscription $inscriptions
+     * @param \WWW\ServiceBundle\Entity\Inscription $inscription
+     *
      * @return User
      */
-    public function addInscription(\WWW\ServiceBundle\Entity\Inscription $inscriptions)
+    public function addInscription(\WWW\ServiceBundle\Entity\Inscription $inscription)
     {
-        $this->inscriptions[] = $inscriptions;
+        $this->inscriptions[] = $inscription;
 
         return $this;
     }
 
     /**
-     * Remove inscriptions
+     * Remove inscription
      *
-     * @param \WWW\ServiceBundle\Entity\Inscription $inscriptions
+     * @param \WWW\ServiceBundle\Entity\Inscription $inscription
      */
-    public function removeInscription(\WWW\ServiceBundle\Entity\Inscription $inscriptions)
+    public function removeInscription(\WWW\ServiceBundle\Entity\Inscription $inscription)
     {
-        $this->inscriptions->removeElement($inscriptions);
+        $this->inscriptions->removeElement($inscription);
     }
 
     /**
      * Get inscriptions
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getInscriptions()
     {
@@ -1406,35 +1420,109 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     }
 
     /**
-     * Add valorations
+     * Add valoration
      *
-     * @param \WWW\ServiceBundle\Entity\Valoration $valorations
+     * @param \WWW\ServiceBundle\Entity\Valoration $valoration
+     *
      * @return User
      */
-    public function addValoration(\WWW\ServiceBundle\Entity\Valoration $valorations)
+    public function addValoration(\WWW\ServiceBundle\Entity\Valoration $valoration)
     {
-        $this->valorations[] = $valorations;
+        $this->valorations[] = $valoration;
 
         return $this;
     }
 
     /**
-     * Remove valorations
+     * Remove valoration
      *
-     * @param \WWW\ServiceBundle\Entity\Valoration $valorations
+     * @param \WWW\ServiceBundle\Entity\Valoration $valoration
      */
-    public function removeValoration(\WWW\ServiceBundle\Entity\Valoration $valorations)
+    public function removeValoration(\WWW\ServiceBundle\Entity\Valoration $valoration)
     {
-        $this->valorations->removeElement($valorations);
+        $this->valorations->removeElement($valoration);
     }
 
     /**
      * Get valorations
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getValorations()
     {
         return $this->valorations;
+    }
+
+    /**
+     * Add down
+     *
+     * @param \WWW\UserBundle\Entity\Down $down
+     *
+     * @return User
+     */
+    public function addDown(\WWW\UserBundle\Entity\Down $down)
+    {
+        $this->downs[] = $down;
+
+        return $this;
+    }
+
+    /**
+     * Remove down
+     *
+     * @param \WWW\UserBundle\Entity\Down $down
+     */
+    public function removeDown(\WWW\UserBundle\Entity\Down $down)
+    {
+        $this->downs->removeElement($down);
+    }
+
+    /**
+     * Get downs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDowns()
+    {
+        return $this->downs;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $cars;
+
+
+    /**
+     * Add car
+     *
+     * @param \WWW\CarsBundle\Entity\Car $car
+     *
+     * @return User
+     */
+    public function addCar(\WWW\CarsBundle\Entity\Car $car)
+    {
+        $this->cars[] = $car;
+
+        return $this;
+    }
+
+    /**
+     * Remove car
+     *
+     * @param \WWW\CarsBundle\Entity\Car $car
+     */
+    public function removeCar(\WWW\CarsBundle\Entity\Car $car)
+    {
+        $this->cars->removeElement($car);
+    }
+
+    /**
+     * Get cars
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCars()
+    {
+        return $this->cars;
     }
 }

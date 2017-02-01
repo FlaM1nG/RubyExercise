@@ -3,6 +3,10 @@ payment:
     type:     annotation
     prefix:   /
 
+cars:
+    resource: "@CarsBundle/Resources/config/routing.yml"
+    prefix:   /car
+
 #s_gestion_admin:
 #    resource: "@SGestionAdminBundle/Resources/config/routing.yml"
 #    prefix:   /

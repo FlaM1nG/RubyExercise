@@ -45,9 +45,25 @@ class PurchasesController extends Controller{
         
         return $result['inscriptions'];
     }
+    
+    private function getOffer($id){
+        $file = MyConstants::PATH_APIREST."services/offer/get_offer.php";
+        $ch = new ApiRest();
+
+        $data['id'] = $id;
+
+        $result = $ch->resultApiRed($data,$file);
+        return $result;
+    }
 
     public function valorationAction(Request $request){
 
-        return $this->render('UserBundle:Profile:offers/profileValorationOffer.html.twig');
+        $result = $this->getOffer($request->get('idOffer'));
+
+        return $this->render('UserBundle:Profile:offers/profileValorationOffer.html.twig',
+                        array('title' => $result['title'],
+                              'description' => $result['description'],
+                              'urlImage' => $result['photos'][0]['url'])
+                        );
     }
 }

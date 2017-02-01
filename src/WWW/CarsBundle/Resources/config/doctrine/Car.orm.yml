@@ -1,0 +1,96 @@
+WWW\CarsBundle\Entity\Car:
+    type: entity
+    table: null
+    repositoryClass: WWW\CarsBundle\Repository\CarRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        plate:
+            type: string
+            length: 255
+            nullable: true
+        color:
+            type: string
+            length: 255
+            nullable: true
+        description:
+            type: string
+            length: 255
+            nullable: true
+        enrollmentDate:
+            type: date
+            length: 255
+            column: enrollment_date
+        kilometers:
+            type: string
+            length: 255
+            nullable: true
+        carInsurance:
+            type: string
+            length: 255
+            column: car_insurance
+            nullable: true
+        smoke:
+            type: boolean
+            nullable: true
+        animals:
+            type: boolean
+            nullable: true
+        music:
+            type: boolean
+            nullable: true
+        talk:
+            type: boolean
+            nullable: true
+        maxWidth:
+            type: float
+            nullable: true
+            column: max_width
+        maxHeight:
+            type: float
+            nullable: true
+            column: max_height
+        maxDepth:
+            type: float
+            nullable: true
+            column: max_depth
+        maxWeight:
+            type: float
+            nullable: true
+            column: max_weight
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+    manyToOne:
+        user:
+            targetEntity: WWW\UserBundle\Entity\User
+            inversedBy: cars
+            joinColumn:
+                referencedColumnName: id
+    manyToMany:
+        photos:
+          targetEntity: WWW\GlobalBundle\Entity\Photo
+          joinTable:
+            name: car_photos
+            joinColumns:
+              car_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+            inverseJoinColumns:
+              photo_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+    lifecycleCallbacks: {  }

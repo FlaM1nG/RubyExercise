@@ -39,8 +39,8 @@ class ProfilePhotoType extends AbstractType{
 
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data_class'=>'WWW\UserBundle\Entity\User'
-            ));
+        $resolver->setDefaults(array('data_class'=>'WWW\UserBundle\Entity\User',
+                                     'validation_groups' => false));
     }
     
     public function getBlockPrefix(){

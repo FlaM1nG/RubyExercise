@@ -2,7 +2,8 @@
 
 namespace WWW\GlobalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+
+use Doctrine\Common\Util\Inflector as Inflector;
 
 /**
  * Photo
@@ -39,6 +40,19 @@ class Photo
      */
     private $isDeleted;
 
+    public function __construct($data=null) {
+        
+        if(!empty($data)):
+        
+            foreach ($data as $key => $value):
+                $key = Inflector::camelize($key);
+        
+                if( property_exists('WWW\GlobalBundle\Entity\Photo',$key) ){
+                        $this->$key = $value;
+                }
+            endforeach;
+        endif; 
+    }
     /**
      * Get id
      *
@@ -49,6 +63,9 @@ class Photo
         return $this->id;
     }
 
+    public function setId($id){
+        $this->id = $id;
+    }
     /**
      * Set url
      *

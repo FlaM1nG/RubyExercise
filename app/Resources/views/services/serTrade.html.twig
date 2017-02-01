@@ -2,12 +2,40 @@
 {% import '::macros/tradeList.html.twig' as trades %}
 {% import '::macros/filter.html.twig' as filters %}
 
+{% set pathFilter = '' %}
+{% set routingOffer = '' %}
+
+{% if service == 1 %}
+    {% set pathFilter = path('service_listTrade') %}
+    {% set routingOffer = 'service_trade' %}
+    {% set routingNewOffer = 'service_newTrade' %}
+
+{% elseif service == 2 %}
+    {% set pathFilter = path('service_listClothes') %}
+    {% set routingOffer = 'service_clothes' %}
+    {% set routingNewOffer = 'service_newClothes' %}
+
+{% elseif service == 3 %}
+    {% set pathFilter = path('service_listBarter') %}
+    {% set routingOffer = 'service_barter' %}
+    {% set routingNewOffer = 'service_newBarter' %}
+{% endif %}
+
+
 {% block title %}
-    Trade
+    {{ title }}
 {% endblock %}
 
 {% block cssParallax %}
-tra-parallax
+
+    {% if service == 1 %}
+        tra-parallax
+    {% elseif service == 2 %}
+        ropa-parallax
+    {% elseif service == 3 %}
+        trueque-parallax
+    {% endif %}
+
 {% endblock %}
 
 {% block cssTitleParallax %}
@@ -15,7 +43,7 @@ sha-header-title
 {% endblock %}
 
 {% block serviceTitle %} 
-    Trade
+    {{ title }}
 {% endblock %}
 
 {% block serviceSubTitle %}  
@@ -25,10 +53,20 @@ sha-header-title
     </a>#}
 {% endblock %}
 
+{% block alert %}
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{  alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{  alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+{% endblock %}
+
 {% block serviceFilters %} 
     {#{{ include('services/filters/shareCarFilter.html.twig') }}#}
-    
-    {{ filters.filterTrade('get',path('service_listTrade'),categories) }}
+
+    {{ filters.filterTrade('get',pathFilter ,categories, service) }}
 {% endblock %}
             
 {% block serviceList %}
@@ -36,17 +74,18 @@ sha-header-title
     {% for trade in arrayTrades %} 
         {#{ include('services/lists/tradeList.html.twig') }#}
 
-        {% set url = path('service_trade' , {idOffer: trade.offer.id}) %}
+        {% set url = path(routingOffer , {idOffer: trade.offer.id}) %}
         
         {{ trades.element(url, trade.offer.photos.0.url, trade.offer.title, trade.category.name, '#CATEGORIA', 
-        path('user_public_profile',{username:trade.offer.userAdmin.username}), trade.offer.userAdmin.photo.url, trade.offer.userAdmin.username , trade.price) }}
+        path('user_public_profile',{username:trade.offer.userAdmin.username}), trade.offer.userAdmin.photo.url,
+        trade.offer.userAdmin.username , trade.price, service) }}
     {% endfor %}
     </div>
 {% endblock %}
 
 {% block filtroMovilBody %}
 {#    {{ include('services/filters/shareCarFilter.html.twig') }}#}
-    {{ filters.filterTrade('get',path('service_listTrade'),categories) }}
+    {{ filters.filterTrade('get',pathFilter,categories) }}
 {% endblock %}
 
 {% block serviceSidebar %}

@@ -58,8 +58,6 @@
     font-weight: 900;
     line-height: 1em;
     color: @brand-primary;
-    display: inline-block;
-    margin-right: 30px;
 }
 
 .off-vote {
@@ -68,10 +66,26 @@
 }
 
 .off-date{
-    display: inline-block;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 2;
+    font-size: 14px;
+    line-height: 1em;
+    color: @gray;
+}
+
+.col-off-date{
+    //text-align: right;
+    margin-top: 7px;
+}
+
+.col-off-prin{
+    padding: 0 2%;
+}
+
+.panel-off-heading{
+    text-align: center;
+}
+
+.off-panel-body{
+    min-height: 350px;
 }
 
 .off-img-marco-grande {
@@ -136,16 +150,6 @@
     padding-top: 30px;
 }
 
-.row-off-user-name{
-    text-align: left;
-
-    a{
-        font-size: 16px;
-        font-weight: 600;
-    }
-
-}
-
 .col-off-var-data, .col-off-rela{
     padding-top: 20px;
 }
@@ -159,23 +163,28 @@
 }
 
 .btn-off-buy{
-    float: left;
-}
-
-.off-user-image, .off-user-name{
-    display: table-cell;
-    vertical-align: middle;
+    float: none;
+    margin: 0;
+    .sombra-general2;
 }
 
 .off-user-name{
-    padding-left: 15px;
+    font-size: 16px;
+    font-weight: 600
 }
 
 .off-user-image{
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
     img{
         width: 56px;
         height: 56px;
     }
+}
+
+.col-off-img{
+    margin-bottom: 10px;
 }
 
 .off-icon-prin{
@@ -260,8 +269,23 @@
 
 .off-btn-write{
     padding: 5px 10px;
-    float: left;
-    margin-top: 10px;
+    float: none;
+    margin: 0;
+    text-transform: none;
+    .sombra-general2;
+}
+
+.off-middle{
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+.off-middle-hijo{
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+
 }
 
 /*.off-row-rating{
@@ -269,10 +293,12 @@
         width: 0.9em;
     }
 }
+*/
 
 .off-comment-target{
-    margin-bottom: 20px;
-}*/
+    //margin-bottom: 20px;
+    padding: 2%;
+}
 
 .off-col-comment{
     border-left: 4px solid @brand-primary;
@@ -288,6 +314,7 @@
 
 .off-form-comment{
     margin-bottom: 20px;
+    .sombra-general2;
 }
 
 .off-com-btn{
@@ -398,6 +425,12 @@
 .off-texto-matizar{
     p{
         font-size: 12px;
+    }
+}
+
+.off-message-user{
+    .btn-default .btn{
+        margin-bottom: 0;
     }
 }
 /* ##### FIN USER-LIST-OFFERS ##### */
