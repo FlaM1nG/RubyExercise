@@ -3,6 +3,10 @@
 namespace WWW\ServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use WWW\UserBundle\Entity\User;
+use WWW\ServiceBundle\Entity\Offer;
+use WWW\GlobalBundle\Entity\Photo;
+use WWW\ServiceBundle\Entity\Valoration;
 
 /**
  * Inscription
@@ -13,16 +17,7 @@ class Inscription
      * @var int
      */
     private $id;
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }    
+    
     /**
      * @var integer
      */
@@ -58,6 +53,15 @@ class Inscription
      */
     private $offer;
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }    
 
     /**
      * Set status

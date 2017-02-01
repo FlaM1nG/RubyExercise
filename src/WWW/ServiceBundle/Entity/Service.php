@@ -42,7 +42,7 @@ class Service
     private $offers;
 
     public function __construct($id = null) {
-        $this->id = null;
+        $this->id = $id;
     }
 
     /**
@@ -196,5 +196,39 @@ class Service
     public function getDefaultStatus()
     {
         return $this->defaultStatus;
+    }
+
+    /**
+     * Add offer
+     *
+     * @param \WWW\ServiceBundle\Entity\Offer $offer
+     *
+     * @return Service
+     */
+    public function addOffer(\WWW\ServiceBundle\Entity\Offer $offer)
+    {
+        $this->offers[] = $offer;
+
+        return $this;
+    }
+
+    /**
+     * Remove offer
+     *
+     * @param \WWW\ServiceBundle\Entity\Offer $offer
+     */
+    public function removeOffer(\WWW\ServiceBundle\Entity\Offer $offer)
+    {
+        $this->offers->removeElement($offer);
+    }
+
+    /**
+     * Get offers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOffers()
+    {
+        return $this->offers;
     }
 }

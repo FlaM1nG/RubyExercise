@@ -117,7 +117,13 @@ WWW\UserBundle\Entity\User:
             mappedBy: user              
         valorations:
             targetEntity: WWW\ServiceBundle\Entity\Valoration
-            mappedBy: user 
+            mappedBy: user
+        downs:
+            targetEntity: Down
+            mappedBy: user
+        cars:
+            targetEntity: WWW\CarsBundle\Entity\Car
+            mappedBy: user
     oneToOne:        
         photo:
             nullable: true

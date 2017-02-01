@@ -47,9 +47,10 @@ class Photo
             foreach ($data as $key => $value):
                 $key = Inflector::camelize($key);
         
-                if( property_exists('WWW\GlobalBundle\Entity\Photo',$key) ){
+                if( property_exists('WWW\GlobalBundle\Entity\Photo',$key) ):
+                    
                         $this->$key = $value;
-                }
+                endif;
             endforeach;
         endif; 
     }

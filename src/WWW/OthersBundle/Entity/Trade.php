@@ -67,7 +67,7 @@ class Trade
             foreach($arrayData as $key => $value):
                 $key = Inflector::camelize($key);
 
-                if(property_exists('WWW\OthersBundle\Entity\Trade',$key)):
+                if(property_exists('WWW\OthersBundle\Entity\Trade',$key) && !empty($value) ):
                     $this->$key = $value;
 
                 endif;

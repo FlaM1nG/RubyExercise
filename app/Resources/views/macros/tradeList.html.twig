@@ -1,5 +1,5 @@
 {% macro element(hrefOffer, srcImg, title, categoria, hrefCategoria, hrefUser, 
-    srcImgUser, nameUser, price) %}
+    srcImgUser, nameUser, price, service_id) %}
     
     {% import 'macros/user.html.twig' as users %}
     
@@ -34,11 +34,17 @@
         
         
         <!-- PRECIO -->
+
+
         <div class="row row-tra-cat-grid">
+            {% if service_id != 3 %}
             <span class="tra-price">
                 {{ price|e|number_format(2, '.', '') }}€
             </span>
+            {% endif %}
         </div>
+
+
         <!-- FIN PRECIO -->
 
 

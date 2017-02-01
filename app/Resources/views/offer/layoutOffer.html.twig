@@ -57,137 +57,85 @@
                 
                 
                 <!-- DATOS PRINCIPALES -->
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <!-- TITLE OFFER -->
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12
-                             col-off-title">
-                            <h2> {% block offerTitle %} {% endblock %} </h2>
-                            <hr>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-off-prin">
+
+                    <div class="row ">
+                        <div class="col-lg-12">
+                            <h2>
+                                {% block offerTitle %} {% endblock %}
+                            </h2>
+
+                            <span class="off-date">
+                                {% block offerDate %} {% endblock %}
+                            </span>
+
+                            <hr/>
                         </div>
                     </div>
-                    <!-- FIN TITLE OFFER -->
-                    
-                    
-                    <!-- PRICE AND VOTE OFFER -->
+
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <span class="off-date"> 
-                                        {% block offerDate %} {% endblock %} 
-                                    </span>
-                                </div>
+                        <div class="off-middle">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center off-middle-hijo">
+                                {% block offerUser %} {% endblock %}
+                                {% block offerVote %} {% endblock %}
                             </div>
-                            
-                            
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <span class="off-price"> 
-                                        {% block offerPrice %} {% endblock %} 
-                                    </span>
-                                </div>
-                            </div>
-                            
-                            
-                        </div>
-                            
-                        
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            {% block offerUser %} {% endblock %}
-                            
-                            
-                            <div class="row off-row-rating">
-                                <span class="off-vote"> 
-                                    {% block offerVote %} {% endblock %} 
-                                </span>
-                            </div>
-                                
-                            {% if is_granted('create_msg_offer', trade) %}      
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 off-middle-hijo text-center">
                                 <div class="row">
-                                    <button class="btn-default btn off-btn-write"
-                                        data-toggle="modal" 
-                                        data-target="#writeUser">
-                                        Escribeme
-                                    </button>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 separacion-inferior">
+                                        <span class="off-price">
+                                            {% block offerPrice %} {% endblock %}
+                                        </span>
+                                        {#-#}
+                                        {#<span class="off-date">#}
+                                        {#{% block offerDate %} {% endblock %}#}
+                                        {#</span>#}
+                                    </div>
+                                    {% if is_granted('create_msg_offer', trade) %}
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-center">
+                                                <button class="btn-default btn off-btn-write"
+                                                        data-toggle="modal"
+                                                        data-target="#writeUser">
+                                                    Enviar mensaje
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    {%endif%}
                                 </div>
-                            {%endif%}
+                            </div>
+
+
                         </div>
+
                     </div>
-                    <!-- FIN PRICE AND VOTE OFFER -->
-                    
-                    
-                    <!-- DATE -->
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        </div>
-                    </div>
-                    <!-- FIN DATE -->
-                    
                     
                     <!-- DESCRIPTION OFFER -->
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 
+                    <div class="row separacion-inferior">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12
                              off-description-normal">
                             {% block offerDescription %} {% endblock %}
                         </div>
                     </div>
-                    <!-- FIN DESCRIPTION OFFER -->   
-                    
+                    <!-- FIN DESCRIPTION OFFER -->
+
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-                         {% if is_granted('select_offer', trade) %}                            
-                            {{form_start(formSubscribe)}}
-                            {{form_widget(formSubscribe.subscribeButton, 
+                            {% if is_granted('select_offer', trade) %}
+                                {{form_start(formSubscribe)}}
+                                {{form_widget(formSubscribe.subscribeButton,
                                 { 'attr': {'class': 'btn-default btn-off-buy'},
-                                  'label':'Comprar' })}}
-                            {{form_end(formSubscribe)}} 
-                            {#<button type="submit" class="btn btn-default 
-                                btn-off-buy">
-                               Comprar
-                            </button>#}
+                                    'label':'Comprar' })}}
+                                {{form_end(formSubscribe)}}
+                                {#<button type="submit" class="btn btn-default#}
+                                {#btn-off-buy">#}
+                                {#Comprar#}
+                                {#</button>#}
 
-                         {% endif %}                            
+                            {% endif %}
                         </div>
                     </div>
-                    
-                    
-                    <!-- BUY OFFER AND USER -->
-                    {#<div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <button type="submit" class="btn btn-default 
-                                btn-off-buy">
-                               Comprar
-                            </button>
-                        </div>
-                        
-                        
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            {% block offerUser %} {% endblock %}
-                            
-                            
-                            <div class="row off-row-rating">
-                                <span class="off-vote"> 
-                                    {% block offerVote %} {% endblock %} 
-                                </span>
-                            </div>
-                                
-                                
-                            <div class="row">
-                                <button class="btn-default btn off-btn-write"
-                                    data-toggle="modal" 
-                                    data-target="#writeUser">
-                                    Escribeme
-                                </button>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>#}
-                    <!-- FIN BUY OFFER AND USER -->
-                    
-                    
+
                 </div>
                 <!-- FILA DATOS PRINCIPALES -->
                 

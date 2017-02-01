@@ -17,66 +17,91 @@
 
 
 {% block bodyProfile %}
-    <h2>LISTA INSCRIPCIONES</h2>
-    {% for i in 0..2 %}
-        {{ offers.offUserInscription('#oferta', '' ,'Title Offer', 'now',
-            include('macros/text.html.twig'), 'leer', '#Valorar', 
-            'Valorar') }}
-    {% endfor %}
-    
-    <h2>LISTA OFERTA DISFRUTADAS</h2>
-    {% for i in 0..4 %}
-        {{ offers.offUserDisfrutadas('#oferta', '' ,'Title Offer', 'now', 
-            include('macros/text.html.twig'), 'leer', '#Valorar', 
-            'Valorar', '#PDF', 'PDF') }}
-    {% endfor %}
-    
-    <h2>LISTA OFERTA</h2>
-    {% for i in 0..2 %}
-        {{ offers.offUser('#oferta', '' ,'Title Offer', 
-            include('macros/text.html.twig'), 'leer', '#editar', 
-            'editar', '#borrar', 'borrar') }}
-            
-        {{ offers.offUserExp('#oferta', '' ,'Title Offer', 
-            include('macros/text.html.twig'), 'leer', '#editar', 
-            'editar', '#borrar', 'borrar') }}
-    {% endfor %}
-    
-    <h2>MENSAJES RECIBIDO ABIERTO</h2>
-    {{ message.messElementReceivedOpen('Usuario', "now",
-        'Title Message', include('macros/text.html.twig'),
-        'id', '#borrar', 'borrar', '#contestar', 'contestar') }}
-    
-    <h2>MENSAJES ENVIADO ABIERTO</h2>
-    {{ message.messElementSentOpen('Usuario', "now",
-        'Title Message', include('macros/text.html.twig'),
-        'id', '#borrar', 'borrar') }}
-    
-    <h2>MENSAJES RECIBIDOS</h2>
-    {% for i in 0..2 %}
-        
-        {{ message.messElementReceivedNot('Usuario', "now",
-            'Title Message'~i, include('macros/text.html.twig'),
-            'id', 'leer', '#borrar', 'borrar') }}
-            
-        {{ message.messElementReceived('Usuario', "now",
-            'Title Message'~i, include('macros/text.html.twig'),
-            'id', 'leer', '#borrar', 'borrar') }}
-    {% endfor %}
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        });
-    </script>
-    <h2>MENSAJES ENVIADOS</h2>
-    {% for i in 0..4 %}
-        
-        {{ message.messElementSent('Usuario', "now",
-            'Title Message'~i, include('macros/text.html.twig'),
-            'id', 'leer', '#borrar', 'borrar') }}
-    {% endfor %}
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Mis datos personales
+            </h3>
+            <hr/>
+
+            <div class="row us-row-header-public">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="us-pro-pub-marco">
+                        <img class="img-responsive us-pro-public-img"
+                             src="{{ asset(usuario.photo.url|default('web/img/userDefault.jpg'),'img') }}"/>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <h2>{{ usuario.username }}</h2>
+                    <div class="row off-row-rating">
+                        <div class="col-lg-12">
+                    <span class="off-vote">
+                        <!-- VALORACIONES -->
+                        <input id=""
+                               class="valoration rating rating-loading"
+                               data-show-clear="false"
+                               data-show-caption="false"
+                               data-display-only="true"
+                               type="number"
+                               step="1"
+                               value="{{ usuario.avgScore }}" />
+
+                        <!-- FIN VALORACIONES -->
+
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row separacion-superior separacion-inferior us-datos-personales">
+                <div class="col-lg-12">
+                    <span>Nombre completo:</span> {{ usuario.name }} {{ usuario.surname }}
+                </div>
+            </div>
+
+            <div class="row us-datos-personales">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 separacion-inferior">
+                    <span>Edad:</span> {{ ('now'|date('Y') - usuario.birthdate|date('Y') - 1) }}
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 separacion-inferior">
+                    <span>Sexo:</span>
+                    {% if usuario.sex == 'f' %}
+                        Feminino
+                    {% elseif usuario.sex == 'm' %}
+                        Masculino
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row us-datos-personales">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 separacion-inferior">
+                    <span>Email:</span> {{ usuario.email }}
+                </div>
+
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 separacion-inferior">
+                    <span>Teléfono:</span> {{ usuario.prefix }} {{ usuario.phone }}
+                </div>
+            </div>
+
+            <div class="row us-datos-personales">
+                <div class="col-lg-12">
+                    <span>Dirección por defecto:</span>
+                    <div class="us-dir-public">
+                        {{ usuario.defaultaddress.street }} <br>
+                        {{ usuario.defaultaddress.zipCode }} - {{ usuario.defaultaddress.region }}
+                        ({{ usuario.defaultaddress.city }})
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 {% endblock %}
 
 
@@ -89,6 +114,17 @@
                 $('[data-toggle="tooltip"]').tooltip();
             });
         });
+    </script>
+
+    <script src="{{ asset('js/starRating/star-rating.js') }}"></script>
+
+    <script>
+        $(document).ready( function(){
+
+            $('.valoration').rating({
+                displayOnly: true,
+            });
+        })
     </script>
 {% endblock %}
     

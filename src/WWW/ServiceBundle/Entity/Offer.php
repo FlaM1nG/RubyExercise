@@ -127,8 +127,14 @@ class Offer
                     
                 endif;
             endforeach;
-            if(array_key_exists('service_id', $data))
-                $this->setService((int)$data['service_id']);
+            if(array_key_exists('service_id', $data)):
+
+                $service = new Service((int)$data['service_id']);
+                if(isset($data['service']))
+                    $service->setTitle($data['service']);
+
+                $this->setService($service);
+            endif;
             /*
              * Dependiendo de por donde se llame al constructor el id puede que 
              * venga en el campo offer_id
@@ -421,16 +427,16 @@ class Offer
      */
     public function setService($service = null)
     {
-        if(gettype($service == 'int')):
-            if($service == 1):
-                $newService = new Service();
-                $newService->setTable('trade');
-                $this->service = $newService;
-                
-            endif;
-        else:    
+//        if(gettype($service == 'int')):
+//            if($service == 1):
+//                $newService = new Service();
+//                $newService->setTable('trade');
+//                $this->service = $newService;
+//
+//            endif;
+//        else:
             $this->service = $service;
-        endif;
+//        endif;
 
         return $this;
     }
