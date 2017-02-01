@@ -27,27 +27,24 @@ class ProfilePhotoController extends Controller{
         
         $user = $this->getUserProfile($request);
 
-        $form = $this->createForm(ProfilePhotoType::class, $user);
-        $form->handleRequest($request);
-        
-        if($form->isSubmitted()):
-            $form->changePhotoProfile($request, $user);
+        if(!empty($request->files->get('avatar'))):
+            $this->changePhotoProfile($request);
         endif;
-        
+print_r($user);
         return $this->render('UserBundle:Profile:photoProfile.html.twig',
-                       array('form' => $form->createView(),
+                       array(//'form' => $form->createView(),
                              'user' => $user)
                 );
     }
     
     private function getUserProfile(Request $request){
         
-        $user = null;
+        $user = $this->getUser();
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST.'user/data/get_info_user.php';
         
-        $data['id'] = $this->getUser()->getId();
-        $data['username'] = $this->getUser()->getUsername();
+        $data['id'] = $user->getId();
+        $data['username'] = $user->getUsername();
         $data['password'] = $request->getSession()->get('password');
         
         $result = $ch->resultApiRed($data, $file);
@@ -58,22 +55,23 @@ class ProfilePhotoController extends Controller{
 
         return $user;
     }
-    
-    private function changePassword(Request $request, User $user){
-                
-        $ut = new Utilities();
-        $file = MyConstants::PATH_APIREST."user/passwords/change_password.php";
+
+    private function changePhotoProfile(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'user/photo/update_photo.php';
         $ch = new ApiRest();
-        
-        $data['id'] = $this->getUser()->getId();
-        $data['username'] = $this->getUser()->getUsername();
-        $data['old_password'] = $user->getPasswordEnClaro();
-        $data['new_password'] = $user->getPassword();
-        
-        $result = $ch->resultApiRed($data, $file);
-        print_r($result);
-        $ut->flashMessage("general", $request, $result);
-        
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+
+        $photo = $request->files->get('avatar');
+        $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
+        $data['photo'] = $ch_photo;
+
+        $result=$ch->resultApiRed($data,$file);
+
     }
+
 
 }
