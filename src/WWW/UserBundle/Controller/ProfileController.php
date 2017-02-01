@@ -8,18 +8,10 @@ use WWW\UserBundle\Entity\User as User;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\UserBundle\Form\ProfilePersonalType;
 use WWW\UserBundle\Form\ProfileAddressType;
-use WWW\UserBundle\Form\ProfileBankType;
-use WWW\UserBundle\Form\ProfileEmailType;
-use WWW\UserBundle\Form\ProfilePasswordType;
-use WWW\UserBundle\Form\ProfilePhoneType;
-use WWW\UserBundle\Form\ProfilePhotoType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use WWW\UserBundle\Form\ProfileType;
 use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\ServiceBundle\Entity\Offer;
 use WWW\UserBundle\Form\ProfilePersonalDataType;
-use WWW\UserBundle\Form\ProfileAddressesType;
 use WWW\GlobalBundle\MyConstants;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

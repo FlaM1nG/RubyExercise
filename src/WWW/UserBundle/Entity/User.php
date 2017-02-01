@@ -266,8 +266,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * Constructor
      */
     public function __construct(Array $user=null){  
-        
-//        print_r($user);
+
         if(!empty($user)):  
             
             $this->birthdate = date_create_from_format('Y-m-d', $user['birthdate']);
@@ -290,7 +289,14 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
             else:
                 $this->photo = new Photo();
             endif;
-            
+
+            if(array_key_exists('avg_score',$user)):
+                if(empty($user['avg_score'])):
+                    $this->avgScore = 0;
+                else:
+                    $this->avgScore = $user['avg_score'];
+                endif;
+            endif;
             
              if(array_key_exists('addresses', $user)):
                 foreach($user['addresses'] as $address):
