@@ -47,12 +47,16 @@ class ProfileController extends Controller{
         }
         $ut = new Utilities();
         $numMessage = $ut->messageNoRead($request);
+        $this->getUserExist($request);
+
+//        print_r($this->user);
         
         $session = $request->getSession();
         if(empty($session->get('numMessage'))):
             $session->set("numMessage",$numMessage);
         endif;
-        
+
+
         return $this->render('UserBundle:Profile:indexProfile.html.twig',
                              array('usuario' => $this->user 
                             ));
@@ -92,81 +96,81 @@ class ProfileController extends Controller{
         if($result['result'] == 'ok')
             //$this->fillUser($result);
             $this->user = new User($result);
-        return $result;
+//        return $result;
  
-        
-            $this->usuario = new User($result);
-        if($result['result'] == 'ok'):
-                       
-            if($this->usuario->getAddresses()->isEmpty()):
-                $address = new Address();
-                $this->usuario->addAddress($address);
-            endif;
-        
-            $formPersonal = $this->createForm(ProfilePersonalType::class,$this->usuario);
-            $formEmail = $this->createForm(ProfileEmailType::class,$this->usuario);
-            $formPassword = $this->createForm(ProfilePasswordType::class,$this->usuario);
-            $formPhone = $this->createForm(ProfilePhoneType::class,$this->usuario);
-            $formPhoto = $this->createForm(ProfilePhotoType::class,$this->usuario);
-            $formAddress = $this->createForm(ProfileAddressType::class,$this->usuario);
-            $formBank = $this->createForm(ProfileBankType::class,$this->usuario);
-        
-            if($request->getMethod()=="POST"):
-                
-                $this->dataProfile = $request->request->all()['profileUser'];
-                $section = $this->dataProfile['section'];
-                
-                if($section == 'personal'):
-                    $formPersonal->handleRequest($request);
-                    
-                    $this->sectionActive = 'personal';
-                    $this->updateProfile();
-                    
-                elseif($section == 'email'):
-                    $this->sectionActive = 'email';
-                    $this->changeEmail();
-                elseif($section == 'password'):
-                    $this->sectionActive ='password';
-                    $this->changePassword();
-     
-                elseif($section == 'phone'):
-                    $this->sectionActive = 'phone';
-                    $this->changePhone($request);
-                elseif($section == 'photo'):
-                    $this->sectionActive = 'photo';
-                    $this->changePhoto();
-                elseif($section == 'address'):
-                    $this->sectionActive = 'address';
-                    $this->profileAddress($request);
-                elseif($section == 'bank'):
-                    $this->sectionActive = 'bank';
-                    $this->changeBank();
-                endif;
-              
-            endif;
-           
-        endif;
-        
-        $formPersonal = $this->createForm(ProfilePersonalType::class,$this->usuario);
-        $formEmail = $this->createForm(ProfileEmailType::class,$this->usuario);
-        $formPassword = $this->createForm(ProfilePasswordType::class,$this->usuario);
-        $formPhone = $this->createForm(ProfilePhoneType::class,$this->usuario);
-        $formPhoto = $this->createForm(ProfilePhotoType::class,$this->usuario);
-        $formAddress = $this->createForm(ProfileAddressType::class,$this->usuario);
-        $formBank = $this->createForm(ProfileBankType::class,$this->usuario);
-        
-        return $this->render('UserBundle:Default:profile.html.twig',
-                array('formPersonal'=>$formPersonal->createView(),
-                      'formEmail'=>$formEmail->createView(),
-                      'formPassword'=>$formPassword->createView(),
-                      'formPhone'=>$formPhone->createView(),
-                      'formPhoto'=>$formPhoto->createView(),
-                      'formAddress'=>$formAddress->createView(),
-                      'formBank'=>$formBank->createView(),
-                      'usuario'=>$this->usuario,
-                      'tabActive' => $this->sectionActive));
+//
+//            $this->usuario = new User($result);
+//        if($result['result'] == 'ok'):
+//
+//            if($this->usuario->getAddresses()->isEmpty()):
+//                $address = new Address();
+//                $this->usuario->addAddress($address);
+//            endif;
+//        endif;
+//            $formPersonal = $this->createForm(ProfilePersonalType::class,$this->usuario);
+//            $formEmail = $this->createForm(ProfileEmailType::class,$this->usuario);
+//            $formPassword = $this->createForm(ProfilePasswordType::class,$this->usuario);
+//            $formPhone = $this->createForm(ProfilePhoneType::class,$this->usuario);
+//            $formPhoto = $this->createForm(ProfilePhotoType::class,$this->usuario);
+//            $formAddress = $this->createForm(ProfileAddressType::class,$this->usuario);
+//            $formBank = $this->createForm(ProfileBankType::class,$this->usuario);
+//
+//            if($request->getMethod()=="POST"):
+//
+//                $this->dataProfile = $request->request->all()['profileUser'];
+//                $section = $this->dataProfile['section'];
+//
+//                if($section == 'personal'):
+//                    $formPersonal->handleRequest($request);
+//
+//                    $this->sectionActive = 'personal';
+//                    $this->updateProfile();
+//
+//                elseif($section == 'email'):
+//                    $this->sectionActive = 'email';
+//                    $this->changeEmail();
+//                elseif($section == 'password'):
+//                    $this->sectionActive ='password';
+//                    $this->changePassword();
+//
+//                elseif($section == 'phone'):
+//                    $this->sectionActive = 'phone';
+//                    $this->changePhone($request);
+//                elseif($section == 'photo'):
+//                    $this->sectionActive = 'photo';
+//                    $this->changePhoto();
+//                elseif($section == 'address'):
+//                    $this->sectionActive = 'address';
+//                    $this->profileAddress($request);
+//                elseif($section == 'bank'):
+//                    $this->sectionActive = 'bank';
+//                    $this->changeBank();
+//                endif;
+//
+//            endif;
+//
+//        endif;
+//
+//        $formPersonal = $this->createForm(ProfilePersonalType::class,$this->usuario);
+//        $formEmail = $this->createForm(ProfileEmailType::class,$this->usuario);
+//        $formPassword = $this->createForm(ProfilePasswordType::class,$this->usuario);
+//        $formPhone = $this->createForm(ProfilePhoneType::class,$this->usuario);
+//        $formPhoto = $this->createForm(ProfilePhotoType::class,$this->usuario);
+//        $formAddress = $this->createForm(ProfileAddressType::class,$this->usuario);
+//        $formBank = $this->createForm(ProfileBankType::class,$this->usuario);
+//
+//        return $this->render('UserBundle:Default:profile.html.twig',
+//                array('formPersonal'=>$formPersonal->createView(),
+//                      'formEmail'=>$formEmail->createView(),
+//                      'formPassword'=>$formPassword->createView(),
+//                      'formPhone'=>$formPhone->createView(),
+//                      'formPhoto'=>$formPhoto->createView(),
+//                      'formAddress'=>$formAddress->createView(),
+//                      'formBank'=>$formBank->createView(),
+//                      'usuario'=>$this->usuario,
+//                      'tabActive' => $this->sectionActive));
     }
-    
+//
     private function fillUser($result){
         
         foreach($result as $key => $value):
