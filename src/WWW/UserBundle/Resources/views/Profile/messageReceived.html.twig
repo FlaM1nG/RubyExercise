@@ -26,29 +26,57 @@
 
 {% block bodyProfile %}
 
-    <h2>MENSAJES RECIBIDOS</h2>
+    <div class="row us-dataPersonal-row us-writte-message">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Mensajes recibidos
+            </h3>
+            <hr/>
 
-    {% for mensaje in messages %}
+            <div class="us-redactar-mess">
+                <a class="btn btn-default us-writte-btn" href="{{ path('user_profileNewMessage') }}">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    Redactar mensaje
+                </a>
+            </div>
 
-        {% if mensaje.status == 3 %}
-            {{ message.messElementReceived(mensaje.from.username, mensaje.createdDate,
-                mensaje.subject, mensaje.message,
-                'containerMessage_'~mensaje.id, path('user_profiler_readMessage', {idMessage:mensaje.id} ), '#borrar', mensaje.id) }}
-        {% else %}
-            {{ message.messElementReceivedNot(
-                mensaje.from.username,
-                mensaje.createdDate,
-                mensaje.subject,
-                mensaje.message|e,
-                'containerMessage_'~mensaje.id,
-                path('user_profiler_readMessage', {idMessage:mensaje.id} ),
-                'leer',
-                '#borrar',
-                mensaje.id) }}
 
-        {% endif %}
+            {% if messages == null %}
+                <h4>
+                    Aún no has recibido ningún mensaje
+                </h4>
+                <p>
+                    No te preocupes, pronto recibirás muchos mensajes. Si quieres puedes escribirle un mensaje a
+                    alguien y seguro que te contesta pronto.
+                </p>
+            {% else %}
 
-    {% endfor %}
+                {% for mensaje in messages %}
+                    {% if mensaje.status == 3 %}
+                        {{ message.messElementReceived(mensaje.from.username, mensaje.createdDate,
+                        mensaje.subject, mensaje.message,
+                        'containerMessage_'~mensaje.id, path('user_profiler_readMessage', {idMessage:mensaje.id} ), '#borrar', mensaje.id) }}
+                    {% else %}
+
+                        {{ mensaje.messElementReceivedNot(
+                        mensaje.from.username,
+                        mensaje.createdDate,
+                        mensaje.subject,
+                        mensaje.message,
+                        'containerMessage_'~mensaje.id,
+                        path('user_profiler_readMessage', {idMessage:mensaje.id} ),
+                        'leer',
+                        '#borrar',
+                        mensaje.id) }}
+                    {% endif %}
+
+                {% endfor %}
+
+            {% endif %}
+
+
+        </div>
+    </div>
 {% endblock %}
 
 

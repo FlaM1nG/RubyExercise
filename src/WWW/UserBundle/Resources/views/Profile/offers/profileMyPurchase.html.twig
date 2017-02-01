@@ -2,7 +2,7 @@
 {% import 'macros/offer.html.twig' as offers %}
 
 {% block title %}
-    Ofertas
+    Mis ofertas publicadas
 {% endblock %}
 
 {% block alertProfile %}
@@ -25,19 +25,36 @@
 
 
 {% block bodyProfile %}
-    <h2>LISTA OFERTA DISFRUTADAS</h2>
-    
-    {% for purchase in purchases %}
-        
-        {% set urlValoration = '' %}
-        {% if purchase.valorated == 0%}
-            {% set urlValoration = path('user_profiler_purchasesValoration',{idOffer: purchase.offer_id}) %}
-        {% endif %}
+    <h3>
+        Mis ofertas Compradas
+    </h3>
+    <hr/>
 
-        {{ offers.offUserDisfrutadas('', purchase.offer_photo ,purchase.title, purchase.created_date, 
-            purchase.description, 'leer', urlValoration, 
-            'Valorar', '#PDF', 'PDF') }}
-    {% endfor %}
+    {% if purchases == null %}
+        <h4>
+            Aún no has comprado nada
+        </h4>
+        <p>
+            ¡Compra y disfruta de las ventajas de hacerlo en What Want Web!
+        </p>
+        <p>
+            Revisa nuestra página y disfruta de nuestros fantásticos servicios y de las ventajas que te ofrecen estas.
+        </p>
+    {% else %}
+    
+        {% for purchase in purchases %}
+
+            {% set urlValoration = '' %}
+            {% if purchase.valorated is not empty %}
+                {% set urlValoration = path('user_profiler_purchasesValoration',{idOffer: purchase.offer_id}) %}
+            {% endif %}
+
+            {{ offers.offUserDisfrutadas('', purchase.offer_photo ,purchase.title, purchase.created_date,
+                purchase.description, 'leer', urlValoration,
+                'Valorar', '#PDF', 'PDF') }}
+        {% endfor %}
+
+    {% endif %}
     
 {% endblock %}
 
@@ -45,6 +62,6 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
-       
+
 {% endblock %}
     

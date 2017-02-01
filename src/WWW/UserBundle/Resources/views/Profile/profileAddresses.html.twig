@@ -37,24 +37,42 @@
                 Nueva dirección
             </a>
 
+            {% if usuario.addresses == null %}
+                <h4>
+                    No tiene direcciones guardadas.
+                </h4>
+                <p>
+                    No tiene ninguna dirección guardada para poder enviarle las compras que realice.
+                    Sería conveniente que introduzca al menos una.
+                </p>
+            {% else %}
+                {%if usuario.defaultAddress is not empty %}
 
-            {%if usuario.defaultAddress is not empty %}
+                    {{ addressMacro.userAddress(true, usuario.defaultAddress.id, usuario.defaultAddress.name,
+                    usuario.defaultAddress.street, usuario.defaultAddress.zipCode, usuario.defaultAddress.region,
+                    usuario.defaultAddress.city, usuario.defaultAddress.country,
+                    path('user_profiler_editAdress',{ idAddress:usuario.defaultAddress.id }),
+                    usuario.defaultAddress.id) }}
+                {% else %}
+                    <h4>
+                        No tiene ninguna dirección guardada como principal.
+                    </h4>
+                    <p>
+                        Sería conveniente que tenga un dirección guardada como la principal para poder enviarle las
+                        compras que realice.
+                    </p>
+                {% endif %}
 
-                {{ addressMacro.userAddress(true, usuario.defaultAddress.id, usuario.defaultAddress.name,
-                usuario.defaultAddress.street, usuario.defaultAddress.zipCode, usuario.defaultAddress.region,
-                usuario.defaultAddress.city, usuario.defaultAddress.country,
-                path('user_profiler_editAdress',{ idAddress:usuario.defaultAddress.id }),
-                usuario.defaultAddress.id) }}
+                {% for address in usuario.addresses.0 %}
 
+                    {{ addressMacro.userAddress(false, address.id, address.name, address.street,
+                    address.zipCode, address.region, address.region, address.country,
+                    path('user_profiler_editAdress',{ idAddress:address.id }), address.id) }}
+
+                {% endfor %}
             {% endif %}
 
-            {% for address in usuario.addresses.0 %}
 
-                {{ addressMacro.userAddress(false, address.id, address.name, address.street,
-                address.zipCode, address.region, address.region, address.country,
-                path('user_profiler_editAdress',{ idAddress:address.id }), address.id) }}
-
-            {% endfor %}
 
         </div>
     </div>

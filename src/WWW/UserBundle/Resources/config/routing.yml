@@ -151,4 +151,4 @@ user_public_profile:
 
 user_unsubscribe:
     path: /profile/unsubscribe
-    defaults: { _controller: UserBundle:Default:unSubscribe }
+    defaults: { _controller: UserBundle:ProfileUnsubscribe:unsubscribe }

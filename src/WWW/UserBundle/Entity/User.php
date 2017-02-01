@@ -256,7 +256,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @var integer
      */
     private $valorationNum;
-
+    
     /**
      * Constructor
      */
@@ -286,8 +286,13 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
                 $this->photo = new Photo();
             endif;
             
-            $this->createAddresses($user['addresses'], $user['default_address_id']);
-   
+            
+             if(array_key_exists('addresses', $user)):
+                foreach($user['addresses'] as $address):
+
+                  $this->createAddresses($user['addresses'], $user['default_address_id']);
+                endforeach;
+            endif; 
         else:
             $this->addresses = new ArrayCollection();
             $this->offers = Array();
@@ -727,10 +732,10 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         return serialize(array(
             $this->id,
-//            $this->username,
-//            $this->password,
+            $this->username,
+            $this->password,
             // see section on salt below
-//            $this->salt,
+            // $this->salt,
         ));
     }
 
@@ -739,10 +744,10 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         list (
             $this->id,
-//            $this->username,
-//            $this->password,
+            $this->username,
+            $this->password,
             // see section on salt below
-//            $this->salt 
+            // $this->salt
         ) = unserialize($serialized);
     }
     /**
@@ -1309,5 +1314,127 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     
     public function getUser(){
         return $this;
+    }
+
+    /**
+     * Add revised
+     *
+     * @param \WWW\UserBundle\Entity\Message $revised
+     * @return User
+     */
+    public function addRevised(\WWW\UserBundle\Entity\Message $revised)
+    {
+        $this->revised[] = $revised;
+
+        return $this;
+    }
+
+    /**
+     * Remove revised
+     *
+     * @param \WWW\UserBundle\Entity\Message $revised
+     */
+    public function removeRevised(\WWW\UserBundle\Entity\Message $revised)
+    {
+        $this->revised->removeElement($revised);
+    }
+
+    /**
+     * Get revised
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRevised()
+    {
+        return $this->revised;
+    }
+
+    /**
+     * Add offers
+     *
+     * @param \WWW\ServiceBundle\Entity\Offer $offers
+     * @return User
+     */
+    public function addOffer(\WWW\ServiceBundle\Entity\Offer $offers)
+    {
+        $this->offers[] = $offers;
+
+        return $this;
+    }
+
+    /**
+     * Remove offers
+     *
+     * @param \WWW\ServiceBundle\Entity\Offer $offers
+     */
+    public function removeOffer(\WWW\ServiceBundle\Entity\Offer $offers)
+    {
+        $this->offers->removeElement($offers);
+    }
+
+    /**
+     * Add inscriptions
+     *
+     * @param \WWW\ServiceBundle\Entity\Inscription $inscriptions
+     * @return User
+     */
+    public function addInscription(\WWW\ServiceBundle\Entity\Inscription $inscriptions)
+    {
+        $this->inscriptions[] = $inscriptions;
+
+        return $this;
+    }
+
+    /**
+     * Remove inscriptions
+     *
+     * @param \WWW\ServiceBundle\Entity\Inscription $inscriptions
+     */
+    public function removeInscription(\WWW\ServiceBundle\Entity\Inscription $inscriptions)
+    {
+        $this->inscriptions->removeElement($inscriptions);
+    }
+
+    /**
+     * Get inscriptions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInscriptions()
+    {
+        return $this->inscriptions;
+    }
+
+    /**
+     * Add valorations
+     *
+     * @param \WWW\ServiceBundle\Entity\Valoration $valorations
+     * @return User
+     */
+    public function addValoration(\WWW\ServiceBundle\Entity\Valoration $valorations)
+    {
+        $this->valorations[] = $valorations;
+
+        return $this;
+    }
+
+    /**
+     * Remove valorations
+     *
+     * @param \WWW\ServiceBundle\Entity\Valoration $valorations
+     */
+    public function removeValoration(\WWW\ServiceBundle\Entity\Valoration $valorations)
+    {
+        $this->valorations->removeElement($valorations);
+    }
+
+    /**
+     * Get valorations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getValorations()
+    {
+        return $this->valorations;
     }
 }

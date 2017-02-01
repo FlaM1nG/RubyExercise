@@ -26,21 +26,48 @@
 
 {% block bodyProfile %}
 
-    <h2>MENSAJES ENVIADOS</h2>
-    {% for mensaje in messages %}
-        
-        {{ message.messElementSent(
-                mensaje.to.username,
-                mensaje.createdDate,
-                mensaje.subject, 
-                mensaje.message,
-                'containerMessage_'~mensaje.id,  
-                path('user_profiler_readMessage' , 
-                {idMessage: mensaje.id}), 
-                '#borrar', 
-                mensaje.id) 
-        }}
-    {% endfor %}
+    <div class="row us-dataPersonal-row us-writte-message">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Mensajes enviados
+            </h3>
+            <hr/>
+
+            <div class="us-redactar-mess">
+                <a class="btn btn-default us-writte-btn" href="{{ path('user_profileNewMessage') }}">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    Redactar mensaje
+                </a>
+            </div>
+
+            {% if messages == null %}
+                <h4>
+                    Aún no has enviado ningún mensaje
+                </h4>
+                <p>
+                    Mandale un mensaje a tus amigos, ponte en contacto con los vendedores si has visto algo que te
+                    gusta o bien con los compradores por si tienen una duda.
+                </p>
+            {% else %}
+
+                {% for mensaje in messages %}
+
+                    {{ message.messElementSent(
+                            mensaje.to.username,
+                            mensaje.createdDate,
+                            mensaje.subject,
+                            mensaje.message,
+                            'containerMessage_'~mensaje.id,
+                            path('user_profiler_readMessage' ,
+                            {idMessage: mensaje.id}),
+                            '#borrar',
+                            mensaje.id)
+                    }}
+                {% endfor %}
+
+            {% endif %}
+        </div>
+    </div>
     
 {% endblock %}
 

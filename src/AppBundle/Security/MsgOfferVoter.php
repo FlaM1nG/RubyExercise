@@ -31,7 +31,8 @@ class MsgOfferVoter extends Voter
         }
 
         // sólo votar en objetos Post dentro de este voter
-        if (!$subject instanceof Post) {
+        if (!$subject instanceof \WWW\OthersBundle\Entity\Trade) {
+            print_r("el objeto no es trade");
             return false;
         }
 
@@ -49,30 +50,33 @@ class MsgOfferVoter extends Voter
 
         // $subject es un objeto Post, gracias al método supports
         /** @var Post $post */
-        $post = $subject;
+        $trade = $subject;
 
         switch($attribute) {
             case self::CREATE:
-                return $this->canCreate($post, $user);
+                return $this->canCreate($trade, $user, $token);
             case self::DELETE:
-                return $this->canDelete($post, $user);
+                return $this->canDelete($trade, $user);
             case self::SHOW:
-                return $this->canSee($post, $user);
+                return $this->canSee($trade, $user);
         }
 
         throw new \LogicException('Este código no debería ser visto');
     }
 
-    private function canCreate(Post $post, User $user, TokenInterface $token)
+    private function canCreate(\WWW\OthersBundle\Entity\Trade $trade, User $user, TokenInterface $token)
     {
-        // si pueden editar, pueden ver
-        if ($this->decisionManager->decide($token, array('ROLE_SUPER_ADMIN'))) {
-            return true;
-        }
-
+        
+        $user = $token->getUser();
         // el objeto Post podría tener, por ejemplo, un método isPrivate()
         // que comprueba la propiedad booleana $private
-        return !$post->isPrivate();
+        if( $user->getUsername() != $trade->getOffer()->getUserAdmin()->getUsername() && $this->decisionManager->decide($token, array('ROLE_USER'))){
+            return true;
+            
+        }
+        else{
+            return false;
+        }
     }
 
     

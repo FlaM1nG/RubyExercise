@@ -123,4 +123,3 @@ easy_admin:
         Address:
             class: WWW\GlobalBundle\Entity\Address
          
-        

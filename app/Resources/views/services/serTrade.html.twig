@@ -1,32 +1,41 @@
-{% set pathFilter = '' %}
-    {% set routingOffer = '' %}
-
-    {% if service == 1 %}
-        {% set pathFilter = path('service_listTrade') %}
-        {% set routingOffer = 'service_trade' %}
-        {% set routingNewOffer = 'service_newTrade' %}
-
-    {% elseif service == 2 %}
-        {% set pathFilter = path('service_listClothes') %}
-        {% set routingOffer = 'service_clothes' %}
-        {% set routingNewOffer = 'service_newClothes' %}
-
-    {% elseif service == 3 %}
-        {% set pathFilter = path('service_listBarter') %}
-        {% set routingOffer = 'service_barter' %}
-        {% set routingNewOffer = 'service_newBarter' %}
-    {% endif %}
-
 {% extends '::services/layoutService.html.twig' %}
 {% import '::macros/tradeList.html.twig' as trades %}
 {% import '::macros/filter.html.twig' as filters %}
+
+{% set pathFilter = '' %}
+{% set routingOffer = '' %}
+
+{% if service == 1 %}
+    {% set pathFilter = path('service_listTrade') %}
+    {% set routingOffer = 'service_trade' %}
+    {% set routingNewOffer = 'service_newTrade' %}
+
+{% elseif service == 2 %}
+    {% set pathFilter = path('service_listClothes') %}
+    {% set routingOffer = 'service_clothes' %}
+    {% set routingNewOffer = 'service_newClothes' %}
+
+{% elseif service == 3 %}
+    {% set pathFilter = path('service_listBarter') %}
+    {% set routingOffer = 'service_barter' %}
+    {% set routingNewOffer = 'service_newBarter' %}
+{% endif %}
+
 
 {% block title %}
     {{ title }}
 {% endblock %}
 
 {% block cssParallax %}
-tra-parallax
+
+    {% if service == 1 %}
+        tra-parallax
+    {% elseif service == 2 %}
+        ropa-parallax
+    {% elseif service == 3 %}
+        trueque-parallax
+    {% endif %}
+
 {% endblock %}
 
 {% block cssTitleParallax %}
