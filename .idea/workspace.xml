@@ -341,7 +341,7 @@
       <workItem from="1485934777559" duration="5534000" />
       <workItem from="1485947644265" duration="1075000" />
       <workItem from="1485950967490" duration="3622000" />
-      <workItem from="1485961944398" duration="2050000" />
+      <workItem from="1485961944398" duration="2055000" />
     </task>
     <task id="LOCAL-00001" summary="payment bundle">
       <created>1485785403544</created>
@@ -378,11 +378,18 @@
       <option name="project" value="LOCAL" />
       <updated>1485964332381</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="mergeo con dani">
+      <created>1485964346856</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1485964346856</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66724000" />
+    <option name="totallyTimeSpent" value="66729000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
