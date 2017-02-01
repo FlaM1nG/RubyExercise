@@ -7,9 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/payment")
-     */
+        
     public function indexAction()
     {
         return $this->render('PaymentBundle:Default:index.html.twig');

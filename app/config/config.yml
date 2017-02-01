@@ -90,10 +90,16 @@ payum:
 
     storages:
         WWW\PaymentBundle\Entity\Payment: { doctrine: orm }
-
+        WWW\PaymentBundle\Entity\PaymentDetails: { doctrine: orm }
     gateways:
         offline:
             factory: offline
+        paypal_payment:
+                     factory: paypal_express_checkout
+                     username:  'get this from gateway side'
+                     password:  'get this from gateway side'
+                     signature: 'get this from gateway side'
+                     sandbox: true
 
 easy_admin:
     disabled_actions: ['new']

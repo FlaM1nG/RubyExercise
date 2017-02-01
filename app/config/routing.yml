@@ -7,7 +7,13 @@ payment:
 #    resource: "@SGestionAdminBundle/Resources/config/routing.yml"
 #    prefix:   /
 # app/config/routing.yml
+done:
+    path: /payment/done
+    defaults: {_controller: PaymentBundle:Payment:done}
 
+done_paypal:
+    path: /payment/paypal/done
+    defaults: {_controller: PaymentBundle:Payment:captureDone}
 payum_all:
     resource: "@PayumBundle/Resources/config/routing/all.xml"
 
