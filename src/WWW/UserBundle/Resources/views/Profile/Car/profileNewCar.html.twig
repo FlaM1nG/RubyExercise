@@ -25,23 +25,31 @@
 
 
 {% block bodyProfile %}
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Agregar un nuevo coche
+            </h3>
+            <hr/>
 
-    <form action="{{ path('user_profileNewCar') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_row(form.brand) }}
-        {{ form_row(form.model) }}
-        {{ form_row(form.type) }}
-        {{ form_row(form.plate)}}
-        {{ form_row(form.color) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.seats) }}
-        {{ form_row(form.smoke) }}
-        {{ form_row(form.animals) }}
-        {{ form_row(form.music) }}
-        {{ form_row(form.talk) }}
-        {{ form_row(form._token) }}
-        <input id="imgCar" name="imgCar[]" type="file" multiple class="file-loading" accept="image/*" required >
-        {{ form_row(form.saveNewCar) }}
+            <form action="{{ path('user_profileNewCar') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_row(form.brand) }}
+            {{ form_row(form.model) }}
+            {{ form_row(form.type) }}
+            {{ form_row(form.plate)}}
+            {{ form_row(form.color) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.seats) }}
+            {{ form_row(form.smoke) }}
+            {{ form_row(form.animals) }}
+            {{ form_row(form.music) }}
+            {{ form_row(form.talk) }}
+            {{ form_row(form._token) }}
+            <input id="imgCar" name="imgCar[]" type="file" multiple class="file-loading" accept="image/*" required >
+            {{ form_row(form.saveNewCar) }}
 
+        </div>
+    </div>
 {% endblock %}
 
 
@@ -69,5 +77,52 @@
             });
         });
     </script>
+
+    {#<script type="text/javascript">#}
+        {#var inputHeight = $('.file-input').height();#}
+
+        {#$(document).ready(function(){#}
+            {#console.log('PRIMERO ' + $('.content-wrapper').height());#}
+            {#if($(window).width() > 768 && $('.cd-side-nav').height() <= $('.content-wrapper').height()){#}
+                {#$('.cd-side-nav').css('height', '0');#}
+                {#$('.cd-side-nav').css('height', $('.content-wrapper').height());#}
+            {#}else{#}
+                {#$('.cd-side-nav').css('height', 'inherit');#}
+            {#}#}
+
+            {#$(".content-wrapper").bind("DOMSubtreeModified", function() {#}
+                {#if($(window).width() > 768 && $('.cd-side-nav').height() <= $('.content-wrapper').height()){#}
+                    {#$('.cd-side-nav').css('height', '0');#}
+                    {#$('.cd-side-nav').css('height', $('.content-wrapper').height());#}
+                {#}else{#}
+                    {#$('.cd-side-nav').css('height', 'inherit');#}
+                {#}#}
+            {#});#}
+
+            {#inputHeight = $('.file-input').height();#}
+
+        {#});#}
+
+        {#$(window).resize(function(){#}
+            {#console.log($('.content-wrapper').height());#}
+            {#if($(window).width() > 768 && $('.cd-side-nav').height() <= $('.content-wrapper').height()){#}
+                {#$('.cd-side-nav').css('height', '0');#}
+                {#$('.cd-side-nav').css('height', $('.content-wrapper').height());#}
+            {#}else{#}
+                {#$('.cd-side-nav').css('height', 'inherit');#}
+            {#}#}
+        {#});#}
+
+{#//        $('.file-input').attrChange(function () {#}
+{#//            if($(window).width() > 768 && $('.cd-side-nav').height() <= $('.content-wrapper').height()){#}
+{#//                $('.cd-side-nav').css('height', $('.cd-side-nav').height + $('.file-input').height());#}
+{#//            }else{#}
+{#//                $('.cd-side-nav').css('height', 'inherit');#}
+{#//            }#}
+{#//        });#}
+
+    {#</script>#}
+
+
 {% endblock %}
 

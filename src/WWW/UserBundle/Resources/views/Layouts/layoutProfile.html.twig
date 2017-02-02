@@ -208,9 +208,12 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
+    {# $(".content-wrapper").bind("DOMSubtreeModified", function() {}); #}
+
     <script>
         $(document).ready(function(){
             console.log($('.content-wrapper').height());
+
             if($(window).width() > 768 && $('.cd-side-nav').height() <= $('.content-wrapper').height()){
                 $('.cd-side-nav').css('height', '0');
                 $('.cd-side-nav').css('height', $('.content-wrapper').height());
@@ -227,8 +230,8 @@
             }else{
                 $('.cd-side-nav').css('height', 'inherit');
             }
-            
-            
+
+
         });
     </script>
     <script src="{{ asset('js/jquery.menu-aim.js') }}"></script>

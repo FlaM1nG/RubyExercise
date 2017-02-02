@@ -23,8 +23,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class CarType extends AbstractType{
 
     public function buildForm(FormBuilderInterface $builder, array $options){
-
-        print_r($options['data']); echo "<br><br>";
+        
         $arrayBrand = $arrayModel = $arrayType = array();
         
         $builder
