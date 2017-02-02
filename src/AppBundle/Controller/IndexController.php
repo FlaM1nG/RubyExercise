@@ -85,6 +85,6 @@ class IndexController extends Controller
     }
 
     public function notFoundAction() {
-        return $this->render('404/notFound.html.twig');
+        return $this->render('TwigBundle:Exception:error404.html.twig');
     }
 }

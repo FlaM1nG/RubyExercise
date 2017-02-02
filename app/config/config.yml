@@ -7,6 +7,7 @@ imports:
     - { resource: "@ServiceBundle/Resources/config/services.yml" }
     - { resource: "@OthersBundle/Resources/config/services.yml" }
     - { resource: "@CarsBundle/Resources/config/services.yml" }
+    - { resource: "@PaymentBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -82,7 +83,25 @@ gregwar_captcha:
     width: 200
     height: 50
     length: 4
-    
+
+payum:
+    security:
+        token_storage:
+            WWW\PaymentBundle\Entity\PaymentToken: { doctrine: orm }
+
+    storages:
+        WWW\PaymentBundle\Entity\Payment: { doctrine: orm }
+        WWW\PaymentBundle\Entity\PaymentDetails: { doctrine: orm }
+    gateways:
+        offline:
+            factory: offline
+        paypal_payment:
+                     factory: paypal_express_checkout
+                     username:  'get this from gateway side'
+                     password:  'get this from gateway side'
+                     signature: 'get this from gateway side'
+                     sandbox: true
+
 easy_admin:
     disabled_actions: ['new']
     list:
