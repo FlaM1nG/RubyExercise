@@ -125,6 +125,21 @@ class Car {
     private $photos;
 
     /**
+     * @var integer
+     */
+    private $seats;
+
+    /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @var \WWW\CarsBundle\Entity\Model
+     */
+    private $model;
+
+    /**
      * Constructor
      */
     public function __construct($data = null)
@@ -653,16 +668,6 @@ class Car {
     {
         return $this->photos;
     }
-    /**
-     * @var integer
-     */
-    private $seats;
-
-    /**
-     * @var string
-     */
-    private $type;
-
 
     /**
      * Set seats
@@ -711,11 +716,6 @@ class Car {
     {
         return $this->type;
     }
-    /**
-     * @var \WWW\CarsBundle\Entity\Model
-     */
-    private $model;
-
 
     /**
      * Set model
