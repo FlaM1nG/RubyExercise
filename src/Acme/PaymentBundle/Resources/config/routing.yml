@@ -1,0 +1,64 @@
+acme_redsys:
+    resource:   "@AcmePaymentBundle/Controller/"
+    type:       annotation
+    prefix:     /
+
+acme_payment_homepage:
+    path:  /payment
+    defaults: { _controller: AcmePaymentBundle:Default:index }
+
+acme_payment_prepare_order_purchase:
+    path:  /payment/prepare_universal/purchase
+    defaults: { _controller: AcmePaymentBundle:PaymentPurchase:prepare }
+
+acme_payment_prepare_simple_purchase_authorize_net:
+    path:  /payment/simple_purchase/authorize_net/prepare
+    defaults: { _controller: AcmePaymentBundle:SimplePurchaseAuthorizeNetAim:prepare }
+
+acme_payment_prepare_obtain_credit_card_authorize_net:
+    path:  /payment/simple_purchase/authorize_net/prepare-obtain-credit-card
+    defaults: { _controller: AcmePaymentBundle:SimplePurchaseAuthorizeNetAim:prepareObtainCreditCard }
+    
+acme_payment_prepare_simple_purchase_be2bill:
+    path:  /payment/simple_purchase/be2bill/prepare
+    defaults: { _controller: AcmePaymentBundle:SimplePurchaseBe2Bill:prepare }
+
+acme_payment_prepare_obtain_credit_card_be2bill:
+    path:  /payment/simple_purchase/be2bill/prepare-obtain-credit-card
+    defaults: { _controller: AcmePaymentBundle:SimplePurchaseBe2Bill:prepareObtainCreditCard }
+
+acme_payment_prepare_simple_purchase_be2bill_offsite:
+    path:  /payment/simple_purchase/be2bill/prepare_onsite
+    defaults: { _controller: AcmePaymentBundle:SimplePurchaseBe2Bill:prepareOffsite }
+
+acme_payment_prepare_simple_purchase_offline:
+    path:  /payment/simple_purchase/offline/prepare
+    defaults: { _controller: AcmePaymentBundle:SimplePurchaseOffline:prepare }
+    
+acme_payment_prepare_simple_purchase_paypal_express_via_omnipay:
+    path:  /payment/simple_purchase/paypal_express_via_omnipay/prepare
+    defaults: { _controller: AcmePaymentBundle:SimplePurchasePaypalExpressViaOmnipay:prepare }
+
+acme_payment_prepare_simple_purchase_stripe_via_omnipay:
+    path:  /payment/simple_purchase/stripe_via_omnipay/prepare
+    defaults: { _controller: AcmePaymentBundle:SimplePurchaseStripeViaOmnipay:prepare }
+
+acme_payment_prepare_simple_purchase_paypal_pro:
+    path:  /payment/simple_purchase/paypal_pro_checkout/prepare
+    defaults: { _controller: AcmePaymentBundle:SimplePurchasePaypalPro:prepare }
+
+acme_payment_prepare_obtain_credit_card_paypal_pro:
+    path:  /payment/simple_purchase/paypal_pro_checkout/prepare-obtain-credit-card
+    defaults: { _controller: AcmePaymentBundle:SimplePurchasePaypalPro:prepareObtainCreditCard }
+
+acme_payment_done:
+    path:  /payment/details
+    defaults: { _controller: AcmePaymentBundle:Details:view }
+
+acme_payment_done:
+    path:  /payment/order/done
+    defaults: { _controller: AcmePaymentBundle:Details:viewPayment }
+    
+acme_payment_notifications_list:
+    path:  /payment/notifications/list
+    defaults: { _controller: AcmePaymentBundle:Notifications:list }

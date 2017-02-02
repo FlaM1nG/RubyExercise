@@ -1,0 +1,33 @@
+{% extends "AcmeDemoBundle::layout.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+
+    {% block payum_stylesheets "" %}
+{% endblock %}
+
+{% block content_header_more %}
+    {{ parent() }}
+    
+    <li><a href="{{ path('acme_payment_homepage') }}">Demo Home</a></li>
+    <li><a href="{{ path('acme_payment_notifications_list') }}">Instant notifications</a></li>
+    <li><a href="https://github.com/Payum/Payum/blob/master/src/Payum/Core/Resources/docs/index.md" target="_blank">Payum Documentation</a></li>
+    <li><a href="https://github.com/Payum/PayumBundle/blob/master/Resources/doc/index.md" target="_blank">PayumBundle Documentation</a></li>
+    <li><a href="https://github.com/makasim/PayumBundleSandbox" target="_blank">PayumBundle Sandbox on GitHub</a></li>
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    {% block payum_content %}
+    {% endblock %}
+
+    {% block payum_body %}
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    {% block payum_vendor_javascripts "" %}
+
+    {% block payum_javascripts "" %}
+{% endblock %}

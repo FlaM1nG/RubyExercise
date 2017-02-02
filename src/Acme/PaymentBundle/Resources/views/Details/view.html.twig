@@ -1,0 +1,26 @@
+{% extends "AcmePaymentBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ gatewayTitle }} - Details View"
+{% endblock %}
+
+{% block content %}
+    <div class="block">
+        Status: {{ status }}
+        {% if refundToken %}
+            <a href="{{ refundToken.targetUrl }}">Refund</a>
+        {% endif %}
+        {% if cancelToken %}
+            <a href="{{ cancelToken.targetUrl }}">Cancel</a>
+        {% endif %}
+        {% if captureToken %}
+            <a href="{{ captureToken.targetUrl }}">Capture</a>
+        {% endif %}
+    </div>
+
+    <div class="block">
+        <pre style="white-space: pre;">{{ payment|raw }}</pre>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}

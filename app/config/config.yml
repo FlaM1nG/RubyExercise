@@ -2,12 +2,13 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: payum.yml }
     - { resource: "@UserBundle/Resources/config/services.yml" }
     - { resource: "@GlobalBundle/Resources/config/services.yml" }
     - { resource: "@ServiceBundle/Resources/config/services.yml" }
     - { resource: "@OthersBundle/Resources/config/services.yml" }
     - { resource: "@CarsBundle/Resources/config/services.yml" }
-    - { resource: "@PaymentBundle/Resources/config/services.yml" }
+#    - { resource: "@PaymentBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -84,23 +85,47 @@ gregwar_captcha:
     height: 50
     length: 4
 
-payum:
-    security:
-        token_storage:
-            WWW\PaymentBundle\Entity\PaymentToken: { doctrine: orm }
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+doctrine_mongodb:
+    connections:
+        default:
+            server: 'mongodb://%mongodb_host%:mongodb_port'
+            options: {}
+    default_database: "%mongodb_name%"
+    document_managers:
+        default:
+            auto_mapping: true
 
-    storages:
-        WWW\PaymentBundle\Entity\Payment: { doctrine: orm }
-        WWW\PaymentBundle\Entity\PaymentDetails: { doctrine: orm }
-    gateways:
-        offline:
-            factory: offline
-        paypal_payment:
-                     factory: paypal_express_checkout
-                     username:  'get this from gateway side'
-                     password:  'get this from gateway side'
-                     signature: 'get this from gateway side'
-                     sandbox: true
+            mappings:
+                payum:
+                    is_bundle: false
+                    type: xml
+                    dir: "%kernel.root_dir%/../vendor/payum/payum/src/Payum/Core/Bridge/Doctrine/Resources/mapping"
+                    prefix: Payum\Core\Model
+
+
+
+#payum:
+#    security:
+#        token_storage:
+#            WWW\PaymentBundle\Entity\PaymentToken: { doctrine: orm }
+#
+#    storages:
+#        WWW\PaymentBundle\Entity\Payment: { doctrine: orm }
+#        WWW\PaymentBundle\Entity\PaymentDetails: { doctrine: orm }
+#    gateways:
+#        offline:
+#            factory: offline
+#        paypal_payment:
+#                     factory: paypal_express_checkout
+#                     username:  'get this from gateway side'
+#                     password:  'get this from gateway side'
+#                     signature: 'get this from gateway side'
+#                     sandbox: true
 
 easy_admin:
     disabled_actions: ['new']
