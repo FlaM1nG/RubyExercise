@@ -2,11 +2,12 @@
 
 namespace WWW\CarsBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Car
  */
-class Car
-{
+class Car {
     /**
      * @var int
      */
@@ -14,16 +15,22 @@ class Car
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $plate;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $color;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $description;
 
@@ -619,5 +626,20 @@ class Car
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /*
+    * @return Array de grupos
+    */
+    public function getGroupSequence()
+    {
+        $groups = array('Car');
+
+        if ($this->isNewCar()) :
+
+            $groups[] = 'email';
+        endif;
+
+        return $groups;
     }
 }
