@@ -2,11 +2,16 @@
 
 namespace WWW\CarsBundle\Entity;
 
+use Doctrine\Common\Util\Inflector;
+use Symfony\Component\Validator\Constraints as Assert;
+use WWW\GlobalBundle\Entity\Photo;
+use WWW\UserBundle\Entity\User;
+
+
 /**
  * Car
  */
-class Car
-{
+class Car {
     /**
      * @var int
      */
@@ -14,16 +19,22 @@ class Car
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $plate;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $color;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $description;
 
@@ -110,16 +121,52 @@ class Car
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
+    
     private $photos;
+
+    /**
+     * @var integer
+     */
+    private $seats;
+
+    /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @var \WWW\CarsBundle\Entity\Model
+     */
+    private $model;
 
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($data = null)
     {
-        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+        if($data != null):
 
+            foreach($data as $key => $value):
+                $key = Inflector::camelize($key);
+
+                if(property_exists('WWW\CarsBundle\Entity\Car',$key)):
+                    $this->$key = $value;
+                endif;
+
+            endforeach;
+
+            $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+            $photo =  new Photo($data['car_photo']);
+            $this->addPhoto($photo);
+
+            $this->user = new User();
+            $this->user->setId($data['user_id']);
+        else:
+            $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        endif;
+
+
+    }
 
     /**
      * Get id
@@ -619,5 +666,92 @@ class Car
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * Set seats
+     *
+     * @param integer $seats
+     *
+     * @return Car
+     */
+    public function setSeats($seats)
+    {
+        $this->seats = $seats;
+
+        return $this;
+    }
+
+    /**
+     * Get seats
+     *
+     * @return integer
+     */
+    public function getSeats()
+    {
+        return $this->seats;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Car
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set model
+     *
+     * @param \WWW\CarsBundle\Entity\Model $model
+     *
+     * @return Car
+     */
+    public function setModel(\WWW\CarsBundle\Entity\Model $model = null)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return \WWW\CarsBundle\Entity\Model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /*
+    * @return Array de grupos
+    */
+    public function getGroupSequence()
+    {
+        $groups = array('Car');
+
+        if ($this->isNewCar()) :
+
+            $groups[] = 'email';
+        endif;
+
+        return $groups;
     }
 }
