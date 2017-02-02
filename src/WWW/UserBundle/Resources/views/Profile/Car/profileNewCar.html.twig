@@ -1,0 +1,69 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+
+
+{% block title %}
+    Coches
+{% endblock %}
+
+{% block alertProfile %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+
+{% endblock %}
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+
+    <form action="{{ path('user_profileNewCar') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_row(form.plate)}}
+    {{ form_row(form.color) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.smoke) }}
+    {{ form_row(form.animals) }}
+    {{ form_row(form.music) }}
+    {{ form_row(form.talk) }}
+    {{ form_row(form._token) }}
+    <input id="imgCar" name="imgCar[]" type="file" multiple class="file-loading" accept="image/*" required >
+    {{ form_row(form.saveNewCar) }}
+
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    <!-- the main fileinput plugin file -->
+    <script src="{{ asset('js/fileinput.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $(".file-loading").fileinput({
+
+                initialPreviewAsData: true,
+                overwriteInitial: false,
+                maxFileSize: 3072,
+                showRemove: false,
+                showUpload: false,
+                showZoom: false,
+                initialCaption: '',
+                maxFileCount: 5,
+
+            });
+        });
+    </script>
+{% endblock %}
+
