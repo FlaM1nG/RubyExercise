@@ -34,6 +34,13 @@ WWW\CarsBundle\Entity\Car:
             length: 255
             column: car_insurance
             nullable: true
+        seats:
+            type: integer
+            nullable: true
+        type:
+            type: string
+            length: 255
+            nullable: true
         smoke:
             type: boolean
             nullable: true
@@ -78,6 +85,10 @@ WWW\CarsBundle\Entity\Car:
         user:
             targetEntity: WWW\UserBundle\Entity\User
             inversedBy: cars
+            joinColumn:
+                referencedColumnName: id
+        model:
+            targetEntity: Model
             joinColumn:
                 referencedColumnName: id
     manyToMany:

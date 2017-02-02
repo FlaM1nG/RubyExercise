@@ -618,4 +618,91 @@ class Car
     {
         return $this->photos;
     }
+    /**
+     * @var integer
+     */
+    private $seats;
+
+    /**
+     * @var string
+     */
+    private $type;
+
+
+    /**
+     * Set seats
+     *
+     * @param integer $seats
+     *
+     * @return Car
+     */
+    public function setSeats($seats)
+    {
+        $this->seats = $seats;
+
+        return $this;
+    }
+
+    /**
+     * Get seats
+     *
+     * @return integer
+     */
+    public function getSeats()
+    {
+        return $this->seats;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Car
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    /**
+     * @var \WWW\CarsBundle\Entity\Model
+     */
+    private $model;
+
+
+    /**
+     * Set model
+     *
+     * @param \WWW\CarsBundle\Entity\Model $model
+     *
+     * @return Car
+     */
+    public function setModel(\WWW\CarsBundle\Entity\Model $model = null)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return \WWW\CarsBundle\Entity\Model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
 }
