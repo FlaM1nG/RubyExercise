@@ -2,7 +2,11 @@
 
 namespace WWW\CarsBundle\Entity;
 
+use Doctrine\Common\Util\Inflector;
 use Symfony\Component\Validator\Constraints as Assert;
+use WWW\GlobalBundle\Entity\Photo;
+use WWW\UserBundle\Entity\User;
+
 
 /**
  * Car
@@ -117,14 +121,36 @@ class Car {
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
+    
     private $photos;
 
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($data = null)
     {
-        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        if($data != null):
+
+            foreach($data as $key => $value):
+                $key = Inflector::camelize($key);
+
+                if(property_exists('WWW\CarsBundle\Entity\Car',$key)):
+                    $this->$key = $value;
+                endif;
+
+            endforeach;
+
+            $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+            $photo =  new Photo($data['car_photo']);
+            $this->addPhoto($photo);
+
+            $this->user = new User();
+            $this->user->setId($data['user_id']);
+        else:
+            $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        endif;
+
+
     }
 
 

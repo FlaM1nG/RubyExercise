@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class ProfileCarController extends Controller{
@@ -42,7 +43,7 @@ class ProfileCarController extends Controller{
 
     private function saveNewCar(Request $request, $car){
 
-        $file = MyConstants::PATH_APIREST.'services/car/insert_car.php';
+        $file = MyConstants::PATH_APIREST.'user/car/insert_car.php';
         $ch = new ApiRest();
         $ut = new Utilities();
 
@@ -97,6 +98,60 @@ class ProfileCarController extends Controller{
     }
 
     public function listCarAction(Request $request){
-        return $this->render('UserBundle:Profile/Car:profileListCar.html.twig');
+        $arrayCars = $this->getCarsUser($request);
+
+        return $this->render('UserBundle:Profile/Car:profileListCar.html.twig',
+                        array('arrayCars' => $arrayCars));
+    }
+
+    private function getCarsUser(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'/user/car/get_cars.php';
+        $ch = new ApiRest();
+        $arrayCars = null;
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+
+        $result = $ch->resultApiRed($data, $file);
+
+        foreach( $result['cars'] as $data):
+            $car = new Car($data);
+            $arrayCars[] = $car;
+        endforeach;
+
+        return $arrayCars;
+
+    }
+
+    public function editCarAction(Request $request){
+
+    }
+
+    public function deleteCarAction(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'user/car/delete_car.php';
+        $ch = new ApiRest();
+        $id = $request->get('id');
+        $response = new JsonResponse();
+
+        $data['id_user'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['id'] = $id;
+
+        $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+            $response->setData(array(
+                'result' => 'ok',
+                'message' => 'Datos actualizados correctamente'));
+        else:
+            $response->setData(array(
+                'result' => 'ko',
+                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
+        endif;
+        return $response;
     }
 }

@@ -42,16 +42,18 @@ class Photo
 
     public function __construct($data=null) {
         
-        if(!empty($data)):
+        if(!empty($data) AND gettype($data) == 'array'):
         
             foreach ($data as $key => $value):
                 $key = Inflector::camelize($key);
         
                 if( property_exists('WWW\GlobalBundle\Entity\Photo',$key) ):
-                    
                         $this->$key = $value;
                 endif;
             endforeach;
+        elseif(!empty($data)):
+            //Si el dato no es un array se le está mandando la URL de la foto
+            $this->url = $data;
         endif; 
     }
     /**

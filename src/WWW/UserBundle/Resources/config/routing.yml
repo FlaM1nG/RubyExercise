@@ -149,7 +149,7 @@ user_public_profile:
             idMessage: \w+
 
 user_unsubscribe:
-    path: /profile/unsubscribe
+    path: /profile/unsubscribe/
     defaults: { _controller: UserBundle:ProfileUnsubscribe:unsubscribe }
 
 user_profileNewCar:
@@ -157,5 +157,15 @@ user_profileNewCar:
     defaults: { _controller: UserBundle:ProfileCar:newCar }
 
 user_profileListCars:
-    path: /profile/car/list
+    path: /profile/car/list/
     defaults: { _controller: UserBundle:ProfileCar:listCar }
+
+user_ajax_deleteCar:
+    path: /ajax/deleteCar
+    defaults: { _controller: UserBundle:ProfileCar:deleteCar }
+
+user_profileEditCar:
+    path: /profile/car/edit/{idCar}
+    defaults: { _controller: UserBundle:ProfileCar:editCar }
+    requirements:
+            idMessage: \d+
