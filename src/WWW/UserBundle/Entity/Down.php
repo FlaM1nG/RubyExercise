@@ -2,6 +2,9 @@
 
 namespace WWW\UserBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Util\Inflector as Inflector;
+
 /**
  * Down
  */
@@ -86,6 +89,23 @@ class Down
     private $user;
 
 
+    public function __construct( $data=null){
+        if(!empty($data)):
+            foreach($data as $key => $value):
+                $key = Inflector::camelize($key);
+
+                if(property_exists('WWW\UserBundle\Entity\Down',$key)):
+                    $this->$key = $value;
+
+                endif;
+            endforeach;
+
+
+
+
+
+        endif;
+    }
     /**
      * Set user
      *
