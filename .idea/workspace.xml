@@ -5,148 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="091e3b9f-3025-42bf-9a49-69b8814707d1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/public/images/blue-arrow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/public/images/field-background.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/public/images/logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/public/images/search.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/public/images/welcome-configure.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/public/images/welcome-demo.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/public/images/welcome-quick-tour.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/config/payum.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/AcmeDemoBundle.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Controller/DemoController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Controller/WelcomeController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/DependencyInjection/AcmeDemoExtension.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/EventListener/ControllerListener.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Form/ContactType.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/config/services.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/public/css/demo.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/views/Demo/contact.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/views/Demo/index.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/views/Secured/hello.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/views/Secured/helloadmin.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/views/Secured/layout.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/views/Secured/login.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/views/Welcome/index.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/views/base_layout.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Resources/views/layout.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/DemoBundle/Twig/Extension/DemoExtension.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/KlarnaBundle/AcmeKlarnaBundle.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/KlarnaBundle/Controller/PurchaseExamplesController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/KlarnaBundle/DependencyInjection/AcmeKlarnaExtension.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/KlarnaBundle/DependencyInjection/Configuration.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/KlarnaBundle/Resources/config/routing.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/KlarnaBundle/Resources/config/services.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/KlarnaBundle/Resources/views/PurchaseExamples/prepareAuthorizeInvoice.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/KlarnaBundle/Resources/views/PurchaseExamples/prepareCheckout.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/KlarnaBundle/Resources/views/PurchaseExamples/prepareInvoice.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/KlarnaBundle/Resources/views/Snippet/show.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/AcmeOtherExamplesBundle.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Controller/CartExamplesController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Controller/DevelopPaymentGatewayOnTopOfPayumExampleController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Controller/FactoriesChoiceFormController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Controller/JmsPaymentExamplesController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/DependencyInjection/AcmeOtherExamplesExtension.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/DependencyInjection/Configuration.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Model/Cart.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Model/Product.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Payum/Action/CaptureCartWithAuthorizeNetAction.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Payum/Action/CaptureCartWithPaypalExpressCheckoutAction.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Payum/Action/StatusDetailsAggregatedNullModelAction.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Payum/FooBarGateway/Action/CaptureAction.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Payum/FooBarGateway/Action/StatusAction.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Resources/config/routing.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Resources/config/services.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Resources/views/CartExamples/_submit_credit_card.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Resources/views/CartExamples/selectPayment.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Resources/views/DevelopPaymentGatewayOnTopOfPayumExample/developPaymentGateway.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Resources/views/JmsPaymentExamples/prepare.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/OtherExamplesBundle/Resources/views/JmsPaymentExamples/view.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/AcmePayexBundle.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Controller/OneClickExamplesController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Controller/PurchaseExamplesController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Controller/RecurringExamplesController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/DependencyInjection/AcmePayexExtension.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/DependencyInjection/Configuration.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Payum/Action/StoreNotificationAction.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Resources/config/routing.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Resources/config/services.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Resources/views/OneClickExamples/confirmAgreement.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Resources/views/OneClickExamples/purchase.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Resources/views/PurchaseExamples/prepare.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Resources/views/PurchaseExamples/prepareWithTransactionCallback.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Resources/views/RecurringExamples/prepare.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PayexBundle/Resources/views/RecurringExamples/viewRecurringPaymentDetails.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/AcmePaymentBundle.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/DefaultController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/DetailsController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/NotificationsController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/PaymentPurchaseController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/PayoutPaypalMasspayController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/PaypalProHostedController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/SimplePurchaseAuthorizeNetAimController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/SimplePurchaseBe2BillController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/SimplePurchaseOfflineController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/SimplePurchasePaypalExpressViaOmnipayController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/SimplePurchasePaypalProController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/SimplePurchaseSofortController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Controller/SimplePurchaseStripeViaOmnipayController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/DependencyInjection/AcmePaymentExtension.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/DependencyInjection/Configuration.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Document/PaymentDetails.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Entity/AgreementDetails.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Entity/GatewayConfig.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Entity/NotificationDetails.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Entity/PaymentSecurityToken.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Entity/Payout.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Entity/RecurringPaymentDetails.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Payum/Action/StoreNotificationAction.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Payum/Api/Factory.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Payum/Extension/StoreNotificationExtension.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Resources/config/routing.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Resources/config/services.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Resources/views/Default/index.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Resources/views/Details/view.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Resources/views/Notifications/list.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Resources/views/layout.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Resources/views/prepare.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Tests/Controller/DefaultControllerTest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/AcmePaypalExpressCheckoutBundle.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/Controller/PurchaseExamplesController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/Controller/RecurringPaymentExamplesController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/DependencyInjection/AcmePaypalExpressCheckoutExtension.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/DependencyInjection/Configuration.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/Resources/config/routing.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/Resources/config/services.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/Resources/views/PurchaseExamples/prepare.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/Resources/views/PurchaseExamples/prepareDigitalGoods.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/Resources/views/PurchaseExamples/prepareWithCustomApi.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/Resources/views/RecurringPaymentExamples/createAgreement.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/PaypalExpressCheckoutBundle/Resources/views/RecurringPaymentExamples/viewRecurringPaymentDetails.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/RedsysBundle/AcmeRedsysBundle.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/RedsysBundle/Controller/PurchaseExamplesController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/RedsysBundle/Resources/config/routing.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/StripeBundle/AcmeStripeBundle.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/StripeBundle/Controller/PurchaseExamplesController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/StripeBundle/Resources/config/routing.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Acme/StripeBundle/Resources/views/PurchaseExamples/prepareCheckout.html.twig" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/WWW/PaymentBundle/Controller/DefaultController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/WWW/PaymentBundle/Controller/PaymentController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/WWW/PaymentBundle/Entity/PaymentToken.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/WWW/PaymentBundle/PaymentBundle.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/WWW/PaymentBundle/Resources/config/services.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/WWW/PaymentBundle/Resources/views/Default/index.html.twig" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/WWW/PaymentBundle/Entity/Payment.php" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Entity/Payment.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/WWW/PaymentBundle/Entity/PaymentDetails.php" afterPath="$PROJECT_DIR$/src/Acme/PaymentBundle/Entity/PaymentDetails.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/AppKernel.php" afterPath="$PROJECT_DIR$/app/AppKernel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.yml" afterPath="$PROJECT_DIR$/app/config/config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/parameters.yml.dist" afterPath="$PROJECT_DIR$/app/config/parameters.yml.dist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/routing.yml" afterPath="$PROJECT_DIR$/app/config/routing.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
     </list>
     <list id="9c262b20-a705-41af-9c6d-05b693f8b49a" name="Revert: comit raro" comment="" />
     <ignored path="wwweb.iws" />
@@ -575,7 +434,7 @@
       <workItem from="1485950967490" duration="3622000" />
       <workItem from="1485961944398" duration="2299000" />
       <workItem from="1486020399313" duration="6156000" />
-      <workItem from="1486032737846" duration="7903000" />
+      <workItem from="1486032737846" duration="8025000" />
     </task>
     <task id="LOCAL-00001" summary="payment bundle">
       <created>1485785403544</created>
@@ -633,11 +492,18 @@
       <option name="project" value="LOCAL" />
       <updated>1485964580946</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="pago con el bundle payun aun falta ponerlo bonico y quitar cosas innecesarias">
+      <created>1486044469498</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1486044469498</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81032000" />
+    <option name="totallyTimeSpent" value="81154000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -691,7 +557,8 @@
     <MESSAGE value="payumbundle para el pago" />
     <MESSAGE value="mergeo con dani" />
     <MESSAGE value="redireccion" />
-    <option name="LAST_COMMIT_MESSAGE" value="redireccion" />
+    <MESSAGE value="pago con el bundle payun aun falta ponerlo bonico y quitar cosas innecesarias" />
+    <option name="LAST_COMMIT_MESSAGE" value="pago con el bundle payun aun falta ponerlo bonico y quitar cosas innecesarias" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
   <component name="XDebuggerManager">
