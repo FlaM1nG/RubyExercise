@@ -22,12 +22,17 @@ class ProfileCarController extends Controller{
 
     public function newCarAction(Request $request){
 
+        $arrayBrand = null;
+        $arrayModel = null;
+
         $car = new Car();
+        $this->getDataCar($request, $arrayBrand, $arrayModel);
         
         $form = $this->createForm(CarType::class, $car);
 
-        $form->handleRequest($request);
 
+        $form->handleRequest($request);
+        $form->get('brand')->setData($arrayBrand);
         if($form->isSubmitted()):
             $result = $this->saveNewCar($request, $car);
 
@@ -39,6 +44,22 @@ class ProfileCarController extends Controller{
         return $this->render('UserBundle:Profile:Car/profileNewCar.html.twig',
                         array('form' => $form->createView(),
                               'car' => $car));
+    }
+
+    private function getDataCar(Request $request, $arrayBrand, $arrayModel){
+
+        $file = MyConstants::PATH_APIREST.'user/car/get_cars_data.php';
+        $ch = new ApiRest();
+        $data = null;
+        $result = $ch->resultApiRed($data,$file);
+
+        foreach($result['brands'] as $brand):
+            $arrayBrand[$brand['id']] = $brand['name'];
+
+            foreach($brand['models'] as $key => $value):
+                $arrayModel[$brand['id']] = $value;
+            endforeach;
+        endforeach;
     }
 
     private function saveNewCar(Request $request, $car){

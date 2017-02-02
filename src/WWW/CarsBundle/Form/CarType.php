@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -23,13 +24,14 @@ class CarType extends AbstractType{
 
     public function buildForm(FormBuilderInterface $builder, array $options){
 
+        print_r($options['data']); echo "<br><br>";
         $arrayBrand = $arrayModel = $arrayType = array();
         
         $builder
             ->add('plate', TextType::class, array('label' => 'Matrícula'))
             ->add('color', TextType::class, array('label' => 'Color'))
             ->add('description', TextareaType::class, array('label' => 'Descripción' ))
-            ->add('seats', NumberType::class, array('label' => 'Numero de plazas'))
+            ->add('seats', IntegerType::class,array('label'=>'Número de plazas', 'mapped'=>false))
             ->add('brand', ChoiceType::class, array('label' => 'Marca',
                                                     'empty_value' => false,
                                                     'mapped' => false,
