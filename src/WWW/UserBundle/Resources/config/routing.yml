@@ -148,7 +148,14 @@ user_public_profile:
     requirements:
             idMessage: \w+
 
-
 user_unsubscribe:
     path: /profile/unsubscribe
     defaults: { _controller: UserBundle:ProfileUnsubscribe:unsubscribe }
+
+user_profileNewCar:
+    path: /profile/car/new/
+    defaults: { _controller: UserBundle:ProfileCar:newCar }
+
+user_profileListCars:
+    path: /profile/car/list
+    defaults: { _controller: UserBundle:ProfileCar:listCar }
