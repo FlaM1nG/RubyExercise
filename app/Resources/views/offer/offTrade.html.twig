@@ -145,24 +145,7 @@
 
 
 {% block offerComments %}
-    <h4>COMENTARIOS</h4>
-    <hr>
-    {{ form_start(formComment) }}
-    <div class="off-form-comment">
-        <div class="input-group">
-            
-            
-                {{ form_widget(formComment.comment, { 'attr': { 'class': 'custom-control',
-                                                      'rows': '3', 'style': 'resize:none' } }) }}
 
-                <span class="input-group-btn">
-                {{ form_widget(formComment.newComment, { 'attr': { 'class': 'btn btn-primary off-com-btn' } }) }}
-                </span>
-               
-        </div>
-
-    </div>
-    {{ form_end(formComment) }}
     {% set i = 0 %}
 
     {% if trade.offer.comments is empty %}
@@ -179,6 +162,7 @@
         </div>
 
     {% else %}
+
         {% for comment in trade.offer.comments %}
 
             <div class="off-comment-target">
@@ -193,8 +177,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
             {% set i = i+1 %}
         {% endfor %}
