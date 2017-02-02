@@ -27,16 +27,20 @@
 {% block bodyProfile %}
 
     <form action="{{ path('user_profileNewCar') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_row(form.plate)}}
-    {{ form_row(form.color) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.smoke) }}
-    {{ form_row(form.animals) }}
-    {{ form_row(form.music) }}
-    {{ form_row(form.talk) }}
-    {{ form_row(form._token) }}
-    <input id="imgCar" name="imgCar[]" type="file" multiple class="file-loading" accept="image/*" required >
-    {{ form_row(form.saveNewCar) }}
+        {{ form_row(form.brand) }}
+        {{ form_row(form.model) }}
+        {{ form_row(form.type) }}
+        {{ form_row(form.plate)}}
+        {{ form_row(form.color) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.seats) }}
+        {{ form_row(form.smoke) }}
+        {{ form_row(form.animals) }}
+        {{ form_row(form.music) }}
+        {{ form_row(form.talk) }}
+        {{ form_row(form._token) }}
+        <input id="imgCar" name="imgCar[]" type="file" multiple class="file-loading" accept="image/*" required >
+        {{ form_row(form.saveNewCar) }}
 
 {% endblock %}
 

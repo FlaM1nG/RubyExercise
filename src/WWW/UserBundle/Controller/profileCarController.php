@@ -36,7 +36,7 @@ class ProfileCarController extends Controller{
             endif;
         endif;
 
-        return $this->render('UserBundle:Profile/Car:profileNewCar.html.twig',
+        return $this->render('UserBundle:Profile:Car/profileNewCar.html.twig',
                         array('form' => $form->createView(),
                               'car' => $car));
     }
@@ -100,7 +100,7 @@ class ProfileCarController extends Controller{
     public function listCarAction(Request $request){
         $arrayCars = $this->getCarsUser($request);
 
-        return $this->render('UserBundle:Profile/Car:profileListCar.html.twig',
+        return $this->render('UserBundle:Profile:Car/profileListCar.html.twig',
                         array('arrayCars' => $arrayCars));
     }
 

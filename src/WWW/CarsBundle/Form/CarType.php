@@ -10,7 +10,9 @@ namespace WWW\CarsBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,10 +23,26 @@ class CarType extends AbstractType{
 
     public function buildForm(FormBuilderInterface $builder, array $options){
 
+        $arrayBrand = $arrayModel = $arrayType = array();
+        
         $builder
             ->add('plate', TextType::class, array('label' => 'Matrícula'))
             ->add('color', TextType::class, array('label' => 'Color'))
             ->add('description', TextareaType::class, array('label' => 'Descripción' ))
+            ->add('seats', NumberType::class, array('label' => 'Numero de plazas'))
+            ->add('brand', ChoiceType::class, array('label' => 'Marca',
+                                                    'empty_value' => false,
+                                                    'mapped' => false,
+                                                    'choices' => $arrayBrand,
+                                                ))
+            ->add('model', ChoiceType::class, array('label' => 'Modelo',
+                                                    'empty_value' => false,
+                                                    'choices' => $arrayModel,
+                                                ))
+            ->add('type', ChoiceType::class, array('label' => 'Tipo de coche',
+                                                    'empty_value' => false,
+                                                    'choices' => $arrayType,
+                                                ))
             ->add('smoke', CheckboxType::class, array('label' => 'Se permite fumar',
                                                       'required' => false))
             ->add('animals', CheckboxType::class, array('label' => 'Se permiten animales',
