@@ -12,7 +12,7 @@ class MsgOfferVoter extends Voter
 {
     // en estos strings puedes poner lo que quieras
     const CREATE = 'create_msg_offer';
-    const SHOW = 'show_msg_offer';
+    const COMMENT = 'comment_offer';
     const DELETE = 'delete_msg_offer';
     
     
@@ -26,7 +26,7 @@ class MsgOfferVoter extends Voter
     protected function supports($attribute, $subject)
     {
         // si el atributo no es uno de los que soportamos, devolver false
-        if (!in_array($attribute, array(self::CREATE, self::SHOW, self::DELETE))) {
+        if (!in_array($attribute, array(self::CREATE, self::COMMENT, self::DELETE))) {
             return false;
         }
 
@@ -57,8 +57,8 @@ class MsgOfferVoter extends Voter
                 return $this->canCreate($trade, $user, $token);
             case self::DELETE:
                 return $this->canDelete($trade, $user);
-            case self::SHOW:
-                return $this->canSee($trade, $user);
+            case self::COMMENT:
+                return $this->canComment($trade, $user,$token);
         }
 
         throw new \LogicException('Este código no debería ser visto');
@@ -78,19 +78,21 @@ class MsgOfferVoter extends Voter
             return false;
         }
     }
-
+    private function canComment(\WWW\OthersBundle\Entity\Trade $trade, User $user, TokenInterface $token)
+    {
+        
+        $user = $token->getUser();
+        // el objeto Post podría tener, por ejemplo, un método isPrivate()
+        // que comprueba la propiedad booleana $private
+        if( $this->decisionManager->decide($token, array('ROLE_USER'))){
+            return true;
+            
+        }
+        else{
+            return false;
+        }
+    }
     
-    private function canDelete(Post $post, User $user)
-    {
-        // esto asume que el objeto tiene un método getOwner()
-        // para obtener la entidad del usuario que posee este objeto
-        return $user === $post->getOwner();
-    }
-    private function canSee(Post $post, User $user)
-    {
-        // esto asume que el objeto tiene un método getOwner()
-        // para obtener la entidad del usuario que posee este objeto
-        return $user === $post->getOwner();
-    }
+    
 }
 ?>
