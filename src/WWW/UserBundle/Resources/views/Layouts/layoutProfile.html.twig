@@ -210,71 +210,25 @@
     {{ parent() }}
     {# $(".content-wrapper").bind("DOMSubtreeModified", function() {}); #}
 
-    <script>
-//        $(document).ready(function(){
-//            console.log($('.content-wrapper').height());
-//
-//            if($(window).width() > 768 && $('.cd-side-nav').height() <= $('.content-wrapper').height()){
-//                $('.cd-side-nav').css('height', '0');
-//                $('.cd-side-nav').css('height', $('.content-wrapper').height());
-//            }else{
-//                $('.cd-side-nav').css('height', 'inherit');
-//            }
-//        });
-//
-//        $(window).resize(function(){
-//            console.log($('.content-wrapper').height());
-//            if($(window).width() > 768 && $('.cd-side-nav').height() <= $('.content-wrapper').height()){
-//                $('.cd-side-nav').css('height', '0');
-//                $('.cd-side-nav').css('height', $('.content-wrapper').height());
-//            }else{
-//                $('.cd-side-nav').css('height', 'inherit');
-//            }
-//
-//
-//        });
-
+    <script type="text/javascript">
         $(document).ready(function(){
-            console.log($('.content-wrapper').height());
+                $(".us-dataPersonal-row").bind("DOMSubtreeModified", function() {
+                    if($(window).width() > 768){
+                        if($(".us-dataPersonal-row").outerHeight() >= $('.cd-side-nav').outerHeight() || $(".us-dataPersonal-row").outerHeight() >= $('.cd-side-nav>ul').outerHeight() ){
+                            $('.cd-side-nav').css('height', $('.us-dataPersonal-row').outerHeight());
+                        }else{
+                            $('.cd-side-nav').css('height', 'inherit');
+                        }
+                    }
+                });
 
-            if($(window).width() > 768){
-                if($('.cd-side-nav').height() < $('.content-wrapper').height()){
-                    $('.cd-side-nav').css('height', $('.content-wrapper').height());
-                }else{
-                    $('.cd-side-nav').css('height', 'inherit');
-                }
-            }else{
-                $('.cd-side-nav').css('height', 'inherit');
-            }
-
-            $(".content-wrapper").bind("DOMSubtreeModified", function() {
-                if($('.cd-side-nav').height() < $('.content-wrapper').height()){
-                    $('.cd-side-nav').css('height', $('.content-wrapper').height());
-                }else{
-                    $('.cd-side-nav').css('height', 'inherit');
-                }
-            });
-        });
-
-        $(window).resize(function(){
-            console.log($('.content-wrapper').height());
-            if($(window).width() > 768){
-                if($('.cd-side-nav').height() < $('.content-wrapper').height()){
-                    $('.cd-side-nav').css('height', $('.content-wrapper').height());
-                }else{
-                    $('.cd-side-nav').css('height', 'inherit');
-                }
-            }else{
-                $('.cd-side-nav').css('height', 'inherit');
-            }
-
-            $(".content-wrapper").bind("DOMSubtreeModified", function() {
-                if($('.cd-side-nav').height() < $('.content-wrapper').height()){
-                    $('.cd-side-nav').css('height', $('.content-wrapper').height());
-                }else{
-                    $('.cd-side-nav').css('height', 'inherit');
-                }
-            });
+                $(window).resize(function(){
+                    if($(".us-dataPersonal-row").outerHeight() >= $('.cd-side-nav').outerHeight() || $(".us-dataPersonal-row").outerHeight() >= $('.cd-side-nav>ul').outerHeight() ){
+                        $('.cd-side-nav').css('height', $('.us-dataPersonal-row').outerHeight());
+                    }else{
+                        $('.cd-side-nav').css('height', 'inherit');
+                    }
+                });
         });
     </script>
     <script src="{{ asset('js/jquery.menu-aim.js') }}"></script>
