@@ -1,0 +1,118 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+
+
+{% block title %}
+Coches
+{% endblock %}
+
+{% block alertProfile %}
+
+{% for flash_message in app.session.flashbag.get('messageSuccess') %}
+{{ alerts.alert('alert-success', flash_message, null) }}
+{% endfor %}
+
+{% for flash_message in app.session.flashbag.get('messageFail') %}
+{{ alerts.alert('alert-warning', flash_message, null) }}
+{% endfor %}
+
+
+{% endblock %}
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+
+
+
+{% endblock %}
+
+
+{% block bodyProfile %}
+
+    {#
+        Necesaria la clase container_X para el borrado
+        El botón borrar necesita la clase deleteCar y el data-id para borrar
+    #}
+    {% for car in arrayCars %}
+        <div class="container_{{ car.id }}">
+            <h1>Marca que no tenemos</h1><br>
+            {{ car.description }}
+            #plazas que todavía no está
+            <img src="{{ asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img') }}" height="200"/>
+            <a href="{{ path('user_profileEditCar', {idCar: car.id} ) }}" alt="editar" class="btn btn-default">Editar</a>
+            <a  alt="editar" class="btn btn-default deleteCar" data-id="{{ car.id }}" >Borrar</a>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ready(function(){
+            $(document).on('click', '.deleteCar', deleteCar);
+
+            function deleteCar(e){
+                e.preventDefault();
+
+                var idCar = $(this).attr('data-id');
+                var data = {};
+                var url = "{{ url('user_ajax_deleteCar') }}";
+                var container = ".container_"+idCar;
+
+                data['id'] = idCar;
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+
+                    success: function(data)
+                    {
+                        if(data['result'] === 'ok'){
+                            $(container).remove();
+                            $('.contentAlert').html("<div class='alert "+
+                                    "alert-success alert-dismissible' role='alert'>"+
+                                    "<button type='button' class='close' "+
+                                    "data-dismiss='alert' aria-label='Close'>"+
+                                    "<span aria-hidden='true'>×</span>"+
+                                    "</button><strong></strong>"+
+                                    data['message']+"</div>");
+
+                        }else{
+                            $('.contentAlert').html("<div class='alert "+
+                                    "alert-warning alert-dismissible' role='alert'>"+
+                                    "<button type='button' class='close' "+
+                                    "data-dismiss='alert' aria-label='Close'>"+
+                                    "<span aria-hidden='true'>×</span>"+
+                                    "</button><strong></strong>"+
+                                    data['message']+"</div>");
+
+                        }
+
+                    },
+                    error: function()
+                    {
+                        $('.contentAlert').html("<div class='alert "+
+                                "alert-warning alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
+
+                    }
+                });
+            }
+        });
+
+    </script>
+
+
+{% endblock %}
+

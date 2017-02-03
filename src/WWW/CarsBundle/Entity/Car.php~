@@ -618,4 +618,62 @@ class Car
     {
         return $this->photos;
     }
+    /**
+     * @var integer
+     */
+    private $seats;
+
+    /**
+     * @var string
+     */
+    private $type;
+
+
+    /**
+     * Set seats
+     *
+     * @param integer $seats
+     *
+     * @return Car
+     */
+    public function setSeats($seats)
+    {
+        $this->seats = $seats;
+
+        return $this;
+    }
+
+    /**
+     * Get seats
+     *
+     * @return integer
+     */
+    public function getSeats()
+    {
+        return $this->seats;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Car
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 }
