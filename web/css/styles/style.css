@@ -9528,6 +9528,20 @@ p {
   background-color: #333333;
   border-color: #333333;
 }
+.col-center {
+  float: none;
+  margin: 0 auto;
+}
+.sombra-general {
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+}
+.sombra-general2 {
+  -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+}
 /* ##### FIN ETIQUETAS HTML ##### */
 /* ***** PADDINGS ***** */
 .separacion-superior {
@@ -10844,11 +10858,16 @@ body.lb-disable-scrolling {
   width: 100%;
   height: 100%;
 }
-.btn.btn-primary.btn-file {
+.btn.btn-primary.btn-file,
+.fileinput-remove-button,
+.btn-fileinput-save {
   padding: 9px 24px;
   letter-spacing: 0px;
+  border: 1px solid;
 }
-.btn.btn-primary.btn-file .glyphicon.glyphicon-folder-open {
+.btn.btn-primary.btn-file .glyphicon.glyphicon-folder-open,
+.fileinput-remove-button .glyphicon.glyphicon-folder-open,
+.btn-fileinput-save .glyphicon.glyphicon-folder-open {
   font-size: 16px;
 }
 .btn.btn-default.fileinput-upload.fileinput-upload-button {
@@ -12256,6 +12275,16 @@ a.boton-leer-post:focus {
 /* ------------------ USER  ------------------
 ******************************************************************/
 /* ***** PROFILE PUBLIC ***** */
+.us-datos-personales {
+  font-size: 18px;
+}
+.us-datos-personales span {
+  font-size: 14px;
+  font-weight: 600;
+}
+.us-dir-public {
+  display: inline-table;
+}
 .us-pro-public-cont {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -12271,10 +12300,7 @@ a.boton-leer-post:focus {
   position: relative;
 }
 .us-pro-public-img {
-  max-width: none;
   position: absolute;
-  left: -50%;
-  top: -50%;
   min-width: 100%;
 }
 .us-redactar-mess {
@@ -12283,6 +12309,23 @@ a.boton-leer-post:focus {
 .us-redactar-mess .us-writte-btn {
   padding: 6px 12px;
   float: none;
+}
+.us-address-new-tel {
+  display: flex;
+}
+.us-address-new-tel .us-pref-tel,
+.us-address-new-tel .us-num-tel {
+  display: inline-block;
+  height: 70px;
+}
+.us-address-new-tel .us-pref-tel {
+  width: 170px;
+}
+.us-address-new-tel .us-num-tel {
+  width: 100%;
+}
+.us-address-new {
+  margin-bottom: 20px;
 }
 .us-date-ing {
   font-style: italic;
@@ -12556,6 +12599,10 @@ input#registroUsuario_captcha {
 .us-perfil-list {
   width: 50px;
   height: 50px;
+  border-radius: 500px;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
 }
 .us-label-terms {
   display: flex;
@@ -12611,7 +12658,7 @@ input#registroUsuario_captcha {
   text-align: center;
 }
 .us-number-comments span {
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 600;
 }
 .us-date-comments {
@@ -13070,6 +13117,42 @@ Sidebar
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   content: "\f290";
+}
+.cd-side-nav > ul > li.userCar > a::before {
+  /*background-position: 0 0;*/
+  font: normal normal normal 14px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  content: "\f1b9";
+}
+.cd-side-nav > ul > li.userHouse > a::before {
+  /*background-position: 0 0;*/
+  font: normal normal normal 14px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  content: "\f015";
+}
+.cd-side-nav > ul > li.userShip > a::before {
+  /*background-position: 0 0;*/
+  font: normal normal normal 14px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  content: "\f21a";
+}
+.cd-side-nav > ul > li.userBike > a::before {
+  /*background-position: 0 0;*/
+  font: normal normal normal 14px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  content: "\f206";
 }
 /*.cd-side-nav > ul > li.users > a::before {
   background-position: -16px 0;
@@ -13888,6 +13971,9 @@ video.aus-video {
   background-color: inherit;
   background-color: #333333;
   color: #ffffff;
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
 }
 /* ##### FIN FILTER ##### */
 /* *****  ***** */
@@ -14138,6 +14224,9 @@ textarea {
   transition: all 200ms linear 0s;
   text-decoration: none;
   font-weight: 600;
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
 }
 .sha-offer-list:hover {
   background-color: #333333;
@@ -14334,6 +14423,13 @@ textarea {
 /* ***** TITLE VIEW LIST ***** */
 .tra-parallax {
   background: url(../img/trade.jpeg);
+}
+.ropa-parallax {
+  background: url(../img/ropa.jpg);
+}
+.trueque-parallax {
+  background: url(../img/trueque.jpg);
+  background-position: center bottom !important;
 }
 /* ##### FIN TITLE VIEW LIST ##### */
 /* ***** GRID ***** */
@@ -14557,6 +14653,9 @@ textarea {
   -o-transition: all 200ms linear 0s;
   transition: all 200ms linear 0s;
   text-decoration: none;
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
 }
 .row-hre-element:hover,
 .row-hre-element:focus {
@@ -14961,18 +15060,27 @@ textarea {
   font-weight: 900;
   line-height: 1em;
   color: #ff6600;
-  display: inline-block;
-  margin-right: 30px;
 }
 .off-vote {
   display: inline-block;
   padding-right: 20px;
 }
 .off-date {
-  display: inline-block;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 2;
+  font-size: 14px;
+  line-height: 1em;
+  color: #888888;
+}
+.col-off-date {
+  margin-top: 7px;
+}
+.col-off-prin {
+  padding: 0 2%;
+}
+.panel-off-heading {
+  text-align: center;
+}
+.off-panel-body {
+  min-height: 350px;
 }
 .off-img-marco-grande {
   height: 400px;
@@ -15025,13 +15133,6 @@ textarea {
 .off-description-normal {
   padding-top: 30px;
 }
-.row-off-user-name {
-  text-align: left;
-}
-.row-off-user-name a {
-  font-size: 16px;
-  font-weight: 600;
-}
 .col-off-var-data,
 .col-off-rela {
   padding-top: 20px;
@@ -15043,19 +15144,27 @@ textarea {
   margin-top: 20px;
 }
 .btn-off-buy {
-  float: left;
+  float: none;
+  margin: 0;
+  -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
 }
-.off-user-image,
 .off-user-name {
-  display: table-cell;
-  vertical-align: middle;
+  font-size: 16px;
+  font-weight: 600;
 }
-.off-user-name {
-  padding-left: 15px;
+.off-user-image {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 .off-user-image img {
   width: 56px;
   height: 56px;
+}
+.col-off-img {
+  margin-bottom: 10px;
 }
 .off-icon-prin {
   color: #ff6600;
@@ -15123,18 +15232,32 @@ textarea {
 }
 .off-btn-write {
   padding: 5px 10px;
-  float: left;
-  margin-top: 10px;
+  float: none;
+  margin: 0;
+  text-transform: none;
+  -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+}
+.off-middle {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+.off-middle-hijo {
+  display: table-cell;
+  vertical-align: middle;
+  float: none;
 }
 /*.off-row-rating{
     .rating > span {
         width: 0.9em;
     }
 }
-
-.off-comment-target{
-    margin-bottom: 20px;
-}*/
+*/
+.off-comment-target {
+  padding: 2%;
+}
 .off-col-comment {
   border-left: 4px solid #ff6600;
 }
@@ -15147,6 +15270,9 @@ textarea {
 }
 .off-form-comment {
   margin-bottom: 20px;
+  -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
 }
 .off-com-btn {
   background-color: #ff6600;
@@ -15217,6 +15343,28 @@ textarea {
 .off-butt-add {
   float: none;
   padding: 7px 12px;
+}
+.off-col-btn-new-off {
+  margin-top: 20px;
+}
+.off-panel-dimension {
+  margin-top: 15px;
+}
+.off-panel-dimension .panel-heading {
+  color: #ffffff;
+  font-weight: 600;
+}
+.off-price-offer .form-group {
+  margin-bottom: 20px;
+}
+.off-price-offer .input-group-addon {
+  border: 1px solid #CCC;
+}
+.off-texto-matizar p {
+  font-size: 12px;
+}
+.off-message-user .btn-default .btn {
+  margin-bottom: 0;
 }
 /* ##### FIN USER-LIST-OFFERS ##### */
 /* ***** HOUSE-RENTS ***** */
