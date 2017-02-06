@@ -273,4 +273,9 @@ class ProfileCarController extends Controller{
         endif;
         return $response;
     }
+
+    public function showCarAction(Request $request){
+        $car = $this->getCar($request);
+
+    }
 }

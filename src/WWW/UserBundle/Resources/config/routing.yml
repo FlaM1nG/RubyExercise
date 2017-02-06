@@ -160,6 +160,12 @@ user_profileListCars:
     path: /profile/car/list/
     defaults: { _controller: UserBundle:ProfileCar:listCar }
 
+user_profileCar:
+    path: /profile/car/{idCar}
+    defaults: { _controller: UserBundle:ProfileCar:showCar }
+        requirements:
+                idMessage: \d+
+
 user_ajax_deleteCar:
     path: /ajax/deleteCar
     defaults: { _controller: UserBundle:ProfileCar:deleteCar }
