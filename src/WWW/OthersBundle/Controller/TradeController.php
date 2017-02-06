@@ -247,8 +247,8 @@ class TradeController extends Controller{
             $this->sendMessage($request);
 
         elseif($formSubscribe->isSubmitted()):
-            $this->offerSubscribe($this->trade);
-
+            $this->offerSubscribe($this->trade );
+             return $this->redirectToRoute('acme_payment_homepage', array('idOffer'=> $this->trade->getOffer()->getId()));
         endif;
 
         return $this->render('offer/offTrade.html.twig',array(
@@ -347,7 +347,7 @@ class TradeController extends Controller{
         $data['offer_id'] = $trade->getOffer()->getId();
         
         $result = $ch->resultApiRed($data, $file);
-
+       
     }
     
     private function formArrayData(){
