@@ -169,3 +169,7 @@ user_profileEditCar:
     defaults: { _controller: UserBundle:ProfileCar:editCar }
     requirements:
             idMessage: \d+
+
+user_ajax_deleteImgCar:
+    path: /ajax/deleteImgCar
+    defaults: { _controller: UserBundle:ProfileCar:deleteImgCar }
