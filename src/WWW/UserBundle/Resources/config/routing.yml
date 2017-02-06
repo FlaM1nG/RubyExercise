@@ -169,3 +169,8 @@ user_profileEditCar:
     defaults: { _controller: UserBundle:ProfileCar:editCar }
     requirements:
             idMessage: \d+
+
+
+user_profileDesignObjects:
+    path: /profile/objects/design
+    defaults: { _controller: UserBundle:Default:objects }
