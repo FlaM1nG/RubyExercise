@@ -676,4 +676,33 @@ class Car
     {
         return $this->type;
     }
+    /**
+     * @var \WWW\CarsBundle\Entity\Model
+     */
+    private $model;
+
+
+    /**
+     * Set model
+     *
+     * @param \WWW\CarsBundle\Entity\Model $model
+     *
+     * @return Car
+     */
+    public function setModel(\WWW\CarsBundle\Entity\Model $model = null)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return \WWW\CarsBundle\Entity\Model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
 }

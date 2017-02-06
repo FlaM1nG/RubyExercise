@@ -150,7 +150,11 @@ class Car {
                 $key = Inflector::camelize($key);
 
                 if(property_exists('WWW\CarsBundle\Entity\Car',$key)):
-                    $this->$key = $value;
+                    if($key != 'model'):
+                        $this->$key = $value;
+                    else:
+                        $this->model = new Model($data['model_id'],$data['model'],null,$data['brand']);
+                    endif;
                 endif;
 
             endforeach;

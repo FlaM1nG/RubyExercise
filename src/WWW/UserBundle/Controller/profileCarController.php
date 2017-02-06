@@ -22,17 +22,12 @@ class ProfileCarController extends Controller{
 
     public function newCarAction(Request $request){
 
-        $arrayBrand = null;
-        $arrayModel = null;
-
         $car = new Car();
-        $this->getDataCar($request, $arrayBrand, $arrayModel);
 
         $form = $this->createForm(CarType::class, $car);
 
-
         $form->handleRequest($request);
-        $form->get('brand')->setData($arrayBrand);
+
         if($form->isSubmitted()):
             $result = $this->saveNewCar($request, $car);
 
@@ -42,24 +37,8 @@ class ProfileCarController extends Controller{
         endif;
 
         return $this->render('UserBundle:Profile:Car/profileNewCar.html.twig',
-                        array('form' => $form->createView(),
-                              'car' => $car));
-    }
-
-    private function getDataCar(Request $request, $arrayBrand, $arrayModel){
-
-        $file = MyConstants::PATH_APIREST.'user/car/get_cars_data.php';
-        $ch = new ApiRest();
-        $data = null;
-        $result = $ch->resultApiRed($data,$file);
-
-        foreach($result['brands'] as $brand):
-            $arrayBrand[$brand['id']] = $brand['name'];
-
-            foreach($brand['models'] as $key => $value):
-                $arrayModel[$brand['id']] = $value;
-            endforeach;
-        endforeach;
+            array('form' => $form->createView(),
+                'car' => $car));
     }
 
     private function saveNewCar(Request $request, $car){
@@ -72,8 +51,11 @@ class ProfileCarController extends Controller{
         $data['id_user'] = $request->getSession()->get('id');
         $data['password'] = $request->getSession()->get('password');
         $data['plate'] = "'".$car->getPlate()."'";
-        $data['color'] = "'".$car->getColor()."'";
+        $data['color'] = "'".$car->getColor()->getColor()."'";
         $data['description'] = "'".$car->getDescription()."'";
+        $data['model_id'] = $car->getModel()->getId();
+        $data['type'] = "'".$car->getType()."'";
+        $data['seats'] = "'".$car->getSeats()."'";;
 
         if(!empty($car->getSmoke())):
             $data['smoke'] = 1;
@@ -122,7 +104,7 @@ class ProfileCarController extends Controller{
         $arrayCars = $this->getCarsUser($request);
 
         return $this->render('UserBundle:Profile:Car/profileListCar.html.twig',
-                        array('arrayCars' => $arrayCars));
+            array('arrayCars' => $arrayCars));
     }
 
     private function getCarsUser(Request $request){
@@ -148,6 +130,26 @@ class ProfileCarController extends Controller{
 
     public function editCarAction(Request $request){
 
+        $car = $this->getCar($request);
+        $form = $this->createForm(CarType::class,$car);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()):
+            $this->updateCar($request,$car);
+        endif;
+
+        return $this->render('UserBundle:Profile/Car:profileNewCar.html.twig',
+            array('form' => $form ));
+
+    }
+
+    public function getCar(Request $request){
+//        $id = $request->get('idCar');
+//        $file = MyConstants::PATH_APIREST.'/user/car/get_cars.php';
+//        $ch = new ApiRest();
+//
+//        $data['id']
     }
 
     public function deleteCarAction(Request $request){
