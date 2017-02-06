@@ -19,6 +19,18 @@ WWW\CarsBundle\Entity\ShareCar:
             type: datetime
         price:
             type: float
+        backTwo:
+            type: boolean
+            nullable: true
+        autobooking:
+            type: boolean
+            nullable: true
+    oneToOne:        
+        offer:
+            targetEntity: WWW\ServiceBundle\Entity\Offer
+            joinColumn:
+                referencedColumnName: id
+                onDelete: CASCADE
     manyToOne:
         car:
             targetEntity: Car
