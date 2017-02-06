@@ -46,12 +46,7 @@ class CarType extends AbstractType{
                                                             'required' => false ))
 
             ->add('seats', IntegerType::class,array('label'=>'Número de plazas'))
-            ->add('brand', ChoiceType::class, array('label' => 'Marca',
-                                                    'required' => false,
-                                                    'empty_value' => false,
-                                                    'choices' => $arrayBrand,
-                                                    'mapped' => false
-                                                ))
+
             ->add('model', ChoiceType::class, array('label' => 'Modelo',
                                                     'choices' => $arrayModel,
                                                     'choice_value' => 'id',
@@ -60,7 +55,6 @@ class CarType extends AbstractType{
                                                 ))
             ->add('type', ChoiceType::class, array('label' => 'Tipo de coche',
                                                     'choices' => $arrayType,
-//                                                    'choices_as_values' => true,
                                                 ))
             ->add('smoke', CheckboxType::class, array('label' => 'Se permite fumar',
                                                       'required' => false))
@@ -72,6 +66,27 @@ class CarType extends AbstractType{
                                                      'required' => false))
             ->add('file', FileType::class, array('mapped' => false))
             ->add('saveNewCar', SubmitType::class, array('label' => 'Guardar'));
+
+        if(!empty($options['data']->getModel())):
+
+            $builder
+                 ->add('brand', ChoiceType::class, array('label' => 'Marca',
+                                                        'required' => false,
+                                                        'empty_value' => false,
+                                                        'choices' => $arrayBrand,
+                                                        'mapped' => false,
+                                                        'data' => $options['data']->getModel()->getBrand()->getId()
+                                                         ));
+        else:
+
+            $builder
+                ->add('brand', ChoiceType::class, array('label' => 'Marca',
+                                                        'required' => false,
+                                                        'empty_value' => false,
+                                                        'choices' => $arrayBrand,
+                                                        'mapped' => false,
+                ));
+        endif;
             
     }
 
@@ -91,7 +106,7 @@ class CarType extends AbstractType{
         $ch = new ApiRest();
         $data = null;
         $result = $ch->resultApiRed($data,$file);
-//print_r($result['brands']);
+
         foreach($result['brands'] as $brand):
 
             $arrayBrand[$brand['id']] = $brand['name'];
@@ -103,9 +118,6 @@ class CarType extends AbstractType{
         endforeach;
 
 
-//        $arrayColor = $result['colors'];
-//        $arrayType = $result['types'];
-        
         foreach($result['types'] as $key => $value):
             $arrayType[$value] = $value;
         endforeach;
@@ -115,7 +127,6 @@ class CarType extends AbstractType{
             $arrayColor[] = new ColorCar($value);
         endforeach;
 
-//        print_r($arrayColor);
 
 
     }
