@@ -26,6 +26,7 @@
 
 {% block bodyProfile %}
 
+{#{{ dump(form) }}#}
     <form action="{{ path('user_profileNewCar') }}" method="post" {{ form_enctype(form) }}>
         {{ form_row(form.brand) }}
         {{ form_row(form.model) }}
@@ -53,7 +54,29 @@
     <script src="{{ asset('js/fileinput.js') }}"></script>
 
     <script type="text/javascript">
+            brand = $('#newCar_brand');
+            models = $('#newCar_model').clone();
+
+            brandSelected = $('#newCar_brand option:selected').text();
+
+            var options =  models.find('optgroup[label="'+brandSelected+'"]').html();
+
+            $('#newCar_model').find('optgroup').remove();
+            $('#newCar_model').append(options);
+
         $(document).ready(function(){
+
+            $(document).on('change','#newCar_brand',changeModel);
+
+            function changeModel(){
+
+                var marca = $('#newCar_brand option:selected').text();
+                var options =  models.find('optgroup[label="'+marca+'"]').html();
+
+                $('#newCar_model').find('option').remove();
+                $('#newCar_model').append(options);
+
+            }
 
             $(".file-loading").fileinput({
 
@@ -70,4 +93,3 @@
         });
     </script>
 {% endblock %}
-
