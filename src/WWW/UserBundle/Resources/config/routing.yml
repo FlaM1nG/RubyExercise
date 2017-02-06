@@ -176,6 +176,11 @@ user_profileEditCar:
     requirements:
             idMessage: \d+
 
+
+user_profileDesignObjects:
+    path: /profile/objects/design
+    defaults: { _controller: UserBundle:Default:objects }
+
 user_ajax_deleteImgCar:
     path: /ajax/deleteImgCar
     defaults: { _controller: UserBundle:ProfileCar:deleteImgCar }

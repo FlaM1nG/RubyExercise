@@ -70,7 +70,7 @@ class LoginController extends Controller{
                $path =$session->get('_security.user.target_path');
                var_dump($path);
                if($path==NULL || $path=='user_register'){
-                   return $this->redirectToRoute('homepage');
+                   return $this->redirectToRoute('user_profiler');
                }
                else{  
                    return $this->redirect($path);

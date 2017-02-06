@@ -25,6 +25,12 @@
 
 
 {% block bodyProfile %}
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Agregar un nuevo coche
+            </h3>
+            <hr/>
 
 {#{{ dump(form) }}#}
     <form action="{{ path('user_profileNewCar') }}" method="post" {{ form_enctype(form) }}>
@@ -43,6 +49,8 @@
         <input id="imgCar" name="imgCar[]" type="file" multiple class="file-loading" accept="image/*" required >
         {{ form_row(form.saveNewCar) }}
 
+        </div>
+    </div>
 {% endblock %}
 
 
@@ -92,4 +100,6 @@
             });
         });
     </script>
+
 {% endblock %}
+

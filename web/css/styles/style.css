@@ -12267,6 +12267,22 @@ a.boton-leer-post:focus {
   overflow: hidden;
   border: 5px #ff6600 solid;
   float: right;
+  padding: 0;
+  position: relative;
+}
+.us-pro-public-img {
+  max-width: none;
+  position: absolute;
+  left: -50%;
+  top: -50%;
+  min-width: 100%;
+}
+.us-redactar-mess {
+  margin-bottom: 20px;
+}
+.us-redactar-mess .us-writte-btn {
+  padding: 6px 12px;
+  float: none;
 }
 .us-date-ing {
   font-style: italic;
@@ -12276,7 +12292,7 @@ a.boton-leer-post:focus {
   height: 50px;
   border-radius: 500px;
   overflow: hidden;
-  margin: 10px auto 0px;
+  margin: 10px auto 0;
 }
 .us-row-hea-pu,
 .us-val-elem,
@@ -12296,7 +12312,7 @@ a.boton-leer-post:focus {
   text-align: center;
 }
 .us-col-username .off-vote {
-  padding-right: 0px;
+  padding-right: 0;
 }
 .us-off-img-small {
   height: 200px;
@@ -12314,7 +12330,7 @@ a.boton-leer-post:focus {
   padding-top: 70px;
 }
 .us-row-sep hr {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 .us-see-more {
   text-align: center;
@@ -12340,7 +12356,7 @@ a.boton-leer-post:focus {
 .btn-default.btn.editAddress,
 .btn-default.btn.deleteAddress {
   padding: 5px 10px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   float: left;
   margin-right: 10px;
 }
@@ -12355,11 +12371,9 @@ a.boton-leer-post:focus {
   color: #ffffff;
 }
 .us-address-target2 .btn-default:hover {
-  border-color: #ff6600;
-  border: 1px solid;
+  border: 1px solid #ff6600;
 }
 .us-address-target2 .btn-default {
-  border-color: #ff6600;
   border: 1px solid #ff6600;
 }
 .us-offer-target {
@@ -12372,7 +12386,7 @@ a.boton-leer-post:focus {
 }
 .us-btn-edit-address {
   padding: 5px 10px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   float: left;
 }
 .us-message-target {
@@ -12421,11 +12435,11 @@ a.boton-leer-post:focus {
 /* ***** FIN PROFILE ***** */
 /* ***** REGISTER ***** */
 .us-profile {
-  padding: 20px 0px;
+  padding: 20px 0;
   min-height: 650px;
 }
 .tab-content {
-  margin: 20px 0px;
+  margin: 20px 0;
 }
 .nav-tabs > li > a {
   font-size: 20px;
@@ -12458,7 +12472,7 @@ a.boton-leer-post:focus {
 .us-check-group-element {
   display: inline-block;
   text-align: center;
-  padding: 0 0px 25px;
+  padding: 0 0 25px;
 }
 .us-register-text-hobby {
   display: block;
@@ -12577,6 +12591,19 @@ input#registroUsuario_captcha {
   width: 50%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 10px;
+}
+.us-login-cont .us-login-register {
+  text-align: center;
+}
+.us-login-cont .us-login-forgot {
+  text-align: right;
+}
+.us-login-cont .us-login-forgot p {
+  font-size: 14px;
+}
+.us-forgot-pass {
+  min-height: 350px;
 }
 /* ##### FIN LOGIN ##### */
 /* *****  ***** */
@@ -12614,6 +12641,26 @@ input#registroUsuario_captcha {
 .us-btn-phoneProfile {
   padding: 6px 12px;
   float: left;
+}
+.us-writte-message #message_enviar,
+.us-writte-message #us-cancelar-message {
+  float: left;
+  padding: 6px 12px;
+  margin-right: 10px;
+}
+.us-trade-offer #trade_saveTrade {
+  float: none;
+  padding: 6px 12px;
+  margin-top: 20px;
+}
+.us-trade-offer samp {
+  display: none;
+}
+.us-trade-offer .file-drag-handle.drag-handle-init.text-info {
+  display: none;
+}
+.us-trade-offer .input-group-addon {
+  border: 1px solid #f4f4f4;
 }
 /* ##### FIN  ##### */
 /* *****  ***** */
@@ -12655,7 +12702,7 @@ Main Page Content
   .cd-main-content .content-wrapper {
     margin-left: 110px;
     /*padding-top: 55px;*/
-    padding: 0px 5% 0em;
+    padding: 0 5% 0;
   }
   /*  .cd-main-content .content-wrapper h1 {
         padding: 4em 0;
@@ -12669,7 +12716,7 @@ Main Page Content
 @media only screen and (min-width: 1170px) {
   .cd-main-content .content-wrapper {
     margin-left: 200px;
-    padding: 0px 5% 0em;
+    padding: 0 5% 0;
   }
   .cd-main-content::before {
     content: 'desktop';
@@ -12765,11 +12812,11 @@ Header
   transform: translateZ(0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transform-origin: 0% 50%;
-  -moz-transform-origin: 0% 50%;
-  -ms-transform-origin: 0% 50%;
-  -o-transform-origin: 0% 50%;
-  transform-origin: 0% 50%;
+  -webkit-transform-origin: 0 50%;
+  -moz-transform-origin: 0 50%;
+  -ms-transform-origin: 0 50%;
+  -o-transform-origin: 0 50%;
+  transform-origin: 0 50%;
   -webkit-transition: -webkit-transform 0.2s;
   -moz-transition: -moz-transform 0.2s;
   transition: transform 0.2s;
@@ -12976,7 +13023,6 @@ Sidebar
 }
 .user-icon-menu {
   font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -12991,7 +13037,6 @@ Sidebar
   content: "\f007";
   /*font-size: 16px;*/
   font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -13002,7 +13047,6 @@ Sidebar
 }
 .cd-side-nav > ul > li.comments > a::before {
   font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -13012,7 +13056,6 @@ Sidebar
 .cd-side-nav > ul > li.addressUser > a::before {
   /*background-position: -32px 0;*/
   font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -13022,7 +13065,6 @@ Sidebar
 .cd-side-nav > ul > li.offerUser > a::before {
   /*background-position: 0 0;*/
   font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -13359,7 +13401,7 @@ Sidebar
     display: inline-block;
   }
   .us-login-cont {
-    padding-top: 0px;
+    padding-top: 0;
   }
   .us-login-cont .row {
     width: inherit;
@@ -13370,7 +13412,7 @@ Sidebar
     text-align: left;
   }
   .us-dataPersonal-row {
-    padding: 0px 0 20px;
+    padding: 0 0 20px;
   }
 }
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
@@ -13395,14 +13437,14 @@ Sidebar
   }
   .us-login-cont .captcha_reload {
     font-size: inherit;
-    margin: 5px 0px;
+    margin: 5px 0;
     display: table;
   }
   .us-offer-target {
-    border-left: 0px solid #ff6600;
+    border-left: 0 solid #ff6600;
   }
   .us-address-target {
-    border-left: 0px solid #ff6600;
+    border-left: 0 solid #ff6600;
   }
 }
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
@@ -13415,7 +13457,7 @@ Sidebar
   }
   .captcha_reload {
     font-size: inherit;
-    margin: 5px 0px;
+    margin: 5px 0;
     display: block;
     width: 35%;
   }
@@ -14872,6 +14914,41 @@ textarea {
 }
 /* ------------------ MENU DE ADMINISTRACI�N  ------------------
 ******************************************************************/
+.a2a_svg.a2a_s__default {
+  height: 36px !important;
+  width: 36px !important;
+}
+.a2a_default_style a {
+  padding: 0 5px !important;
+}
+#off-img-big .owl-page span {
+  background: #ff6600;
+}
+#off-img-small.owl-carousel.owl-theme {
+  position: relative;
+}
+#off-img-small.owl-carousel.owl-theme .owl-next,
+#off-img-small.owl-carousel.owl-theme .owl-prev {
+  width: 22px;
+  height: 40px;
+  margin-top: -20px;
+  position: absolute;
+  top: 40%;
+}
+#off-img-small.owl-carousel.owl-theme .owl-prev {
+  left: 10px;
+  background: none;
+  font-size: 36px;
+  color: #ff6600;
+  opacity: 1;
+}
+#off-img-small.owl-carousel.owl-theme .owl-next {
+  right: 10px;
+  background: none;
+  font-size: 36px;
+  color: #ff6600;
+  opacity: 1;
+}
 /* ***** OFFER ***** */
 .off-container {
   padding-top: 30px;
@@ -14987,12 +15064,12 @@ textarea {
 .off-icon-secund-ok {
   color: #ff6600;
   font-size: 20px;
-  width: 0px !important;
+  width: 0 !important;
   padding-right: 25px;
 }
 .off-icon-secund-no {
   font-size: 20px;
-  width: 0px !important;
+  width: 0 !important;
   padding-right: 25px;
 }
 .off-target-prin-text {
@@ -15066,7 +15143,7 @@ textarea {
   color: #ffffff;
   vertical-align: middle;
   font-weight: 600;
-  padding: 0px 10px;
+  padding: 0 10px;
 }
 .off-form-comment {
   margin-bottom: 20px;
@@ -15107,8 +15184,8 @@ textarea {
 .us-off-element-ex .us-off-exp {
   min-width: 100%;
   position: absolute;
-  left: 0%;
-  top: 0%;
+  left: 0;
+  top: 0;
   background-color: rgba(51, 51, 51, 0.8);
   padding: 2%;
   text-align: center;
@@ -15173,7 +15250,7 @@ textarea {
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width: 768px) {
   .off-container {
-    padding-top: 0px;
+    padding-top: 0;
   }
   .off-img-marco-grande {
     height: 300px;
@@ -15182,7 +15259,7 @@ textarea {
     display: none !important;
   }
   .off-col-other-date-sec {
-    padding-bottom: 0px;
+    padding-bottom: 0;
     min-height: 50px;
   }
 }
@@ -15208,7 +15285,7 @@ textarea {
         display: block;
         margin: 0 auto;
     }
-    
+
     .off-target-prin {
         font-weight: 600;
     }*/
@@ -15262,6 +15339,136 @@ textarea {
 }
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
+.rating-loading {
+  width: 25px;
+  height: 25px;
+  font-size: 0;
+  color: #fff;
+  background: transparent url('../../../img/loading.gif') top left no-repeat;
+  border: none;
+}
+/*
+ * Stars
+ */
+.rating-container .rating {
+  cursor: default;
+  position: relative;
+  vertical-align: middle;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.rating-disabled .rating {
+  cursor: not-allowed;
+}
+.rating-container .star {
+  display: inline-block;
+  margin: 0 3px;
+  text-align: center;
+}
+.rating-container .empty-stars {
+  color: #ff6600;
+}
+.rating-container .filled-stars {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: auto;
+  color: #ff6600;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-text-stroke: 1px #ff6600;
+  text-shadow: 1px 1px #333333;
+}
+.rating-rtl {
+  float: right;
+}
+.rating-animate .filled-stars {
+  transition: width 0.25s ease;
+  -o-transition: width 0.25s ease;
+  -moz-transition: width 0.25s ease;
+  -webkit-transition: width 0.25s ease;
+}
+.rating-rtl .filled-stars {
+  left: auto;
+  right: 0;
+  -moz-transform: matrix(-1, 0, 0, 1, 0, 0) translate3d(0, 0, 0);
+  -webkit-transform: matrix(-1, 0, 0, 1, 0, 0) translate3d(0, 0, 0);
+  -o-transform: matrix(-1, 0, 0, 1, 0, 0) translate3d(0, 0, 0);
+  transform: matrix(-1, 0, 0, 1, 0, 0) translate3d(0, 0, 0);
+}
+.rating-rtl.is-star .filled-stars {
+  right: 0.06em;
+}
+.rating-rtl.is-heart .empty-stars {
+  margin-right: 0.07em;
+}
+/**
+ * Sizes
+ */
+.rating-xl {
+  font-size: 4.89em;
+}
+.rating-lg {
+  font-size: 3.91em;
+}
+.rating-md {
+  font-size: 3.13em;
+}
+.rating-sm {
+  font-size: 2.5em;
+}
+.rating-xs {
+  font-size: 2em;
+}
+.rating-xl {
+  font-size: 4.89em;
+}
+/**
+ * Clear
+ */
+.rating-container .clear-rating {
+  color: #aaa;
+  cursor: not-allowed;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 60%;
+}
+.clear-rating-active {
+  cursor: pointer !important;
+}
+.clear-rating-active:hover {
+  color: #843534;
+}
+.rating-container .clear-rating {
+  padding-right: 5px;
+}
+/**
+ * Caption
+ */
+.rating-container .caption {
+  color: #999;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 60%;
+  margin-top: -0.6em;
+}
+.rating-container .caption {
+  margin-left: 5px;
+  margin-right: 0;
+}
+.rating-rtl .caption {
+  margin-right: 5px;
+  margin-left: 0;
+}
+/**
+ * Print
+ */
+@media print {
+  .rating-container .clear-rating {
+    display: none;
+  }
+}
 /* ------------------ MENU DE ADMINISTRACI�N  ------------------
 ******************************************************************/
 /* ***** BODY ***** */

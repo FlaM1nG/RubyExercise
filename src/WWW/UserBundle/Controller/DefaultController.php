@@ -97,4 +97,8 @@ class DefaultController extends Controller{
         endif;
 
     }
+
+    public function objectsAction(Request $request){
+        return $this->render('UserBundle:Profile/Objects:objets.html.twig');
+    }
 }

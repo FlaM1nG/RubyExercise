@@ -89,7 +89,8 @@ class ProfileController extends Controller{
             //$this->fillUser($result);
             $this->user = new User($result);
 //        return $result;
- 
+
+//        print_r($this->user);
 //
 //            $this->usuario = new User($result);
 //        if($result['result'] == 'ok'):
