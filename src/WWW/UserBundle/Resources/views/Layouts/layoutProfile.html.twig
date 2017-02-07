@@ -110,7 +110,12 @@
                         active
                     {% endif %}
                     ">
-                        <a href="{{ path('user_profileMessage') }}">Mensajes<span class="count">{{app.session.get('numMessage')}}</span></a>
+                        <a href="{{ path('user_profileMessage') }}">
+                            Mensajes
+                            {% if app.session.get('numMessage') > 0 %}
+                            <span class="count">{{app.session.get('numMessage')}}</span>
+                            {% endif %}
+                        </a>
 
                         <ul>
                             <li><a href="{{path('user_profileNewMessage')}}">Redactar</a></li>
