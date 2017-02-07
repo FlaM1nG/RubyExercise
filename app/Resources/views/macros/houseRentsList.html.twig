@@ -1,0 +1,224 @@
+{% macro imageBig(href, src, lg, md, sm, xs) %}
+<div class="col-lg-{{ lg|default('4') }} 
+    col-md-{{ md|default('4') }} 
+    col-sm-{{ sm|default('12') }}
+    col-xs-{{ xs|default('12') }}
+    col-hre-img-prin">
+    <a href="{{ href|default('#') }}">
+        <img class="img-responsive hre-img-prin" src="{{ src|e }}"  alt="">
+    </a>
+            
+            
+</div>
+{% endmacro %}
+
+
+
+
+{% macro imageSmall(href, src) %}
+<div class="row row-hre-img-secon">
+    <a href="{{ href|default('#') }}">
+        <img class="img-responsive hre-img-other hre-img-other1"  
+            src="{{ src|e }}" 
+            alt="">
+    </a>
+            
+            
+</div>
+{% endmacro %}
+
+
+
+
+{% macro title(href, title) %}
+<div class="row">
+    <h4>
+        <a href="{{ href|default('#') }}" class="hre-title-grid">
+            {{ title|e|capitalize }}
+        </a>
+
+
+    </h4>
+        
+        
+</div>
+{% endmacro %}
+
+
+
+
+{% macro data(capacidad, habitaciones, banos) %}
+<div class="row row-hre-data">
+    <span>Capacidad {{ capacidad }}, </span>
+    <span>Habitaciones {{ habitaciones }}, </span>
+    <span>Baños {{ banos }} </span>
+</div>
+{% endmacro %}
+
+
+
+
+{% macro price(price) %}
+<span class="hre-price">
+    {{ price }}€/dia
+</span>
+{% endmacro %}
+
+
+
+
+{% macro element(hrefOffer, srcImgBig, srcImgSmallF, srcImgSmallS, title, 
+    capacidad, habitaciones, banos, hrefUser, srcImgUser, nameUser, price,
+    vote ) %}
+<!-- ELEMENT -->
+<div class="row row-hre-element">
+    <!-- COLUMNA IMAGEN PRICIPAL -->
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 col-hre-img-prin">
+        <a href="{{ hrefOffer|e }}">
+            <img class="img-responsive hre-img-prin" 
+                src="{{ srcImgBig|e }} " 
+                alt="">
+        </a>
+    </div>
+    <!-- FIN COLUMNA IMAGEN PRICIPAL -->
+    
+    
+    <!-- COLUMNA IMAGENES SECUNDARIAS -->
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 col-hre-second ">
+        <!-- SEGUNDA IMAGEN -->
+        <div class="row row-hre-img-secon">
+            <a href="{{ hrefOffer|e }}">
+                <img class="img-responsive hre-img-other hre-img-other1" 
+                    src="{{ srcImgSmallF|e }}" 
+                    alt="">
+            </a>
+        </div>
+        <!-- FIN SEGUNDA IMAGEN -->
+        
+        
+        <!-- TERCERA IMAGEN -->
+        <div class="row row-hre-img-secon">
+            <a href="{{ hrefOffer|e }}">
+                <img class="img-responsive hre-img-other" 
+                    src="{{ srcImgSmallS|e }} " 
+                    alt="">
+            </a>
+        </div>
+        <!-- FIN TERCERA IMAGEN -->
+        
+        
+    </div>
+    <!-- FIN COLUMNA IMAGENES SECUNDARIAS -->
+    
+    
+    <!-- COLUMNA  DATOS -->
+    <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 col-hre-data">
+        <!-- FILA TITULO, DATOS Y USUARIO -->
+        <div class="row row-hre-title-user">
+            <!-- COLUMNA TITULO Y DATOS -->
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                <!-- TITULO -->
+                <div class="row">
+                    <h4>
+                        <a href="{{ hrefOffer|e }}" class="hre-title-grid">
+                            {{ title|e|capitalize }}
+                        </a>
+                    </h4>
+                </div>
+                <!-- FIN TITULO -->
+                
+                
+                <!-- DATOS -->
+                <div class="row row-hre-data">
+                    {% if capacidad > 0 %}
+                        <span>Capacidad {{ capacidad|trim }}{% if habitaciones > 0 or banos > 0 %}{{ ','|trim }}{% endif %}
+                        </span>
+                    {% endif %}
+                    
+                    
+                    {% if habitaciones > 0 %}
+                        <span>Habitaciones {{ habitaciones|trim }}{% if banos > 0 %}{{ ','|trim }}{% endif %}
+                        </span>
+                    {% endif %}
+                    
+                    
+                    
+                    {% if banos > 0 %}
+                        <span>Baños {{ banos|trim }} </span>
+                    {% endif %}
+                </div>
+                <!-- FIN DATOS -->
+                
+                
+            </div>
+            <!-- FIN COLUMNA TITULO Y DATOS -->
+            
+            
+            <!-- COLUMNA USUARIO -->
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-hre-user">
+                <!-- IMAGEN USUARIO -->
+                <div class="row">
+                    <a href="{{ hrefUser|e }}">
+                        <img class="center-block img-circle 
+                            img-responsive" 
+                            src="{{ srcImgUser|e }}" 
+                            width="50" alt="">
+                    </a>
+                </div>
+                <!-- FIN IMAGEN USUARIO -->
+                
+                
+                <!-- NOMBRE USUARIO -->
+                <div class="row row-hre-user-name">
+                    <a href="{{ hrefUser|e }}" class="hre-user-name-grid">
+                        {{ nameUser|e }}
+                    </a>
+                        
+                        
+                </div>
+                <!-- FIN NOMBRE USUARIO -->
+                
+                
+            </div>
+            <!-- FIN COLUMNA USUARIO -->
+            
+            
+        </div>
+        <!-- FIN FILA TITULO, DATOS Y USUARIO -->
+        
+        
+        <!-- VALORACIÓN Y PRECIO DIA -->
+        <div class="row">
+            <!-- VALORACIONES -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="rating hre-rating">
+                        <span>☆</span>
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                    </div>
+            </div>
+            <!-- FIN VALORACIONES -->
+            
+            
+            <!-- PRECIO DIA -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-hre-price">
+                <span class="hre-price">
+                    {{ price|e }}€/dia
+                </span>
+            </div>
+            <!-- FIN PRECIO DIA -->
+            
+            
+        </div>
+        <!-- FIN VALORACIÓN Y PRECIO DIA -->
+        
+        
+    </div>
+    <!-- FIN COLUMNA  DATOS -->
+    
+    
+</div>
+<!-- FIN ELEMENT -->
+{% endmacro %}

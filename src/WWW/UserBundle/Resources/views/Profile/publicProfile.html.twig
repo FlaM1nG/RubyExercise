@@ -1,0 +1,246 @@
+{% extends '::base.html.twig' %}
+{% import 'macros/alert.html.twig' as alerts %}
+
+{% block stylesheets %}
+    {{parent()}}
+
+    {#<link href="{{asset("css/styles/starRating/star-rating.css")}}" media="all" rel="stylesheet" type="text/css" />#}
+
+{% endblock %}
+
+{% block title %}
+    Profile Public
+{% endblock %}
+
+{% block nav %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block alert %}
+
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container cd-main-content us-pro-public-cont">
+    <!-- FILA IMG PROFILE AND USERNAME -->
+    <div class="row us-row-header-public">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="us-pro-pub-marco">
+                <img class="img-responsive us-pro-public-img"
+                     src="{{ asset(profile.photo.url|default('web/img/userDefault.jpg'),'img') }}"/>
+            </div>
+        </div>
+
+
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <h2>{{ profile.username }}</h2>
+            <p>
+                Edad:
+                <span class="us-date-ing">{{ ('now'|date('Y') - profile.birthdate|date('Y') - 1) }}</span>
+            </p>
+            <div class="row off-row-rating">
+                <div class="col-lg-12">
+                    <span class="off-vote"> 
+                        <!-- VALORACIONES -->
+                        <input id=""
+                               class="valoration rating rating-loading"
+                               data-show-clear="false"
+                               data-show-caption="false"
+                               data-display-only="true"
+                               type="number"
+                               step="1"
+                               value="{{ profile.avg_score }}" />
+
+                        <!-- FIN VALORACIONES -->
+
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN FILA IMG PROFILE AND USERNAME -->
+
+
+    <div class="row us-row-sep">
+        <div class="col-lg-12">
+            <h3>
+                Valoraciones recibidas
+            </h3>
+            <hr/>
+        </div>
+    </div>
+
+    <!-- ELEMENTO VALORACION USER -->
+    {% for valoration in profile.valorations %}
+    <div class="us-val-elem">
+        <div class="row">
+            <!-- USER VALORACION -->
+            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 us-col-username">
+                <div class="row">
+                    <div class="us-pub-img-small">
+                        <a href="{{ path('user_public_profile',{username: valoration.username}) }}">
+                            <img class="img-responsive img-circle"
+                                src="{{ asset(valoration.user_photo|default('web/img/userDefault.jpg'),'img') }}"/>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <a href="{{ path('user_public_profile',{username: valoration.username}) }}">
+                        <h5>{{ valoration.username }}</h5>
+                    </a>
+                </div>
+
+
+                <div class="row off-row-rating">
+                    <div class="col-lg-12">
+                        <span class="off-vote"> 
+                            <!-- VALORACIONES -->
+                            <input id=""
+                                   class="valoration rating rating-loading"
+                                   data-show-clear="false"
+                                   data-show-caption="false"
+                                   data-display-only="true"
+                                   type="number"
+                                   step="1"
+                                   value="{{ valoration.score }}" />
+
+                            <!-- FIN VALORACIONES -->
+
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <!-- FIN USER VALORACION -->
+
+
+            <!-- DATOS VALORACION -->
+            <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+                <p>
+                    {{ valoration.comment }}
+                </p>
+            </div>
+            <!-- FIN DATOS VALORACION -->
+
+
+        </div>
+
+
+    </div>
+    {% endfor %}
+    <!-- FIN ELEMENTO VALORACION USER -->
+    
+    
+    <div class="row us-row-more">
+        <div class="col-lg-12">
+            <div class="us-see-more">
+                <a href="#">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <span>Ver más</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row us-row-sep">
+        <div class="col-lg-12">
+            <h3>
+                Ofertas del usuario
+            </h3>
+            <hr/>
+        </div>
+    </div>
+
+
+    <!-- ELEMENTO OFERTA USER -->
+    {% for offer in profile.offers %}
+        {% if offer.service_id == 1 %}
+            {% set urlOffer = path('service_trade',{idOffer: offer.id}) %}
+        {% elseif offer.service_id == 2 %}
+            {% set urlOffer = path('service_clothes',{idOffer: offer.id}) %}
+        {% elseif offer.service_id == 3  %}
+            {% set urlOffer = path('service_barter',{idOffer: offer.id}) %}
+        {% endif %}
+
+    <div class="us-off-elem">
+        <div class="row">
+            <!-- IMAGEN OFERTA -->
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="us-off-img-small">
+                    <a href="{{ urlOffer }}">
+                        <img class="img-responsive us-img-off-publi"
+                            src="{{ asset(offer.offer_photo|default('web/img/placeholder.jpg'),'img') }}"/>
+                    </a>
+                </div>
+            </div>
+            <!-- FIN IMAGEN OFERTA -->
+
+
+            <!-- DATOS OFERTA -->
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                <a href="{{ urlOffer }}">
+                    <h3>
+                        {{ offer.title }}
+                    </h3>
+                </a>
+                <p>
+                    {{ offer.description|length > 140 ?  offer.description|slice(0, 140) ~ '...' :  offer.description }}
+                </p>
+                <a href="{{ urlOffer }}" class="btn btn-default">
+                    Ver Oferta
+                </a>
+            </div>
+            <!-- FIN DATOS OFERTA -->
+
+
+        </div>
+
+
+    </div>
+    {% endfor %}
+    <!-- ELEMENTO OFERTA USER  -->
+    
+    
+    <div class="row us-row-more">
+        <div class="col-lg-12">
+            <div class="us-see-more">
+                <a href="#">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <span>Ver más</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    {{ include('nav/menuScript.html.twig') }}
+
+    <script src="{{ asset('js/starRating/star-rating.js') }}"></script>
+
+    <script>
+        $(document).ready( function(){
+
+            $('.valoration').rating({
+                displayOnly: true,
+            });
+        })
+    </script>
+
+{% endblock %}

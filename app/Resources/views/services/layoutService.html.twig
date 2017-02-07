@@ -1,0 +1,127 @@
+{% extends '::base.html.twig' %}
+
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid cd-main-content 
+    {% block cssParallax %}{% endblock %} service-parallax">
+    <div class="container service-header 
+        {% block cssTitleParallax %}{% endblock %}">
+        <h1>
+            {% block serviceTitle %}  {% endblock %}
+        </h1>
+        {%if is_granted('ROLE_USER')%}
+            {% if routingNewOffer is defined   %}
+                <a href="{{ path(routingNewOffer) }}" type="button" class="btn btn-default off-butt-add">
+                    Añadir oferta
+                </a>
+            {% else %}
+                <a href="#" type="button" class="btn btn-default off-butt-add">
+                    Añadir oferta
+                </a>
+            {% endif %}
+        {%endif%}    
+    </div>
+</div>
+
+<!-- BODY -->
+<div class="container cd-main-content">
+    
+    <!-- SUBTITLE BLOCK  -->
+    <div class="row row-service-title">
+        {% block serviceSubTitle %}  {% endblock %}
+    </div>
+    <!-- END SUBTITLE BLOCK  -->
+    
+    <!-- LIST ELEMENTS WITH FILTERS -->
+    <div class="row separacion-inferior">
+        
+        <!-- COLUMN FILTERS -->
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            {#<div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a href="{{ path('service_newTrade') }}" type="button" class="btn btn-default off-butt-add">
+                        Añadir oferta
+                    </a>
+                </div>
+            </div>#}
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="filtro">
+                    {% block serviceFilters %} {% endblock %}
+                </div>
+            </div>
+        </div>
+        <!-- END COLUMN FILTERS -->
+        
+        <!-- COLUMN LIST ELEMENTS  -->
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
+            {% block serviceList %} {% endblock %}
+        </div>
+        <!-- END COLUMN LIST ELEMENTS -->
+        
+    </div>
+    <!-- END LIST ELEMENTS WITH FILTERS -->
+    
+</div>
+<!-- END BODY -->
+
+
+<div class="cd-main-content sid-cont">
+    <!-- SIDEBAR FLOATING -->
+    {% block serviceSidebar %} {% endblock %}
+    <!-- END SIDEBAR FLOATING -->
+</div>
+
+{% endblock %}
+
+{% block filtroMovil %}
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">Filters</h4>
+            </div>
+            <div class="modal-body">
+                {% block filtroMovilBody %}
+                {% endblock %}
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+      
+    </div>
+</div>
+{% endblock %}
+
+{% block javascriptsFooter %}
+{{ parent() }}
+
+{{ include('nav/menuScript.html.twig') }}
+
+{% endblock %}
+
+{% block footer %}
+    {{ include('footer/sponsorFooter.html.twig') }}
+    {{ parent() }}
+{% endblock %} 
+
+{% block zoneMobile %}
+<div class="cd-navigation menu-mobile-bank">
+    <!-- Trigger the modal with a button -->
+    <button type="button" 
+        class="btn btn-default" 
+        data-toggle="modal" 
+        data-target="#myModal">
+        Filters
+    </button>
+</div>            
+{% endblock %}

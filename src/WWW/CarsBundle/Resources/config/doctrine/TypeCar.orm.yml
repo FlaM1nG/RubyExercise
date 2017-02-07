@@ -1,0 +1,16 @@
+WWW\CarsBundle\Entity\TypeCar:
+    type: entity
+    table: null
+    repositoryClass: WWW\CarsBundle\Repository\TypeCarRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        type:
+            type: string
+            length: 255
+            unique: true
+    lifecycleCallbacks: {  }

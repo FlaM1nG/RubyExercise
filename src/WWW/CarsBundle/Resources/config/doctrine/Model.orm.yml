@@ -1,0 +1,23 @@
+WWW\CarsBundle\Entity\Model:
+    type: entity
+    table: null
+    repositoryClass: WWW\CarsBundle\Repository\ModelRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        slug:
+            type: string
+            length: 255
+    manyToOne:
+        brand:
+            targetEntity: Brand
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

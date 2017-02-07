@@ -10,3 +10,7 @@
 /vendor/
 /bin/
 /composer.phar
+/nbproject/private/
+/.idea
+/.idea/workspace.xml
+/components/*

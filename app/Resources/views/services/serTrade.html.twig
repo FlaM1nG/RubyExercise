@@ -1,0 +1,121 @@
+{% extends '::services/layoutService.html.twig' %}
+{% import '::macros/tradeList.html.twig' as trades %}
+{% import '::macros/filter.html.twig' as filters %}
+
+{% set pathFilter = '' %}
+{% set routingOffer = '' %}
+
+{% if service == 1 %}
+    {% set pathFilter = path('service_listTrade') %}
+    {% set routingOffer = 'service_trade' %}
+    {% set routingNewOffer = 'service_newTrade' %}
+
+{% elseif service == 2 %}
+    {% set pathFilter = path('service_listClothes') %}
+    {% set routingOffer = 'service_clothes' %}
+    {% set routingNewOffer = 'service_newClothes' %}
+
+{% elseif service == 3 %}
+    {% set pathFilter = path('service_listBarter') %}
+    {% set routingOffer = 'service_barter' %}
+    {% set routingNewOffer = 'service_newBarter' %}
+{% endif %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block cssParallax %}
+
+    {% if service == 1 %}
+        tra-parallax
+    {% elseif service == 2 %}
+        ropa-parallax
+    {% elseif service == 3 %}
+        trueque-parallax
+    {% endif %}
+
+{% endblock %}
+
+{% block cssTitleParallax %}
+sha-header-title
+{% endblock %}
+
+{% block serviceTitle %} 
+    {{ title }}
+{% endblock %}
+
+{% block serviceSubTitle %}  
+    {#{ include('services/subTitles/shareCarSubTitle.html.twig') }#}
+    {#<a href="{{ path('service_newTrade') }}" type="button" class="btn btn-default off-butt-add">
+        Añadir oferta
+    </a>#}
+{% endblock %}
+
+{% block alert %}
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{  alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{  alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+{% endblock %}
+
+{% block serviceFilters %} 
+    {#{{ include('services/filters/shareCarFilter.html.twig') }}#}
+
+    {{ filters.filterTrade('get',pathFilter ,categories, service) }}
+{% endblock %}
+            
+{% block serviceList %}
+    <div class="row row-tra-base" id="tra-cont-base">
+    {% for trade in arrayTrades %} 
+        {#{ include('services/lists/tradeList.html.twig') }#}
+
+        {% set url = path(routingOffer , {idOffer: trade.offer.id}) %}
+        
+        {{ trades.element(url, trade.offer.photos.0.url, trade.offer.title, trade.category.name, '#CATEGORIA', 
+        path('user_public_profile',{username:trade.offer.userAdmin.username}), trade.offer.userAdmin.photo.url,
+        trade.offer.userAdmin.username , trade.price, service) }}
+    {% endfor %}
+    </div>
+{% endblock %}
+
+{% block filtroMovilBody %}
+{#    {{ include('services/filters/shareCarFilter.html.twig') }}#}
+    {{ filters.filterTrade('get',pathFilter,categories) }}
+{% endblock %}
+
+{% block serviceSidebar %}
+    
+{% endblock %}
+
+{% block javascriptsFooter %}
+{{ parent() }}
+
+<script src=" {{ asset('js/masonry.pkgd.min.js') }}"></script>
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        var e = $(".row-tra-base");
+        e.length > 0 && e.masonry({
+            // options
+            columnWidth: '.col-tra-elem',
+            itemSelector: '.col-tra-elem',
+            //percentPosition: true,
+            transitionDuration: 0.2,
+            isFitWidth: true,
+            gutter: 20
+        });
+        
+        
+    });
+</script>
+
+{#{{ include('services/filters/filterTradeScript.html.twig') }}#}
+{{ filters.filterTradeScript(categories|length) }}
+
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% macro scriptUserMenu(clase) %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            if($(window).width() > 768){
+                if($("{{ clase }}").outerHeight() >= $('.cd-side-nav').outerHeight() || $("{{ clase }}").outerHeight() >= $('.cd-side-nav>ul').outerHeight() ){
+                    $('.cd-side-nav').css('height', $('{{ clase }}').outerHeight());
+                }else{
+                    $('.cd-side-nav').css('height', 'inherit');
+                }
+            }
+
+            $(".us-dataPersonal-row").bind("DOMSubtreeModified", function() {
+                if($(window).width() > 768){
+                    if($("{{ clase }}").outerHeight() >= $('.cd-side-nav').outerHeight() || $("{{ clase }}").outerHeight() >= $('.cd-side-nav>ul').outerHeight() ){
+                        $('.cd-side-nav').css('height', $('{{ clase }}').outerHeight());
+                    }else{
+                        $('.cd-side-nav').css('height', 'inherit');
+                    }
+                }
+            });
+
+            $(window).resize(function(){
+                if($("{{ clase }}").outerHeight() >= $('.cd-side-nav').outerHeight() || $("{{ clase }}").outerHeight() >= $('.cd-side-nav>ul').outerHeight() ){
+                    $('.cd-side-nav').css('height', $('{{ clase }}').outerHeight());
+                }else{
+                    $('.cd-side-nav').css('height', 'inherit');
+                }
+            });
+        });
+    </script>
+{% endmacro %}

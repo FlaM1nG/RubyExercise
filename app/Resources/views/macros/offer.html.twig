@@ -1,0 +1,331 @@
+{% macro atriShaCar(text, icon, text_2, row_css) %}
+<div class="row {{ row_css|e }} ">
+    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-3 off-col-tra">
+        {{ text|e|capitalize }}
+    </div>
+
+
+    <div class="col-lg-9 col-md-8 col-sm-9 col-xs-9 off-col-tra-data">
+        <i class="fa {{ icon|e }} fa-sign-out off-tra-icon" aria-hidden="true">
+        </i>
+        {{ text_2|e|capitalize }}
+    </div>
+
+
+</div>
+{% endmacro %}
+
+
+
+
+{% macro atriOffer(dato, icono) %}        
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 off-col-other-date-sec">
+   <i class="fa
+       {#{ icono }#}
+       {% if icono == 0 %}
+            fa-times-circle off-icon-secund-no
+       {% else %}
+            fa-check-circle off-icon-secund-ok
+       {% endif %}
+       " aria-hidden="true"></i>
+
+
+   <span class="off-target-secon">
+       {{ dato|e|capitalize }}
+   </span>
+
+
+</div>
+{% endmacro %}
+
+
+
+
+{% macro atriHouRen(text, icon, number, lg, md, sm, xs) %}        
+<div class="col-lg-{{lg}} col-md-{{md}} col-sm-{{sm}} col-xs-{{xs}} off-col-other-date">
+    <i class="fa {{ icon|e }} off-icon-prin" aria-hidden="true"></i>
+
+
+    <span class="off-target-prin-text">
+        {{ text|e|capitalize }} 
+        <span class="off-target-prin">
+            {{ number }}
+        </span>
+
+
+    </span>
+
+
+</div>
+{% endmacro %}
+
+
+
+    {#
+    Añadido dataIdBorrar para tener el id de la oferta
+
+    Añadida clase al contenedor principal para poder eliminar el contenedor por ajax al borrar la oferta.
+    La clase es containerOffer_X donde x es el id de la oferta.
+
+    Añadida clase al enlace de borrar para poder controlar el borrado de offertas.
+
+    #}
+{% macro offUser(hrefOffer, srcImage, titleOffer, textOffer, dataVer,
+    hrefEditar, dataEditar, hrefBorrar, dataBorrar, dataIdBorrar) %}
+    <div class="us-off-element containerOffer_{{ dataIdBorrar }}">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
+                <a href="{{ hrefOffer|e }}">
+{#                    <img src="{{ asset(srcImage|e|default('img/placeholder.jpg'),'img') }}" class="img-responsive"/>#}
+                    <img src="
+                        {% if srcImage %}
+                            {{ asset(srcImage|e,'img') }}
+                            
+                        {% else %}
+                            {{ asset(srcImage|e|default('web/img/placeholder.jpg')) }}
+                        {% endif %}
+                        " 
+                        class="img-responsive"/>
+                </a>
+            </div>
+            
+            
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 off-col-user-text">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a href="{{ hrefOffer|e }}">
+                            <h3>
+                                {{ titleOffer|e }}
+                            </h3>
+                        </a>
+                    </div>
+                </div>
+                             
+                             
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            {{ textOffer|e|slice(0, 280) ~ '...' }}
+                        </p>
+                    </div>
+                </div>
+                         
+                         
+                <div class="row us-mess-buttons">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a href="{{ hrefEditar|e }}" class="btn btn-default us-mess-btn"
+                           data-id="{{ dataEditar|e }}"
+                           data-toggle="tooltip" 
+                           data-placement="bottom" 
+                           title="{{ dataEditar|e|capitalize }}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                            
+                            
+                        <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn btnDelete"
+                           data-id="{{ dataIdBorrar|e }}"
+                           data-toggle="tooltip" 
+                           data-placement="bottom" 
+                           title="{{ dataBorrar|e|capitalize }}">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                        
+                
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+    
+    
+    
+{% macro offUserExp(hrefOffer, srcImage, titleOffer, textOffer, dataVer,
+    hrefBorrar, dataBorrar) %}        
+    <div class="us-off-element-ex">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
+                <a href="{{ hrefOffer|e }}">
+                    <img src="{{ asset(srcImage|e|default('web/img/placeholder.jpg')) }}" class="img-responsive"/>
+                </a>
+                <div class="us-off-exp">
+                    <h4>
+                        Vendido
+                    </h4>
+                </div>
+            </div>
+            
+            
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 off-col-user-text">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a href="{{ hrefOffer|e }}">
+                            <h3>
+                                {{ titleOffer|e }}
+                            </h3>
+                        </a>
+                    </div>
+                </div>
+                             
+                             
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            {{ textOffer|e|slice(0, 280) ~ '...' }}
+                        </p>
+                    </div>
+                </div>
+                         
+                         
+                <div class="row us-mess-buttons">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                           data-id="{{ dataBorrar|e }}"
+                           data-toggle="tooltip" 
+                           data-placement="bottom" 
+                           title="{{ dataBorrar|e|capitalize }}">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                        
+                
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+    
+
+{% macro offUserInscription(hrefOffer, srcImage, titleOffer, dateFact, textOffer, dataVer,
+    hrefBorrar, dataBorrar) %}        
+    <div class="us-off-element">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
+                <a href="{{ hrefOffer|e }}">
+                    <img src="{{ asset(srcImage|e|default('web/img/placeholder.jpg')) }}" class="img-responsive"/>
+                </a>
+            </div>
+            
+            
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 off-col-user-text-dis">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <a href="{{ hrefOffer|e }}">
+                            <h3>
+                                {{ titleOffer|e }}
+                            </h3>
+                        </a>
+                    </div>
+                            
+                            
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <p>
+                            {{ dateFact|date('d/m/Y H:i') }}
+                        </p>
+                    </div>
+                </div>
+                             
+                             
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            {{ textOffer|e|slice(0, 280) ~ '...' }}
+                        </p>
+                    </div>
+                </div>
+                         
+                         
+                <div class="row us-mess-buttons">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
+                           data-id="{{ dataBorrar|e }}"
+                           data-toggle="tooltip" 
+                           data-placement="bottom" 
+                           title="{{ dataBorrar|e|capitalize }}">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                        
+                
+            </div>
+        </div>
+    </div>
+{% endmacro %}    
+    
+    
+    
+    
+{% macro offUserDisfrutadas(hrefOffer, srcImage, titleOffer, dateFact, textOffer, 
+    dataVer, hrefValorar, dataValorar, hrefPDF, dataPDF) %}        
+    <div class="us-off-element">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
+{#                <a href="{{ hrefOffer|e }}">#}
+                    <img src="{{ asset(srcImage|e|default('web/img/placeholder.jpg'),'img') }}" class="img-responsive"/>
+{#                </a>#}
+            </div>
+            
+            
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 off-col-user-text-dis">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+{#                        <a href="{{ hrefOffer|e }}">#}
+                            <h3>
+                                {{ titleOffer|e }}
+                            </h3>
+{#                        </a>#}
+                    </div>
+                            
+                            
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <p>
+                            {{ dateFact|date('d/m/Y H:i') }}
+                        </p>
+                    </div>
+                </div>
+                             
+                             
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            {{ textOffer|e|slice(0, 280) ~ '...' }}
+                        </p>
+                    </div>
+                </div>
+                         
+                       
+                <div class="row us-mess-buttons">
+                {% set disabled='' %}
+
+                {% if hrefValorar is empty %}
+                    {% set disabled = 'disabled' %}
+                {% else %}
+                    {% set hrefValorar = "href ="~ hrefValorar|e %}
+                {% endif %}
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a {{ hrefValorar|e }} class="btn btn-default us-mess-btn"
+                           data-id="{{ dataValorar|e }}"
+                           data-toggle="tooltip" 
+                           data-placement="bottom" 
+                           title="{{ 'Valora la oferta'|e|capitalize }}" {{disabled}}>
+                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                        </a>
+                          
+                            
+                        <a href="{{ hrefPDF|e }}" class="btn btn-default us-mess-btn"
+                           data-id="{{ dataPDF|e }}"
+                           data-toggle="tooltip" 
+                           data-placement="bottom" 
+                           title="{{ 'Imprimir factura'|e|capitalize }}">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                        
+                
+            </div>
+        </div>
+    </div>
+{% endmacro %}

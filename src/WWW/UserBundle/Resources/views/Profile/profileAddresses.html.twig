@@ -1,0 +1,147 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/user.html.twig' as addressMacro %}
+{% import 'macros/script.html.twig' as codMenu %}
+
+
+{% block title %}
+    Datos Personales
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Cambiar Datos Personales
+            </h3>
+            <hr/>
+
+            <a class="btn btn-default us-profileAddresses" href="{{path('user_profiler_newAdress')}}">
+                Nueva dirección
+            </a>
+
+            {% if usuario.addresses == null %}
+                <h4>
+                    No tiene direcciones guardadas.
+                </h4>
+                <p>
+                    No tiene ninguna dirección guardada para poder enviarle las compras que realice.
+                    Sería conveniente que introduzca al menos una.
+                </p>
+            {% else %}
+                {%if usuario.defaultAddress is not empty %}
+
+                    {{ addressMacro.userAddress(true, usuario.defaultAddress.id, usuario.defaultAddress.name,
+                    usuario.defaultAddress.street, usuario.defaultAddress.zipCode, usuario.defaultAddress.region,
+                    usuario.defaultAddress.city, usuario.defaultAddress.country,
+                    path('user_profiler_editAdress',{ idAddress:usuario.defaultAddress.id }),
+                    usuario.defaultAddress.id) }}
+                {% else %}
+                    <h4>
+                        No tiene ninguna dirección guardada como principal.
+                    </h4>
+                    <p>
+                        Sería conveniente que tenga un dirección guardada como la principal para poder enviarle las
+                        compras que realice.
+                    </p>
+                {% endif %}
+
+                {% for address in usuario.addresses.0 %}
+
+                    {{ addressMacro.userAddress(false, address.id, address.name, address.street,
+                    address.zipCode, address.region, address.region, address.country,
+                    path('user_profiler_editAdress',{ idAddress:address.id }), address.id) }}
+
+                {% endfor %}
+            {% endif %}
+
+
+
+        </div>
+    </div>
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(document).on('click','.deleteAddress', deleteAddress);
+            
+            function deleteAddress(e){
+                e.preventDefault();
+                var id = $(this).attr('data-id');
+                var data = {};
+                var url = "{{ path('user_ajax_deleteAddress') }}";
+                var container = container = '.containerAddress_'+id;
+                
+                data['id'] = id;
+                
+                $.ajax({                        
+                    type: "POST",                 
+                    url: url,                     
+                    data: data, 
+                    success: function(data)             
+                    {
+                        if(data['result'] === 'ok'){
+                            $(container).remove();  
+                            $('.contentAlert').html("<div class='alert "+
+                            "alert-success alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }else{
+                            $('.contentAlert').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }
+                        
+                    },
+                    error: function()             
+                    {
+                        $('.contentAlert').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
+         
+                    }        
+                });
+            }
+        });
+    </script>
+{% endblock %}
+    

@@ -1,0 +1,72 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+
+
+{% block title %}
+    Añadir Dirección
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Añadir Dirección
+            </h3>
+            <hr/>
+            {#{{form(form)}}#}
+            {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.isDefault) }}
+            {{ form_row(form.country) }}
+            {{ form_row(form.region) }}
+            {{ form_row(form.city) }}
+            {{ form_row(form.street) }}
+            <div class="row us-address-new">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    {{ form_row(form.zipCode) }}
+                </div>
+
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 us-address-new-tel">
+                    <div class="us-pref-tel">
+                        {{ form_row(form.prefix) }}
+                    </div>
+
+                    <div class="us-num-tel">
+                        <div class="form-group">
+                            <label class="control-label" for="adressUser_phone">&nbsp;</label>
+                            {{ form_widget(form.phone) }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {{ form_row(form._token) }}
+            {{ form_row(form.editAddress) }}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+{% endblock %}
+    

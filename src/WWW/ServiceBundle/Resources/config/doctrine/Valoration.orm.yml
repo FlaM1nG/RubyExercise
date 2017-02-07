@@ -1,0 +1,41 @@
+WWW\ServiceBundle\Entity\Valoration:
+    type: entity
+    table: null
+    repositoryClass: WWW\ServiceBundle\Repository\ValorationRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        comment:
+            type: string
+            length: 255
+            nullable: true
+        score:
+            type: float
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+    manyToOne:
+        user:
+            targetEntity: WWW\UserBundle\Entity\User
+            inversedBy: valorations
+            joinColumn:
+                referencedColumnName: id
+        offer:
+            targetEntity: Offer
+            inversedBy: valorations
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

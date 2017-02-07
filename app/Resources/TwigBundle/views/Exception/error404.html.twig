@@ -1,0 +1,57 @@
+{% extends '::base.html.twig' %}
+
+
+{% block title %}
+    What Want Web | Algo no funciona
+{% endblock %}
+
+{% block nav %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block alert %}
+
+{% endblock %}
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row sep-sup">
+            <div class="col-lg-12">
+                <h2>Página no encontrada</h2>
+                <hr/>
+            </div>
+        </div>
+
+
+        <div class="row separacion-inferior">
+            <div class="col-lg-7 col-md-8 col-sm-10 col-xs-12 col-center">
+                <img class="img-responsive" src="{{ asset('img/404.png') }}"/>
+                {#<img class="img-responsive" src="{{ asset('web/img/404.png', 'img') }}"/>#}
+            </div>
+        </div>
+
+
+        <div class="row sep-sup separacion-inferior">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 col-center">
+                <p>
+                    ¡Lo sentimos pero la página que quiere ver no se encuentra en nuestro sistema!
+                </p>
+
+                <p>
+                    Compruebe de nuevo si la dirección que ha insertado es la correcta, en caso de serlo
+                    indíquenos que ha fallado en nuestra página de <a href="#">contacto</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+{% endblock %}

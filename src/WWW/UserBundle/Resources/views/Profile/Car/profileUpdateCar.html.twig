@@ -1,0 +1,114 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+
+
+{% block title %}
+    Coches
+{% endblock %}
+
+{% block alertProfile %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+
+{% endblock %}
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+
+    {{ form_start(form) }}
+        {{ form_row(form.brand) }}
+        {{ form_row(form.model) }}
+        {{ form_row(form.type) }}
+        {{ form_row(form.plate)}}
+        {{ form_row(form.color) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.seats) }}
+        {{ form_row(form.smoke) }}
+        {{ form_row(form.animals) }}
+        {{ form_row(form.music) }}
+        {{ form_row(form.talk) }}
+        {{ form_row(form._token) }}
+        <input id="imgCar" name="imgCar[]" type="file" multiple class="file-loading" accept="image/*" >
+        {{ form_row(form.saveNewCar) }}
+
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    <!-- the main fileinput plugin file -->
+    <script src="{{ asset('js/fileinput.js') }}"></script>
+
+    <script type="text/javascript">
+
+        brand = $('#newCar_brand');
+        models = $('#newCar_model').clone();
+
+        brandSelected = '{{ car.model.brand.name }}';
+
+        var options =  models.find('optgroup[label="'+brandSelected+'"]').html();
+        $('#newCar_model').find('optgroup').remove();
+        $('#newCar_model').append(options);
+
+        $(document).ready(function(){
+
+            $(document).on('change','#newCar_brand',changeModel);
+
+            function changeModel(){
+
+                var marca = $('#newCar_brand option:selected').text();
+                var options =  models.find('optgroup[label="'+marca+'"]').html();
+
+                $('#newCar_model').find('option').remove();
+                $('#newCar_model').append(options);
+
+            }
+
+            {% set arrayUrl = "" %}
+            {% set arrayCaption = "" %}
+
+            {% for photo in car.photos %}
+
+                {% set arrayUrl = arrayUrl~"'"~asset(photo.url,'img')~"'," %}
+                {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~photo.id|number_format~" ,extra: {id: "~car.id~" }}," %}
+
+            {% endfor %}
+
+            $(".file-loading").fileinput({
+
+                initialPreview: [
+                    {{arrayUrl|raw}}
+                ],
+                initialPreviewAsData: true,
+
+                initialPreviewConfig: [
+                    {{arrayCaption|raw}}
+                ],
+                deleteUrl: "{{ url('user_ajax_deleteImgCar') }}",
+                overwriteInitial: false,
+                maxFileSize: 3072,
+                showRemove: false,
+                showUpload: false,
+                showZoom: false,
+                initialCaption: '',
+                validateInitialCount: true,
+                maxFileCount: 5,
+                extra: {idCar: {{ car.id }} }
+            });
+
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,37 @@
+WWW\ServiceBundle\Entity\Inscription:
+    type: entity
+    table: null
+    repositoryClass: WWW\ServiceBundle\Repository\InscriptionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        status:
+            type: integer
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+    manyToOne:
+        user:
+            targetEntity: WWW\UserBundle\Entity\User
+            inversedBy: inscriptions
+            joinColumn:
+                referencedColumnName: id
+        offer:
+            targetEntity: Offer
+            inversedBy: inscriptions
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

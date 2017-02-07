@@ -1,0 +1,23 @@
+{{ form_start(formMessage) }}
+
+<div class="row separacion-inferior">
+    <div class="col-lg-12">
+        {{ form_label(formMessage.subject) }}
+        {{ form_widget(formMessage.subject, { 'attr': {'readonly':'readonly' } })}}
+    </div>
+</div>
+
+<div class="row separacion-inferior">
+    <div class="col-lg-12">
+        <label class="control-label" for="message_message">Mensaje</label>
+        {{ form_widget(formMessage.message) }}
+    </div>
+</div>
+
+<div class="row off-message-user">
+    <div class="col-lg-12">
+        {{ form_widget(formMessage.enviar) }}
+    </div>
+</div>
+
+{{ form_row(formMessage._token) }}

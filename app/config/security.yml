@@ -1,24 +1,56 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
-
+    role_hierarchy:
+        ROLE_ASSISTANT:     ROLE_USER
+        ROLE_ADMIN:         [ROLE_USER, ROLE_ASSISTANT, ROLE_ALLOWED_TO_SWITCH]
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+#        in_memory:
+#            memory: ~     
+        users:
+            entity: 
+                class: WWW\UserBundle\Entity\User
+                property: username 
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        main:
-            anonymous: ~
+#        main:
+#            anonymous: ~
+#            pattern: ^/
+#            provider: users
+        user:
+#            pattern: ^/user/*      
+            pattern: ^/
+            provider: users
+            anonymous: ~           
             # activate different ways to authenticate
-
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
+            form_login:
+                login_path:  user_login
+                check_path:  user_login_check
+                
+                # login success redirecting options (read further below)
+                always_use_default_target_path: true
+                default_target_path:            default_security_target
+                
+                use_referer:                    true
+                
+            logout:
+                path:       user_logout
+            remember_me:
+                secret:   3j9d3MInd39
+                lifetime: 604800 # 1 week in seconds   
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+             
+        - { path: ^/user/profile,           roles: ROLE_USER } 
+        - { path: ^/,                       roles: IS_AUTHENTICATED_ANONYMOUSLY } 
+        - { path: ^/services/trade/newTrade, roles: ROLE_USER}
+    encoders:
+        WWW\UserBundle\Entity\User: bcrypt

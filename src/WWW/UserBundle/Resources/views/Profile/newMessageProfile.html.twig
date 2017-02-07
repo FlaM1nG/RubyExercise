@@ -1,0 +1,59 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/message.html.twig' as message %}
+{% import 'macros/script.html.twig' as codMenu %}
+
+{% block title %}
+    Mensajes
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    <div class="row us-dataPersonal-row us-writte-message">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Redactar mensajes
+            </h3>
+            <hr/>
+            {{form_start(form)}}
+            {{form_label(form.to)}}
+            {{form_widget(form.to.username)}}
+            {{form_row(form.subject)}}
+            {{form_row(form.message)}}
+            {{form_row(form.enviar)}}
+            <a href="{{path('user_profileMessage')}}"
+               class="btn-default btn"
+               id="us-cancelar-message">
+                Cancelar
+            </a>
+            {{form_row(form._token)}}
+        </div>
+    </div>
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
+    
+{% endblock %}
+    

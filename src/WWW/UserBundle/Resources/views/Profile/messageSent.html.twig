@@ -1,0 +1,138 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/message.html.twig' as message %}
+{% import 'macros/script.html.twig' as codMenu %}
+
+{% block title %}
+    Mensajes enviados
+{% endblock %}
+
+{% block alertProfile %}
+    
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{ alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %} 
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+   
+{% endblock %} 
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+
+    <div class="row us-dataPersonal-row us-writte-message">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Mensajes enviados
+            </h3>
+            <hr/>
+
+            <div class="us-redactar-mess">
+                <a class="btn btn-default us-writte-btn" href="{{ path('user_profileNewMessage') }}">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    Redactar mensaje
+                </a>
+            </div>
+
+            {% if messages == null %}
+                <h4>
+                    Aún no has enviado ningún mensaje
+                </h4>
+                <p>
+                    Mandale un mensaje a tus amigos, ponte en contacto con los vendedores si has visto algo que te
+                    gusta o bien con los compradores por si tienen una duda.
+                </p>
+            {% else %}
+
+                {% for mensaje in messages %}
+
+                    {{ message.messElementSent(
+                            mensaje.to.username,
+                            mensaje.createdDate,
+                            mensaje.subject,
+                            mensaje.message,
+                            'containerMessage_'~mensaje.id,
+                            path('user_profiler_readMessage' ,
+                            {idMessage: mensaje.id}),
+                            '#borrar',
+                            mensaje.id)
+                    }}
+                {% endfor %}
+
+            {% endif %}
+        </div>
+    </div>
+    
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
+    
+    <script type="text/javascript">
+         $(document).ready(function() {
+            $(document).on('click','.bDeleteMessage', deleteMessage);
+            
+            function deleteMessage(e){
+                e.preventDefault();
+                
+                var id = $(this).attr('data-id');
+                var data = {};
+                
+                data['id'] = id;
+                
+                $.ajax({                        
+                    type: "POST",                 
+                    url: "{{ url('user_ajax_deleteMessage') }}",                     
+                    data: data, 
+                    success: function(data)             
+                    {
+                        if(data['result'] === 'ok'){
+                            $('#containerMessage_'+id).remove();  
+                            $('.contentAlert').html("<div class='alert "+
+                            "alert-success alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }else{
+                            $('.contentAlert').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            data['message']+"</div>");
+
+                        }
+                        
+                    },
+                    error: function(data)             
+                    {
+                        $('.contentAlert').html("<div class='alert "+
+                            "alert-warning alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' "+
+                            "data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>×</span>"+
+                            "</button><strong></strong>"+
+                            "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
+         
+                    }        
+                });
+            }
+         });
+    </script>
+    
+{% endblock %}
+    

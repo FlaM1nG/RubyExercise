@@ -1,0 +1,91 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    Recuperar contraseña
+{% endblock %}
+
+{% block nav %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+
+{% endblock %}
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/validacionUsuarios.js') }}"></script>
+{% endblock %}
+
+
+
+{% block body %}
+
+    <div class="container cd-main-content us-login-cont">
+        <h1>
+            Recuperar la contraseña
+        </h1>
+        <hr>
+    </div>
+
+    <div class="container cd-main-content us-login-cont us-forgot-pass">
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    Recibirás un e-mail que te permitirá acceder a tu cuenta.
+                </p>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                {{ form_start(formulario, {'action':path('user_forgot'),'attr':{'onsubmit':'return validaForgot()'}}) }}
+
+                {{ form_rest(formulario) }}
+                {{ form_end(formulario) }}
+            </div>
+        </div>
+
+        {#<div class="row">#}
+            {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+                {#{{ form_label(formulario._username) }}#}
+                {#{{ form_widget(formulario._username) }}#}
+            {#</div>#}
+        {#</div>#}
+
+        {#<div class="row">#}
+            {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+                {#{{ form_label(formulario._password) }}#}
+                {#{{ form_widget(formulario._password) }}#}
+            {#</div>#}
+        {#</div>#}
+
+
+        {#<div class="row">#}
+            {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+                {#{% if app.session.get('intentoLogin') > 3 %}#}
+                    {#{{form_widget(formulario.captcha)}}#}
+                {#{% endif %}#}
+            {#</div>#}
+        {#</div>#}
+
+        {#<div class="row us-login-forgot">#}
+            {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+                {#<a href="{{ path('user_forgot') }}">#}
+                    {#<p>#}
+                        {#¿Has olvidado tu contraseña?#}
+                    {#</p>#}
+                {#</a>#}
+            {#</div>#}
+        {#</div>#}
+
+        {#<div class="row">#}
+            {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+                {#{{ form_row(formulario.enviar)}}#}
+            {#</div>#}
+        {#</div>#}
+
+        {#{{ form(formulario._token)}}#}
+    </div>
+
+
+{% endblock %}

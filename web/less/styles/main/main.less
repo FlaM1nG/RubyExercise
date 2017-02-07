@@ -1,0 +1,613 @@
+/* ------------------ ESTILO PARA TODA LA WEB  ------------------
+******************************************************************/
+
+/* ***** ETIQUETAS HTML ***** */
+body{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+h2, h3, h4{
+    font-family: 'Montserrat', sans-serif;
+}
+
+hr{
+    background-color: @brand-primary;
+    width: 70px;
+    height: 5px;
+    padding: 0;
+    margin: 10px auto 34px;
+    border: none;
+    margin-left: 0;
+}
+
+.hr-center{
+    margin: auto;
+}
+
+footer{
+    .pos-capas;
+}
+
+a:hover, a:focus{
+    -webkit-transition: all 200ms linear 0s;
+    -moz-transition: all 200ms linear 0s;
+    -ms-transition: all 200ms linear 0s;
+    -o-transition: all 200ms linear 0s;
+    transition: all 200ms linear 0s;
+    text-decoration: none;
+}
+
+.aEnlaces{
+    -webkit-transition: all 200ms linear 0s;
+    -moz-transition: all 200ms linear 0s;
+    -ms-transition: all 200ms linear 0s;
+    -o-transition: all 200ms linear 0s;
+    transition: all 200ms linear 0s;
+    text-decoration: none;
+}
+
+.btn-primary{
+    padding: 17px 24px;
+    font-size: 1.1em;
+    font-weight: 500;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    letter-spacing: 1px;
+    line-height: 1.486em;
+    text-transform: uppercase;
+    transition: all 300ms ease 0s;
+    vertical-align: top;
+}
+
+.btn-primary:hover, .btn-primary:focus{
+    color: @brand-secondary;
+    background-color: @brand-primary;
+    border-color: @brand-primary;
+}
+
+.pos-capas{
+    position: relative;
+    z-index: 1;
+}
+
+p{
+    font-size: 16px;
+    word-wrap: break-word;
+}
+
+.btn-default{
+    float: right;
+    margin-bottom: 20px;
+    padding: 17px 24px;
+    font-size: 1.1em;
+    font-weight: 500;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    letter-spacing: 1px;
+    line-height: 1.486em;
+    text-transform: uppercase;
+    transition: all 300ms ease 0s;
+    vertical-align: top;
+}
+
+.btn-default:hover{
+    background-color: @gray-base;
+    border-color: @gray-base;
+}
+
+.col-center{
+    float: none;
+    margin: 0 auto;
+}
+
+.sombra-general{
+    -webkit-box-shadow: 10px 10px 5px 0 rgba(0,0,0,.15);
+    -moz-box-shadow: 10px 10px 5px 0 rgba(0,0,0,.15);
+    box-shadow: 10px 10px 5px 0 rgba(0,0,0,.15);
+}
+
+.sombra-general2{
+    -webkit-box-shadow:5px 5px 5px 0 rgba(0,0,0,.15);
+    -moz-box-shadow: 5px 5px 5px 0 rgba(0,0,0,.15);
+    box-shadow: 5px 5px 5px 0 rgba(0,0,0,.15);
+}
+
+.textProt{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ##### FIN ETIQUETAS HTML ##### */
+
+
+/* ***** PADDINGS ***** */
+.separacion-superior{
+    padding-top: 20px;
+}
+
+.separacion-inferior{
+    padding-bottom: 20px;
+}
+
+.sep-sup{
+    padding-top: 25px;
+}
+
+.null-marg{
+    margin: 0;
+    padding: 0;
+}
+/* ##### FIN PADDINGS ##### */
+
+
+/* ***** EFECTO IMAGEN HOVER ***** */
+.hovereffect {
+    width:100%;
+    height:100%;
+    float:left;
+    overflow:hidden;
+    position:relative;
+    text-align:center;
+    cursor:default;
+}
+
+.hovereffect img {
+    display:block;
+    position:relative;
+    -webkit-transition:all .4s linear;
+    transition:all .4s linear;
+}
+
+.hovereffect h2 {
+    text-transform:uppercase;
+    color: @brand-secondary;
+    text-align:center;
+    position:relative;
+    font-size:17px;
+    background:rgba(0,0,0,0.6);
+    -webkit-transform:translatey(-100px);
+    -ms-transform:translatey(-100px);
+    transform:translatey(-100px);
+    -webkit-transition:all .2s ease-in-out;
+    transition:all .2s ease-in-out;
+    padding:10px;
+}
+
+.hovereffect a.info {
+    text-decoration:none;
+    display:inline-block;
+    text-transform:uppercase;
+    color: @brand-secondary;
+    border:1px solid @brand-secondary;
+    background-color:transparent;
+    opacity:0;
+    filter:alpha(opacity=0);
+    -webkit-transition:all .2s ease-in-out;
+    transition:all .2s ease-in-out;
+    margin:50px 0 0;
+    padding:7px 14px;
+}
+
+.hovereffect a.info:hover {
+    box-shadow:0 0 5px @brand-secondary;
+}
+
+.hovereffect:hover img {
+    -ms-transform:scale(1.2);
+    -webkit-transform:scale(1.2);
+    transform:scale(1.2);
+}
+
+.hovereffect:hover .overlay {
+    opacity:1;
+    filter:alpha(opacity=100);
+}
+
+.hovereffect:hover h2,.hovereffect:hover a.info {
+    opacity:1;
+    filter:alpha(opacity=100);
+    -ms-transform:translatey(0);
+    -webkit-transform:translatey(0);
+    transform:translatey(0);
+}
+
+.hovereffect:hover a.info {
+    -webkit-transition-delay:.2s;
+    transition-delay:.2s;
+}
+/* ##### FIN EFECTO IMAGEN HOVER ##### */
+
+/* ***** PARALLAX ***** */
+.parallax {
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    margin-bottom: 50px;
+}
+/* ##### FIN PARALLAX ##### */
+
+/* ***** ALERTS ***** */
+.alert {
+    margin-top: 20px;
+}
+/* ##### FIN ALERTS ##### */
+
+
+/* ***** RRSS ***** */
+.a2a_kit.a2a_kit_size_48.a2a_default_style{
+    display: flex; 
+    justify-content: center;
+    margin-bottom: 20px;
+    
+    .a2a_svg, .a2a_count { 
+        border-radius: 25px !important; 
+    }
+    
+    a:focus, a:hover{
+        .a2a_svg{ 
+            background-color: @brand-primary !important;
+            opacity: 1;
+        }
+    }
+}
+/* ##### FIN RRSS ##### */
+
+
+
+/* ***** OVERLAY ***** */
+.modal-header {
+    border-bottom: none;
+    background-color: @brand-primary;
+    color: @brand-secondary;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+button.close{
+    color: @brand-secondary;
+    opacity: 1;
+}
+/* ##### FIN OVERLAY ##### */
+
+#cbp-hrmenu{
+    margin-bottom: -1px;
+}
+
+
+.spinner {
+    margin: 100px auto 0;
+    width: 70px;
+    text-align: center;
+}
+
+.spinner > div {
+    width: 18px;
+    height: 18px;
+    background-color: @gray-base;
+
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+    0%, 80%, 100% { -webkit-transform: scale(0) }
+    40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    } 40% {
+          -webkit-transform: scale(1.0);
+          transform: scale(1.0);
+      }
+}
+
+body > .inner {
+    display: none;
+}
+
+body.pg-loaded > .inner {
+    display: block;
+}
+
+
+
+/* line 17, ../src/please-wait.scss */
+body.pg-loading {
+    overflow: hidden;
+}
+
+/* line 21, ../src/please-wait.scss */
+.pg-loading-screen {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1000000;
+    opacity: 1;
+    background-color: #FFF;
+    -webkit-transition: background-color 0.4s ease-in-out 0s;
+    -moz-transition: background-color 0.4s ease-in-out 0s;
+    -ms-transition: background-color 0.4s ease-in-out 0s;
+    -o-transition: background-color 0.4s ease-in-out 0s;
+    transition: background-color 0.4s ease-in-out 0s;
+}
+/* line 32, ../src/please-wait.scss */
+.pg-loading-screen.pg-loaded {
+    opacity: 0;
+    -webkit-animation: pgAnimLoaded 0.5s cubic-bezier(0.7, 0, 0.3, 1) both;
+    -moz-animation: pgAnimLoaded 0.5s cubic-bezier(0.7, 0, 0.3, 1) both;
+    -ms-animation: pgAnimLoaded 0.5s cubic-bezier(0.7, 0, 0.3, 1) both;
+    -o-animation: pgAnimLoaded 0.5s cubic-bezier(0.7, 0, 0.3, 1) both;
+    animation: pgAnimLoaded 0.5s cubic-bezier(0.7, 0, 0.3, 1) both;
+}
+/* line 38, ../src/please-wait.scss */
+.pg-loading-screen.pg-loading .pg-loading-logo-header, .pg-loading-screen.pg-loading .pg-loading-html {
+    opacity: 1;
+}
+/* line 42, ../src/please-wait.scss */
+.pg-loading-screen.pg-loading .pg-loading-logo-header, .pg-loading-screen.pg-loading .pg-loading-html:not(.pg-loaded) {
+    -webkit-animation: pgAnimLoading 1s cubic-bezier(0.7, 0, 0.3, 1) both;
+    -moz-animation: pgAnimLoading 1s cubic-bezier(0.7, 0, 0.3, 1) both;
+    -ms-animation: pgAnimLoading 1s cubic-bezier(0.7, 0, 0.3, 1) both;
+    -o-animation: pgAnimLoading 1s cubic-bezier(0.7, 0, 0.3, 1) both;
+    animation: pgAnimLoading 1s cubic-bezier(0.7, 0, 0.3, 1) both;
+}
+/* line 46, ../src/please-wait.scss */
+.pg-loading-screen.pg-loading .pg-loading-html:not(.pg-loaded) {
+    -webkit-animation-delay: 0.3s;
+    -moz-animation-delay: 0.3s;
+    -ms-animation-delay: 0.3s;
+    -o-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+/* line 51, ../src/please-wait.scss */
+.pg-loading-screen .pg-loading-inner {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: static;
+}
+/* line 59, ../src/please-wait.scss */
+.pg-loading-screen .pg-loading-center-outer {
+    width: 100%;
+    padding: 0;
+    display: table !important;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+/* line 70, ../src/please-wait.scss */
+.pg-loading-screen .pg-loading-center-middle {
+    padding: 0;
+    vertical-align: middle;
+    display: table-cell  !important;
+    margin: 0;
+    text-align: center;
+}
+/* line 78, ../src/please-wait.scss */
+.pg-loading-screen .pg-loading-logo-header, .pg-loading-screen .pg-loading-html {
+    width: 100%;
+    opacity: 0;
+}
+/* line 83, ../src/please-wait.scss */
+.pg-loading-screen .pg-loading-logo-header {
+    text-align: center;
+}
+/* line 86, ../src/please-wait.scss */
+.pg-loading-screen .pg-loading-logo-header img {
+    display: inline-block !important;
+}
+/* line 91, ../src/please-wait.scss */
+.pg-loading-screen .pg-loading-html {
+    margin-top: 90px;
+}
+/* line 94, ../src/please-wait.scss */
+.pg-loading-screen .pg-loading-html.pg-loaded {
+    -webkit-transition: opacity 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+    -moz-transition: opacity 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+    -ms-transition: opacity 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+    -o-transition: opacity 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+    transition: opacity 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+}
+/* line 97, ../src/please-wait.scss */
+.pg-loading-screen .pg-loading-html.pg-loaded.pg-removing {
+    opacity: 0;
+}
+/* line 101, ../src/please-wait.scss */
+.pg-loading-screen .pg-loading-html.pg-loaded.pg-loading {
+    opacity: 1;
+}
+
+@-webkit-keyframes pgAnimLoading {
+    from {
+        opacity: 0;
+    }
+}
+@-moz-keyframes pgAnimLoading {
+    from {
+        opacity: 0;
+    }
+}
+@-o-keyframes pgAnimLoading {
+    from {
+        opacity: 0;
+    }
+}
+@-ms-keyframes pgAnimLoading {
+    from {
+        opacity: 0;
+    }
+}
+@keyframes pgAnimLoading {
+    from {
+        opacity: 0;
+    }
+}
+@-webkit-keyframes pgAnimLoaded {
+    from {
+        opacity: 1;
+    }
+}
+@-moz-keyframes pgAnimLoaded {
+    from {
+        opacity: 1;
+    }
+}
+@-o-keyframes pgAnimLoaded {
+    from {
+        opacity: 1;
+    }
+}
+@-ms-keyframes pgAnimLoaded {
+    from {
+        opacity: 1;
+    }
+}
+@keyframes pgAnimLoaded {
+    from {
+        opacity: 1;
+    }
+}
+
+
+/*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
+@media only screen and (max-height : 1050px){
+    
+}
+
+@media only screen and (max-height : 810px){
+    
+}
+
+@media only screen and (max-height : 780px){
+    
+}
+
+
+/*######################   RANGO ANCHO [1600 � 1200[ ######################*/
+@media only screen and (max-width : 1600px) {
+    
+    
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 960px){
+        
+    }
+    
+    @media only screen and (max-height : 900px){
+        
+    }
+    
+    @media only screen and (max-height : 800px){
+        
+    }
+    
+    @media only screen and (max-height : 720px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [1200 �  992[  ######################*/
+@media only screen and (max-width : 1200px) {
+    
+    
+    @media only screen and (max-height : 768px){
+        
+    }
+    
+    @media only screen and (max-height : 600px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [992�  768[  ######################*/
+@media only screen and (max-width : 992px) {
+        
+    @media only screen and (max-height : 500px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [768 � 480[  ######################*/
+@media only screen and (max-width : 768px) {
+    .container, .container-fluid{
+        width: 100%;
+    }
+    
+    .row-mar{
+        margin: 0px;
+    }
+    
+    .col-pad{
+        padding: 0px;
+    }
+    
+    @media only screen and (max-height : 1024px){
+        
+    }
+    
+    @media only screen and (max-height : 850px){
+        
+    }
+    
+    @media only screen and (max-height : 740px){
+        
+    }
+    
+    @media only screen and (max-height : 360px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [480 � 320[  ######################*/
+@media only screen and (max-width : 480px) {
+    
+        
+    @media only screen and (max-height : 667px){
+        
+    }
+    
+    @media only screen and (max-height : 640px){
+        
+    }
+}
+
+/*######################   RANGO ANCHO [320 � 1]  ######################*/
+@media only screen and (max-width : 320px) {
+    
+    
+    @media only screen and (max-height : 534px){
+        
+    }
+    
+    @media only screen and (max-height : 480px){
+        
+    }
+}

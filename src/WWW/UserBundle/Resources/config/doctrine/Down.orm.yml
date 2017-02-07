@@ -1,0 +1,24 @@
+WWW\UserBundle\Entity\Down:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\DownRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        date:
+            type: datetime
+        reason:
+            type: string
+            length: 255
+    manyToOne:
+        user:
+            nullable: true
+            targetEntity: User
+            inversedBy: downs
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

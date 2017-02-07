@@ -7,3 +7,36 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.manager.usuario_manager:
+        class: AppBundle\Manager\UserManager
+        arguments: ['@doctrine.orm.entity_manager', '@security.encoder_factory', '@security.token_storage']
+    
+    app.usr_voter:
+            class: AppBundle\Security\UsrVoter
+            tags:
+                - { name: security.voter }
+            arguments: ['@security.access.decision_manager']
+            # pequeña mejora de rendimiento
+            public: false
+            
+    app.offer_voter:
+            class: AppBundle\Security\OfferVoter
+            arguments: ['@security.access.decision_manager']
+            tags:
+                - { name: security.voter }
+            # pequeña mejora de rendimiento
+            public: false
+    app.msgpriv_voter:
+            class: AppBundle\Security\MsgPrivVoter
+            arguments: ['@security.access.decision_manager']
+            tags:
+                - { name: security.voter }
+            # pequeña mejora de rendimiento
+            public: false
+    app.msgoffer_voter:
+            class: AppBundle\Security\MsgOfferVoter
+            arguments: ['@security.access.decision_manager']
+            tags:
+                - { name: security.voter }
+            # pequeña mejora de rendimiento
+            public: false

@@ -1,0 +1,308 @@
+{% import '::macros/alert.html.twig' as alerts %}
+{% import '::macros/adminNavbar.html.twig' as navbars %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>WWW | {% block title %}{% endblock %}</title>
+
+        {% block stylesheetsAdmin %}
+            <link href="{{ asset('css/style.css') }}" rel="stylesheet" 
+                  type="text/css">
+        {% endblock %}
+        
+        <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
+        
+        {% block javascriptsHeaderAdmin %}
+        {% endblock %}
+
+    </head>
+    
+    
+    <body>
+        <!-- ADMIN ADMINISTRATION NAVBAR -->
+        <nav class="navbar navbar-default navbar-fixed-top" id="navbar">            
+            <span class="glyphicon glyphicon-menu-hamburger adm-plegable"
+                  id="menu-toggle"
+                  aria-hidden="true">
+                      
+            </span>
+            
+        </nav>
+        <!-- END ADMIN ADMINISTRATION NAVBAR -->
+        
+        
+        <!-- ADMIN ADMINISTRATION BODY -->
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="#">
+                            <img src="{{ asset('img/footer.png') }}" alt="" 
+                                class="img-responsive adm-logo">
+                        </a>
+                    </li>
+                    
+                    
+                    <!-- USUARIO -->
+                    <li>
+                        <div class="row row-adm-user">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <img src="{{ asset('img/usuario3.jpg') }}" alt="" 
+                                class="img-circle img-thumbnail adm-user">
+                            </div>
+                                
+                                
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12
+                                 col-adm-user">
+                                <span class="adm-saludo">
+                                    Bienvenido,
+                                </span>
+                                <span>
+                                    Nombre usuario
+                                </span>
+                            </div>
+                                
+                                
+                        </div>
+                    </li>
+                    <!-- FIN USUARIO -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {#<li>
+                        <a href="#adminUsuarios" data-toggle="collapse">
+                            Usuarios
+                            <span class="glyphicon glyphicon-chevron-down 
+                                  adm-collapse-icon" 
+                              aria-hidden="true"></span>
+                        </a>
+                        
+                    </li>#}
+                    {{ navbars.list('#adminUsuarios', 'collapse', 'usuarios') }}
+                    {#<div class="collapse" id="adminUsuarios">
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 1</a>
+                        </li>
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 2</a>
+                        </li>
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 3</a>
+                        </li>
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 4</a>
+                        </li>
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 5</a>
+                        </li>
+                        <li class="adm-collapse">
+                            <a href="#" data-toggle="">Submenu 6</a>
+                        </li>
+                    </div>#}
+                    {% set listaSubRef = [] %}
+                    {% for i in 0..4 %}
+                        {% set listaSubRef = listaSubRef|merge(['#' ~ i]) %}
+                    {% endfor %}
+                    
+                    {% set listaSub = []%}
+                    {% for i in 0..4 %}
+                        {% set listaSub = listaSub|merge(['Submenu ' ~ i] ) %}
+                    {% endfor %}
+                    
+                    {{ navbars.sublist('adminUsuarios', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {{ navbars.list('#adminOfertas', 'collapse', 'ofertas') }}
+                    {{ navbars.sublist('adminOfertas', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {{ navbars.list('#adminCompras', 'collapse', 'compras') }}
+                    {{ navbars.sublist('adminCompras', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {{ navbars.list('#adminMensajes', 'collapse', 'mensajes') }}
+                    {{ navbars.sublist('adminMensajes', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {{ navbars.list('#adminServicios', 'collapse', 'servicios') }}
+                    {{ navbars.sublist('adminServicios', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
+                    <!-- ELEMENTO COLLAPSE -->
+                    {{ navbars.list('#adminIncidencias', 'collapse', 'incidencias') }}
+                    {{ navbars.sublist('adminIncidencias', listaSubRef, listaSub, 4) }}
+                    <!-- FIN ELEMENTO COLLAPSE -->
+                    
+                    
+                </ul>
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <!-- ALERT SYSTEM -->
+                    <div class="container adm-first-cont">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {% block alert %}{% endblock %}
+                                {{ alerts.alert('alert-success','Soy un mensaje de suceso') }}
+                                {{ alerts.alert('alert-info','Soy un mensaje de ainformación') }}
+                                {{ alerts.alert('alert-warning','Soy un mensaje de advertencia o aviso') }}
+                                {{ alerts.alert('alert-danger','Soy un mensaje de peligro') }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ALERT SYSTEM -->
+                    
+                    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>Simple Sidebar</h1>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                            <!--<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+
+        </div>
+        <!-- FIN ADMIN ADMINISTRATION BODY -->
+        
+        
+
+        {% block popupBlockAdmin %}
+        {% endblock %}
+
+        {% block javascriptsFooterAdmin %}
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="{{ asset('js/jquery-3.1.1.min.js') }}" 
+            type="text/javascript"></script>
+
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="{{ asset('js/bootstrap.min.js') }}" 
+            type="text/javascript"></script>
+            </script>
+            
+            <script>
+                $(document).ready(function(){
+                    $("#menu-toggle").click(function(e) {
+                        e.preventDefault();
+                        $("#wrapper").toggleClass("toggled");
+                        $("#navbar").toggleClass("toggled");
+                    });
+                    
+                    var memory = null;
+                    
+                    $(".adm-nav-ref").click(function(){
+                        if($(this).attr("aria-expanded") === "true"){
+                            var e = $(this).attr("href");
+                            
+                            $(e).removeClass("prueba");
+                            
+//                            console.log("SI CLICK EN EL QUE YA ESTA ABIERTO " + e);
+                            
+                            
+                        }else if(memory !== null && $(this).attr("href") !== memory){
+                            var e = $(this).attr("href");
+                            
+                            //PRIMERO EN EL QUE PINCHAS
+                            $(e).addClass("prueba");
+                            
+                            //SEGUNDO EL QUE ESTABA ABIERTO
+                            $(memory).attr("aria-expanded", "false");
+                            $(memory).removeClass("prueba");
+                            $(memory).removeClass("in");
+                            
+                            $('a[href^="'+memory+'"]').addClass("collapsed");
+                            $('a[href^="'+memory+'"]').attr("aria-expanded", "false");
+                            
+//                            console.log($(".adm-nav-ref").text());
+                            
+//                            console.log("SI CLICK EN " + e + " Y OTRO ABIERTO " + memory);
+                            
+                            memory = e;
+                            
+//                            console.log("MEMORY:" + e + " E:" + memory);
+                            
+                        }else{
+                            var e = $(this).attr("href");
+                            $(e).addClass("prueba");
+                            
+                            memory = e;
+                            
+//                            console.log("SI TODO CERRADO Y CLICK " + memory);
+                        }
+                        
+//                        console.log("FIN");
+                    });
+                    
+//                    $(".adm-nav-ref").click(function(){
+//                        if($(this).attr("aria-expanded") === "true"){
+//                            var e = $(this).attr("href");
+//                            
+//                            $(e).removeClass("prueba");
+//                            
+//                            console.log("SI CLICK EN EL QUE YA ESTA ABIERTO " + e);
+//                            
+//                            
+//                        }else if($(".adm-nav-ref").attr("aria-expanded") === "true"){
+//                            var e = $(this).attr("href");
+//                            var q = $(".adm-nav-ref").attr("href");
+//                            
+//                            //PRIMERO EN EL QUE PINCHAS
+//                            $(e).addClass("prueba");
+//                            
+//                            //SEGUNDO EL QUE ESTABA ABIERTO
+//                            $(q).attr("aria-expanded", "false");
+//                            $(q).removeClass("prueba");
+//                            $(q).removeClass("in");
+//                            
+//                            $(".adm-nav-ref").addClass("collapsed");
+//                            $(".adm-nav-ref").attr("aria-expanded", "false");
+//                            
+//                            console.log("SI CLICK EN " + e + " Y OTRO ABIERTO " + q);
+//                            
+//                            
+//                        }else{
+//                            var e = $(this).attr("href");
+//                            $(e).addClass("prueba");
+//                            
+//                            memory = e;
+//                            
+//                            console.log("SI TODO CERRADO Y CLICK " + e);
+//                        }
+//                        
+//                        console.log("FIN");
+//                    });
+                });
+                
+            </script>
+        {% endblock %}
+    </body>
+</html>
