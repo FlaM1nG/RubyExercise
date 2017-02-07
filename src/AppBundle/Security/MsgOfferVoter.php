@@ -31,8 +31,8 @@ class MsgOfferVoter extends Voter
         }
 
         // sólo votar en objetos Post dentro de este voter
-        if (!$subject instanceof \WWW\OthersBundle\Entity\Trade) {
-            print_r("el objeto no es trade");
+        if (!$subject instanceof \WWW\ServiceBundle\Entity\Offer) {
+            print_r("el objeto no es oferta");
             return false;
         }
 
@@ -50,27 +50,27 @@ class MsgOfferVoter extends Voter
 
         // $subject es un objeto Post, gracias al método supports
         /** @var Post $post */
-        $trade = $subject;
+        $offer = $subject;
 
         switch($attribute) {
             case self::CREATE:
-                return $this->canCreate($trade, $user, $token);
+                return $this->canCreate($offer, $user, $token);
             case self::DELETE:
-                return $this->canDelete($trade, $user);
+                return $this->canDelete($offer, $user);
             case self::COMMENT:
-                return $this->canComment($trade, $user,$token);
+                return $this->canComment($offer, $user,$token);
         }
 
         throw new \LogicException('Este código no debería ser visto');
     }
 
-    private function canCreate(\WWW\OthersBundle\Entity\Trade $trade, User $user, TokenInterface $token)
+    private function canCreate(\WWW\ServiceBundle\Entity\Offer $offer, User $user, TokenInterface $token)
     {
         
         $user = $token->getUser();
         // el objeto Post podría tener, por ejemplo, un método isPrivate()
         // que comprueba la propiedad booleana $private
-        if( $user->getUsername() != $trade->getOffer()->getUserAdmin()->getUsername() && $this->decisionManager->decide($token, array('ROLE_USER'))){
+        if( $user->getUsername() != $offer->getUserAdmin()->getUsername() && $this->decisionManager->decide($token, array('ROLE_USER'))){
             return true;
             
         }
@@ -78,7 +78,7 @@ class MsgOfferVoter extends Voter
             return false;
         }
     }
-    private function canComment(\WWW\OthersBundle\Entity\Trade $trade, User $user, TokenInterface $token)
+    private function canComment(\WWW\ServiceBundle\Entity\Offer $offer, User $user, TokenInterface $token)
     {
         
         $user = $token->getUser();

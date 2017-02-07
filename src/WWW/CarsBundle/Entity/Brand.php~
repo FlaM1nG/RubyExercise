@@ -22,10 +22,6 @@ class Brand
      */
     private $slug;
 
-    public function __construct($id = null, $name = null) {
-        $this->id = $id;
-        $this->name = $name;
-    }
 
     /**
      * Get id

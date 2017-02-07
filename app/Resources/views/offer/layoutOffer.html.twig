@@ -90,7 +90,7 @@
                                         {#{% block offerDate %} {% endblock %}#}
                                         {#</span>#}
                                     </div>
-                                    {% if is_granted('create_msg_offer', trade) %}
+                                    {% if is_granted('create_msg_offer', offer) %}
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-center">
                                                 <button class="btn-default btn off-btn-write"
@@ -121,7 +121,7 @@
 
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            {% if is_granted('select_offer', trade) %}
+                            {% if is_granted('select_offer', offer) %}
                                 {{form_start(formSubscribe)}}
                                 {{form_widget(formSubscribe.subscribeButton,
                                 { 'attr': {'class': 'btn-default btn-off-buy'},
@@ -170,7 +170,7 @@
                     <!-- COMENTARIOS -->
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            {% if formComment is defined %}
+                            {#{% if formComment is defined %}#}
                                 <h4>COMENTARIOS</h4>
                                 <hr>
                                 {% if is_granted('ROLE_USER') %}
@@ -189,7 +189,7 @@
                                     {{ form_end(formComment) }}
                                 {%endif%}
                                 {% block offerComments %} {% endblock %}
-                            {% endif %}
+                            {#{% endif %}#}
                         </div>
                     </div>
                     <!-- FIN COMENTARIOS -->

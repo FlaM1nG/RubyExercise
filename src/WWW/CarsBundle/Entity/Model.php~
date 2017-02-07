@@ -3,9 +3,9 @@
 namespace WWW\CarsBundle\Entity;
 
 /**
- * Brand
+ * Model
  */
-class Brand
+class Model
 {
     /**
      * @var int
@@ -22,10 +22,6 @@ class Brand
      */
     private $slug;
 
-    public function __construct($id = null, $name = null) {
-        $this->id = $id;
-        $this->name = $name;
-    }
 
     /**
      * Get id
@@ -42,7 +38,7 @@ class Brand
      *
      * @param string $name
      *
-     * @return Brand
+     * @return Model
      */
     public function setName($name)
     {
@@ -66,7 +62,7 @@ class Brand
      *
      * @param string $slug
      *
-     * @return Brand
+     * @return Model
      */
     public function setSlug($slug)
     {
@@ -83,5 +79,34 @@ class Brand
     public function getSlug()
     {
         return $this->slug;
+    }
+    /**
+     * @var \WWW\CarsBundle\Entity\Brand
+     */
+    private $brand;
+
+
+    /**
+     * Set brand
+     *
+     * @param \WWW\CarsBundle\Entity\Brand $brand
+     *
+     * @return Model
+     */
+    public function setBrand(\WWW\CarsBundle\Entity\Brand $brand = null)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return \WWW\CarsBundle\Entity\Brand
+     */
+    public function getBrand()
+    {
+        return $this->brand;
     }
 }

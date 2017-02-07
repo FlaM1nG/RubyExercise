@@ -4,8 +4,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
  
-        var sync1 = $("#off-img-big");
-        var sync2 = $("#off-img-small");
+        var sync1 = $("#us-img-big");
+        var sync2 = $("#us-img-small");
  
         sync1.owlCarousel({
             singleItem : true,
@@ -33,18 +33,18 @@
  
         function syncPosition(el){
             var current = this.currentItem;
-            $("#off-img-small")
+            $("#us-img-small")
             .find(".owl-item")
             .removeClass("synced")
             .eq(current)
             .addClass("synced");
     
-                if($("#off-img-small").data("owlCarousel") !== undefined){
+                if($("#us-img-small").data("owlCarousel") !== undefined){
                   center(current);
                 }
         }
  
-        $("#off-img-small").on("click", ".owl-item", function(e){
+        $("#us-img-small").on("click", ".owl-item", function(e){
             e.preventDefault();
             var number = $(this).data("owlItem");
             sync1.trigger("owl.goTo",number);

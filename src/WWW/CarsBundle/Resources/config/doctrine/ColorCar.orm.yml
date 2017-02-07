@@ -1,0 +1,16 @@
+WWW\CarsBundle\Entity\ColorCar:
+    type: entity
+    table: null
+    repositoryClass: WWW\CarsBundle\Repository\ColorCarRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        color:
+            type: string
+            length: 255
+            unique: true
+    lifecycleCallbacks: {  }

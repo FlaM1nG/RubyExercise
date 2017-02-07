@@ -20,9 +20,13 @@
 
 {% macro atriOffer(dato, icono) %}        
 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 off-col-other-date-sec">
-   <i class="fa {{ random(['fa-times-circle off-icon-secund-no', 
-       'fa-check-circle off-icon-secund-ok']) }} 
+   <i class="fa
        {#{ icono }#}
+       {% if icono == 0 %}
+            fa-times-circle off-icon-secund-no
+       {% else %}
+            fa-check-circle off-icon-secund-ok
+       {% endif %}
        " aria-hidden="true"></i>
 
 

@@ -1,4 +1,6 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/coche.html.twig' as coches %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 
 {% block title %}
@@ -29,20 +31,40 @@ Coches
 
 {% block bodyProfile %}
 
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Cambiar Datos Bancarios
+            </h3>
+            <hr/>
+            {% for car in arrayCars %}
+                {{ coches.coche('#', asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img'), '0000-ZZZ',
+                car.model.brand.name, car.model.name, car.seats, car.description,
+                path('user_profileEditCar', {idCar: car.id} ), 'dataEdit', 'titleEdit',
+                '#', car.id, 'titleDelete') }}
+            {% endfor %}
+        </div>
+    </div>
+
+
     {#
         Necesaria la clase container_X para el borrado
         El botón borrar necesita la clase deleteCar y el data-id para borrar
     #}
-    {% for car in arrayCars %}
-        <div class="container_{{ car.id }}">
-            <h1>Marca que no tenemos</h1><br>
-            {{ car.description }}
-            #plazas que todavía no está
-            <img src="{{ asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img') }}" height="200"/>
-            <a href="{{ path('user_profileEditCar', {idCar: car.id} ) }}" alt="editar" class="btn btn-default">Editar</a>
-            <a  alt="editar" class="btn btn-default deleteCar" data-id="{{ car.id }}" >Borrar</a>
-        </div>
-    {% endfor %}
+
+    {#{% for car in arrayCars %}#}
+
+
+
+        {#<div class="container_{{ car.id }}">#}
+            {#<h1>{{ car.model.brand.name }} - {{ car.model.name }}</h1><br>#}
+            {#{{ car.description }}#}
+            {##plazas {{ car.seats }}#}
+            {#<img src="{{ asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img') }}" height="200"/>#}
+            {#<a href="{{ path('user_profileEditCar', {idCar: car.id} ) }}" alt="editar" class="btn btn-default">Editar</a>#}
+            {#<a  alt="editar" class="btn btn-default deleteCar" data-id="{{ car.id }}" >Borrar</a>#}
+        {#</div>#}
+    {#{% endfor %}#}
 
 
 {% endblock %}
@@ -51,6 +73,7 @@ Coches
 
 {% block javascriptsFooter %}
     {{ parent() }}
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
 
     <script>
 

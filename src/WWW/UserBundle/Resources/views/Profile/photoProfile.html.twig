@@ -1,4 +1,5 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block stylesheets %}
     
@@ -82,6 +83,8 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
+
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
    
     {#<script src="{{ asset('js/selectArea/jquery.imgareaselect.pack.js') }}"></script>#}
     {#<script type="text/javascript">#}

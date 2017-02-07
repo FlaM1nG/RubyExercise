@@ -252,6 +252,7 @@ class TradeController extends Controller{
         endif;
 
         return $this->render('offer/offTrade.html.twig',array(
+                             'offer' => $this->trade->getOffer(),  
                              'trade' => $this->trade,
                              'formComment' => $formComment->createView(),
                              'formMessage' => $formMessage->createView()  ,

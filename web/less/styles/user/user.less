@@ -1,6 +1,135 @@
 /* ------------------ USER  ------------------
 ******************************************************************/
 
+/* COCHES */
+.us-car-element-individual{
+    margin-bottom: 30px;
+
+    .us-title-car{
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .us-col-caracteristicas{
+        text-align: center;
+        padding: 20px 0px;
+        margin-bottom: 20px;
+
+        strong{
+            display: block;
+        }
+    }
+
+    .us-col-car-center{
+        border-right: 2px solid @brand-primary;
+        border-left: 2px solid @brand-primary;
+    }
+
+    .row-us-car-opt{
+        text-align: center;
+    }
+
+    .us-car-text{
+        padding: 0 2%;
+    }
+
+}
+
+.us-car-element{
+    border-left: 4px solid @gray-base;
+    padding: 1% 2%;
+    margin-bottom: 40px;
+    .sombra-general2;
+
+    .us-car-matricula{
+        text-align: center;
+        padding-top: 10px;
+
+        span{
+            font-style: italic;
+        }
+    }
+
+    .us-car-modelo{
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .us-car-asientos{
+        text-align: right;
+        font-weight: bold;
+    }
+
+    h3{
+        margin-top: 0;
+    }
+}
+
+.us-car-image-marco{
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    height: 150px;
+}
+
+.img-car-list{
+    position: absolute;
+    min-width: 100%;
+}
+
+#us-img-big {
+    .owl-page {
+        span {
+            background: @brand-primary;
+        }
+    }
+}
+
+#us-img-small.owl-carousel.owl-theme {
+    position: relative;
+    .owl-next, .owl-prev {
+        width: 22px;
+        height: 40px;
+        margin-top: -20px;
+        position: absolute;
+        top: 40%;
+    }
+    .owl-prev {
+        left: 10px;
+        background: none;
+        font-size: 36px;
+        color: @brand-primary;
+        opacity: 1;
+    }
+    .owl-next {
+        right: 10px;
+        background: none;
+        font-size: 36px;
+        color: @brand-primary;
+        opacity: 1;
+    }
+}
+
+.us-img-marco-grande {
+    height: 250px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
+
+.us-img-marco-peque {
+    height: 70px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+
+    a {
+        pointer-events: none;
+        cursor: default;
+    }
+}
+
+
 /* ***** PROFILE PUBLIC ***** */
 .us-datos-personales{
     font-size: 18px;
@@ -167,6 +296,7 @@
     border-left: 4px solid @brand-primary;
     padding: 2%;
     margin-bottom: 20px;
+    .sombra-general2;
 }
 
 .us-address-target2{
@@ -210,6 +340,7 @@
     padding: 0 2%;
     margin-bottom: 40px;
     font-weight: 900;
+    .sombra-general2;
 }
 
 .us-mess-element-read,
@@ -217,6 +348,7 @@
     border-left: 4px solid @gray-base;
     padding: 0 2%;
     margin-bottom: 40px;
+    .sombra-general2;
 }
 
 .us-mess-element-read{
@@ -1349,6 +1481,23 @@ Sidebar
 
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width : 768px) {
+    .us-car-element-individual{
+        .us-col-caracteristicas{
+            text-align: center;
+            padding: 0;
+            margin-bottom: 10px;
+        }
+
+        .us-col-car-center{
+            border-right: none;
+            border-left: none;
+        }
+
+        .row-us-car-opt{
+            text-align: left;
+        }
+    }
+
     .us-profile {
         padding: 20px 2%;
     }

@@ -20,7 +20,6 @@ class Car {
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $plate;
 
@@ -142,30 +141,54 @@ class Car {
     /**
      * Constructor
      */
-    public function __construct($data = null)
-    {
+    public function __construct($data = null){
+
+//        print_r($data);
         if($data != null):
 
             foreach($data as $key => $value):
                 $key = Inflector::camelize($key);
 
                 if(property_exists('WWW\CarsBundle\Entity\Car',$key)):
-                    $this->$key = $value;
+
+                    if($key != 'model'):
+                        if($key == 'smoke' || $key == 'animals' || $key == 'music' || $key == 'talk'):
+                            $value = (bool) $value;
+                        endif;
+                        $this->$key = $value;
+                    else:
+                        $idBrand = null;
+                        if(array_key_exists('brand_id',$data)) $idBrand = $data['brand_id'];
+                        $this->model = new Model($data['model_id'],$data['model'],$idBrand,$data['brand']);
+                    endif;
                 endif;
 
             endforeach;
 
             $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
-            $photo =  new Photo($data['car_photo']);
-            $this->addPhoto($photo);
+
+            if(array_key_exists('photos', $data)):
+                foreach($data['photos'] as $value):
+                    $photo =  new Photo($value);
+                    $this->addPhoto($photo);
+                endforeach;
+            elseif(array_key_exists('car_photo', $data)):
+                $photo =  new Photo($data['car_photo']);
+                $this->addPhoto($photo);
+            endif;
 
             $this->user = new User();
             $this->user->setId($data['user_id']);
         else:
             $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->brand = new Model();
         endif;
 
 
+    }
+
+    public function setId($id){
+        return $this->id = $id;
     }
 
     /**
