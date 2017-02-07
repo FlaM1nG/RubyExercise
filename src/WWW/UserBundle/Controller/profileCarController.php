@@ -277,5 +277,15 @@ class ProfileCarController extends Controller{
     public function showCarAction(Request $request){
         $car = $this->getCar($request);
 
+        $arrayOptions = array(
+                        array('text' => 'animales','number' =>(int)$car->getAnimals()),
+                        array('text' => 'Fumar','number' =>(int)$car->getSmoke()),
+                        array('text' => 'Música','number' =>(int)$car->getMusic()),
+                        array('text' => 'Hablar','number' =>(int)$car->getTalk())
+                        );
+        
+        return $this->render('UserBundle:Profile/Car:profileObjectCar.html.twig',
+                       array('car' => $car, 'options' => $arrayOptions));
+
     }
 }

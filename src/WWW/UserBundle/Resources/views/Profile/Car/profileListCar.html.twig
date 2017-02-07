@@ -33,11 +33,11 @@ Coches
     <div class="row us-dataPersonal-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h3>
-                Cambiar Datos Bancarios
+                Coches
             </h3>
             <hr/>
             {% for car in arrayCars %}
-                {{ coches.coche('#', asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img'), '0000-ZZZ',
+                {{ coches.coche(path('user_profileCar', {idCar: car.id}), asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img'), '0000-ZZZ',
                 car.model.brand.name, car.model.name, car.seats, car.description,
                 path('user_profileEditCar', {idCar: car.id} ), 'dataEdit', 'titleEdit',
                 '#', car.id, 'Delete car') }}
