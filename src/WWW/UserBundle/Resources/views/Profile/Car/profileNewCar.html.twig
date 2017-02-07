@@ -64,6 +64,9 @@
     <script src="{{ asset('js/fileinput.js') }}"></script>
 
     <script type="text/javascript">
+
+
+        $(document).ready(function(){
             brand = $('#newCar_brand');
             models = $('#newCar_model').clone();
 
@@ -73,8 +76,6 @@
 
             $('#newCar_model').find('optgroup').remove();
             $('#newCar_model').append(options);
-
-        $(document).ready(function(){
 
             $(document).on('change','#newCar_brand',changeModel);
 

@@ -47,7 +47,7 @@
             {% else %}
 
                 {% for offer in listOffers %}
-                    {% set url = null %}
+                    {% set url = '' %}
                     {% if offer.service.table == 'trade' %}
                         {% set url = path('service_trade' , {idOffer: offer.id}) %}
                     {% endif%}
