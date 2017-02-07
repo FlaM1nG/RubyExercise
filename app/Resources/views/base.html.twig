@@ -12,6 +12,8 @@
         {% block stylesheets %}
             <link href="{{ asset('css/style.css') }}" rel="stylesheet" 
                   type="text/css">
+
+            {#<link type="text/css" rel="stylesheet" href="{{ asset('css/please-wait.css') }}">#}
         {% endblock %}
         
         <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
@@ -60,7 +62,16 @@
     
     {% block popupBlock %}
     {% endblock %}
-        
+
+    <script type="text/javascript" src="{{ asset('js/loading/please-wait.js') }}"></script>
+    <script type="text/javascript">
+        window.loading_screen = window.pleaseWait({
+            logo: "{{ asset('img/Logo_www-2.png') }}",
+            backgroundColor: '#fff',
+            loadingHtml: '<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
+        });
+    </script>
+
     {% block javascriptsFooter %}
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="{{ asset('js/jquery-3.1.1.min.js') }}" 
@@ -92,5 +103,10 @@
         <script src="{{ asset('js/materialize.min.js') }}" 
         type="text/javascript"></script>
     {% endblock %}
+
+    <script type="text/javascript">
+        window.loading_screen.finish();
+    </script>
+
     </body>
 </html>
