@@ -1,5 +1,6 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
-{% import 'macros/message.html.twig' as message %}
+{% import 'macros/message.html.twig' as macroMensaje %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block title %}
     Mensajes
@@ -53,12 +54,12 @@
 
                 {% for mensaje in messages %}
                     {% if mensaje.status == 3 %}
-                        {{ message.messElementReceived(mensaje.from.username, mensaje.createdDate,
+                        {{ macroMensaje.messElementReceived(mensaje.from.username, mensaje.createdDate,
                         mensaje.subject, mensaje.message,
                         'containerMessage_'~mensaje.id, path('user_profiler_readMessage', {idMessage:mensaje.id} ), '#borrar', mensaje.id) }}
                     {% else %}
 
-                        {{ mensaje.messElementReceivedNot(
+                        {{ macroMensaje.messElementReceivedNot(
                         mensaje.from.username,
                         mensaje.createdDate,
                         mensaje.subject,
@@ -83,6 +84,7 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
     
     <script type="text/javascript">
          $(document).ready(function() {

@@ -1,6 +1,7 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
 {% import 'macros/message.html.twig' as message %}
 {% import 'macros/offer.html.twig' as offers %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block title %}
     Profile
@@ -41,6 +42,7 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
 {% endblock %}
     
 

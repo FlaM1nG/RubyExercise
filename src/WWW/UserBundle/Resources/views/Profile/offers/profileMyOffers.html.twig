@@ -1,5 +1,6 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
 {% import 'macros/offer.html.twig' as offers %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block title %}
     Ofertas
@@ -25,43 +26,49 @@
 
 
 {% block bodyProfile %}
-    <h3>
-        Mis ofertas publicadas
-    </h3>
-    <hr/>
+    <div class="row us-dataPersonal-row-fluid">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Mis ofertas publicadas
+            </h3>
+            <hr/>
 
-    {% if listOffers == null %}
-        <h4>
-            Aún no has publicado ninguna oferta
-        </h4>
-        <p>
-            ¡Crea ofertas en el servicio que tengas dado de alta!
-        </p>
-        <p>
-            Dirígete al servicio que deseas crear la oferta y pulsa en la cabecera “Añadir oferta” para poder crear
-            tu oferta y disfruta de todas las ventajas que te ofrece What Want Web.
-        </p>
-    {% else %}
+            {% if listOffers == null %}
+                <h4>
+                    Aún no has publicado ninguna oferta
+                </h4>
+                <p>
+                    ¡Crea ofertas en el servicio que tengas dado de alta!
+                </p>
+                <p>
+                    Dirígete al servicio que deseas crear la oferta y pulsa en la cabecera “Añadir oferta” para poder crear
+                    tu oferta y disfruta de todas las ventajas que te ofrece What Want Web.
+                </p>
+            {% else %}
 
-        {% for offer in listOffers %}
+                {% for offer in listOffers %}
+                    {% set url = null %}
+                    {% if offer.service.table == 'trade' %}
+                        {% set url = path('service_trade' , {idOffer: offer.id}) %}
+                    {% endif%}
 
-            {% if offer.service.table == 'trade' %}
-                {% set url = path('service_trade' , {idOffer: offer.id}) %}
-            {% endif%}
+                    {{ offers.offUser(url, offer.photos.0.url ,offer.title,
+                        offer.description, 'leer', path('user_profiler_editOffer',{idOffer:offer.id}),
+                        'editar', '#borrar', 'borrar') }}
+                {% endfor %}
 
-            {{ offers.offUser(url, offer.photos.0.url ,offer.title,
-                offer.description, 'leer', path('user_profiler_editOffer',{idOffer:offer.id}),
-                'editar', '#borrar', 'borrar') }}
-        {% endfor %}
+            {% endif %}
 
-    {% endif %}
-    
+        </div>
+    </div>
 {% endblock %}
 
 
 
 {% block javascriptsFooter %}
     {{ parent() }}
+
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row-fluid') }}
 
     <script type="text/javascript">
         $(document).ready(function() {

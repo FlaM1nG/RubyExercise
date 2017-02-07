@@ -61,9 +61,9 @@ a:hover, a:focus{
 }
 
 .btn-primary:hover, .btn-primary:focus{
-    color: #fff;
-    background-color: #ff6600;
-    border-color: #ff6600;
+    color: @brand-secondary;
+    background-color: @brand-primary;
+    border-color: @brand-primary;
 }
 
 .pos-capas{
@@ -73,6 +73,7 @@ a:hover, a:focus{
 
 p{
     font-size: 16px;
+    word-wrap: break-word;
 }
 
 .btn-default{
@@ -111,6 +112,12 @@ p{
     -webkit-box-shadow:5px 5px 5px 0 rgba(0,0,0,.15);
     -moz-box-shadow: 5px 5px 5px 0 rgba(0,0,0,.15);
     box-shadow: 5px 5px 5px 0 rgba(0,0,0,.15);
+}
+
+.textProt{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* ##### FIN ETIQUETAS HTML ##### */

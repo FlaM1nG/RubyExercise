@@ -1,4 +1,5 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 
 {% block title %}
@@ -71,6 +72,7 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
     
     <script type="text/javascript">
         $(document).ready(function () {
