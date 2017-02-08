@@ -71,8 +71,9 @@ sha-header-title
             
 {% block serviceList %}
     <div class="row row-tra-base" id="tra-cont-base">
-    {% for trade in arrayTrades %} 
-        {#{ include('services/lists/tradeList.html.twig') }#}
+    {#{% for trade in arrayTrades %}#}
+    {% for trade in pagination %}
+            {#{ include('services/lists/tradeList.html.twig') }#}
 
         {% set url = path(routingOffer , {idOffer: trade.offer.id}) %}
         
@@ -80,6 +81,10 @@ sha-header-title
         path('user_public_profile',{username:trade.offer.userAdmin.username}), trade.offer.userAdmin.photo.url,
         trade.offer.userAdmin.username , trade.price, service) }}
     {% endfor %}
+    </div>
+    {#{{ dump(pagination) }}#}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
     </div>
 {% endblock %}
 

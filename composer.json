@@ -29,6 +29,7 @@
         "php-http/guzzle6-adapter": "^1.1",
         "payum/payum-bundle": "^2.1",
         "payum/paypal-express-checkout-nvp": "^1.3",
+        "knplabs/knp-paginator-bundle": "2.5.*",
         "ext-soap": "*",
         "fp/klarna-invoice": "^0.1",
         "klarna/checkout": "^4",

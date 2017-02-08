@@ -189,12 +189,22 @@ class TradeController extends Controller{
         endif;
         
         $arrayOffers = $this->searchTrades($data);
-        
+
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $arrayOffers,
+            $request->query->getInt('page', 1),
+            5
+        );
+
+        /* ARRAYTRADES NO HACE FALTA PORQUE VA DENTRO DE PAGINATION  */
         return $this->render('services/serTrade.html.twig',array(
-                             'arrayTrades' => $arrayOffers,
-                             'categories' => $this->ut->getArrayCategoryTrade($this->service),
-                             'title' => $title,
-                             'service' => $this->service
+//                            'arrayTrades' => $arrayOffers,
+                            'categories' => $this->ut->getArrayCategoryTrade($this->service),
+                            'title' => $title,
+                            'service' => $this->service,
+                            'pagination' => $pagination
                             ));
     }
     
@@ -247,12 +257,11 @@ class TradeController extends Controller{
             $this->sendMessage($request);
 
         elseif($formSubscribe->isSubmitted()):
-            $this->offerSubscribe($this->trade );
-             return $this->redirectToRoute('acme_payment_homepage', array('idOffer'=> $this->trade->getOffer()->getId()));
+            $this->offerSubscribe($this->trade);
+
         endif;
 
         return $this->render('offer/offTrade.html.twig',array(
-                             'offer' => $this->trade->getOffer(),  
                              'trade' => $this->trade,
                              'formComment' => $formComment->createView(),
                              'formMessage' => $formMessage->createView()  ,
@@ -348,7 +357,7 @@ class TradeController extends Controller{
         $data['offer_id'] = $trade->getOffer()->getId();
         
         $result = $ch->resultApiRed($data, $file);
-       
+
     }
     
     private function formArrayData(){
