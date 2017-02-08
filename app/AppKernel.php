@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new WWW\OthersBundle\OthersBundle(),
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 //            new Payum\Bundle\PayumBundle\PayumBundle(),
 
             new WWW\CarsBundle\CarsBundle(),
