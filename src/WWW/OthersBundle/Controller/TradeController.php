@@ -189,12 +189,22 @@ class TradeController extends Controller{
         endif;
         
         $arrayOffers = $this->searchTrades($data);
-        
+
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $arrayOffers,
+            $request->query->getInt('page', 1),
+            5
+        );
+
+        /* ARRAYTRADES NO HACE FALTA PORQUE VA DENTRO DE PAGINATION  */
         return $this->render('services/serTrade.html.twig',array(
-                             'arrayTrades' => $arrayOffers,
-                             'categories' => $this->ut->getArrayCategoryTrade($this->service),
-                             'title' => $title,
-                             'service' => $this->service
+//                            'arrayTrades' => $arrayOffers,
+                            'categories' => $this->ut->getArrayCategoryTrade($this->service),
+                            'title' => $title,
+                            'service' => $this->service,
+                            'pagination' => $pagination
                             ));
     }
     

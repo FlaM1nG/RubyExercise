@@ -1,5 +1,6 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
 {% import 'macros/coche.html.twig' as coches %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 
 {% block title %}
@@ -52,6 +53,7 @@ Coches
 
 {% block javascriptsFooter %}
     {{ parent() }}
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
 
     <script>
 

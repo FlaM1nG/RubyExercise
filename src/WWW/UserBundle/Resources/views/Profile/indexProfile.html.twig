@@ -1,6 +1,7 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
 {% import 'macros/message.html.twig' as message %}
 {% import 'macros/offer.html.twig' as offers %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block title %}
     Profile
@@ -56,17 +57,22 @@
                 </div>
             </div>
 
+            {% if usuario.name != '' and usuario.surname != '' %}
             <div class="row separacion-superior separacion-inferior us-datos-personales">
                 <div class="col-lg-12">
                     <span>Nombre:</span> {{ usuario.name }} {{ usuario.surname }}
                 </div>
             </div>
+            {% endif %}
 
             <div class="row us-datos-personales">
+                {% if usuario.birthdate != '' %}
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 separacion-inferior">
                     <span>Edad:</span> {{ ('now'|date('Y') - usuario.birthdate|date('Y') - 1) }}
                 </div>
+                {% endif %}
 
+                {% if usuario.sex != '' %}
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 separacion-inferior">
                     <span>Sexo:</span>
                     {% if usuario.sex == 'f' %}
@@ -75,19 +81,24 @@
                         Masculino
                     {% endif %}
                 </div>
+                {% endif %}
             </div>
 
             <div class="row us-datos-personales">
+                {% if usuario.email != '' %}
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 separacion-inferior">
                     <span>Email:</span> {{ usuario.email }}
                 </div>
+                {% endif %}
 
+                {% if usuario.phone %}
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 separacion-inferior">
                     <span>Teléfono:</span> {{ usuario.prefix }} {{ usuario.phone }}
                 </div>
+                {% endif %}
             </div>
 
-            {% if usuario.defaultaddress is not null  %}
+            {% if usuario.defaultaddress is not null %}
             <div class="row us-datos-personales">
                 <div class="col-lg-12">
                     <span>Dirección por defecto:</span>
@@ -109,6 +120,9 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
+
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
+
     <script type="text/javascript">
         $(document).ready(function(){
             $(function () {
