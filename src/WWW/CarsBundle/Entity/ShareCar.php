@@ -58,7 +58,7 @@ class ShareCar
 
     public function __construct($array = null) {
 
-        if($array != null):
+        if($array != null): 
             $this->id = $array['id'];
             $this->fromPlace = $array['from_place'];
             $this->toPlace = $array['to_place'];
@@ -67,7 +67,11 @@ class ShareCar
             $this->backTwo = $array['back_two'];
             $this->autobooking = $array['autobooking'];
             $this->offer = new Offer($array);
-            $this->car = $this->setPhotoCar($array['car_photo']);
+            if(!empty($array['car'])):
+                $this->car = new Car($array['car']);
+            else:    
+                $this->car = $this->setPhotoCar($array['car_photo']);
+            endif;    
         else:
             $this->offer = new Offer();
         endif;

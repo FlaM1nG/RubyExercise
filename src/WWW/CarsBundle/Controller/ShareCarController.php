@@ -17,6 +17,9 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
 use WWW\CarsBundle\Entity\Car;
+use WWW\UserBundle\Entity\Message;
+use WWW\UserBundle\Form\MessageType;
+use WWW\UserBundle\Entity\User;
 
 class ShareCarController extends Controller {
     
@@ -146,8 +149,75 @@ class ShareCarController extends Controller {
     }
 
     public function offerCarAction(Request $request){
-        return $this->render('offer/offShareCar.html.twig');
+
+        $shareCar = $this->getOfferShareCar($request);
+        $message = $this->fillMessage($request,$shareCar);
+        $formMessage = $this->createForm(MessageType::class, $message);
+
+        $formMessage->handleRequest($request);
+
+        if($formMessage->isSubmitted()):
+            $this->sendMessage($request, $shareCar);
+        endif;
+
+        return $this->render('offer/offShareCar.html.twig',
+                            array('shareCar' => $shareCar,
+                                  'formMessage' => $formMessage->createView()  ,));
         
+    }
+
+    private function getOfferShareCar(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'services/share_car/get_share_car.php';
+        $ch = new ApiRest();
+        $shareCar = null;
+        $id = $request->get('idOffer');
+
+        $data['id'] = $id;
+        $data['option'] = "offer";
+
+        $result = $ch->resultApiRed($data, $file);
+
+        $shareCar = new ShareCar($result);
+
+        return $shareCar;
+
+    }
+
+    private function fillMessage(Request $request, ShareCar $shareCar){
+
+        $message = new Message();
+
+        $user = new User();
+        $user->setId($request->getSession()->get('id'));
+        $user->setUsername($request->getSession()->get('username'));
+
+        $userTo = new User();
+        $userTo->setId($shareCar->getOffer()->getUserAdmin()->getId());
+        $userTo->setUsername($shareCar->getOffer()->getUserAdmin()->getUsername());
+
+        $message->setFrom($user);
+        $message->setTo($userTo);
+        $message->setSubject('Oferta: '.$shareCar->getOffer()->getTitle());
+
+        return $message;
+    }
+
+    private function sendMessage(Request $request, ShareCar $shareCar){
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."user/messages/send_message.php";
+        $ut = new Utilities();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['to'] = $shareCar->getOffer()->getUserAdmin()->getUsername();
+        $data['subject'] = $request->get('message')['subject'];
+        $data['message'] = $request->get('message')['message'];
+
+        $result = $ch->resultApiRed($data, $file);
+
+        $ut->flashMessage("message", $request, $result);
     }
     
 }
