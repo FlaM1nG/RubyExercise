@@ -1,8 +1,9 @@
 {% extends '::services/layoutService.html.twig' %}
 {% import '::macros/shareCarList.html.twig' as shares %}
+{% import 'macros/star.html.twig' as rating %}
 
 {% block title %}
-    Share Car
+    Coche compartido
 {% endblock %}
 
 {% block cssParallax %}
@@ -14,7 +15,7 @@ sha-header-title
 {% endblock %}
 
 {% block serviceTitle %} 
-    Share Car 
+    Coche compartido
 {% endblock %}
 
 {% block serviceSubTitle %}  
@@ -26,20 +27,61 @@ sha-header-title
 {% endblock %}
             
 {% block serviceList %}
-    {% for i in 0..7 %}
+
+    {% for offer in pagination %}
         {#{ include('services/lists/shareCarList.html.twig') }#}
-        
+
         {% set img = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
         {% set dia = "now"|date() %}
-        
-        {{ shares.element('#SHARE', img, dia, 'granada', 'madrid', random(4), 
-            '#USER', asset('img/usuario1.jpg'), 'Paco J', random(50) ) }}
+
+        {{ shares.element(
+            '#SHARE',
+            asset(offer.car.photos.0.url,'img'),
+            dia,
+            offer.fromPlace,
+            offer.toPlace,
+            offer.offer.title,
+            path('user_public_profile',{username:offer.offer.userAdmin.username}),
+            asset(offer.offer.userAdmin.photo.url,'img'),
+            offer.offer.userAdmin.username,
+            offer.price,
+            offer.offer.userAdmin.avgScore) }}
     {% endfor %}
     <!-- Modal -->
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}
 
 {% block filtroMovilBody %}
     {{ include('services/filters/shareCarFilter.html.twig') }}
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    <script src=" {{ asset('js/masonry.pkgd.min.js') }}"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            var e = $(".row-tra-base");
+            e.length > 0 && e.masonry({
+                // options
+                columnWidth: '.col-tra-elem',
+                itemSelector: '.col-tra-elem',
+                //percentPosition: true,
+                transitionDuration: 0.2,
+                isFitWidth: true,
+                gutter: 20
+            });
+
+
+        });
+    </script>
+
+
+    {{ rating.staticRatingJS() }}
 {% endblock %}
 
 

@@ -3,6 +3,8 @@
 namespace WWW\CarsBundle\Entity;
 
 use WWW\ServiceBundle\Entity\Offer;
+use WWW\CarsBundle\Entity\Car;
+use WWW\GlobalBundle\Entity\Photo;
 
 /**
  * ShareCar
@@ -54,8 +56,31 @@ class ShareCar
      */
     private $offer;
 
-    public function __construct() {
-        $this->offer = new Offer();
+    public function __construct($array = null) {
+
+        if($array != null):
+            $this->id = $array['id'];
+            $this->fromPlace = $array['from_place'];
+            $this->toPlace = $array['to_place'];
+            $this->date = \DateTime::createFromFormat('Y-m-d', $array['date']);
+            $this->price = $array['price'];
+            $this->backTwo = $array['back_two'];
+            $this->autobooking = $array['autobooking'];
+            $this->offer = new Offer($array);
+            $this->car = $this->setPhotoCar($array['car_photo']);
+        else:
+            $this->offer = new Offer();
+        endif;
+    }
+
+    private function setPhotoCar($data){
+
+        $car = new Car();
+        $photo = new Photo();
+        $photo->setUrl($data);
+        $car->addPhoto($photo);
+        
+        return $car;
     }
 
     /**

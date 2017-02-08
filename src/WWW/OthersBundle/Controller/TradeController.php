@@ -224,6 +224,7 @@ class TradeController extends Controller{
                 array_push($arrayOffers, $newTrade);
             endforeach;
         endif;
+        
         return $arrayOffers;
     }
 

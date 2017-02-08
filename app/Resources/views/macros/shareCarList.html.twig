@@ -2,7 +2,8 @@
     hrefUser, srcImgUser, nameUser, price, vote ) %}
     
     {% import 'macros/user.html.twig' as users %}
-    
+    {% import 'macros/star.html.twig' as rating %}
+
 <!-- ELEMENTO LISTA -->
 <div class="row sha-offer-list">
     <!-- VEHICULO -->
@@ -55,13 +56,13 @@
 
                 
                 <!-- PLAZAS DISPONIBLES --> 
-                <div class="row row-sha-info-list">
-                    <span class="">
-                        {{ plazasLibres|e }} plazas libres
-                    </span>
-                    
-                    
-                </div>
+                {#<div class="row row-sha-info-list">#}
+                    {#<span class="">#}
+                        {#{{ plazasLibres|e }} plazas libres#}
+                    {#</span>#}
+                    {##}
+                    {##}
+                {#</div>#}
                 <!-- FIN PLAZAS DISPONIBLES --> 
 
                 
@@ -86,16 +87,8 @@
         <div class="row row-sha-price">
             <!-- VALORACION USUARIO -->
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <p class="sha-valoracion">Valoraciones</p>
-                    <div class="rating">
-                        <span>☆</span>
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
-                    </div>
-                
-                
+                {{ rating.staticRating(vote|number_format) }}
+
             </div>
             <!-- FIN VALORACION USUARIO -->
 
@@ -131,18 +124,11 @@
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 col-sha-vot-mob">
                 <!-- VALORACION -->
                 <div class="row">
-                    <p class="sha-valoracion">Valoraciones</p>
-                    
-                    
-                    <div class="rating">
-                        <span>☆</span>
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        {{ rating.staticRating(vote) }}
+
                     </div>
-                    
-                    
+
                 </div>
                 <!-- FIN VALORACION -->
                 
@@ -171,5 +157,7 @@
     
     
 </div>
+
 <!-- FIN ELEMENTO LISTA -->
 {% endmacro %}
+

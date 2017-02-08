@@ -103,19 +103,27 @@ class ShareCarController extends Controller {
     }
 
     public function listCarAction(Request $request){
-        $arrayCars = null;
 
-        $this->getsShareCars($request);
+        $arrayOffers = $this->getsShareCars($request);
+
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $arrayOffers,
+            $request->query->getInt('page', 1),
+            5
+        );
 
         return $this->render('services/serShareCar.html.twig',
-                       array('arrayCars' => $arrayCars));
+                       array('pagination' => $pagination)
+        );
     }
 
     private function getsShareCars(Request $request){
 
         $file = MyConstants::PATH_APIREST.'services/share_car/list_share_cars.php';
-        echo $file;
         $ch = new ApiRest();
+        $arrayShareCar = null;
         
         $data['service_id'] = 4;
         $data['search'] = "";
@@ -128,10 +136,17 @@ class ShareCarController extends Controller {
 
         $result = $ch->resultApiRed($info,$file);
 
-        var_dump($result);
+        if($result['result'] == 'ok'):
+            foreach($result['offers'] as $data):
+                $arrayShareCar[] = new ShareCar($data);
+            endforeach;
+        endif;
+
+        return $arrayShareCar;
     }
 
     public function offerCarAction(Request $request){
+        return $this->render('offer/offShareCar.html.twig');
         
     }
     
