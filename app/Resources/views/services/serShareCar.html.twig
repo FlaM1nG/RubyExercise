@@ -35,7 +35,7 @@ sha-header-title
         {% set dia = "now"|date() %}
 
         {{ shares.element(
-            '#SHARE',
+            path('offShareCar', {idOffer: offer.offer.id}),
             asset(offer.car.photos.0.url,'img'),
             dia,
             offer.fromPlace,

@@ -64,9 +64,7 @@ serHouseRents:
     
 offTrade:
     path: /services/trade/offer
-    defaults: { _controller: AppBundle:Index:offTrade }   
-    
-
+    defaults: { _controller: AppBundle:Index:offTrade }
     
 offHouseRents:
     path: /services/house-rents/offer
