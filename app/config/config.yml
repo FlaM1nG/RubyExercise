@@ -39,7 +39,7 @@ framework:
     assets:  
         packages:
             img: 
-                base_urls: 'http://whatwantweb.com/n19n382d23HnNY7bb8nj0m9nyb988676HUUBY6g7J9JI/'
+                base_urls: 'https://whatwantweb.com/n19n382d23HnNY7bb8nj0m9nyb988676HUUBY6g7J9JI/'
 
         
 # Twig Configuration
@@ -127,7 +127,7 @@ easy_admin:
             list:
                 fields:
                     - id
-                    - { property: 'url', type: 'image', base_path: 'http://whatwantweb.com/' }
+                    - { property: 'url', type: 'image', base_path: 'https://whatwantweb.com/' }
                     - { property: 'createdDate',format: 'j/n/Y'}
                     - { property: 'modifiedDate',format: 'j/n/Y'}
         Trade:
