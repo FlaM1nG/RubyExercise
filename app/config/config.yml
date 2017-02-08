@@ -72,15 +72,15 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-doctrine_mongodb:
-  connections:
-    default: # <-- indentation added here
-      server: mongodb://localhost:27017
-      options: {}
-  default_database: test_database
-  document_managers:
-    default:
-      auto_mapping: true
+#doctrine_mongodb:
+#  connections:
+#    default: # <-- indentation added here
+#      server: mongodb://localhost:27017
+#      options: {}
+#  default_database: test_database
+#  document_managers:
+#    default:
+#      auto_mapping: true
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -99,23 +99,23 @@ sonata_block:
     blocks:
         # Enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
-doctrine_mongodb:
-    connections:
-        default:
-            server: 'mongodb://%mongodb_host%:mongodb_port'
-            options: {}
-    default_database: "%mongodb_name%"
-    document_managers:
-        default:
-            auto_mapping: true
-
-            mappings:
-                payum:
-                    is_bundle: false
-                    type: xml
-                    dir: "%kernel.root_dir%/../vendor/payum/payum/src/Payum/Core/Bridge/Doctrine/Resources/mapping"
-                    prefix: Payum\Core\Model
-
+#doctrine_mongodb:
+#    connections:
+#        default:
+#            server: 'mongodb://%mongodb_host%:mongodb_port'
+#            options: {}
+#    default_database: "%mongodb_name%"
+#    document_managers:
+#        default:
+#            auto_mapping: true
+#
+#            mappings:
+#                payum:
+#                    is_bundle: false
+#                    type: xml
+#                    dir: "%kernel.root_dir%/../vendor/payum/payum/src/Payum/Core/Bridge/Doctrine/Resources/mapping"
+#                    prefix: Payum\Core\Model
+#
 
 
 #payum:
