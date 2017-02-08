@@ -62,7 +62,7 @@ class ShareCar
             $this->id = $array['id'];
             $this->fromPlace = $array['from_place'];
             $this->toPlace = $array['to_place'];
-            $this->date = \DateTime::createFromFormat('Y-m-d', $array['date']);
+            $this->date = \DateTime::createFromFormat('Y-m-d H:i:s', $array['date']);
             $this->price = $array['price'];
             $this->backTwo = $array['back_two'];
             $this->autobooking = $array['autobooking'];

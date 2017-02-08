@@ -33,11 +33,11 @@ sha-header-title
 
         {% set img = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
         {% set dia = "now"|date() %}
-
+{#{{ dump(offer) }}#}
         {{ shares.element(
             path('offShareCar', {idOffer: offer.offer.id}),
             asset(offer.car.photos.0.url,'img'),
-            dia,
+            offer.date,
             offer.fromPlace,
             offer.toPlace,
             offer.offer.title,
