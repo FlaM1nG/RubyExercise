@@ -8,11 +8,11 @@ payum:
         Acme\PaymentBundle\Entity\AgreementDetails: { doctrine: orm }
         Acme\PaymentBundle\Entity\RecurringPaymentDetails: { doctrine: orm }
 
-        Acme\PaymentBundle\Document\PaymentDetails:
-            doctrine: mongodb
-            extension:
-                gateways:
-                    - paypal_express_checkout_and_doctrine_mongo_odm
+#        Acme\PaymentBundle\Document\PaymentDetails:
+#            doctrine: mongodb
+#            extension:
+#                gateways:
+#                    - paypal_express_checkout_and_doctrine_mongo_odm
 
         Acme\OtherExamplesBundle\Model\Cart:
             extension:
@@ -56,12 +56,12 @@ payum:
             signature: "%paypal.express_checkout.signature%"
             sandbox: true
 
-        paypal_express_checkout_and_doctrine_mongo_odm:
-            factory: paypal_express_checkout
-            username:  "%paypal.express_checkout.username%"
-            password:  "%paypal.express_checkout.password%"
-            signature: "%paypal.express_checkout.signature%"
-            sandbox: true
+#        paypal_express_checkout_and_doctrine_mongo_odm:
+#            factory: paypal_express_checkout
+#            username:  "%paypal.express_checkout.username%"
+#            password:  "%paypal.express_checkout.password%"
+#            signature: "%paypal.express_checkout.signature%"
+#            sandbox: true
 
         paypal_express_checkout_recurring_payment_and_doctrine_orm:
             factory: paypal_express_checkout
