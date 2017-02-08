@@ -3,10 +3,6 @@ payment:
     type:     annotation
     prefix:   /
 
-cars:
-    resource: "@CarsBundle/Resources/config/routing.yml"
-    prefix:   /car
-
 #s_gestion_admin:
 #    resource: "@SGestionAdminBundle/Resources/config/routing.yml"
 #    prefix:   /
@@ -60,10 +56,7 @@ privacyPolicy:
 paymentMethod:
     path: /payment-method
     defaults: { _controller: AppBundle:Index:paymentMethod }
-    
-serShareCar:
-    path: /services/share-car
-    defaults: { _controller: AppBundle:Index:serShareCar }
+
     
 serHouseRents:
     path: /services/house-rents
@@ -73,9 +66,7 @@ offTrade:
     path: /services/trade/offer
     defaults: { _controller: AppBundle:Index:offTrade }   
     
-offShareCar:
-    path: /services/share-car/offer
-    defaults: { _controller: AppBundle:Index:offShareCar }   
+
     
 offHouseRents:
     path: /services/house-rents/offer
@@ -101,6 +92,9 @@ trade:
     resource: "@OthersBundle/Resources/config/routing.yml"
     prefix:   /services
 
+cars:
+    resource: "@CarsBundle/Resources/config/routing.yml"
+    prefix:   /services/share-car/
 
 notFound:
     path: /notFound

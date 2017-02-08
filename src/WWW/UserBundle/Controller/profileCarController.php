@@ -32,13 +32,18 @@ class ProfileCarController extends Controller{
             $result = $this->saveNewCar($request, $car);
 
             if($result == 'ok'):
-                return $this->redirectToRoute('user_profileListCars');
+                $path =$request->getSession()->get('_security.user.target_path');
+                if($path == 'car_shareCarNew'):
+                    return $this->redirectToRoute('car_shareCarNew');
+                else:
+                    return $this->redirectToRoute('user_profileListCars');
+                endif;
             endif;
         endif;
 
         return $this->render('UserBundle:Profile:Car/profileNewCar.html.twig',
             array('form' => $form->createView(),
-                'car' => $car));
+                  'car' => $car));
     }
 
     private function saveNewCar(Request $request, $car){

@@ -2,6 +2,8 @@
 
 namespace WWW\CarsBundle\Entity;
 
+use WWW\ServiceBundle\Entity\Offer;
+
 /**
  * ShareCar
  */
@@ -32,6 +34,29 @@ class ShareCar
      */
     private $price;
 
+    /**
+     * @var \WWW\CarsBundle\Entity\Car
+     */
+    private $car;
+
+    /**
+     * @var boolean
+     */
+    private $backTwo;
+
+    /**
+     * @var boolean
+     */
+    private $autobooking;
+
+    /**
+     * @var \WWW\ServiceBundle\Entity\Offer
+     */
+    private $offer;
+
+    public function __construct() {
+        $this->offer = new Offer();
+    }
 
     /**
      * Get id
@@ -138,11 +163,6 @@ class ShareCar
     {
         return $this->price;
     }
-    /**
-     * @var \WWW\CarsBundle\Entity\Car
-     */
-    private $car;
-
 
     /**
      * Set car
@@ -167,21 +187,6 @@ class ShareCar
     {
         return $this->car;
     }
-    /**
-     * @var boolean
-     */
-    private $backTwo;
-
-    /**
-     * @var boolean
-     */
-    private $autobooking;
-
-    /**
-     * @var \WWW\ServiceBundle\Entity\Offer
-     */
-    private $offer;
-
 
     /**
      * Set backTwo
