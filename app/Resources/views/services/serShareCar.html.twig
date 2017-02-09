@@ -2,6 +2,11 @@
 {% import '::macros/shareCarList.html.twig' as shares %}
 {% import 'macros/star.html.twig' as rating %}
 
+{% set pathFilter = path('serShareCar') %}
+{% set routingOffer = 'offShareCar' %}
+{% set routingNewOffer = 'car_shareCarNew' %}
+
+
 {% block title %}
     Coche compartido
 {% endblock %}
