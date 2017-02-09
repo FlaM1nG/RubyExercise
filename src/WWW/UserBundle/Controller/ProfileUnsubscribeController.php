@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
+use WWW\UserBundle\Entity\Down;
 use WWW\UserBundle\Form\ProfileUnsubscribeType;
 use WWW\UserBundle\Entity\User;
 
@@ -27,8 +28,11 @@ class ProfileUnsubscribeController extends Controller{
     public function unsubscribeAction(Request $request){
         
         $user = null;
+
+        $down=new Down();
         $user = $this->getUserProfile($request);
-        $form = $this->createForm(ProfileUnsubscribeType::class,$user);
+
+        $form = $this->createForm(ProfileUnsubscribeType::class,$down);
         
         $form->handleRequest($request);
         
@@ -41,6 +45,7 @@ class ProfileUnsubscribeController extends Controller{
             $data['id'] = $user->getId();
             $data['username'] = $user->getUsername();
             $data['password'] = $user->getPassword();
+            $data['reason']   = $down->getReason();
             $result = $ch->resultApiRed($data, $file);
             
             $ut->flashMessage("general", $request, $result);

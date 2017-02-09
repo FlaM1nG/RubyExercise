@@ -2,12 +2,14 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: payum.yml }
+    - { resource: admin.yml }
     - { resource: "@UserBundle/Resources/config/services.yml" }
     - { resource: "@GlobalBundle/Resources/config/services.yml" }
     - { resource: "@ServiceBundle/Resources/config/services.yml" }
     - { resource: "@OthersBundle/Resources/config/services.yml" }
     - { resource: "@CarsBundle/Resources/config/services.yml" }
-    - { resource: "@PaymentBundle/Resources/config/services.yml" }
+
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -39,7 +41,7 @@ framework:
     assets:  
         packages:
             img: 
-                base_urls: 'https://whatwantweb.com/n19n382d23HnNY7bb8nj0m9nyb988676HUUBY6g7J9JI/'
+                base_urls: 'http://whatwantweb.com/n19n382d23HnNY7bb8nj0m9nyb988676HUUBY6g7J9JI/'
 
         
 # Twig Configuration
@@ -70,7 +72,15 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-
+#doctrine_mongodb:
+#  connections:
+#    default: # <-- indentation added here
+#      server: mongodb://localhost:27017
+#      options: {}
+#  default_database: test_database
+#  document_managers:
+#    default:
+#      auto_mapping: true
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -84,65 +94,48 @@ gregwar_captcha:
     height: 50
     length: 4
 
-payum:
-    security:
-        token_storage:
-            WWW\PaymentBundle\Entity\PaymentToken: { doctrine: orm }
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+#doctrine_mongodb:
+#    connections:
+#        default:
+#            server: 'mongodb://%mongodb_host%:mongodb_port'
+#            options: {}
+#    default_database: "%mongodb_name%"
+#    document_managers:
+#        default:
+#            auto_mapping: true
+#
+#            mappings:
+#                payum:
+#                    is_bundle: false
+#                    type: xml
+#                    dir: "%kernel.root_dir%/../vendor/payum/payum/src/Payum/Core/Bridge/Doctrine/Resources/mapping"
+#                    prefix: Payum\Core\Model
+#
 
-    storages:
-        WWW\PaymentBundle\Entity\Payment: { doctrine: orm }
-        WWW\PaymentBundle\Entity\PaymentDetails: { doctrine: orm }
-    gateways:
-        offline:
-            factory: offline
-        paypal_payment:
-                     factory: paypal_express_checkout
-                     username:  'get this from gateway side'
-                     password:  'get this from gateway side'
-                     signature: 'get this from gateway side'
-                     sandbox: true
 
-easy_admin:
-    disabled_actions: ['new']
-    list:
-        actions: ['edit', 'search','show']
-    formats:
-        date:     'd/m/Y'
-        time:     'H:i'
-        datetime: 'd/m/Y H:i:s'
-    design:
-        brand_color: '#f60'
-    site_name: 'WhatWantWeb_Management'
-    entities:
-        Message:
-            class: WWW\UserBundle\Entity\Message
-            list:
-                fields: ['id','subject','message','status','revisionDate','createdDate','from','to']
-            form:
-                fields:
-                    - status
-                    - { property: 'revisionDate',format: 'j/n/Y' }
-        Photo:
-            class: WWW\GlobalBundle\Entity\Photo
-            list:
-                fields:
-                    - id
-                    - { property: 'url', type: 'image', base_path: 'https://whatwantweb.com/' }
-                    - { property: 'createdDate',format: 'j/n/Y'}
-                    - { property: 'modifiedDate',format: 'j/n/Y'}
-        Trade:
-            class: WWW\OthersBundle\Entity\Trade
-        Offer:    
-            class: WWW\ServiceBundle\Entity\Offer
-        User:
-            disabled_actions: ['show']
-            class: WWW\UserBundle\Entity\User
-            list:
-                fields: ['id','name','surname','username','email','phone','isBanned']
-                    
-        Address:
-            class: WWW\GlobalBundle\Entity\Address
-         
+#payum:
+#    security:
+#        token_storage:
+#            WWW\PaymentBundle\Entity\PaymentToken: { doctrine: orm }
+#
+#    storages:
+#        WWW\PaymentBundle\Entity\Payment: { doctrine: orm }
+#        WWW\PaymentBundle\Entity\PaymentDetails: { doctrine: orm }
+#    gateways:
+#        offline:
+#            factory: offline
+#        paypal_payment:
+#                     factory: paypal_express_checkout
+#                     username:  'get this from gateway side'
+#                     password:  'get this from gateway side'
+#                     signature: 'get this from gateway side'
+#                     sandbox: true
+
 
 # KnpPaginatorBundle
 

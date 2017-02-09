@@ -1,0 +1,41 @@
+easy_admin:
+    disabled_actions: ['new']
+    list:
+        actions: ['edit', 'search','show']
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
+    design:
+        brand_color: '#f60'
+    site_name: 'WhatWantWeb_Management'
+    entities:
+        Message:
+            class: WWW\UserBundle\Entity\Message
+            list:
+                fields: ['id','subject','message','status','revisionDate','createdDate','from','to']
+            form:
+                fields:
+                    - status
+                    - { property: 'revisionDate',format: 'j/n/Y' }
+        Photo:
+            class: WWW\GlobalBundle\Entity\Photo
+            list:
+                fields:
+                    - id
+                    - { property: 'url', type: 'image', base_path: 'http://whatwantweb.com/' }
+                    - { property: 'createdDate',format: 'j/n/Y'}
+                    - { property: 'modifiedDate',format: 'j/n/Y'}
+        Trade:
+            class: WWW\OthersBundle\Entity\Trade
+        Offer:
+            class: WWW\ServiceBundle\Entity\Offer
+        User:
+            disabled_actions: ['show']
+            class: WWW\UserBundle\Entity\User
+            list:
+                fields: ['id','name','surname','username','email','phone','isBanned']
+
+        Address:
+            class: WWW\GlobalBundle\Entity\Address
+

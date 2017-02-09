@@ -259,7 +259,7 @@ class TradeController extends Controller{
 
         elseif($formSubscribe->isSubmitted()):
             $this->offerSubscribe($this->trade);
-
+            return $this->redirectToRoute('acme_payment_homepage', array('idOffer'=> $this->trade->getOffer()->getId()));
         endif;
 
         return $this->render('offer/offTrade.html.twig',array(
@@ -267,7 +267,8 @@ class TradeController extends Controller{
                              'formComment' => $formComment->createView(),
                              'formMessage' => $formMessage->createView()  ,
                              'formSubscribe' => $formSubscribe->createView(),
-                             'service' => $this->service
+                             'service' => $this->service,
+                             'offer'=> $this->trade->getOffer()
         ));
     }
 

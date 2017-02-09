@@ -1,21 +1,21 @@
-payment:
-    resource: "@PaymentBundle/Controller/"
-    type:     annotation
-    prefix:   /
+#payment:
+#    resource: "@PaymentBundle/Controller/"
+#    type:     annotation
+#    prefix:   /
 
 #s_gestion_admin:
 #    resource: "@SGestionAdminBundle/Resources/config/routing.yml"
 #    prefix:   /
 # app/config/routing.yml
-done:
-    path: /payment/done
-    defaults: {_controller: PaymentBundle:Payment:done}
-
-done_paypal:
-    path: /payment/paypal/done
-    defaults: {_controller: PaymentBundle:Payment:captureDone}
-payum_all:
-    resource: "@PayumBundle/Resources/config/routing/all.xml"
+#done:
+#    path: /payment/done
+#    defaults: {_controller: PaymentBundle:Payment:done}
+#
+#done_paypal:
+#    path: /payment/paypal/done
+#    defaults: {_controller: PaymentBundle:Payment:captureDone}
+#payum_all:
+#    resource: "@PayumBundle/Resources/config/routing/all.xml"
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
@@ -74,9 +74,9 @@ blog:
     path: /blog
     defaults: { _controller: AppBundle:Index:blog }      
     
-admin:
-    path: /admin
-    defaults: { _controller: AppBundle:Index:admin }  
+#admin:
+#    path: /admin
+#    defaults: { _controller: AppBundle:Index:admin }
     
 easy_admin_bundle:
     resource: "@EasyAdminBundle/Controller/"
@@ -97,3 +97,48 @@ cars:
 notFound:
     path: /notFound
     defaults: { _controller: AppBundle:Index:notFound }
+
+payum_all:
+    resource: "@PayumBundle/Resources/config/routing/all.xml"
+    prefix:   /
+
+acme_paypal_express_checkout:
+    resource: "@AcmePaypalExpressCheckoutBundle/Resources/config/routing.yml"
+    prefix:   /
+
+acme_stripe:
+    resource: "@AcmeStripeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+acme_redsys:
+    resource: "@AcmeRedsysBundle/Resources/config/routing.yml"
+    prefix:   /
+
+acme_payex:
+    resource: "@AcmePayexBundle/Resources/config/routing.yml"
+    prefix:   /
+
+acme_klarna:
+    resource: "@AcmeKlarnaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+acme_redsys:
+    resource:   "@AcmePaymentBundle/Controller/"
+    type:       annotation
+    prefix:     /
+
+acme_other_examples:
+    resource: "@AcmeOtherExamplesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+acme_payment:
+    resource: "@AcmePaymentBundle/Resources/config/routing.yml"
+    prefix:   /
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin

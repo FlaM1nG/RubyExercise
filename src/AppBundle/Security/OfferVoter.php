@@ -34,7 +34,7 @@ class OfferVoter extends Voter
         }
 
         // sólo votar en objetos Post dentro de este voter
-        if (!$subject instanceof \WWW\OthersBundle\Entity\Trade) {
+        if (!$subject instanceof \WWW\ServiceBundle\Entity\Offer) {
             print_r("el objeto no es trade");
             return false;
         }
@@ -54,13 +54,13 @@ class OfferVoter extends Voter
         }
 
         // $subject es un objeto Post, gracias al método supports
-        /** @var Post $post */
-        $trade = $subject;
+        /** @var Offer offer */
+        $offer = $subject;
 
         switch($attribute) {
             
             case self::SELECT:
-                return $this->canSelect($trade, $user,$token );
+                return $this->canSelect($offer, $user,$token );
             case self::CREATE:
                 return $this->canCreate($token );
         }
@@ -70,7 +70,7 @@ class OfferVoter extends Voter
 
     
   
-    private function canSelect(\WWW\OthersBundle\Entity\Trade $trade, User $user ,TokenInterface $token)
+    private function canSelect(\WWW\ServiceBundle\Entity\Offer $offer, User $user ,TokenInterface $token)
     {
          $user = $token->getUser();
          
@@ -79,7 +79,7 @@ class OfferVoter extends Voter
         
         // esto asume que el objeto tiene un método getOwner()
         // para obtener la entidad del usuario que posee este objeto
-        if( $user->getUsername() != $trade->getOffer()->getUserAdmin()->getUsername() && !$trade->getOffer()->getExpired()){
+        if( $user->getUsername() != $offer->getUserAdmin()->getUsername() && !$offer->getExpired()){
             return true;
             
         }

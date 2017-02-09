@@ -9,6 +9,7 @@
 namespace WWW\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -25,7 +26,7 @@ class ProfileUnsubscribeType extends AbstractType{
 
        $builder
                 
-               // ->add('reason',TextareaType::class, array('label' =>'Indíquenos el motivo de su baja.'))
+                ->add('reason',TextareaType::class, array('label' =>'Indíquenos el motivo de su baja.'))
 
                 ->add('unsubscribe',SubmitType::class,array('label' => 'Darse de baja',
                                                                  'validation_groups' => 'personalData'));
@@ -35,7 +36,7 @@ class ProfileUnsubscribeType extends AbstractType{
 
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data_class'=>'WWW\UserBundle\Entity\User',
+        $resolver->setDefaults(array('data_class'=>'WWW\UserBundle\Entity\Down',
                                      'validation_groups' => array('personalData'),
             ));
     }

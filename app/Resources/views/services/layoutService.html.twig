@@ -14,15 +14,17 @@
         <h1>
             {% block serviceTitle %}  {% endblock %}
         </h1>
-        {% if routingNewOffer is defined %}
-            <a href="{{ path(routingNewOffer) }}" type="button" class="btn btn-default off-butt-add">
-                Añadir oferta
-            </a>
-        {% else %}
-            <a href="#" type="button" class="btn btn-default off-butt-add">
-                Añadir oferta
-            </a>
-        {% endif %}
+        {%if is_granted('ROLE_USER')%}
+            {% if routingNewOffer is defined   %}
+                <a href="{{ path(routingNewOffer) }}" type="button" class="btn btn-default off-butt-add">
+                    Añadir oferta
+                </a>
+            {% else %}
+                <a href="#" type="button" class="btn btn-default off-butt-add">
+                    Añadir oferta
+                </a>
+            {% endif %}
+        {%endif%}    
     </div>
 </div>
 
