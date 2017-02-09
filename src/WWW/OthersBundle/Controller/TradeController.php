@@ -267,8 +267,7 @@ class TradeController extends Controller{
                              'formComment' => $formComment->createView(),
                              'formMessage' => $formMessage->createView()  ,
                              'formSubscribe' => $formSubscribe->createView(),
-                             'service' => $this->service,
-                             'offer'=> $this->trade->getOffer()
+                             'service' => $this->service
         ));
     }
 
