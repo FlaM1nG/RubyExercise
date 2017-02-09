@@ -1,3 +1,18 @@
-cars_homepage:
-    path:     /
-    defaults: { _controller: CarsBundle:Default:index }
+car_shareCarNew:
+  path:  /newOffer/
+  defaults: { _controller: CarsBundle:ShareCar:createShareCar }
+
+serShareCar:
+  path: /
+  defaults: { _controller: CarsBundle:ShareCar:listCar }
+
+offShareCar:
+    path: /services/share-car/offer/{idOffer}/
+    defaults: { _controller: CarsBundle:ShareCar:offerCar }
+    requirements:
+                idMessage: \d+
+
+
+#serShareCar:
+#    path: /services/share-car
+#    defaults: { _controller: AppBundle:Index:serShareCar }

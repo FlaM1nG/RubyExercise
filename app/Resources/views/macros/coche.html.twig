@@ -1,6 +1,6 @@
 {% macro coche(hrefCar, srcCar, matricula, marca, modelo, asientos, descripcion, hrefEdit, dataEdit, titleEdit,
 hrefDelete, dataDelete, titleDelete) %}
-    <div class="us-car-element">
+    <div class="us-car-element element_{{ dataDelete }}">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="row">
@@ -62,7 +62,7 @@ hrefDelete, dataDelete, titleDelete) %}
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
 
-                        <a href="{{ hrefDelete|e }}" class="btn btn-default us-mess-btn bDeleteMessage"
+                        <a href="{{ hrefDelete|e }}" class="btn btn-default us-mess-btn deleteCar"
                            data-id="{{ dataDelete|e }}"
                            data-toggle="tooltip"
                            data-placement="bottom"

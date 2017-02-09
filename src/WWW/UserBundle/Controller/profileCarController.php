@@ -18,7 +18,6 @@ use WWW\GlobalBundle\MyConstants;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
-
 class ProfileCarController extends Controller{
 
     public function newCarAction(Request $request){
