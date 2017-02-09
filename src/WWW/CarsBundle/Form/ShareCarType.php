@@ -26,6 +26,8 @@ class ShareCarType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $listCar = $options['listCar'];
+        $year = new \DateTime("now");
+        $year = $year->format("Y");
         
         $builder
 
@@ -38,7 +40,9 @@ class ShareCarType extends AbstractType {
             ->add('price', MoneyType::class, array('label' => 'Precio'))
 
             ->add('date', DateTimeType::class, array('label' => 'Día y hora',
-                                                     'html5' => true))
+                                                     'html5' => true,
+                                                     'data' => new \DateTime("now"),
+                                                      'years' => array($year,$year+1,$year+2,$year+3,$year+4)))
 
             ->add('car', ChoiceType::class, array('label' => 'Elija el coche',
                                                   'choices' => $listCar,
