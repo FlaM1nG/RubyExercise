@@ -263,7 +263,7 @@ class TradeController extends Controller{
         endif;
 
         return $this->render('offer/offTrade.html.twig',array(
-                             'trade' => $this->trade,
+                             'offer' => $this->trade,
                              'formComment' => $formComment->createView(),
                              'formMessage' => $formMessage->createView()  ,
                              'formSubscribe' => $formSubscribe->createView(),
@@ -343,6 +343,7 @@ class TradeController extends Controller{
         $data['to'] = $this->trade->getOffer()->getUserAdmin()->getUsername();
         $data['subject'] = $request->get('message')['subject'];
         $data['message'] = $request->get('message')['message'];
+        $data['offer'] = $this->trade->getOffer()->getId();
         
         $result = $ch->resultApiRed($data, $file);
         
