@@ -41,8 +41,12 @@ class ShareCarController extends Controller {
         $form->handleRequest($request);
 
 
-        if($form->isSubmitted()):
-            $this->createOfferShareCar($request, $shareCar,4);
+        if($form->isSubmitted() && $form->isValid()):
+            $result = $this->createOfferShareCar($request, $shareCar,4);
+
+            if($result == 'ok'):
+                return $this->redirectToRoute('serShareCar');
+            endif;
         endif;
         
         return $this->render('CarsBundle:ShareCar:newShareCarOffer.html.twig',
@@ -106,6 +110,7 @@ class ShareCarController extends Controller {
         $ut->flashMessage("general", $request, $result);
 
         return $result['result'];
+
     }
 
     public function listCarAction(Request $request){
@@ -280,7 +285,7 @@ class ShareCarController extends Controller {
         $data['offer_id'] = $shareCar->getOffer()->getId();
 
         $result = $ch->resultApiRed($data,$file);
-print_r($result);
+
         $ut->flashMessage('general',$request, $result);
 
     }
