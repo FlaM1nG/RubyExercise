@@ -21,11 +21,11 @@
 
 
 
-{% block offerImage %}{{ dump(shareCar) }}
+{% block offerImage %}{{ dump(offer) }}
     <div id="off-img-big" class="owl-carousel">
         {% set imgGallery = []  %}
         
-        {% for photo in shareCar.car.photos %}
+        {% for photo in offer.car.photos %}
             
             {% set imageOff = random([asset('img/seat.jpg'), 
                 asset('img/articulo1.jpg'), 
@@ -49,7 +49,7 @@
     </div>
 
     <div id="off-img-small" class="owl-carousel">
-        {% for photo in shareCar.car.photos %}
+        {% for photo in offer.car.photos %}
         <div class="item off-item-dime">
             <div class="off-img-marco-peque">
                 <img class="img-responsive off-img-slid" 
@@ -66,60 +66,76 @@
 {% block offerUser %} 
     <!-- IMAGEN USUARIO -->
     <div class="row row-off-user-name">
-        <a class="off-user-image" href="{{ asset(shareCar.offer.userAdmin.photo.url, 'img') }}">
+        <a class="off-user-image" href="{{ asset(offer.offer.userAdmin.photo.url, 'img') }}">
             <img class=" img-circle img-responsive" 
-                src="{{ asset(shareCar.offer.userAdmin.photo.url, 'img') }}"
+                src="{{ asset(offer.offer.userAdmin.photo.url, 'img') }}"
                 width="50" alt="">
         </a>
                     
-        <a class="off-user-name" href="{{ path('user_public_profile',{username: shareCar.offer.userAdmin.username}) }}">{{ shareCar.offer.userAdmin.username }}</a>
+        <a class="off-user-name" href="{{ path('user_public_profile',{username: offer.offer.userAdmin.username}) }}">{{ offer.offer.userAdmin.username }}</a>
         
     </div>
     <!-- FIN NOMBRE USUARIO -->
+
+    {# Lo pongo aquí por que no sé donde ponerlo #}
+    {% if offer.offer.userAdmin.id == app.session.get('id') %}
+        Usuarios inscritos: {{ offer.offer.inscriptions|length }}
+
+        {% for usuario in offer.offer.inscriptions %}
+            <div class="off-user-image" style="border: solid 1px orange">
+                <a class="off-user-image" href="{{ path('user_public_profile', {username: usuario.username}) }}">
+                    <img src="{{ asset(usuario.user_photo,'img') }}" width="50"> <br>
+                    {{ usuario.username }}<br>
+                    {{rating.staticRating(usuario.avg_score)}}
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+
 {% endblock %}
 
 {% block popupBlock %}
-    {% set title = 'Enviar mensaje a ' ~ shareCar.offer.userAdmin.username %}
+    {% set title = 'Enviar mensaje a ' ~ offer.offer.userAdmin.username %}
     {{ popups.popup('writeUser', title, include('offer/offPrivateMessage.html.twig') ) }}
 {% endblock %}
 
 
 {% block offerTitle %}
-    {{ shareCar.fromPlace}}
+    {{ offer.fromPlace}}
     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-    {{ shareCar.toPlace }}
+    {{ offer.toPlace }}
 {% endblock %}
 
 
 {% block offerPrice %} 
-    {{ shareCar.price|number_format(2, ',') }}€
+    {{ offer.price|number_format(2, ',') }}€
 {% endblock %}
 
 
 {% block offerVote %}
-    {{rating.staticRating(shareCar.offer.userAdmin.avgScore)}}
+    {{rating.staticRating(offer.offer.userAdmin.avgScore)}}
 {% endblock %}
 
 
 {% block offerDate %} 
-    {{ shareCar.date.date|date('d/m/Y') }} {{ ' a las '  }} {{ shareCar.date.date|date('H:i')  }}
+    {{ offer.date.date|date('d/m/Y') }} {{ ' a las '  }} {{ offer.date.date|date('H:i')  }}
 {% endblock %} 
 
 
 {% block offerDescription %}
-    {{ offers.atriShaCar('salida', 'fa-sign-out', shareCar.fromPlace) }}
+    {{ offers.atriShaCar('salida', 'fa-sign-out', offer.fromPlace) }}
     
-    {{ offers.atriShaCar('destino', 'fa-map-marker', shareCar.toPlace) }}
+    {{ offers.atriShaCar('destino', 'fa-map-marker', offer.toPlace) }}
     
-    {% set fecha = shareCar.date.date|date('d/m/Y')%}
-    {% set hora = shareCar.date.date|date('H:i')%}
+    {% set fecha = offer.date.date|date('d/m/Y')%}
+    {% set hora = offer.date.date|date('H:i')%}
     {{ offers.atriShaCar('fecha', 'fa-calendar-check-o',
         fecha ~ ' a las ' ~ hora) }}
     
-    {{ offers.atriShaCar('vehículo', 'fa-car', shareCar.car.model.brand.name ~' '~ shareCar.car.model.name,
+    {{ offers.atriShaCar('vehículo', 'fa-car', offer.car.model.brand.name ~' '~ offer.car.model.name,
         'off-row-tra-last') }}
 
-    {{ offers.atriShaCar('plazas disponibles', 'fa-airplane-seat', shareCar.car.seats-shareCar.offer.holders) }}
+    {{ offers.atriShaCar('plazas disponibles', 'fa-airplane-seat', offer.offer.holders - offer.offer.inscriptions|length) }}
 {% endblock %}
 
 
@@ -134,11 +150,11 @@
     </div>
 
     {% set datos =  [
-                        {title: "Fumar", status: shareCar.car.smoke|number_format},
-                        {title: "Mascotas", status: shareCar.car.animals|number_format},
-                        {title: "Música", status: shareCar.car.music|number_format},
-                        {title: "Conversar", status: shareCar.car.talk|number_format},
-                        {title: "Dos atrás", status: shareCar.backTwo|number_format}
+                        {title: "Fumar", status: offer.car.smoke|number_format},
+                        {title: "Mascotas", status: offer.car.animals|number_format},
+                        {title: "Música", status: offer.car.music|number_format},
+                        {title: "Conversar", status: offer.car.talk|number_format},
+                        {title: "Dos atrás", status: offer.backTwo|number_format}
                     ]
     %}
 
@@ -176,7 +192,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h4>
-                {{ shareCar.offer.title }}
+                {{ offer.offer.title }}
             </h4>
             <hr>
         </div>
@@ -188,14 +204,12 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <p>
-                {{ shareCar.offer.description }}
+                {{ offer.offer.description }}
             </p>
-            
-            
+
         </div>
-        
-        
     </div>
+
 {% endblock %}
 
 
@@ -208,7 +222,7 @@
 
 {% block offerComments %}
 
-        {% if shareCar.offer.comments is empty %}
+        {% if offer.offer.comments is empty %}
 
             <div class="row separacion-inferior">
                 <div class="col-lg-12">
@@ -223,11 +237,13 @@
 
         {% else %}
 
+            {{ form(formComment) }}
+
             {% set i = 0 %}
-            {% for comment in shareCar.offer.comments %}
+            {% for comment in offer.offer.comments %}
 
                 {{ comentarios.messComentarioPublico(
-                path('user_public_profile', {username: shareCar.offer.userAdmin.username} ),
+                path('user_public_profile', {username: offer.offer.userAdmin.username} ),
                 asset(comment.user.photo,'img'),
                 comment.user.username,
                 comment.createdDate,
@@ -258,7 +274,7 @@
 {% block offerDestacadas %} 
     <p>DESTACADOS</p>
 
-    {{ shareCar.offer.comment }}
+    {{ offer.offer.comment }}
 {% endblock %}
 
 
