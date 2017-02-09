@@ -35,7 +35,7 @@ class OfferVoter extends Voter
 
         // sólo votar en objetos Post dentro de este voter
         if (!$subject instanceof \WWW\ServiceBundle\Entity\Offer) {
-            print_r("el objeto no es trade");
+            print_r("el objeto no es oferta");
             return false;
         }
 
