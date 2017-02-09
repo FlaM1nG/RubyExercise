@@ -5,16 +5,20 @@
     {{ include('nav/menu.html.twig') }}
 {% endblock %}
 
-{% block body %}
-    {% block alert %}
-        {% for flash_message in app.session.flashbag.get('messageFail') %}
-            {{  alerts.alert('alert-warning', flash_message, null) }}
-        {% endfor %}
+{% block alert %}
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{  alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
 
-        {% for flash_message in app.session.flashbag.get('messageSuccess') %}
-            {{  alerts.alert('alert-success', flash_message, null) }}
-        {% endfor %}
-    {% endblock %}
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{  alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+    {{ form_errors(form) }}
+
+{% endblock %}
+
+{% block body %}
+
     <div class="container">
         {{ form_start(form) }}
         <div class="row">
