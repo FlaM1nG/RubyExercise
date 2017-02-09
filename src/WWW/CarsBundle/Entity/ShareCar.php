@@ -5,6 +5,7 @@ namespace WWW\CarsBundle\Entity;
 use WWW\ServiceBundle\Entity\Offer;
 use WWW\CarsBundle\Entity\Car;
 use WWW\GlobalBundle\Entity\Photo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ShareCar
@@ -287,5 +288,15 @@ class ShareCar
     public function getOffer()
     {
         return $this->offer;
+    }
+
+    /**
+     * Validación para que los usuarios sean mayores de 18
+     *
+     * @Assert\True(message = "Fecha no válida")
+     */
+    public function isDateValid(){
+
+        return $this->date > new\DateTime('now');
     }
 }
