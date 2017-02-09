@@ -20,6 +20,9 @@ use WWW\CarsBundle\Entity\Car;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
 use WWW\UserBundle\Entity\User;
+use WWW\ServiceBundle\Entity\Comment;
+use WWW\ServiceBundle\Form\CommentType;
+use WWW\ServiceBundle\Form\OfferSuscribeType;
 
 class ShareCarController extends Controller {
     
@@ -152,17 +155,39 @@ class ShareCarController extends Controller {
 
         $shareCar = $this->getOfferShareCar($request);
         $message = $this->fillMessage($request,$shareCar);
+        $comment = new Comment();
+
         $formMessage = $this->createForm(MessageType::class, $message);
+        $formComment = $this->createForm(CommentType::class, $comment);
+        $formSubscribe = $this->createForm(OfferSuscribeType::class);
 
+        $formComment->handleRequest($request);
         $formMessage->handleRequest($request);
+        $formSubscribe->handleRequest($request);
 
-        if($formMessage->isSubmitted()):
+        if($formComment->isSubmitted()):
+
+            $result = $this->saveComment($request, $shareCar->getOffer()->getId(), $comment);
+            $formComment = $this->createForm(CommentType::class, new Comment());
+
+            if($result == 'ok'):
+                return $this->redirectToRoute('offShareCar',array('idOffer'=> $shareCar->getOffer()->getId()));
+            endif;
+
+        elseif($formMessage->isSubmitted()):
             $this->sendMessage($request, $shareCar);
+
+        elseif($formSubscribe->isSubmitted()):
+            $this->offerSubscribe($request, $shareCar);
+
         endif;
 
         return $this->render('offer/offShareCar.html.twig',
-                            array('shareCar' => $shareCar,
-                                  'formMessage' => $formMessage->createView()  ,));
+                            array('offer' => $shareCar,
+                                  'formMessage' => $formMessage->createView(),
+                                  'formComment' => $formComment->createView(),
+                                  'formSubscribe' => $formSubscribe->createView(),
+                                  'service' => $shareCar->getOffer()->getService()->getId()  ));
         
     }
 
@@ -214,10 +239,50 @@ class ShareCarController extends Controller {
         $data['to'] = $shareCar->getOffer()->getUserAdmin()->getUsername();
         $data['subject'] = $request->get('message')['subject'];
         $data['message'] = $request->get('message')['message'];
+        $data['offer'] = $shareCar->getOffer()->getId();
 
         $result = $ch->resultApiRed($data, $file);
 
         $ut->flashMessage("message", $request, $result);
+    }
+
+    private function saveComment(Request $request, $idOffer, $comment){
+
+        $ch = new ApiRest();
+        $ut = new Utilities();
+        $file = MyConstants::PATH_APIREST."services/inscription/comment.php";
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['offer_id'] = $idOffer;
+        $data['comment'] = $comment->getComment();
+
+        $result = $ch->resultApiRed($data, $file);
+
+        if($result['result'] == 'ok'):
+            return $result['result'];
+        else:
+            $ut->flashMessage("comment", $request, $result);
+        endif;
+
+    }
+
+    private function offerSubscribe(Request $request, $shareCar){
+
+        $ch = new ApiRest();
+        $ut = new Utilities();
+        $file = MyConstants::PATH_APIREST."services/inscription/subscribe_user.php";
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['offer_id'] = $shareCar->getOffer()->getId();
+
+        $result = $ch->resultApiRed($data,$file);
+print_r($result);
+        $ut->flashMessage('general',$request, $result);
+
     }
     
 }
