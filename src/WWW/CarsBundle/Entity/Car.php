@@ -143,7 +143,6 @@ class Car {
      */
     public function __construct($data = null){
 
-//        print_r($data);
         if($data != null):
 
             foreach($data as $key => $value):
@@ -153,6 +152,7 @@ class Car {
 
                     if($key != 'model'):
                         if($key == 'smoke' || $key == 'animals' || $key == 'music' || $key == 'talk'):
+
                             $value = (bool) $value;
                         endif;
                         $this->$key = $value;

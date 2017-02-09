@@ -85,7 +85,7 @@ class DefaultController extends Controller{
         
         if(!empty($usuario->getEmail())):            
 
-            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/email/resend_email.php";
+            $file =  MyConstants::PATH_APIREST."user/email/resend_email.php";
             $data = array("email" => $usuario->getEmail());
             $ch = new ApiRest();
             $result = $ch->sendInformation($data, $file, "parameters");            

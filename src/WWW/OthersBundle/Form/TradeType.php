@@ -35,7 +35,7 @@ class TradeType extends AbstractType{
         $arrayCategory = $this->arrayCategories($service);
 
         $builder
-            ->add('offer',OfferType::class)    
+            ->add('offer',OfferType::class, array('label' => ' '))
             ->add('price',MoneyType::class, array('label' => 'Precio',
                                                       'attr' => array('placeholder' => 'Introduzca la cantidad por la que desea vender el objeto'),
                                                       'precision' => 2,

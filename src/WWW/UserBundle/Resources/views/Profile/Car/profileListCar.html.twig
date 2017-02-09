@@ -34,37 +34,17 @@ Coches
     <div class="row us-dataPersonal-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h3>
-                Cambiar Datos Bancarios
+                Coches
             </h3>
             <hr/>
             {% for car in arrayCars %}
-                {{ coches.coche('#', asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img'), '0000-ZZZ',
+                {{ coches.coche(path('user_profileCar', {idCar: car.id}), asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img'), '0000-ZZZ',
                 car.model.brand.name, car.model.name, car.seats, car.description,
                 path('user_profileEditCar', {idCar: car.id} ), 'dataEdit', 'titleEdit',
-                '#', car.id, 'titleDelete') }}
+                '#', car.id, 'Delete car') }}
             {% endfor %}
         </div>
     </div>
-
-
-    {#
-        Necesaria la clase container_X para el borrado
-        El botón borrar necesita la clase deleteCar y el data-id para borrar
-    #}
-
-    {#{% for car in arrayCars %}#}
-
-
-
-        {#<div class="container_{{ car.id }}">#}
-            {#<h1>{{ car.model.brand.name }} - {{ car.model.name }}</h1><br>#}
-            {#{{ car.description }}#}
-            {##plazas {{ car.seats }}#}
-            {#<img src="{{ asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img') }}" height="200"/>#}
-            {#<a href="{{ path('user_profileEditCar', {idCar: car.id} ) }}" alt="editar" class="btn btn-default">Editar</a>#}
-            {#<a  alt="editar" class="btn btn-default deleteCar" data-id="{{ car.id }}" >Borrar</a>#}
-        {#</div>#}
-    {#{% endfor %}#}
 
 
 {% endblock %}
@@ -86,7 +66,7 @@ Coches
                 var idCar = $(this).attr('data-id');
                 var data = {};
                 var url = "{{ url('user_ajax_deleteCar') }}";
-                var container = ".container_"+idCar;
+                var container = ".element_"+idCar;
 
                 data['id'] = idCar;
 

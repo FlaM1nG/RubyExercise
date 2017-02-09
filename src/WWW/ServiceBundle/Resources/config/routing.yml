@@ -3,6 +3,5 @@ service_homepage:
     defaults: { _controller: ServiceBundle:Default:index }
     
 service_allOfferts:
-    
     path: /user/profile
     defaults: { _controller: ServiceBundle:showOfferts }

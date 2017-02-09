@@ -1,0 +1,66 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/coche.html.twig' as coches %}
+
+{% block title %}
+    Bank
+{% endblock %}
+
+{% block alertProfile %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+
+{% endblock %}
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+
+    <h3>
+        Coche
+    </h3>
+    <hr/>
+
+    {# Array de imagenes para la galeria #}
+
+    {% set imgGran = [car.photos.0.url] %}
+    {% set photosCar = [] %}
+    {% for photos in car.photos%}
+        {% set photosCar = photosCar|merge([photos.url]) %}
+    {% endfor %}
+
+    {{ coches.cocheVista(imgGran,
+    photosCar,
+    car.model.brand.name,
+    car.model.name,
+    car.color,
+    car.type,
+    car.plate,
+    car.description,
+    options
+    ) }}
+
+
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    {{ include('owlCarousel/owlCochesScript.html.twig') }}
+
+    {{ include('lightbox/lightboxScript.html.twig') }}
+
+{% endblock %}
+
