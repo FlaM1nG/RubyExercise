@@ -1,5 +1,7 @@
 {% extends '::base.html.twig' %}
 {% import 'macros/offer.html.twig' as offers %}
+{% import 'macros/user.html.twig' as usuarios %}
+{% import 'macros/star.html.twig' as estrella %}
 
 {% block header %}
     {{ parent() }}
@@ -8,32 +10,39 @@
 
 {% block body %}
     <div class="container">
-        <row>
+        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h2>Inscripciones</h2>
                 <hr/>
             </div>
-        </row>
+        </div>
 
-        <row>
+        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-my-off-sep">
                 {{ offers.offUserInscrip('#', 'web/img/placeholder.png', 'Título Oferta', include('macros/text.html.twig')) }}
             </div>
-        </row>
+        </div>
 
-        <row>
+        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <a href="#" class="btn btn-default btn-normal">
                     Escribe a todos
                 </a>
             </div>
-        </row>
+        </div>
 
-        <row>
+        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                
+                <div class="row row-user-col">
+                    {% set limite = random(10) %}
+                    {% for i in 0..limite %}
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
+                            {{ usuarios.userInscr('#', 'web/img/placeholder.png', 'Usuario', random(5), random(99), '#') }}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </row>
+        </div>
     </div>
 
 {% endblock %}
@@ -42,6 +51,8 @@
     {{ parent() }}
 
     {{ include('nav/menuScript.html.twig') }}
+    {{ estrella.staticRatingJS() }}
+
 {% endblock %}
 
 {% block footer %}
