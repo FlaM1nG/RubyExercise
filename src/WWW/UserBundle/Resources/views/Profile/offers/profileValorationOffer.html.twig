@@ -49,9 +49,11 @@
                 si recomendarias hacer negocios con este usuario y cualquier otra cosa que creas que sea importante que sepan los demás usuarios.
             </p>
 
-     {{ title }} <br>
-     {{ description }} <br>
-     {{ asset(urlImage,'img') }} <br>
+            {{ offers.offUserVot(urlImage, title, description) }}
+
+     {#{{ title }} <br>#}
+     {#{{ description }} <br>#}
+     {#{{ asset(urlImage,'img') }} <br>#}
      <input id="rating-input"
             class="rating rating-loading"
             data-show-clear="false"
