@@ -105,6 +105,7 @@ class OfferController extends Controller{
         $info['username'] = $request->getSession()->get('username');
         $info['password'] = $request->getSession()->get('password');
         $info['offer_id'] = $this->offer->getOffer()->getId();
+//        $info['inserted_photos_id'] =
 
         $data['values']['title'] = "'".$this->offer->getOffer()->getTitle()."'";
         $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'";
@@ -273,7 +274,7 @@ class OfferController extends Controller{
 
 
         $result = $ch->resultApiRed($data, $file);
-        print_r($result);
+//        print_r($result);
 
     }
    
