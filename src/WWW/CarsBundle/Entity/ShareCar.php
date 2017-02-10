@@ -65,12 +65,14 @@ class ShareCar
             $this->toPlace = $array['to_place'];
             $this->date = \DateTime::createFromFormat('Y-m-d H:i:s', $array['date']);
             $this->price = $array['price'];
-            $this->backTwo = $array['back_two'];
+            $this->backTwo = (bool)$array['back_two'];
             $this->autobooking = $array['autobooking'];
             $this->offer = new Offer($array);
+
             if(!empty($array['car'])):
                 $this->car = new Car($array['car']);
-            else:    
+
+            elseif(array_key_exists('car_photo', $array)):
                 $this->car = $this->setPhotoCar($array['car_photo']);
             endif;    
         else:
@@ -96,6 +98,10 @@ class ShareCar
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setId($id){
+        $this->id = $id;
     }
 
     /**

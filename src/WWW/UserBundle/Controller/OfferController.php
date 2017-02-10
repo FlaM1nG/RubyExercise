@@ -10,6 +10,8 @@ namespace WWW\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use WWW\CarsBundle\Entity\ShareCar;
+use WWW\CarsBundle\Form\ShareCarType;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
@@ -18,6 +20,7 @@ use WWW\ServiceBundle\Entity\Offer;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Form\TradeType;
 use WWW\ServiceBundle\Entity\Service;
+use WWW\CarsBundle\Entity\Car;
 
 
 /**
@@ -29,7 +32,8 @@ class OfferController extends Controller{
     
     private $ut;
     private $offer;
-    
+    private $service;
+
     public function myOffersAction(Request $request){
 
         $offers = $this->listMyOffers($request);
@@ -64,24 +68,64 @@ class OfferController extends Controller{
     public function editOfferAction(Request $request){
 
         $this->ut = new Utilities();
+        $pathRender = "";
         $form = $this->searchOffer($request);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted()):
-            $result = $this->updateOffer($request);
+            $result = null;
+            if($this->service <= 3):
+                $result = $this->updateOfferTrade($request);
+            elseif($this->service == 4):
+                $result = $this->updateOfferShareCar($request);
+            endif;
+
             if($result == 'ok'):
                 return $this->redirectToRoute('user_profiler_offers');
             endif;
         endif;
 
-        return $this->render('UserBundle:Profile:offers/profileEditOffer.html.twig',
+        if($this->service <= 3):
+            $pathRender = 'profileEditOfferTrades.html.twig';
+        elseif($this->service == 4):
+            $pathRender = 'UserBundle:Profile:offers/profileEditOfferShareCar.html.twig';
+        endif;
+
+        return $this->render($pathRender,
                         array('form' => $form->createView(),
                               'service' => $this->service,
                               'offer' => $this->offer ));
     }
 
-    private function updateOffer(Request $request){
+    private function updateOfferShareCar(Request $request){
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/offer/update_offer_photos.php";
+
+        $info['id'] = $request->getSession()->get('id');
+        $info['username'] = $request->getSession()->get('username');
+        $info['password'] = $request->getSession()->get('password');
+        $info['offer_id'] = $this->offer->getOffer()->getId();
+
+        $data['values']['title'] = "'".$this->offer->getOffer()->getTitle()."'";
+        $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'";
+        $data['values']['holders'] = $this->offer->getOffer()->getHolders();
+
+        $data['sub_values']['from_place'] = "'".$this->offer->getFromPlace()."'";
+        $data['sub_values']['to_place'] = "'".$this->offer->getToPlace()."'";
+        $data['sub_values']['price'] = $this->offer->getPrice();
+        $data['sub_values']['car_id'] = $this->offer->getCar()->getId();
+        $data['sub_values']["date"] = "'".$this->offer->getDate()->format("Y-m-d H:i")."'";
+        if(!empty($this->offer->getBackTwo()))  $data['sub_values']["back_two"] = 1;
+
+
+        $info['data']= json_encode($data);
+        $result = $ch->resultApiRed($info, $file);
+        $this->ut->flashMessage("general", $request, $result);
+        
+        return $result['result'];
+    }
+
+    private function updateOfferTrade(Request $request){
 
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/offer/update_offer_photos.php";
@@ -131,6 +175,7 @@ class OfferController extends Controller{
        $ch = new ApiRest();
 
        $data['id'] = $request->get('idOffer');
+
        $result = $ch->resultApiRed($data, $file);
        $formulario = null;
 
@@ -142,23 +187,42 @@ class OfferController extends Controller{
                  $this->createTrade($result);
                  $formulario = $this->createForm(TradeType::class,$this->offer);
 
-//                 if($result['service_id'] != 3):
-//                     $dimensions = explode('x',$this->offer->getDimensions());
-//                     $width = $dimensions[0];
-//                     $height = $dimensions[1];
-//                     $long = $dimensions[2];
-//                     $formulario->get('width')->setData($width);
-//                     $formulario->get('height')->setData($height);
-//                     $formulario->get('long')->setData($long);
-//                 endif;
+             elseif($result['service_id'] == 4):
+                 $this->offer = new ShareCar($result);
+                 $arrayCars = $this->getCarsUser($request);
+
+                 $formulario = $this->createForm(ShareCarType::class ,$this->offer, array('listCar' => $arrayCars));
              endif;
-        else:     
+        else:
             $this->ut->flashMessage("offer", $request, $result);
         endif;
 
         return $formulario;
    }
-   
+
+    private function getCarsUser(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'user/car/get_cars.php';
+        $ch = new ApiRest();
+        $arrayCars = null;
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+
+        $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+            foreach($result['cars'] as $value):
+                $car = new Car($value);
+                $arrayCars[] = $car;
+            endforeach;
+        endif;
+
+        return $arrayCars;
+
+    }
+
    private function createTrade($result){
        
         $offer = new Trade($result);

@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -52,6 +53,8 @@ class ShareCarType extends AbstractType {
 
             ->add('backTwo', CheckboxType::class, array('label' => 'Solo dos atrás',
                                                         'required' => false))
+
+            ->add('id', HiddenType::class)
 
             ->add('newShareCar', SubmitType::class, array('label' => 'Guardar'));
 
