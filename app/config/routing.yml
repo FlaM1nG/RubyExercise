@@ -142,3 +142,8 @@ _sonata_admin:
     resource: .
     type: sonata_admin
     prefix: /admin
+
+
+prueba_inscripcion:
+    path: /prueba/inscritos
+    defaults: { _controller: AppBundle:Index:pruebaInscripcion }
