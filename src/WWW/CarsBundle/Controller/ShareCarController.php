@@ -118,12 +118,15 @@ class ShareCarController extends Controller {
         $arrayOffers = $this->getsShareCars($request);
 
         $paginator = $this->get('knp_paginator');
+        $pagination = null;
 
-        $pagination = $paginator->paginate(
-            $arrayOffers,
-            $request->query->getInt('page', 1),
-            5
-        );
+        if(!empty($arrayOffers)):
+            $pagination = $paginator->paginate(
+                $arrayOffers,
+                $request->query->getInt('page', 1),
+                5
+            );
+        endif;
 
         return $this->render('services/serShareCar.html.twig',
                        array('pagination' => $pagination)
@@ -141,6 +144,12 @@ class ShareCarController extends Controller {
         $dataFilters['from_place'] = "";
         $dataFilters['to_place'] = "";
         $dataFilters['date'] = "";
+
+        if(!empty($request->query->all())):
+            $dataFilters['from_place'] = $request->query->get('fromPlace');
+            $dataFilters['to_place'] = $request->query->get('toPlace');
+            $dataFilters['date'] = $request->query->get('date');
+        endif;
 
         $data['filters'] = $dataFilters;
         $info['data'] = json_encode($data);
