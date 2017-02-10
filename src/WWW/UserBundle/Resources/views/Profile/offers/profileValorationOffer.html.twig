@@ -53,10 +53,11 @@
      {{ description }} <br>
      {{ asset(urlImage,'img') }} <br>
      <input id="rating-input"
-            class="rating rating-loading"  
-            data-show-clear="false" 
-            data-show-caption="false"
+            class="rating rating-loading"
+            data-show-clear="false"
+            data-show-caption="true"
             data-step="1"
+            data-language="es"
             type="number" />
 
             <div class="off-form-comment">
@@ -85,6 +86,7 @@
     {{ parent() }}
 
     <script src="{{ asset('js/starRating/star-rating.js') }}"></script>
+    <script src="{{ asset('js/starRating/star-rating_locale_es.js') }}"></script>
 
     <script>
         $(document).ready( function(){
@@ -114,7 +116,7 @@
             }
 
             function sendValoration() {
-                
+
                 var rating = $('#rating-input').val();
                 var idOffer = {{ app.request.attributes.get('idOffer') }};
                 var comment = $('#comment').val();
@@ -122,13 +124,13 @@
                 data["rating"] = rating;
                 data["idOffer"] = idOffer;
                 data["comment"] = comment;
-                
-                    
-                $.ajax({                        
-                    type: "POST",                 
-                    url: "{{ url('user_ajax_valorationOffer') }}",                     
-                    data: data, 
-                    success: function(data)             
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('user_ajax_valorationOffer') }}",
+                    data: data,
+                    success: function(data)
                     {
                         location.href='{{ path('user_profiler_purchases') }}';
                     },
