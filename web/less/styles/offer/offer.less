@@ -1,5 +1,6 @@
-/* ------------------ MENU DE ADMINISTRACI�N  ------------------
-******************************************************************/
+/* Inscritos */
+
+
 .a2a_svg.a2a_s__default {
     height: 36px !important;
     width: 36px !important;
@@ -281,6 +282,10 @@
     width: 100%;
 }
 
+.off-middle-s{
+    .sombra-general2;
+}
+
 .off-middle-hijo{
     display: table-cell;
     vertical-align: middle;
@@ -347,8 +352,17 @@
     }
 }
 
+.us-off-my-offer{
+    padding: 2%;
+}
+
 .us-off-element{
     margin-bottom: 40px;
+}
+
+.us-my-off-sep{
+    border-bottom: 1px solid @brand-primary;
+    margin-bottom: 20px;
 }
 
 .us-off-element-ex{
@@ -433,6 +447,19 @@
         margin-bottom: 0;
     }
 }
+
+.row-star{
+    .off-vote{
+        padding-right: 0;
+    }
+
+    .rating-md{
+        font-size: 1.5em;
+    }
+}
+
+
+
 /* ##### FIN USER-LIST-OFFERS ##### */
 
 
@@ -547,6 +574,17 @@
         min-height: 50px;
     }
 
+    .row-user-col{
+        .col-user-ins{
+            width: 50%;
+            position: relative;
+            min-height: 1px;
+            padding-left: 15px;
+            padding-right: 15px;
+            float: left;
+        }
+    }
+
     @media only screen and (max-height : 1024px){
 
     }
@@ -595,6 +633,12 @@
     .off-target-prin {
         font-weight: 600;
     }*/
+
+    .row-user-col{
+        .col-user-ins{
+            width: 100%;
+        }
+    }
 
     @media only screen and (max-height : 667px){
 
