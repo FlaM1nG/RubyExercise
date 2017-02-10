@@ -33,7 +33,7 @@ class OfferController extends Controller{
     public function myOffersAction(Request $request){
 
         $offers = $this->listMyOffers($request);
-        
+//        print_r($offers);
         return $this->render('UserBundle:Profile:offers/profileMyOffers.html.twig',
                        array('listOffers' => $offers));
     }
@@ -50,13 +50,13 @@ class OfferController extends Controller{
         $data['password'] = $session->get('password');
         
         $result = $ch->resultApiRed($data, $file);
-//        print_r($result);
+
         if($result['result'] == 'ok'):
             foreach($result['offers'] as $offer):
                 $arrayOffers[] = new Offer($offer);
             endforeach;
         endif;
-//        print_r($arrayOffers);
+
         return $arrayOffers;
         
     }

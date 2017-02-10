@@ -109,15 +109,15 @@
                         </p>
                     </div>
                 </div>
-                         
-                         
+
                 <div class="row us-mess-buttons">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <a href="{{ hrefEditar|e }}" class="btn btn-default us-mess-btn"
+                        <a {{ (hrefEditar is empty) ? "" : "href = '"~hrefEditar|e ~"'" }} class="btn btn-default us-mess-btn"
                            data-id="{{ dataEditar|e }}"
                            data-toggle="tooltip" 
                            data-placement="bottom" 
-                           title="{{ dataEditar|e|capitalize }}">
+                           title="{{ dataEditar|e|capitalize }}"
+                           {{ (hrefEditar is empty) ? 'disabled' : '' }} >
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
                             
