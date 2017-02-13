@@ -124,7 +124,7 @@ class ShareCarController extends Controller {
             $pagination = $paginator->paginate(
                 $arrayOffers,
                 $request->query->getInt('page', 1),
-                5
+                MyConstants::NUM_CAR_PAGINATOR
             );
         endif;
 
@@ -179,6 +179,17 @@ class ShareCarController extends Controller {
         $formMessage->handleRequest($request);
         $formSubscribe->handleRequest($request);
 
+        $paginator = $this->get('knp_paginator');
+        $pagination = null;
+
+        if(!empty($shareCar->getOffer()->getComments())):
+            $pagination = $paginator->paginate(
+                $shareCar->getOffer()->getComments(),
+                $request->query->getInt('page', 1),
+                MyConstants::NUM_COMMENTS_PAGINATOR
+            );
+        endif;
+
         if($formComment->isSubmitted()):
 
             $result = $this->saveComment($request, $shareCar->getOffer()->getId(), $comment);
@@ -201,7 +212,8 @@ class ShareCarController extends Controller {
                                   'formMessage' => $formMessage->createView(),
                                   'formComment' => $formComment->createView(),
                                   'formSubscribe' => $formSubscribe->createView(),
-                                  'service' => $shareCar->getOffer()->getService()->getId()  ));
+                                  'service' => $shareCar->getOffer()->getService()->getId(),
+                                  'pagination' => $pagination));
         
     }
 
