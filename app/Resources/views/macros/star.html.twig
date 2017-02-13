@@ -2,20 +2,16 @@
 
     <div class="row off-row-rating">
         <div class="col-lg-12">
-                        <span class="off-vote">
-                            <!-- VALORACIONES -->
-                            <input id=""
-                                   class="valoration rating rating-loading"
-                                   data-show-clear="false"
-                                   data-show-caption="false"
-                                   data-display-only="true"
-                                   type="number"
-                                   step="1"
-                                   value="{{ valoracion }}" />
-
-                            <!-- FIN VALORACIONES -->
-
-                        </span>
+            <span class="off-vote">
+                <input id=""
+                       class="valoration rating rating-loading"
+                       data-show-clear="false"
+                       data-show-caption="false"
+                       data-display-only="true"
+                       type="number"
+                       step="1"
+                       value="{{ valoracion|e }}" />
+            </span>
         </div>
     </div>
 {% endmacro %}
