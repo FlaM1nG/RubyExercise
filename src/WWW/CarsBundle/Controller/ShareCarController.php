@@ -91,7 +91,8 @@ class ShareCarController extends Controller {
                             "title" => $shareCar->getOffer()->getTitle(),
                             "description" => $shareCar->getOffer()->getDescription(),
                             "service_id" => $service,
-                            "holders" => $shareCar->getOffer()->getHolders());
+                            "holders" => $shareCar->getOffer()->getHolders(),
+                            "id_photos" => $shareCar->getCar()->getPhotos()[0]->getId());
 
         $dataExtra["from_place"] = "'".$shareCar->getFromPlace()."'";
         $dataExtra["to_place"] = "'".$shareCar->getToPlace()."'";
@@ -106,7 +107,7 @@ class ShareCarController extends Controller {
         $dataOffer['data'] = json_encode($dataExtra);
 
         $result = $ch->resultApiRed($dataOffer, $file);
-
+echo __FILE__." ".__LINE__."<br>"; print_r($dataOffer);echo "<br>"; print_r($result);exit;
         $ut->flashMessage("general", $request, $result);
 
         return $result['result'];
@@ -262,10 +263,14 @@ class ShareCarController extends Controller {
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
-        $data['to'] = $shareCar->getOffer()->getUserAdmin()->getUsername();
         $data['subject'] = $request->get('message')['subject'];
         $data['message'] = $request->get('message')['message'];
         $data['offer'] = $shareCar->getOffer()->getId();
+        $data['to'] = $shareCar->getOffer()->getUserAdmin()->getUsername();
+
+        if(isset($request->get('message')['to'])):
+            $data['to'] = $request->get('message')['to'];
+        endif;
 
         $result = $ch->resultApiRed($data, $file);
 
@@ -309,6 +314,24 @@ class ShareCarController extends Controller {
 
         $ut->flashMessage('general',$request, $result);
 
+    }
+
+    public function inscriptionsAction(Request $request){
+
+        $offer = $this->getOfferShareCar($request);
+        $message = $this->fillMessage($request, $offer);
+
+        $formMessage = $this->createForm(MessageType::class, $message);
+
+        $formMessage->handleRequest($request);
+
+        if($formMessage->isSubmitted()):
+            $this->sendMessage($request, $offer);
+        endif;
+
+        return $this->render('offer/inscription.html.twig',
+                        array('offer' => $offer,
+                              'formMessage' => $formMessage->createView()));
     }
     
 }
