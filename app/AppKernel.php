@@ -23,7 +23,11 @@ class AppKernel extends Kernel
             new WWW\ServiceBundle\ServiceBundle(),
             new WWW\OthersBundle\OthersBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new ADesigns\CalendarBundle\ADesignsCalendarBundle()
+            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
+            new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
+            new Factura\PDFBundle\PDFBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+         
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

@@ -6,6 +6,7 @@ imports:
     - { resource: "@GlobalBundle/Resources/config/services.yml" }
     - { resource: "@ServiceBundle/Resources/config/services.yml" }
     - { resource: "@OthersBundle/Resources/config/services.yml" }
+    - { resource: "@PDFBundle/Resources/config/services.xml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -57,11 +58,15 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #     path:     "%database_path%"
-
+    
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        
+      
+     
+     
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -75,3 +80,14 @@ gregwar_captcha:
     width: 200
     height: 50
     length: 4
+
+
+knp_snappy:
+    pdf:
+        enabled: true
+        binary:  C:/wkhtmltopdf/bin/wkhtmltopdf.exe
+        options: []
+            
+            
+       
+                             

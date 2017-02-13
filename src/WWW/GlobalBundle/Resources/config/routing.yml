@@ -1,1 +1,10 @@
-
+fullcalendar_loader:
+    path: /fc-load-calendar-events
+    defaults: { _controller: WWWGlobalBundle:Calendar:loadCalendar }
+    options:
+        expose: true
+_ajaxUpdateInfo:
+    pattern: /addevent
+    defaults: { _controller: WWWGlobalBundle:Calendar:updateData }
+    options:
+        expose: true

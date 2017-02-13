@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Factura | {% block title %}{% endblock %}</title>
+    {% block stylesheets %}
+  <link href="{{ absolute_url(asset('css/style1.css')) }}" rel="stylesheet" 
+                  type="text/css" media="all">
+       {% endblock %}
+  </head>
+  <body>
+    <header class="clearfix">
+      <div id="logo">
+          <figure>
+       <img src="{{ absolute_url(asset('img/Logo_www-2.png')) }}" alt="Logo"   media="all"/>
+       </figure>
+      </div>
+      <div id="company">
+        <h2 class="name">What Want Web</h2>
+        <div>Avenida Fernando Rios 11, </div>
+        <div>(958) 209372</div>
+        <div><a href="mailto:company@example.com">whatwantweb@whatwantweb.com</a></div>
+      </div>
+      </div>
+    </header>
+    <main>
+      <div id="details" class="clearfix">
+        <div id="client">
+          <div class="to">Factura para:</div>
+          <h2 class="name">John Doe</h2>
+          <div class="address">796 Silver Harbour, TX 79273, US</div>
+          <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+        </div>
+        <div id="invoice">
+          <h1>Nº FACTURA: 283</h1>
+          <h1>Nº REFERENCIA: 3283</h1>
+          <div class="date">Fecha de Factura: 01/02/2017</div>
+          <div class="date">Fecha de Pago: 28/02/2017</div>
+        </div>
+      </div>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th class="no">CC REF.</th>
+            <th class="desc">DESCRIPCIÓN</th>
+            <th class="unit">PRECIO</th>
+            <th class="qty">DESCUENTO</th>
+            <th class="total">TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="no">CV</td>
+            <td class="desc"><h3>Samsung Galaxy S7</h3>Móvil de alta gama</td>
+            <td class="unit">350€</td>
+            <td class="qty"></td>
+            <td class="total">350€</td>
+          </tr>
+          <tr>
+            <td class="no">AT</td>
+            <td class="desc"><h3>Casa</h3>Casa a las afueras de Madrid</td>
+            <td class="unit">160€</td>
+            <td class="qty">10%</td>
+            <td class="total">144€</td>
+          </tr>
+          <tr>
+            <td class="no">CC</td>
+            <td class="desc"><h3>Coche Compartido</h3>Granada-Almería</td>
+            <td class="unit">10€</td>
+            <td class="qty">10%</td>
+            <td class="total">9€</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">SUBTOTAL</td>
+            <td>144€</td>
+            <td colspan="1">IVA 10%</td>
+            <td>14.40€</td>
+          </tr>
+          <tr>
+            <td colspan="2">SUBTOTAL</td>
+            <td>359€</td>
+            <td colspan="1">IVA 21%</td>
+            <td>75.39€</td>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">TOTAL</td>
+            <td>592,79€</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div id="thanks">¡Gracias por su compra!</div>
+      <div id="notices">
+        <div>NOTICIA:</div>
+        <div class="notice">Un cargo de 1.5% será cargado en su factura si no se produce el pago despues de los 30 días a la fecha de compra.</div>
+      </div>
+    </main>
+    <footer>
+        Esta Factura fue creada en su ordenador y es valida sin la firma y sello.
+    </footer>
+  </body>
+</html>

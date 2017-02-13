@@ -1,3 +1,7 @@
+pdf:
+    resource: "@PDFBundle/Resources/config/routing.xml"
+    prefix:   /
+
 #s_gestion_admin:
 #    resource: "@SGestionAdminBundle/Resources/config/routing.yml"
 #    prefix:   /
@@ -83,3 +87,4 @@ fos_js_routing:
 # app/config/routing.yml
 adesigns_calendar:
     resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"    
+
