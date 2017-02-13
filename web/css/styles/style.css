@@ -9548,6 +9548,10 @@ p {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.btn-normal {
+  float: none;
+  padding: 6px 12px;
+}
 /* ##### FIN ETIQUETAS HTML ##### */
 /* ***** PADDINGS ***** */
 .separacion-superior {
@@ -12492,6 +12496,25 @@ a.boton-leer-post:focus {
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 /* ------------------ USER  ------------------
 ******************************************************************/
+/* INSCRITOS*/
+.user-inscrip {
+  padding: 5% 2%;
+  border: 1px solid #ff6600;
+  margin-bottom: 30px;
+  -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+}
+.user-inscrip .us-val {
+  padding-bottom: 10px;
+}
+.us-off-my-offer-vot {
+  padding: 2%;
+  -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px !important;
+}
 /* COCHES */
 .us-car-element-individual {
   margin-bottom: 30px;
@@ -15356,8 +15379,7 @@ textarea {
     right: 13%;
   }
 }
-/* ------------------ MENU DE ADMINISTRACI�N  ------------------
-******************************************************************/
+/* Inscritos */
 .a2a_svg.a2a_s__default {
   height: 36px !important;
   width: 36px !important;
@@ -15589,6 +15611,11 @@ textarea {
   height: 100%;
   width: 100%;
 }
+.off-middle-s {
+  -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+}
 .off-middle-hijo {
   display: table-cell;
   vertical-align: middle;
@@ -15644,8 +15671,15 @@ textarea {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.us-off-my-offer {
+  padding: 2%;
+}
 .us-off-element {
   margin-bottom: 40px;
+}
+.us-my-off-sep {
+  border-bottom: 1px solid #ff6600;
+  margin-bottom: 20px;
 }
 .us-off-element-ex {
   margin-bottom: 40px;
@@ -15711,6 +15745,12 @@ textarea {
 .off-message-user .btn-default .btn {
   margin-bottom: 0;
 }
+.row-star .off-vote {
+  padding-right: 0;
+}
+.row-star .rating-md {
+  font-size: 1.5em;
+}
 /* ##### FIN USER-LIST-OFFERS ##### */
 /* ***** HOUSE-RENTS ***** */
 /* ##### FIN HOUSE-RENTS ##### */
@@ -15755,6 +15795,14 @@ textarea {
     padding-bottom: 0;
     min-height: 50px;
   }
+  .row-user-col .col-user-ins {
+    width: 50%;
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    float: left;
+  }
 }
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 @media only screen and (max-width: 480px) {
@@ -15782,6 +15830,9 @@ textarea {
     .off-target-prin {
         font-weight: 600;
     }*/
+  .row-user-col .col-user-ins {
+    width: 100%;
+  }
 }
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 @media only screen and (max-width: 320px) {
@@ -15961,6 +16012,9 @@ textarea {
   .rating-container .clear-rating {
     display: none;
   }
+}
+.rating-container.rating-md.rating-animate span.label.label-warning {
+  background-color: #333333;
 }
 /* ------------------ MENU DE ADMINISTRACI�N  ------------------
 ******************************************************************/
