@@ -4,7 +4,7 @@ acme_redsys:
     prefix:     /
 
 acme_payment_homepage:
-    path:  /payment/trade/offer/{idOffer}/
+    path:  /payment/{service}/offer/{idOffer}/
 #    defaults: { _controller: AcmePaymentBundle:Default:index }
     defaults: { _controller: AcmePaymentBundle:PaymentPurchase:prepare }
     requirements:

@@ -179,7 +179,10 @@ class ShareCarController extends Controller {
 
         elseif($formSubscribe->isSubmitted()):
             $this->offerSubscribe($request, $shareCar);
-
+            return $this->redirectToRoute('acme_payment_homepage', array(
+                'idOffer'=> $shareCar->getOffer()->getId(),
+                'service'=>'share-car',
+                    ));
         endif;
 
         return $this->render('offer/offShareCar.html.twig',
