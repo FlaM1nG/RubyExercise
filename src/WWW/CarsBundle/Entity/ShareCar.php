@@ -73,18 +73,23 @@ class ShareCar
                 $this->car = new Car($array['car']);
 
             elseif(array_key_exists('car_photo', $array)):
-                $this->car = $this->setPhotoCar($array['car_photo']);
+                $this->car = $this->setPhotoCar($array);
             endif;    
         else:
             $this->offer = new Offer();
         endif;
     }
 
-    private function setPhotoCar($data){
+    private function setPhotoCar($array){
 
         $car = new Car();
         $photo = new Photo();
-        $photo->setUrl($data);
+        $photo->setUrl($array['car_photo']);
+
+        if(array_key_exists('car_photo_id', $array)):
+            $photo->setId($array['car_photo_id']);
+        endif;
+
         $car->addPhoto($photo);
         
         return $car;
