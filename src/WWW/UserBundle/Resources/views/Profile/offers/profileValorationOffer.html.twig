@@ -64,11 +64,9 @@
 
             <div class="off-form-comment">
                 <div class="input-group">
-                    <textarea class="form-control custom-control"
+                    <textarea id="comment" class="form-control custom-control"
                               rows="3"
-                              style="resize:none">
-
-                    </textarea>
+                              style="resize:none"></textarea>
 
                     <span id="sendValoration" class="input-group-addon btn btn-primary" disabled>
                         Enviar
@@ -92,7 +90,6 @@
 
     <script>
         $(document).ready( function(){
-     
            $('#rating-input').rating({
               min: 0,
               max: 5,
