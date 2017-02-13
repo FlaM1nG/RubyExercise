@@ -45,7 +45,7 @@ class TradeController extends Controller{
 
         $trade->getCategory()->setId($this->service);
         
-        $this->denyAccessUnlessGranted('create_offer', $trade);
+       
         
         $formTrade = $this->createForm(TradeType::class,$trade);
 
@@ -259,7 +259,10 @@ class TradeController extends Controller{
 
         elseif($formSubscribe->isSubmitted()):
             $this->offerSubscribe($this->trade);
-            return $this->redirectToRoute('acme_payment_homepage', array('idOffer'=> $this->trade->getOffer()->getId()));
+            return $this->redirectToRoute('acme_payment_homepage', array(
+                'idOffer'=> $this->trade->getOffer()->getId(),
+                'service'=> "trade",
+                    ));
         endif;
 
         return $this->render('offer/offTrade.html.twig',array(

@@ -12,16 +12,17 @@ use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 use WWW\OthersBundle\Entity\Trade;
+use WWW\CarsBundle\Entity\ShareCar;
 
 class PaymentPurchaseController extends Controller
 {
-    private $trade;
+    private $offer;
+    
     public function prepareAction(Request $request)
     {
         
+       $this->setUpVars($request);
         
-        $this->setUpVars($request);
-        $this->getTrade($request);
         $form = $this->createPurchaseForm();
         $form->handleRequest($request);
         
@@ -32,7 +33,7 @@ class PaymentPurchaseController extends Controller
             $payment->setNumber(date('ymdHis'));
             $payment->setClientId(uniqid());
             $payment->setDescription(sprintf('An order %s for a client %s', $payment->getNumber(), $payment->getClientEmail()));
-            $payment->setTotalAmount($this->trade->getPrice()*100);
+            $payment->setTotalAmount($this->offer->getPrice()*100);
             $storage = $this->getPayum()->getStorage($payment);
             $storage->update($payment);
 
@@ -77,7 +78,7 @@ class PaymentPurchaseController extends Controller
                 'constraints' => array(new NotBlank())
             ))
             ->add('totalAmount', 'number', array(
-                'data' => $this->trade->getPrice(),
+                'data' => $this->offer->getPrice(),
                 'constraints' => array(new Range(array('max' => 1000, 'min' => 1)), new NotBlank())
             ))
             ->add('currencyCode', 'text', array(
@@ -99,21 +100,21 @@ class PaymentPurchaseController extends Controller
     {
         return $this->get('payum');
     }
-    private function getTrade($request){
+    private function getOffer($request){
         
-        $this->setUpVars($request);
+        
         
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/offer/get_offer.php";
 
-        $trade = null;
+        $this->offer = null;
        
         $data['id'] = $request->get('idOffer');
        
         $result = $ch->resultApiRed($data, $file);
          
         if($result['result'] == 'ok'):
-            $this->trade = new Trade($result);
+            $this->offer = new Trade($result);
             
         else:
             $this->ut->flashMessage("general", $request);
@@ -130,11 +131,29 @@ class PaymentPurchaseController extends Controller
  
         if(strstr($path,'trade')!== false): 
             $this->service = 1;
-        elseif(strstr($path,'barter')!== false):
-            $this->service = 3;
+            $this->getOffer($request);
+        elseif(strstr($path,'share-car')!== false):
+            $this->getOfferShareCar($request);
         else:
             $this->service = 2;
         endif;
+
+    }
+    private function getOfferShareCar(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'services/share_car/get_share_car.php';
+        $ch = new ApiRest();
+        $this->offer = null;
+        $id = $request->get('idOffer');
+
+        $data['id'] = $id;
+        $data['option'] = "offer";
+
+        $result = $ch->resultApiRed($data, $file);
+
+        $this->offer = new ShareCar($result);
+
+        return $this->offer;
 
     }
 }
