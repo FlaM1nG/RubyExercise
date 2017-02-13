@@ -29,6 +29,11 @@ class ShareCarType extends AbstractType {
         $listCar = $options['listCar'];
         $year = new \DateTime("now");
         $year = $year->format("Y");
+
+        $defaultDate = new \DateTime("now");
+        if(!empty($options['data']->getDate())):
+            $defaultDate = $options['data']->getDate();
+        endif;
         
         $builder
 
@@ -42,7 +47,7 @@ class ShareCarType extends AbstractType {
 
             ->add('date', DateTimeType::class, array('label' => 'Día y hora',
                                                      'html5' => true,
-                                                     'data' => new \DateTime("now"),
+                                                     'data' => $defaultDate,
                                                      'years' => array($year,$year+1,$year+2,$year+3,$year+4)))
 
             ->add('car', ChoiceType::class, array('label' => 'Elija el coche',
