@@ -167,4 +167,91 @@ class ShareCar
     {
         return $this->car;
     }
+    /**
+     * @var boolean
+     */
+    private $backTwo;
+
+    /**
+     * @var boolean
+     */
+    private $autobooking;
+
+    /**
+     * @var \WWW\ServiceBundle\Entity\Offer
+     */
+    private $offer;
+
+
+    /**
+     * Set backTwo
+     *
+     * @param boolean $backTwo
+     *
+     * @return ShareCar
+     */
+    public function setBackTwo($backTwo)
+    {
+        $this->backTwo = $backTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get backTwo
+     *
+     * @return boolean
+     */
+    public function getBackTwo()
+    {
+        return $this->backTwo;
+    }
+
+    /**
+     * Set autobooking
+     *
+     * @param boolean $autobooking
+     *
+     * @return ShareCar
+     */
+    public function setAutobooking($autobooking)
+    {
+        $this->autobooking = $autobooking;
+
+        return $this;
+    }
+
+    /**
+     * Get autobooking
+     *
+     * @return boolean
+     */
+    public function getAutobooking()
+    {
+        return $this->autobooking;
+    }
+
+    /**
+     * Set offer
+     *
+     * @param \WWW\ServiceBundle\Entity\Offer $offer
+     *
+     * @return ShareCar
+     */
+    public function setOffer(\WWW\ServiceBundle\Entity\Offer $offer = null)
+    {
+        $this->offer = $offer;
+
+        return $this;
+    }
+
+    /**
+     * Get offer
+     *
+     * @return \WWW\ServiceBundle\Entity\Offer
+     */
+    public function getOffer()
+    {
+        return $this->offer;
+    }
 }
