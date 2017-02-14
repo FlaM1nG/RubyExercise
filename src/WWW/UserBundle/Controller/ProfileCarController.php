@@ -60,8 +60,7 @@ class ProfileCarController extends Controller{
         $data['description'] = "'".$car->getDescription()."'";
         $data['model_id'] = $car->getModel()->getId();
         $data['type'] = "'".$car->getType()."'";
-        $data['seats'] = "'".$car->getSeats()."'";
-        $data['autobooking'] = 1;
+        $data['seats'] = $car->getSeats();
 
         if(!empty($car->getSmoke())):
             $data['smoke'] = 1;
@@ -99,7 +98,6 @@ class ProfileCarController extends Controller{
                 $count += 1;
             }
         endif;
-
         $result = $ch->resultApiRed($info,$file);
 
         $ut->flashMessage('general',$request,$result);
