@@ -25,16 +25,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ShareCarType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-
         $listCar = $options['listCar'];
         $year = new \DateTime("now");
         $year = $year->format("Y");
 
         $defaultDate = new \DateTime("now");
+
         if(!empty($options['data']->getDate())):
             $defaultDate = $options['data']->getDate();
         endif;
-        
+
         $builder
 
             ->add('offer', OfferType::class, array('label' => ''))
@@ -54,7 +54,8 @@ class ShareCarType extends AbstractType {
                                                   'choices' => $listCar,
                                                   'choice_value' => 'id',
                                                   'choice_label' => 'plate',
-                                                  'choices_as_values' => true))
+                                                  'choices_as_values' => true,
+                                                  'data' => $options['data']->getCar()  ))
 
             ->add('backTwo', CheckboxType::class, array('label' => 'Solo dos atrás',
                                                         'required' => false))
