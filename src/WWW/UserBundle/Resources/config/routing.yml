@@ -183,3 +183,15 @@ user_profileDesignObjects:
 user_ajax_deleteImgCar:
     path: /ajax/deleteImgCar
     defaults: { _controller: UserBundle:ProfileCar:deleteImgCar }
+
+prueba_validation:
+     path: /pruebaValidation
+     defaults: { _controller: UserBundle:Default:pruebaValidation }
+
+prueba_validation_true:
+     path: /pruebaValidationTrue
+     defaults: { _controller: UserBundle:Default:pruebaValidationTrue }
+
+prueba_validation_false:
+     path: /pruebaValidationFalse
+     defaults: { _controller: UserBundle:Default:pruebaValidationFalse }
