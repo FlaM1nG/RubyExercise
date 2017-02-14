@@ -21,7 +21,7 @@
 
 
 
-{% block offerImage %}{{ dump(offer) }}
+{% block offerImage %}
     <div id="off-img-big" class="owl-carousel">
         {% set imgGallery = []  %}
         
@@ -72,25 +72,11 @@
                 width="50" alt="">
         </a>
                     
-        <a class="off-user-name" href="{{ path('user_public_profile',{username: offer.offer.userAdmin.username}) }}">{{ offer.offer.userAdmin.username }}</a>
+        <a class="off-user-name" href="{{ path('user_public_profile',{username: offer.offer.userAdmin.username}) }}">
+            {{ offer.offer.userAdmin.username }}</a>
         
     </div>
     <!-- FIN NOMBRE USUARIO -->
-
-    {# Lo pongo aquí por que no sé donde ponerlo #}
-    {% if offer.offer.userAdmin.id == app.session.get('id') %}
-        Usuarios inscritos: {{ offer.offer.inscriptions|length }}
-
-        {% for usuario in offer.offer.inscriptions %}
-            <div class="off-user-image" style="border: solid 1px orange">
-                <a class="off-user-image" href="{{ path('user_public_profile', {username: usuario.username}) }}">
-                    <img src="{{ asset(usuario.user_photo,'img') }}" width="50"> <br>
-                    {{ usuario.username }}<br>
-                    {{rating.staticRating(usuario.avg_score)}}
-                </a>
-            </div>
-        {% endfor %}
-    {% endif %}
 
 {% endblock %}
 
@@ -240,7 +226,7 @@
             
 
             {% set i = 0 %}
-            {% for comment in offer.offer.comments %}
+            {% for comment in pagination%}
 
                 {{ comentarios.messComentarioPublico(
                 path('user_public_profile', {username: offer.offer.userAdmin.username} ),
@@ -253,6 +239,12 @@
 
                 {% set i = i+1 %}
             {% endfor %}
+
+            {% if pagination is not null %}
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            {% endif %}
 
         {% endif %}
 
