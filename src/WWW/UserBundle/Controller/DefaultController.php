@@ -10,6 +10,18 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 
 class DefaultController extends Controller{
+
+    public function pruebaValidationAction(Request $request){
+        return $this->render('UserBundle:Validation:validation.html.twig');
+    }
+
+    public function pruebaValidationTrueAction(Request $request){
+        return $this->render('UserBundle:Validation:validationTrue.html.twig');
+    }
+
+    public function pruebaValidationFalseAction(Request $request){
+        return $this->render('UserBundle:Validation:validationFalse.html.twig');
+    }
     
     public function indexAction(Request $request)
     {
