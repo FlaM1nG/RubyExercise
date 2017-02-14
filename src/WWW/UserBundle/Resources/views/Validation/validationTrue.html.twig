@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container cd-main-content content-validation-true">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2>Cuenta creada correctamente</h2>
+                <hr/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    Ya puede disfrutar de todas las ventajas de What Want Web.<br>
+                    Accede a tu cuenta o da de alta alguna oferta.
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ include('nav/menuScript.html.twig') }}
+
+{% endblock %}
