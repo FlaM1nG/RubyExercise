@@ -1,4 +1,4 @@
-WWW\ServiceBundle\Entity\Offer:
+hWWW\ServiceBundle\Entity\Offer:
     type: entity
     table: null
     repositoryClass: WWW\ServiceBundle\Repository\OfferRepository
