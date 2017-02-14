@@ -69,15 +69,26 @@ class ShareCar
             $this->autobooking = $array['autobooking'];
             $this->offer = new Offer($array);
 
-            if(!empty($array['car'])):
-                $this->car = new Car($array['car']);
-
-            elseif(array_key_exists('car_photo', $array)):
-                $this->car = $this->setPhotoCar($array);
-            endif;    
+            $this->createCar($array);
         else:
             $this->offer = new Offer();
         endif;
+    }
+
+    private function createCar($array){
+
+        if(!empty($array['car'])):
+            $this->car = new Car($array['car']);
+
+        elseif(array_key_exists('car_photo', $array)):
+            $this->car = $this->setPhotoCar($array);
+
+        elseif(array_key_exists('car_id', $array)):
+            $this->car = new Car();
+            $this->car->setId($array['car_id']);
+
+        endif;
+
     }
 
     private function setPhotoCar($array){
