@@ -1,6 +1,27 @@
 /* ------------------ SHARE CAR  ------------------
 ******************************************************************/
 
+.sha-car-marco{
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+
+    img{
+        min-width: 100%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+    }
+}
+
+.row-sha-price{
+    .rating-md {
+        font-size: 1.13em;
+    }
+}
+
+
 /* ***** TITLE VIEW LIST ***** */
 .sha-or-dest {
     font-size: 22px;
@@ -28,12 +49,11 @@
 
 /* ***** VIEW LIST ***** */
 .sha-offer-list {
-    .separacion-inferior;
-    .separacion-superior;
-    margin: 0px 1% 1% 0px;
+    margin: 0px 1% 2% 0px;
     .aEnlaces;
     font-weight: 600;
-    .sombra-general;
+    .sombra-general2;
+    padding: 2%;
 }
 
 .sha-offer-list:hover {
@@ -62,7 +82,7 @@
 
 .sha-price {
     font-size: 30px;
-    color: #f60;
+    color: @brand-primary;
     font-weight: 700;
     letter-spacing: 1px;
 }
@@ -87,14 +107,14 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    padding-left: 20px;
 }
 
 .col-sha-car{
     position: relative;
     overflow: hidden;
-    height: 180px;
+    height: 150px;
     padding: 0;
+    margin-top: 0.5%;
 }
 /* ##### FIN VIEW LIST ##### */
 

@@ -49,29 +49,34 @@
                 si recomendarias hacer negocios con este usuario y cualquier otra cosa que creas que sea importante que sepan los demás usuarios.
             </p>
 
-     {{ title }} <br>
-     {{ description }} <br>
-     {{ asset(urlImage,'img') }} <br>
-     <input id="rating-input"
-            class="rating rating-loading"  
-            data-show-clear="false" 
-            data-show-caption="false"
-            data-step="1"
-            type="number" />
+            {{ offers.offUserVot(urlImage, title, description) }}
 
-            <div class="off-form-comment">
-                <div class="input-group">
-                    <textarea class="form-control custom-control"
-                              rows="3"
-                              style="resize:none">
+     {#{{ title }} <br>#}
+     {#{{ description }} <br>#}
+     {#{{ asset(urlImage,'img') }} <br>#}
+     {%if offers.offUserVot(valorated_by_me) == false%}
+         <input id="rating-input"
+                class="rating rating-loading"
+                data-show-clear="false"
+                data-show-caption="true"
+                data-step="1"
+                data-language="es"
+                type="number" />
 
-                    </textarea>
+         <div class="off-form-comment">
+             <div class="input-group">
+                 <textarea id="comment" class="form-control custom-control"
+                           rows="3"
+                           style="resize:none"></textarea>
 
-                    <span id="sendValoration" class="input-group-addon btn btn-primary" disabled>
-                        Enviar
-                    </span>
-                </div>
-            </div>
+                 <span id="sendValoration" class="input-group-addon btn btn-primary" disabled>
+                     Enviar
+                 </span>
+             </div>
+         </div>
+     {%else %}
+         Ya has votado esta oferta!
+     {% endif%}
         </div>
     </div>
 
@@ -85,10 +90,10 @@
     {{ parent() }}
 
     <script src="{{ asset('js/starRating/star-rating.js') }}"></script>
+    <script src="{{ asset('js/starRating/star-rating_locale_es.js') }}"></script>
 
     <script>
         $(document).ready( function(){
-     
            $('#rating-input').rating({
               min: 0,
               max: 5,
@@ -114,7 +119,7 @@
             }
 
             function sendValoration() {
-                
+
                 var rating = $('#rating-input').val();
                 var idOffer = {{ app.request.attributes.get('idOffer') }};
                 var comment = $('#comment').val();
@@ -122,13 +127,13 @@
                 data["rating"] = rating;
                 data["idOffer"] = idOffer;
                 data["comment"] = comment;
-                
-                    
-                $.ajax({                        
-                    type: "POST",                 
-                    url: "{{ url('user_ajax_valorationOffer') }}",                     
-                    data: data, 
-                    success: function(data)             
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('user_ajax_valorationOffer') }}",
+                    data: data,
+                    success: function(data)
                     {
                         location.href='{{ path('user_profiler_purchases') }}';
                     },

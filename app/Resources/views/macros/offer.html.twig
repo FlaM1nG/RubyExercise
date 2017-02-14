@@ -377,3 +377,44 @@
         </div>
     </div>
 {% endmacro %}
+
+
+
+{% macro offUserVot(srcImage, titleOffer, textOffer) %}
+    <div class="us-off-element us-off-my-offer-vot">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
+                <img src="
+                    {% if srcImage %}
+                        {{ asset(srcImage|e,'img') }}
+
+                    {% else %}
+                        {{ asset(srcImage|e|default('web/img/placeholder.jpg')) }}
+                    {% endif %}
+                    "
+                     class="img-responsive"/>
+            </div>
+
+
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 off-col-user-text">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h3>
+                            {{ titleOffer|e }}
+                        </h3>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            {{ textOffer|e|slice(0, 140) ~ '...' }}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endmacro %}
