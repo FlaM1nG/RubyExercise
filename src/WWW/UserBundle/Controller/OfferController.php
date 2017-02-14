@@ -37,9 +37,21 @@ class OfferController extends Controller{
     public function myOffersAction(Request $request){
 
         $offers = $this->listMyOffers($request);
-//        print_r($offers);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = null;
+
+        if(!empty($offers)):
+            $pagination = $paginator->paginate(
+                $offers,
+                $request->query->getInt('page', 1),
+                MyConstants::NUM_OFFERS_PROFILE
+            );
+        endif;
+
         return $this->render('UserBundle:Profile:offers/profileMyOffers.html.twig',
-                       array('listOffers' => $offers));
+                       array('listOffers' => $offers,
+                             'pagination' => $pagination));
     }
     
     private function listMyOffers(Request $request){

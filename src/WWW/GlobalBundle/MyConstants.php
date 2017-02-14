@@ -20,5 +20,6 @@ class MyConstants {
     const NUM_TRADES_PAGINATOR = 5;
     const NUM_CAR_PAGINATOR = 5;
     const NUM_HOUSE_PAGINATOR = 5;
-
+    const NUM_OFFERS_PROFILE = 10;
+    const NUM_MESSAGE_PROFILE = 10;
 }

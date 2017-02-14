@@ -25,9 +25,21 @@ class PurchasesController extends Controller{
     public function myPurchasesAction(Request $request){
         
         $purchases = $this->getPurchases($request);
-        
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = null;
+
+        if(!empty($purchases)):
+            $pagination = $paginator->paginate(
+                $purchases,
+                $request->query->getInt('page', 1),
+                MyConstants::NUM_OFFERS_PROFILE
+            );
+        endif;
+
         return $this->render('UserBundle:Profile:offers/profileMyPurchase.html.twig',
-                       array('purchases' => $purchases)  
+                       array('purchases' => $purchases,
+                             'pagination' => $pagination)
         );
         
         

@@ -52,7 +52,8 @@
                 </p>
             {% else %}
 
-                {% for mensaje in messages %}
+                {% for mensaje in pagination %}
+
                     {% if mensaje.status == 3 %}
                         {{ macroMensaje.messElementReceived(mensaje.from.username, mensaje.createdDate,
                         mensaje.subject, mensaje.message,
@@ -72,6 +73,12 @@
                     {% endif %}
 
                 {% endfor %}
+
+                {% if pagination is not null %}
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                {% endif %}
 
             {% endif %}
 
