@@ -105,7 +105,8 @@ class OfferController extends Controller{
         $info['username'] = $request->getSession()->get('username');
         $info['password'] = $request->getSession()->get('password');
         $info['offer_id'] = $this->offer->getOffer()->getId();
-//        $info['inserted_photos_id'] =
+        $info['inserted_photos_id'] = $this->offer->getCar()->getPhotos()[0]->getId();
+        $info['deleted_photos_id'] = "all";
 
         $data['values']['title'] = "'".$this->offer->getOffer()->getTitle()."'";
         $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'";
@@ -120,7 +121,9 @@ class OfferController extends Controller{
 
 
         $info['data']= json_encode($data);
+
         $result = $ch->resultApiRed($info, $file);
+
         $this->ut->flashMessage("general", $request, $result);
         
         return $result['result'];
@@ -178,6 +181,7 @@ class OfferController extends Controller{
        $data['id'] = $request->get('idOffer');
 
        $result = $ch->resultApiRed($data, $file);
+
        $formulario = null;
 
         if($result['result'] == 'ok'):
@@ -191,7 +195,6 @@ class OfferController extends Controller{
              elseif($result['service_id'] == 4):
                  $this->offer = new ShareCar($result);
                  $arrayCars = $this->getCarsUser($request);
-
                  $formulario = $this->createForm(ShareCarType::class ,$this->offer, array('listCar' => $arrayCars));
              endif;
         else:
