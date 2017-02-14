@@ -46,7 +46,7 @@ class OfferType extends AbstractType{
                 ->add('id',HiddenType::class, array('attr' => array('class' => 'idOffer') ))
 
                 ->add('holders', IntegerType::class, array('label' => '',
-                                                           'data' =>'1',
+                                                           'empty_data' => '1',
                                                            'attr' => array('min' =>1)))
 
                 ->add('description','textarea', array('label'=>'Descripción',
