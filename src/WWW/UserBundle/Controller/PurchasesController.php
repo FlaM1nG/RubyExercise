@@ -46,24 +46,29 @@ class PurchasesController extends Controller{
         return $result['inscriptions'];
     }
     
-    private function getOffer($id){
-        $file = MyConstants::PATH_APIREST."services/offer/get_offer.php";
+    private function getOffer(Request $request){
+        $file = MyConstants::PATH_APIREST."services/offer/offer_valorated.php";
         $ch = new ApiRest();
-
-        $data['id'] = $id;
-
+        
+        
+        $data['username'] = $request->getSession()->get('username');        
+        $data['password'] = $request->getSession()->get('password');        
+        $data['id'] = $request->getSession()->get('id');
+        $data['offer_id'] = $request->get('idOffer');
+        
         $result = $ch->resultApiRed($data,$file);
         return $result;
     }
 
     public function valorationAction(Request $request){
-
-        $result = $this->getOffer($request->get('idOffer'));
-
+        
+        $result = $this->getOffer($request);
+        
         return $this->render('UserBundle:Profile:offers/profileValorationOffer.html.twig',
-                        array('title' => $result['title'],
-                              'description' => $result['description'],
-                              'urlImage' => $result['photos'][0]['url'])
-                        );
+                        array('title' => $result[0]['title'],
+                              'description' => $result[0]['description'],
+                              'urlImage' => $result[0]['photo_url'],
+                              'valorated_by_me'=> $result [0]['valorated_by_me']
+                ));
     }
 }
