@@ -107,7 +107,7 @@ class ShareCarController extends Controller {
         $dataOffer['data'] = json_encode($dataExtra);
 
         $result = $ch->resultApiRed($dataOffer, $file);
-echo __FILE__." ".__LINE__."<br>"; print_r($dataOffer);echo "<br>"; print_r($result);exit;
+
         $ut->flashMessage("general", $request, $result);
 
         return $result['result'];
