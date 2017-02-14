@@ -1,6 +1,12 @@
 {% extends '::services/layoutService.html.twig' %}
 {% import '::macros/shareCarList.html.twig' as shares %}
 {% import 'macros/star.html.twig' as rating %}
+{% import 'macros/filter.html.twig' as filters %}
+
+{% set pathFilter = path('serShareCar') %}
+{% set routingOffer = 'offShareCar' %}
+{% set routingNewOffer = 'car_shareCarNew' %}
+{% set service = 4 %}
 
 {% block title %}
     Coche compartido
@@ -22,17 +28,14 @@ sha-header-title
     {{ include('services/subTitles/shareCarSubTitle.html.twig') }}
 {% endblock %}
 
-{% block serviceFilters %} 
-    {{ include('services/filters/shareCarFilter.html.twig') }}
+{% block serviceFilters %}
+    {{ filters.filterCar('get',pathFilter , service) }}
 {% endblock %}
             
 {% block serviceList %}
 
     {% for offer in pagination %}
         {#{ include('services/lists/shareCarList.html.twig') }#}
-
-        {% set img = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
-        {% set dia = "now"|date() %}
 
         {{ shares.element(
             path('offShareCar', {idOffer: offer.offer.id}),
@@ -49,13 +52,16 @@ sha-header-title
     {% endfor %}
     <!-- Modal -->
 
+    {% if pagination is not null %}
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>
+    {% endif %}
+
 {% endblock %}
 
 {% block filtroMovilBody %}
-    {{ include('services/filters/shareCarFilter.html.twig') }}
+    {{ filters.filterCar('get',pathFilter , service) }}
 {% endblock %}
 
 {% block javascriptsFooter %}

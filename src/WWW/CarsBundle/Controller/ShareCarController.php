@@ -41,8 +41,12 @@ class ShareCarController extends Controller {
         $form->handleRequest($request);
 
 
-        if($form->isSubmitted()):
-            $this->createOfferShareCar($request, $shareCar,4);
+        if($form->isSubmitted() && $form->isValid()):
+            $result = $this->createOfferShareCar($request, $shareCar,4);
+
+            if($result == 'ok'):
+                return $this->redirectToRoute('serShareCar');
+            endif;
         endif;
         
         return $this->render('CarsBundle:ShareCar:newShareCarOffer.html.twig',
@@ -87,7 +91,8 @@ class ShareCarController extends Controller {
                             "title" => $shareCar->getOffer()->getTitle(),
                             "description" => $shareCar->getOffer()->getDescription(),
                             "service_id" => $service,
-                            "holders" => $shareCar->getOffer()->getHolders());
+                            "holders" => $shareCar->getOffer()->getHolders(),
+                            "id_photos" => $shareCar->getCar()->getPhotos()[0]->getId());
 
         $dataExtra["from_place"] = "'".$shareCar->getFromPlace()."'";
         $dataExtra["to_place"] = "'".$shareCar->getToPlace()."'";
@@ -106,6 +111,7 @@ class ShareCarController extends Controller {
         $ut->flashMessage("general", $request, $result);
 
         return $result['result'];
+
     }
 
     public function listCarAction(Request $request){
@@ -113,12 +119,15 @@ class ShareCarController extends Controller {
         $arrayOffers = $this->getsShareCars($request);
 
         $paginator = $this->get('knp_paginator');
+        $pagination = null;
 
-        $pagination = $paginator->paginate(
-            $arrayOffers,
-            $request->query->getInt('page', 1),
-            5
-        );
+        if(!empty($arrayOffers)):
+            $pagination = $paginator->paginate(
+                $arrayOffers,
+                $request->query->getInt('page', 1),
+                MyConstants::NUM_CAR_PAGINATOR
+            );
+        endif;
 
         return $this->render('services/serShareCar.html.twig',
                        array('pagination' => $pagination)
@@ -136,6 +145,12 @@ class ShareCarController extends Controller {
         $dataFilters['from_place'] = "";
         $dataFilters['to_place'] = "";
         $dataFilters['date'] = "";
+
+        if(!empty($request->query->all())):
+            $dataFilters['from_place'] = $request->query->get('fromPlace');
+            $dataFilters['to_place'] = $request->query->get('toPlace');
+            $dataFilters['date'] = $request->query->get('date');
+        endif;
 
         $data['filters'] = $dataFilters;
         $info['data'] = json_encode($data);
@@ -165,6 +180,17 @@ class ShareCarController extends Controller {
         $formMessage->handleRequest($request);
         $formSubscribe->handleRequest($request);
 
+        $paginator = $this->get('knp_paginator');
+        $pagination = null;
+
+        if(!empty($shareCar->getOffer()->getComments())):
+            $pagination = $paginator->paginate(
+                $shareCar->getOffer()->getComments(),
+                $request->query->getInt('page', 1),
+                MyConstants::NUM_COMMENTS_PAGINATOR
+            );
+        endif;
+
         if($formComment->isSubmitted()):
 
             $result = $this->saveComment($request, $shareCar->getOffer()->getId(), $comment);
@@ -190,7 +216,8 @@ class ShareCarController extends Controller {
                                   'formMessage' => $formMessage->createView(),
                                   'formComment' => $formComment->createView(),
                                   'formSubscribe' => $formSubscribe->createView(),
-                                  'service' => $shareCar->getOffer()->getService()->getId()  ));
+                                  'service' => $shareCar->getOffer()->getService()->getId(),
+                                  'pagination' => $pagination));
         
     }
 
@@ -239,10 +266,14 @@ class ShareCarController extends Controller {
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
-        $data['to'] = $shareCar->getOffer()->getUserAdmin()->getUsername();
         $data['subject'] = $request->get('message')['subject'];
         $data['message'] = $request->get('message')['message'];
         $data['offer'] = $shareCar->getOffer()->getId();
+        $data['to'] = $shareCar->getOffer()->getUserAdmin()->getUsername();
+
+        if(isset($request->get('message')['to'])):
+            $data['to'] = $request->get('message')['to'];
+        endif;
 
         $result = $ch->resultApiRed($data, $file);
 
@@ -283,9 +314,27 @@ class ShareCarController extends Controller {
         $data['offer_id'] = $shareCar->getOffer()->getId();
 
         $result = $ch->resultApiRed($data,$file);
-print_r($result);
+
         $ut->flashMessage('general',$request, $result);
 
+    }
+
+    public function inscriptionsAction(Request $request){
+
+        $offer = $this->getOfferShareCar($request);
+        $message = $this->fillMessage($request, $offer);
+
+        $formMessage = $this->createForm(MessageType::class, $message);
+
+        $formMessage->handleRequest($request);
+
+        if($formMessage->isSubmitted()):
+            $this->sendMessage($request, $offer);
+        endif;
+
+        return $this->render('offer/inscription.html.twig',
+                        array('offer' => $offer,
+                              'formMessage' => $formMessage->createView()));
     }
     
 }

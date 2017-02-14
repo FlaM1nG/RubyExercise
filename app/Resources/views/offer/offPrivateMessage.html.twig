@@ -20,4 +20,7 @@
     </div>
 </div>
 
+{% if to is defined %}
+    <input type="hidden" value="{{ to }}" name="message[to]" id="mensajeTo"/>
+{% endif %}
 {{ form_row(formMessage._token) }}

@@ -157,7 +157,7 @@
 
 
 
-{% macro userInscr(href, src, nombre, estrellas, valoraciones, escribe) %}
+{% macro userInscr(href, src, nombre, estrellas, valoraciones, escribe, formMessage) %}
     {% import 'macros/star.html.twig' as est %}
 
     <div class="user-inscrip">
@@ -202,11 +202,15 @@
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <a href="{{ escribe|e }}" class="btn btn-primary btn-normal">Escribele</a>
+                <button class="btn-default btn off-btn-write butonWriteUser"
+                        data-toggle="modal"
+                        data-target="#writeUser"
+                        data-name="{{ nombre }}">
+                    Escríbele
+                </button>
             </div>
         </div>
     </div>
-
 
 {% endmacro %}
 

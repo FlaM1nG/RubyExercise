@@ -46,22 +46,38 @@
                 </p>
             {% else %}
 
-        {% for offer in listOffers %}
+                {% for offer in pagination %}
 
-            {% if offer.service.id == 1 %}
-                {% set url = path('service_trade' , {idOffer: offer.id}) %}
+                    {% set pathEditar = path('user_profiler_editOffer',{idOffer:offer.id}) %}
 
-            {% elseif offer.service.id == 2 %}
-                {% set url = path('service_clothes' , {idOffer: offer.id}) %}
+                    {% if offer.service.id == 1 %}
+                        {% set url = path('service_trade' , {idOffer: offer.id}) %}
 
-            {% elseif offer.service.id == 3 %}
-                {% set url = path('service_barter' , {idOffer: offer.id}) %}
-            {% endif%}
+                    {% elseif offer.service.id == 2 %}
+                        {% set url = path('service_clothes' , {idOffer: offer.id}) %}
 
-            {{ offers.offUser(url, offer.photos.0.url ,offer.title,
-            offer.description, 'leer', path('user_profiler_editOffer',{idOffer:offer.id}),
-            'editar', '#borrar','Borrar', offer.id) }}
-        {% endfor %}
+                    {% elseif offer.service.id == 3 %}
+                        {% set url = path('service_barter' , {idOffer: offer.id}) %}
+
+                    {% elseif offer.service.id == 4 %}
+                        {% set url = path('offShareCar', {idOffer: offer.id}) %}
+
+                        {% if offer.hasInscriptions == 1 %}
+                            {%  set pathEditar = "" %}
+                        {% endif %}
+
+                    {% endif%}
+
+                    {{ offers.offUser(url, offer.photos.0.url ,offer.title,
+                    offer.description, 'leer', pathEditar, 'editar', '#borrar','Borrar', offer.id) }}
+
+                {% endfor %}
+
+                {% if pagination is not null %}
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                {% endif %}
 
             {% endif %}
 

@@ -51,7 +51,7 @@
                 </p>
             {% else %}
 
-                {% for mensaje in messages %}
+                {% for mensaje in pagination %}
 
                     {{ message.messElementSent(
                             mensaje.to.username,
@@ -65,6 +65,12 @@
                             mensaje.id)
                     }}
                 {% endfor %}
+
+                {% if pagination is not null %}
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                {% endif %}
 
             {% endif %}
         </div>
