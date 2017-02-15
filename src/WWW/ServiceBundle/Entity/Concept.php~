@@ -138,5 +138,62 @@ class Concept
     {
         return $this->price;
     }
-}
+    /**
+     * @var \WWW\ServiceBundle\Entity\Billing
+     */
+    private $billing;
 
+    /**
+     * @var \WWW\ServiceBundle\Entity\Inscription
+     */
+    private $inscription;
+
+
+    /**
+     * Set billing
+     *
+     * @param \WWW\ServiceBundle\Entity\Billing $billing
+     *
+     * @return Concept
+     */
+    public function setBilling(\WWW\ServiceBundle\Entity\Billing $billing = null)
+    {
+        $this->billing = $billing;
+
+        return $this;
+    }
+
+    /**
+     * Get billing
+     *
+     * @return \WWW\ServiceBundle\Entity\Billing
+     */
+    public function getBilling()
+    {
+        return $this->billing;
+    }
+
+    /**
+     * Set inscription
+     *
+     * @param \WWW\ServiceBundle\Entity\Inscription $inscription
+     *
+     * @return Concept
+     */
+    public function setInscription(\WWW\ServiceBundle\Entity\Inscription $inscription = null)
+    {
+        $this->inscription = $inscription;
+
+        return $this;
+    }
+
+    /**
+     * Get inscription
+     *
+     * @return \WWW\ServiceBundle\Entity\Inscription
+     */
+    public function getInscription()
+    {
+        return $this->inscription;
+    }
+}
