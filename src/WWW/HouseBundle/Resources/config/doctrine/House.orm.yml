@@ -1,0 +1,226 @@
+WWW\HouseBundle\Entity\House:
+    type: entity
+    table: null
+    repositoryClass: WWW\HouseBundle\Repository\HouseRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        description:
+            type: string
+            length: 255
+            nullable: true
+        licenseNumber:
+            type: string
+            length: 255
+        capacity:
+            type: integer
+            nullable: true
+        bathrooms:
+            type: integer
+            nullable: true
+        bedrooms:
+            type: integer
+            nullable: true
+        beds:
+            type: integer
+            nullable: true
+        aireAcondicionado:
+            type: boolean
+            nullable: true
+        calefaccion:
+            type: boolean
+            nullable: true
+        ascensor:
+            type: boolean
+            nullable: true
+        portero:
+            type: boolean
+            nullable: true
+        timbre:
+            type: boolean
+            nullable: true
+        apartamentoEdificio:
+            type: boolean
+            nullable: true
+        accesoDiscapacitados:
+            type: boolean
+            nullable: true
+        piscina:
+            type: boolean
+            nullable: true
+        gimnasio:
+            type: boolean
+            nullable: true
+        papelHigienico:
+            type: boolean
+            nullable: true
+        bidet:
+            type: boolean
+            nullable: true
+        banera:
+            type: boolean
+            nullable: true
+        secadorPelo:
+            type: boolean
+            nullable: true
+        jacuzzi:
+            type: boolean
+            nullable: true
+        champu:
+            type: boolean
+            nullable: true
+        mesaComedor:
+            type: boolean
+            nullable: true
+        cafetera:
+            type: boolean
+            nullable: true
+        productosLimpieza:
+            type: boolean
+            nullable: true
+        forgones:
+            type: boolean
+            nullable: true
+        horno:
+            type: boolean
+            nullable: true
+        utensiliosCocina:
+            type: boolean
+            nullable: true
+        lavadora:
+            type: boolean
+            nullable: true
+        microondas:
+            type: boolean
+            nullable: true
+        nevera:
+            type: boolean
+            nullable: true
+        secadora:
+            type: boolean
+            nullable: true
+        desayuno:
+            type: boolean
+            nullable: true
+        armario:
+            type: boolean
+            nullable: true
+        sabanas:
+            type: boolean
+            nullable: true
+        sofaCama:
+            type: boolean
+            nullable: true
+        tendedero:
+            type: boolean
+            nullable: true
+        perchero:
+            type: boolean
+            nullable: true
+        perchas:
+            type: boolean
+            nullable: true
+        sueloBaldosa:
+            type: boolean
+            nullable: true
+        insonorizacion:
+            type: boolean
+            nullable: true
+        entradaPrivada:
+            type: boolean
+            nullable: true
+        ventilador:
+            type: boolean
+            nullable: true
+        plancha:
+            type: boolean
+            nullable: true
+        pestillo:
+            type: boolean
+            nullable: true
+        vistasCiudad:
+            type: boolean
+            nullable: true
+        vistasInteres:
+            type: boolean
+            nullable: true
+        comedor:
+            type: boolean
+            nullable: true
+        sofa:
+            type: boolean
+            nullable: true
+        zonaEstar:
+            type: boolean
+            nullable: true
+        escritorio:
+            type: boolean
+            nullable: true
+        chimenea:
+            type: boolean
+            nullable: true
+        zonaPortatiles:
+            type: boolean
+            nullable: true
+        tv:
+            type: boolean
+            nullable: true
+        tvPlana:
+            type: boolean
+            nullable: true
+        tvSatelite:
+            type: boolean
+            nullable: true
+        wifi:
+            type: boolean
+            nullable: true
+        parkingPublico:
+            type: boolean
+            nullable: true
+        parkingGratuito:
+            type: boolean
+            nullable: true
+        libros:
+            type: boolean
+            nullable: true
+        dvd:
+            type: boolean
+            nullable: true
+        puzzles:
+            type: boolean
+            nullable: true
+        eventos:
+            type: boolean
+            nullable: true
+        fiestas:
+            type: boolean
+            nullable: true
+        fumar:
+            type: boolean
+            nullable: true
+        mascotas:
+            type: boolean
+            nullable: true
+        botiquin:
+            type: boolean
+            nullable: true
+        detectorHumo:
+            type: boolean
+            nullable: true
+        detectorCO:
+            type: boolean
+            nullable: true
+        extintor:
+            type: boolean
+            nullable: true
+        fichaInstrucciones:
+            type: boolean
+            nullable: true
+        protectorEnchufes:
+            type: boolean
+            nullable: true
+    lifecycleCallbacks: {  }
