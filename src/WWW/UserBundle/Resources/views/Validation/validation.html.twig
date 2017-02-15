@@ -6,6 +6,11 @@
     {{ include('nav/menu.html.twig') }}
 {% endblock %}
 
+{% block alert %}
+
+
+{% endblock %}
+
 {% block body %}
     <div class="container cd-main-content">
         <div class="row">
@@ -26,48 +31,48 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <h5>
-                    X intento de 3 posibles.
+                    {{ app.session.get('numIntento') }} intento de 3 posibles.
                 </h5>
                 <h5>
-                    X SMS enviados de 3.
+                    {{ app.session.get('numSendSMS') }} SMS enviados de 3.
                 </h5>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8 col-center">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Introduzca el SMS recibido
-                        </h3>
-                    </div>
-
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="control-label required" for="registroUsuario_username">
-                                SMS
-                            </label>
-                            <input id="SMS" name="" required="required" class="form-control" type="text" max="6" min="6"
-                                placeholder="Ej: xxx123">
+        <form action="{{ path('user_validationPhone') }}" method="post">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8 col-center">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Introduzca el SMS recibido
+                            </h3>
                         </div>
 
-                        <div class="form-group text-center">
-                            <button type="submit" id="validateSMS" name="" class="btn btn-default btn-normal">
-                                Validar cuenta
-                            </button>
-                        </div>
-                    </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="control-label required" for="registroUsuario_username">
+                                    SMS
+                                </label>
+                                <input id="SMS" name="cofirmationCode" required="required" class="form-control" type="text" max="6" min="6"
+                                       placeholder="Ej: xxx123">
+                            </div>
 
+                            <div class="form-group text-center">
+                                <button type="submit" id="validateSMS" class="btn btn-default btn-normal">
+                                    Validar cuenta
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </form>
         <div class="row separacion-inferior">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-10 col-center">
                 <p class="texto-info">El sms a veces puede tardar un poco en recibirlo, el SMS tiene un periodo válido
                     de 24 horas. En caso de no recibirlo compruebe que los datos que haya introducido son los correctos.
-                    Si los datos son correctos pinche <a href="#">aquí</a> para recibir un nuevo SMS para verificar la cuenta.
+                    Si los datos son correctos pinche <a href="#" id="sendSMS">aquí</a> para recibir un nuevo SMS para verificar la cuenta.
                 </p>
             </div>
         </div>
@@ -80,5 +85,37 @@
 {% block javascriptsFooter %}
     {{ parent() }}
     {{ include('nav/menuScript.html.twig') }}
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $(document).on('click',$('#sendSMS'), sendSMS);
+
+            function sendSMS(e){
+                e.preventDefault();
+
+                $.ajax({
+                    url:'{{ path('user_ajax_sendSMS') }}',
+                    success : function(data) {
+                        if(data['result'] === 'ok'){
+                            $('#blockAlert').html("<div class='alert "+
+                                    "alert-success alert-dismissible' role='alert'>"+
+                                    "<button type='button' class='close' "+
+                                    "data-dismiss='alert' aria-label='Close'>"+
+                                    "<span aria-hidden='true'>×</span>"+
+                                    "</button><strong></strong>"+
+                                    data['message']+"</div>");
+
+                        }
+                    },
+                    error : function() {
+                        console.log("error");
+                    },
+                    complete : function() {
+                    }
+                });
+            }
+        });
+    </script>
 
 {% endblock %}
