@@ -223,4 +223,29 @@ WWW\HouseBundle\Entity\House:
         protectorEnchufes:
             type: boolean
             nullable: true
+    oneToOne:        
+        address:
+            nullable: true
+            targetEntity: WWW\GlobalBundle\Entity\Address
+            joinColumn:
+                referencedColumnName: id
+        calendar:
+            nullable: true
+            targetEntity: WWW\GlobalBundle\Entity\Calendar
+            joinColumn:
+                referencedColumnName: id
+    manyToMany:
+        photos:
+          targetEntity: WWW\GlobalBundle\Entity\Photo
+          joinTable:
+            name: house_photos
+            joinColumns:
+              house_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+            inverseJoinColumns:
+              photo_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+        
     lifecycleCallbacks: {  }

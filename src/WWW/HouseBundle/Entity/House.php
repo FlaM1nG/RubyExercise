@@ -2081,4 +2081,108 @@ class House
     {
         return $this->protectorEnchufes;
     }
+    /**
+     * @var \WWW\GlobalBundle\Entity\Address
+     */
+    private $address;
+
+    /**
+     * @var \WWW\GlobalBundle\Entity\Calendar
+     */
+    private $calendar;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $photos;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set address
+     *
+     * @param \WWW\GlobalBundle\Entity\Address $address
+     *
+     * @return House
+     */
+    public function setAddress(\WWW\GlobalBundle\Entity\Address $address = null)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return \WWW\GlobalBundle\Entity\Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set calendar
+     *
+     * @param \WWW\GlobalBundle\Entity\Calendar $calendar
+     *
+     * @return House
+     */
+    public function setCalendar(\WWW\GlobalBundle\Entity\Calendar $calendar = null)
+    {
+        $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    /**
+     * Get calendar
+     *
+     * @return \WWW\GlobalBundle\Entity\Calendar
+     */
+    public function getCalendar()
+    {
+        return $this->calendar;
+    }
+
+    /**
+     * Add photo
+     *
+     * @param \WWW\GlobalBundle\Entity\Photo $photo
+     *
+     * @return House
+     */
+    public function addPhoto(\WWW\GlobalBundle\Entity\Photo $photo)
+    {
+        $this->photos[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo
+     *
+     * @param \WWW\GlobalBundle\Entity\Photo $photo
+     */
+    public function removePhoto(\WWW\GlobalBundle\Entity\Photo $photo)
+    {
+        $this->photos->removeElement($photo);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
 }
