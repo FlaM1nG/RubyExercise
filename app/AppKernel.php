@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new WWW\CarsBundle\CarsBundle(),
+            new WWW\HouseBundle\HouseBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

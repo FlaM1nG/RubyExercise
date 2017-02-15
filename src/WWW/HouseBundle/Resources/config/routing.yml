@@ -1,0 +1,3 @@
+house_homepage:
+    path:     /
+    defaults: { _controller: HouseBundle:Default:index }

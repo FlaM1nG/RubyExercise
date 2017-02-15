@@ -1,3 +1,7 @@
+house:
+    resource: "@HouseBundle/Resources/config/routing.yml"
+    prefix:   /
+
 cars:
     resource: "@CarsBundle/Resources/config/routing.yml"
     prefix:   /
