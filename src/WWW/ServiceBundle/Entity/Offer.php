@@ -95,6 +95,13 @@ class Offer
     private $valorations;
 
     /**
+     * @var boolean
+     * Usada cuando tenemos datos parciales de la oferta en el perfil, no siempre vendrá este dato
+     *
+     */
+    private $hasInscriptions;
+
+    /**
      * Constructor
      */
     public function __construct($data = null){ 
@@ -172,7 +179,12 @@ class Offer
                 $this->userAdmin = $user;
                 if(array_key_exists('avg_score',$data))
                     $user->setAvgScore($data['avg_score']);
-            endif;    
+            endif;
+
+//            if(array_key_exists('has_inscriptions', $data)):
+//                $this->hasInscriptions = $data['has_']
+//            endif;
+
         endif;
 
     }
@@ -573,5 +585,9 @@ class Offer
     public function getValorations()
     {
         return $this->valorations;
+    }
+
+    public function getHasInscriptions(){
+        return $this->hasInscriptions;
     }
 }

@@ -5,6 +5,7 @@ namespace WWW\CarsBundle\Entity;
 use WWW\ServiceBundle\Entity\Offer;
 use WWW\CarsBundle\Entity\Car;
 use WWW\GlobalBundle\Entity\Photo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ShareCar
@@ -64,24 +65,42 @@ class ShareCar
             $this->toPlace = $array['to_place'];
             $this->date = \DateTime::createFromFormat('Y-m-d H:i:s', $array['date']);
             $this->price = $array['price'];
-            $this->backTwo = $array['back_two'];
+            $this->backTwo = (bool)$array['back_two'];
             $this->autobooking = $array['autobooking'];
             $this->offer = new Offer($array);
-            if(!empty($array['car'])):
-                $this->car = new Car($array['car']);
-            else:    
-                $this->car = $this->setPhotoCar($array['car_photo']);
-            endif;    
+
+            $this->createCar($array);
         else:
             $this->offer = new Offer();
         endif;
     }
 
-    private function setPhotoCar($data){
+    private function createCar($array){
+
+        if(!empty($array['car'])):
+            $this->car = new Car($array['car']);
+
+        elseif(array_key_exists('car_photo', $array)):
+            $this->car = $this->setPhotoCar($array);
+
+        elseif(array_key_exists('car_id', $array)):
+            $this->car = new Car();
+            $this->car->setId($array['car_id']);
+
+        endif;
+
+    }
+
+    private function setPhotoCar($array){
 
         $car = new Car();
         $photo = new Photo();
-        $photo->setUrl($data);
+        $photo->setUrl($array['car_photo']);
+
+        if(array_key_exists('car_photo_id', $array)):
+            $photo->setId($array['car_photo_id']);
+        endif;
+
         $car->addPhoto($photo);
         
         return $car;
@@ -95,6 +114,10 @@ class ShareCar
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setId($id){
+        $this->id = $id;
     }
 
     /**
@@ -287,5 +310,15 @@ class ShareCar
     public function getOffer()
     {
         return $this->offer;
+    }
+
+    /**
+     * Validación para que los usuarios sean mayores de 18
+     *
+     * @Assert\True(message = "Fecha no válida")
+     */
+    public function isDateValid(){
+
+        return $this->date > new\DateTime('now');
     }
 }

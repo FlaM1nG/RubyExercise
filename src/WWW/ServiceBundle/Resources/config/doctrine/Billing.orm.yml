@@ -1,0 +1,28 @@
+WWW\ServiceBundle\Entity\Billing:
+    type: entity
+    table: null
+    repositoryClass: WWW\ServiceBundle\Repository\BillingRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        reference:
+            type: integer
+            unique: true
+        date:
+            type: datetime
+    manyToOne:
+        user:
+            targetEntity: WWW\UserBundle\Entity\User
+            inversedBy: billings
+            joinColumn:
+                referencedColumnName: id
+        address:
+            targetEntity: WWW\GlobalBundle\Entity\Address
+            inversedBy: conceptsbillings
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

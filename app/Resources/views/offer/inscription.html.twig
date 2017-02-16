@@ -2,13 +2,22 @@
 {% import 'macros/offer.html.twig' as offers %}
 {% import 'macros/user.html.twig' as usuarios %}
 {% import 'macros/star.html.twig' as estrella %}
+{% import 'macros/popup.html.twig' as popups %}
+
+{% set to = app.session.get('username') %}
+{% for inscription in offer.offer.inscriptions %}
+    {% set to = to ~ ',' ~ inscription.username%}
+{% endfor %}
 
 {% block header %}
     {{ parent() }}
     {{ include('nav/menu.html.twig') }}
 {% endblock %}
 
+
+
 {% block body %}
+
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -19,25 +28,32 @@
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-my-off-sep">
-                {{ offers.offUserInscrip('#', 'web/img/placeholder.png', 'Título Oferta', include('macros/text.html.twig')) }}
+                {{ offers.offUserInscrip('#', asset(offer.offer.photos.0.url, 'img'), offer.offer.title,
+                   offer.offer.description) }}
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <a href="#" class="btn btn-default btn-normal">
+                <button class="btn-default btn off-btn-write butonWriteUser"
+                        data-toggle="modal"
+                        data-target="#writeUser"
+                        data-name="{{ to }}">
                     Escribe a todos
-                </a>
+                </button>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row row-user-col">
-                    {% set limite = random(10) %}
-                    {% for i in 0..limite %}
+
+                    {% for inscription in offer.offer.inscriptions %}
+
                         <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
-                            {{ usuarios.userInscr('#', 'web/img/placeholder.png', 'Usuario', random(5), random(99), '#') }}
+                            {{ usuarios.userInscr(path('user_public_profile',{username:inscription.username}),
+                                asset(inscription.user_photo,'img'), inscription.username,
+                                inscription.avg_score, 5, '##',formMessage) }}
                         </div>
                     {% endfor %}
                 </div>
@@ -47,11 +63,36 @@
 
 {% endblock %}
 
+{% block popupBlock %}
+
+
+
+    {% set title = 'Enviar mensaje a todos' %}
+    {{ popups.popup('writeUser', title, include('offer/offPrivateMessage.html.twig') ) }}
+
+{% endblock %}
+
 {% block javascriptsFooter %}
     {{ parent() }}
 
     {{ include('nav/menuScript.html.twig') }}
     {{ estrella.staticRatingJS() }}
+
+    <script>
+        $(document).ready(function (){ console.log("hola");
+            $(document).on('click','.butonWriteUser', changeUsername);
+
+            var to = "{{ to }}";
+
+            function changeUsername(e){
+                e.stopPropagation();
+
+                var username = $(this).attr('data-name');
+
+                $('#mensajeTo').val(username);
+            }
+        });
+    </script>
 
 {% endblock %}
 

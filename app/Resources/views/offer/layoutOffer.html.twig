@@ -20,45 +20,27 @@
 }#}
 
 {% block body %}
-<!-- BODY OFFER -->
 <div class="container-fluid cd-main-content off-container">
     <div class="row">
-        <!-- PRINCIPAL -->
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <!-- FILA PRINCIPAL -->
             <div class="row">
-                <!-- IMAGENES Y USUARIO -->
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <!-- IMAGENES -->
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             {% block offerImage %} {% endblock %}
                         </div>
-                        
-                        
                     </div>
-                    <!-- FIN IMAGENES -->
-                    
-                    
-                    <!-- RRSS OFFER -->
+
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12
                              off-col-rrss">
                             {{ include('rrss/rrss.html.twig') }}
-
-                            
                         </div>
                     </div>
-                    <!-- FIN RRSS OFFER -->
-                    
-                    
-                </div>
-                <!-- FILA IMAGENES Y USUARIO -->
-                
-                
-                <!-- DATOS PRINCIPALES -->
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-off-prin">
 
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-off-prin">
                     <div class="row ">
                         <div class="col-lg-12">
                             <h2>
@@ -85,11 +67,8 @@
                                         <span class="off-price">
                                             {% block offerPrice %} {% endblock %}
                                         </span>
-                                        {#-#}
-                                        {#<span class="off-date">#}
-                                        {#{% block offerDate %} {% endblock %}#}
-                                        {#</span>#}
                                     </div>
+
                                     {% if is_granted('create_msg_offer', offer.offer) %}
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-center">
@@ -102,74 +81,57 @@
 
                                         </div>
                                     {%endif%}
+
                                 </div>
                             </div>
-
-
                         </div>
 
                     </div>
-                    
-                    <!-- DESCRIPTION OFFER -->
+
                     <div class="row separacion-inferior">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12
                              off-description-normal">
                             {% block offerDescription %} {% endblock %}
                         </div>
                     </div>
-                    <!-- FIN DESCRIPTION OFFER -->
 
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             {% if is_granted('select_offer', offer.offer) %}
 
-                            {# comprueba que no es tu propia oferta, el servicio no es de trueque y hay plaza s libres #}
-                            {% if offer.offer.userAdmin.id != app.session.get('id') and service != 3
-                                  and offer.offer.holders-offer.offer.inscriptions|length > 0%}
+                                {# comprueba que no es tu propia oferta, el servicio no es de trueque y hay plaza s libres #}
+                                {% if offer.offer.userAdmin.id != app.session.get('id') and service != 3
+                                      and offer.offer.holders-offer.offer.inscriptions|length > 0%}
 
-                                {{form_start(formSubscribe)}}
-                                {{form_widget(formSubscribe.subscribeButton,
-                                { 'attr': {'class': 'btn-default btn-off-buy'},
-                                    'label':'Comprar' })}}
-                                {{form_end(formSubscribe)}}
-                            {% endif %}
+                                    {{form_start(formSubscribe)}}
+                                    {{form_widget(formSubscribe.subscribeButton,
+                                    { 'attr': {'class': 'btn-default btn-off-buy'},
+                                        'label':'Comprar' })}}
+                                    {{form_end(formSubscribe)}}
+                                {% endif %}
 
                             {% endif %}
                         </div>
                     </div>
-
                 </div>
-                <!-- FILA DATOS PRINCIPALES -->
-                
-                
             </div>
-            <!-- FIN FILA PRINCIPAL -->
-            
-            
-            <!-- FILA SECUNDARIA -->
+
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <!-- DATOS VARIABLES SERVICIO -->
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 
                              col-off-var-data">
                             {% block offerVariableData %} {% endblock %}
                         </div>
                     </div>
-                    <!-- FIN DATOS VARIABLES SERVICIO -->
-                    
-                    
-                    <!-- OFERTAS RELACIONADAS -->
+
                     <div class="row row-tra-base">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12
                              col-off-rela">
                             {% block offerRelacionadas %} {% endblock %}
                         </div>
                     </div>
-                    <!-- FIN OFERTAS RELACIONADAS -->
-                    
-                    
-                    <!-- COMENTARIOS -->
+
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             {#{% if formComment is defined %}#}
@@ -194,59 +156,32 @@
                             {#{% endif %}#}
                         </div>
                     </div>
-                    <!-- FIN COMENTARIOS -->
-                    
-                    
                 </div>
-                
-                
             </div>
-            <!-- FIN FILA SECUNDARIA -->
-            
-            
         </div>
-        <!-- FIN PRINCIPAL -->
-        
-        
-        <!-- SECUNDARIO -->
+
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <!-- PUBLICIDAD -->
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     {% block offerPublicidad %} {% endblock %}
                 </div>
             </div>
-            <!-- FIN PUBLICIDAD -->
-            
-            
-            <!-- OFERTAS DESTACADAS -->
+
             {#<div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     {% block offerDestacadas %} {% endblock %}
                 </div>
             </div>#}
-            <!-- FIN OFERTAS DESTACADAS -->
-            
-            
-            <!-- OTROS DATOS -->
+
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12
                      col-off-other-data">
                     {% block offerOtherData %} {% endblock %}
                 </div>
             </div>
-            <!-- FIN OTROS DATOS -->
-            
-            
         </div>
-        <!-- FIN SECUNDARIO -->
-        
-        
     </div>
-    
-    
 </div>
-<!-- FIN BODY OFFER -->
 {% endblock %}
 
 {% block javascriptsFooter %}

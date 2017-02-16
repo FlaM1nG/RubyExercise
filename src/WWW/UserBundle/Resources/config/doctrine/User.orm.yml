@@ -51,9 +51,13 @@ WWW\UserBundle\Entity\User:
         avgScore:
             type: float
             nullable: true
+            options:
+                default: 0
         valorationNum:
             type: integer
             nullable: true
+            options:
+                default: 0
         phone:
             type: integer
             nullable: true
