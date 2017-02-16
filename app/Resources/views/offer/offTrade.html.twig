@@ -168,7 +168,14 @@
 
     {% else %}
 
-        {% set i = 0 %}
+
+        {% set numPage = pagination.currentPageNumber %}
+        {% if numPage == 1 %}
+            {% set i = 0 %}
+        {% else %}
+            {% set i = numComment *(numPage-1) %}
+        {% endif %}
+
         {% for comment in pagination %}
 
             {{ comentarios.messComentarioPublico(
