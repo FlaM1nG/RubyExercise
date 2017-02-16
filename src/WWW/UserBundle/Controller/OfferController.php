@@ -98,7 +98,7 @@ class OfferController extends Controller{
         endif;
 
         if($this->service <= 3):
-            $pathRender = 'profileEditOfferTrades.html.twig';
+            $pathRender = 'UserBundle:Profile:offers/profileEditOfferTrades.html.twig';
         elseif($this->service == 4):
             $pathRender = 'UserBundle:Profile:offers/profileEditOfferShareCar.html.twig';
         endif;
