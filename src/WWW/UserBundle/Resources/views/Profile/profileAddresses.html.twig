@@ -50,8 +50,8 @@
                 {%if usuario.defaultAddress is not empty %}
 
                     {{ addressMacro.userAddress(true, usuario.defaultAddress.id, usuario.defaultAddress.name,
-                    usuario.defaultAddress.street, usuario.defaultAddress.zipCode, usuario.defaultAddress.region,
-                    usuario.defaultAddress.city, usuario.defaultAddress.country,
+                    usuario.defaultAddress.street, usuario.defaultAddress.zipCode, usuario.defaultAddress.country.region,
+                    usuario.defaultAddress.city, usuario.defaultAddress.country.country,
                     path('user_profiler_editAdress',{ idAddress:usuario.defaultAddress.id }),
                     usuario.defaultAddress.id) }}
                 {% else %}
