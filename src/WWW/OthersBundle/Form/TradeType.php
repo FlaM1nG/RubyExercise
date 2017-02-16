@@ -21,6 +21,7 @@ use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Entity\TradeCategory;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
+use WWW\GlobalBundle\Entity\Region;
 
 /**
  * Description of TradeType
@@ -31,8 +32,10 @@ class TradeType extends AbstractType{
 
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-        $service = $options['data']->getCategory()->getId();
+
+        $service = $options['data']->getOffer()->getService()->getId();
         $arrayCategory = $this->arrayCategories($service);
+        $arrayRegion =$this->arrayRegion();
 
         $builder
             ->add('offer',OfferType::class, array('label' => ' '))
@@ -53,8 +56,13 @@ class TradeType extends AbstractType{
                                                          'choice_value' => 'id'
                                                          ))
             
-            ->add('region',TextType::class, array('label' => 'Provincia',
-                                                    'attr' => array('placeholder' => 'Provincia en la que se encuentra el objeto')
+            ->add('region',ChoiceType::class, array('label' => 'Provincia',
+                                                    'attr' => array('placeholder' => 'Provincia en la que se encuentra el objeto'),
+                                                    'choices' =>$arrayRegion,
+                                                    'choice_value' => 'countryRegion',
+                                                    'choice_label' => 'region',
+                                                    'choices_as_values'=>true,
+                                                    'group_by' => 'country'
 
             ))
             ->add('saveTrade',SubmitType::class,array('label'=>'Guardar'));
@@ -90,5 +98,24 @@ class TradeType extends AbstractType{
         $array = $ut->getArrayCategoryTrade($id);
 
         return $array;
+    }
+
+    private function arrayRegion(){
+
+        $file = MyConstants::PATH_APIREST.'global/prefix/get_regions.php';
+        $ch = new ApiRest();
+        $arrayRegion = null;
+        $arrayCountry = null;
+
+        $result = $ch->resultApiRed(null,$file);
+
+        if(!empty($result)):
+            foreach($result as $value):
+                $arrayRegion[] = new Region($value['id'], $value['region'], $value['country']);
+
+            endforeach;
+        endif;
+
+        return $arrayRegion;
     }
 }
