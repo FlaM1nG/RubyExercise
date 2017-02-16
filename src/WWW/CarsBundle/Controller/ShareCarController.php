@@ -217,7 +217,8 @@ class ShareCarController extends Controller {
                                   'formComment' => $formComment->createView(),
                                   'formSubscribe' => $formSubscribe->createView(),
                                   'service' => $shareCar->getOffer()->getService()->getId(),
-                                  'pagination' => $pagination));
+                                  'pagination' => $pagination,
+                                  'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR));
         
     }
 

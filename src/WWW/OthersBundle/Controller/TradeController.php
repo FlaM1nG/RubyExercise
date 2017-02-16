@@ -272,7 +272,8 @@ class TradeController extends Controller{
                              'formMessage' => $formMessage->createView()  ,
                              'formSubscribe' => $formSubscribe->createView(),
                              'service' => $this->service,
-                             'pagination' => $pagination
+                             'pagination' => $pagination,
+                             'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR
         ));
     }
 
