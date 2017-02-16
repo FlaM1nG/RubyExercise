@@ -106,9 +106,9 @@ class TradeController extends Controller{
                             "holders" => 1);
 
         $dataExtra["category_id"] = $trade->getCategory()->getId();
-        $dataExtra["region"] = "'".$trade->getRegion()."'";
+        $dataExtra["region"] = "'".$trade->getRegion()->getRegion()."'";
         $dataExtra["price"] = 0;
-
+  
         if($this->service != 3):
             $dataExtra["price"] = $trade->getPrice();
 //            $dataExtra["dimensions"] = "'".$request->get('trade')['width']."x".
