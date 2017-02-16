@@ -1514,4 +1514,43 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         return $this->cars;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $houses;
+
+
+    /**
+     * Add house
+     *
+     * @param \WWW\HouseBundle\Entity\House $house
+     *
+     * @return User
+     */
+    public function addHouse(\WWW\HouseBundle\Entity\House $house)
+    {
+        $this->houses[] = $house;
+
+        return $this;
+    }
+
+    /**
+     * Remove house
+     *
+     * @param \WWW\HouseBundle\Entity\House $house
+     */
+    public function removeHouse(\WWW\HouseBundle\Entity\House $house)
+    {
+        $this->houses->removeElement($house);
+    }
+
+    /**
+     * Get houses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHouses()
+    {
+        return $this->houses;
+    }
 }

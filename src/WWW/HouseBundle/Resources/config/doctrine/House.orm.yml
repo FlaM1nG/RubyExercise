@@ -223,6 +223,24 @@ WWW\HouseBundle\Entity\House:
         protectorEnchufes:
             type: boolean
             nullable: true
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+    manyToOne:
+        user:
+            targetEntity: WWW\UserBundle\Entity\User
+            inversedBy: houses
+            joinColumn:
+                referencedColumnName: id
     oneToOne:        
         address:
             nullable: true
