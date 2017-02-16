@@ -1,0 +1,39 @@
+WWW\UserBundle\Entity\ServiceJoin:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\ServiceJoinRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        vip:
+            type: boolean
+        dateVip:
+            type: datetime
+            column: date_vip
+            nullable: true
+        autoRenove:
+            type: boolean
+            nullable: true
+            column: auto_renove
+            nullable: true
+        months:
+            type: integer
+            nullable: true
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: User
+            joinColumn:
+                referencedColumnName: id
+                onDelete: CASCADE
+        service:
+            targetEntity: User
+            inversedBy: WWW\ServiceBundle\Entity\Service
+            joinColumn:
+                referencedColumnName: id
+                onDelete: CASCADE
+    lifecycleCallbacks: {  }
