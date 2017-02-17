@@ -216,9 +216,13 @@
 
         {% else %}
 
-            
+            {% set numPage = pagination.currentPageNumber %}
+            {% if numPage == 1 %}
+                {% set i = 0 %}
+            {% else %}
+                {% set i = numComment *(numPage-1) %}
+            {% endif %}
 
-            {% set i = 0 %}
             {% for comment in pagination%}
 
                 {{ comentarios.messComentarioPublico(

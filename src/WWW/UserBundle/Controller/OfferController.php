@@ -162,7 +162,7 @@ class OfferController extends Controller{
             $data['sub_values']['price'] = $this->offer->getPrice();
         endif;
 
-        $data['sub_values']['region'] = "'".$this->offer->getRegion()."'";
+        $data['sub_values']['region'] = "'".$this->offer->getRegion()->getRegion()."'";
         $data['sub_values']['category_id'] = $this->offer->getCategory()->getId();
 
         $info['data']= json_encode($data);
@@ -240,10 +240,11 @@ class OfferController extends Controller{
     }
 
    private function createTrade($result){
-       
+
         $offer = new Trade($result);
-        
+
         $arrayCategory = $this->ut->getArrayCategoryTrade($result['service_id']);
+
         $offer->setCategory($arrayCategory[$result['category_id']]);
         
         $this->offer = $offer;
