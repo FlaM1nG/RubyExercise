@@ -70,26 +70,7 @@
 {% endblock %}
 
 
-{% block offerUser %} 
-    <!-- IMAGEN USUARIO -->
-    {#<div class="row">#}
-        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-off-img">#}
-            {#<a class="off-user-image" href="{{ path('user_public_profile',{username: offer.offer.userAdmin.username} ) }}">#}
-                {#<img class=" img-circle img-responsive center-block"#}
-                     {#src="{{asset(offer.offer.userAdmin.photo.url,'img') }}"#}
-                     {#width="50" alt="">#}
-            {#</a>#}
-        {#</div>#}
-    {#</div>#}
-
-    {#<div class="row">#}
-        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
-            {#<a class="off-user-name" href="{{ path('user_public_profile',{username: offer.offer.userAdmin.username} ) }}" >#}
-                {#{{offer.offer.userAdmin.username}}#}
-            {#</a>#}
-        {#</div>#}
-    {#</div>#}
-
+{% block offerUser %}
     {{ users.userOffer(
         path('user_public_profile',{username: offer.offer.userAdmin.username} ),
         asset(offer.offer.userAdmin.photo.url,'img'),
@@ -111,8 +92,7 @@
 {% endblock %}
 
 
-{% block offerVote %} 
-    <!-- VALORACIONES -->
+{% block offerVote %}
     <input id="rating-input"
            class="rating rating-loading"
            data-show-clear="false"
@@ -122,8 +102,6 @@
            type="number"
            value="{{ offer.offer.userAdmin.avgScore }}"
     />
-   
-    <!-- FIN VALORACIONES -->
 {% endblock %}
 
 
