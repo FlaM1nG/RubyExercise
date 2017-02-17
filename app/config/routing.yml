@@ -1,3 +1,6 @@
+pdf:
+    resource: "@PDFBundle/Resources/config/routing.xml"
+    prefix:   /
 #payment:
 #    resource: "@PaymentBundle/Controller/"
 #    type:     annotation
@@ -147,3 +150,14 @@ _sonata_admin:
 prueba_inscripcion:
     path: /prueba/inscritos
     defaults: { _controller: AppBundle:Index:pruebaInscripcion }
+
+    prefix:   /services/trade  
+
+# app/config/routing.yml
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    
+# app/config/routing.yml
+adesigns_calendar:
+    resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"    
+
