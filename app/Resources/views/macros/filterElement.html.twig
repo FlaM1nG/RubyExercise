@@ -28,10 +28,9 @@
     </div>
 {% endmacro %}
 
-{% macro filterInputDate(name, forLabel, message, type, classInput, minDate, defaultDate, step, idInput) %}
+{% macro filterInputDate(name, forLabel, message, type, classInput, defaultDate, step, idInput) %}
     <div class="form-group">
-        <label
-                for="{{ forLabel|e }}">
+        <label for="{{ forLabel|e }}">
             {{ message|e }}
         </label>
         <input
@@ -39,9 +38,8 @@
                 class="{{ classInput|e }}"
                 id="{{ idInput|e }}"
                 name="{{ name|e }}"
-                min="{{ minDate|e }}"
                 value="{{ defaultDate|e }}"
-                step="{{ step|e }}">
+                placeholder="{{ step|e }}">
     </div>
 {% endmacro %}
 
