@@ -8,6 +8,7 @@ imports:
     - { resource: "@GlobalBundle/Resources/config/services.yml" }
     - { resource: "@ServiceBundle/Resources/config/services.yml" }
     - { resource: "@OthersBundle/Resources/config/services.yml" }
+    - { resource: "@PDFBundle/Resources/config/services.xml" }
     - { resource: "@CarsBundle/Resources/config/services.yml" }
 
 
@@ -67,11 +68,12 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #     path:     "%database_path%"
-
+    
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
 #doctrine_mongodb:
 #  connections:
 #    default: # <-- indentation added here
@@ -81,6 +83,8 @@ doctrine:
 #  document_managers:
 #    default:
 #      auto_mapping: true
+
+  
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -94,58 +98,14 @@ gregwar_captcha:
     height: 50
     length: 4
 
+knp_snappy:
+    pdf:
+        enabled: true
+        binary: C:/wkhtmltopdf/bin/wkhtmltopdf.exe
+        options: []
+        
 sonata_block:
     default_contexts: [cms]
     blocks:
         # Enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
-#doctrine_mongodb:
-#    connections:
-#        default:
-#            server: 'mongodb://%mongodb_host%:mongodb_port'
-#            options: {}
-#    default_database: "%mongodb_name%"
-#    document_managers:
-#        default:
-#            auto_mapping: true
-#
-#            mappings:
-#                payum:
-#                    is_bundle: false
-#                    type: xml
-#                    dir: "%kernel.root_dir%/../vendor/payum/payum/src/Payum/Core/Bridge/Doctrine/Resources/mapping"
-#                    prefix: Payum\Core\Model
-#
-
-
-#payum:
-#    security:
-#        token_storage:
-#            WWW\PaymentBundle\Entity\PaymentToken: { doctrine: orm }
-#
-#    storages:
-#        WWW\PaymentBundle\Entity\Payment: { doctrine: orm }
-#        WWW\PaymentBundle\Entity\PaymentDetails: { doctrine: orm }
-#    gateways:
-#        offline:
-#            factory: offline
-#        paypal_payment:
-#                     factory: paypal_express_checkout
-#                     username:  'get this from gateway side'
-#                     password:  'get this from gateway side'
-#                     signature: 'get this from gateway side'
-#                     sandbox: true
-
-
-# KnpPaginatorBundle
-
-knp_paginator:
-    page_range: 5  # número de páginas a mostrar
-    default_options:
-          page_name: page # nombre del parámetro de paginación
-          sort_field_name: sort # nombre del parámetro para ordenar los registros
-          sort_direction_name: direction # nombre del parámetro para ordenar la dirección de los registros
-          distinct: true # incluir resultados diferentes, útil en consultas con GROUP BY
-    template:
-          pagination: ::paginator/custom_pagination.html.twig # plantilla utilizada en la paginación
-          sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # plantilla utilizada en la paginación para ordenar los resultados

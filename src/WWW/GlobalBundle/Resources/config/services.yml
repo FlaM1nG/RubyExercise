@@ -1,4 +1,12 @@
-services:
+#services:
 #    global.example:
 #        class: WWW\GlobalBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+
+services:
+    kernel.listener.calendar_listener:
+        class: WWW\GlobalBundle\EventListener\CalendarEventListener
+        tags:
+            - { name: kernel.event_listener, event: calendar.load_events, method: loadEvents }
+        arguments: [@doctrine.orm.entity_manager, @service_container]

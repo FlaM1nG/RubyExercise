@@ -3,17 +3,25 @@
 {% import 'macros/offer.html.twig' as offers %}
 {% import 'macros/script.html.twig' as codMenu %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    
+    <link rel="stylesheet" href="{{ asset('css/calendario/fullcalendar.css') }}" />
+     
+{% endblock %}
+
 {% block title %}
     Profile
 {% endblock %}
 
 {% block alert %}
-    
+ 
 {% endblock %} 
 
 
 {% block javascriptsHeader %}
     {{ parent() }}
+
 {% endblock %}
 
 
@@ -22,6 +30,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h3>
                 Mis datos personales
+                
             </h3>
             <hr/>
 
@@ -97,7 +106,7 @@
                 </div>
                 {% endif %}
             </div>
-
+ 
             {% if usuario.defaultaddress is not null %}
             <div class="row us-datos-personales">
                 <div class="col-lg-12">
@@ -113,6 +122,9 @@
             {% endif %}
 
         </div>
+            
+             {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+              
     </div>
 {% endblock %}
 
@@ -131,6 +143,7 @@
         });
     </script>
 
+
     <script src="{{ asset('js/starRating/star-rating.js') }}"></script>
 
     <script>
@@ -139,7 +152,20 @@
             $('.valoration').rating({
                 displayOnly: true,
             });
-        })
+        });
     </script>
+
+    
+{#    <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('js/calendario/jquery-2.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/jquery-ui.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/fullcalendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/fullcalendar-lang-all.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/calendar.js') }}"></script>
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
 {% endblock %}
     

@@ -25,6 +25,11 @@ class AppKernel extends Kernel
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
+            new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
+            new Factura\PDFBundle\PDFBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
 //            new Payum\Bundle\PayumBundle\PayumBundle(),
 
             new WWW\CarsBundle\CarsBundle(),
