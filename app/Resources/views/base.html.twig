@@ -22,6 +22,15 @@
 
     </head>
     <body>
+    <script type="text/javascript" src="{{ asset('js/loading/please-wait.js') }}"></script>
+    <script type="text/javascript">
+        window.loading_screen = window.pleaseWait({
+            logo: "{{ asset('img/Logo_www-2.png') }}",
+            backgroundColor: '#fff',
+            loadingHtml: '<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
+        });
+    </script>
+
     {% block header %}
         {{ include('header/header.html.twig') }}
     {% endblock %}  
@@ -36,8 +45,8 @@
     
     <div class="container cd-main-content">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " id="blockAlert">
+
                 {% block alert %}
                     
                 {% endblock %}  
@@ -59,15 +68,6 @@
     
     {% block popupBlock %}
     {% endblock %}
-
-    <script type="text/javascript" src="{{ asset('js/loading/please-wait.js') }}"></script>
-    <script type="text/javascript">
-        window.loading_screen = window.pleaseWait({
-            logo: "{{ asset('img/Logo_www-2.png') }}",
-            backgroundColor: '#fff',
-            loadingHtml: '<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
-        });
-    </script>
 
     {% block javascriptsFooter %}
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

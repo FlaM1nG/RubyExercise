@@ -1,0 +1,19 @@
+WWW\GlobalBundle\Entity\Region:
+    type: entity
+    table: null
+    repositoryClass: WWW\GlobalBundle\Repository\RegionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        region:
+            type: string
+            length: 255
+            unique: true
+        country:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

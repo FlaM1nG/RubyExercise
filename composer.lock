@@ -1680,6 +1680,45 @@
             "time": "2016-06-24 23:00:38"
         },
         {
+            "name": "hafriedlander/phockito",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hafriedlander/phockito.git",
+                "reference": "548d1da8eebbf80a2c1b22d22cd78efae76dac2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hafriedlander/phockito/zipball/548d1da8eebbf80a2c1b22d22cd78efae76dac2c",
+                "reference": "548d1da8eebbf80a2c1b22d22cd78efae76dac2c",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "."
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Hamish Friedlander",
+                    "email": "hamish@silverstripe.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Mocking framework inspired by Mockito for Java",
+            "keywords": [
+                "mockito",
+                "mocks",
+                "testing"
+            ],
+            "time": "2013-08-15 23:44:47"
+        },
+        {
             "name": "incenteev/composer-parameter-handler",
             "version": "v2.1.2",
             "source": {
@@ -4320,6 +4359,59 @@
             "time": "2016-10-10 12:19:37"
         },
         {
+            "name": "realexpayments/rxp-remote-php",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/realexpayments/rxp-remote-php.git",
+                "reference": "44ea3d02919c301caab742bd71cf8053ab72c7b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/realexpayments/rxp-remote-php/zipball/44ea3d02919c301caab742bd71cf8053ab72c7b8",
+                "reference": "44ea3d02919c301caab742bd71cf8053ab72c7b8",
+                "shasum": ""
+            },
+            "require": {
+                "apache/log4php": "2.3.0",
+                "hafriedlander/phockito": "1.0.0",
+                "php": ">=5.3.9",
+                "symfony/property-access": "2.7.3",
+                "symfony/serializer": "2.7.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "com\\realexpayments\\remote\\sdk\\": [
+                        "src/main/php/com-realexpayments-remote-sdk",
+                        "test/main/php/com-realexpayments-remote-sdk"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Realex Payments",
+                    "homepage": "https://www.realexpayments.com/"
+                },
+                {
+                    "name": "Victor Palomares",
+                    "homepage": "http://www.softwaredesign.ie",
+                    "role": "Developer"
+                }
+            ],
+            "description": "SDK to send requests and parse responses from Realex Payments using Remote",
+            "keywords": [
+                "payments",
+                "realex",
+                "remote"
+            ],
+            "time": "2017-01-24 16:25:01"
+        },
+        {
             "name": "robloach/component-installer",
             "version": "0.2.3",
             "source": {
@@ -5723,6 +5815,66 @@
             "time": "2016-11-14 01:06:16"
         },
         {
+            "name": "symfony/property-access",
+            "version": "v2.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/property-access.git",
+                "reference": "e61e1a292c397273f654b15389600fe1d5a210de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/e61e1a292c397273f654b15389600fe1d5a210de",
+                "reference": "e61e1a292c397273f654b15389600fe1d5a210de",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\PropertyAccess\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony PropertyAccess Component",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "access",
+                "array",
+                "extraction",
+                "index",
+                "injection",
+                "object",
+                "property",
+                "property path",
+                "reflection"
+            ],
+            "time": "2015-07-16 12:21:55"
+        },
+        {
             "name": "symfony/security-acl",
             "version": "v3.0.0",
             "source": {
@@ -5782,6 +5934,67 @@
             "description": "Symfony Security Component - ACL (Access Control List)",
             "homepage": "https://symfony.com",
             "time": "2015-12-28 09:39:46"
+        },
+        {
+            "name": "symfony/serializer",
+            "version": "v2.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Serializer.git",
+                "reference": "143d318457ecc298a846506acc8e80dea30d2548"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Serializer/zipball/143d318457ecc298a846506acc8e80dea30d2548",
+                "reference": "143d318457ecc298a846506acc8e80dea30d2548",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "doctrine/annotations": "~1.0",
+                "doctrine/cache": "~1.0",
+                "symfony/config": "~2.2",
+                "symfony/phpunit-bridge": "~2.7",
+                "symfony/property-access": "~2.3",
+                "symfony/yaml": "~2.0"
+            },
+            "suggest": {
+                "doctrine/annotations": "For using the annotation mapping. You will also need doctrine/cache.",
+                "doctrine/cache": "For using the default cached annotation reader and metadata cache.",
+                "symfony/config": "For using the XML mapping loader.",
+                "symfony/property-access": "For using the ObjectNormalizer.",
+                "symfony/yaml": "For using the default YAML mapping loader."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Serializer\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Serializer Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-07-22 19:42:44"
         },
         {
             "name": "symfony/swiftmailer-bundle",

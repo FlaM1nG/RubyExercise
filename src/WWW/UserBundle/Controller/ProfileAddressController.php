@@ -80,12 +80,12 @@ class ProfileAddressController extends Controller
         $data['password'] = $session->get('password');
         $data['name'] = "'".$address->getName()."'";
         $data['street'] = "'".$address->getStreet()."'";
-        $data['region'] = "'".$address->getRegion()."'";
-        $data['country'] = "'".$address->getCountry()."'";
         $data['city'] = "'".$address->getCity()."'";
         $data['zip_code'] = "'".$address->getZipCode()."'";
         $data['is_default'] = $isDefault;
-        
+        $data['region'] = "'".$address->getCountry()->getRegion()."'";
+        $data['country'] = "'".$address->getCountry()->getCountry()."'";
+
         if(!empty($address->getPhone())):
             $data['prefix'] = "'".$address->getPrefix()."'";
             $data['phone'] = "'".$address->getPhone()."'";
@@ -150,15 +150,15 @@ class ProfileAddressController extends Controller
         
         $ch =  new ApiRest();
         $file = MyConstants::PATH_APIREST."user/addresses/update_address.php";
-        
+
         $data['id_user'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
         $data['id'] = $address->getId();
         $data['name'] = "'".$address->getName()."'";
         $data['street'] = "'".$address->getStreet()."'";
-        $data['country'] = "'".$address->getCountry()."'";
-        $data['region'] = "'".$address->getRegion()."'";
+        $data['country'] = "'".$address->getCountry()->getCountry()."'";
+        $data['region'] = "'".$address->getCountry()->getRegion()."'";
         $data['city'] = "'".$address->getCity()."'";
         $data['zip_code'] = "'".$address->getZipCode()."'";
         
@@ -172,7 +172,7 @@ class ProfileAddressController extends Controller
         else:
             $data['is_default'] = 0;
         endif;
-
+        
         $info['data'] = json_encode($data);
 
         $result = $ch->resultApiRed($info, $file);

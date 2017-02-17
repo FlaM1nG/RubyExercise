@@ -1,0 +1,87 @@
+{% extends '::base.html.twig' %}
+
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container cd-main-content content-validation-true">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2>Cuenta bloqueada</h2>
+                <hr/>
+            </div>
+        </div>
+
+        <div class="row separacion-inferior">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    Tu cuenta con email email@email.com y número +34 666 66 66 66 han sido bloqueados.
+                </p>
+                <p>
+                    Si deseas validar correctamente tu cuenta ponte en contacto con nuestro servicio de atención al
+                    usuario en algunas de nuestras redes sociales.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row redes">
+                    <div class="rrss">
+                        <a href="#">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <div class="rrss">
+                        <a href="#">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <div class="rrss">
+                        <a href="#">
+                            <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <div class="rrss">
+                        <a href="#">
+                            <i class="fa fa-snapchat-ghost" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <div class="rrss">
+                        <a href="#">
+                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <div class="rrss">
+                        <a href="#">
+                            <i class="fa fa-flickr" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <div class="rrss">
+                        <a href="#">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ include('nav/menuScript.html.twig') }}
+
+{% endblock %}

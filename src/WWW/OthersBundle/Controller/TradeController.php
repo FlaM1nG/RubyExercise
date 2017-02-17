@@ -106,9 +106,9 @@ class TradeController extends Controller{
                             "holders" => 1);
 
         $dataExtra["category_id"] = $trade->getCategory()->getId();
-        $dataExtra["region"] = "'".$trade->getRegion()."'";
+        $dataExtra["region"] = "'".$trade->getRegion()->getRegion()."'";
         $dataExtra["price"] = 0;
-
+  
         if($this->service != 3):
             $dataExtra["price"] = $trade->getPrice();
 //            $dataExtra["dimensions"] = "'".$request->get('trade')['width']."x".
@@ -135,16 +135,6 @@ class TradeController extends Controller{
         $this->ut->flashMessage("general", $request, $result);
 
         return $result['result'];
-    }
-
-    
-    private function flashMessageGeneral($result){
-        
-        if($result == 'ok'):
-            $this->addFlash('messageSuccess','Datos guardados correctamente');
-        else:
-            $this->addFlash('messageFail','Error al guardar');
-        endif;
     }
     
     public function listTradeAction(Request $request){
@@ -195,7 +185,7 @@ class TradeController extends Controller{
         $pagination = $paginator->paginate(
             $arrayOffers,
             $request->query->getInt('page', 1),
-            5
+            MyConstants::NUM_TRADES_PAGINATOR
         );
 
         /* ARRAYTRADES NO HACE FALTA PORQUE VA DENTRO DE PAGINATION  */
@@ -265,12 +255,25 @@ class TradeController extends Controller{
                     ));
         endif;
 
+        $paginator = $this->get('knp_paginator');
+        $pagination = null;
+
+        if(!empty($this->trade->getOffer()->getComments())):
+            $pagination = $paginator->paginate(
+                $this->trade->getOffer()->getComments(),
+                $request->query->getInt('page', 1),
+                MyConstants::NUM_COMMENTS_PAGINATOR
+            );
+        endif;
+
         return $this->render('offer/offTrade.html.twig',array(
                              'offer' => $this->trade,
                              'formComment' => $formComment->createView(),
                              'formMessage' => $formMessage->createView()  ,
                              'formSubscribe' => $formSubscribe->createView(),
-                             'service' => $this->service
+                             'service' => $this->service,
+                             'pagination' => $pagination,
+                             'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR
         ));
     }
 

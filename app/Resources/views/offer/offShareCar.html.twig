@@ -3,6 +3,7 @@
 {% import '::macros/star.html.twig' as rating %}
 {% import 'macros/popup.html.twig' as popups %}
 {% import 'macros/message.html.twig' as comentarios %}
+{% import 'macros/user.html.twig' as users %}
 
 {#{ BLOQUES -->     offerImage 
                     offerUser
@@ -21,7 +22,7 @@
 
 
 
-{% block offerImage %}{{ dump(offer) }}
+{% block offerImage %}
     <div id="off-img-big" class="owl-carousel">
         {% set imgGallery = []  %}
         
@@ -63,34 +64,12 @@
 {% endblock %}
 
 
-{% block offerUser %} 
-    <!-- IMAGEN USUARIO -->
-    <div class="row row-off-user-name">
-        <a class="off-user-image" href="{{ asset(offer.offer.userAdmin.photo.url, 'img') }}">
-            <img class=" img-circle img-responsive" 
-                src="{{ asset(offer.offer.userAdmin.photo.url, 'img') }}"
-                width="50" alt="">
-        </a>
-                    
-        <a class="off-user-name" href="{{ path('user_public_profile',{username: offer.offer.userAdmin.username}) }}">{{ offer.offer.userAdmin.username }}</a>
-        
-    </div>
-    <!-- FIN NOMBRE USUARIO -->
-
-    {# Lo pongo aquí por que no sé donde ponerlo #}
-    {% if offer.offer.userAdmin.id == app.session.get('id') %}
-        Usuarios inscritos: {{ offer.offer.inscriptions|length }}
-
-        {% for usuario in offer.offer.inscriptions %}
-            <div class="off-user-image" style="border: solid 1px orange">
-                <a class="off-user-image" href="{{ path('user_public_profile', {username: usuario.username}) }}">
-                    <img src="{{ asset(usuario.user_photo,'img') }}" width="50"> <br>
-                    {{ usuario.username }}<br>
-                    {{rating.staticRating(usuario.avg_score)}}
-                </a>
-            </div>
-        {% endfor %}
-    {% endif %}
+{% block offerUser %}
+    {{ users.userOffer(
+        path('user_public_profile',{username: offer.offer.userAdmin.username} ),
+        asset(offer.offer.userAdmin.photo.url,'img'),
+        offer.offer.userAdmin.username)
+    }}
 
 {% endblock %}
 
@@ -108,12 +87,12 @@
 
 
 {% block offerPrice %} 
-    {{ offer.price|number_format(2, ',') }}€
+    {{ offer.price|number_format(2, ',') }} €
 {% endblock %}
 
 
 {% block offerVote %}
-    {{rating.staticRating(offer.offer.userAdmin.avgScore)}}
+    {{ rating.staticRating(offer.offer.userAdmin.avgScore) }}
 {% endblock %}
 
 
@@ -237,10 +216,14 @@
 
         {% else %}
 
-            
+            {% set numPage = pagination.currentPageNumber %}
+            {% if numPage == 1 %}
+                {% set i = 0 %}
+            {% else %}
+                {% set i = numComment *(numPage-1) %}
+            {% endif %}
 
-            {% set i = 0 %}
-            {% for comment in offer.offer.comments %}
+            {% for comment in pagination%}
 
                 {{ comentarios.messComentarioPublico(
                 path('user_public_profile', {username: offer.offer.userAdmin.username} ),
@@ -253,6 +236,12 @@
 
                 {% set i = i+1 %}
             {% endfor %}
+
+            {% if pagination is not null %}
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            {% endif %}
 
         {% endif %}
 

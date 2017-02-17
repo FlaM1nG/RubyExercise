@@ -54,25 +54,29 @@
      {#{{ title }} <br>#}
      {#{{ description }} <br>#}
      {#{{ asset(urlImage,'img') }} <br>#}
-     <input id="rating-input"
-            class="rating rating-loading"
-            data-show-clear="false"
-            data-show-caption="true"
-            data-step="1"
-            data-language="es"
-            type="number" />
+     {%if offers.offUserVot(valorated_by_me) == false%}
+         <input id="rating-input"
+                class="rating rating-loading"
+                data-show-clear="false"
+                data-show-caption="true"
+                data-step="1"
+                data-language="es"
+                type="number" />
 
-            <div class="off-form-comment">
-                <div class="input-group">
-                    <textarea id="comment" class="form-control custom-control"
-                              rows="3"
-                              style="resize:none"></textarea>
+         <div class="off-form-comment">
+             <div class="input-group">
+                 <textarea id="comment" class="form-control custom-control"
+                           rows="3"
+                           style="resize:none"></textarea>
 
-                    <span id="sendValoration" class="input-group-addon btn btn-primary" disabled>
-                        Enviar
-                    </span>
-                </div>
-            </div>
+                 <span id="sendValoration" class="input-group-addon btn btn-primary" disabled>
+                     Enviar
+                 </span>
+             </div>
+         </div>
+     {%else %}
+         Ya has votado esta oferta!
+     {% endif%}
         </div>
     </div>
 
