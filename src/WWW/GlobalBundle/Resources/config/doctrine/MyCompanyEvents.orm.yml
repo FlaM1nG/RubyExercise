@@ -1,0 +1,40 @@
+WWW\GlobalBundle\Entity\MyCompanyEvents:
+    type: entity
+    table: null
+    repositoryClass: WWW\GlobalBundle\Repository\MyCompanyEventsRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        precio:
+            type: decimal
+            length: 65
+        url:          
+            type: string
+            length: 255
+        bgColor:          
+            type: string
+            length: 7 
+        fgColor:          
+            type: string
+            length: 7 
+        cssClass:          
+            type: string
+            length: 255 
+        startDatetime:          
+            type: datetime
+            nullable: true       
+        endDatetime:          
+            type: datetime
+            nullable: true
+        allDay:          
+            type: boolean
+        otherFields:          
+            type: string
+    lifecycleCallbacks: {  }
