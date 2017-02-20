@@ -47,7 +47,7 @@ class Trade
 
     /**
      * @var \WWW\ServiceBundle\Entity\Offer
-     * @Assert\type(type="WWW\ServiceBundle\Entity\Offer")
+     * 
      */
     private $offer;
 
