@@ -1,0 +1,36 @@
+WWW\ServiceBundle\Entity\Concept:
+    type: entity
+    table: null
+    repositoryClass: WWW\ServiceBundle\Repository\ConceptRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        reference:
+            type: integer
+            nullable: true
+        name:
+            type: string
+            length: 255
+        iva:
+            type: integer
+            nullable: true
+        price:
+            type: integer
+            nullable: true
+    manyToOne:
+        billing:
+            targetEntity: Billing
+            inversedBy: concepts
+            joinColumn:
+                referencedColumnName: id
+        inscription:
+            targetEntity: Inscription
+            inversedBy: concepts
+            joinColumn:
+                referencedColumnName: id
+
+    lifecycleCallbacks: {  }

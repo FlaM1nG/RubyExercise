@@ -21,7 +21,10 @@
         "components/jquery": "dev-master",
         "datatables/datatables": "dev-master",
         "moment/moment": "2.11.2",
-        "friendsofsymfony/jsrouting-bundle": "2.0.x-dev",
+        "friendsofsymfony/jsrouting-bundle": "1.6.0",
+        "adesigns/calendar-bundle":"2.0.x-dev",
+        "whiteoctober/tcpdf-bundle": "dev-master",
+        "knplabs/knp-snappy-bundle": "~1.4",  
         "javiereguiluz/easyadmin-bundle": "^1.16",
         "kartik-v/bootstrap-star-rating": "v4.0.1",
         "symfony/assetic-bundle": "* v2.8.1",
@@ -46,7 +49,10 @@
         "stripe/stripe-php": "^3",
         "twig/extensions": "^1",
         "crevillo/payum-redsys": "^1",
-        "authorizenet/authorizenet": "^1.8"
+        "authorizenet/authorizenet": "^1.8",
+        "symfony/property-access": "2.7.3",
+        "symfony/serializer": "2.7.3",
+        "realexpayments/rxp-remote-php": "1.2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

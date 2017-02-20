@@ -4,12 +4,17 @@ acme_redsys:
     prefix:     /
 
 acme_payment_homepage:
-    path:  /payment/trade/offer/{idOffer}/
+    path:  /payment/{service}/offer/{idOffer}/
 #    defaults: { _controller: AcmePaymentBundle:Default:index }
     defaults: { _controller: AcmePaymentBundle:PaymentPurchase:prepare }
     requirements:
         idOffer: \d+
-
+        
+acme_payment_card:
+    path: /paymentcard/{service}/offer/{idOffer}/
+    defaults: { _controller: AcmePaymentBundle:PaymentPurchase:card }
+    requirements:
+        idOffer: \d+
 #acme_payment_prepare_order_purchase:
 #    path:  /payment/prepare_universal/purchase
 #    defaults: { _controller: AcmePaymentBundle:PaymentPurchase:prepare }

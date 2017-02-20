@@ -32,13 +32,18 @@ class ProfileCarController extends Controller{
             $result = $this->saveNewCar($request, $car);
 
             if($result == 'ok'):
-                return $this->redirectToRoute('user_profileListCars');
+                $path =$request->getSession()->get('_security.user.target_path');
+                if($path == 'car_shareCarNew'):
+                    return $this->redirectToRoute('car_shareCarNew');
+                else:
+                    return $this->redirectToRoute('user_profileListCars');
+                endif;
             endif;
         endif;
 
         return $this->render('UserBundle:Profile:Car/profileNewCar.html.twig',
             array('form' => $form->createView(),
-                'car' => $car));
+                  'car' => $car));
     }
 
     private function saveNewCar(Request $request, $car){
@@ -55,7 +60,7 @@ class ProfileCarController extends Controller{
         $data['description'] = "'".$car->getDescription()."'";
         $data['model_id'] = $car->getModel()->getId();
         $data['type'] = "'".$car->getType()."'";
-        $data['seats'] = "'".$car->getSeats()."'";;
+        $data['seats'] = $car->getSeats();
 
         if(!empty($car->getSmoke())):
             $data['smoke'] = 1;
@@ -93,7 +98,6 @@ class ProfileCarController extends Controller{
                 $count += 1;
             }
         endif;
-
         $result = $ch->resultApiRed($info,$file);
 
         $ut->flashMessage('general',$request,$result);
@@ -272,5 +276,20 @@ class ProfileCarController extends Controller{
                 'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
         endif;
         return $response;
+    }
+
+    public function showCarAction(Request $request){
+        $car = $this->getCar($request);
+
+        $arrayOptions = array(
+                        array('text' => 'animales','number' =>(int)$car->getAnimals()),
+                        array('text' => 'Fumar','number' =>(int)$car->getSmoke()),
+                        array('text' => 'Música','number' =>(int)$car->getMusic()),
+                        array('text' => 'Hablar','number' =>(int)$car->getTalk())
+                        );
+        
+        return $this->render('UserBundle:Profile/Car:profileObjectCar.html.twig',
+                       array('car' => $car, 'options' => $arrayOptions));
+
     }
 }

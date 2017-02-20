@@ -1,11 +1,10 @@
+pdf:
+    resource: "@PDFBundle/Resources/config/routing.xml"
+    prefix:   /
 #payment:
 #    resource: "@PaymentBundle/Controller/"
 #    type:     annotation
 #    prefix:   /
-
-cars:
-    resource: "@CarsBundle/Resources/config/routing.yml"
-    prefix:   /car
 
 #s_gestion_admin:
 #    resource: "@SGestionAdminBundle/Resources/config/routing.yml"
@@ -60,10 +59,7 @@ privacyPolicy:
 paymentMethod:
     path: /payment-method
     defaults: { _controller: AppBundle:Index:paymentMethod }
-    
-serShareCar:
-    path: /services/share-car
-    defaults: { _controller: AppBundle:Index:serShareCar }
+
     
 serHouseRents:
     path: /services/house-rents
@@ -71,11 +67,7 @@ serHouseRents:
     
 offTrade:
     path: /services/trade/offer
-    defaults: { _controller: AppBundle:Index:offTrade }   
-    
-offShareCar:
-    path: /services/share-car/offer
-    defaults: { _controller: AppBundle:Index:offShareCar }   
+    defaults: { _controller: AppBundle:Index:offTrade }
     
 offHouseRents:
     path: /services/house-rents/offer
@@ -101,6 +93,9 @@ trade:
     resource: "@OthersBundle/Resources/config/routing.yml"
     prefix:   /services
 
+cars:
+    resource: "@CarsBundle/Resources/config/routing.yml"
+    prefix:   /services/share-car/
 
 notFound:
     path: /notFound
@@ -150,3 +145,19 @@ _sonata_admin:
     resource: .
     type: sonata_admin
     prefix: /admin
+
+
+prueba_inscripcion:
+    path: /prueba/inscritos
+    defaults: { _controller: AppBundle:Index:pruebaInscripcion }
+
+    prefix:   /services/trade  
+
+# app/config/routing.yml
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    
+# app/config/routing.yml
+adesigns_calendar:
+    resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"    
+

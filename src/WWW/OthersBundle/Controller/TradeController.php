@@ -45,7 +45,7 @@ class TradeController extends Controller{
 
         $trade->getCategory()->setId($this->service);
         
-        $this->denyAccessUnlessGranted('create_offer', $trade);
+       
         
         $formTrade = $this->createForm(TradeType::class,$trade);
 
@@ -106,9 +106,9 @@ class TradeController extends Controller{
                             "holders" => 1);
 
         $dataExtra["category_id"] = $trade->getCategory()->getId();
-        $dataExtra["region"] = "'".$trade->getRegion()."'";
+        $dataExtra["region"] = "'".$trade->getRegion()->getRegion()."'";
         $dataExtra["price"] = 0;
-
+  
         if($this->service != 3):
             $dataExtra["price"] = $trade->getPrice();
 //            $dataExtra["dimensions"] = "'".$request->get('trade')['width']."x".
@@ -135,16 +135,6 @@ class TradeController extends Controller{
         $this->ut->flashMessage("general", $request, $result);
 
         return $result['result'];
-    }
-
-    
-    private function flashMessageGeneral($result){
-        
-        if($result == 'ok'):
-            $this->addFlash('messageSuccess','Datos guardados correctamente');
-        else:
-            $this->addFlash('messageFail','Error al guardar');
-        endif;
     }
     
     public function listTradeAction(Request $request){
@@ -195,7 +185,7 @@ class TradeController extends Controller{
         $pagination = $paginator->paginate(
             $arrayOffers,
             $request->query->getInt('page', 1),
-            5
+            MyConstants::NUM_TRADES_PAGINATOR
         );
 
         /* ARRAYTRADES NO HACE FALTA PORQUE VA DENTRO DE PAGINATION  */
@@ -224,6 +214,7 @@ class TradeController extends Controller{
                 array_push($arrayOffers, $newTrade);
             endforeach;
         endif;
+        
         return $arrayOffers;
     }
 
@@ -258,16 +249,31 @@ class TradeController extends Controller{
 
         elseif($formSubscribe->isSubmitted()):
             $this->offerSubscribe($this->trade);
-            return $this->redirectToRoute('acme_payment_homepage', array('idOffer'=> $this->trade->getOffer()->getId()));
+            return $this->redirectToRoute('acme_payment_homepage', array(
+                'idOffer'=> $this->trade->getOffer()->getId(),
+                'service'=> "trade",
+                    ));
+        endif;
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = null;
+
+        if(!empty($this->trade->getOffer()->getComments())):
+            $pagination = $paginator->paginate(
+                $this->trade->getOffer()->getComments(),
+                $request->query->getInt('page', 1),
+                MyConstants::NUM_COMMENTS_PAGINATOR
+            );
         endif;
 
         return $this->render('offer/offTrade.html.twig',array(
-                             'trade' => $this->trade,
+                             'offer' => $this->trade,
                              'formComment' => $formComment->createView(),
                              'formMessage' => $formMessage->createView()  ,
                              'formSubscribe' => $formSubscribe->createView(),
                              'service' => $this->service,
-                             'offer'=> $this->trade->getOffer()
+                             'pagination' => $pagination,
+                             'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR
         ));
     }
 
@@ -343,6 +349,7 @@ class TradeController extends Controller{
         $data['to'] = $this->trade->getOffer()->getUserAdmin()->getUsername();
         $data['subject'] = $request->get('message')['subject'];
         $data['message'] = $request->get('message')['message'];
+        $data['offer'] = $this->trade->getOffer()->getId();
         
         $result = $ch->resultApiRed($data, $file);
         

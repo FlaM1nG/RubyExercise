@@ -10,6 +10,18 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 
 class DefaultController extends Controller{
+
+    public function pruebaValidationAction(Request $request){
+        return $this->render('UserBundle:Validation:validation.html.twig');
+    }
+
+    public function pruebaValidationTrueAction(Request $request){
+        return $this->render('UserBundle:Validation:validationTrue.html.twig');
+    }
+
+    public function pruebaValidationFalseAction(Request $request){
+        return $this->render('UserBundle:Validation:validationFalse.html.twig');
+    }
     
     public function indexAction(Request $request)
     {
@@ -85,7 +97,7 @@ class DefaultController extends Controller{
         
         if(!empty($usuario->getEmail())):            
 
-            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/email/resend_email.php";
+            $file =  MyConstants::PATH_APIREST."user/email/resend_email.php";
             $data = array("email" => $usuario->getEmail());
             $ch = new ApiRest();
             $result = $ch->sendInformation($data, $file, "parameters");            

@@ -6,7 +6,7 @@
     Datos Personales
 {% endblock %}
 
-{% block alert %}
+{% block alertProfile %}
     
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
             {{ alerts.alert('alert-success', flash_message, null) }}
@@ -52,8 +52,8 @@
             <label class="control-label">¡Enlace para invitar a tus amigos!</label>
             <div class="input-group">
                 <input type="text" class="form-control"
-                       value="{{ 'http://whatwantweb.com/registration/'~user.linkInvitation }}"
-                       placeholder="{{ 'http://whatwantweb.com/registration/'~user.linkInvitation }}"
+                       value="{{ 'https://whatwantweb.com/registration/'~user.linkInvitation }}"
+                       placeholder="{{ 'https://whatwantweb.com/registration/'~user.linkInvitation }}"
                        id="copy-input" readonly>
                 <span class="input-group-btn">
                     <button class="btn btn-default btn-copy" type="button" id="copy-button"

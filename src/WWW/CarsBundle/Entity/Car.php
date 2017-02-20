@@ -143,7 +143,6 @@ class Car {
      */
     public function __construct($data = null){
 
-//        print_r($data);
         if($data != null):
 
             foreach($data as $key => $value):
@@ -153,6 +152,7 @@ class Car {
 
                     if($key != 'model'):
                         if($key == 'smoke' || $key == 'animals' || $key == 'music' || $key == 'talk'):
+
                             $value = (bool) $value;
                         endif;
                         $this->$key = $value;
@@ -165,17 +165,7 @@ class Car {
 
             endforeach;
 
-            $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
-
-            if(array_key_exists('photos', $data)):
-                foreach($data['photos'] as $value):
-                    $photo =  new Photo($value);
-                    $this->addPhoto($photo);
-                endforeach;
-            elseif(array_key_exists('car_photo', $data)):
-                $photo =  new Photo($data['car_photo']);
-                $this->addPhoto($photo);
-            endif;
+            $this->photoCar($data);
 
             $this->user = new User();
             $this->user->setId($data['user_id']);
@@ -185,6 +175,26 @@ class Car {
         endif;
 
 
+    }
+
+    private function photoCar($data){
+
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+
+        if(array_key_exists('photos', $data)):
+            foreach($data['photos'] as $value):
+                $photo =  new Photo($value);
+                $this->addPhoto($photo);
+            endforeach;
+        elseif(array_key_exists('car_photo', $data)):
+            $photo =  new Photo($data['car_photo']);
+
+            if(array_key_exists('car_photo_id', $data)):
+                $photo->setId($data['car_photo_id']);
+            endif;
+            
+            $this->addPhoto($photo);
+        endif;
     }
 
     public function setId($id){
