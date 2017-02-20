@@ -81,6 +81,7 @@ class Trade
             endif;
         else:
             $this->category = new TradeCategory();
+            $this->offer = new Offer();
         endif;    
     }
     /**

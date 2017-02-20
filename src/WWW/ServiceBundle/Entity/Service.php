@@ -45,6 +45,9 @@ class Service
         $this->id = $id;
     }
 
+    public function setId($id){
+        $this->id = $id;
+    }
     /**
      * Get id
      *

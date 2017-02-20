@@ -32,7 +32,7 @@ class TradeType extends AbstractType{
 
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-
+//print_r($options['data']);
         $service = $options['data']->getOffer()->getService()->getId();
         $arrayCategory = $this->arrayCategories($service);
         $arrayRegion =$this->arrayRegion();
