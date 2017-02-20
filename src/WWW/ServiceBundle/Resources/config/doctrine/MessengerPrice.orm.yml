@@ -1,0 +1,50 @@
+WWW\ServiceBundle\Entity\MessengerPrice:
+    type: entity
+    table: null
+    repositoryClass: WWW\ServiceBundle\Repository\MessengerPriceRepository
+    id:
+      id:
+        type: integer
+        id: true
+        generator:
+          strategy: AUTO
+    fields:
+      weight:
+        type: float
+        nullable: true
+      width:
+        type: float
+        nullabel: true
+      height:
+        type: float
+        nullable: true
+      depth:
+        type: float
+        nullable: true
+      priceES:
+        type: float
+        default: 0
+      priceBA:
+        type: float
+        default: 0
+      priceCA:
+        type: float
+        default: 0
+      isDeleted:
+        type: boolean
+        default: "false"
+      createdDate:
+        type: datetime
+        nullable: true
+      modifiedDate:
+        type: datetime
+        nullable: true
+      deletedDate:
+        type: datetime
+        nullable: true
+      manyToOne:
+                messengerService:
+                  targetEntity: MessengerService
+                  joinColumn:
+                    name: idMessengerService
+                    referencedColumnName: id

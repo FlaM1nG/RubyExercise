@@ -1,0 +1,27 @@
+WWW\ServiceBundle\Entity\MessengerService:
+    type: entity
+    table: null
+    repositoryClass: WWW\ServiceBundle\Repository\MessengerServiceRepository
+    id:
+      id:
+        type: integer
+        id: true
+        generator:
+          strategy: AUTO
+    fields:
+      name:
+        type: string
+        length: 250
+        nullable: true
+      isDeleted:
+        type: boolean
+        default: "false"
+      createdDate:
+        type: datetime
+        nullable: true
+      modifiedDate:
+        type: datetime
+        nullable: true
+      deletedDate:
+        type: datetime
+        nullable: true

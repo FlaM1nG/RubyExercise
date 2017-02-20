@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "00930b0375a9e197e45c74e30b2514d2",
-    "content-hash": "61f21600dbb72a914dca4f23e06f1807",
+    "hash": "e4e1523de063dc5436f7ed198e708dbe",
+    "content-hash": "ca97457c94fc75655ea218f75a5cd6ce",
     "packages": [
         {
             "name": "adesigns/calendar-bundle",
@@ -60,6 +60,36 @@
                 "jquery calendar"
             ],
             "time": "2016-04-19 16:45:00"
+        },
+        {
+            "name": "apache/log4php",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://git-wip-us.apache.org/repos/asf/logging-log4php.git",
+                "reference": "cac428b6f67d2035af39784da1d1a299ef42fcf2"
+            },
+            "require": {
+                "php": ">=5.2.7"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/main/php/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "A versatile logging framework for PHP",
+            "homepage": "http://logging.apache.org/log4php/",
+            "keywords": [
+                "log",
+                "logging",
+                "php"
+            ],
+            "time": "2012-10-26 09:13:25"
         },
         {
             "name": "authorizenet/authorizenet",
