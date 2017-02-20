@@ -1,10 +1,6 @@
-#user_register:
-#    path: /register/{token}
-#    defaults: { _controller: UserBundle:Register:register,token:null  }
-
 user_register:
-    path: /register/
-    defaults: { _controller: UserBundle:Register:register }
+    path: /register/{token}
+    defaults: { _controller: UserBundle:Register:register,token:null  }
 
 user_login:
     path: /login/

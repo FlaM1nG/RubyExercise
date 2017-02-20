@@ -47,7 +47,7 @@ class Trade
 
     /**
      * @var \WWW\ServiceBundle\Entity\Offer
-     * @Assert\type(type="WWW\ServiceBundle\Entity\Offer")
+     * 
      */
     private $offer;
 
@@ -81,6 +81,7 @@ class Trade
             endif;
         else:
             $this->category = new TradeCategory();
+            $this->offer = new Offer();
         endif;    
     }
     /**

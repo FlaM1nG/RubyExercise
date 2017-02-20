@@ -44,9 +44,8 @@ class TradeController extends Controller{
         $trade = new Trade();
 
         $trade->getCategory()->setId($this->service);
-        
-       
-        
+        $trade->getOffer()->getService()->setId($this->service);
+ 
         $formTrade = $this->createForm(TradeType::class,$trade);
 
         $formTrade->handleRequest($request);
