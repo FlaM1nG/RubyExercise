@@ -43,4 +43,9 @@ WWW\GlobalBundle\Entity\DateLog:
             inversedBy: DateLog
             joinColumn:
                 referencedColumnName: id
+        service:
+            nullable: true
+            targetEntity: WWW\ServiceBundle\Entity\Service
+            joinColumn:
+                referencedColumnName: id
     lifecycleCallbacks: {  }
