@@ -2,120 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9ee6563-3344-4a7d-b47e-2c4a63291bcc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WWW/ServiceBundle/Resources/config/doctrine/MessengerPrice.orm.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/SymfonyRequirements.php" afterPath="$PROJECT_DIR$/app/SymfonyRequirements.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/jquery/jquery.js" afterPath="$PROJECT_DIR$/components/jquery/jquery.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/jquery/jquery.min.js" afterPath="$PROJECT_DIR$/components/jquery/jquery.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/af.js" afterPath="$PROJECT_DIR$/components/moment/locale/af.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ar-ma.js" afterPath="$PROJECT_DIR$/components/moment/locale/ar-ma.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ar-sa.js" afterPath="$PROJECT_DIR$/components/moment/locale/ar-sa.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ar-tn.js" afterPath="$PROJECT_DIR$/components/moment/locale/ar-tn.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ar.js" afterPath="$PROJECT_DIR$/components/moment/locale/ar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/az.js" afterPath="$PROJECT_DIR$/components/moment/locale/az.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/be.js" afterPath="$PROJECT_DIR$/components/moment/locale/be.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/bg.js" afterPath="$PROJECT_DIR$/components/moment/locale/bg.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/bn.js" afterPath="$PROJECT_DIR$/components/moment/locale/bn.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/bo.js" afterPath="$PROJECT_DIR$/components/moment/locale/bo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/br.js" afterPath="$PROJECT_DIR$/components/moment/locale/br.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/bs.js" afterPath="$PROJECT_DIR$/components/moment/locale/bs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ca.js" afterPath="$PROJECT_DIR$/components/moment/locale/ca.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/cs.js" afterPath="$PROJECT_DIR$/components/moment/locale/cs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/cv.js" afterPath="$PROJECT_DIR$/components/moment/locale/cv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/cy.js" afterPath="$PROJECT_DIR$/components/moment/locale/cy.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/da.js" afterPath="$PROJECT_DIR$/components/moment/locale/da.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/de-at.js" afterPath="$PROJECT_DIR$/components/moment/locale/de-at.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/de.js" afterPath="$PROJECT_DIR$/components/moment/locale/de.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/dv.js" afterPath="$PROJECT_DIR$/components/moment/locale/dv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/el.js" afterPath="$PROJECT_DIR$/components/moment/locale/el.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/en-au.js" afterPath="$PROJECT_DIR$/components/moment/locale/en-au.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/en-ca.js" afterPath="$PROJECT_DIR$/components/moment/locale/en-ca.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/en-gb.js" afterPath="$PROJECT_DIR$/components/moment/locale/en-gb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/en-ie.js" afterPath="$PROJECT_DIR$/components/moment/locale/en-ie.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/en-nz.js" afterPath="$PROJECT_DIR$/components/moment/locale/en-nz.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/eo.js" afterPath="$PROJECT_DIR$/components/moment/locale/eo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/es.js" afterPath="$PROJECT_DIR$/components/moment/locale/es.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/et.js" afterPath="$PROJECT_DIR$/components/moment/locale/et.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/eu.js" afterPath="$PROJECT_DIR$/components/moment/locale/eu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/fa.js" afterPath="$PROJECT_DIR$/components/moment/locale/fa.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/fi.js" afterPath="$PROJECT_DIR$/components/moment/locale/fi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/fo.js" afterPath="$PROJECT_DIR$/components/moment/locale/fo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/fr-ca.js" afterPath="$PROJECT_DIR$/components/moment/locale/fr-ca.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/fr-ch.js" afterPath="$PROJECT_DIR$/components/moment/locale/fr-ch.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/fr.js" afterPath="$PROJECT_DIR$/components/moment/locale/fr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/fy.js" afterPath="$PROJECT_DIR$/components/moment/locale/fy.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/gd.js" afterPath="$PROJECT_DIR$/components/moment/locale/gd.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/gl.js" afterPath="$PROJECT_DIR$/components/moment/locale/gl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/he.js" afterPath="$PROJECT_DIR$/components/moment/locale/he.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/hi.js" afterPath="$PROJECT_DIR$/components/moment/locale/hi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/hr.js" afterPath="$PROJECT_DIR$/components/moment/locale/hr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/hu.js" afterPath="$PROJECT_DIR$/components/moment/locale/hu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/hy-am.js" afterPath="$PROJECT_DIR$/components/moment/locale/hy-am.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/id.js" afterPath="$PROJECT_DIR$/components/moment/locale/id.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/is.js" afterPath="$PROJECT_DIR$/components/moment/locale/is.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/it.js" afterPath="$PROJECT_DIR$/components/moment/locale/it.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ja.js" afterPath="$PROJECT_DIR$/components/moment/locale/ja.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/jv.js" afterPath="$PROJECT_DIR$/components/moment/locale/jv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ka.js" afterPath="$PROJECT_DIR$/components/moment/locale/ka.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/kk.js" afterPath="$PROJECT_DIR$/components/moment/locale/kk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/km.js" afterPath="$PROJECT_DIR$/components/moment/locale/km.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ko.js" afterPath="$PROJECT_DIR$/components/moment/locale/ko.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/lb.js" afterPath="$PROJECT_DIR$/components/moment/locale/lb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/lo.js" afterPath="$PROJECT_DIR$/components/moment/locale/lo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/lt.js" afterPath="$PROJECT_DIR$/components/moment/locale/lt.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/lv.js" afterPath="$PROJECT_DIR$/components/moment/locale/lv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/me.js" afterPath="$PROJECT_DIR$/components/moment/locale/me.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/mk.js" afterPath="$PROJECT_DIR$/components/moment/locale/mk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ml.js" afterPath="$PROJECT_DIR$/components/moment/locale/ml.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/mr.js" afterPath="$PROJECT_DIR$/components/moment/locale/mr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ms-my.js" afterPath="$PROJECT_DIR$/components/moment/locale/ms-my.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ms.js" afterPath="$PROJECT_DIR$/components/moment/locale/ms.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/my.js" afterPath="$PROJECT_DIR$/components/moment/locale/my.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/nb.js" afterPath="$PROJECT_DIR$/components/moment/locale/nb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ne.js" afterPath="$PROJECT_DIR$/components/moment/locale/ne.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/nl.js" afterPath="$PROJECT_DIR$/components/moment/locale/nl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/nn.js" afterPath="$PROJECT_DIR$/components/moment/locale/nn.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/pl.js" afterPath="$PROJECT_DIR$/components/moment/locale/pl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/pt-br.js" afterPath="$PROJECT_DIR$/components/moment/locale/pt-br.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/pt.js" afterPath="$PROJECT_DIR$/components/moment/locale/pt.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ro.js" afterPath="$PROJECT_DIR$/components/moment/locale/ro.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ru.js" afterPath="$PROJECT_DIR$/components/moment/locale/ru.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/se.js" afterPath="$PROJECT_DIR$/components/moment/locale/se.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/si.js" afterPath="$PROJECT_DIR$/components/moment/locale/si.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/sk.js" afterPath="$PROJECT_DIR$/components/moment/locale/sk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/sl.js" afterPath="$PROJECT_DIR$/components/moment/locale/sl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/sq.js" afterPath="$PROJECT_DIR$/components/moment/locale/sq.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/sr-cyrl.js" afterPath="$PROJECT_DIR$/components/moment/locale/sr-cyrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/sr.js" afterPath="$PROJECT_DIR$/components/moment/locale/sr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/sv.js" afterPath="$PROJECT_DIR$/components/moment/locale/sv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/sw.js" afterPath="$PROJECT_DIR$/components/moment/locale/sw.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/ta.js" afterPath="$PROJECT_DIR$/components/moment/locale/ta.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/te.js" afterPath="$PROJECT_DIR$/components/moment/locale/te.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/th.js" afterPath="$PROJECT_DIR$/components/moment/locale/th.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/tl-ph.js" afterPath="$PROJECT_DIR$/components/moment/locale/tl-ph.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/tlh.js" afterPath="$PROJECT_DIR$/components/moment/locale/tlh.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/tr.js" afterPath="$PROJECT_DIR$/components/moment/locale/tr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/tzl.js" afterPath="$PROJECT_DIR$/components/moment/locale/tzl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/tzm-latn.js" afterPath="$PROJECT_DIR$/components/moment/locale/tzm-latn.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/tzm.js" afterPath="$PROJECT_DIR$/components/moment/locale/tzm.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/uk.js" afterPath="$PROJECT_DIR$/components/moment/locale/uk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/uz.js" afterPath="$PROJECT_DIR$/components/moment/locale/uz.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/vi.js" afterPath="$PROJECT_DIR$/components/moment/locale/vi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/zh-cn.js" afterPath="$PROJECT_DIR$/components/moment/locale/zh-cn.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/locale/zh-tw.js" afterPath="$PROJECT_DIR$/components/moment/locale/zh-tw.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/min/locales.js" afterPath="$PROJECT_DIR$/components/moment/min/locales.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/min/locales.min.js" afterPath="$PROJECT_DIR$/components/moment/min/locales.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/min/moment-with-locales.js" afterPath="$PROJECT_DIR$/components/moment/min/moment-with-locales.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/min/moment-with-locales.min.js" afterPath="$PROJECT_DIR$/components/moment/min/moment-with-locales.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/min/moment.min.js" afterPath="$PROJECT_DIR$/components/moment/min/moment.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/min/tests.js" afterPath="$PROJECT_DIR$/components/moment/min/tests.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/moment-built.js" afterPath="$PROJECT_DIR$/components/moment/moment-built.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/moment/moment.js" afterPath="$PROJECT_DIR$/components/moment/moment.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/require-built.js" afterPath="$PROJECT_DIR$/components/require-built.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/require.config.js" afterPath="$PROJECT_DIR$/components/require.config.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/require.js" afterPath="$PROJECT_DIR$/components/require.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/config.php" afterPath="$PROJECT_DIR$/web/config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/offer/layoutOffer.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/offer/layoutOffer.html.twig" />
     </list>
     <ignored path="wwweb.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -136,13 +24,109 @@
     <favorites_list name="wwweb" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <splitter split-orientation="horizontal" split-proportion="0.58032787">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="profileMyPurchase.html.twig" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/offers/profileMyPurchase.html.twig">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="935">
+                  <caret line="55" column="68" selection-start-line="55" selection-start-column="68" selection-end-line="55" selection-end-column="68" />
+                  <folding>
+                    <element signature="e#70#92#0#Twig" expanded="false" />
+                    <element signature="e#118#141#0#Twig" expanded="false" />
+                    <element signature="e#1548#1581#0#Twig" expanded="false" />
+                    <marker date="1487589736222" expanded="true" signature="665:2197" ph="{% block bodyProfile ...%}" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="offShareCar.html.twig" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/Resources/views/offer/offShareCar.html.twig">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-1530">
+                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#12#41#0#Twig" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="layoutOffer.html.twig" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/Resources/views/offer/layoutOffer.html.twig">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="493">
+                  <caret line="86" column="53" selection-start-line="86" selection-start-column="53" selection-end-line="86" selection-end-column="53" />
+                  <folding>
+                    <element signature="e#12#28#0#Twig" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="offer.html.twig" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/Resources/views/macros/offer.html.twig">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="169">
+                  <caret line="304" column="33" selection-start-line="304" selection-start-column="33" selection-end-line="304" selection-end-column="33" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="menuMobile.html.twig" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/menuMobile.html.twig">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="674">
+                  <caret line="234" column="58" selection-start-line="234" selection-start-column="58" selection-end-line="234" selection-end-column="58" />
+                  <folding>
+                    <element signature="e#103#111#0#Twig" expanded="false" />
+                    <element signature="e#622#633#0#Twig" expanded="false" />
+                    <element signature="e#953#964#0#Twig" expanded="false" />
+                    <element signature="e#1292#1303#0#Twig" expanded="false" />
+                    <element signature="e#1625#1636#0#Twig" expanded="false" />
+                    <element signature="e#1959#1970#0#Twig" expanded="false" />
+                    <element signature="e#2289#2300#0#Twig" expanded="false" />
+                    <element signature="e#2614#2625#0#Twig" expanded="false" />
+                    <element signature="e#3123#3136#0#Twig" expanded="false" />
+                    <element signature="e#3459#3472#0#Twig" expanded="false" />
+                    <element signature="e#3821#3834#0#Twig" expanded="false" />
+                    <element signature="e#4160#4173#0#Twig" expanded="false" />
+                    <element signature="e#4501#4514#0#Twig" expanded="false" />
+                    <element signature="e#4828#4841#0#Twig" expanded="false" />
+                    <element signature="e#5179#5192#0#Twig" expanded="false" />
+                    <element signature="e#5516#5529#0#Twig" expanded="false" />
+                    <element signature="e#6000#6019#0#Twig" expanded="false" />
+                    <element signature="e#6329#6346#0#Twig" expanded="false" />
+                    <element signature="e#7042#7060#0#Twig" expanded="false" />
+                    <element signature="e#7375#7392#0#Twig" expanded="false" />
+                    <element signature="e#7651#7668#0#Twig" expanded="false" />
+                    <element signature="e#7936#7953#0#Twig" expanded="false" />
+                    <element signature="e#8217#8234#0#Twig" expanded="false" />
+                    <element signature="e#8501#8518#0#Twig" expanded="false" />
+                    <element signature="e#9048#9061#0#Twig" expanded="false" />
+                    <element signature="e#9310#9321#0#Twig" expanded="false" />
+                    <element signature="e#9621#9631#0#Twig" expanded="false" />
+                    <element signature="e#9856#9869#0#Twig" expanded="false" />
+                    <element signature="e#10632#10649#0#Twig" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FrameworkCommandLineHistory">
     <commandsHistory>
-      <command text="doctrine:generate:entities ServiceBundle:MessengerService " />
       <command text="c update " />
-      <command text="s doctrine:generate:entities ServiceBundle:MessengerService" />
     </commandsHistory>
   </component>
   <component name="Git.Settings">
@@ -152,9 +136,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/indexProfile.html.twig" />
-        <option value="$PROJECT_DIR$/app/config/parameters.yml" />
-        <option value="$PROJECT_DIR$/src/WWW/ServiceBundle/Resources/config/doctrine/MessengerPrice.orm.yml" />
-        <option value="$PROJECT_DIR$/src/WWW/ServiceBundle/Resources/config/doctrine/MessengerService.orm.yml" />
+        <option value="$PROJECT_DIR$/app/Resources/views/nav/subMenu/mgCatQue.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/nav/menuMobile.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/offer/layoutOffer.html.twig" />
       </list>
     </option>
   </component>
@@ -164,15 +148,12 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="PhpServers">
-    <servers />
-  </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
+    <option name="x" value="-1928" />
     <option name="y" value="-8" />
-    <option name="width" value="1370" />
-    <option name="height" value="744" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -348,7 +329,11 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Default" />
+              <option name="myItemId" value="Profile" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="offers" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -395,8 +380,26 @@
               <option name="myItemId" value="WWW" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ServiceBundle" />
+              <option name="myItemId" value="wwweb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wwweb" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WWW" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CarsBundle" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -418,119 +421,11 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ServiceBundle" />
+              <option name="myItemId" value="CarsBundle" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wwweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wwweb" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WWW" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServiceBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wwweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wwweb" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WWW" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServiceBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="doctrine" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wwweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wwweb" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WWW" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServiceBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Entity" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wwweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wwweb" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WWW" />
+              <option name="myItemId" value="Controller" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -562,7 +457,55 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wwweb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wwweb" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="offer" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wwweb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wwweb" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -574,9 +517,6 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.zend.framework.tool" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -613,9 +553,6 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e9ee6563-3344-4a7d-b47e-2c4a63291bcc" name="Default" comment="" />
@@ -624,45 +561,37 @@
       <option name="presentableId" value="Default" />
       <updated>1485851822470</updated>
       <workItem from="1485851823654" duration="2209000" />
-      <workItem from="1487332236777" duration="6527000" />
-      <workItem from="1487574788458" duration="60000" />
+      <workItem from="1487331720958" duration="1263000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8796000" />
+    <option name="totallyTimeSpent" value="4801000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
-    <editor active="false" />
+    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26183206" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18710022" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="SonarLint" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
-  </component>
-  <component name="Vcs.Log.UiProperties">
-    <option name="RECENTLY_FILTERED_USER_GROUPS">
-      <collection />
-    </option>
-    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-      <collection />
-    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -672,7 +601,15 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/WWW/ServiceBundle/Resources/config/doctrine/MessengerService.orm.yml">
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/indexProfile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1428">
+          <caret line="84" column="57" selection-start-line="84" selection-start-column="50" selection-end-line="84" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/menu.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -680,43 +617,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/ServiceBundle/Resources/config/doctrine/MessengerPrice.orm.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="3" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/config/doctrine/Trade.orm.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/config/doctrine/TradeCategory.orm.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/CarsBundle/Resources/config/doctrine/Car.orm.yml">
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/subMenu/mgCatQue.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1564">
-          <caret line="92" column="40" selection-start-line="91" selection-start-column="12" selection-end-line="92" selection-end-column="40" />
+          <caret line="92" column="42" selection-start-line="92" selection-start-column="25" selection-end-line="92" selection-end-column="42" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/menuMobile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#103#111#0#Twig" expanded="false" />
+            <element signature="e#622#633#0#Twig" expanded="false" />
+            <element signature="e#953#964#0#Twig" expanded="false" />
+            <element signature="e#1292#1303#0#Twig" expanded="false" />
+            <element signature="e#1625#1636#0#Twig" expanded="false" />
+            <element signature="e#1959#1970#0#Twig" expanded="false" />
+            <element signature="e#2289#2300#0#Twig" expanded="false" />
+            <element signature="e#2614#2625#0#Twig" expanded="false" />
+            <element signature="e#3123#3136#0#Twig" expanded="false" />
+            <element signature="e#3459#3472#0#Twig" expanded="false" />
+            <element signature="e#3821#3834#0#Twig" expanded="false" />
+            <element signature="e#4160#4173#0#Twig" expanded="false" />
+            <element signature="e#4501#4514#0#Twig" expanded="false" />
+            <element signature="e#4828#4841#0#Twig" expanded="false" />
+            <element signature="e#5179#5192#0#Twig" expanded="false" />
+            <element signature="e#5516#5529#0#Twig" expanded="false" />
+            <element signature="e#6000#6019#0#Twig" expanded="false" />
+            <element signature="e#6329#6346#0#Twig" expanded="false" />
+            <element signature="e#7042#7060#0#Twig" expanded="false" />
+            <element signature="e#7375#7392#0#Twig" expanded="false" />
+            <element signature="e#7651#7668#0#Twig" expanded="false" />
+            <element signature="e#7936#7953#0#Twig" expanded="false" />
+            <element signature="e#8217#8234#0#Twig" expanded="false" />
+            <element signature="e#8501#8518#0#Twig" expanded="false" />
+            <element signature="e#9048#9061#0#Twig" expanded="false" />
+            <element signature="e#9310#9321#0#Twig" expanded="false" />
+            <element signature="e#9621#9631#0#Twig" expanded="false" />
+            <element signature="e#9856#9869#0#Twig" expanded="false" />
+            <element signature="e#10632#10649#0#Twig" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -724,6 +667,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -771,63 +715,342 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/indexProfile.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
+        <state relative-caret-position="1428">
           <caret line="84" column="57" selection-start-line="84" selection-start-column="50" selection-end-line="84" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/doctrine/dbal/lib/Doctrine/DBAL/Types/BooleanType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="28" column="6" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/ServiceBundle/Resources/config/doctrine/MessengerService.orm.yml">
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/menu.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/ServiceBundle/Resources/config/doctrine/MessengerPrice.orm.yml">
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/subMenu/mgCatQue.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="92" column="42" selection-start-line="92" selection-start-column="25" selection-end-line="92" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/menuMobile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="234" column="58" selection-start-line="234" selection-start-column="58" selection-end-line="234" selection-end-column="58" />
+          <folding>
+            <element signature="e#103#111#0#Twig" expanded="false" />
+            <element signature="e#622#633#0#Twig" expanded="false" />
+            <element signature="e#953#964#0#Twig" expanded="false" />
+            <element signature="e#1292#1303#0#Twig" expanded="false" />
+            <element signature="e#1625#1636#0#Twig" expanded="false" />
+            <element signature="e#1959#1970#0#Twig" expanded="false" />
+            <element signature="e#2289#2300#0#Twig" expanded="false" />
+            <element signature="e#2614#2625#0#Twig" expanded="false" />
+            <element signature="e#3123#3136#0#Twig" expanded="false" />
+            <element signature="e#3459#3472#0#Twig" expanded="false" />
+            <element signature="e#3821#3834#0#Twig" expanded="false" />
+            <element signature="e#4160#4173#0#Twig" expanded="false" />
+            <element signature="e#4501#4514#0#Twig" expanded="false" />
+            <element signature="e#4828#4841#0#Twig" expanded="false" />
+            <element signature="e#5179#5192#0#Twig" expanded="false" />
+            <element signature="e#5516#5529#0#Twig" expanded="false" />
+            <element signature="e#6000#6019#0#Twig" expanded="false" />
+            <element signature="e#6329#6346#0#Twig" expanded="false" />
+            <element signature="e#7042#7060#0#Twig" expanded="false" />
+            <element signature="e#7375#7392#0#Twig" expanded="false" />
+            <element signature="e#7651#7668#0#Twig" expanded="false" />
+            <element signature="e#7936#7953#0#Twig" expanded="false" />
+            <element signature="e#8217#8234#0#Twig" expanded="false" />
+            <element signature="e#8501#8518#0#Twig" expanded="false" />
+            <element signature="e#9048#9061#0#Twig" expanded="false" />
+            <element signature="e#9310#9321#0#Twig" expanded="false" />
+            <element signature="e#9621#9631#0#Twig" expanded="false" />
+            <element signature="e#9856#9869#0#Twig" expanded="false" />
+            <element signature="e#10632#10649#0#Twig" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/indexProfile.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/layoutForm.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="3" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Default/profile.html_1.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Offers/trade.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-634">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Default/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Default/login.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-515">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Default/profile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5411">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/menuMobile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="674">
+          <caret line="234" column="58" selection-start-line="234" selection-start-column="58" selection-end-line="234" selection-end-column="58" />
+          <folding>
+            <element signature="e#103#111#0#Twig" expanded="false" />
+            <element signature="e#622#633#0#Twig" expanded="false" />
+            <element signature="e#953#964#0#Twig" expanded="false" />
+            <element signature="e#1292#1303#0#Twig" expanded="false" />
+            <element signature="e#1625#1636#0#Twig" expanded="false" />
+            <element signature="e#1959#1970#0#Twig" expanded="false" />
+            <element signature="e#2289#2300#0#Twig" expanded="false" />
+            <element signature="e#2614#2625#0#Twig" expanded="false" />
+            <element signature="e#3123#3136#0#Twig" expanded="false" />
+            <element signature="e#3459#3472#0#Twig" expanded="false" />
+            <element signature="e#3821#3834#0#Twig" expanded="false" />
+            <element signature="e#4160#4173#0#Twig" expanded="false" />
+            <element signature="e#4501#4514#0#Twig" expanded="false" />
+            <element signature="e#4828#4841#0#Twig" expanded="false" />
+            <element signature="e#5179#5192#0#Twig" expanded="false" />
+            <element signature="e#5516#5529#0#Twig" expanded="false" />
+            <element signature="e#6000#6019#0#Twig" expanded="false" />
+            <element signature="e#6329#6346#0#Twig" expanded="false" />
+            <element signature="e#7042#7060#0#Twig" expanded="false" />
+            <element signature="e#7375#7392#0#Twig" expanded="false" />
+            <element signature="e#7651#7668#0#Twig" expanded="false" />
+            <element signature="e#7936#7953#0#Twig" expanded="false" />
+            <element signature="e#8217#8234#0#Twig" expanded="false" />
+            <element signature="e#8501#8518#0#Twig" expanded="false" />
+            <element signature="e#9048#9061#0#Twig" expanded="false" />
+            <element signature="e#9310#9321#0#Twig" expanded="false" />
+            <element signature="e#9621#9631#0#Twig" expanded="false" />
+            <element signature="e#9856#9869#0#Twig" expanded="false" />
+            <element signature="e#10632#10649#0#Twig" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/menu.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/config/doctrine/Trade.orm.yml">
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/subMenu/mgCatQue.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+        <state relative-caret-position="623">
+          <caret line="92" column="42" selection-start-line="92" selection-start-column="25" selection-end-line="92" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/OthersBundle/Resources/config/doctrine/TradeCategory.orm.yml">
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/indexProfile.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="760">
+          <caret line="84" column="57" selection-start-line="84" selection-start-column="50" selection-end-line="84" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WWW/CarsBundle/Resources/config/doctrine/Car.orm.yml">
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/macros/offer.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="92" column="40" selection-start-line="91" selection-start-column="12" selection-end-line="92" selection-end-column="40" />
+        <state relative-caret-position="169">
+          <caret line="304" column="33" selection-start-line="304" selection-start-column="33" selection-end-line="304" selection-end-column="33" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/indexProfile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/layoutForm.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Default/profile.html_1.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Offers/trade.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-634">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Default/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Default/login.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-515">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Default/profile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5411">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/indexProfile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="760">
+          <caret line="84" column="57" selection-start-line="84" selection-start-column="50" selection-end-line="84" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/menu.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/subMenu/mgCatQue.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="92" column="42" selection-start-line="92" selection-start-column="25" selection-end-line="92" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/nav/menuMobile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="674">
+          <caret line="234" column="58" selection-start-line="234" selection-start-column="58" selection-end-line="234" selection-end-column="58" />
+          <folding>
+            <element signature="e#103#111#0#Twig" expanded="false" />
+            <element signature="e#622#633#0#Twig" expanded="false" />
+            <element signature="e#953#964#0#Twig" expanded="false" />
+            <element signature="e#1292#1303#0#Twig" expanded="false" />
+            <element signature="e#1625#1636#0#Twig" expanded="false" />
+            <element signature="e#1959#1970#0#Twig" expanded="false" />
+            <element signature="e#2289#2300#0#Twig" expanded="false" />
+            <element signature="e#2614#2625#0#Twig" expanded="false" />
+            <element signature="e#3123#3136#0#Twig" expanded="false" />
+            <element signature="e#3459#3472#0#Twig" expanded="false" />
+            <element signature="e#3821#3834#0#Twig" expanded="false" />
+            <element signature="e#4160#4173#0#Twig" expanded="false" />
+            <element signature="e#4501#4514#0#Twig" expanded="false" />
+            <element signature="e#4828#4841#0#Twig" expanded="false" />
+            <element signature="e#5179#5192#0#Twig" expanded="false" />
+            <element signature="e#5516#5529#0#Twig" expanded="false" />
+            <element signature="e#6000#6019#0#Twig" expanded="false" />
+            <element signature="e#6329#6346#0#Twig" expanded="false" />
+            <element signature="e#7042#7060#0#Twig" expanded="false" />
+            <element signature="e#7375#7392#0#Twig" expanded="false" />
+            <element signature="e#7651#7668#0#Twig" expanded="false" />
+            <element signature="e#7936#7953#0#Twig" expanded="false" />
+            <element signature="e#8217#8234#0#Twig" expanded="false" />
+            <element signature="e#8501#8518#0#Twig" expanded="false" />
+            <element signature="e#9048#9061#0#Twig" expanded="false" />
+            <element signature="e#9310#9321#0#Twig" expanded="false" />
+            <element signature="e#9621#9631#0#Twig" expanded="false" />
+            <element signature="e#9856#9869#0#Twig" expanded="false" />
+            <element signature="e#10632#10649#0#Twig" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/GlobalBundle/EventListener/CalendarEventListener.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1900">
+          <caret line="130" column="0" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/offers/profileMyPurchase.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="935">
+          <caret line="55" column="68" selection-start-line="55" selection-start-column="68" selection-end-line="55" selection-end-column="68" />
+          <folding>
+            <element signature="e#70#92#0#Twig" expanded="false" />
+            <element signature="e#118#141#0#Twig" expanded="false" />
+            <element signature="e#1548#1581#0#Twig" expanded="false" />
+            <marker date="1487589736222" expanded="true" signature="665:2197" ph="{% block bodyProfile ...%}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/offer/offShareCar.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1530">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#12#41#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WWW/CarsBundle/Controller/ShareCarController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="214" column="47" selection-start-line="214" selection-start-column="47" selection-end-line="214" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/offer/layoutOffer.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="86" column="53" selection-start-line="86" selection-start-column="53" selection-end-line="86" selection-end-column="53" />
+          <folding>
+            <element signature="e#12#28#0#Twig" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
