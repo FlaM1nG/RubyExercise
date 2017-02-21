@@ -37,9 +37,9 @@
                 type="{{ type|lower|e }}"
                 class="{{ classInput|e }}"
                 id="{{ idInput|e }}"
-                {#name="{{ name|e }}"#}
-                value="{{ defaultDate|e }}"
-                placeholder="{{ step|e }}">
+                name="{{ name|e }}"
+                value="{{ defaultDate|date("d-m-Y") }}"
+                placeholder="{{ step|date("d-m-Y") }}"/>
     </div>
 {% endmacro %}
 
