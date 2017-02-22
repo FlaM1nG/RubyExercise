@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * *
- * @ORM\Table(name="mycompanyevents")
+ * @ORM\Table(name="datelog")
  * @ORM\Entity
  */
 class MyCompanyEvents 
@@ -21,6 +21,16 @@ class MyCompanyEvents
      
     protected $id;
 
+        /**
+     * @var int
+     *
+     * @ORM\Column(name="calendarID", type="integer")
+     */
+     
+    protected $calendarID;
+    
+    
+    
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -32,7 +42,15 @@ class MyCompanyEvents
     * @ORM\Column(type="decimal", precision=10, scale=0)
     */
     
-     protected $precio;
+     protected $price;
+     
+     
+         /**
+     * @var boolean 
+     * @ORM\Column(type="boolean")
+     */
+    protected $ocuppate = true;
+     
      
     /**
      * @var string URL Relative to current path.
@@ -53,13 +71,7 @@ class MyCompanyEvents
      * @ORM\Column(type="string", length=7)
      */
     protected $fgColor;
-    
-    /**
-     * @var string css class for the event label
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $cssClass;
-    
+        
     /**
      * @var \DateTime DateTime object of the event start date/time.
      * @ORM\Column(type="datetime")
@@ -72,6 +84,31 @@ class MyCompanyEvents
      */
     protected $endDatetime;
     
+    
+    /**
+     * @var \DateTime DateTime object of the event created.
+     * @ORM\Column(type="datetime")
+     */
+    protected $createdDate;
+   
+     /**
+     * @var \DateTime DateTime object of the event modified.
+     * @ORM\Column(type="datetime")
+     */
+    protected $modifiedDate;
+    
+     /**
+     * @var \DateTime DateTime object of the event deleted.
+     * @ORM\Column(type="datetime")
+     */
+    protected $deletedDate;
+    
+      /**
+    * @var boolean Is this an event deleted?
+     * @ORM\Column(type="boolean")
+     */
+    protected $isDeleted;
+    
     /**
      * @var boolean Is this an all day event?
      * @ORM\Column(type="boolean")
@@ -81,16 +118,28 @@ class MyCompanyEvents
      * @var array Non-standard fields
      * @ORM\Column(type="string")
      */
+    
+       /**
+     * @var int
+     *
+     * @ORM\Column(name="serviceID", type="integer")
+     */
+     
+    protected $serviceID;
+    
+    
+    
     protected $otherFields = array();
     
-      public function __construct($title, $precio, $url, $bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $allDay = false)
+      public function __construct($title, $price, $url,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = true, $allDay = false)
     {
         $this->title = $title;
-         $this->precio = $precio;
+         $this->price = $price;
          $this->url = $url;
          $this->bgColor = $bgColor;
          $this->fgColor = $fgColor;
         $this->startDatetime = $startDatetime;
+        $this->setOcuppate($ocuppate);
         $this->setAllDay($allDay);
         
         if ($endDatetime === null && $this->allDay === false) {
@@ -112,8 +161,15 @@ class MyCompanyEvents
             $event['id'] = $this->id;
         }
         
+        if ($this->calendarID !== null) {
+            $event['calendar_id'] = $this->calendarID;
+        }
+        
         $event['title'] = $this->title;
-        $event['precio'] = $this->precio;
+        $event['price'] = $this->price;
+        
+        $event['ocuppate'] = $this->ocuppate;
+        
         $event['start'] = $this->startDatetime->format("Y-m-d\TH:i:sP");
         
         if ($this->url !== null) {
@@ -129,17 +185,34 @@ class MyCompanyEvents
             $event['textColor'] = $this->fgColor;
         }
         
-        if ($this->cssClass !== null) {
-            $event['className'] = $this->cssClass;
-        }
+        
         if ($this->endDatetime !== null) {
             $event['end'] = $this->endDatetime->format("Y-m-d\TH:i:sP");
         }
+        
+         if ($this->createdDate !== null) {
+            $event['createdDate'] = $this->createdDate->format("Y-m-d\TH:i:sP");
+        }
+        
+          if ($this->modifiedDate !== null) {
+            $event['modifiedDate'] = $this->modifiedDate->format("Y-m-d\TH:i:sP");
+        }
+        
+        if ($this->deletedDate !== null) {
+            $event['deletedDate'] = $this->deletedDate->format("Y-m-d\TH:i:sP");
+        }
+        
+         $event['isDeleted'] = $this->isDeleted;
         
         $event['allDay'] = $this->allDay;
         foreach ($this->otherFields as $field => $value) {
             $event[$field] = $value;
         }
+        
+        if ($this->serviceID !== null) {
+            $event['service_id'] = $this->serviceID;
+        }
+        
         
         return $event;
     }
@@ -153,6 +226,17 @@ class MyCompanyEvents
         return $this->id;
     }
     
+     public function setCalendarID($calendarID)
+    {
+        $this->calendarID = $calendarID;
+    }
+    
+    public function getCalendarID()
+    {
+        return $this->calendarID;
+    }
+    
+    
     public function setTitle($title) 
     {
         $this->title = $title;
@@ -163,14 +247,24 @@ class MyCompanyEvents
         return $this->title;
     }
     
-     public function setPrecio($precio) 
+     public function setPrice($price) 
     {
-        $this->precio = $precio;
+        $this->price = $price;
     }
     
-     public function getPrecio() 
+     public function getPrice() 
     {
-        return $this->precio;
+        return $this->price;
+    }
+    
+      public function setOcuppate($ocuppate = true)
+    {
+        $this->ocuppate = (boolean) $ocuppate;
+    }
+    
+    public function getOcuppate()
+    {
+        return $this->occupate;
     }
     
     public function setUrl($url)
@@ -202,17 +296,7 @@ class MyCompanyEvents
     {
         return $this->fgColor;
     }
-    
-    public function setCssClass($class)
-    {
-        $this->cssClass = $class;
-    }
-    
-    public function getCssClass()
-    {
-        return $this->cssClass;
-    }
-    
+      
     
     public function setStartDatetime(\DateTime $start)
     {
@@ -234,6 +318,46 @@ class MyCompanyEvents
         return $this->endDatetime;
     }
     
+      public function setCreatedDate(\DateTime $createdDate)
+    {
+        $this->createdDate = $createdDate;
+    }
+    
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+    
+      public function setModifiedDate(\DateTime $modifiedDate)
+    {
+        $this->modifiedDate = $modifiedDate;
+    }
+    
+    public function getModifiedDate()
+    {
+        return $this->modifiedDate;
+    }
+    
+      public function setDeletedDate(\DateTime $deletedDate)
+    {
+        $this->deletedDate = $deletedDate;
+    }
+    
+    public function getDeletedDate()
+    {
+        return $this->deletedDate;
+    }
+    
+     public function setIsDeleted($isDeleted = false)
+    {
+        $this->isDeleted = (boolean) $isDeleted;
+    }
+    
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+    
     public function setAllDay($allDay = false)
     {
         $this->allDay = (boolean) $allDay;
@@ -243,6 +367,19 @@ class MyCompanyEvents
     {
         return $this->allDay;
     }
+    
+      public function setServiceID($serviceID)
+    {
+        $this->serviceID = $serviceID;
+    }
+    
+    public function getServiceID()
+    {
+        return $this->serviceID;
+    }
+    
+    
+    
     /**
      * @param string $name
      * @param string $value
