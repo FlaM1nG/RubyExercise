@@ -25,4 +25,8 @@ WWW\ServiceBundle\Entity\Billing:
             inversedBy: conceptsbillings
             joinColumn:
                 referencedColumnName: id
+    oneToMany:
+        concepts:
+            targetEntity: Concept
+            mappedBy: billing
     lifecycleCallbacks: {  }
