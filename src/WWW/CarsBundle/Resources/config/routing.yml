@@ -19,8 +19,6 @@ shareCar_inscriptions:
       idOffer: \d+
 
 shareCar_messenger:
-    path:  /newOffer/
+    path: /courier-car/newOffer/
+    defaults: { _controller: CarsBundle:ShareCar:createShareCar }
 
-#serShareCar:
-#    path: /services/share-car
-#    defaults: { _controller: AppBundle:Index:serShareCar }

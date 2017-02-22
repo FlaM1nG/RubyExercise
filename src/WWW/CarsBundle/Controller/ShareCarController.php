@@ -17,6 +17,7 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
 use WWW\CarsBundle\Entity\Car;
+use WWW\ServiceBundle\Entity\MessengerPrice;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
 use WWW\UserBundle\Entity\User;
@@ -32,24 +33,39 @@ class ShareCarController extends Controller {
 
         $request->getSession()->set('_security.user.target_path',$route);
 
+        $arrayCourierPrice = null;
+        $fileRender = 'CarsBundle:ShareCar:newShareCarOffer.html.twig';
         $shareCar = new ShareCar();
+        $service = null;
 
         $arrayCars = $this->getCarsUser($request);
 
-        $form = $this->createForm(ShareCarType::class, $shareCar, array('listCar' => $arrayCars));
+
+        if(strpos($request->getPathInfo(),'courier') === false):
+            $service = 4;
+            $shareCar->getOffer()->getService()->setId($service);
+
+        else:
+            $service = 5;
+            $shareCar->getOffer()->getService()->setId($service);
+//            $arrayCourierPrice = $this->getDataCourier($request);
+            $fileRender = 'CarsBundle:ShareCar:newCourierOffer.html.twig';
+        endif;    
+
+        $form = $this->createForm(ShareCarType::class, $shareCar, array('listCar' => $arrayCars,'courierPrice' => $arrayCourierPrice));
 
         $form->handleRequest($request);
 
 
         if($form->isSubmitted() && $form->isValid()):
-            $result = $this->createOfferShareCar($request, $shareCar,4);
+            $result = $this->createOfferShareCar($request, $shareCar,$service);
 
             if($result == 'ok'):
                 return $this->redirectToRoute('serShareCar');
             endif;
         endif;
         
-        return $this->render('CarsBundle:ShareCar:newShareCarOffer.html.twig',
+        return $this->render($fileRender,
                        array('form' => $form->createView()
                        )
         );
@@ -96,14 +112,15 @@ class ShareCarController extends Controller {
 
         $dataExtra["from_place"] = "'".$shareCar->getFromPlace()."'";
         $dataExtra["to_place"] = "'".$shareCar->getToPlace()."'";
-        $dataExtra["price"] = $shareCar->getPrice();
         $dataExtra["car_id"] = $shareCar->getCar()->getId();
-        $dataExtra["back_two"] = 0;
         $dataExtra["autobooking"] = 0;
         $dataExtra["date"] = "'".$shareCar->getDate()->format("Y-m-d H:i")."'";
 
-        if(!empty($shareCar->getBackTwo())) $dataExtra["back_two"];
-
+        if($service == 4):
+            $dataExtra["back_two"] = 0;
+            $dataExtra["price"] = $shareCar->getPrice();
+            if(!empty($shareCar->getBackTwo())) $dataExtra["back_two"];
+        endif;
         $dataOffer['data'] = json_encode($dataExtra);
 
         $result = $ch->resultApiRed($dataOffer, $file);
@@ -336,6 +353,29 @@ class ShareCarController extends Controller {
         return $this->render('offer/inscription.html.twig',
                         array('offer' => $offer,
                               'formMessage' => $formMessage->createView()));
+    }
+
+    private function getDataCourier(Request $request){
+
+        $file = MyConstants::PATH_APIREST."services/courier/get_courierPrice.php";
+        $ch = new ApiRest();
+        $courierPrice = null;
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['id_messengerService'] = 1;
+        
+        $result = $ch->resultApiRed(null,$file);
+        
+        if($result == 'ok'):
+            foreach ($result['messengerPrice'] as $data):
+                $courier = new MessengerPrice($data);
+                $courierPrice[] = $courier;
+            endforeach;
+        endif;
+
+        return $courierPrice;
     }
     
 }
