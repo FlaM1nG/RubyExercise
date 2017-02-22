@@ -95,7 +95,7 @@ trade:
 
 cars:
     resource: "@CarsBundle/Resources/config/routing.yml"
-    prefix:   /services/share-car/
+    prefix:   /services
 
 notFound:
     path: /notFound
