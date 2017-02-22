@@ -84,14 +84,15 @@
 
                                     {# BOTON INSCRITOS A LA ESPERA A QUE SE CREE EL CONDICIONAL PARA QUE APAREZCA SOLO
                                         CUANDO LA OFERTA TE PERTENECE #}
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-center">
-                                            <a href="{{ path('shareCar_inscriptions',{ idOffer:offer.offer.id }) }}" class="btn-default btn off-btn-write">
-                                                Inscritos
-                                            </a>
+                                    {% if is_granted('show_inscriptions_offer', offer.offer) %}
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-center">
+                                                <a href="{{ path('shareCar_inscriptions',{ idOffer:offer.offer.id }) }}" class="btn-default btn off-btn-write">
+                                                    Inscritos
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-
+                                    {%endif%}
                                 </div>
                             </div>
                         </div>

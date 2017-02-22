@@ -15,6 +15,7 @@ class OfferVoter extends Voter
     const EDIT = 'edit_offer';
     const DELETE = 'delete_offer';
     const SELECT = 'select_offer';
+    const SHOW = 'show_inscriptions_offer';
     
     private $decisionManager;
 
@@ -27,7 +28,7 @@ class OfferVoter extends Voter
     {
         
         // si el atributo no es uno de los que soportamos, devolver false
-        if (!in_array($attribute, array(self::SELECT,  self::CREATE))) {
+        if (!in_array($attribute, array(self::SELECT,  self::CREATE, self::SHOW))) {
            
            // print_r('1');
             return false;
@@ -64,25 +65,32 @@ class OfferVoter extends Voter
                 return $this->canSelect($offer, $user,$token );
             case self::CREATE:
                 return $this->canCreate($token );
+            case self::SHOW:
+                return $this->canShowInsc($offer,$user,$token);
         }
 
         throw new \LogicException('Este código no debería ser visto');
     }
 
-    
-  
     private function canSelect(\WWW\ServiceBundle\Entity\Offer $offer, User $user ,TokenInterface $token)
     {
-         $user = $token->getUser();
-         
-        
-
-        
+         $user = $token->getUser(); 
         // esto asume que el objeto tiene un método getOwner()
         // para obtener la entidad del usuario que posee este objeto
         if( $user->getUsername() != $offer->getUserAdmin()->getUsername() && !$offer->getExpired()){
-            return true;
-            
+            return true;            
+        }
+        else{
+            return false;
+        }
+    }
+    private function canShowInsc(\WWW\ServiceBundle\Entity\Offer $offer, User $user ,TokenInterface $token)
+    {
+         $user = $token->getUser(); 
+        // esto asume que el objeto tiene un método getOwner()
+        // para obtener la entidad del usuario que posee este objeto
+        if( $user->getUsername() == $offer->getUserAdmin()->getUsername() && ($offer->getService()->getId()=='4' || $offer->getService()->getId()=='5')){
+            return true;            
         }
         else{
             return false;
