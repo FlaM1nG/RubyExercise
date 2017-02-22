@@ -14,7 +14,8 @@ WWW\GlobalBundle\Entity\MyCompanyEvents:
             length: 255
         precio:
             type: decimal
-            length: 65
+            precision: 10
+            scale: 0
         url:          
             type: string
             length: 255

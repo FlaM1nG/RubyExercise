@@ -28,9 +28,9 @@ class MyCompanyEvents
      protected $title;
     
      
-    /**
-     * @ORM\Column(type="decimal", length=65)
-     */
+   /**
+    * @ORM\Column(type="decimal", precision=10, scale=0)
+    */
     
      protected $precio;
      
@@ -83,9 +83,13 @@ class MyCompanyEvents
      */
     protected $otherFields = array();
     
-    public function __construct($title, \DateTime $startDatetime, \DateTime $endDatetime = null, $allDay = false)
+      public function __construct($title, $precio, $url, $bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $allDay = false)
     {
         $this->title = $title;
+         $this->precio = $precio;
+         $this->url = $url;
+         $this->bgColor = $bgColor;
+         $this->fgColor = $fgColor;
         $this->startDatetime = $startDatetime;
         $this->setAllDay($allDay);
         
@@ -109,6 +113,7 @@ class MyCompanyEvents
         }
         
         $event['title'] = $this->title;
+        $event['precio'] = $this->precio;
         $event['start'] = $this->startDatetime->format("Y-m-d\TH:i:sP");
         
         if ($this->url !== null) {
