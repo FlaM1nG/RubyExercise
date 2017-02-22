@@ -41,15 +41,16 @@ class ShareCarController extends Controller {
         $arrayCars = $this->getCarsUser($request);
 
 
-        if(strpos($request->getPathInfo(),'courier') === false):
+        if(strpos($request->getPathInfo(),'share-car') !== false):
             $service = 4;
             $shareCar->getOffer()->getService()->setId($service);
 
-        else:
+        elseif(strpos($request->getPathInfo(),'courier-car') !== false):
             $service = 5;
             $shareCar->getOffer()->getService()->setId($service);
 //            $arrayCourierPrice = $this->getDataCourier($request);
             $fileRender = 'CarsBundle:ShareCar:newCourierOffer.html.twig';
+
         endif;    
 
         $form = $this->createForm(ShareCarType::class, $shareCar, array('listCar' => $arrayCars,'courierPrice' => $arrayCourierPrice));
@@ -133,7 +134,15 @@ class ShareCarController extends Controller {
 
     public function listCarAction(Request $request){
 
-        $arrayOffers = $this->getsShareCars($request);
+        $service = null;
+
+        if(strpos($request->getPathInfo(),'share-car') !== false):
+            $service = 4;
+        elseif(strpos($request->getPathInfo(),'courier-car') !== false):
+            $service = 5;
+        endif;
+
+        $arrayOffers = $this->getsShareCars($request, $service);
 
         $paginator = $this->get('knp_paginator');
         $pagination = null;
@@ -147,17 +156,18 @@ class ShareCarController extends Controller {
         endif;
 
         return $this->render('services/serShareCar.html.twig',
-                       array('pagination' => $pagination)
+                       array('pagination' => $pagination,
+                             'service' => $service)
         );
     }
 
-    private function getsShareCars(Request $request){
+    private function getsShareCars(Request $request, $service){
 
         $file = MyConstants::PATH_APIREST.'services/share_car/list_share_cars.php';
         $ch = new ApiRest();
         $arrayShareCar = null;
         
-        $data['service_id'] = 4;
+        $data['service_id'] = $service;
         $data['search'] = "";
         $dataFilters['from_place'] = "";
         $dataFilters['to_place'] = "";
