@@ -1,0 +1,4 @@
+services:
+#    house.example:
+#        class: WWW\HouseBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

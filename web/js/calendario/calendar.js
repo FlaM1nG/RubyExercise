@@ -66,32 +66,42 @@ $(document).ready(function() {
 			eventLimit: true, // allow "more" link when too many events
 			selectable: true,
 			selectHelper: true,
-			select: function(start, end) {
-				
-				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
-				$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
-				$('#ModalAdd').modal('show');
-			},
-			eventRender: function(event, element) {
-				element.bind('dblclick', function() {
-					$('#ModalEdit #id').val(event.id);
-					$('#ModalEdit #title').val(event.title);
-					$('#ModalEdit #precio').val(event.precio);
-					$('#ModalEdit #color').val(event.color);
-					$('#ModalEdit').modal('show');
-				});
-			},
-			eventDrop: function(event, delta, revertFunc) { // si changement de position
-
-				edit(event);
-
-			},
-			eventResize: function(event,dayDelta,minuteDelta,revertFunc) { // si changement de longueur
-
-				edit(event);
-
-			},
-			 eventSources: [
+		
+		
+                        dayClick: function (date, allDay, jsEvent, view) {
+                                var belowDate = new Date();
+                                  var targetDate = new Date();
+                                    targetDate.setDate(targetDate.getDate() + 10);
+                                    //cloning of date by refrence method!//console.log("mdate" + mdate);
+                                    var mdate = new Date(date);
+                                    if ((date.setHours(0, 0, 0, 0) < belowDate.setHours(0, 0, 0, 0)) || date.setHours(0, 0, 0, 0) >
+                                            targetDate.setHours(0, 0, 0, 0)) {
+                                            alert("Wrong slot of booking!!!");
+                                            }
+                                            else {
+                                                    var start = mdate;
+                                                    // please check format here as this is very small error creating headache!!
+                                                    var formatedStartdate = $.fullCalendar.formatDate(mdate, 'yyyy-MM-dd hh:mm:ss');
+                                                        alert(formatedStartdate);
+                                                        var end = new Date(start.getTime() + 15*60000);
+                                                        var formatedEnddate = $.fullCalendar.formatDate(end, 'yyyy-MM-dd hh:mm:ss');
+                                                        var x = confirm("startTime" + formatedStartdate + "endTime" + formatedEnddate);
+                                                            if(x){
+                                                                    var eventname = prompt("Please enter event name", "");
+                                                                    $.ajax({
+                                                                            url: Routing.generate('updateInfo'),
+                                                                            data: {endTime: formatedEnddate , startTime: formatedStartdate,ename:eventname},
+                                                                            dataType: "json",
+                                                                            success: function(response) {
+                                                                                console.log(response);
+                                                                                }
+                                                                    });
+                                                             }
+                                                   }
+                       },
+        
+        
+		 eventSources: [
             {
                 url: Routing.generate('fullcalendar_loader'),
                 type: 'POST',
@@ -105,34 +115,7 @@ $(document).ready(function() {
         ]
     });
 		
-		function edit(event){
-			start = event.start.format('YYYY-MM-DD HH:mm:ss');
-			if(event.end){
-				end = event.end.format('YYYY-MM-DD HH:mm:ss');
-			}else{
-				end = start;
-			}
-			
-			id =  event.id;
-			
-			Event = [];
-			Event[0] = id;
-			Event[1] = start;
-			Event[2] = end;
-			
-			$.ajax({
-			 url: 'editEventDate.php',
-			 type: "POST",
-			 data: {Event:Event},
-			 success: function(rep) {
-					if(rep == 'OK'){
-						alert('Guardado');
-					}else{
-						alert('Error, intentalo otra vez.');
-					}
-				}
-			});
-		}
+		
 		
 	});
 

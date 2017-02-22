@@ -1,3 +1,9 @@
+house:
+    resource: "@HouseBundle/Resources/config/routing.yml"
+    prefix:   /
+
+cars:
+    resource: "@CarsBundle/Resources/config/routing.yml"
 pdf:
     resource: "@PDFBundle/Resources/config/routing.xml"
     prefix:   /
@@ -68,7 +74,7 @@ serHouseRents:
 offTrade:
     path: /services/trade/offer
     defaults: { _controller: AppBundle:Index:offTrade }
-    
+
 offHouseRents:
     path: /services/house-rents/offer
     defaults: { _controller: AppBundle:Index:offHouseRents }
@@ -156,10 +162,10 @@ prueba_inscripcion:
 # app/config/routing.yml
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-    
+
 # app/config/routing.yml
 adesigns_calendar:
-    resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"    
+    resource: "@GlobalBundle/Resources/config/routing.yml"
 
 prueba_pago:
     path: /prueba/previopago

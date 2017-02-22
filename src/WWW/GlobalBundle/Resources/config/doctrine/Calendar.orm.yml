@@ -1,0 +1,32 @@
+WWW\GlobalBundle\Entity\Calendar:
+    type: entity
+    table: null
+    repositoryClass: WWW\GlobalBundle\Repository\CalendarRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: true
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+    oneToMany:
+        myCompanyEvents:
+            targetEntity: MyCompanyEvents
+            mappedBy: calendar
+    lifecycleCallbacks: {  }

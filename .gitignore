@@ -11,8 +11,8 @@
 /bin/
 /composer.phar
 /nbproject/private/
-/.idea
-/.idea/workspace.xml
+.idea/*
+.idea/workspace.xml
 /components/*
 
 ### JetBrains ###
