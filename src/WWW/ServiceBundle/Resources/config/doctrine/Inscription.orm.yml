@@ -37,7 +37,6 @@ WWW\ServiceBundle\Entity\Inscription:
 
         messengerPrice:
             targetEntity: WWW\ServiceBundle\Entity\MessengerPrice
-            inversedBy: inscriptions
             joinColumn:
                 name: id_messengerPrice
                 referencedColumnName: id
