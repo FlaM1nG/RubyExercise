@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * *
- * @ORM\Table(name="datelog")
+ * @ORM\Table(name="mycompanyevents")
  * @ORM\Entity
  */
 class MyCompanyEvents 
