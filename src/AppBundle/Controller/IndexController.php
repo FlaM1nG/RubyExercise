@@ -91,4 +91,8 @@ class IndexController extends Controller
     public function pruebaInscripcionAction(){
         return $this->render('offer/inscription.html.twig');
     }
+
+    public function pruebaPantallaPagoAction(){
+        return $this->render('pay/payPage.html.twig');
+    }
 }

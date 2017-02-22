@@ -151,7 +151,7 @@ prueba_inscripcion:
     path: /prueba/inscritos
     defaults: { _controller: AppBundle:Index:pruebaInscripcion }
 
-    prefix:   /services/trade  
+    prefix:   /services/trade
 
 # app/config/routing.yml
 fos_js_routing:
@@ -161,3 +161,6 @@ fos_js_routing:
 adesigns_calendar:
     resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"    
 
+prueba_pago:
+    path: /prueba/previopago
+    defaults: { _controller: AppBundle:Index:pruebaPantallaPago }

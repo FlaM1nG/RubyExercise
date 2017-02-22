@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container cd-main-content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2>Confirmación datos de pago</h2>
+                <hr/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>Dirección</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    {{ include('nav/menuScript.html.twig') }}
+{% endblock %}
+
+{% block footer %}
+    {{ include('footer/sponsorFooter.html.twig') }}
+    {{ parent() }}
+{% endblock %}
