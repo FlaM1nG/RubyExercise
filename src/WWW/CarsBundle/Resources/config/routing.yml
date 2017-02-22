@@ -18,7 +18,17 @@ shareCar_inscriptions:
   requirements:
       idOffer: \d+
 
-shareCar_messenger:
+serCourier_newOffer:
     path: /courier-car/newOffer/
     defaults: { _controller: CarsBundle:ShareCar:createShareCar }
+
+serCourier_list:
+  path: /courier-car/
+  defaults: { _controller: CarsBundle:ShareCar:listCar }
+
+offCourierCar:
+    path: /courier-car/offer/{idOffer}/
+    defaults: { _controller: CarsBundle:ShareCar:offerCar }
+    requirements:
+        idOffer: \d+
 
