@@ -28,7 +28,10 @@ class ProfilePhotoController extends Controller{
         $user = $this->getUserProfile($request);
 
         if(!empty($request->files->get('avatar'))):
-            $this->changePhotoProfile($request);
+            $result = $this->changePhotoProfile($request);
+            if($result['result'] == 'ok'):
+               $user->getPhoto()->setUrl($result['url']);
+            endif;
         endif;
 
         return $this->render('UserBundle:Profile:photoProfile.html.twig',
@@ -71,6 +74,7 @@ class ProfilePhotoController extends Controller{
 
         $result=$ch->resultApiRed($data,$file);
 
+        return $result;
     }
 
 

@@ -56,13 +56,13 @@
           action="{{ action|e }}">
 
         {{ filtersElements.filterInput('fromPlace', 'fromPlace', 'De',
-        'text', 'form-control') }}
+        'text', 'form-control fil-from') }}
 
         {{ filtersElements.filterInput('toPlace', 'toPlace', 'A',
-        'text', 'form-control') }}
+        'text', 'form-control fil-to') }}
 
         {{ filtersElements.filterInputDate('date', 'date', 'Fecha Destino',
-        'date', 'form-control datepicker', "now"|date("Y-m-d"), "now"|date("Y-m-d") ) }}
+        'date', 'form-control datepicker', "now", "now" ) }}
 
         {{ filtersElements.filterButton('boton', 'submit', 'Buscar') }}
     </form>
@@ -100,4 +100,26 @@
         
     });
 </script>
+{% endmacro %}
+
+
+{% macro filterCarScript() %}
+    <script>
+        $(document).ready(function(){
+            $(".fil-from").keyup(function(){
+                $(".fil-from").val($(this).val());
+            });
+
+
+            $(".fil-to").keyup(function(){
+                $(".fil-to").val($(this).val());
+            });
+
+
+            $(".datepicker").keyup(function(){
+                $(".datepicker").val($(this).val());
+            });
+
+        });
+    </script>
 {% endmacro %}
