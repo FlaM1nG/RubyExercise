@@ -3,10 +3,21 @@
 {% import 'macros/star.html.twig' as rating %}
 {% import 'macros/filter.html.twig' as filters %}
 
-{% set pathFilter = path('serShareCar') %}
-{% set routingOffer = 'offShareCar' %}
-{% set routingNewOffer = 'car_shareCarNew' %}
-{% set service = 4 %}
+{% if service == 4 %}
+    {% set pathFilter = path('serShareCar') %}
+    {% set routingOffer = 'offShareCar' %}
+    {% set routingNewOffer = 'car_shareCarNew' %}
+    {% set titleService = 'Coche compartido' %}
+
+{% elseif service == 5 %}
+    {% set pathFilter = path('serCourier_list') %}
+    {% set routingOffer = 'offCourierCar' %}
+    {% set routingNewOffer = 'serCourier_newOffer' %}
+    {% set titleService = 'Mensajería' %}
+
+{% endif %}
+
+
 
 {% block stylesheets %}
     {{ parent() }}
@@ -15,7 +26,7 @@
 {% endblock %}
 
 {% block title %}
-    Coche compartido
+    {{ titleService }}
 {% endblock %}
 
 {% block cssParallax %}
@@ -27,7 +38,7 @@ sha-header-title
 {% endblock %}
 
 {% block serviceTitle %} 
-    Coche compartido
+    {{ titleService }}
 {% endblock %}
 
 {% block serviceSubTitle %}  
