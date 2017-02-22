@@ -398,4 +398,83 @@ class MyCompanyEvents
         }
         unset($this->otherFields[$name]);
     }
+    /**
+     * @var \WWW\GlobalBundle\Entity\Calendar
+     */
+    private $calendar;
+
+    /**
+     * @var \WWW\ServiceBundle\Entity\Service
+     */
+    private $service;
+
+
+    /**
+     * Set otherFields
+     *
+     * @param string $otherFields
+     * @return MyCompanyEvents
+     */
+    public function setOtherFields($otherFields)
+    {
+        $this->otherFields = $otherFields;
+
+        return $this;
+    }
+
+    /**
+     * Get otherFields
+     *
+     * @return string 
+     */
+    public function getOtherFields()
+    {
+        return $this->otherFields;
+    }
+
+    /**
+     * Set calendar
+     *
+     * @param \WWW\GlobalBundle\Entity\Calendar $calendar
+     * @return MyCompanyEvents
+     */
+    public function setCalendar(\WWW\GlobalBundle\Entity\Calendar $calendar = null)
+    {
+        $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    /**
+     * Get calendar
+     *
+     * @return \WWW\GlobalBundle\Entity\Calendar 
+     */
+    public function getCalendar()
+    {
+        return $this->calendar;
+    }
+
+    /**
+     * Set service
+     *
+     * @param \WWW\ServiceBundle\Entity\Service $service
+     * @return MyCompanyEvents
+     */
+    public function setService(\WWW\ServiceBundle\Entity\Service $service = null)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return \WWW\ServiceBundle\Entity\Service 
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
 }

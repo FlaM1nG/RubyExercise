@@ -13,6 +13,16 @@ class Calendar
     private $id;
 
     /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @var string
      */
     private $name;
@@ -33,26 +43,27 @@ class Calendar
     private $deletedDate;
 
     /**
-     * @var bool
+     * @var boolean
      */
     private $isDeleted;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $myCompanyEvents;
 
     /**
-     * Get id
-     *
-     * @return int
+     * Constructor
      */
-    public function getId()
+    public function __construct()
     {
-        return $this->id;
+        $this->myCompanyEvents = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Set name
      *
      * @param string $name
-     *
      * @return Calendar
      */
     public function setName($name)
@@ -65,7 +76,7 @@ class Calendar
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -76,7 +87,6 @@ class Calendar
      * Set createdDate
      *
      * @param \DateTime $createdDate
-     *
      * @return Calendar
      */
     public function setCreatedDate($createdDate)
@@ -89,7 +99,7 @@ class Calendar
     /**
      * Get createdDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreatedDate()
     {
@@ -100,7 +110,6 @@ class Calendar
      * Set modifiedDate
      *
      * @param \DateTime $modifiedDate
-     *
      * @return Calendar
      */
     public function setModifiedDate($modifiedDate)
@@ -113,7 +122,7 @@ class Calendar
     /**
      * Get modifiedDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getModifiedDate()
     {
@@ -124,7 +133,6 @@ class Calendar
      * Set deletedDate
      *
      * @param \DateTime $deletedDate
-     *
      * @return Calendar
      */
     public function setDeletedDate($deletedDate)
@@ -137,7 +145,7 @@ class Calendar
     /**
      * Get deletedDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getDeletedDate()
     {
@@ -148,7 +156,6 @@ class Calendar
      * Set isDeleted
      *
      * @param boolean $isDeleted
-     *
      * @return Calendar
      */
     public function setIsDeleted($isDeleted)
@@ -161,56 +168,43 @@ class Calendar
     /**
      * Get isDeleted
      *
-     * @return bool
+     * @return boolean 
      */
     public function getIsDeleted()
     {
         return $this->isDeleted;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $dateLogs;
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->dateLogs = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add dateLog
+     * Add myCompanyEvents
      *
-     * @param \WWW\GlobalBundle\Entity\DateLog $dateLog
-     *
+     * @param \WWW\GlobalBundle\Entity\MyCompanyEvent $myCompanyEvents
      * @return Calendar
      */
-    public function addDateLog(\WWW\GlobalBundle\Entity\DateLog $dateLog)
+    public function addMyCompanyEvent(\WWW\GlobalBundle\Entity\MyCompanyEvent $myCompanyEvents)
     {
-        $this->dateLogs[] = $dateLog;
+        $this->myCompanyEvents[] = $myCompanyEvents;
 
         return $this;
     }
 
     /**
-     * Remove dateLog
+     * Remove myCompanyEvents
      *
-     * @param \WWW\GlobalBundle\Entity\DateLog $dateLog
+     * @param \WWW\GlobalBundle\Entity\MyCompanyEvent $myCompanyEvents
      */
-    public function removeDateLog(\WWW\GlobalBundle\Entity\DateLog $dateLog)
+    public function removeMyCompanyEvent(\WWW\GlobalBundle\Entity\MyCompanyEvent $myCompanyEvents)
     {
-        $this->dateLogs->removeElement($dateLog);
+        $this->myCompanyEvents->removeElement($myCompanyEvents);
     }
 
     /**
-     * Get dateLogs
+     * Get myCompanyEvents
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getDateLogs()
+    public function getMyCompanyEvents()
     {
-        return $this->dateLogs;
+        return $this->myCompanyEvents;
     }
 }

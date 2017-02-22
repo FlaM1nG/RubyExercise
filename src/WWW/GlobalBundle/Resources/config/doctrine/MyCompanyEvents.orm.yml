@@ -54,4 +54,15 @@ WWW\GlobalBundle\Entity\MyCompanyEvents:
             type: string
         serviceID:
             type: integer
+    manyToOne:
+            calendar:
+                targetEntity: Calendar
+                inversedBy: myCompanyEvents
+                joinColumn:
+                    referencedColumnName: id
+            service:
+                nullable: true
+                targetEntity: WWW\ServiceBundle\Entity\Service
+                joinColumn:
+                    referencedColumnName: id
     lifecycleCallbacks: {  }

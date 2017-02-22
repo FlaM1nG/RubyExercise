@@ -104,6 +104,8 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
                     $this->$keyCamelize = $value;
                 endif;  
             endforeach;
+        
+            $this->country = new Region(null,$this->region, $this->country );
 //        else:
 //            $this->id = 0;
 //            $this->street = "";
