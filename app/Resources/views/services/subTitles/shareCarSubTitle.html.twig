@@ -1,6 +1,11 @@
 <span class="sha-or-dest">
-    GRANADA - MÁLAGA desde 
+    {% if app.request.query.get('fromPlace') is not empty and
+          app.request.query.get('toPlace') is not empty %}
+
+        {{ app.request.query.get('fromPlace') }} - {{ app.request.query.get('toPlace') }}
+
+    {% endif %}
 </span>
-<span class="sha-or-dest-price">
-    5€
-</span>
+{#<span class="sha-or-dest-price">#}
+    {#5€#}
+{#</span>#}

@@ -22,6 +22,12 @@ class Region
      */
     private $country;
 
+    public function __construct($id = null,$region,$country) {
+
+        $this->id = $id;
+        $this->region = $region;
+        $this->country = $country;
+    }
 
     /**
      * Get id
@@ -79,5 +85,9 @@ class Region
     public function getCountry()
     {
         return $this->country;
+    }
+
+    public function getCountryRegion(){
+        return $this->country."-".$this->region;
     }
 }

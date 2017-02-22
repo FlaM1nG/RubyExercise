@@ -16,6 +16,7 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\ServiceBundle\Entity\Comment;
 use WWW\ServiceBundle\Form\CommentType;
+use WWW\ServiceBundle\Entity\Offer;
 use WWW\GlobalBundle\MyConstants;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
@@ -35,104 +36,122 @@ class TradeController extends Controller{
     private $session;
     private $trade;
     private $ut;
+    private $service;
     
     public function createOfferAction(Request $request){
-echo "entro";
+        
         $this->setUpVars($request);
         $trade = new Trade();
-        
-        $this->denyAccessUnlessGranted('create_offer', $trade);
-        
+
+        $trade->getCategory()->setId($this->service);
+        $trade->getOffer()->getService()->setId($this->service);
+ 
         $formTrade = $this->createForm(TradeType::class,$trade);
+
         $formTrade->handleRequest($request);
         
          if($formTrade->isSubmitted()):
-             
-             $this->saveTrade($request,$trade);
+             $result = $this->saveTrade($request,$trade);
+
+             if($result == 'ok'):
+
+                 if($this->service == 1):
+                    return $this->redirectToRoute('service_listTrade');
+
+                 elseif($this->service == 2):
+                    return $this->redirectToRoute('service_listClothes');
+
+                 elseif($this->service == 3):
+                    return $this->redirectToRoute('service_listBarter');
+                 endif;
+             endif;
          endif;
         
         return $this->render('OthersBundle:Trade:offerTrade.html.twig',
-                       array('formTrade' => $formTrade->createView(),
-                             'trade' => $trade));
+                       array('formOffer' => $formTrade->createView(),
+                             'offer' => $trade,
+                             'service' => $this->service ));
     }
     
     public function setUpVars(Request $request){
+        
         $this->ut = new Utilities(); 
         $this->session = $request->getSession();
+        $this->trade = null;
+
+        $path = $request->getPathInfo();
+ 
+        if(strstr($path,'trade')!== false): 
+            $this->service = 1;
+        elseif(strstr($path,'barter')!== false):
+            $this->service = 3;
+        else:
+            $this->service = 2;
+        endif;
+
     }
     
     private function saveTrade(Request $request, Trade $trade){
-        
-        $service = $request->server->all()['PATH_INFO'];
-        
-//        $dataExtra['url']=$this->uploadImage($request);
-//        
-//        if($this->uploadImage($request) == false):
-//            $result['result'] = 'ko';
-//            $this->ut->flashMessage("tradeImageN", $request, $result);
-//            return false;
-//        else:
-            echo "trade else";
-            $ch = new ApiRest();
-            $file = MyConstants::PATH_APIREST."services/offer/insert_offer.php";
-            $dataOffer = array("id" => $this->session->get('id'),
-                             "username" => $this->session->get('username'),
+
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/offer/insert_offer.php";
+
+        $dataOffer = array("id" => $this->session->get('id'),
+                            "username" => $this->session->get('username'),
                             "password" =>$this->session->get('password'),
                             "title" => $trade->getOffer()->getTitle(),
                             "description" => $trade->getOffer()->getDescription(),
-                            "service_id" => 1,
+                            "service_id" => $this->service,
                             "holders" => 1);
 
-            $dataExtra['values'] = array("category_id" => $trade->getCategory()->getId(),
-                               "price" => $trade->getPrice(),
-                               "dimensions" => "'".$trade->getDimensions()."'",
-                               "weight" => $trade->getWeight(),
-                               "region" => "'".$trade->getRegion()."'");
-
-
-            $dataOffer['data'] = json_encode($dataExtra);
-print_r($dataOffer);
-            $result = $ch->resultApiRed($dataOffer, $file);
-            echo "<br><br>"; print_r($result);
-            $this->ut->flashMessage("general", $request, $result);
-//        endif;        
-    }
-    
-    private function uploadImage(Request $request){
-        
-        $arrayFiles = $request->files->all()['trade']['offer']['fileImage'];
-        $arrayUrls = false;
-        
-        if(!empty($arrayFiles[0])): 
-            if(count($arrayFiles) > 5): 
-                
-                return $arrayUrls;
-            else:     
-                $arrayUrls = $this->ut->uploadImage($arrayFiles, $this->session->get('id'));
-            endif;
+        $dataExtra["category_id"] = $trade->getCategory()->getId();
+        $dataExtra["region"] = "'".$trade->getRegion()->getRegion()."'";
+        $dataExtra["price"] = 0;
+  
+        if($this->service != 3):
+            $dataExtra["price"] = $trade->getPrice();
+//            $dataExtra["dimensions"] = "'".$request->get('trade')['width']."x".
+//                                                   $request->get('trade')['height']."x".
+//                                                   $request->get('trade')['long']."'";
+            $dataExtra["weight"] = $trade->getWeight();
         endif;
-        
-        return $arrayUrls;
-        
-    }
-    
-    private function flashMessageGeneral($result){
-        
-        if($result == 'ok'):
-            $this->addFlash('messageSuccess','Datos guardados correctamente');
-        else:
-            $this->addFlash('messageFail','Error al guardar');
+
+        if(!empty($request->files->get('imgOffer')[0])):
+            $photos = $request->files->get('imgOffer');
+            $count = 0;
+
+            foreach($photos as $photo){
+                $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
+                $dataOffer['photos['.$count.']'] = $ch_photo;
+                $count += 1;
+            }
         endif;
+
+        $dataOffer['data'] = json_encode($dataExtra);
+
+        $result = $ch->resultApiRed($dataOffer, $file);
+
+        $this->ut->flashMessage("general", $request, $result);
+
+        return $result['result'];
     }
     
     public function listTradeAction(Request $request){
-      // print_r($request);
-        
+
         $this->setUpVars($request);
         $varPost = $request->query->all();
+
+        $title = '';
+
+        if($this->service == 1):
+            $title = 'Compra-Venta';
+        elseif($this->service == 2):
+            $title = 'Compra-Venta de Ropa';
+        elseif($this->service == 3):
+            $title = 'Trueque';
+        endif;
         
-        
-        $data['service'] = 'trade';
+        $data['service_id'] = $this->service;
         $data['search'] = '';
         
         if(!empty($varPost)):
@@ -159,11 +178,23 @@ print_r($dataOffer);
         endif;
         
         $arrayOffers = $this->searchTrades($data);
-        
+
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $arrayOffers,
+            $request->query->getInt('page', 1),
+            MyConstants::NUM_TRADES_PAGINATOR
+        );
+
+        /* ARRAYTRADES NO HACE FALTA PORQUE VA DENTRO DE PAGINATION  */
         return $this->render('services/serTrade.html.twig',array(
-                             'arrayTrades' => $arrayOffers,
-                             'categories' => $this->ut->getArrayCategoryTrade()
-        ));
+//                            'arrayTrades' => $arrayOffers,
+                            'categories' => $this->ut->getArrayCategoryTrade($this->service),
+                            'title' => $title,
+                            'service' => $this->service,
+                            'pagination' => $pagination
+                            ));
     }
     
     private function searchTrades($data){
@@ -171,59 +202,81 @@ print_r($dataOffer);
         $arrayOffers = array();
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/trade/list_trades.php";
-        
+
         $informacion['data'] = json_encode($data);
-         
+
         $result = $ch->resultApiRed($informacion, $file);
-        
+
         if($result['result'] == 'ok'):
             foreach($result['offers'] as $trade):
                 $newTrade = new Trade($trade);
                 array_push($arrayOffers, $newTrade);
             endforeach;
         endif;
+        
         return $arrayOffers;
     }
-    
+
     public function showTradeAction(Request $request){
-        
+
         $this->setUpVars($request);
-        
-        $trade = null;
-        $trade = $this->getTrade($request);
-//        print_r($trade);
+
+        $this->getTrade($request);
+
         $comment = new Comment();
-        $message = $this->fillMessage($trade);
-        
+        $message = $this->fillMessage();
+
         $formComment = $this->createForm(CommentType::class, $comment);
         $formMessage = $this->createForm(MessageType::class, $message);
         $formSubscribe = $this->createForm(OfferSuscribeType::class);
-        
+
         $formComment->handleRequest($request);
         $formMessage->handleRequest($request);
         $formSubscribe->handleRequest($request);
-        
+
         if($formComment->isSubmitted()):
-            $this->saveComment($request, $trade->getOffer()->getId());
+
+            $result = $this->saveComment($request, $this->trade->getOffer()->getId(), $comment);
             $formComment = $this->createForm(CommentType::class, new Comment());
             
+            if($result == 'ok'):
+                return $this->redirectToRoute('service_trade',array('idOffer'=> $this->trade->getOffer()->getId()));
+            endif;
+        
         elseif($formMessage->isSubmitted()):
-            $this->sendMessage($request,$trade);
-        
+            $this->sendMessage($request);
+
         elseif($formSubscribe->isSubmitted()):
-            $this->offerSubscribe($trade);
-        
+            $this->offerSubscribe($this->trade);
+            return $this->redirectToRoute('acme_payment_homepage', array(
+                'idOffer'=> $this->trade->getOffer()->getId(),
+                'service'=> "trade",
+                    ));
         endif;
-        
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = null;
+
+        if(!empty($this->trade->getOffer()->getComments())):
+            $pagination = $paginator->paginate(
+                $this->trade->getOffer()->getComments(),
+                $request->query->getInt('page', 1),
+                MyConstants::NUM_COMMENTS_PAGINATOR
+            );
+        endif;
+
         return $this->render('offer/offTrade.html.twig',array(
-                             'trade' => $trade,
+                             'offer' => $this->trade,
                              'formComment' => $formComment->createView(),
                              'formMessage' => $formMessage->createView()  ,
-                             'formSubscribe' => $formSubscribe->createView()
+                             'formSubscribe' => $formSubscribe->createView(),
+                             'service' => $this->service,
+                             'pagination' => $pagination,
+                             'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR
         ));
     }
-    
-    private function fillMessage($trade){
+
+    private function fillMessage(){
         $message = new Message();
         
         $user = new User();
@@ -231,12 +284,12 @@ print_r($dataOffer);
         $user->setUsername($this->session->get('username'));
         
         $userTo = new User();
-        $userTo->setId($trade->getOffer()->getUserAdmin()->getId());
-        $userTo->setUsername($trade->getOffer()->getUserAdmin()->getUsername());
+        $userTo->setId($this->trade->getOffer()->getUserAdmin()->getId());
+        $userTo->setUsername($this->trade->getOffer()->getUserAdmin()->getUsername());
         
         $message->setFrom($user);
         $message->setTo($userTo);
-        $message->setSubject('Oferta: '.$trade->getOffer()->getTitle());
+        $message->setSubject('Oferta: '.$this->trade->getOffer()->getTitle());
         
         return $message;
     }
@@ -246,7 +299,6 @@ print_r($dataOffer);
         $this->setUpVars($request);
         
         $ch = new ApiRest();
-//        $file = MyConstants::PATH_APIREST."services/trade/get_trade.php";
         $file = MyConstants::PATH_APIREST."services/offer/get_offer.php";
 
         $trade = null;
@@ -256,20 +308,16 @@ print_r($dataOffer);
         $result = $ch->resultApiRed($data, $file);
          
         if($result['result'] == 'ok'):
-            $trade = new Trade($result);
-        
+            $this->trade = new Trade($result);
+
         else:
             $this->ut->flashMessage("general", $request);
         endif;
-        
-        return $trade;
+
     }
+
     
-    private function listComments(){
-        
-    }
-    
-    private function saveComment(Request $request, $idOffer){
+    private function saveComment(Request $request, $idOffer, $comment){
         
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/inscription/comment.php";
@@ -278,23 +326,29 @@ print_r($dataOffer);
         $data['username'] = $this->session->get('username');
         $data['password'] = $this->session->get('password');
         $data['offer_id'] = $idOffer;
-        $data['comment'] = $request->get('comment')['comment'];
+        $data['comment'] = $comment->getComment();
         
         $result = $ch->resultApiRed($data, $file);
 
-        $this->ut->flashMessage("comment", $request, $result);
+        if($result['result'] == 'ok'):
+            return $result['result'];
+        else:
+            $this->ut->flashMessage("comment", $request, $result);
+        endif;
+
     }
     
-    private function sendMessage(Request $request, $trade){
+    private function sendMessage(Request $request){
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."user/messages/send_message.php";
         
         $data['id'] = $this->session->get('id');
         $data['username'] = $this->session->get('username');
         $data['password'] = $this->session->get('password');
-        $data['to'] = $trade->getOffer()->getUserAdmin()->getUsername();
+        $data['to'] = $this->trade->getOffer()->getUserAdmin()->getUsername();
         $data['subject'] = $request->get('message')['subject'];
         $data['message'] = $request->get('message')['message'];
+        $data['offer'] = $this->trade->getOffer()->getId();
         
         $result = $ch->resultApiRed($data, $file);
         

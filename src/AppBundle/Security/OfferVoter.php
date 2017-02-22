@@ -15,6 +15,7 @@ class OfferVoter extends Voter
     const EDIT = 'edit_offer';
     const DELETE = 'delete_offer';
     const SELECT = 'select_offer';
+    const SHOW = 'show_inscriptions_offer';
     
     private $decisionManager;
 
@@ -27,15 +28,15 @@ class OfferVoter extends Voter
     {
         
         // si el atributo no es uno de los que soportamos, devolver false
-        if (!in_array($attribute, array(self::SELECT,  self::CREATE))) {
+        if (!in_array($attribute, array(self::SELECT,  self::CREATE, self::SHOW))) {
            
            // print_r('1');
             return false;
         }
 
         // sólo votar en objetos Post dentro de este voter
-        if (!$subject instanceof \WWW\OthersBundle\Entity\Trade) {
-            print_r("el objeto no es trade");
+        if (!$subject instanceof \WWW\ServiceBundle\Entity\Offer) {
+            print_r("el objeto no es oferta");
             return false;
         }
 
@@ -49,39 +50,47 @@ class OfferVoter extends Voter
         
         if (!$user instanceof User) {
             // el usuario debe estar logeado; sino, denegar el acceso
-            var_dump('El objeto no es de tipo usuario');
+            //var_dump('El objeto no es de tipo usuario');
+            
             return false;
         }
 
         // $subject es un objeto Post, gracias al método supports
-        /** @var Post $post */
-        $trade = $subject;
+        /** @var Offer offer */
+        $offer = $subject;
 
         switch($attribute) {
             
             case self::SELECT:
-                return $this->canSelect($trade, $user,$token );
+                return $this->canSelect($offer, $user,$token );
             case self::CREATE:
                 return $this->canCreate($token );
+            case self::SHOW:
+                return $this->canShowInsc($offer,$user,$token);
         }
 
         throw new \LogicException('Este código no debería ser visto');
     }
 
-    
-  
-    private function canSelect(\WWW\OthersBundle\Entity\Trade $trade, User $user ,TokenInterface $token)
+    private function canSelect(\WWW\ServiceBundle\Entity\Offer $offer, User $user ,TokenInterface $token)
     {
-         $user = $token->getUser();
-         
-        
-
-        
+         $user = $token->getUser(); 
         // esto asume que el objeto tiene un método getOwner()
         // para obtener la entidad del usuario que posee este objeto
-        if( $user->getUsername() != $trade->getOffer()->getUserAdmin()->getUsername() && !$trade->getOffer()->getExpired()){
-            return true;
-            
+        if( $user->getUsername() != $offer->getUserAdmin()->getUsername() && !$offer->getExpired()){
+            return true;            
+        }
+        else{
+            return false;
+        }
+    }
+    private function canShowInsc(\WWW\ServiceBundle\Entity\Offer $offer, User $user ,TokenInterface $token)
+    {
+         $user = $token->getUser(); 
+        // esto asume que el objeto tiene un método getOwner()
+        // para obtener la entidad del usuario que posee este objeto
+        if( $user->getUsername() == $offer->getUserAdmin()->getUsername() && ($offer->getService()->getId()=='4' || $offer->getService()->getId()=='5')){
+            return true;            
         }
         else{
             return false;

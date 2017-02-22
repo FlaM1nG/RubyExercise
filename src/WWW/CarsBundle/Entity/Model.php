@@ -2,6 +2,8 @@
 
 namespace WWW\CarsBundle\Entity;
 
+use WWW\CarsBundle\Entity\Brand;
+
 /**
  * Model
  */
@@ -21,6 +23,18 @@ class Model
      * @var string
      */
     private $slug;
+
+    /**
+     * @var \WWW\CarsBundle\Entity\Brand
+     */
+    private $brand;
+
+
+    public function __construct($id = null, $name = null, $idBrand = null, $brand = null){
+        $this->id = $id;
+        $this->name = $name;
+        $this->brand = new Brand($idBrand, $brand);
+    }
 
 
     /**
@@ -80,11 +94,6 @@ class Model
     {
         return $this->slug;
     }
-    /**
-     * @var \WWW\CarsBundle\Entity\Brand
-     */
-    private $brand;
-
 
     /**
      * Set brand

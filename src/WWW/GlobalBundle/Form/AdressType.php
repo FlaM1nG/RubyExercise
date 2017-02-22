@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\Entity\Region;
 use WWW\GlobalBundle\MyConstants;
 
 /**
@@ -24,11 +25,13 @@ class AdressType extends AbstractType{
     
     private $arrayPrefix;
     private $arrayCountry;
+    private $arrayRegion;
     
     public function buildForm(FormBuilderInterface $builder, array $options){
         
-        $this->arrayPrefixCountry();
-        
+        $this->arrayPrefix();
+        $arrayRegion = $this->arrayRregion();
+
         $builder
                 
                 ->add('name','text', array('label'=>'Nombre dirección',
@@ -38,15 +41,19 @@ class AdressType extends AbstractType{
                                                     'required' => false
                                                     ))
                 
-                ->add('country', ChoiceType::class, array('label' => 'Pais',
+                ->add('country', ChoiceType::class, array('label' => 'Población',
                                                         'required' => false,
                                                         'empty_value' => false,
-                                                        'choices' => $this->arrayCountry,
-                                                        'preferred_choices' => array('Spain')
+                                                        'choices' =>$arrayRegion,
+                                                        'choice_value' => 'countryRegion',
+                                                        'choice_label' => 'region',
+                                                        'choices_as_values'=>true,
+                                                        'group_by' => 'country'
+//                                                        'preferred_choices' => array('Spain')
                                                         ))
                 
-                ->add('region','text', array('label' => 'Región',
-                                             'validation_groups' => array('address') ))
+//                ->add('region', ChoiceType::class, array('label' => 'Población',
+//                                                        ))
                 
                 ->add('city','text', array('label'=>'Ciudad',
                                            'validation_groups' => array('address')))
@@ -71,16 +78,16 @@ class AdressType extends AbstractType{
                 ->add('id','hidden', array('label' => ' '))
                 ->add('editAddress','submit',array('label' => 'Guardar',
                                                    'validation_groups' => false,
-                                                    'attr' => array('class' => 'editAddressButton')));
+                                                    'attr' => array('class' => 'btn-default editAddressButton')));
     }
     
-    private function arrayPrefixCountry(){
+    private function arrayPrefix(){
         
         $filePrefix = MyConstants::PATH_APIREST."global/prefix/get_prefixes.php";
        
         $ch = new ApiRest();
         
-        $result = $ch->sendInformationWihoutParameters($filePrefix);
+        $result = $ch->resultApiRed(null,$filePrefix);
 
         if(!empty($result)):
             foreach($result as $prefix):
@@ -88,6 +95,25 @@ class AdressType extends AbstractType{
                 $this->arrayCountry[$prefix['country']] = $prefix['country'];
             endforeach;
         endif;
+    }
+
+    private function arrayRregion(){
+
+        $file = MyConstants::PATH_APIREST.'global/prefix/get_regions.php';
+        $ch = new ApiRest();
+        $arrayRegion = null;
+        $arrayCountry = null;
+
+        $result = $ch->resultApiRed(null,$file);
+        
+        if(!empty($result)):
+            foreach($result as $value):
+                $arrayRegion[] = new Region($value['id'], $value['region'], $value['country']);
+
+            endforeach;
+        endif;    
+
+        return $arrayRegion;
     }
     
     public function configureOptions(OptionsResolver $resolver){

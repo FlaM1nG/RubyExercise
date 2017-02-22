@@ -1,13 +1,13 @@
 user_register:
     path: /register/{token}
     defaults: { _controller: UserBundle:Register:register,token:null  }
-    
+
 user_login:
     path: /login/
     defaults: { _controller: UserBundle:Login:login }
 
 user_login_check:
-    pattern:   /login
+    pattern:   /login/
     methods:   [POST]
 
 user_logout:
@@ -105,7 +105,7 @@ user_profileMessageReceived:
     defaults: { _controller: UserBundle:Message:listMessageReceived}    
         
 user_profiler_readMessage:
-    path: /profile/message/{idMessage}
+    path: /profile/message/{idMessage}/
     defaults: { _controller: UserBundle:Message:searchMessage }
     requirements:
         idMessage: \d+        
@@ -115,11 +115,11 @@ user_forgot:
     defaults: { _controller: UserBundle:Default:forgotPass }
     
 user_change:
-    path: /change/{token}
+    path: /change/{token}/
     defaults: { _controller: UserBundle:Default:changePass }
     
 user_resend:
-    path: /resend
+    path: /resend/
     defaults: { _controller: UserBundle:Default:resend }
     
 user_ajax_valorationOffer:
@@ -132,7 +132,7 @@ user_ajax_deleteMessage:
     
 user_ajax_deleteOffer:
     path: /ajax/deleteOffer
-    defaults: { _controller: UserBundle:OfferUser:deleteOffer }  
+    defaults: { _controller: UserBundle:Offer:deleteOffer }
     
 user_ajax_deleteImageOffer:
     path: /ajax/deleteImageOffer
@@ -143,5 +143,61 @@ user_ajax_deleteAddress:
     defaults: { _controller: UserBundle:ProfileAddress:deleteAddresses }    
 
 user_public_profile:
-    path: /profile/public
-    defaults: { _controller: UserBundle:Default:publicProfile }
+    path: /profile/public/{username}/
+    defaults: { _controller: UserBundle:PublicProfile:publicProfile }
+    requirements:
+            username: \w+
+
+user_unsubscribe:
+    path: /profile/unsubscribe/
+    defaults: { _controller: UserBundle:ProfileUnsubscribe:unsubscribe }
+
+user_profileNewCar:
+    path: /profile/car/new/
+    defaults: { _controller: UserBundle:ProfileCar:newCar }
+
+user_profileListCars:
+    path: /profile/car/list/
+    defaults: { _controller: UserBundle:ProfileCar:listCar }
+
+user_profileCar:
+    path: /profile/car/{idCar}/
+    defaults: { _controller: UserBundle:ProfileCar:showCar }
+    requirements:
+            idMessage: \d+
+
+user_ajax_deleteCar:
+    path: /ajax/deleteCar
+    defaults: { _controller: UserBundle:ProfileCar:deleteCar }
+
+user_profileEditCar:
+    path: /profile/car/edit/{idCar}/
+    defaults: { _controller: UserBundle:ProfileCar:editCar }
+    requirements:
+        idMessage: \d+
+
+user_profileDesignObjects:
+    path: /profile/objects/design/
+    defaults: { _controller: UserBundle:Default:objects }
+
+user_ajax_deleteImgCar:
+    path: /ajax/deleteImgCar/
+    defaults: { _controller: UserBundle:ProfileCar:deleteImgCar }
+
+user_validationPhone:
+     path: /register/validation/
+     defaults: { _controller: UserBundle:Register:validationPhone }
+
+user_resultValidation:
+     path: /register/validationConfirmed/{resultConfirm}/
+     defaults: { _controller: UserBundle:Register:resultValidation }
+     requirements:
+        resultConfirm: 1|2
+
+user_ajax_sendSMS:
+     path: /ajax/sendSMS
+     defaults: { _controller: UserBundle:Register:sendConfirmationCode }
+
+#prueba_validation_false:
+#     path: /pruebaValidationFalse
+#     defaults: { _controller: UserBundle:Default:pruebaValidationFalse }

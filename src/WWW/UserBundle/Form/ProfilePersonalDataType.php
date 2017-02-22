@@ -32,7 +32,7 @@ class ProfilePersonalDataType extends AbstractType{
                 ->add('surname',TextType::class, array('label' => 'Apellidos',
                                                        'required' => false))
                 ->add('sex',ChoiceType::class,array(
-                                    'choices'=>array('m'=>'Mujer','h'=>'hombre'),
+                                    'choices'=>array('f'=>'Mujer','m'=>'Hombre'),
                                     'label'=>'Sexo',
                                     'required' => false,
                                     'empty_value' => false))

@@ -17,3 +17,57 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+# You should uncomment this if you want use pdo_sqlite
+    # database_path: "%kernel.root_dir%/data.db3"
+
+   # mongodb_host:      127.0.0.1
+   # mongodb_port:      27017
+   # mongodb_name:      symfony
+
+    paypal.masspay.username:  EDIT ME
+    paypal.masspay.password:  EDIT ME
+    paypal.masspay.signature: EDIT ME
+
+    paypal.express_checkout.username:  EDIT ME
+    paypal.express_checkout.password:  EDIT ME
+    paypal.express_checkout.signature: EDIT ME
+    paypal.express_checkout.usd_testuser_login: EDIT ME
+    paypal.express_checkout.usd_testuser_password: EDIT ME
+
+    paypal.pro_checkout.username: EDIT ME
+    paypal.pro_checkout.password: EDIT ME
+    paypal.pro_checkout.partner:  EDIT ME
+    paypal.pro_checkout.vendor:   EDIT ME
+
+    paypal.pro_hosted.business:  EDIT ME
+    paypal.pro_hosted.username:  EDIT ME
+    paypal.pro_hosted.password:  EDIT ME
+    paypal.pro_hosted.signature: EDIT ME
+
+    authorize_net.login_id:        EDIT ME
+    authorize_net.transaction_key: EDIT ME
+
+    be2bill.identifier: EDIT ME
+    be2bill.password:   EDIT ME
+
+    klarna.checkout.secret: EDIT ME
+    klarna.checkout.eid:    EDIT ME
+    klarna.invoice.secret:  EDIT ME
+    klarna.invoice.eid:     EDIT ME
+
+    payex.encryption_key: EDIT ME
+    payex.account_number:   EDIT ME
+
+    stripe.secret_key:  EDIT ME
+    stripe.publishable_key: EDIT ME
+
+    redsys.merchant_code:  EDIT ME
+    redsys.terminal:  EDIT ME
+    redsys.secret_key: EDIT ME
+
+    sofort.config_key: EDIT ME
+
+    # configure if you want to use console create token commands
+    router.request_context.host: payum.dev
+    router.request_context.scheme: http
+    router.request_context.port: 80

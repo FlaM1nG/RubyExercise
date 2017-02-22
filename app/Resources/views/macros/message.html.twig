@@ -82,12 +82,11 @@
                 </a>
             </div>
         </div>
-                
-              
+
         <div class="row us-mess-text">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <p>
-                    {{ message|e|slice(0, 140) ~ '...' }}
+                    {{ message|slice(0, 140) ~ '...'|e }}
                 </p>
             </div>
         </div>
@@ -143,7 +142,7 @@
         <div class="row us-mess-text">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <p>
-                    {{ (message|e|slice(0, 140) ~ '...') }}
+                    {{ (message|slice(0, 140) ~ '...')|e }}
                 </p>
             </div>
         </div>
@@ -281,6 +280,26 @@
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+
+
+{% macro messComentarioPublico(hrefUser, srcUser, nombreUser, fechaUser, numberUser, comment) %}
+    {% import 'macros/user.html.twig' as users %}
+
+    <div class="off-comment-target">
+        <div class="row">
+            <div class="off-middle off-middle-s">
+                <div class="col-lg-2 col-md-4 col-sm-3 col-xs-4 off-middle-hijo off-col-comment">
+                    {{ users.userComments( hrefUser, srcUser, nombreUser, fechaUser, numberUser) }}
+                </div>
+
+                <div class="col-lg-10 col-md-8 col-sm-9 col-xs-8  off-middle-hijo">
+                    <p>{{ comment }}</p>
                 </div>
             </div>
         </div>

@@ -1,0 +1,57 @@
+WWW\GlobalBundle\Entity\MyCompanyEvents:
+    type: entity
+    table: null
+    repositoryClass: WWW\GlobalBundle\Repository\MyCompanyEventsRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        calendarID:
+            type: integer
+        title:
+            type: string
+            length: 255
+        price:
+            type: decimal
+            precision: 10
+            scale: 0
+        ocuppate:
+            type: boolean
+            nullable: true
+        url:          
+            type: string
+            length: 255
+        bgColor:          
+            type: string
+            length: 7 
+        fgColor:          
+            type: string
+            length: 7 
+        startDatetime:          
+            type: datetime
+            nullable: true       
+        endDatetime:          
+            type: datetime
+            nullable: true
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+        allDay:          
+            type: boolean
+        otherFields:          
+            type: string
+        serviceID:
+            type: integer
+    lifecycleCallbacks: {  }

@@ -1,0 +1,30 @@
+{% macro staticRating(valoracion) %}
+
+    <div class="row off-row-rating">
+        <div class="col-lg-12">
+            <span class="off-vote">
+                <input id=""
+                       class="valoration rating rating-loading"
+                       data-show-clear="false"
+                       data-show-caption="false"
+                       data-display-only="true"
+                       type="number"
+                       step="1"
+                       value="{{ valoracion|e }}" />
+            </span>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro staticRatingJS() %}
+    <script src="{{ asset('js/starRating/star-rating.js') }}"></script>
+
+    <script>
+        $(document).ready( function(){
+
+            $('.valoration').rating({
+                displayOnly: true,
+            });
+        })
+    </script>
+{% endmacro %}

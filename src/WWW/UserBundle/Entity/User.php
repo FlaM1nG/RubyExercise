@@ -258,11 +258,15 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     private $valorationNum;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $downs;
+
+    /**
      * Constructor
      */
     public function __construct(Array $user=null){  
-        
-//        print_r($user);
+
         if(!empty($user)):  
             
             $this->birthdate = date_create_from_format('Y-m-d', $user['birthdate']);
@@ -285,9 +289,21 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
             else:
                 $this->photo = new Photo();
             endif;
+
+            if(array_key_exists('avg_score',$user)):
+                if(empty($user['avg_score'])):
+                    $this->avgScore = 0;
+                else:
+                    $this->avgScore = $user['avg_score'];
+                endif;
+            endif;
             
-            $this->createAddresses($user['addresses'], $user['default_address_id']);
-   
+             if(array_key_exists('addresses', $user)):
+                foreach($user['addresses'] as $address):
+
+                  $this->createAddresses($user['addresses'], $user['default_address_id']);
+                endforeach;
+            endif; 
         else:
             $this->addresses = new ArrayCollection();
             $this->offers = Array();
@@ -727,8 +743,8 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         return serialize(array(
             $this->id,
-//            $this->username,
-//            $this->password,
+            $this->username,
+            $this->password,
             // see section on salt below
 //            $this->salt,
         ));
@@ -739,10 +755,10 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         list (
             $this->id,
-//            $this->username,
-//            $this->password,
+            $this->username,
+            $this->password,
             // see section on salt below
-//            $this->salt 
+            // $this->salt
         ) = unserialize($serialized);
     }
     /**
@@ -1310,11 +1326,6 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     public function getUser(){
         return $this;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $downs;
-
 
     /**
      * Add revised

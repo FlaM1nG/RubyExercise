@@ -20,9 +20,22 @@ class MessageController extends Controller{
         $this->setUpVars($request);
         
         $messageSent = $this->searchMessageFrom($request);
-        
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = null;
+
+        if(!empty($messageSent)):
+            $pagination = $paginator->paginate(
+                $messageSent,
+                $request->query->getInt('page', 1),
+                MyConstants::NUM_MESSAGE_PROFILE
+            );
+        endif;
+
+
         return $this->render('UserBundle:Profile:messageSent.html.twig',
-                       array('messages' => $messageSent));
+                       array('messages' => $messageSent,
+                             'pagination' => $pagination));
         
     }
     
@@ -30,9 +43,21 @@ class MessageController extends Controller{
         $this->setUpVars($request);
         
         $messageReceived = $this->searchMessageTo($request);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = null;
+
+        if(!empty($messageReceived)):
+            $pagination = $paginator->paginate(
+                $messageReceived,
+                $request->query->getInt('page', 1),
+                MyConstants::NUM_MESSAGE_PROFILE
+            );
+        endif;
         
         return $this->render('UserBundle:Profile:messageReceived.html.twig',
-                       array('messages' => $messageReceived));
+                       array('messages' => $messageReceived,
+                             'pagination' => $pagination));
         
     }
     

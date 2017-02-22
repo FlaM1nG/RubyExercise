@@ -13,12 +13,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use WWW\GlobalBundle\Entity\Utilities;
 use WWW\ServiceBundle\Form\OfferType;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Entity\TradeCategory;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
+use WWW\GlobalBundle\Entity\Region;
 
 /**
  * Description of TradeType
@@ -26,27 +29,21 @@ use WWW\GlobalBundle\MyConstants;
  * @author Rocio
  */
 class TradeType extends AbstractType{
-    
-    private $typeForm;
-    
-    public function __construct($typeForm = null) {
-        
-        //Tipo de servicio para añadir unos campo u otros a la oferta
-        $this->typeForm = $typeForm;
-    }
+
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-        //print_r($options);
-        $arrayCategory = $this->arrayCategories();
-        
+//print_r($options['data']);
+        $service = $options['data']->getOffer()->getService()->getId();
+        $arrayCategory = $this->arrayCategories($service);
+        $arrayRegion =$this->arrayRegion();
+
         $builder
-            ->add('offer',OfferType::class)    
+            ->add('offer',OfferType::class, array('label' => ' '))
             ->add('price',MoneyType::class, array('label' => 'Precio',
-                                                      'attr' => array('placeholder' => '2.5'),
+                                                      'attr' => array('placeholder' => 'Introduzca la cantidad por la que desea vender el objeto'),
                                                       'precision' => 2,
                                                       'grouping' => true))
-            ->add('dimensions','text', array('label' => 'Dimensiones'))
-            ->add('weight','number', array('label' => 'Peso'))
+
             ->add('category',ChoiceType::class, array('label' => 'Categoria',
                                                          'required' => false,
                                                          'empty_value' => false,
@@ -57,14 +54,33 @@ class TradeType extends AbstractType{
                                                                 return ucfirst($category->getName());
                                                             },
                                                          'choice_value' => 'id'
-                                                         )) 
+                                                         ))
             
-            ->add('region',TextType::class, array('label' => 'Provincia'))
-//            ->add('checkOffer',CheckboxType::class,array('label' => ' ',
-//                                                         'mapped' => false,
-//                                                         'required' => false))                                                      
-            ->add('saveTrade','submit',array('label'=>'Guardar'));
-//            ->add('deletePhotos','submit', array('label' => 'Eliminar imágenes'));                                                
+            ->add('region',ChoiceType::class, array('label' => 'Provincia',
+                                                    'attr' => array('placeholder' => 'Provincia en la que se encuentra el objeto'),
+                                                    'choices' =>$arrayRegion,
+                                                    'choice_value' => 'countryRegion',
+                                                    'choice_label' => 'region',
+                                                    'choices_as_values'=>true,
+                                                    'group_by' => 'country'
+
+            ))
+            ->add('saveTrade',SubmitType::class,array('label'=>'Guardar'));
+
+        if($service != 3):
+
+            $builder
+//                ->add('width',NumberType::class, array('label' => 'Ancho',
+//                                                        'mapped' => false ))
+//
+//                ->add('height',NumberType::class, array('label' => 'Alto',
+//                                                        'mapped' => false ))
+//
+//                ->add('long',NumberType::class, array('label' => 'Profundidad',
+//                                                        'mapped' => false ))
+
+                ->add('weight',NumberType::class, array('label' => 'Peso'));
+        endif;
             
         
     }
@@ -76,24 +92,30 @@ class TradeType extends AbstractType{
                                      'allow_extra_fields' => true,));
     }
 
-    private function arrayCategories(){
-        
-        $arrayCategory = array();
-        
-        $fileCategory = MyConstants::PATH_APIREST."services/trade/get_categories.php";
-       
+    private function arrayCategories($id){
+
+        $ut = new Utilities();
+        $array = $ut->getArrayCategoryTrade($id);
+
+        return $array;
+    }
+
+    private function arrayRegion(){
+
+        $file = MyConstants::PATH_APIREST.'global/prefix/get_regions.php';
         $ch = new ApiRest();
-        
-        $result = $ch->sendInformationWihoutParameters($fileCategory);
+        $arrayRegion = null;
+        $arrayCountry = null;
+
+        $result = $ch->resultApiRed(null,$file);
 
         if(!empty($result)):
-            foreach($result as $category):
-                $arrayCategory[$category['id']] = new TradeCategory($category);
-        //array_push($arrayCategory,new TradeCategory($category));
+            foreach($result as $value):
+                $arrayRegion[] = new Region($value['id'], $value['region'], $value['country']);
+
             endforeach;
-        endif;  
-        
-        return $arrayCategory;
-        
+        endif;
+
+        return $arrayRegion;
     }
 }

@@ -7,8 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\GlobalBundle\Entity\Photo;
 use WWW\UserBundle\Entity\User;
-use WWW\ServiceBundle\Entity\Comment;
-use WWW\ServiceBundle\Entity\Service;
+
 
 /**
  * Offer
@@ -96,13 +95,21 @@ class Offer
     private $valorations;
 
     /**
+     * @var boolean
+     * Usada cuando tenemos datos parciales de la oferta en el perfil, no siempre vendrá este dato
+     *
+     */
+    private $hasInscriptions;
+
+    /**
      * Constructor
      */
     public function __construct($data = null){ 
      //var_dump($data);
-//        print_r($data);echo "<br><br>";
+        
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = Array();
+        $this->service = new Service();
         
         if(gettype($data) == 'array'):
             $keyPhoto = '';
@@ -128,8 +135,14 @@ class Offer
                     
                 endif;
             endforeach;
-            if(array_key_exists('service_id', $data))
-                $this->setService((int)$data['service_id']);
+            if(array_key_exists('service_id', $data)):
+
+                $service = new Service((int)$data['service_id']);
+                if(isset($data['service']))
+                    $service->setTitle($data['service']);
+
+                $this->setService($service);
+            endif;
             /*
              * Dependiendo de por donde se llame al constructor el id puede que 
              * venga en el campo offer_id
@@ -155,12 +168,24 @@ class Offer
             
             if(array_key_exists('username', $data) && array_key_exists('user_photo', $data)):
                 $user = new User();
+
+                if(array_key_exists('avg_score',$data))
+                    $user->setAvgScore($data['avg_score']);
+
                 $user->setUsername($data['username']);
+                $user->setId($data['user_admin_id']);
                 $photoUser = new Photo();
                 $photoUser->setUrl($data['user_photo']);
                 $user->setPhoto($photoUser);
                 $this->userAdmin = $user;
-            endif;    
+                if(array_key_exists('avg_score',$data))
+                    $user->setAvgScore($data['avg_score']);
+            endif;
+
+//            if(array_key_exists('has_inscriptions', $data)):
+//                $this->hasInscriptions = $data['has_']
+//            endif;
+
         endif;
 
     }
@@ -415,16 +440,16 @@ class Offer
      */
     public function setService($service = null)
     {
-        if(gettype($service == 'int')):
-            if($service == 1):
-                $newService = new Service();
-                $newService->setTable('trade');
-                $this->service = $newService;
-                
-            endif;
-        else:    
+//        if(gettype($service == 'int')):
+//            if($service == 1):
+//                $newService = new Service();
+//                $newService->setTable('trade');
+//                $this->service = $newService;
+//
+//            endif;
+//        else:
             $this->service = $service;
-        endif;
+//        endif;
 
         return $this;
     }
@@ -561,5 +586,9 @@ class Offer
     public function getValorations()
     {
         return $this->valorations;
+    }
+
+    public function getHasInscriptions(){
+        return $this->hasInscriptions;
     }
 }

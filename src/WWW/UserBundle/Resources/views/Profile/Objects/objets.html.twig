@@ -1,0 +1,88 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/coche.html.twig' as coches %}
+{% import 'macros/offer.html.twig' as iconos %}
+
+{% block title %}
+    Objects Design
+{% endblock %}
+
+{% block alertProfile %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+
+{% endblock %}
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Objects Design
+            </h3>
+            <hr/>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h4>
+                        Coches
+                    </h4>
+
+                    {% set texto = "Lorem fistrum hasta luego Lucas ese que llega hasta luego Lucas. Pecador ese hombree
+                                    ese hombree mamaar torpedo apetecan a wan." %}
+                    {% for i in 0..2 %}
+                        {{ coches.coche('#', asset('img/placeholder.png'), '0000-ZZZ', 'Marca del coche', 'Modelo del coche',
+                        random(5), texto, '#', 'dataEdit', 'titleEdit', '#', 'dataDelete', 'titleDelete') }}
+                    {% endfor %}
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {# ----------- VISTA DEL ELEMENTO COCHE ----------- #}
+    {# Array con las opciones que tieen el viaje, las claves son text y number #}
+    {% set opciones = [
+    {'text': 'animales', 'number': random(1)},
+    {'text': 'fumar', 'number': random(1)},
+    {'text': 'musica', 'number': random(1)},
+    {'text': 'hablar', 'number': random(1)}]
+    %}
+
+    {# Array de imagenes para la galeria #}
+    {% set imgGran = ['web/img/placeholder.png'] %}
+    {% for i in 0..3%}
+        {% set imgGran = imgGran|merge(['web/img/placeholder.png']) %}
+    {% endfor %}
+
+
+
+    {{ coches.cocheVista(imgGran, imgGran, 'Marca del coche', 'Modelo del coche', 'rojo', 'berlina', '0000-zzz',
+    texto, opciones) }}
+
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    {{ include('owlCarousel/owlCochesScript.html.twig') }}
+
+    {{ include('lightbox/lightboxScript.html.twig') }}
+
+{% endblock %}
+

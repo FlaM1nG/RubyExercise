@@ -11,19 +11,13 @@
     {{ include('nav/menu.html.twig') }}
 {% endblock %}
 
-{% block alert %}
-    
-{% endblock %} 
-
-
 {% block javascriptsHeader %}
     {{ parent() }}
 {% endblock %}
-      
-
-
 
 {% block body %}
+
+    {% set urlDireccion = app.request.attributes.get('_route') %}
     
 <!-- TABULADOR DE PESTAÑAS -->
 <div class="container-fluid cd-main-content us-profile-panel">
@@ -63,7 +57,19 @@
             <nav class="cd-side-nav">
                 <ul>
                     {#<li class="cd-label">Personal</li>#}
-                    <li class="has-children misDatos">
+                    <li class="has-children misDatos
+                    {% if urlDireccion == 'user_profiler' or
+                        urlDireccion == 'user_profilerPersonal' or
+                        urlDireccion == 'user_profilerEmail' or
+                        urlDireccion == 'user_profilePassword' or
+                        urlDireccion == 'user_profilePhone' or
+                        urlDireccion == 'user_profilePhoto' or
+                        urlDireccion == 'user_profileChangeBank' or
+                        urlDireccion == 'user_unsubscribe'
+                    %}
+                        active
+                    {% endif %}
+                    ">
                         {#<i class="fa fa-user" aria-hidden="true"></i>#}
                         <a href="{{path('user_profiler')}}">Mis datos</a>  
 
@@ -74,13 +80,34 @@
                             <li><a href="{{ path('user_profilePhone') }}">Teléfono</a></li>
                             <li><a href="{{ path('user_profilePhoto') }}">Foto Personal</a></li>
                             <li><a href="{{ path('user_profileChangeBank') }}">Datos bancarios</a></li>
+                            <li><a href="{{ path('user_unsubscribe') }}">Darse de baja</a></li>
                         </ul>
                     </li>
-                    <li class="addressUser">
+
+
+                    <li class="addressUser
+                    {% if urlDireccion == 'user_profileAddress' %}
+                        active
+                    {% endif %}
+                    ">
                         <a href="{{ path('user_profileAddress') }}">Direcciones</a>
                     </li>
-                    <li class="has-children comments active">
-                        <a href="{{path('user_profileMessage')}}">Mensajes<span class="count">{{app.session.get('numMessage')}}</span></a>
+
+
+                    <li class="has-children comments
+                    {% if urlDireccion == 'user_profileMessage' or
+                    urlDireccion == 'user_profileNewMessage' or
+                    urlDireccion == 'user_profileMessageSent'
+                    %}
+                        active
+                    {% endif %}
+                    ">
+                        <a href="{{ path('user_profileMessage') }}">
+                            Mensajes
+                            {% if app.session.get('numMessage') > 0 %}
+                            <span class="count">{{app.session.get('numMessage')}}</span>
+                            {% endif %}
+                        </a>
 
                         <ul>
                             <li><a href="{{path('user_profileNewMessage')}}">Redactar</a></li>
@@ -88,10 +115,17 @@
                             <li><a href="{{path('user_profileMessageSent')}}">Enviados</a></li>
                         </ul>
                     </li>
-                    
-{#                    {% for i in 0..10 %}#}
-                    <li class="has-children offerUser">
-                        <a href="">Ofertas</a>
+
+
+                    <li class="has-children offerUser
+                    {% if urlDireccion == 'user_profiler_offers' or
+                    urlDireccion == 'user_profiler_purchases' or
+                    urlDireccion == 'user_profiler_inscriptions'
+                    %}
+                        active
+                    {% endif %}
+                    ">
+                        <a href="{{path('user_profiler_offers')}}">Ofertas</a>
 
                         <ul>
                             <li><a href="{{path('user_profiler_offers')}}">Mis ofertas</a></li>
@@ -99,7 +133,46 @@
                             <li><a href="{{path('user_profiler_inscriptions')}}">Inscripciones</a></li>
                         </ul>
                     </li>
-{#                    {% endfor %}#}
+
+
+                    <li class="has-children userCar">
+                        <a href="">Coches</a>
+
+                        <ul>
+                            <li><a href="{{ path('user_profileListCars') }}">Lista de coches</a></li>
+                            <li><a href="{{ path('user_profileNewCar') }}">Añadir coche</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="has-children userHouse">
+                        <a href="">Casas</a>
+
+                        <ul>
+                            <li><a href="#">Lista de casas</a></li>
+                            <li><a href="#">Añadir casa</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="has-children userShip">
+                        <a href="">Barcos</a>
+
+                        <ul>
+                            <li><a href="#">Lista de barcos</a></li>
+                            <li><a href="#">Añadir barco</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="has-children userBike">
+                        <a href="">Bicicletas</a>
+
+                        <ul>
+                            <li><a href="#">Lista de bicicletas</a></li>
+                            <li><a href="#">Añadir bicicleta</a></li>
+                        </ul>
+                    </li>
                     
                 </ul>
             </nav>
@@ -132,29 +205,37 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
-    <script>
-        $(document).ready(function(){
-{#            console.log($('.content-wrapper').height());#}
-            if($(window).width() > 768){
-                $('.cd-side-nav').css('height', '0');
-                $('.cd-side-nav').css('height', $('.content-wrapper').height());
-            }else{
-                $('.cd-side-nav').css('height', 'inherit');
-            }
-        });
-    
-        $(window).resize(function(){
-{#            console.log($('.content-wrapper').height());#}
-            if($(window).width() > 768){
-                $('.cd-side-nav').css('height', '0');
-                $('.cd-side-nav').css('height', $('.content-wrapper').height());
-            }else{
-                $('.cd-side-nav').css('height', 'inherit');
-            }
-            
-            
-        });
-    </script>
+    {# $(".content-wrapper").bind("DOMSubtreeModified", function() {}); #}
+
+    {#<script type="text/javascript">#}
+        {#$(document).ready(function(){#}
+            {#if($(window).width() > 768){#}
+                {#if($(".us-dataPersonal-row").outerHeight() >= $('.cd-side-nav').outerHeight() || $(".us-dataPersonal-row").outerHeight() >= $('.cd-side-nav>ul').outerHeight() ){#}
+                    {#$('.cd-side-nav').css('height', $('.us-dataPersonal-row').outerHeight());#}
+                {#}else{#}
+                    {#$('.cd-side-nav').css('height', 'inherit');#}
+                {#}#}
+            {#}#}
+
+                {#$(".us-dataPersonal-row").bind("DOMSubtreeModified", function() {#}
+                    {#if($(window).width() > 768){#}
+                        {#if($(".us-dataPersonal-row").outerHeight() >= $('.cd-side-nav').outerHeight() || $(".us-dataPersonal-row").outerHeight() >= $('.cd-side-nav>ul').outerHeight() ){#}
+                            {#$('.cd-side-nav').css('height', $('.us-dataPersonal-row').outerHeight());#}
+                        {#}else{#}
+                            {#$('.cd-side-nav').css('height', 'inherit');#}
+                        {#}#}
+                    {#}#}
+                {#});#}
+
+                {#$(window).resize(function(){#}
+                    {#if($(".us-dataPersonal-row").outerHeight() >= $('.cd-side-nav').outerHeight() || $(".us-dataPersonal-row").outerHeight() >= $('.cd-side-nav>ul').outerHeight() ){#}
+                        {#$('.cd-side-nav').css('height', $('.us-dataPersonal-row').outerHeight());#}
+                    {#}else{#}
+                        {#$('.cd-side-nav').css('height', 'inherit');#}
+                    {#}#}
+                {#});#}
+        {#});#}
+    {#</script>#}
     <script src="{{ asset('js/jquery.menu-aim.js') }}"></script>
     <script src="{{ asset('js/mainUserMenu.js') }}"></script> <!-- Resource jQuery -->
 

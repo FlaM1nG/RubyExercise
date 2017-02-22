@@ -1,0 +1,159 @@
+{% macro coche(hrefCar, srcCar, matricula, marca, modelo, asientos, descripcion, hrefEdit, dataEdit, titleEdit,
+hrefDelete, dataDelete, titleDelete) %}
+    <div class="us-car-element element_{{ dataDelete }}">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="us-car-image-marco">
+                            <a href="{{ hrefCar|e }}">
+                                <img class="img-responsive img-car-list" src="{{ srcCar|e }}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-car-matricula">
+                        <span>{{ matricula|e }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a href="{{ hrefCar|e }}">
+                            <h3>{{ marca|capitalize|e }}</h3>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-car-modelo">
+                        <p>{{ modelo|capitalize|e }}</p>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 us-car-asientos">
+                        <p>
+                            {{ asientos }}
+                            {% if asientos == 1%}
+                                asiento
+                            {% else %}
+                                asientos
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p>{{ descripcion }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a href="{{ hrefEdit|e }}" class="btn btn-default us-mess-btn"
+                           data-id="{{ dataEdit|e }}"
+                           data-toggle="tooltip"
+                           data-placement="bottom"
+                           title="{{ titleEdit|e }}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+
+                        <a href="{{ hrefDelete|e }}" class="btn btn-default us-mess-btn deleteCar"
+                           data-id="{{ dataDelete|e }}"
+                           data-toggle="tooltip"
+                           data-placement="bottom"
+                           title="{{ titleDelete|e }}">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endmacro %}
+
+
+
+
+
+
+{% macro cocheVista(imagenesGrandes, imagenesPequenas, marca, modelo, color, tipo, matricula, descripcion, posibilidades) %}
+    {% import 'macros/offer.html.twig' as iconos %}
+    <div class="us-car-element-individual">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div id="us-img-big" class="owl-carousel">
+                    {% for imagenGrande in imagenesGrandes %}
+                        <div class="item">
+                            <div class="us-img-marco-grande">
+                                <a href="{{ asset(imagenGrande|e|default('img/placeholder.jpg'), 'img') }}"
+                                   data-lightbox="item">
+
+                                    <img class="img-responsive off-img-expo"
+                                         src="{{ asset(imagenGrande|e|default('img/placeholder.jpg'), 'img') }}"
+                                         alt="">
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div id="us-img-small" class="owl-carousel">
+                    {% for imagenPeque in imagenesPequenas %}
+                        <div class="item off-item-dime">
+                            <div class="us-img-marco-peque">
+                                <img class="img-responsive off-img-slid"
+                                     src="{{  asset(imagenPeque|e|default('img/placeholder.jpg'), 'img') }}"
+                                     alt="">
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 us-car-text">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-title-car">
+                        <h2>{{  marca|capitalize|e }}</h2>
+                        <h3>{{ modelo|capitalize|e }}</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 us-col-caracteristicas">
+                        <strong>Color</strong>
+                        <span>{{ color|capitalize|e }}</span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 us-col-caracteristicas us-col-car-center">
+                        <strong>Tipo de coche</strong>
+                        <span>{{ tipo|capitalize|e }}</span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 us-col-caracteristicas">
+                        <strong>Matrícula</strong>
+                        <span>{{ matricula|upper|e }}</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p>{{ descripcion }}</p>
+                    </div>
+                </div>
+
+                <div class="row row-us-car-opt">
+                    {% for opcion in posibilidades|sort %}
+                        {{ iconos.atriOffer(opcion.text, opcion.number) }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

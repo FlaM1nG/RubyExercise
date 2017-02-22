@@ -1,8 +1,9 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
 {% import 'macros/offer.html.twig' as offers %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block title %}
-    Ofertas
+    Mis ofertas publicadas
 {% endblock %}
 
 {% block alertProfile %}
@@ -25,19 +26,46 @@
 
 
 {% block bodyProfile %}
-    <h2>LISTA OFERTA DISFRUTADAS</h2>
-    
-    {% for purchase in purchases %}
-        
-        {% set urlValoration = '' %}
-        {% if purchase.valorated is not empty %}
-            {% set urlValoration = path('user_profiler_purchasesValoration',{idOffer: purchase.offer_id}) %}
-        {% endif %}
+    <div class="row us-dataPersonal-row-fluid">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Mis ofertas Compradas
+            </h3>
+            <hr/>
 
-        {{ offers.offUserDisfrutadas('', purchase.offer_photo ,purchase.title, purchase.created_date, 
-            purchase.description, 'leer', urlValoration, 
-            'Valorar', '#PDF', 'PDF') }}
-    {% endfor %}
+            {% if purchases == null %}
+                <h4>
+                    Aún no has comprado nada
+                </h4>
+                <p>
+                    ¡Compra y disfruta de las ventajas de hacerlo en What Want Web!
+                </p>
+                <p>
+                    Revisa nuestra página y disfruta de nuestros fantásticos servicios y de las ventajas que te ofrecen estas.
+                </p>
+            {% else %}
+
+                {% for purchase in pagination %}
+
+                    {% set urlValoration = '' %}
+                    {% if purchase.valorated is not empty %}
+                        {% set urlValoration = path('user_profiler_purchasesValoration',{idOffer: purchase.offer_id}) %}
+                    {% endif %}
+
+                    {{ offers.offUserDisfrutadas('', purchase.offer_photo ,purchase.title, purchase.created_date,
+                        purchase.description, 'leer', urlValoration,
+                        'Valorar', '#PDF', 'PDF') }}
+                {% endfor %}
+
+                {% if pagination is not null %}
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
     
 {% endblock %}
 
@@ -45,11 +73,7 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
-    
-    <script src="path/to/js/star-rating.js" type="text/javascript"></script>
- 
-    <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
-    <script src="path/to/themes/krajee-svg/theme.js"></script>
-       
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row-fluid') }}
+
 {% endblock %}
     

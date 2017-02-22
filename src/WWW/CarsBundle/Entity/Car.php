@@ -2,37 +2,38 @@
 
 namespace WWW\CarsBundle\Entity;
 
+use Doctrine\Common\Util\Inflector;
+use Symfony\Component\Validator\Constraints as Assert;
+use WWW\GlobalBundle\Entity\Photo;
+use WWW\UserBundle\Entity\User;
+
+
 /**
  * Car
  */
-class Car
-{
+class Car {
     /**
      * @var int
      */
     private $id;
 
     /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    /**
      * @var string
+     *
      */
     private $plate;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $color;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $description;
 
@@ -96,6 +97,119 @@ class Car
      */
     private $user;
 
+    /**
+     * @var \DateTime
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $deletedDate;
+
+    /**
+     * @var boolean
+     */
+    private $isDeleted;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    
+    private $photos;
+
+    /**
+     * @var integer
+     */
+    private $seats;
+
+    /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @var \WWW\CarsBundle\Entity\Model
+     */
+    private $model;
+
+    /**
+     * Constructor
+     */
+    public function __construct($data = null){
+
+        if($data != null):
+
+            foreach($data as $key => $value):
+                $key = Inflector::camelize($key);
+
+                if(property_exists('WWW\CarsBundle\Entity\Car',$key)):
+
+                    if($key != 'model'):
+                        if($key == 'smoke' || $key == 'animals' || $key == 'music' || $key == 'talk'):
+
+                            $value = (bool) $value;
+                        endif;
+                        $this->$key = $value;
+                    else:
+                        $idBrand = null;
+                        if(array_key_exists('brand_id',$data)) $idBrand = $data['brand_id'];
+                        $this->model = new Model($data['model_id'],$data['model'],$idBrand,$data['brand']);
+                    endif;
+                endif;
+
+            endforeach;
+
+            $this->photoCar($data);
+
+            $this->user = new User();
+            $this->user->setId($data['user_id']);
+        else:
+            $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->brand = new Model();
+        endif;
+
+
+    }
+
+    private function photoCar($data){
+
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+
+        if(array_key_exists('photos', $data)):
+            foreach($data['photos'] as $value):
+                $photo =  new Photo($value);
+                $this->addPhoto($photo);
+            endforeach;
+        elseif(array_key_exists('car_photo', $data)):
+            $photo =  new Photo($data['car_photo']);
+
+            if(array_key_exists('car_photo_id', $data)):
+                $photo->setId($data['car_photo_id']);
+            endif;
+            
+            $this->addPhoto($photo);
+        endif;
+    }
+
+    public function setId($id){
+        return $this->id = $id;
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set plate
@@ -456,26 +570,6 @@ class Car
     {
         return $this->user;
     }
-    /**
-     * @var \DateTime
-     */
-    private $createdDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $modifiedDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $deletedDate;
-
-    /**
-     * @var boolean
-     */
-    private $isDeleted;
-
 
     /**
      * Set createdDate
@@ -572,18 +666,6 @@ class Car
     {
         return $this->isDeleted;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $photos;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add photo
@@ -618,16 +700,6 @@ class Car
     {
         return $this->photos;
     }
-    /**
-     * @var integer
-     */
-    private $seats;
-
-    /**
-     * @var string
-     */
-    private $type;
-
 
     /**
      * Set seats
@@ -676,11 +748,6 @@ class Car
     {
         return $this->type;
     }
-    /**
-     * @var \WWW\CarsBundle\Entity\Model
-     */
-    private $model;
-
 
     /**
      * Set model
@@ -704,5 +771,20 @@ class Car
     public function getModel()
     {
         return $this->model;
+    }
+
+    /*
+    * @return Array de grupos
+    */
+    public function getGroupSequence()
+    {
+        $groups = array('Car');
+
+        if ($this->isNewCar()) :
+
+            $groups[] = 'email';
+        endif;
+
+        return $groups;
     }
 }

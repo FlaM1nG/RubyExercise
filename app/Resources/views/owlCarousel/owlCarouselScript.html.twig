@@ -11,7 +11,7 @@
             singleItem : true,
             slideSpeed : 1000,
             navigation: false,
-            pagination:false,
+            pagination: true,
             afterAction : syncPosition,
             responsiveRefreshRate : 200,
         });
@@ -22,7 +22,9 @@
             itemsDesktopSmall     : [1450,3],
             itemsTablet       : [1200,2],
             itemsMobile       : [479,1],
-            pagination:false,
+            navigation: true,
+            pagination: false,
+            navigationText: ["<",">"],
             responsiveRefreshRate : 100,
             afterInit : function(el){
                 el.find(".owl-item").eq(0).addClass("synced");
@@ -57,24 +59,24 @@
                 if(num === sync2visible[i]){
                     var found = true;
                 }
-          }
- 
-        if(found===false){
-            if(num>sync2visible[sync2visible.length-1]){
-                sync2.trigger("owl.goTo", num - sync2visible.length+2);
-            }else{
-                if(num - 1 === -1){
-                    num = 0;
-                }
-                sync2.trigger("owl.goTo", num);
             }
-        } else if(num === sync2visible[sync2visible.length-1]){
-            sync2.trigger("owl.goTo", sync2visible[1]);
-        } else if(num === sync2visible[0]){
-            sync2.trigger("owl.goTo", num-1);
-        }
-    
-  }
  
-});
+            if(found===false){
+                if(num>sync2visible[sync2visible.length-1]){
+                    sync2.trigger("owl.goTo", num - sync2visible.length+2);
+                }else{
+                    if(num - 1 === -1){
+                        num = 0;
+                    }
+                    sync2.trigger("owl.goTo", num);
+                }
+            } else if(num === sync2visible[sync2visible.length-1]){
+                sync2.trigger("owl.goTo", sync2visible[1]);
+            } else if(num === sync2visible[0]){
+                sync2.trigger("owl.goTo", num-1);
+            }
+    
+        }
+ 
+    });
 </script>

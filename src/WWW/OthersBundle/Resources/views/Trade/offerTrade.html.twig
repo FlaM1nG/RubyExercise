@@ -6,6 +6,16 @@
 {% endblock %}
        
 {% block body %}
+
+    {% set titleTrade = "" %}
+    {% if service == 1 %}
+        {% set titleTrade = "Compra-Venta General" %}
+    {% elseif  service == 2 %}
+        {% set titleTrade = "Ropa y Complementos" %}
+    {% elseif service == 3 %}
+        {% set titleTrade = "Trueque" %}
+    {% endif %}
+
     {% block alert %}
         {% for flash_message in app.session.flashbag.get('messageFail') %}
            {{  alerts.alert('alert-warning', flash_message, null) }}
@@ -16,99 +26,107 @@
         {% endfor %}
     {% endblock %}
 
-    {{ form_start(formTrade) }}
-        {{ form_row(formTrade.saveTrade) }}
-        {{ form_row(formTrade.category) }}
-        {{ form_row(formTrade.region) }}
-        {{ form_row(formTrade.offer.title) }}
-        {{ form_row(formTrade.offer.description) }}
-        {{ form_row(formTrade.dimensions) }}
+    <div class="container">
+        {{ form_start(formOffer) }}
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>
+                    Nueva Oferta de {{ titleTrade }}
+                </h3>
+                <hr/>
+            </div>
+        </div>
 
-        <!--ul class="photosTrade" data-prototype="{{ form_widget(formTrade.offer.photos.vars.prototype)|e('html_attr') }}">
-     
-        </ul-->
+        <div class="row">
+            <div class="col-lg-12">
 
-        {{ form_row(formTrade.offer.fileImage) }}
-        {{ form_row(formTrade.weight) }}
-        {{ form_row(formTrade.price) }}  
+                {{ form_row(formOffer.category) }}
+                {{ form_row(formOffer.offer.title) }}
+                {{ form_row(formOffer.offer.description) }}
+                {{ form_row(formOffer.region) }}
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <div class="panel panel-default off-panel-dimension">
+                        <div class="panel-heading">
+                            Dimensiones del paquete donde se va a enviar
+                        </div>
+                        <div class="panel-body">
+                            {% if service != 3 %}
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        {{ form_row(formOffer.weight) }}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+
+                            <div class="row">
+                                <div class="col-lg-12 off-texto-matizar">
+                                    <p>
+                                        Debe introducir las dimensiones de manera precisa debido a que el cálculo de estas
+                                        afectan directamente al precio del paquete.<br>
+                                        Para obtener más información pincha <a href="#">aquí</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12 off-price-offer">
+                {% if service != 3 %}
+                    {{ form_row(formOffer.price) }}
+                {% endif %}
+
+                {{ form_row(formOffer._token) }}
+
+                <label class="control-label" for="trade_price">Imágenes</label>
+                <input id="imgOffer" name="imgOffer[]" type="file" multiple class="file-loading" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 off-col-btn-new-off">
+                {{ form_row(formOffer.saveTrade) }}
+            </div>
+        </div>
+
+    </div>
+
 
         
 {% endblock %}
 
 {% block javascriptsFooter %}   
       {{ parent() }}
+
+    <!-- the main fileinput plugin file -->
+    <script src="{{ asset('js/fileinput.js') }}"></script>
+
     <script type="text/javascript">
 
         $(document).ready(function() {
-            var $collectionHolder;
 
-            // setup an "add a tag" link
-            var $addTagLink = $('<button class="add_tag_link">Añadir imagen</button>');
-            var $newLinkLi = $('<li></li>').append($addTagLink);
+            $("#imgOffer").fileinput({
 
-            jQuery(document).ready(function() {
-                // Get the ul that holds the collection of tags
-                $collectionHolder = $('ul.photosTrade');
-
-                // add a delete link to all of the existing tag form li elements
-                $collectionHolder.find('li').each(function() {
-                    addTagFormDeleteLink($(this));
-                });
-
-                // add the "add a tag" anchor and li to the tags ul
-                $collectionHolder.append($newLinkLi);
-
-                // count the current form inputs we have (e.g. 2), use that as the new
-                // index when inserting a new item (e.g. 2)
-                $collectionHolder.data('index', $collectionHolder.find(':input').length);
-
-                $addTagLink.on('click', function(e) {
-                    // prevent the link from creating a "#" on the URL
-                    e.preventDefault();
-
-                    // add a new tag form (see next code block)
-                    addTagForm($collectionHolder, $newLinkLi);
-                });
+                initialPreviewAsData: true,
+                overwriteInitial: false,
+                maxFileSize: 3072,
+                showRemove: false,
+                showUpload: false,
+                showZoom: false,
+                initialCaption: '',
+                maxFileCount: 5,
             });
-            
-            function addTagForm($collectionHolder, $newLinkLi) {
-                // Get the data-prototype explained earlier
-                var prototype = $collectionHolder.data('prototype');
-
-                // get the new index
-                var index = $collectionHolder.data('index');
-
-                // Replace '__name__' in the prototype's HTML to
-                // instead be a number based on how many items we have
-                var newForm = prototype.replace(/__name__/g, index);
-
-                // increase the index with one for the next item
-                $collectionHolder.data('index', index + 1);
-
-                // Display the form in the page in an li, before the "Add a tag" link li
-                var $newFormLi = $('<li></li>').append(newForm);
-                $newLinkLi.before($newFormLi);
-                
-                 addTagFormDeleteLink($newFormLi);
-            }
-            
-            function addTagFormDeleteLink($tagFormLi) {
-                var $removeFormA = $('<button>Eliminar imagen</button>');
-               
-                $tagFormLi.append($removeFormA);
-
-                $removeFormA.on('click', function(e) {
-                    // prevent the link from creating a "#" on the URL
-                    e.preventDefault();
-
-                    // remove the li for the tag form
-                    $tagFormLi.remove();
-                });
-            }
-            
-            $(':file').change(function(){
-                console.log($(this));
-            })
         });
 
 

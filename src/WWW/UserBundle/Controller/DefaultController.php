@@ -10,6 +10,18 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 
 class DefaultController extends Controller{
+
+    public function pruebaValidationAction(Request $request){
+        return $this->render('UserBundle:Validation:validation.html.twig');
+    }
+
+    public function pruebaValidationTrueAction(Request $request){
+        return $this->render('UserBundle:Validation:validationTrue.html.twig');
+    }
+
+    public function pruebaValidationFalseAction(Request $request){
+        return $this->render('UserBundle:Validation:validationFalse.html.twig');
+    }
     
     public function indexAction(Request $request)
     {
@@ -46,33 +58,34 @@ class DefaultController extends Controller{
                 
     }
     
-    public function forgotPassAction(Request $request){
-        
+    public function forgotPassAction(Request $request)
+    {
+
         $usuario = new User();
-       
-        $formulario = $this->createForm('WWW\UserBundle\Form\ForgotPassType',$usuario);
-         
+
+        $formulario = $this->createForm('WWW\UserBundle\Form\ForgotPassType', $usuario);
+
         //El usuario del formulario se asocia al objeto $usuario
         $formulario->handleRequest($request);
-        
-        if(!empty($usuario->getEmail())):
-            
-            $file = MyConstants::PATH_APIREST."user/passwords/forget_password.php";
+
+        if (!empty($usuario->getEmail())):
+
+            $file = MyConstants::PATH_APIREST . "user/passwords/forget_password.php";
             $data = array("email" => $usuario->getEmail());
-        
+
             $ch = new ApiRest();
             $result = $ch->sendInformation($data, $file, "parameters");
-            
-            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
+
+            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig', array('formulario' => $formulario->createView()));
         else:
-            
-            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig',array('formulario'=>$formulario->createView()));
+
+            return $this->render('UserBundle:ForgotPass:forgotpass.html.twig', array('formulario' => $formulario->createView()));
         endif;
-                
+
     }
     
-    public function publicProfileAction(Request $request){
-        return $this->render('UserBundle:Default:profilePublic.html.twig');
+    public function unSubscribeAction(Request $request){
+        return $this->render('UserBundle:Profile:unSubscribe.html.twig');
     }
     
     public function ResendAction(Request $request){
@@ -84,7 +97,7 @@ class DefaultController extends Controller{
         
         if(!empty($usuario->getEmail())):            
 
-            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/email/resend_email.php";
+            $file =  MyConstants::PATH_APIREST."user/email/resend_email.php";
             $data = array("email" => $usuario->getEmail());
             $ch = new ApiRest();
             $result = $ch->sendInformation($data, $file, "parameters");            
@@ -95,5 +108,9 @@ class DefaultController extends Controller{
 
         endif;
 
+    }
+
+    public function objectsAction(Request $request){
+        return $this->render('UserBundle:Profile/Objects:objets.html.twig');
     }
 }

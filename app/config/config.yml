@@ -2,12 +2,17 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: payum.yml }
+    - { resource: admin.yml }
     - { resource: "@UserBundle/Resources/config/services.yml" }
     - { resource: "@GlobalBundle/Resources/config/services.yml" }
     - { resource: "@ServiceBundle/Resources/config/services.yml" }
     - { resource: "@OthersBundle/Resources/config/services.yml" }
+    - { resource: "@PDFBundle/Resources/config/services.xml" }
     - { resource: "@CarsBundle/Resources/config/services.yml" }
     - { resource: "@HouseBundle/Resources/config/services.yml" }
+
+
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -39,7 +44,7 @@ framework:
     assets:  
         packages:
             img: 
-                base_urls: 'http://whatwantweb.com/'
+                base_urls: 'http://whatwantweb.com/n19n382d23HnNY7bb8nj0m9nyb988676HUUBY6g7J9JI/'
 
         
 # Twig Configuration
@@ -71,6 +76,17 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
+#doctrine_mongodb:
+#  connections:
+#    default: # <-- indentation added here
+#      server: mongodb://localhost:27017
+#      options: {}
+#  default_database: test_database
+#  document_managers:
+#    default:
+#      auto_mapping: true
+
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -83,46 +99,28 @@ gregwar_captcha:
     width: 200
     height: 50
     length: 4
-    
-easy_admin:
-    disabled_actions: ['new']
-    list:
-        actions: ['edit', 'search','show']
-    formats:
-        date:     'd/m/Y'
-        time:     'H:i'
-        datetime: 'd/m/Y H:i:s'
-    design:
-        brand_color: '#f60'
-    site_name: 'WhatWantWeb_Management'
-    entities:
-        Message:
-            class: WWW\UserBundle\Entity\Message
-            list:
-                fields: ['id','subject','message','status','revisionDate','createdDate','from','to']
-            form:
-                fields:
-                    - status
-                    - { property: 'revisionDate',format: 'j/n/Y' }
-        Photo:
-            class: WWW\GlobalBundle\Entity\Photo
-            list:
-                fields:
-                    - id
-                    - { property: 'url', type: 'image', base_path: 'http://whatwantweb.com/' }
-                    - { property: 'createdDate',format: 'j/n/Y'}
-                    - { property: 'modifiedDate',format: 'j/n/Y'}
-        Trade:
-            class: WWW\OthersBundle\Entity\Trade
-        Offer:    
-            class: WWW\ServiceBundle\Entity\Offer
-        User:
-            disabled_actions: ['show']
-            class: WWW\UserBundle\Entity\User
-            list:
-                fields: ['id','name','surname','username','email','phone','isBanned']
-                    
-        Address:
-            class: WWW\GlobalBundle\Entity\Address
-         
-        
+
+knp_snappy:
+    pdf:
+        enabled: true
+        binary: C:/wkhtmltopdf/bin/wkhtmltopdf.exe
+        options: []
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+
+#KnpPaginatorBundle
+
+knp_paginator:
+    page_range: 5  # número de páginas a mostrar
+    default_options:
+          page_name: page # nombre del parámetro de paginación
+          sort_field_name: sort # nombre del parámetro para ordenar los registros
+          sort_direction_name: direction # nombre del parámetro para ordenar la dirección de los registros
+          distinct: true # incluir resultados diferentes, útil en consultas con GROUP BY
+    template:
+          pagination: ::paginator/custom_pagination.html.twig # plantilla utilizada en la paginación
+          sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # plantilla utilizada en la paginación para ordenar los resultados

@@ -42,9 +42,12 @@ class Service
     private $offers;
 
     public function __construct($id = null) {
-        $this->id = null;
+        $this->id = $id;
     }
 
+    public function setId($id){
+        $this->id = $id;
+    }
     /**
      * Get id
      *

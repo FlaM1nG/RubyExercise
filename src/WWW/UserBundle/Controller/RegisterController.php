@@ -47,34 +47,22 @@ class RegisterController extends Controller{
             
             $result = $this->newUser($request, $totalHobbies);
             
-            if($result == 'ok'):
+            if ($result['result'] == 'ok'):
+//              Aqui guardamos el usuario registrado
+//              $this->get('app.manager.usuario_manager')->guardar($this->usuario);
+//                $this->get('app.manager.usuario_manager')->login($this->usuario);
                 $this->ut->flashMessage('register', $request, null);
-                return $this->redirectToRoute('homepage');
+
+                return $this->redirectToRoute('prueba_validation');
+                //return $this->forward('UserBundle:Login:login');
+               // return $this->render('UserBundle:Default:login.html.twig',array('formulario'=>$formulario->createView()));
             else:
                 return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
             endif;
-            
-            $nacimiento =$arrayBirthdate['year']."-".$mes.'-'.$dia;
-            $this->get('app.manager.usuario_manager')->login($usuario);
-            $tokenRoleUser=$this->get('security.token_storage')->getToken();
-            $request->getSession()->set('tokenRole', $tokenRoleUser);
-            $request->getSession()->save();
-            $file = "http://www.whatwantweb.com/A67C1VY9OgkXN496HSxNYG598A3M13/api_rest/user/registration/register_user.php";
-            $data = array("username" => $usuario->getUsername(),
-                          "email" => $usuario->getEmail(),
-                          "date" => $nacimiento,
-                          "password" => $usuario->getPassword(),
-                          "prefix" => $usuario->getPrefix(),
-                          "phone" => $usuario->getPhone(),
-                          "hobbies" => $hobbies,
-+                         "token"=>$token
-                );
-            
+                      
+
             $ch = new ApiRest();
-            
-            $result = $ch->sendInformation($data, $file, "parameters");
-            return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
-        else:
+        else:                       
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
         endif;
                 
@@ -137,4 +125,75 @@ class RegisterController extends Controller{
     }
 
 
+    public function validationPhoneAction(Request $request){
+
+        if(!empty($request->request->all())):
+            $result = $this->validateCode($request);
+        
+            if($result == 'ok'):
+                $this->redirectToRoute('user_resultValidation',array('resultConfirm' => 1));
+            else:
+                $session = $request->getSession();
+                if(!$session->has('numIntento') && !$session->has('numSendSMS')):
+                    $session->set('numIntento', 1);
+                    $session->set('numSendSMS',1);
+
+                else:
+                    $session->set('numIntento', $session->get('numSMS')+1);
+                    $session->set('numSendSMS', $session->get('numSendSMS')+1);
+                endif;
+
+                if($session->get('numSendSMS') > 3):
+                    return $this->redirectToRoute('user_validationPhone',array('resultConfirm' => 2));
+                endif;
+
+            endif;    
+        endif;
+
+        return $this->render('UserBundle:Validation:validation.html.twig');
+    }
+
+    private function validateCode(Request $request){
+        $file = MyConstants::PATH_APIREST."user/phone/confirm_sms.php";
+        $ch = new ApiRest();
+
+        $data['username'] = $request->getSession()->get('username');
+        $data['id'] = $request->getSession()->get('id');
+        $data['password'] = $request->getSession()->get('password');
+        $data['token'] = $request->get('token');
+        
+        $result = $ch->resultApiRed($data,$file);
+        
+        return $result['result'];
+    }
+    
+    public function resultValidationAction(Request $request){
+
+        $resultConfirm = $request->get('resultConfirm');
+
+        if($resultConfirm == 1):
+            return $this->render('UserBundle:Validation:validationTrue.html.twig');
+        elseif($resultConfirm == 2):
+            return $this->render('UserBundle:Validation:validationFalse.html.twig');
+        endif;
+    }
+
+    private function sendConfirmationCodeAction(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'user/phone/send_sms.php';
+        $ch = new ApiRest();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+
+        $result = $ch->resultApiRed($data,$file);
+
+        $response = new JsonResponse();
+
+        $response->setData(array('result' => 'ok',
+                                 'message' => 'Se le ha enviado un mensaje nuevo con el código que debe introducir'));
+
+        return $response;
+    }
 }

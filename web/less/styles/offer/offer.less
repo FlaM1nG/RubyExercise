@@ -1,5 +1,50 @@
-/* ------------------ MENU DE ADMINISTRACI�N  ------------------
-******************************************************************/
+/* Inscritos */
+
+.cont-inscri{
+    min-height: 60vh;
+}
+
+.a2a_svg.a2a_s__default {
+    height: 36px !important;
+    width: 36px !important;
+}
+
+.a2a_default_style a {
+    padding: 0 5px !important;
+}
+
+#off-img-big {
+    .owl-page {
+        span {
+            background: @brand-primary;
+        }
+    }
+}
+
+#off-img-small.owl-carousel.owl-theme {
+    position: relative;
+    .owl-next, .owl-prev {
+        width: 22px;
+        height: 40px;
+        margin-top: -20px;
+        position: absolute;
+        top: 40%;
+    }
+    .owl-prev {
+        left: 10px;
+        background: none;
+        font-size: 36px;
+        color: @brand-primary;
+        opacity: 1;
+    }
+    .owl-next {
+        right: 10px;
+        background: none;
+        font-size: 36px;
+        color: @brand-primary;
+        opacity: 1;
+    }
+}
 
 /* ***** OFFER ***** */
 .off-container{
@@ -17,20 +62,32 @@
     font-weight: 900;
     line-height: 1em;
     color: @brand-primary;
-    display: inline-block;
-    margin-right: 30px;
 }
 
 .off-vote {
-    display: inline-block;
-    padding-right: 20px;
 }
 
 .off-date{
-    display: inline-block;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 2;
+    font-size: 14px;
+    line-height: 1em;
+    color: @gray;
+}
+
+.col-off-date{
+    //text-align: right;
+    margin-top: 7px;
+}
+
+.col-off-prin{
+    padding: 0 2%;
+}
+
+.panel-off-heading{
+    text-align: center;
+}
+
+.off-panel-body{
+    min-height: 350px;
 }
 
 .off-img-marco-grande {
@@ -45,7 +102,7 @@
     overflow: hidden;
     padding: 0;
     position: relative;
-    
+
     a {
         pointer-events: none;
         cursor: default;
@@ -55,7 +112,7 @@
 .off-img-slid {
     min-width: 100%;
     min-height: 100%;
-    
+
     position: absolute;
     left: 50%;
     top: 50%;
@@ -66,7 +123,7 @@
 
 .off-img-expo {
     min-width: 100%;
-    
+
     position: absolute;
     left: 50%;
     top: 50%;
@@ -95,16 +152,6 @@
     padding-top: 30px;
 }
 
-.row-off-user-name{
-    text-align: left;
-    
-    a{
-        font-size: 16px;
-        font-weight: 600;
-    }
-    
-}
-
 .col-off-var-data, .col-off-rela{
     padding-top: 20px;
 }
@@ -118,23 +165,28 @@
 }
 
 .btn-off-buy{
-    float: left;
-}
-
-.off-user-image, .off-user-name{
-    display: table-cell;
-    vertical-align: middle;
+    float: none;
+    margin: 0;
+    .sombra-general2;
 }
 
 .off-user-name{
-    padding-left: 15px;
+    font-size: 16px;
+    font-weight: 600
 }
 
 .off-user-image{
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
     img{
         width: 56px;
         height: 56px;
     }
+}
+
+.col-off-img{
+    margin-bottom: 10px;
 }
 
 .off-icon-prin{
@@ -145,13 +197,13 @@
 .off-icon-secund-ok{
     color: @brand-primary;
     font-size: 20px;
-    width: 0px !important;
+    width: 0 !important;
     padding-right: 25px;
 }
 
 .off-icon-secund-no{
     font-size: 20px;
-    width: 0px !important;
+    width: 0 !important;
     padding-right: 25px;
 }
 
@@ -219,8 +271,27 @@
 
 .off-btn-write{
     padding: 5px 10px;
-    float: left;
-    margin-top: 10px;
+    float: none;
+    margin: 0;
+    text-transform: none;
+    .sombra-general2;
+}
+
+.off-middle{
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+.off-middle-s{
+    .sombra-general2;
+}
+
+.off-middle-hijo{
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+
 }
 
 /*.off-row-rating{
@@ -228,10 +299,12 @@
         width: 0.9em;
     }
 }
+*/
 
 .off-comment-target{
-    margin-bottom: 20px;
-}*/
+    //margin-bottom: 20px;
+    padding: 2%;
+}
 
 .off-col-comment{
     border-left: 4px solid @brand-primary;
@@ -242,11 +315,12 @@
     color: @brand-secondary;
     vertical-align: middle;
     font-weight: 600;
-    padding: 0px 10px;
+    padding: 0 10px;
 }
 
 .off-form-comment{
     margin-bottom: 20px;
+    .sombra-general2;
 }
 
 .off-com-btn{
@@ -269,7 +343,7 @@
     height: 200px;
     overflow: hidden;
     position: relative;
-    
+
     img{
         min-width: 100%;
         position: absolute;
@@ -279,25 +353,34 @@
     }
 }
 
+.us-off-my-offer{
+    padding: 2%;
+}
+
 .us-off-element{
     margin-bottom: 40px;
+}
+
+.us-my-off-sep{
+    border-bottom: 1px solid @brand-primary;
+    margin-bottom: 20px;
 }
 
 .us-off-element-ex{
     .us-off-element;
 /*    background-color: @gray-base;
     color: @brand-secondary;*/
-    
+
     .us-off-exp{
         min-width: 100%;
         position: absolute;
-        left: 0%;
-        top: 0%;
+        left: 0;
+        top: 0;
         background-color: rgba(51, 51, 51, 0.8);;
         padding: 2%;
         text-align: center;
         min-height: 100%;
-        
+
         h4{
             min-width: 100%;
             position: absolute;
@@ -311,7 +394,7 @@
             font-size: 40px;
         }
     }
-    
+
 }
 
 .off-col-user-text-dis{
@@ -320,11 +403,64 @@
         margin-bottom: 10px;
     }*/
 
-    h3, p{  
+    h3, p{
         margin-top: 20px;
         margin-bottom: 10px;
     }
 }
+
+.off-butt-add{
+    float: none;
+    padding: 7px 12px;
+}
+
+.off-col-btn-new-off{
+    margin-top: 20px;
+}
+
+.off-panel-dimension{
+    margin-top: 15px;
+
+    .panel-heading{
+        color: @brand-secondary;
+        font-weight: 600;
+    }
+}
+
+.off-price-offer{
+    .form-group{
+        margin-bottom: 20px;
+    }
+
+    .input-group-addon {
+        border: 1px solid #CCC;
+    }
+}
+
+.off-texto-matizar{
+    p{
+        font-size: 12px;
+    }
+}
+
+.off-message-user{
+    .btn-default .btn{
+        margin-bottom: 0;
+    }
+}
+
+.row-star{
+    .off-vote{
+        padding-right: 0;
+    }
+
+    .rating-md{
+        font-size: 1.5em;
+    }
+}
+
+
+
 /* ##### FIN USER-LIST-OFFERS ##### */
 
 
@@ -340,40 +476,40 @@
 
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
 @media only screen and (max-height : 1050px){
-    
+
 }
 
 @media only screen and (max-height : 810px){
-    
+
 }
 
 @media only screen and (max-height : 780px){
-    
+
 }
 
 
 /*######################   RANGO ANCHO [1600 � 1200[ ######################*/
 @media only screen and (max-width : 1600px) {
-    
-    
+
+
     @media only screen and (max-height : 1024px){
-        
+
     }
-    
+
     @media only screen and (max-height : 960px){
-        
+
     }
-    
+
     @media only screen and (max-height : 900px){
-        
+
     }
-    
+
     @media only screen and (max-height : 800px){
-        
+
     }
-    
+
     @media only screen and (max-height : 720px){
-        
+
     }
 }
 
@@ -382,19 +518,19 @@
     .off-row-date-prin{
         padding-bottom: 0;
     }
-    
+
     .off-col-other-date{
         padding-bottom: 20px;
     }
-    
+
     .off-row-date-second{
         padding-bottom: 0;
     }
-    
+
     .off-col-other-date-sec{
         padding-bottom: 15px;
     }
-    
+
     .off-icon-secund-ok{
         width: inherit;
     }
@@ -402,57 +538,68 @@
     .off-icon-secund-no{
         width: inherit;
     }
-    
+
     @media only screen and (max-height : 768px){
-        
+
     }
-    
+
     @media only screen and (max-height : 600px){
-        
+
     }
 }
 
 /*######################   RANGO ANCHO [992�  768[  ######################*/
 @media only screen and (max-width : 992px) {
-        
+
     @media only screen and (max-height : 500px){
-        
+
     }
 }
 
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width : 768px) {
     .off-container{
-        padding-top: 0px;
+        padding-top: 0;
     }
-    
+
     .off-img-marco-grande {
         height: 300px;
     }
-    
+
     #off-img-small {
         display: none !important;
     }
-    
+
     .off-col-other-date-sec {
-        padding-bottom: 0px;
+        padding-bottom: 0;
         min-height: 50px;
     }
-    
+
+    .row-user-col{
+        .col-user-ins{
+            width: 50%;
+            position: relative;
+            min-height: 1px;
+            padding-left: 15px;
+            padding-right: 15px;
+            float: left;
+        }
+    }
+
     @media only screen and (max-height : 1024px){
-        
+
     }
-    
+
     @media only screen and (max-height : 850px){
-        
+
     }
-    
+
     @media only screen and (max-height : 740px){
-        
+
     }
-    
+
     @media only screen and (max-height : 360px){
-        
+
     }
 }
 
@@ -461,39 +608,45 @@
     .off-target-prin-text {
         font-size: 16px;
     }
-    
+
     .off-target-secon{
         font-size: 14px;
     }
-    
+
     .off-icon-prin {
         font-size: 30px;
     }
-    
+
     .off-col-tra{
         display: none;
     }
-    
+
     .off-col-tra-data{
         width: 100%;
     }
-    
+
     /*.off-icon-prin {
         font-size: 30px;
         display: block;
         margin: 0 auto;
     }
-    
+
     .off-target-prin {
         font-weight: 600;
     }*/
-        
-    @media only screen and (max-height : 667px){
-        
+
+    .row-user-col{
+        .col-user-ins{
+            width: 100%;
+        }
     }
-    
+
+    @media only screen and (max-height : 667px){
+
+    }
+
     @media only screen and (max-height : 640px){
-        
+
     }
 }
 
@@ -502,12 +655,12 @@
     .off-col-other-date {
         min-height: 90px;
     }
-    
+
     @media only screen and (max-height : 534px){
-        
+
     }
-    
+
     @media only screen and (max-height : 480px){
-        
+
     }
 }

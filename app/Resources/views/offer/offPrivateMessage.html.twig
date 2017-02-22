@@ -1,6 +1,26 @@
-{# empty Twig template #}
 {{ form_start(formMessage) }}
-    {{ form_widget(formMessage.subject, { 'attr': {'readonly':'readonly' } })}}
-    {{ form_widget(formMessage.message) }}
-    {{ form_widget(formMessage.enviar) }}
-    {{ form_row(formMessage._token) }}
+
+<div class="row separacion-inferior">
+    <div class="col-lg-12">
+        {{ form_label(formMessage.subject) }}
+        {{ form_widget(formMessage.subject, { 'attr': {'readonly':'readonly' } })}}
+    </div>
+</div>
+
+<div class="row separacion-inferior">
+    <div class="col-lg-12">
+        <label class="control-label" for="message_message">Mensaje</label>
+        {{ form_widget(formMessage.message) }}
+    </div>
+</div>
+
+<div class="row off-message-user">
+    <div class="col-lg-12">
+        {{ form_widget(formMessage.enviar) }}
+    </div>
+</div>
+
+{% if to is defined %}
+    <input type="hidden" value="{{ to }}" name="message[to]" id="mensajeTo"/>
+{% endif %}
+{{ form_row(formMessage._token) }}

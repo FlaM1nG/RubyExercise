@@ -15,6 +15,11 @@ namespace WWW\GlobalBundle;
  */
 class MyConstants {
     
-    const PATH_APIREST = "http://www.whatwantweb.com/n19n382d23HnNY7bb8nj0m9nyb988676HUUBY6g7J9JI/api_rest/";
-
+    const PATH_APIREST = "https://www.whatwantweb.com/n19n382d23HnNY7bb8nj0m9nyb988676HUUBY6g7J9JI/api_rest2/";
+    const NUM_COMMENTS_PAGINATOR = 1;
+    const NUM_TRADES_PAGINATOR = 5;
+    const NUM_CAR_PAGINATOR = 5;
+    const NUM_HOUSE_PAGINATOR = 5;
+    const NUM_OFFERS_PROFILE = 10;
+    const NUM_MESSAGE_PROFILE = 10;
 }

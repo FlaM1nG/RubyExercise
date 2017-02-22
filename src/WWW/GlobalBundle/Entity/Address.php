@@ -82,15 +82,17 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
      */
     private $country;
     
-        /**
-     * @var integer
-     */
-    private $phone;
+
 
     /**
      * @var string
      */
     private $prefix;
+
+    /**
+     * @var integer
+     */
+    private $phone;
 
     public function __construct(Array $address=null){
        
@@ -102,6 +104,8 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
                     $this->$keyCamelize = $value;
                 endif;  
             endforeach;
+        
+            $this->country = new Region(null,$this->region, $this->country );
 //        else:
 //            $this->id = 0;
 //            $this->street = "";

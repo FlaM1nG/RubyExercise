@@ -83,4 +83,12 @@ class IndexController extends Controller
     public function adminAction() {
         return $this->render('admin/baseAdmin.html.twig');
     }
+
+    public function notFoundAction() {
+        return $this->render('TwigBundle:Exception:error404.html.twig');
+    }
+
+    public function pruebaInscripcionAction(){
+        return $this->render('offer/inscription.html.twig');
+    }
 }

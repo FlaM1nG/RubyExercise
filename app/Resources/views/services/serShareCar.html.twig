@@ -1,8 +1,21 @@
 {% extends '::services/layoutService.html.twig' %}
 {% import '::macros/shareCarList.html.twig' as shares %}
+{% import 'macros/star.html.twig' as rating %}
+{% import 'macros/filter.html.twig' as filters %}
+
+{% set pathFilter = path('serShareCar') %}
+{% set routingOffer = 'offShareCar' %}
+{% set routingNewOffer = 'car_shareCarNew' %}
+{% set service = 4 %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/classic.css') }}" rel="stylesheet" type="text/css" id="theme_base">
+    <link href="{{ asset('css/classic.date.css') }}" rel="stylesheet" type="text/css" id="theme_date">
+{% endblock %}
 
 {% block title %}
-    Share Car
+    Coche compartido
 {% endblock %}
 
 {% block cssParallax %}
@@ -14,32 +27,208 @@ sha-header-title
 {% endblock %}
 
 {% block serviceTitle %} 
-    Share Car 
+    Coche compartido
 {% endblock %}
 
 {% block serviceSubTitle %}  
     {{ include('services/subTitles/shareCarSubTitle.html.twig') }}
+
 {% endblock %}
 
-{% block serviceFilters %} 
-    {{ include('services/filters/shareCarFilter.html.twig') }}
+{% block serviceFilters %}
+    {{ filters.filterCar('get', pathFilter , service) }}
+    {#<input class="datepicker" type="text" placeholder="Fecha destino">#}
 {% endblock %}
             
 {% block serviceList %}
-    {% for i in 0..7 %}
+
+    {% for offer in pagination %}
         {#{ include('services/lists/shareCarList.html.twig') }#}
-        
-        {% set img = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
-        {% set dia = "now"|date() %}
-        
-        {{ shares.element('#SHARE', img, dia, 'granada', 'madrid', random(4), 
-            '#USER', asset('img/usuario1.jpg'), 'Paco J', random(50) ) }}
+
+        {{ shares.element(
+            path('offShareCar', {idOffer: offer.offer.id}),
+            asset(offer.car.photos.0.url,'img'),
+            offer.date,
+            offer.fromPlace,
+            offer.toPlace,
+            offer.offer.title,
+            path('user_public_profile',{username:offer.offer.userAdmin.username}),
+            asset(offer.offer.userAdmin.photo.url,'img'),
+            offer.offer.userAdmin.username,
+            offer.price,
+            offer.offer.userAdmin.avgScore) }}
     {% endfor %}
     <!-- Modal -->
+
+    {% if pagination is not null %}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    {% endif %}
+
 {% endblock %}
 
 {% block filtroMovilBody %}
-    {{ include('services/filters/shareCarFilter.html.twig') }}
+    {{ filters.filterCar('get',pathFilter , service) }}
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    <script src=" {{ asset('js/masonry.pkgd.min.js') }}"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            var e = $(".row-tra-base");
+            e.length > 0 && e.masonry({
+                // options
+                columnWidth: '.col-tra-elem',
+                itemSelector: '.col-tra-elem',
+                //percentPosition: true,
+                transitionDuration: 0.2,
+                isFitWidth: true,
+                gutter: 20
+            });
+
+
+        });
+    </script>
+
+    {{ rating.staticRatingJS() }}
+
+    <script src="{{ asset('js/pickadate/picker.js') }}"></script>
+    <script src="{{ asset('js/pickadate/picker.date.js') }}"></script>
+    <script src="{{ asset('js/pickadate/legacy.js') }}"></script>
+    <script src="{{ asset('js/pickadate/translations/es_ES.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').pickadate({
+                // Strings and translations
+//                monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+//                monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+//                weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+//                weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+//                showMonthsShort: undefined,
+//                showWeekdaysFull: undefined,
+
+// Buttons
+//                today: 'Today',
+//                clear: 'Clear',
+//                close: 'Close',
+
+// Accessibility labels
+                labelMonthNext: 'Next month',
+                labelMonthPrev: 'Previous month',
+                labelMonthSelect: 'Select a month',
+                labelYearSelect: 'Select a year',
+
+// Formats
+//                format: 'd mmmm, yyyy',
+                format: 'dd-mm-yyyy',
+                formatSubmit: 'yyyy-mm-dd',
+                hiddenPrefix: undefined,
+                hiddenSuffix: 'date',
+                hiddenName: undefined,
+
+// Editable input
+                editable: undefined,
+
+// Dropdown selectors
+                selectYears: undefined,
+                selectMonths: undefined,
+
+// First day of the week
+                firstDay: undefined,
+
+// Date limits
+                min: new Date('now'),
+                max: undefined,
+
+// Disable dates
+                disable: undefined,
+
+// Root picker container
+                container: undefined,
+
+// Hidden input container
+                containerHidden: undefined,
+
+// Close on a user action
+                closeOnSelect: true,
+                closeOnClear: true,
+
+// Events
+                onStart: undefined,
+                onRender: undefined,
+                onOpen: undefined,
+                onClose: undefined,
+                onSet: undefined,
+                onStop: undefined,
+
+// Classes
+                klass: {
+
+                    // The element states
+                    input: 'picker__input form-control',
+                    active: 'picker__input--active',
+
+                    // The root picker and states *
+                    picker: 'picker',
+                    opened: 'picker--opened',
+                    focused: 'picker--focused',
+
+                    // The picker holder
+                    holder: 'picker__holder',
+
+                    // The picker frame, wrapper, and box
+                    frame: 'picker__frame',
+                    wrap: 'picker__wrap',
+                    box: 'picker__box',
+
+                    // The picker header
+                    header: 'picker__header',
+
+                    // Month navigation
+                    navPrev: 'picker__nav--prev',
+                    navNext: 'picker__nav--next',
+                    navDisabled: 'picker__nav--disabled',
+
+                    // Month & year labels
+                    month: 'picker__month',
+                    year: 'picker__year',
+
+                    // Month & year dropdowns
+                    selectMonth: 'picker__select--month',
+                    selectYear: 'picker__select--year',
+
+                    // Table of dates
+                    table: 'picker__table',
+
+                    // Weekday labels
+                    weekdays: 'picker__weekday',
+
+                    // Day states
+                    day: 'picker__day',
+                    disabled: 'picker__day--disabled',
+                    selected: 'picker__day--selected',
+                    highlighted: 'picker__day--highlighted',
+                    now: 'picker__day--today',
+                    infocus: 'picker__day--infocus',
+                    outfocus: 'picker__day--outfocus',
+
+                    // The picker footer
+                    footer: 'picker__footer',
+
+                    // Today, clear, & close buttons
+                    buttonClear: 'picker__button--clear',
+                    buttonClose: 'picker__button--close',
+                    buttonToday: 'picker__button--today'
+                }
+            });
+        });
+    </script>
+
+    {{ filters.filterCarScript() }}
 {% endblock %}
 
 

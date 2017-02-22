@@ -15,7 +15,7 @@ class LoginController extends Controller{
     
     public function loginAction(Request $request){
         $session=$request->getSession();
-
+        
         if(empty($session->get('intentoLogin')))
             $session->set('intentoLogin',0);
         
@@ -24,7 +24,7 @@ class LoginController extends Controller{
         
         $formulario->handleRequest($request);
 
-        if($request->getMethod()=="POST"):
+        if($formulario->isSubmitted()):
             
             $email=$request->request->all()['loginUser']['_username'];
             $password=$request->request->all()['loginUser']['_password'];  
@@ -67,10 +67,16 @@ class LoginController extends Controller{
                $session->set("username",$result['username']);
                $session->set("password",$result['password']);
                $session->set('intentoLogin',0);
+               $path =$session->get('_security.user.target_path');
                
-                return $this->redirectToRoute('homepage');
-
-            else:
+               if($path==NULL || $path=='user_register'){
+                   return $this->redirectToRoute('user_profiler');
+               }
+               else{  
+                   return $this->redirect($path);
+               }
+                   
+           else:
                 $session->set('intentoLogin',$session->get('intentoLogin')+1);
             
                 $this->addFlash(
