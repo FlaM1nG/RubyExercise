@@ -29,15 +29,14 @@ class ShareCarType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         
         $listCar = $options['listCar'];
+        
         $year = new \DateTime("now");
         $year = $year->format("Y");
-
-        $courierPrice = $options['courierPrice'];
 
         $defaultDate = new \DateTime("now");
 
         if(!empty($options['data']->getDate())):
-            $defaultDate = $options['data']->getDate();
+            $defaultDate = new \DateTime($options['data']->getDate());
         endif;
 
         $builder
@@ -70,15 +69,7 @@ class ShareCarType extends AbstractType {
                 
                      ->add('backTwo', CheckboxType::class, array('label' => 'Solo dos atrás',
                                                                  'required' => false));
-        
-        else:
-            if(!empty($courierPrice)):
-                $builder  ->add('courierPrice', CheckboxType::class, array( 'label' => 'Peso del paquete',
-                                                                            'choices' => $courierPrice,
-                                                                            'choice_value' => 'id',
-                                                                            'choice_label' => 'intervalWeightPrice',
-                                                                            'choices_as_values' => true));
-            endif;
+
         endif;
 
     }
@@ -88,7 +79,7 @@ class ShareCarType extends AbstractType {
         $resolver->setDefaults(array('data_class'=>'WWW\CarsBundle\Entity\ShareCar',
                                 ));
 
-        $resolver->setRequired(array('listCar', 'courierPrice'));
+        $resolver->setRequired('listCar');
     }
 
     public function getBlockPrefix(){
