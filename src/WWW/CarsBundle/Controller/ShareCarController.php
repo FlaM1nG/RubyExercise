@@ -121,10 +121,15 @@ class ShareCarController extends Controller {
         $dataExtra["date"] = "'".$shareCar->getDate()->format("Y-m-d H:i")."'";
 
         if($service == 4):
+            
             $dataExtra["back_two"] = 0;
             $dataExtra["price"] = $shareCar->getPrice();
-            if(!empty($shareCar->getBackTwo())) $dataExtra["back_two"];
+
+            if(!empty($shareCar->getBackTwo()))
+                $dataExtra["back_two"] = $shareCar->getBackTwo();
+
         endif;
+
         $dataOffer['data'] = json_encode($dataExtra);
 
         $result = $ch->resultApiRed($dataOffer, $file);
