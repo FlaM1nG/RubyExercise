@@ -18,6 +18,7 @@ use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
 use WWW\CarsBundle\Entity\Car;
 use WWW\ServiceBundle\Entity\MessengerPrice;
+use WWW\ServiceBundle\Form\CourierPriceType;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
 use WWW\UserBundle\Entity\User;
@@ -48,12 +49,11 @@ class ShareCarController extends Controller {
         elseif(strpos($request->getPathInfo(),'courier-car') !== false):
             $service = 5;
             $shareCar->getOffer()->getService()->setId($service);
-//            $arrayCourierPrice = $this->getDataCourier($request);
             $fileRender = 'CarsBundle:ShareCar:newCourierOffer.html.twig';
 
         endif;    
 
-        $form = $this->createForm(ShareCarType::class, $shareCar, array('listCar' => $arrayCars,'courierPrice' => $arrayCourierPrice));
+        $form = $this->createForm(ShareCarType::class, $shareCar, array('listCar' => $arrayCars));
 
         $form->handleRequest($request);
 
@@ -62,7 +62,10 @@ class ShareCarController extends Controller {
             $result = $this->createOfferShareCar($request, $shareCar,$service);
 
             if($result == 'ok'):
-                return $this->redirectToRoute('serShareCar');
+                if($service == 4)
+                    return $this->redirectToRoute('serShareCar');
+                else
+                    return $this->redirectToRoute('serCourier_list');
             endif;
         endif;
         
@@ -135,11 +138,13 @@ class ShareCarController extends Controller {
     public function listCarAction(Request $request){
 
         $service = null;
+        $priceMin = null;
 
         if(strpos($request->getPathInfo(),'share-car') !== false):
             $service = 4;
         elseif(strpos($request->getPathInfo(),'courier-car') !== false):
             $service = 5;
+            $priceMin = $this->getPriceMinCourier($request);
         endif;
 
         $arrayOffers = $this->getsShareCars($request, $service);
@@ -157,8 +162,8 @@ class ShareCarController extends Controller {
 
         return $this->render('services/serShareCar.html.twig',
                        array('pagination' => $pagination,
-                             'service' => $service)
-        );
+                             'service' => $service,
+                             'priceMin' => $priceMin));
     }
 
     private function getsShareCars(Request $request, $service){
@@ -196,26 +201,39 @@ class ShareCarController extends Controller {
     public function offerCarAction(Request $request){
 
         $shareCar = $this->getOfferShareCar($request);
+        $courierPrice = null;
+        $listCourierPrice = null;
+        $formCourierPrice = null;
+        $priceMin = null;
         $message = $this->fillMessage($request,$shareCar);
         $comment = new Comment();
+        $service = $shareCar->getOffer()->getService()->getId();
+
+        if($service == 5):
+            $listCourierPrice = $this->getDataCourier($request, $priceMin);
+            $courierPrice = new MessengerPrice(null);
+        endif;
 
         $formMessage = $this->createForm(MessageType::class, $message);
         $formComment = $this->createForm(CommentType::class, $comment);
-        $formSubscribe = $this->createForm(OfferSuscribeType::class);
+        $formCourierPrice = $this->createForm(CourierPriceType::class, $courierPrice, array('courierPrice' => $listCourierPrice));
+
 
         $formComment->handleRequest($request);
         $formMessage->handleRequest($request);
-        $formSubscribe->handleRequest($request);
+        $formCourierPrice->handleRequest($request);
 
         $paginator = $this->get('knp_paginator');
         $pagination = null;
 
         if(!empty($shareCar->getOffer()->getComments())):
+
             $pagination = $paginator->paginate(
                 $shareCar->getOffer()->getComments(),
                 $request->query->getInt('page', 1),
                 MyConstants::NUM_COMMENTS_PAGINATOR
             );
+        
         endif;
 
         if($formComment->isSubmitted()):
@@ -230,22 +248,28 @@ class ShareCarController extends Controller {
         elseif($formMessage->isSubmitted()):
             $this->sendMessage($request, $shareCar);
 
-        elseif($formSubscribe->isSubmitted()):
-            $this->offerSubscribe($request, $shareCar);
-            return $this->redirectToRoute('acme_payment_homepage', array(
-                'idOffer'=> $shareCar->getOffer()->getId(),
-                'service'=>'share-car',
-                    ));
+        elseif($formCourierPrice->isSubmitted()):
+
+            $this->offerSubscribe($request, $shareCar, $listCourierPrice);
+            $nameService = "";
+            if($service == 4) $nameService = 'share-car';
+            elseif($service == 5) $nameService = 'courier-car';
+
+            return $this->redirectToRoute(  'acme_payment_homepage', array(
+                                            'idOffer'=> $shareCar->getOffer()->getId(),
+                                            'service'=> $nameService,
+                                                ));
         endif;
 
         return $this->render('offer/offShareCar.html.twig',
                             array('offer' => $shareCar,
                                   'formMessage' => $formMessage->createView(),
                                   'formComment' => $formComment->createView(),
-                                  'formSubscribe' => $formSubscribe->createView(),
-                                  'service' => $shareCar->getOffer()->getService()->getId(),
+                                  'formSubscribe' => $formCourierPrice->createView(),
+                                  'service' => $service,
                                   'pagination' => $pagination,
-                                  'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR));
+                                  'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR,
+                                  'priceMin' => 'Desde '.number_format($priceMin, 2, ',','')));
         
     }
 
@@ -330,7 +354,7 @@ class ShareCarController extends Controller {
 
     }
 
-    private function offerSubscribe(Request $request, $shareCar){
+    private function offerSubscribe(Request $request, ShareCar $shareCar, $listPrices = null){
 
         $ch = new ApiRest();
         $ut = new Utilities();
@@ -341,9 +365,14 @@ class ShareCarController extends Controller {
         $data['password'] = $request->getSession()->get('password');
         $data['offer_id'] = $shareCar->getOffer()->getId();
 
-        $result = $ch->resultApiRed($data,$file);
+        if($shareCar->getOffer()->getService()->getId() == 5):
+            $data['id_messengerPrice'] = $request->get('courierPrice')['courierPrice'];
+            $data['newInscription'] = true;
+            $shareCar->setPrice($listPrices[$data['id_messengerPrice']]->getPriceEs());
+        endif;
+//print_r($shareCar);
 
-        $ut->flashMessage('general',$request, $result);
+        $result = $ch->resultApiRed($data,$file);
 
     }
 
@@ -365,7 +394,7 @@ class ShareCarController extends Controller {
                               'formMessage' => $formMessage->createView()));
     }
 
-    private function getDataCourier(Request $request){
+    private function getDataCourier(Request $request, &$priceMin){
 
         $file = MyConstants::PATH_APIREST."services/courier/get_courierPrice.php";
         $ch = new ApiRest();
@@ -376,16 +405,42 @@ class ShareCarController extends Controller {
         $data['password'] = $request->getSession()->get('password');
         $data['id_messengerService'] = 1;
         
-        $result = $ch->resultApiRed(null,$file);
-        
-        if($result == 'ok'):
+        $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+
             foreach ($result['messengerPrice'] as $data):
                 $courier = new MessengerPrice($data);
-                $courierPrice[] = $courier;
+                $courierPrice[$data['id']] = $courier;
+
+                if($courier->getWeightMin() == 0)
+                    $priceMin = $courier->getPriceES();
             endforeach;
         endif;
-
         return $courierPrice;
+    }
+
+    private function getPriceMinCourier(Request $request){
+
+        $file = MyConstants::PATH_APIREST."services/courier/get_courierPrice.php";
+        $ch = new ApiRest();
+        $courierPrice = null;
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['id_messengerService'] = 1;
+        $data['weight'] = 0.1;
+        $data['region'] = 'granada';
+
+        $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+            return $result['messengerPrice'][0]['price_es'];
+        else:
+            return null;
+        endif;
+
     }
     
 }
