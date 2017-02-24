@@ -57,7 +57,7 @@ sha-header-title
         {#{ include('services/lists/shareCarList.html.twig') }#}
 
         {{ shares.element(
-            path('offShareCar', {idOffer: offer.offer.id}),
+            path(routingOffer, {idOffer: offer.offer.id}),
             asset(offer.car.photos.0.url,'img'),
             offer.date,
             offer.fromPlace,
@@ -66,8 +66,8 @@ sha-header-title
             path('user_public_profile',{username:offer.offer.userAdmin.username}),
             asset(offer.offer.userAdmin.photo.url,'img'),
             offer.offer.userAdmin.username,
-            offer.price,
-            offer.offer.userAdmin.avgScore) }}
+            service == 5 and priceMin is not empty ? priceMin : offer.price,
+            offer.offer.userAdmin.avgScore, service) }}
     {% endfor %}
     <!-- Modal -->
 
