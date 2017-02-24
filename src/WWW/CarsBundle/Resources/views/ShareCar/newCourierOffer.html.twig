@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h3>
-                    Nueva Oferta de Coche Compartido
+                    Nueva Oferta de Mensajería
                 </h3>
                 <hr/>
             </div>
@@ -46,9 +46,7 @@
                 {{ form_row(form.fromPlace) }}
                 {{ form_row(form.toPlace) }}
                 {{ form_row(form.date) }}
-                {{ form_row(form.offer.holders,{'label':'Plazas disponibles'}) }}
-                {{ form_row(form.backTwo) }}
-                {{ form_row(form.price) }}
+                {{ form_row(form.offer.holders,{'label':'Número de paquetes'}) }}
                 {{ form_row(form.newShareCar, {'attr': {'disabled': disabledButton} }) }}
                 {{ form_row(form._token) }}
 

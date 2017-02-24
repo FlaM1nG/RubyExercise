@@ -86,8 +86,14 @@
 {% endblock %}
 
 
-{% block offerPrice %} 
-    {{ offer.price|number_format(2, ',') }} €
+{% block offerPrice %}
+
+    {% if service == 5 %}
+        {{ priceMin }}€
+
+    {% elseif service == 4 %}
+        {{ offer.price|number_format(2, ',') }}€
+    {% endif %}
 {% endblock %}
 
 
@@ -96,78 +102,84 @@
 {% endblock %}
 
 
-{% block offerDate %} 
+{% block offerDate %}
+
     {{ offer.date.date|date('d/m/Y') }} {{ ' a las '  }} {{ offer.date.date|date('H:i')  }}
 {% endblock %} 
 
 
 {% block offerDescription %}
     {{ offers.atriShaCar('salida', 'fa-sign-out', offer.fromPlace) }}
-    
+
     {{ offers.atriShaCar('destino', 'fa-map-marker', offer.toPlace) }}
     
     {% set fecha = offer.date.date|date('d/m/Y')%}
     {% set hora = offer.date.date|date('H:i')%}
     {{ offers.atriShaCar('fecha', 'fa-calendar-check-o',
         fecha ~ ' a las ' ~ hora) }}
-    
+
     {{ offers.atriShaCar('vehículo', 'fa-car', offer.car.model.brand.name ~' '~ offer.car.model.name,
         'off-row-tra-last') }}
 
-    {{ offers.atriShaCar('plazas disponibles', 'fa-airplane-seat', offer.offer.holders - offer.offer.inscriptions|length) }}
+    {{ offers.atriShaCar( service == 4 ? 'plazas disponibles' : 'número de paquetes', 'fa-airplane-seat', offer.offer.holders - offer.offer.inscriptions|length) }}
+
+
 {% endblock %}
 
 
 {% block offerVariableData %}
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h4>
-                Caracteristicas Viaje
-            </h4>
-            <hr>
-        </div>
-    </div>
 
-    {% set datos =  [
-                        {title: "Fumar", status: offer.car.smoke|number_format},
-                        {title: "Mascotas", status: offer.car.animals|number_format},
-                        {title: "Música", status: offer.car.music|number_format},
-                        {title: "Conversar", status: offer.car.talk|number_format},
-                        {title: "Dos atrás", status: offer.backTwo|number_format}
-                    ]
-    %}
+    {% if service == 4 %}
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>
+                    Caracteristicas Viaje
+                </h4>
+                <hr>
+            </div>
+        </div>
+
+        {% set datos =  [
+                            {title: "Fumar", status: offer.car.smoke|number_format},
+                            {title: "Mascotas", status: offer.car.animals|number_format},
+                            {title: "Música", status: offer.car.music|number_format},
+                            {title: "Conversar", status: offer.car.talk|number_format},
+                            {title: "Dos atrás", status: offer.backTwo|number_format}
+                        ]
+        %}
 
         
-    {% set col = 0 %}
+        {% set col = 0 %}
 
-    {% for dato in datos|sort %}
+        {% for dato in datos|sort %}
 
-        {% if col == 0 %}
-            <div class="row off-row-date-second">
+            {% if col == 0 %}
+                <div class="row off-row-date-second">
+            {% endif %}
+
+
+            <!-- DATO -->
+            {{ offers.atriOffer(dato.title,dato.status) }}
+            <!-- DATO -->
+
+
+            {% if col < 3 %}
+                {% set col = 1 + col %}
+            {% else %}
+                {% set col = 0 %}
+                 </div>
+            {% endif %}
+
+
+        {% endfor %}
+
+        {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
+        {% if col != 0 %}
+            </div>
         {% endif %}
 
-
-        <!-- DATO -->
-        {{ offers.atriOffer(dato.title,dato.status) }}
-        <!-- DATO -->
-
-
-        {% if col < 3 %}
-            {% set col = 1 + col %}
-        {% else %}
-            {% set col = 0 %}
-             </div>
-        {% endif %}
-
-
-    {% endfor %}
-    
-    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
-    {% if col != 0 %}
-        </div>
     {% endif %}
-    
-    
+
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h4>
