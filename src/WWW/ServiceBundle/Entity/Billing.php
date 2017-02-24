@@ -138,4 +138,50 @@ class Billing
     {
         return $this->address;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $concepts;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->concepts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add concept
+     *
+     * @param \WWW\ServiceBundle\Entity\Concept $concept
+     *
+     * @return Billing
+     */
+    public function addConcept(\WWW\ServiceBundle\Entity\Concept $concept)
+    {
+        $this->concepts[] = $concept;
+
+        return $this;
+    }
+
+    /**
+     * Remove concept
+     *
+     * @param \WWW\ServiceBundle\Entity\Concept $concept
+     */
+    public function removeConcept(\WWW\ServiceBundle\Entity\Concept $concept)
+    {
+        $this->concepts->removeElement($concept);
+    }
+
+    /**
+     * Get concepts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getConcepts()
+    {
+        return $this->concepts;
+    }
 }

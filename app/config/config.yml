@@ -10,6 +10,8 @@ imports:
     - { resource: "@OthersBundle/Resources/config/services.yml" }
     - { resource: "@PDFBundle/Resources/config/services.xml" }
     - { resource: "@CarsBundle/Resources/config/services.yml" }
+    - { resource: "@HouseBundle/Resources/config/services.yml" }
+
 
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -68,7 +70,7 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #     path:     "%database_path%"
-    
+
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -84,7 +86,7 @@ doctrine:
 #    default:
 #      auto_mapping: true
 
-  
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -103,14 +105,14 @@ knp_snappy:
         enabled: true
         binary: C:/wkhtmltopdf/bin/wkhtmltopdf.exe
         options: []
-        
+
 sonata_block:
     default_contexts: [cms]
     blocks:
         # Enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
-            
-#KnpPaginatorBundle       
+
+#KnpPaginatorBundle
 
 knp_paginator:
     page_range: 5  # número de páginas a mostrar
@@ -121,4 +123,4 @@ knp_paginator:
           distinct: true # incluir resultados diferentes, útil en consultas con GROUP BY
     template:
           pagination: ::paginator/custom_pagination.html.twig # plantilla utilizada en la paginación
-          sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # plantilla utilizada en la paginación para ordenar los resultados            
+          sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # plantilla utilizada en la paginación para ordenar los resultados
