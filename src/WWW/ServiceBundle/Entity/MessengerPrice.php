@@ -85,30 +85,33 @@ class MessengerPrice
      */
     private $intervalWeightPrice;
     
-    public function __construct($data) {
-
-        $this->id = $data['id'];
-        $this->weightMin = $data['weightMin'];
-        $this->weightMax = $data['weightMax'];
-        $this->depth = $data['depth'];
-        $this->height = $data['height'];
-        $this->width = $data['width'];
+    public function __construct($data = null) {
         $this->messengerService = new MessengerService();
-        $this->messengerService->setId($data['id_MessengerService']);
 
-        if(array_key_exists('price_ba'))
-            $this->priceBA = $data['price_ba'];
+        if(!empty($data)):
+            $this->id = $data['id'];
+            $this->weightMin = $data['weight_min'];
+            $this->weightMax = $data['weight_max'];
+            $this->depth = $data['depth'];
+            $this->height = $data['height'];
+            $this->width = $data['width'];
+            $this->messengerService->setId($data['id_MessengerService']);
 
-        if(array_key_exists('price_ca'))
-            $this->priceCA = $data['price_ca'];
+            if(array_key_exists('price_ba',$data))
+                $this->priceBA = $data['price_ba'];
 
-        if(array_key_exists('price_es'))
-            $this->priceES = $data['price_es'];
+            if(array_key_exists('price_ca',$data))
+                $this->priceCA = $data['price_ca'];
 
-        if($this->weightMin == 0):
-            $this->intervalWeightPrice = "Hasta ".$this->weightMax."kg"." ".$this->priceES."€";
-        else:
-            $this->intervalWeightPrice = "Más de ".$this->weightMin." hasta ".$this->weightMax."kg"." ".$this->priceES."€";
+            if(array_key_exists('price_es',$data))
+                $this->priceES = $data['price_es'];
+
+            if($this->weightMin == 0):
+                $this->intervalWeightPrice = "Hasta ".$this->weightMax."kg"."       ".$this->priceES." €";
+            else:
+                $this->intervalWeightPrice = "Más de ".$this->weightMin."kg hasta   ".$this->weightMax."kg"." ".$this->priceES."€";
+            endif;
+
         endif;
     }
 
@@ -420,5 +423,9 @@ class MessengerPrice
     public function getMessengerService()
     {
         return $this->messengerService;
+    }
+
+    public function getIntervalWeightPrice(){
+        return $this->intervalWeightPrice;
     }
 }
