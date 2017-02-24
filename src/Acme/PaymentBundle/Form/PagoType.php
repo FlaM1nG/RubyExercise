@@ -24,50 +24,55 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class PagoType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $listCar = $options['listDirec'];
-        $year = new \DateTime("now");
-        $year = $year->format("Y");
-
-        $defaultDate = new \DateTime("now");
-
-        if(!empty($options['data']->getDate())):
-            $defaultDate = $options['data']->getDate();
-        endif;
+        $listDir = $options['listDirec'];
 
         $builder
 
-            ->add('dirEnvio', TextType::class, array(
-                'label' => 'Dirección envio'
+            ->add('dirEnvio', ChoiceType::class, array(
+                'label' => 'Dirección envio',
+                'choices' => $listDir,
+                'choice_value' => 'id',
+                'choice_label' => 'title',
+                'choices_as_values' => true,
+//                'data' => $options['data']->getCar() // OBTENER DIRECCION
             ))
 
             ->add('facture', CheckboxType::class, array(
                 'label' => 'Factura'
             ))
 
-            ->add('fromPlace',TextType::class, array('label' => 'Salida'))
+            ->add('dirFac', ChoiceType::class, array(
+                'label' => 'Dirección facturación',
+                'choices' => $listDir,
+                'choice_value' => 'id',
+                'choice_label' => 'title',
+                'choices_as_values' => true,
+//                'data' => $options['data']->getCar() // OBTENER DIRECCION
+            ))
 
-            ->add('toPlace', TextType::class, array('label' => 'Llegada'))
+            ->add('PMPaypal', CheckboxType::class, array(
+                'label' => 'Paypal'
+            ))
 
-            ->add('price', MoneyType::class, array('label' => 'Precio'))
+            ->add('PMCard', CheckboxType::class, array(
+                'label' => 'Tarjeta'
+            ))
 
-            ->add('date', DateTimeType::class, array('label' => 'Día y hora',
-                                                     'html5' => true,
-                                                     'data' => $defaultDate,
-                                                     'years' => array($year,$year+1,$year+2,$year+3,$year+4)))
+            ->add('SMCorreos', CheckboxType::class, array(
+                'label' => 'Correos'
+            ))
 
-            ->add('car', ChoiceType::class, array('label' => 'Elija el coche',
-                                                  'choices' => $listCar,
-                                                  'choice_value' => 'id',
-                                                  'choice_label' => 'plate',
-                                                  'choices_as_values' => true,
-                                                  'data' => $options['data']->getCar()  ))
+            ->add('SMDHL', CheckboxType::class, array(
+                'label' => 'DHL'
+            ))
 
-            ->add('backTwo', CheckboxType::class, array('label' => 'Solo dos atrás',
-                                                        'required' => false))
+            ->add('SMOtros', CheckboxType::class, array(
+                'label' => 'Otros'
+            ))
 
-            ->add('id', HiddenType::class)
-
-            ->add('newShareCar', SubmitType::class, array('label' => 'Guardar'));
+            ->add('newShareCar', SubmitType::class, array(
+                'label' => 'Pagar'
+            ));
 
     }
 
