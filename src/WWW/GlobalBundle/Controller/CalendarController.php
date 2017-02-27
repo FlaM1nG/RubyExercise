@@ -5,6 +5,7 @@ namespace WWW\GlobalBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Event\CalendarEvent;
+use WWW\GlobalBundle\Entity\MyCompanyEvents;
 
 class CalendarController extends Controller
 {

@@ -44,8 +44,7 @@ $(document).ready(function() {
                                     targetDate.setDate(targetDate.getDate() + 10);
                                     //cloning of date by refrence method!//console.log("mdate" + mdate);
                                     var mdate = new Date(date);
-                                    if ((date.setHours(0, 0, 0, 0) < belowDate.setHours(0, 0, 0, 0)) || date.setHours(0, 0, 0, 0) >
-                                            targetDate.setHours(0, 0, 0, 0)) {
+                                    if ((mdate.setHours(0, 0, 0, 0) < belowDate.setHours(0, 0, 0, 0)) || mdate.setHours(0, 0, 0, 0) > targetDate.setHours(0, 0, 0, 0)) {
                                             alert("Wrong slot of booking!!!");
                                             }
                                             else {

@@ -5,7 +5,7 @@ fullcalendar_loader:
         expose: true
         
 updateInfo:
-    pattern: /addevent
+    path: /addevent
     defaults: { _controller: GlobalBundle:Calendar:updateData }
     options:
         expose: true
