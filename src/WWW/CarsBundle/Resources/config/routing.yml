@@ -1,24 +1,34 @@
 car_shareCarNew:
-  path:  /newOffer/
+  path:  /share-car/newOffer/
   defaults: { _controller: CarsBundle:ShareCar:createShareCar }
 
-#serShareCar:
-#  path: /
-#  defaults: { _controller: CarsBundle:ShareCar:listCar }
+serShareCar:
+  path: /share-car/
+  defaults: { _controller: CarsBundle:ShareCar:listCar }
 
 offShareCar:
-    path: /offer/{idOffer}/
+    path: /share-car/offer/{idOffer}/
     defaults: { _controller: CarsBundle:ShareCar:offerCar }
     requirements:
         idOffer: \d+
 
 shareCar_inscriptions:
-  path: /offer/{idOffer}/inscriptions/º
+  path: /share-car/offer/{idOffer}/inscriptions/
   defaults: { _controller: CarsBundle:ShareCar:inscriptions }
   requirements:
       idOffer: \d+
 
+serCourier_newOffer:
+    path: /courier-car/newOffer/
+    defaults: { _controller: CarsBundle:ShareCar:createShareCar }
 
-serShareCar:
-    path: /services/share-car
-    defaults: { _controller: AppBundle:Index:serShareCar }
+serCourier_list:
+  path: /courier-car/
+  defaults: { _controller: CarsBundle:ShareCar:listCar }
+
+offCourierCar:
+    path: /courier-car/offer/{idOffer}/
+    defaults: { _controller: CarsBundle:ShareCar:offerCar }
+    requirements:
+        idOffer: \d+
+

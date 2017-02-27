@@ -31,9 +31,15 @@
     {{ form_row(form.fromPlace) }}
     {{ form_row(form.toPlace) }}
     {{ form_row(form.date) }}
-    {{ form_row(form.offer.holders,{'label':'Plazas disponibles'}) }}
-    {{ form_row(form.backTwo) }}
-    {{ form_row(form.price) }}
+
+    {% if service == 4 %}
+        {{ form_row(form.offer.holders,{'label':'Plazas disponibles'}) }}
+        {{ form_row(form.backTwo) }}
+        {{ form_row(form.price) }}
+    {% else %}
+        {{ form_row(form.offer.holders,{'label':'Número de paquetes'}) }}
+    {% endif %}
+
     {{ form_row(form.newShareCar) }}
     {{form_row(form.offer.id)}}
     {{ form_row(form._token) }}

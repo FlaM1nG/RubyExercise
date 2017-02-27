@@ -18,6 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 use WWW\ServiceBundle\Form\OfferType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,14 +27,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ShareCarType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
+        
         $listCar = $options['listCar'];
+        
         $year = new \DateTime("now");
         $year = $year->format("Y");
 
         $defaultDate = new \DateTime("now");
 
         if(!empty($options['data']->getDate())):
-            $defaultDate = $options['data']->getDate();
+            $defaultDate = new \DateTime($options['data']->getDate());
         endif;
 
         $builder
@@ -42,8 +46,6 @@ class ShareCarType extends AbstractType {
             ->add('fromPlace',TextType::class, array('label' => 'Salida'))
 
             ->add('toPlace', TextType::class, array('label' => 'Llegada'))
-
-            ->add('price', MoneyType::class, array('label' => 'Precio'))
 
             ->add('date', DateTimeType::class, array('label' => 'Día y hora',
                                                      'html5' => true,
@@ -57,12 +59,18 @@ class ShareCarType extends AbstractType {
                                                   'choices_as_values' => true,
                                                   'data' => $options['data']->getCar()  ))
 
-            ->add('backTwo', CheckboxType::class, array('label' => 'Solo dos atrás',
-                                                        'required' => false))
-
             ->add('id', HiddenType::class)
 
             ->add('newShareCar', SubmitType::class, array('label' => 'Guardar'));
+
+        if($options['data']->getOffer()->getService()->getId() == 4):
+            
+            $builder ->add('price', MoneyType::class, array('label' => 'Precio'))
+                
+                     ->add('backTwo', CheckboxType::class, array('label' => 'Solo dos atrás',
+                                                                 'required' => false));
+
+        endif;
 
     }
 
@@ -77,4 +85,6 @@ class ShareCarType extends AbstractType {
     public function getBlockPrefix(){
         return 'shareCar';
     }
+
+    
 }
