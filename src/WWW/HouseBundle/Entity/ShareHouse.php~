@@ -1,0 +1,55 @@
+<?php
+
+namespace WWW\HouseBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ShareHouse
+ */
+class ShareHouse
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var bool
+     */
+    private $autobooking;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set autobooking
+     *
+     * @param boolean $autobooking
+     * @return ShareHouse
+     */
+    public function setAutobooking($autobooking)
+    {
+        $this->autobooking = $autobooking;
+
+        return $this;
+    }
+
+    /**
+     * Get autobooking
+     *
+     * @return boolean 
+     */
+    public function getAutobooking()
+    {
+        return $this->autobooking;
+    }
+}
