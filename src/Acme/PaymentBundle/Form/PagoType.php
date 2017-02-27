@@ -17,8 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use WWW\ServiceBundle\Form\OfferType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use WWW\GlobalBundle\Entity\Address;
 
 
 class PagoType extends AbstractType {
@@ -78,13 +78,10 @@ class PagoType extends AbstractType {
 
     public function configureOptions(OptionsResolver $resolver){
 
-        $resolver->setDefaults(array('data_class'=>'WWW\CarsBundle\Entity\ShareCar',
-                                ));
-
-        $resolver->setRequired('listCar');
+        $resolver->setDefaults();
     }
 
     public function getBlockPrefix(){
-        return 'shareCar';
+        return 'previoPago';
     }
 }
