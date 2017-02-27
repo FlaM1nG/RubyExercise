@@ -31,6 +31,7 @@ class PaymentPurchaseController extends Controller {
 
     private $offer;
     private $service;
+    private $serviceId;
 
     //Función pincipal popara preparar el pago
     //Carga un formulario con los siguientes campos:
@@ -148,6 +149,7 @@ class PaymentPurchaseController extends Controller {
      * @return \Symfony\Component\Form\Form
      */
     protected function createPurchaseForm() {
+
         $formBuilder = $this->createFormBuilder(null, array('data_class' => Payment::class));
 
         return $formBuilder
@@ -206,10 +208,14 @@ class PaymentPurchaseController extends Controller {
             $this->service = 'trade';
             $this->getOffer($request);
         elseif (strstr($path, 'share-car') !== false):
-            $this->getOfferShareCar($request);
             $this->service = 'share-car';
-
-
+            $this->serviceId = 4;
+//            $this->getOfferShareCar($request);
+            $this->getOfferInfo($request);
+        elseif(strstr($path, 'courier-car') !== false):
+            $this->service = 'courier-car';
+            $this->serviceId = 5;
+            $this->getOfferInfo($request);
         else:
             $this->service = 2;
         endif;
@@ -249,6 +255,25 @@ class PaymentPurchaseController extends Controller {
         $this->offer = new ShareCar($result);
 
         return $this->offer;
+    }
+
+    private function getOfferInfo(Request $request){
+        $file = MyConstants::PATH_APIREST . 'services/offer/get_infoOffersPrice.php';
+        $ch = new ApiRest();
+        
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['offerId'] = $request->get('idOffer');
+        $data['serviceId'] = $this->serviceId;
+
+        $result = $ch->resultApiRed($data, $file);
+
+        if($this->serviceId == 4 || $this->serviceId == 5):
+            $this->offer = new ShareCar($result['data']);
+        endif;
+
+        
     }
 
 }

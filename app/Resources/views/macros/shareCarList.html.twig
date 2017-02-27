@@ -1,5 +1,5 @@
 {% macro element(hrefOffer, srcImg, dia, origen, destino, plazasLibres, 
-    hrefUser, srcImgUser, nameUser, price, vote ) %}
+    hrefUser, srcImgUser, nameUser, price, vote, service ) %}
     
     {% import 'macros/user.html.twig' as users %}
     {% import 'macros/star.html.twig' as rating %}
@@ -50,7 +50,11 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 
                  col-sha-price">
                 <span class="sha-price">
-                    {{ price|e|number_format(2, '.') }}€/plaza
+                    {% if service == 4 %}
+                        {{ price|e|number_format(2, '.') }}€/plaza
+                    {% elseif service == 5 %}
+                        Desde {{ price|e|number_format(2, '.') }}€/paquete
+                    {% endif %}
                 </span>
             </div>
         </div>
@@ -70,7 +74,11 @@
 
                 <div class="row row-sha-price-mob">
                     <span class="sha-price">
-                        {{ price|e|number_format(2, '.') }}€/plaza
+                        {% if service == 4 %}
+                            {{ price|e|number_format(2, '.') }}€/plaza
+                        {% elseif service == 5 %}
+                            Desde {{ price|e|number_format(2, '.') }}€/paquete
+                        {% endif %}
                     </span>
                 </div>
 

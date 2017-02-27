@@ -112,13 +112,17 @@
 
                                 {# comprueba que no es tu propia oferta, el servicio no es de trueque y hay plaza s libres #}
                                 {% if offer.offer.userAdmin.id != app.session.get('id') and service != 3
-                                      and offer.offer.holders-offer.offer.inscriptions|length > 0%}
+                                   and offer.offer.holders-offer.offer.inscriptions|length > 0%}
 
-                                    {{form_start(formSubscribe)}}
-                                    {{form_widget(formSubscribe.subscribeButton,
-                                    { 'attr': {'class': 'btn-default btn-off-buy'},
-                                        'label':'Comprar' })}}
-                                    {{form_end(formSubscribe)}}
+                                        {{form_start(formSubscribe)}}
+
+                                            {% if service == 5 %}
+                                                {{ form_row(formSubscribe.courierPrice)}}
+                                            {% endif %}
+
+                                        {{form_widget(formSubscribe.subscribeButton,{ 'attr': {'class': 'btn-default btn-off-buy'}, 'label':'Comprar' })}}
+                                        {{form_end(formSubscribe)}}
+
                                 {% endif %}
 
                             {% endif %}
