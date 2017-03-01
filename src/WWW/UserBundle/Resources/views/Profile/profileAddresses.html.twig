@@ -67,7 +67,7 @@
                 {% for address in usuario.addresses.0 %}
 
                     {{ addressMacro.userAddress(false, address.id, address.name, address.street,
-                    address.zipCode, address.region, address.region, address.country,
+                    address.zipCode, address.region, address.region, address.country.country,
                     path('user_profiler_editAdress',{ idAddress:address.id }), address.id) }}
 
                 {% endfor %}
