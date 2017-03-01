@@ -9,6 +9,7 @@
 
 namespace WWW\HouseBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use WWW\GlobalBundle\Form\AddressType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -167,6 +168,11 @@ class HouseType extends AbstractType{
             
             ->add('protectorEnchufes', CheckboxType::class, array('label' => 'Protectores de enchufes', 'required' => false))
 
+            ->add('imgHouse', FileType::class, array('label' => ' ',
+                                               'multiple' => true,
+                                               'required' => true,
+                                               'mapped' => false,
+                                               'attr' => array('accept' => 'image/*', 'class' => 'file-loading',)))
             ->add('saveNewHouse', SubmitType::class, array('label' => 'Guardar'));
 
 
