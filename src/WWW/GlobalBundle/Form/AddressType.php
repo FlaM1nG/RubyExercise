@@ -17,11 +17,11 @@ use WWW\GlobalBundle\Entity\Region;
 use WWW\GlobalBundle\MyConstants;
 
 /**
- * Description of AdressType
+ * Description of AddressType
  *
  * @author Rocio
  */
-class AdressType extends AbstractType{
+class AddressType extends AbstractType{
     
     private $arrayPrefix;
     private $arrayCountry;
