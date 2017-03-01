@@ -205,3 +205,7 @@ user_ajax_sendSMS:
 user_profile_newHouse:
       path: /profile/house/new/
       defaults: { _controller: UserBundle:ProfileHouse:createHouse }
+
+user_profile_listHouse:
+      path: /profile/house/list/
+      defaults: { _controller: UserBundle:ProfileHouse:listHouses }
