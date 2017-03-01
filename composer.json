@@ -52,9 +52,9 @@
         "authorizenet/authorizenet": "^1.8",
         "symfony/property-access": "2.7.3",
         "symfony/serializer": "2.7.3",
-        "realexpayments/rxp-remote-php": "1.2.0",
-        "realexpayments/rxp-hpp-php": "1.1.0",
-        "symfony/validator": "2.7.3"
+        "realexpayments/rxp-remote-php": "1.2.0"
+        
+    
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

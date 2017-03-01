@@ -26,6 +26,7 @@ use com\realexpayments\remote\sdk\domain\payment\PaymentResponse;
 use com\realexpayments\remote\sdk\domain\payment\PaymentType;
 use com\realexpayments\remote\sdk\RealexClient;
 use com\realexpayments\remote\sdk\http\HttpConfiguration;
+use Crevillo\Payum\Redsys\Api;
 
 class PaymentPurchaseController extends Controller {
 
@@ -55,7 +56,44 @@ class PaymentPurchaseController extends Controller {
                             'service' => $this->service,
                 ));
             }
-            //Si no se paga por paypal
+            if ($form->get('gateway_name')->getData() == 'redsys') {
+                        // 4548812049400004
+                        // 12/20
+                        // 123
+                        // 123456
+                
+                //cargamos el pago por tarjeta sabadell
+                $payment = $form->getData();
+                //numero de referencia por la hora y fecha
+                $payment->setNumber(date('ymdHis'));
+                $payment->setClientId(uniqid());
+                $payment->setDescription(sprintf('An order %s for a client %s', $payment->getNumber(), $payment->getClientEmail()));
+                $payment->setTotalAmount($this->offer->getPrice() * 100);
+                $details['Ds_Merchant_Amount'] = $this->offer->getPrice() * 100;
+                $details['Ds_Merchant_Currency'] = '978';
+                $details['Ds_Merchant_Order'] = date('ymdHis');
+                $details['Ds_Merchant_TransactionType'] = Api::TRANSACTIONTYPE_AUTHORIZATION;
+                $details['Ds_Merchant_ConsumerLanguage'] = Api::CONSUMERLANGUAGE_SPANISH;
+                
+                
+                $payment->setDetails($details);
+                $storage = $this->getPayum()->getStorage($payment);
+                
+                $storage->update($payment);
+                
+                $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                        $form->get('gateway_name')->getData(), $payment, 'acme_payment_done'
+                );
+                $details['Ds_Merchant_UrlOK'] = $captureToken->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
+                $details['Ds_Merchant_UrlKO'] = $captureToken->getAfterUrl();
+                $payment->setDetails($details);
+                $storage = $this->getPayum()->getStorage($payment);
+                
+                $storage->update($payment);
+                return $this->redirect($captureToken->getTargetUrl());
+            }
+                
+                //Si no se paga por paypal
             else {
                 /** @var Payment $payment */
                 $payment = $form->getData();
@@ -64,14 +102,18 @@ class PaymentPurchaseController extends Controller {
                 $payment->setClientId(uniqid());
                 $payment->setDescription(sprintf('An order %s for a client %s', $payment->getNumber(), $payment->getClientEmail()));
                 $payment->setTotalAmount($this->offer->getPrice() * 100);
+                
                 $storage = $this->getPayum()->getStorage($payment);
+                
                 $storage->update($payment);
-
+                
                 $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
                         $form->get('gateway_name')->getData(), $payment, 'acme_payment_done'
                 );
-
+                
+                
                 return $this->redirect($captureToken->getTargetUrl());
+                
             }
         }
 

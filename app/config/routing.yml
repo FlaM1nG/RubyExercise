@@ -1,3 +1,4 @@
+
 pdf:
     resource: "@PDFBundle/Resources/config/routing.xml"
     prefix:   /
