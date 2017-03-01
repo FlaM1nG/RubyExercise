@@ -32,9 +32,17 @@
                 Agregar una nueva casa
             </h3>
             <hr/>
+            {#{{ form(form) }}#}
+            {{ form_start(form) }}
 
-{{ form(form) }}
+            {{ form_row(form.address.country) }}
+            {{ form_row(form.address.city) }}
+            {{ form_row(form.address.street) }}
+            {{ form_row(form.address.zipCode) }}
 
+            {% for row in form.children if row.vars.name!='address' %}
+                    {{ form_row(row) }}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
