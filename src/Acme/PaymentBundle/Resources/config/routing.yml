@@ -1,7 +1,3 @@
-acme_redsys:
-    resource:   "@AcmePaymentBundle/Controller/"
-    type:       annotation
-    prefix:     /
 
 acme_payment_homepage:
     path:  /payment/{service}/offer/{idOffer}/
