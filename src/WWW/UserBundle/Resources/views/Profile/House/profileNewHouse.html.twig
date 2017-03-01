@@ -43,6 +43,8 @@
             {% for row in form.children if row.vars.name!='address' %}
                     {{ form_row(row) }}
             {% endfor %}
+            {#<input id="imgHouse" name="imgHouse[]" type="file" multiple class="file-loading" accept="image/*" required >#}
+
         </div>
     </div>
 {% endblock %}
@@ -60,27 +62,6 @@
 
 
         $(document).ready(function(){
-            brand = $('#newCar_brand');
-            models = $('#newCar_model').clone();
-
-            brandSelected = $('#newCar_brand option:selected').text();
-
-            var options =  models.find('optgroup[label="'+brandSelected+'"]').html();
-
-            $('#newCar_model').find('optgroup').remove();
-            $('#newCar_model').append(options);
-
-            $(document).on('change','#newCar_brand',changeModel);
-
-            function changeModel(){
-
-                var marca = $('#newCar_brand option:selected').text();
-                var options =  models.find('optgroup[label="'+marca+'"]').html();
-
-                $('#newCar_model').find('option').remove();
-                $('#newCar_model').append(options);
-
-            }
 
             $(".file-loading").fileinput({
 
@@ -91,7 +72,7 @@
                 showUpload: false,
                 showZoom: false,
                 initialCaption: '',
-                maxFileCount: 5,
+                maxFileCount: 50,
 
             });
         });
