@@ -201,3 +201,7 @@ user_ajax_sendSMS:
 #prueba_validation_false:
 #     path: /pruebaValidationFalse
 #     defaults: { _controller: UserBundle:Default:pruebaValidationFalse }
+
+user_profile_newHouse:
+      path: /profile/house/new/
+      defaults: { _controller: UserBundle:ProfileHouse:createHouse }

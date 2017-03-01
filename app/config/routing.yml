@@ -1,7 +1,3 @@
-house:
-    resource: "@HouseBundle/Resources/config/routing.yml"
-    prefix:   /
-
 cars:
     resource: "@CarsBundle/Resources/config/routing.yml"
 pdf:
@@ -166,4 +162,13 @@ fos_js_routing:
 # app/config/routing.yml
 adesigns_calendar:
     resource: "@GlobalBundle/Resources/config/routing.yml"
+
+#house:
+#    resource: "@HouseBundle/Resources/config/routing.yml"
+#    prefix:   /
+
+house:
+    resource: "@HouseBundle/Resources/config/routing.yml"
+    prefix:   /services/building/
+
 
