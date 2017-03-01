@@ -9,12 +9,18 @@ WWW\GlobalBundle\Entity\MyCompanyEvents:
             generator:
                 strategy: AUTO
     fields:
+        calendarID:
+            type: integer
         title:
             type: string
             length: 255
-        precio:
+        price:
             type: decimal
-            length: 65
+            precision: 10
+            scale: 0
+        ocuppate:
+            type: boolean
+            nullable: true
         url:          
             type: string
             length: 255
@@ -24,17 +30,39 @@ WWW\GlobalBundle\Entity\MyCompanyEvents:
         fgColor:          
             type: string
             length: 7 
-        cssClass:          
-            type: string
-            length: 255 
         startDatetime:          
             type: datetime
             nullable: true       
         endDatetime:          
             type: datetime
             nullable: true
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
         allDay:          
             type: boolean
         otherFields:          
             type: string
+        serviceID:
+            type: integer
+    manyToOne:
+            calendar:
+                targetEntity: Calendar
+                inversedBy: myCompanyEvents
+                joinColumn:
+                    referencedColumnName: id
+            service:
+                nullable: true
+                targetEntity: WWW\ServiceBundle\Entity\Service
+                joinColumn:
+                    referencedColumnName: id
     lifecycleCallbacks: {  }

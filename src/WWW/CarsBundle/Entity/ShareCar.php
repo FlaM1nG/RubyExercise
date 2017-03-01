@@ -3,7 +3,7 @@
 namespace WWW\CarsBundle\Entity;
 
 use WWW\ServiceBundle\Entity\Offer;
-use WWW\CarsBundle\Entity\Car;
+use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\GlobalBundle\Entity\Photo;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -59,20 +59,36 @@ class ShareCar
 
     public function __construct($array = null) {
 
-        if($array != null): 
-            $this->id = $array['id'];
-            $this->fromPlace = $array['from_place'];
-            $this->toPlace = $array['to_place'];
-            $this->date = \DateTime::createFromFormat('Y-m-d H:i:s', $array['date']);
-            $this->price = $array['price'];
-            $this->backTwo = (bool)$array['back_two'];
-            $this->autobooking = $array['autobooking'];
-            $this->offer = new Offer($array);
+        if($array != null):
 
-            $this->createCar($array);
+            foreach($array as $key => $value):
+                $key = Inflector::camelize($key);
+
+                if(property_exists('WWW\CarsBundle\Entity\ShareCar',$key) && !empty($value) ):
+                    if($key == 'date'):
+                        $this->date = \DateTime::createFromFormat('Y-m-d H:i:s', $array['date']);
+
+                    elseif($key == 'backTwo'):
+                        $this->backTwo = (bool)$array['back_two'];
+
+                    else:
+                        $this->$key = $value;
+                    endif;
+
+                endif;
+            endforeach;
+
+            if(array_key_exists('car_id',$array))
+                $this->createCar($array);
+
+            $this->offer = new Offer($array);
         else:
+
             $this->offer = new Offer();
+            
         endif;
+
+
     }
 
     private function createCar($array){
