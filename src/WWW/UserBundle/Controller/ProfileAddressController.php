@@ -5,7 +5,7 @@ namespace WWW\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use WWW\GlobalBundle\Form\AdressType;
+use WWW\GlobalBundle\Form\AddressType;
 use WWW\GlobalBundle\Entity\Address;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
@@ -45,7 +45,7 @@ class ProfileAddressController extends Controller
     public function newAddressAction(Request $request){
         
         $address = new Address();
-        $formAddress = $this->createForm(AdressType::class, $address);
+        $formAddress = $this->createForm(AddressType::class, $address);
         
         $formAddress->handleRequest($request);
         
@@ -109,7 +109,7 @@ class ProfileAddressController extends Controller
         $user = $this->getUserProfile($request);
         
         $address = $this->searchAddress($user,$idAddress);
-        $form = $this->createForm(AdressType::class,$address);
+        $form = $this->createForm(AddressType::class,$address);
         
         $form->handleRequest($request);
         
