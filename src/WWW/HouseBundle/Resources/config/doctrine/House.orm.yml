@@ -9,6 +9,10 @@ WWW\HouseBundle\Entity\House:
             generator:
                 strategy: AUTO
     fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
         description:
             type: string
             length: 255
@@ -30,199 +34,202 @@ WWW\HouseBundle\Entity\House:
             nullable: true
         aireAcondicionado:
             type: boolean
-            nullable: true
+            default: 0
         calefaccion:
             type: boolean
-            nullable: true
+            default: 0
         ascensor:
             type: boolean
-            nullable: true
+            default: 0
         portero:
             type: boolean
-            nullable: true
+            default: 0
         timbre:
             type: boolean
-            nullable: true
+            default: 0
         apartamentoEdificio:
             type: boolean
-            nullable: true
+
+            default: 0
         accesoDiscapacitados:
             type: boolean
-            nullable: true
+            default: 0
         piscina:
             type: boolean
-            nullable: true
+            default: 0
         gimnasio:
             type: boolean
-            nullable: true
+
+            default: 0
         papelHigienico:
             type: boolean
-            nullable: true
+            default: 0
         bidet:
             type: boolean
-            nullable: true
+            default: 0
         banera:
             type: boolean
-            nullable: true
+            default: 0
         secadorPelo:
             type: boolean
-            nullable: true
+            default: 0
         jacuzzi:
             type: boolean
-            nullable: true
+            default: 0
         champu:
             type: boolean
-            nullable: true
+            default: 0
         mesaComedor:
             type: boolean
-            nullable: true
+            default: 0
         cafetera:
             type: boolean
-            nullable: true
+            default: 0
         productosLimpieza:
             type: boolean
-            nullable: true
-        forgones:
+            default: 0
+        fogones:
             type: boolean
-            nullable: true
+            default: 0
         horno:
             type: boolean
-            nullable: true
+            default: 0
         utensiliosCocina:
             type: boolean
-            nullable: true
+            default: 0
         lavadora:
             type: boolean
-            nullable: true
+            default: 0
         microondas:
             type: boolean
-            nullable: true
+            default: 0
         nevera:
             type: boolean
-            nullable: true
+            default: 0
         secadora:
             type: boolean
-            nullable: true
+            default: 0
         desayuno:
             type: boolean
-            nullable: true
+            default: 0
         armario:
             type: boolean
-            nullable: true
+            default: 0
         sabanas:
             type: boolean
-            nullable: true
+            default: 0
         sofaCama:
             type: boolean
-            nullable: true
+            default: 0
         tendedero:
             type: boolean
-            nullable: true
+            default: 0
         perchero:
             type: boolean
-            nullable: true
+            default: 0
         perchas:
             type: boolean
-            nullable: true
+            default: 0
         sueloBaldosa:
             type: boolean
-            nullable: true
+            default: 0
         insonorizacion:
             type: boolean
-            nullable: true
+            default: 0
         entradaPrivada:
             type: boolean
-            nullable: true
+            default: 0
         ventilador:
             type: boolean
-            nullable: true
+            default: 0
         plancha:
             type: boolean
-            nullable: true
+            default: 0
         pestillo:
             type: boolean
-            nullable: true
+            default: 0
         vistasCiudad:
             type: boolean
-            nullable: true
+            default: 0
         vistasInteres:
             type: boolean
-            nullable: true
+            default: 0
         comedor:
             type: boolean
-            nullable: true
+            default: 0
         sofa:
             type: boolean
-            nullable: true
+            default: 0
         zonaEstar:
             type: boolean
-            nullable: true
+            default: 0
         escritorio:
             type: boolean
-            nullable: true
+            default: 0
         chimenea:
             type: boolean
-            nullable: true
+            default: 0
         zonaPortatiles:
             type: boolean
-            nullable: true
+            default: 0
         tv:
             type: boolean
-            nullable: true
+            default: 0
         tvPlana:
             type: boolean
-            nullable: true
+            default: 0
         tvSatelite:
             type: boolean
-            nullable: true
+            default: 0
         wifi:
             type: boolean
-            nullable: true
+            default: 0
         parkingPublico:
             type: boolean
-            nullable: true
+            default: 0
         parkingGratuito:
             type: boolean
-            nullable: true
+            default: 0
         libros:
             type: boolean
-            nullable: true
+            default: 0
         dvd:
             type: boolean
-            nullable: true
+
+            default: 0
         puzzles:
             type: boolean
-            nullable: true
+            default: 0
         eventos:
             type: boolean
-            nullable: true
+            default: 0
         fiestas:
             type: boolean
-            nullable: true
+            default: 0
         fumar:
             type: boolean
-            nullable: true
+            default: 0
         mascotas:
             type: boolean
-            nullable: true
+            default: 0
         botiquin:
             type: boolean
-            nullable: true
+            default: 0
         detectorHumo:
             type: boolean
-            nullable: true
+            default: 0
         detectorCO:
             type: boolean
-            nullable: true
+            default: 0
         extintor:
             type: boolean
-            nullable: true
+            default: 0
         fichaInstrucciones:
             type: boolean
-            nullable: true
+            default: 0
         protectorEnchufes:
             type: boolean
-            nullable: true
+            default: 0
         createdDate:
             type: datetime
             nullable: true
