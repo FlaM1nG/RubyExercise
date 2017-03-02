@@ -33,7 +33,7 @@ class ProfileHouseController extends Controller{
             $result = $this->saveNewHouse($request);
 
             if($result == 'ok'):
-                $this->redirectToRoute('user_profile_listHouse');
+                return $this->redirectToRoute('user_profile_listHouse');
             endif;
         endif;
 
