@@ -76,7 +76,7 @@ class HouseType extends AbstractType{
             
             ->add('productosLimpieza', CheckboxType::class, array('label' => 'Productos de limpieza', 'required' => false))
             
-            ->add('forgones', CheckboxType::class, array('label' => 'Fogones', 'required' => false))
+            ->add('fogones', CheckboxType::class, array('label' => 'Fogones', 'required' => false))
             
             ->add('horno', CheckboxType::class, array('label' => 'Horno', 'required' => false))
             
