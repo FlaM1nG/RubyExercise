@@ -2,6 +2,8 @@
 
 namespace WWW\HouseBundle\Entity;
 
+use Doctrine\Common\Util\Inflector as Inflector;
+
 /**
  * House
  */
@@ -410,9 +412,32 @@ class House
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($arrayData = null)
     {
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+
+        if($arrayData != null AND gettype($arrayData) == 'array'):
+
+            foreach($arrayData as $key => $value ):
+                $key = Inflector::camelize($key);
+
+                if(property_exists('WWW\HouseBundle\Entity\House',$key)):
+
+                    if($key != 'id' AND $key !='capacity' AND $key !='bathrooms' AND $key != 'bedrooms'
+                        AND $key != 'beds' AND is_bool($value) ):
+
+                        $this->$key = (bool)$value;
+
+                    else:
+
+                        $this->$key = $value;
+
+                    endif;
+
+                endif;
+
+            endforeach;
+        endif;
     }
 
 
