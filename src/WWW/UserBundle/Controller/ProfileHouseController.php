@@ -32,9 +32,9 @@ class ProfileHouseController extends Controller{
         if($form->isSubmitted()):
             $result = $this->saveNewHouse($request);
 
-//            if($result == 'ok'):
-//                $this->redirectToRoute('user_profile_listHouse');
-//            endif;
+            if($result == 'ok'):
+                $this->redirectToRoute('user_profile_listHouse');
+            endif;
         endif;
 
         return $this->render('UserBundle:Profile/House:profileNewHouse.html.twig',
@@ -89,6 +89,43 @@ class ProfileHouseController extends Controller{
         $ut->flashMessage('Casa creada con éxito',$request,$result,null);
 
         return $result['result'];
+    }
+    
+    public function listHousesAction(Request $request){
+
+        $arrayHouses = $this->getHouseUser($request);
+
+        return $this->render('UserBundle:Profile/House:profileListHouse.html.twig',array(
+                             'arrayHouses' => $arrayHouses
+                             ));
+    }
+
+    private function getHouseUser(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'user/house/get_houses.php';
+        $ch = new ApiRest();
+        $ut = new Utilities();
+
+        $arrayHouse = array();
+        
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        
+        $result = $ch->resultApiRed($data, $file);
+        
+        print_r($result);
+
+        if($result['result'] == 'ok'):
+
+            foreach($result['houses'] as $datas):
+                $house = new House($datas);
+                $arrayHouse[] = $house;
+            endforeach;
+
+        endif;
+
+        return $arrayHouse;
     }
 
 }
