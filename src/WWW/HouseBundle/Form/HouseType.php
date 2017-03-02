@@ -30,6 +30,8 @@ class HouseType extends AbstractType{
 
             ->add('licenseNumber', TextType::class, array('label' => 'Número de licencia'))
 
+            ->add('title', TextareaType::class, array('label' => 'Título'))
+
             ->add('description', TextareaType::class, array('label' => 'Descripción'))
 
             ->add('capacity', IntegerType::class, array('label' => 'Capacidad'))
