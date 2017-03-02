@@ -20,7 +20,7 @@ class PurchaseExamplesController extends Controller
      */
     public function prepareAction(Request $request)
     {
-        // 4548 8120 4940 0004
+        // 4548812049400004
         // 12/20
         // 123
         // 123456
@@ -42,6 +42,7 @@ class PurchaseExamplesController extends Controller
             $payment['Ds_Merchant_TransactionType'] = Api::TRANSACTIONTYPE_AUTHORIZATION;
             $payment['Ds_Merchant_ConsumerLanguage'] = Api::CONSUMERLANGUAGE_SPANISH;
             $storage->update($payment);
+            
 
             $notifyToken = $this->getPayum()->getTokenFactory()->createNotifyToken($gatewayName, $payment);
             $payment['Ds_Merchant_MerchantURL'] = $notifyToken->getTargetUrl();

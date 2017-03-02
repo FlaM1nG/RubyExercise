@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use WWW\GlobalBundle\Form\AdressType;
+use WWW\GlobalBundle\Form\AddressType;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 
@@ -29,7 +29,7 @@ class ProfileAddressesType extends AbstractType{
         $arrayPrefix = $this->getPrefixes();
         
         $builder
-                ->add('addresses', CollectionType::class, array('entry_type' => AdressType::class,
+                ->add('addresses', CollectionType::class, array('entry_type' => AddressType::class,
                                                                 'allow_add' => true,    
                                                                 'by_reference' => false,
                                                             ))

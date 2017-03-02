@@ -18,6 +18,46 @@ class House
     private $description;
 
     /**
+     * @var \WWW\GlobalBundle\Entity\Address
+     */
+    private $address;
+
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;
+
+    /**
+     * @var \WWW\GlobalBundle\Entity\Calendar
+     */
+    private $calendar;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $photos;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $deletedDate;
+
+    /**
+     * @var boolean
+     */
+    private $isDeleted;
+
+    /**
      * @var string
      */
     private $licenseNumber;
@@ -366,6 +406,14 @@ class House
      * @var boolean
      */
     private $protectorEnchufes;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -2081,28 +2129,6 @@ class House
     {
         return $this->protectorEnchufes;
     }
-    /**
-     * @var \WWW\GlobalBundle\Entity\Address
-     */
-    private $address;
-
-    /**
-     * @var \WWW\GlobalBundle\Entity\Calendar
-     */
-    private $calendar;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $photos;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Set address
@@ -2185,11 +2211,6 @@ class House
     {
         return $this->photos;
     }
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $user;
-
 
     /**
      * Set user
@@ -2214,26 +2235,6 @@ class House
     {
         return $this->user;
     }
-    /**
-     * @var \DateTime
-     */
-    private $createdDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $modifiedDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $deletedDate;
-
-    /**
-     * @var boolean
-     */
-    private $isDeleted;
-
 
     /**
      * Set createdDate
