@@ -1,0 +1,120 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/coche.html.twig' as coches %}
+{% import 'macros/script.html.twig' as codMenu %}
+
+
+{% block title %}
+    Casas
+{% endblock %}
+
+{% block alertProfile %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+
+{% endblock %}
+
+
+{% block javascriptsHeader %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block bodyProfile %}
+
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Casas
+            </h3>
+            <hr/>
+            {#{% for car in arrayCars %}#}
+                {#{{ coches.coche(path('user_profileCar', {idCar: car.id}), asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img'), '0000-ZZZ',#}
+                {#car.model.brand.name, car.model.name, car.seats, car.description,#}
+                {#path('user_profileEditCar', {idCar: car.id} ), 'dataEdit', 'titleEdit',#}
+                {#'#', car.id, 'Delete car') }}#}
+            {#{% endfor %}#}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
+
+    <script>
+
+        $(document).ready(function(){
+            $(document).on('click', '.deleteCar', deleteCar);
+
+            function deleteCar(e){
+                e.preventDefault();
+
+                var idCar = $(this).attr('data-id');
+                var data = {};
+                var url = "{{ url('user_ajax_deleteCar') }}";
+                var container = ".element_"+idCar;
+
+                data['id'] = idCar;
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+
+                    success: function(data)
+                    {
+                        if(data['result'] === 'ok'){
+                            $(container).remove();
+                            $('.contentAlert').html("<div class='alert "+
+                                    "alert-success alert-dismissible' role='alert'>"+
+                                    "<button type='button' class='close' "+
+                                    "data-dismiss='alert' aria-label='Close'>"+
+                                    "<span aria-hidden='true'>×</span>"+
+                                    "</button><strong></strong>"+
+                                    data['message']+"</div>");
+
+                        }else{
+                            $('.contentAlert').html("<div class='alert "+
+                                    "alert-warning alert-dismissible' role='alert'>"+
+                                    "<button type='button' class='close' "+
+                                    "data-dismiss='alert' aria-label='Close'>"+
+                                    "<span aria-hidden='true'>×</span>"+
+                                    "</button><strong></strong>"+
+                                    data['message']+"</div>");
+
+                        }
+
+                    },
+                    error: function()
+                    {
+                        $('.contentAlert').html("<div class='alert "+
+                                "alert-warning alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                "Ha ocurrido un error, por favor vuelva a intentarlo</div>");
+
+                    }
+                });
+            }
+        });
+
+    </script>
+
+
+{% endblock %}
+
