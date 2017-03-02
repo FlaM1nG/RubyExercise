@@ -17,6 +17,11 @@ class House
     /**
      * @var string
      */
+    private $title;
+
+    /**
+     * @var string
+     */
     private $description;
 
     /**
@@ -132,6 +137,11 @@ class House
     /**
      * @var boolean
      */
+    private $fogones;
+
+    /**
+     * @var boolean
+     */
     private $papelHigienico;
 
     /**
@@ -173,11 +183,6 @@ class House
      * @var boolean
      */
     private $productosLimpieza;
-
-    /**
-     * @var boolean
-     */
-    private $forgones;
 
     /**
      * @var boolean
@@ -1025,30 +1030,6 @@ class House
     public function getProductosLimpieza()
     {
         return $this->productosLimpieza;
-    }
-
-    /**
-     * Set forgones
-     *
-     * @param boolean $forgones
-     *
-     * @return House
-     */
-    public function setForgones($forgones)
-    {
-        $this->forgones = $forgones;
-
-        return $this;
-    }
-
-    /**
-     * Get forgones
-     *
-     * @return boolean
-     */
-    public function getForgones()
-    {
-        return $this->forgones;
     }
 
     /**
@@ -2355,5 +2336,51 @@ class House
     public function getIsDeleted()
     {
         return $this->isDeleted;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return House
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set fogones
+     *
+     * @param boolean $fogones
+     * @return House
+     */
+    public function setFogones($fogones)
+    {
+        $this->fogones = $fogones;
+
+        return $this;
+    }
+
+    /**
+     * Get fogones
+     *
+     * @return boolean 
+     */
+    public function getFogones()
+    {
+        return $this->fogones;
     }
 }
