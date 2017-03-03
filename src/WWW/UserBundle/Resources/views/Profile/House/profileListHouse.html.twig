@@ -36,12 +36,15 @@
                 Casas
             </h3>
             <hr/>
-            {#{% for car in arrayCars %}#}
-                {#{{ coches.coche(path('user_profileCar', {idCar: car.id}), asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img'), '0000-ZZZ',#}
-                {#car.model.brand.name, car.model.name, car.seats, car.description,#}
-                {#path('user_profileEditCar', {idCar: car.id} ), 'dataEdit', 'titleEdit',#}
-                {#'#', car.id, 'Delete car') }}#}
-            {#{% endfor %}#}
+{#  Necesito que el botón de borrar que lleva la clase deleteCar se llame deleteHouse y en el script cuando se llama a la función deleteHouse cambiar deleteCar por deleteHouse
+    Tal y como está ahora mismo funciona borrar perfectamente y muestra el mensaje flash en su sitio
+#}
+            {% for house in arrayHouses %}
+                {{ coches.coche(path('user_profile_showHouse', {idHouse: house.id}), asset(house.photos.0.url|default('web/img/placeholder.jpg'),'img'), house.address.country.country,
+                house.title, house.address.street, 0, house.description,
+                path('user_profile_editHouse', {idHouse: house.id} ), 'dataEdit', 'titleEdit',
+                '#', house.id, 'Delete house') }}
+            {% endfor %}
         </div>
     </div>
 
@@ -57,17 +60,17 @@
     <script>
 
         $(document).ready(function(){
-            $(document).on('click', '.deleteCar', deleteCar);
+            $(document).on('click', '.deleteCar', deleteHouse);
 
-            function deleteCar(e){
+            function deleteHouse(e){
                 e.preventDefault();
 
-                var idCar = $(this).attr('data-id');
+                var idHouse = $(this).attr('data-id');
                 var data = {};
-                var url = "{{ url('user_ajax_deleteCar') }}";
-                var container = ".element_"+idCar;
+                var url = "{{ url('user_ajax_deleteHouse') }}";
+                var container = ".element_"+idHouse;
 
-                data['id'] = idCar;
+                data['id'] = idHouse;
 
                 $.ajax({
                     type: "POST",
