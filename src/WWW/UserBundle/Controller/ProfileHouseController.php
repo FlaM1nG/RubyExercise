@@ -127,7 +127,31 @@ class ProfileHouseController extends Controller{
     }
 
     public function editHouseAction(Request $request){
-        return new Response();
+        $this->getHouse($request);
+
+        return $this->render('UserBundle:Profile/House:profileNewHouse.html.twig');
+    }
+
+    private function getHouse(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'user/house/get_house.php';
+        $ch = new ApiRest();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['house_id'] = $request->get('idHouse');
+
+//        print_r($data);
+
+        $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+            $house = new House($result);
+        endif;
+
+        print_r($house);
+        exit;
     }
 
     public function showHouseAction(Request $request){
