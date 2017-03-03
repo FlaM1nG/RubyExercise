@@ -2,6 +2,10 @@
 
 namespace WWW\HouseBundle\Entity;
 
+use Doctrine\Common\Util\Inflector as Inflector;
+use WWW\GlobalBundle\Entity\Address;
+use WWW\GlobalBundle\Entity\Photo;
+
 /**
  * House
  */
@@ -415,9 +419,47 @@ class House
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($arrayData = null)
     {
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+
+        if($arrayData != null AND gettype($arrayData) == 'array'):
+
+            foreach($arrayData as $key => $value ):
+                $key = Inflector::camelize($key);
+
+                if(property_exists('WWW\HouseBundle\Entity\House',$key)):
+
+                    if($key != 'id' AND $key !='capacity' AND $key !='bathrooms' AND $key != 'bedrooms'
+                        AND $key != 'beds' AND is_bool($value) ):
+
+                        $this->$key = (bool)$value;
+
+                    elseif($key == 'address'):
+                        $this->createAddress($arrayData['address']);
+
+                    else:
+
+                        $this->$key = $value;
+
+                    endif;
+                endif;
+
+            endforeach;
+
+            if(array_key_exists('photo', $arrayData)):
+                $photo = new Photo();
+                $photo->setUrl($arrayData['photo']);
+                $this->photos->add($photo);
+            endif;
+
+        endif;
+    }
+
+    private function createAddress($array){
+        $address = new Address($array);
+
+        $this->address = $address;
     }
 
 

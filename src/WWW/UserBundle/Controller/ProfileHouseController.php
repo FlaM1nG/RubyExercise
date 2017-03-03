@@ -11,6 +11,7 @@ namespace WWW\UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Util\Inflector as Inflector;
+use Symfony\Component\HttpFoundation\Response;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
@@ -32,9 +33,9 @@ class ProfileHouseController extends Controller{
         if($form->isSubmitted()):
             $result = $this->saveNewHouse($request);
 
-//            if($result == 'ok'):
-//                $this->redirectToRoute('user_profile_listHouse');
-//            endif;
+            if($result == 'ok'):
+                return $this->redirectToRoute('user_profile_listHouse');
+            endif;
         endif;
 
         return $this->render('UserBundle:Profile/House:profileNewHouse.html.twig',
@@ -89,6 +90,76 @@ class ProfileHouseController extends Controller{
         $ut->flashMessage('Casa creada con éxito',$request,$result,null);
 
         return $result['result'];
+    }
+    
+    public function listHousesAction(Request $request){
+
+        $arrayHouses = $this->getHouseUser($request);
+
+        return $this->render('UserBundle:Profile/House:profileListHouse.html.twig',array(
+                             'arrayHouses' => $arrayHouses
+                             ));
+    }
+
+    private function getHouseUser(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'user/house/get_houseUserList.php';
+        $ch = new ApiRest();
+
+        $arrayHouse = array();
+        
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+       
+        $result = $ch->resultApiRed($data, $file);
+
+        if($result['result'] == 'ok'):
+
+            foreach($result['houses'] as $datas):
+                $house = new House($datas);
+                $arrayHouse[] = $house;
+            endforeach;
+
+        endif;
+
+        return $arrayHouse;
+    }
+
+    public function editHouseAction(Request $request){
+        return new Response();
+    }
+
+    public function showHouseAction(Request $request){
+        return new Response();
+    }
+
+    public function deleteHouseAction(Request $request){
+        $response = new JsonResponse();
+
+        $id = $request->get('id');
+        $file = MyConstants::PATH_APIREST.'user/house/delete_house.php';
+        $ch = new ApiRest();
+
+        $data['id_user'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['id'] = $id;
+
+        $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+            $response->setData(array(
+                'result' => 'ok',
+                'message' => 'Datos actualizados correctamente'));
+        else:
+            $response->setData(array(
+                'result' => 'ko',
+                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
+        endif;
+
+        return $response;
+
     }
 
 }
