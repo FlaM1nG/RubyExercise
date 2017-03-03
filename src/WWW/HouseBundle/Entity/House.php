@@ -3,6 +3,8 @@
 namespace WWW\HouseBundle\Entity;
 
 use Doctrine\Common\Util\Inflector as Inflector;
+use WWW\GlobalBundle\Entity\Address;
+use WWW\GlobalBundle\Entity\Photo;
 
 /**
  * House
@@ -433,16 +435,31 @@ class House
 
                         $this->$key = (bool)$value;
 
+                    elseif($key == 'address'):
+                        $this->createAddress($arrayData['address']);
+
                     else:
 
                         $this->$key = $value;
 
                     endif;
-
                 endif;
 
             endforeach;
+
+            if(array_key_exists('photo', $arrayData)):
+                $photo = new Photo();
+                $photo->setUrl($arrayData['photo']);
+                $this->photos->add($photo);
+            endif;
+
         endif;
+    }
+
+    private function createAddress($array){
+        $address = new Address($array);
+
+        $this->address = $address;
     }
 
 
