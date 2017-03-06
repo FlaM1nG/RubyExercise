@@ -106,9 +106,10 @@ class Offer
      */
     public function __construct($data = null){ 
      //var_dump($data);
-//        print_r($data);echo "<br><br>";
+        
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = Array();
+        $this->service = new Service();
         
         if(gettype($data) == 'array'):
             $keyPhoto = '';

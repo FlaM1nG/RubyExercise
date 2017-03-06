@@ -88,7 +88,7 @@ class OfferController extends Controller{
             $result = null;
             if($this->service <= 3):
                 $result = $this->updateOfferTrade($request);
-            elseif($this->service == 4):
+            elseif($this->service == 4 || $this->service == 5):
                 $result = $this->updateOfferShareCar($request);
             endif;
 
@@ -99,14 +99,17 @@ class OfferController extends Controller{
 
         if($this->service <= 3):
             $pathRender = 'UserBundle:Profile:offers/profileEditOfferTrades.html.twig';
-        elseif($this->service == 4):
+
+        elseif($this->service == 4 || $this->service == 5):
             $pathRender = 'UserBundle:Profile:offers/profileEditOfferShareCar.html.twig';
+
         endif;
 
         return $this->render($pathRender,
                         array('form' => $form->createView(),
                               'service' => $this->service,
                               'offer' => $this->offer ));
+
     }
 
     private function updateOfferShareCar(Request $request){
@@ -126,11 +129,17 @@ class OfferController extends Controller{
 
         $data['sub_values']['from_place'] = "'".$this->offer->getFromPlace()."'";
         $data['sub_values']['to_place'] = "'".$this->offer->getToPlace()."'";
-        $data['sub_values']['price'] = $this->offer->getPrice();
         $data['sub_values']['car_id'] = $this->offer->getCar()->getId();
         $data['sub_values']["date"] = "'".$this->offer->getDate()->format("Y-m-d H:i")."'";
-        if(!empty($this->offer->getBackTwo()))  $data['sub_values']["back_two"] = 1;
 
+        if($this->service == 4):
+            $data['sub_values']['price'] = $this->offer->getPrice();
+
+            if(!empty($this->offer->getBackTwo()))
+                $data['sub_values']["back_two"] = 1;
+            else
+                $data['sub_values']["back_two"] = 0;
+        endif;
 
         $info['data']= json_encode($data);
 
@@ -204,10 +213,11 @@ class OfferController extends Controller{
                  $this->createTrade($result);
                  $formulario = $this->createForm(TradeType::class,$this->offer);
 
-             elseif($result['service_id'] == 4):
+             elseif($result['service_id'] == 4 || $result['service_id'] == 5):
                  $this->offer = new ShareCar($result);
                  $arrayCars = $this->getCarsUser($request);
                  $formulario = $this->createForm(ShareCarType::class ,$this->offer, array('listCar' => $arrayCars));
+
              endif;
         else:
             $this->ut->flashMessage("offer", $request, $result);

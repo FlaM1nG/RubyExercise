@@ -12,13 +12,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\ServiceBundle\Form\OfferType;
 use WWW\OthersBundle\Entity\Trade;
-use WWW\OthersBundle\Entity\TradeCategory;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 use WWW\GlobalBundle\Entity\Region;
@@ -32,7 +30,7 @@ class TradeType extends AbstractType{
 
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-
+//print_r($options['data']);
         $service = $options['data']->getOffer()->getService()->getId();
         $arrayCategory = $this->arrayCategories($service);
         $arrayRegion =$this->arrayRegion();

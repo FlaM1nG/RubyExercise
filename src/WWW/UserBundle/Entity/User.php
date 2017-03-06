@@ -265,7 +265,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     /**
      * Constructor
      */
-    public function __construct(Array $user=null){  
+    public function __construct($user=null){
 
         if(!empty($user)):  
             
@@ -299,10 +299,11 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
             endif;
             
              if(array_key_exists('addresses', $user)):
-                foreach($user['addresses'] as $address):
 
-                  $this->createAddresses($user['addresses'], $user['default_address_id']);
+                foreach($user['addresses'] as $address):
+                  $this->createAddresses($address, $user['default_address_id']);
                 endforeach;
+             
             endif; 
         else:
             $this->addresses = new ArrayCollection();
@@ -311,20 +312,15 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
         
     }
     
-    private function createAddresses($arrayAddress, $idDefaultAddress){
-//        $this->addresses = Array();
-//        print_r($arrayAddress);
-        foreach($arrayAddress as $address):
-               
+    private function createAddresses($address, $idDefaultAddress){
+
             $auxAddress = new Address($address);
-        
+
             if($auxAddress->getId() == $idDefaultAddress):
                 $this->defaultAddress = $auxAddress;
             else:
                 $this->addresses[] = $auxAddress;
             endif;
-            
-        endforeach;
     }
 
     public function setId($id){
@@ -1524,5 +1520,44 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     public function getCars()
     {
         return $this->cars;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $houses;
+
+
+    /**
+     * Add house
+     *
+     * @param \WWW\HouseBundle\Entity\House $house
+     *
+     * @return User
+     */
+    public function addHouse(\WWW\HouseBundle\Entity\House $house)
+    {
+        $this->houses[] = $house;
+
+        return $this;
+    }
+
+    /**
+     * Remove house
+     *
+     * @param \WWW\HouseBundle\Entity\House $house
+     */
+    public function removeHouse(\WWW\HouseBundle\Entity\House $house)
+    {
+        $this->houses->removeElement($house);
+    }
+
+    /**
+     * Get houses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHouses()
+    {
+        return $this->houses;
     }
 }

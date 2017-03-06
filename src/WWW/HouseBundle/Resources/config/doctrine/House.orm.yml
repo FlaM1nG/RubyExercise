@@ -1,0 +1,276 @@
+WWW\HouseBundle\Entity\House:
+    type: entity
+    table: null
+    repositoryClass: WWW\HouseBundle\Repository\HouseRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
+        description:
+            type: string
+            length: 255
+            nullable: true
+        licenseNumber:
+            type: string
+            length: 255
+        capacity:
+            type: integer
+            nullable: true
+        bathrooms:
+            type: integer
+            nullable: true
+        bedrooms:
+            type: integer
+            nullable: true
+        beds:
+            type: integer
+            nullable: true
+        aireAcondicionado:
+            type: boolean
+            default: 0
+        calefaccion:
+            type: boolean
+            default: 0
+        ascensor:
+            type: boolean
+            default: 0
+        portero:
+            type: boolean
+            default: 0
+        timbre:
+            type: boolean
+            default: 0
+        apartamentoEdificio:
+            type: boolean
+
+            default: 0
+        accesoDiscapacitados:
+            type: boolean
+            default: 0
+        piscina:
+            type: boolean
+            default: 0
+        gimnasio:
+            type: boolean
+
+            default: 0
+        papelHigienico:
+            type: boolean
+            default: 0
+        bidet:
+            type: boolean
+            default: 0
+        banera:
+            type: boolean
+            default: 0
+        secadorPelo:
+            type: boolean
+            default: 0
+        jacuzzi:
+            type: boolean
+            default: 0
+        champu:
+            type: boolean
+            default: 0
+        mesaComedor:
+            type: boolean
+            default: 0
+        cafetera:
+            type: boolean
+            default: 0
+        productosLimpieza:
+            type: boolean
+            default: 0
+        fogones:
+            type: boolean
+            default: 0
+        horno:
+            type: boolean
+            default: 0
+        utensiliosCocina:
+            type: boolean
+            default: 0
+        lavadora:
+            type: boolean
+            default: 0
+        microondas:
+            type: boolean
+            default: 0
+        nevera:
+            type: boolean
+            default: 0
+        secadora:
+            type: boolean
+            default: 0
+        desayuno:
+            type: boolean
+            default: 0
+        armario:
+            type: boolean
+            default: 0
+        sabanas:
+            type: boolean
+            default: 0
+        sofaCama:
+            type: boolean
+            default: 0
+        tendedero:
+            type: boolean
+            default: 0
+        perchero:
+            type: boolean
+            default: 0
+        perchas:
+            type: boolean
+            default: 0
+        sueloBaldosa:
+            type: boolean
+            default: 0
+        insonorizacion:
+            type: boolean
+            default: 0
+        entradaPrivada:
+            type: boolean
+            default: 0
+        ventilador:
+            type: boolean
+            default: 0
+        plancha:
+            type: boolean
+            default: 0
+        pestillo:
+            type: boolean
+            default: 0
+        vistasCiudad:
+            type: boolean
+            default: 0
+        vistasInteres:
+            type: boolean
+            default: 0
+        comedor:
+            type: boolean
+            default: 0
+        sofa:
+            type: boolean
+            default: 0
+        zonaEstar:
+            type: boolean
+            default: 0
+        escritorio:
+            type: boolean
+            default: 0
+        chimenea:
+            type: boolean
+            default: 0
+        zonaPortatiles:
+            type: boolean
+            default: 0
+        tv:
+            type: boolean
+            default: 0
+        tvPlana:
+            type: boolean
+            default: 0
+        tvSatelite:
+            type: boolean
+            default: 0
+        wifi:
+            type: boolean
+            default: 0
+        parkingPublico:
+            type: boolean
+            default: 0
+        parkingGratuito:
+            type: boolean
+            default: 0
+        libros:
+            type: boolean
+            default: 0
+        dvd:
+            type: boolean
+
+            default: 0
+        puzzles:
+            type: boolean
+            default: 0
+        eventos:
+            type: boolean
+            default: 0
+        fiestas:
+            type: boolean
+            default: 0
+        fumar:
+            type: boolean
+            default: 0
+        mascotas:
+            type: boolean
+            default: 0
+        botiquin:
+            type: boolean
+            default: 0
+        detectorHumo:
+            type: boolean
+            default: 0
+        detectorCO:
+            type: boolean
+            default: 0
+        extintor:
+            type: boolean
+            default: 0
+        fichaInstrucciones:
+            type: boolean
+            default: 0
+        protectorEnchufes:
+            type: boolean
+            default: 0
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+    manyToOne:
+        user:
+            targetEntity: WWW\UserBundle\Entity\User
+            inversedBy: houses
+            joinColumn:
+                referencedColumnName: id
+    oneToOne:        
+        address:
+            nullable: true
+            targetEntity: WWW\GlobalBundle\Entity\Address
+            joinColumn:
+                referencedColumnName: id
+        calendar:
+            nullable: true
+            targetEntity: WWW\GlobalBundle\Entity\Calendar
+            joinColumn:
+                referencedColumnName: id
+    manyToMany:
+        photos:
+          targetEntity: WWW\GlobalBundle\Entity\Photo
+          joinTable:
+            name: house_photos
+            joinColumns:
+              house_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+            inverseJoinColumns:
+              photo_id:
+                referencedColumnName: id
+                onDelete: CASCADE
+        
+    lifecycleCallbacks: {  }

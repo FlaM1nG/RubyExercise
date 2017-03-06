@@ -15337,6 +15337,9 @@ textarea {
   }
 }
 /* Inscritos */
+.cont-inscri {
+  min-height: 60vh;
+}
 .a2a_svg.a2a_s__default {
   height: 36px !important;
   width: 36px !important;

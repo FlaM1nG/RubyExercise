@@ -34,4 +34,10 @@ WWW\ServiceBundle\Entity\Inscription:
             inversedBy: inscriptions
             joinColumn:
                 referencedColumnName: id
+
+        messengerPrice:
+            targetEntity: WWW\ServiceBundle\Entity\MessengerPrice
+            joinColumn:
+                name: id_messengerPrice
+                referencedColumnName: id
     lifecycleCallbacks: {  }

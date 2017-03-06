@@ -33,6 +33,7 @@ class AppKernel extends Kernel
 //            new Payum\Bundle\PayumBundle\PayumBundle(),
 
             new WWW\CarsBundle\CarsBundle(),
+            new WWW\HouseBundle\HouseBundle(),
             /**
              * HERE ALL THE BUNDLES REQUIRED TO MAKE PAYUMBUNDLE WORK
              */
