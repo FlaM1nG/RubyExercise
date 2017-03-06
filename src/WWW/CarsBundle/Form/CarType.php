@@ -59,9 +59,9 @@ class CarType extends AbstractType{
                                                       'required' => false))
             ->add('animals', CheckboxType::class, array('label' => 'Se permiten animales',
                                                         'required' => false ))
-            ->add('music', CheckboxType::class, array('label' => 'Me gusta la música e iré con ella to el viaje jajajaja',
+            ->add('music', CheckboxType::class, array('label' => 'Me gusta escuchar música',
                                                       'required' => false  ))
-            ->add('talk', CheckboxType::class, array('label' => 'Me encanta hablar',
+            ->add('talk', CheckboxType::class, array('label' => 'Me gusta hablar',
                                                      'required' => false))
             ->add('imgCar', FileType::class, array( 'label' => ' ',
                                                     'mapped' => false,
