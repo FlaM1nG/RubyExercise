@@ -32,12 +32,14 @@ class CalendarEventListener
         // load events using your custom logic here,
         // for instance, retrieving events from a repository
 
-        $companyEvents = $this->entityManager->getRepository('GlobalBundle:MyCompanyEvents')
-                          ->createQueryBuilder('company_events')
-                          ->where('company_events.startDatetime BETWEEN :startDate and :endDate')
-                          ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
-                          ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
-                          ->getQuery()->getResult();
+
+        $companyEvents = $this->entityManager->createQueryBuilder()
+            ->select('u')
+            ->from('GlobalBundle:MyCompanyEvents', 'u')
+            ->where('u.calendarID = :calendarID')
+            ->setParameter(':calendarID', 2)
+
+        ->getQuery()->getResult();
 
 
 
@@ -53,9 +55,9 @@ class CalendarEventListener
 
             // create an event with a start/end time, or an all day event
             if ($companyEvent->getAllDay() === false) {
-                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$companyEvent->getPrice(), $companyEvent->getUrl() , $companyEvent->getBgColor(), $companyEvent->getFgColor(),  $companyEvent->getStartDatetime(), $companyEvent->getEndDatetime(),true, true);
+                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$companyEvent->getPrice(), $companyEvent->getBgColor(), $companyEvent->getFgColor(),  $companyEvent->getStartDatetime(), $companyEvent->getEndDatetime(),true, true);
             } else {
-                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$companyEvent->getPrice(), $companyEvent->getUrl(), $companyEvent->getBgColor(), $companyEvent->getFgColor(), $companyEvent->getStartDatetime(), null,true, true);
+                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$companyEvent->getPrice(), $companyEvent->getBgColor(), $companyEvent->getFgColor(), $companyEvent->getStartDatetime(), null,true, true);
             }
 
             //optional calendar event settings

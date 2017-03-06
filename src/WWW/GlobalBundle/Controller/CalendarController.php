@@ -5,7 +5,9 @@ namespace WWW\GlobalBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Event\CalendarEvent;
-use WWW\GlobalBundle\Entity\MyCompanyEvents;
+
+
+
 
 class CalendarController extends Controller
 {
@@ -15,6 +17,7 @@ class CalendarController extends Controller
      * @param Request $request
      * @return Response
      */
+
     public function loadCalendarAction(Request $request)
     {
         
@@ -37,32 +40,36 @@ class CalendarController extends Controller
         
         return $response;
     }
-    
-    
-    public function updateDataAction(){
-        $request = Request::createFromGlobals();
-            if ($request->getMethod() == "GET") {
-                    $data1 = new DateTime($request->query->get('end'));
-                    $data2 = new DateTime($request->query->get('start'));
-        // here i have DateTime in above code that is to create object of date from string.
-                    $ename=$request->query->get('ename');
-                    $db = new MyCompanyEvents();
-                    $db->setStartDatetime($data2);
-                    $db->setEndDatetime($data1);
-                    $db->setTitle($ename);
-                    $em = $this->getDoctrine()->getEntityManager();
-                    $em->persist($db);
-                    $em->flush();
-                    $response = array("success" => true);
+
+
+
+    public function deleteEventAction()
+    {
+
+
+        if (isset($_POST['delete']) && isset($_POST['id'])) {
+
+
+
+            $id = $_POST['id'];
+
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('GlobalBundle:MyCompanyEvents')->findOneBy(array('id' => $id));
+
+            if ($entity != null) {
+                $em->remove($entity);
+                $em->flush();
             }
-                else{
-                $response = array( "success" => false);
-                }
-//you can return result as JSON
-return new Response(json_encode($response));
-    
-    
+
+        }
+
+
+        $response = new \Symfony\Component\HttpFoundation\Response();
+        $response->headers->set('Content-Type', 'application/json');
+            $response->setContent(json_encode($em));
+
+            return $response;
+
     }
-    
     
 }
