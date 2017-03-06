@@ -127,22 +127,31 @@ class ProfileHouseController extends Controller{
     }
 
     public function editHouseAction(Request $request){
-        $this->getHouse($request);
+        $house = $this->getHouse($request);
 
-        return $this->render('UserBundle:Profile/House:profileNewHouse.html.twig');
+        $form = $this->createForm(HouseType::class,$house);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()):
+$this->updateHouse($request, $house);exit;
+        endif;
+
+        return $this->render('UserBundle:Profile/House:profileNewHouse.html.twig',array(
+                             'form' => $form->createView()
+        ));
     }
 
     private function getHouse(Request $request){
 
         $file = MyConstants::PATH_APIREST.'user/house/get_house.php';
         $ch = new ApiRest();
+        $house = null;
 
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
         $data['house_id'] = $request->get('idHouse');
-
-//        print_r($data);
 
         $result = $ch->resultApiRed($data,$file);
 
@@ -150,8 +159,16 @@ class ProfileHouseController extends Controller{
             $house = new House($result);
         endif;
 
-        print_r($house);
-        exit;
+        return $house;
+
+    }
+
+    private function updateHouse(Request $request, House $house){
+
+        $file = MyConstants::PATH_APIREST.'/user/house/update_house_photo';
+        $ch = new ApiRest();
+
+       print_r($request);
     }
 
     public function showHouseAction(Request $request){
