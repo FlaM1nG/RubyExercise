@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use WWW\GlobalBundle\Form\PhotoType;
-use WWW\GlobalBundle\Form\AdressType;
+use WWW\GlobalBundle\Form\AddressType;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 
@@ -107,7 +107,7 @@ class ProfileType extends AbstractType{
 
                 ->add('confirmPhone', 'submit', array('label' => 'Confirmar',
                                                       'validation_groups' => false)) 
-                ->add('addresses', CollectionType::class, array('entry_type' => AdressType::class,
+                ->add('addresses', CollectionType::class, array('entry_type' => AddressType::class,
                                                                 'allow_add' => true,    
                                                                 'by_reference' => false,
                                                             ))

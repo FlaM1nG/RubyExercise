@@ -489,7 +489,7 @@
     width: 100px;
 }
 
-.us-image-checkbox{
+.us-image-checkbox, .check-payment-method, .check-send-method{
     background-color: @brand-secondary;
 
     img, img:focus{
@@ -516,15 +516,21 @@
     outline: 0;*/
 }
 
-.us-image-checkbox:hover, .us-image-checkbox:focus{
+.us-image-checkbox:hover, .us-image-checkbox:focus,
+.check-payment-method:hover, .check-payment-method:focus,
+.check-send-method:hover, .check-send-method:focus{
     background-color: @brand-secondary;
 }
 
-.us-image-checkbox input[type="checkbox"] {
+.us-image-checkbox input[type="checkbox"],
+.check-payment-method input[type="checkbox"],
+.check-send-method input[type="checkbox"]{
     display: none;
 }
 
-.us-image-checkbox-checked {
+.us-image-checkbox-checked,
+.check-payment-method-checked,
+.check-send-method-checked{
     img, img:hover, img:focus{
         border: 5px solid @brand-primary;
         opacity: 1;

@@ -164,7 +164,7 @@ user_profileCar:
     path: /profile/car/{idCar}/
     defaults: { _controller: UserBundle:ProfileCar:showCar }
     requirements:
-            idMessage: \d+
+            idCar: \d+
 
 user_ajax_deleteCar:
     path: /ajax/deleteCar
@@ -174,7 +174,7 @@ user_profileEditCar:
     path: /profile/car/edit/{idCar}/
     defaults: { _controller: UserBundle:ProfileCar:editCar }
     requirements:
-        idMessage: \d+
+        idCar: \d+
 
 user_profileDesignObjects:
     path: /profile/objects/design/
@@ -201,3 +201,27 @@ user_ajax_sendSMS:
 #prueba_validation_false:
 #     path: /pruebaValidationFalse
 #     defaults: { _controller: UserBundle:Default:pruebaValidationFalse }
+
+user_profile_newHouse:
+      path: /profile/house/new/
+      defaults: { _controller: UserBundle:ProfileHouse:createHouse }
+
+user_profile_listHouse:
+      path: /profile/house/list/
+      defaults: { _controller: UserBundle:ProfileHouse:listHouses }
+
+user_profile_editHouse:
+      path: /profile/house/edit/{idHouse}/
+      defaults: { _controller: UserBundle:ProfileHouse:editHouse }
+      requirements:
+          idHouse: \d+
+
+user_profile_showHouse:
+      path: /profile/house/{idHouse}/
+      defaults: { _controller: UserBundle:ProfileHouse:showHouse }
+      requirements:
+          idHouse: \d+
+
+user_ajax_deleteHouse:
+      path: /ajax/deleteHouse/
+      defaults: { _controller: UserBundle:ProfileHouse:deleteHouse }
