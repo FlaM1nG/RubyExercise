@@ -12,6 +12,8 @@ WWW\HouseBundle\Entity\ShareHouse:
         autobooking:
             type: boolean
             nullable: true
+        price:
+            type: float
     oneToOne:
         offer:
             targetEntity: WWW\ServiceBundle\Entity\Offer
