@@ -141,9 +141,9 @@
         <option value="$PROJECT_DIR$/src/WWW/GlobalBundle/Entity/MyCompanyEvents.php" />
         <option value="$PROJECT_DIR$/src/WWW/GlobalBundle/EventListener/CalendarEventListener.php" />
         <option value="$PROJECT_DIR$/src/WWW/GlobalBundle/Resources/config/routing.yml" />
-        <option value="$PROJECT_DIR$/web/js/calendario/calendar.js" />
         <option value="$PROJECT_DIR$/src/WWW/GlobalBundle/Controller/CalendarController.php" />
         <option value="$PROJECT_DIR$/src/WWW/UserBundle/Resources/views/Profile/indexProfile.html.twig" />
+        <option value="$PROJECT_DIR$/web/js/calendario/calendar.js" />
       </list>
     </option>
   </component>
