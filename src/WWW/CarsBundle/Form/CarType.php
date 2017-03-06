@@ -63,7 +63,12 @@ class CarType extends AbstractType{
                                                       'required' => false  ))
             ->add('talk', CheckboxType::class, array('label' => 'Me encanta hablar',
                                                      'required' => false))
-            ->add('file', FileType::class, array('mapped' => false))
+            ->add('imgCar', FileType::class, array( 'label' => ' ',
+                                                    'mapped' => false,
+                                                    'multiple' => true,
+                                                    'required' => true,
+                                                    'attr' => array('accept' => 'image/*', 'class' => 'file-loading')))
+
             ->add('saveNewCar', SubmitType::class, array('label' => 'Guardar'));
 
         if(!empty($options['data']->getModel())):
