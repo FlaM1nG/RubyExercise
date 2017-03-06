@@ -431,7 +431,7 @@ class House
                 if(property_exists('WWW\HouseBundle\Entity\House',$key)):
 
                     if($key != 'id' AND $key !='capacity' AND $key !='bathrooms' AND $key != 'bedrooms'
-                        AND $key != 'beds' AND is_bool($value) ):
+                        AND $key != 'beds' AND is_numeric($value) ):
 
                         $this->$key = (bool)$value;
 
