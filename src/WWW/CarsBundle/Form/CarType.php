@@ -34,8 +34,7 @@ class CarType extends AbstractType{
         $this->getDataCar($arrayBrand,$arrayModel, $arrayColor, $arrayType);
 
         $builder
-            ->add('plate', TextType::class, array('label' => 'Matrícula',
-                                                  'required' => false))
+            ->add('plate', TextType::class, array('label' => 'Matrícula'))
             ->add('color', ChoiceType::class, array('label' => 'Color',
                                                     'choices' => $arrayColor,
                                                     'choice_value' => 'color',

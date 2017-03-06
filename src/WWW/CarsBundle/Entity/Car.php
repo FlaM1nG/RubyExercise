@@ -20,6 +20,7 @@ class Car {
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $plate;
 
