@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use WWW\CarsBundle\Form\PagoType;
 
 class IndexController extends Controller
 {
@@ -90,5 +91,11 @@ class IndexController extends Controller
 
     public function pruebaInscripcionAction(){
         return $this->render('offer/inscription.html.twig');
+    }
+
+    public function pruebaPantallaPagoAction(){
+//        $formulario = $this->createForm(PagoType::class);
+
+        return $this->render('pay/payPage.html.twig');
     }
 }
