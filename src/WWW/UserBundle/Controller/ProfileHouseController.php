@@ -19,7 +19,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use WWW\HouseBundle\Entity\House;
 use WWW\HouseBundle\Form\HouseType;
 
-
 class ProfileHouseController extends Controller{
     
     public function createHouseAction(Request $request){
@@ -39,7 +38,8 @@ class ProfileHouseController extends Controller{
         endif;
 
         return $this->render('UserBundle:Profile/House:profileNewHouse.html.twig',
-                            array('form' => $form->createView()));
+                            array('form' => $form->createView(),
+                                  'house' => $house));
         
     }
 
@@ -133,12 +133,13 @@ class ProfileHouseController extends Controller{
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()):
-$this->updateHouse($request, $house);exit;
+        if($form->isSubmitted() AND $form->isValid()):
+            $this->updateHouse($request, $house);
         endif;
 
         return $this->render('UserBundle:Profile/House:profileNewHouse.html.twig',array(
-                             'form' => $form->createView()
+                             'form' => $form->createView(),
+                             'house' => $house,
         ));
     }
 
@@ -165,10 +166,56 @@ $this->updateHouse($request, $house);exit;
 
     private function updateHouse(Request $request, House $house){
 
-        $file = MyConstants::PATH_APIREST.'/user/house/update_house_photo';
+        $file = MyConstants::PATH_APIREST.'/user/house/update_house_photo.php';
         $ch = new ApiRest();
 
-       print_r($request);
+        $arrayAttr = $house->getAttr();
+
+//        print_r($house);
+        $data['id_user'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['city'] = "'".$house->getAddress()->getCity()."'";
+        $data['zip_code'] = $house->getAddress()->getZipCode();
+        $data['region'] = "'".$house->getAddress()->getRegion()."'";
+        $data['country'] = "'".$house->getAddress()->getCountry()->getCountry()."'";
+        $data['street'] = "'".$house->getAddress()->getStreet()."'";
+
+        foreach($arrayAttr as $attr):
+
+            $aux = Inflector::tableize($attr);
+            $f = 'get'.ucfirst($attr);
+
+            if(!empty($house->$f())):
+                if(is_bool($house->$f())):
+                    $data[$aux] = 1;
+                else:
+                    $data[$aux] = $house->$f();
+                endif;
+            elseif($attr == 'description' || $attr == 'licenseNumber'):
+                $data[$aux] = "'".$house->$f()."'";
+            else:
+                $data[$aux] = 0;
+            endif;    
+        endforeach;
+
+        $info['data'] = json_encode($data);
+
+        if(!empty($request->files->get('house')['imgHouse'])):
+            $photos = $request->files->get('house')['imgHouse'];
+            $count = 0;
+
+            foreach($photos as $photo){
+                $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
+                $info['photos['.$count.']'] = $ch_photo;
+                $count += 1;
+            }
+        endif;
+
+print_r($info);
+        $result = $ch->resultApiRed($info, $file);
+
+        print_r($result);
     }
 
     public function showHouseAction(Request $request){
