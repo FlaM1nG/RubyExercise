@@ -431,7 +431,7 @@ class House
                 if(property_exists('WWW\HouseBundle\Entity\House',$key)):
 
                     if($key != 'id' AND $key !='capacity' AND $key !='bathrooms' AND $key != 'bedrooms'
-                        AND $key != 'beds' AND is_bool($value) ):
+                        AND $key != 'beds' AND is_numeric($value) ):
 
                         $this->$key = (bool)$value;
 
@@ -2399,5 +2399,23 @@ class House
     public function getFogones()
     {
         return $this->fogones;
+    }
+
+    /**
+     * Devuelve el nombre de los atributos de la  clase para poder actualizar las casas con un bucle
+     * @return array
+     */
+    public function getAttr(){
+        
+        $array = array();
+        
+        foreach($this as $key => $value)
+            
+            if($key != 'address' && $key != 'calendar' && $key != 'photos' && $key != 'user' && $key != 'createdDate'
+                && $key != 'modifiedDate' && $key != 'deletedDate' && $key != 'isDeleted')
+                
+                $array[] = $key;
+        
+        return $array;
     }
 }

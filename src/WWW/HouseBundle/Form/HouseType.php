@@ -28,7 +28,7 @@ class HouseType extends AbstractType{
         $builder
             ->add('address', AddressType::class, array('label' => ''))
 
-            ->add('licenseNumber', TextType::class, array('label' => 'Número de licencia'))
+            ->add('licenseNumber', TextType::class, array('label' => 'Número de licencia', 'required' => false))
 
             ->add('title', TextareaType::class, array('label' => 'Título'))
 

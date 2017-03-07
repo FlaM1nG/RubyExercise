@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    Coches
+    Casas
 {% endblock %}
 
 {% block alertProfile %}
@@ -47,6 +47,8 @@
 
         </div>
     </div>
+
+
 {% endblock %}
 
 
@@ -57,14 +59,30 @@
 
     <!-- the main fileinput plugin file -->
     <script src="{{ asset('js/fileinput.js') }}"></script>
+    <script src="{{ asset('js/locales/es.js') }}"></script>
 
     <script type="text/javascript">
+
+        {% set arrayUrl = "" %}
+        {% set arrayCaption = "" %}
+
+        {% for h in house.photos %}
+
+        {% set arrayUrl = arrayUrl~"'"~asset(h.url,'img')~"'," %}
+        {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~h.id|number_format~" ,extra: {id: "~house.id~" }}," %}
+
+        {% endfor %}
 
 
         $(document).ready(function(){
 
             $(".file-loading").fileinput({
-
+                initialPreview: [
+                    {{arrayUrl|raw}}
+                ],
+                initialPreviewConfig: [
+                    {{arrayCaption|raw}}
+                ],
                 initialPreviewAsData: true,
                 overwriteInitial: false,
                 maxFileSize: 3072,
@@ -72,8 +90,15 @@
                 showUpload: false,
                 showZoom: false,
                 initialCaption: '',
+                language: "es",
+                allowedFileExtensions: ["jpg", "jpeg", "png"],
+                minFileCount:1,
                 maxFileCount: 50,
-
+                validateInitialCount: true,
+                deleteUrl: "{{ url('user_ajax_deleteImgHouse') }}",
+                uploadExtraData: {
+                    idHouse: "{{ house is not null ? house.id:"" }}",
+                }
             });
         });
     </script>
