@@ -2,6 +2,10 @@
 
 namespace WWW\HouseBundle\Entity;
 
+use Doctrine\Common\Util\Inflector as Inflector;
+use WWW\GlobalBundle\Entity\Address;
+use WWW\GlobalBundle\Entity\Photo;
+
 /**
  * House
  */
@@ -15,7 +19,52 @@ class House
     /**
      * @var string
      */
+    private $title;
+
+    /**
+     * @var string
+     */
     private $description;
+
+    /**
+     * @var \WWW\GlobalBundle\Entity\Address
+     */
+    private $address;
+
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;
+
+    /**
+     * @var \WWW\GlobalBundle\Entity\Calendar
+     */
+    private $calendar;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $photos;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $deletedDate;
+
+    /**
+     * @var boolean
+     */
+    private $isDeleted;
 
     /**
      * @var string
@@ -90,6 +139,11 @@ class House
     /**
      * @var boolean
      */
+    private $fogones;
+
+    /**
+     * @var boolean
+     */
     private $papelHigienico;
 
     /**
@@ -131,11 +185,6 @@ class House
      * @var boolean
      */
     private $productosLimpieza;
-
-    /**
-     * @var boolean
-     */
-    private $forgones;
 
     /**
      * @var boolean
@@ -366,6 +415,52 @@ class House
      * @var boolean
      */
     private $protectorEnchufes;
+
+    /**
+     * Constructor
+     */
+    public function __construct($arrayData = null)
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+
+        if($arrayData != null AND gettype($arrayData) == 'array'):
+
+            foreach($arrayData as $key => $value ):
+                $key = Inflector::camelize($key);
+
+                if(property_exists('WWW\HouseBundle\Entity\House',$key)):
+
+                    if($key != 'id' AND $key !='capacity' AND $key !='bathrooms' AND $key != 'bedrooms'
+                        AND $key != 'beds' AND is_bool($value) ):
+
+                        $this->$key = (bool)$value;
+
+                    elseif($key == 'address'):
+                        $this->createAddress($arrayData['address']);
+
+                    else:
+
+                        $this->$key = $value;
+
+                    endif;
+                endif;
+
+            endforeach;
+
+            if(array_key_exists('photo', $arrayData)):
+                $photo = new Photo();
+                $photo->setUrl($arrayData['photo']);
+                $this->photos->add($photo);
+            endif;
+
+        endif;
+    }
+
+    private function createAddress($array){
+        $address = new Address($array);
+
+        $this->address = $address;
+    }
 
 
     /**
@@ -952,30 +1047,6 @@ class House
     public function getProductosLimpieza()
     {
         return $this->productosLimpieza;
-    }
-
-    /**
-     * Set forgones
-     *
-     * @param boolean $forgones
-     *
-     * @return House
-     */
-    public function setForgones($forgones)
-    {
-        $this->forgones = $forgones;
-
-        return $this;
-    }
-
-    /**
-     * Get forgones
-     *
-     * @return boolean
-     */
-    public function getForgones()
-    {
-        return $this->forgones;
     }
 
     /**
@@ -2081,28 +2152,6 @@ class House
     {
         return $this->protectorEnchufes;
     }
-    /**
-     * @var \WWW\GlobalBundle\Entity\Address
-     */
-    private $address;
-
-    /**
-     * @var \WWW\GlobalBundle\Entity\Calendar
-     */
-    private $calendar;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $photos;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Set address
@@ -2185,11 +2234,6 @@ class House
     {
         return $this->photos;
     }
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $user;
-
 
     /**
      * Set user
@@ -2214,26 +2258,6 @@ class House
     {
         return $this->user;
     }
-    /**
-     * @var \DateTime
-     */
-    private $createdDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $modifiedDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $deletedDate;
-
-    /**
-     * @var boolean
-     */
-    private $isDeleted;
-
 
     /**
      * Set createdDate
@@ -2329,5 +2353,51 @@ class House
     public function getIsDeleted()
     {
         return $this->isDeleted;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return House
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set fogones
+     *
+     * @param boolean $fogones
+     * @return House
+     */
+    public function setFogones($fogones)
+    {
+        $this->fogones = $fogones;
+
+        return $this;
+    }
+
+    /**
+     * Get fogones
+     *
+     * @return boolean 
+     */
+    public function getFogones()
+    {
+        return $this->fogones;
     }
 }

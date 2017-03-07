@@ -40,6 +40,10 @@ class MessengerService
     private $deletedDate;
 
 
+    public function setId($id){
+        $this->id = $id;
+    }
+
     /**
      * Get id
      *

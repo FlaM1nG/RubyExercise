@@ -178,10 +178,10 @@ class Calendar
     /**
      * Add myCompanyEvents
      *
-     * @param \WWW\GlobalBundle\Entity\MyCompanyEvent $myCompanyEvents
+     * @param \WWW\GlobalBundle\Entity\MyCompanyEvents $myCompanyEvents
      * @return Calendar
      */
-    public function addMyCompanyEvent(\WWW\GlobalBundle\Entity\MyCompanyEvent $myCompanyEvents)
+    public function addMyCompanyEvent(\WWW\GlobalBundle\Entity\MyCompanyEvents $myCompanyEvents)
     {
         $this->myCompanyEvents[] = $myCompanyEvents;
 
@@ -191,9 +191,9 @@ class Calendar
     /**
      * Remove myCompanyEvents
      *
-     * @param \WWW\GlobalBundle\Entity\MyCompanyEvent $myCompanyEvents
+     * @param \WWW\GlobalBundle\Entity\MyCompanyEvents $myCompanyEvents
      */
-    public function removeMyCompanyEvent(\WWW\GlobalBundle\Entity\MyCompanyEvent $myCompanyEvents)
+    public function removeMyCompanyEvent(\WWW\GlobalBundle\Entity\MyCompanyEvents $myCompanyEvents)
     {
         $this->myCompanyEvents->removeElement($myCompanyEvents);
     }
