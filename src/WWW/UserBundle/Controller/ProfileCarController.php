@@ -28,7 +28,7 @@ class ProfileCarController extends Controller{
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()):
+        if($form->isSubmitted() AND $form->isValid()):
             $result = $this->saveNewCar($request, $car);
 
             if($result == 'ok'):

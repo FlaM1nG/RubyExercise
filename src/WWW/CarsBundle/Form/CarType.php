@@ -34,8 +34,7 @@ class CarType extends AbstractType{
         $this->getDataCar($arrayBrand,$arrayModel, $arrayColor, $arrayType);
 
         $builder
-            ->add('plate', TextType::class, array('label' => 'Matrícula',
-                                                  'required' => false))
+            ->add('plate', TextType::class, array('label' => 'Matrícula'))
             ->add('color', ChoiceType::class, array('label' => 'Color',
                                                     'choices' => $arrayColor,
                                                     'choice_value' => 'color',
@@ -60,11 +59,16 @@ class CarType extends AbstractType{
                                                       'required' => false))
             ->add('animals', CheckboxType::class, array('label' => 'Se permiten animales',
                                                         'required' => false ))
-            ->add('music', CheckboxType::class, array('label' => 'Me gusta la música e iré con ella to el viaje jajajaja',
+            ->add('music', CheckboxType::class, array('label' => 'Me gusta escuchar música',
                                                       'required' => false  ))
-            ->add('talk', CheckboxType::class, array('label' => 'Me encanta hablar',
+            ->add('talk', CheckboxType::class, array('label' => 'Me gusta hablar',
                                                      'required' => false))
-            ->add('file', FileType::class, array('mapped' => false))
+            ->add('imgCar', FileType::class, array( 'label' => ' ',
+                                                    'mapped' => false,
+                                                    'multiple' => true,
+                                                    'required' => true,
+                                                    'attr' => array('accept' => 'image/*', 'class' => 'file-loading')))
+
             ->add('saveNewCar', SubmitType::class, array('label' => 'Guardar'));
 
         if(!empty($options['data']->getModel())):
