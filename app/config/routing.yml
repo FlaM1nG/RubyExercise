@@ -63,17 +63,17 @@ paymentMethod:
     defaults: { _controller: AppBundle:Index:paymentMethod }
 
     
-serHouseRents:
-    path: /services/house-rents
-    defaults: { _controller: AppBundle:Index:serHouseRents }
+#serHouseRents:
+#    path: /services/house-rents
+#    defaults: { _controller: AppBundle:Index:serHouseRents }
     
 offTrade:
     path: /services/trade/offer
     defaults: { _controller: AppBundle:Index:offTrade }
 
-offHouseRents:
-    path: /services/house-rents/offer
-    defaults: { _controller: AppBundle:Index:offHouseRents }
+#offHouseRents:
+#    path: /services/house-rents/offer
+#    defaults: { _controller: AppBundle:Index:offHouseRents }
     
 blog:
     path: /blog
