@@ -2400,4 +2400,22 @@ class House
     {
         return $this->fogones;
     }
+
+    /**
+     * Devuelve el nombre de los atributos de la  clase para poder actualizar las casas con un bucle
+     * @return array
+     */
+    public function getAttr(){
+        
+        $array = array();
+        
+        foreach($this as $key => $value)
+            
+            if($key != 'address' && $key != 'calendar' && $key != 'photos' && $key != 'user' && $key != 'createdDate'
+                && $key != 'modifiedDate' && $key != 'deletedDate' && $key != 'isDeleted')
+                
+                $array[] = $key;
+        
+        return $array;
+    }
 }
