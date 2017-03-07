@@ -51,7 +51,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/",
      *               message="La contraseña debe contener letras y números",
      *               groups = {"register","password"})
-     * @Assert\Length(min=8, groups = {"register","password"})
+     * @Assert\Length(min=8, minMessage="La longitud mínima es de 8 caracteres ", groups = {"register","password"})
      * 
      */
     private $password;
