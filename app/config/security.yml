@@ -59,7 +59,7 @@ security:
     access_control:
              
         - { path: ^/user/profile,           roles: ROLE_USER } 
-        - { path: ^/,                       roles: IS_AUTHENTICATED_ANONYMOUSLY } 
+        - { path: ^/,                       roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https } 
         - { path: ^/services/trade/newTrade, roles: ROLE_USER}
     encoders:
         WWW\UserBundle\Entity\User: bcrypt

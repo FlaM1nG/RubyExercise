@@ -70,31 +70,41 @@ class PaymentPurchaseController extends Controller {
                 $payment->setClientId(uniqid());
                 $payment->setDescription(sprintf('An order %s for a client %s', $payment->getNumber(), $payment->getClientEmail()));
                 $payment->setTotalAmount($this->offer->getPrice() * 100);
+                $storage = $this->getPayum()->getStorage('Acme\PaymentBundle\Entity\PaymentDetails');
+                $details = $storage->create();
                 $details['Ds_Merchant_Amount'] = $this->offer->getPrice() * 100;
                 $details['Ds_Merchant_Currency'] = '978';
                 $details['Ds_Merchant_Order'] = date('ymdHis');
                 $details['Ds_Merchant_TransactionType'] = Api::TRANSACTIONTYPE_AUTHORIZATION;
-                $details['Ds_Merchant_ConsumerLanguage'] = Api::CONSUMERLANGUAGE_SPANISH;
+                $details['Ds_Merchant_ConsumerLanguage'] = Api::CONSUMERLANGUAGE_SPANISH;                                    
+                $storage->update($details);
+                //Las notificaciones de compra se guardan en la tabla payum_payments_details
+                //de ahi se tienen que sacar el DS_Response y manejar la respuesta
+                $notifyToken = $this->getPayum()->getTokenFactory()->createNotifyToken(
+                        $form->get('gateway_name')->getData(),
+                        $details
+                        );
                 
-                
+                $details['Ds_Merchant_MerchantURL'] = $notifyToken->getTargetUrl();
+                $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
-                $storage = $this->getPayum()->getStorage($payment);
-                
-                $storage->update($payment);
-                
+                $storagePay->update($payment);
                 $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
-                        $form->get('gateway_name')->getData(), $payment, 'acme_payment_done'
+                        $form->get('gateway_name')->getData(),
+                        $payment,
+                        'acme_payment_done'
                 );
-                $details['Ds_Merchant_UrlOK'] = $captureToken->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
+                
+                $details['Ds_Merchant_UrlOK'] = $notifyToken->getTargetUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
                 $details['Ds_Merchant_UrlKO'] = $captureToken->getAfterUrl();
                 $payment->setDetails($details);
-                $storage = $this->getPayum()->getStorage($payment);
-                
-                $storage->update($payment);
+                $storagePay = $this->getPayum()->getStorage($payment);
+                $payment->setDetails($details);
+                $storagePay->update($payment);
                 return $this->redirect($captureToken->getTargetUrl());
             }
                 
-                //Si no se paga por paypal
+                //Si no, se paga por paypal
             else {
                 /** @var Payment $payment */
                 $payment = $form->getData();
