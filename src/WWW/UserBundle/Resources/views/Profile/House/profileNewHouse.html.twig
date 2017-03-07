@@ -57,14 +57,30 @@
 
     <!-- the main fileinput plugin file -->
     <script src="{{ asset('js/fileinput.js') }}"></script>
+    <script src="{{ asset('js/locales/es.js') }}"></script>
 
     <script type="text/javascript">
+
+        {% set arrayUrl = "" %}
+        {% set arrayCaption = "" %}
+
+        {% for house in house.photos %}
+
+        {% set arrayUrl = arrayUrl~"'"~asset(house.url,'img')~"'," %}
+        {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~house.id|number_format~" ,extra: {id: "~house.id~" }}," %}
+
+        {% endfor %}
 
 
         $(document).ready(function(){
 
             $(".file-loading").fileinput({
-
+                initialPreview: [
+                    {{arrayUrl|raw}}
+                ],
+                initialPreviewConfig: [
+                    {{arrayCaption|raw}}
+                ],
                 initialPreviewAsData: true,
                 overwriteInitial: false,
                 maxFileSize: 3072,
@@ -72,8 +88,12 @@
                 showUpload: false,
                 showZoom: false,
                 initialCaption: '',
+                language: "es",
+                validateInitialCount: true,
+                allowedFileExtensions: ["jpg", "jpeg", "png"],
+                minFileCount:1,
                 maxFileCount: 50,
-
+                extra: {idHouse: {{ house.id }} }
             });
         });
     </script>
