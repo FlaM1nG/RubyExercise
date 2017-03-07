@@ -20,6 +20,7 @@ class Car {
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $plate;
 
@@ -125,6 +126,9 @@ class Car {
 
     /**
      * @var integer
+     *
+     * @Assert\Range(min=2,  minMessage="Mínimo 2 plazas", groups = {"newCar"})
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"newCar"})
      */
     private $seats;
 

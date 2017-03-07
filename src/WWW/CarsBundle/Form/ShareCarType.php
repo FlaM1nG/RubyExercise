@@ -36,7 +36,7 @@ class ShareCarType extends AbstractType {
         $defaultDate = new \DateTime("now");
 
         if(!empty($options['data']->getDate())):
-            $defaultDate = new \DateTime($options['data']->getDate());
+            $defaultDate = $options['data']->getDate();
         endif;
 
         $builder

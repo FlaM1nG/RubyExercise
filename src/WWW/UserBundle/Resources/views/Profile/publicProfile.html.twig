@@ -167,10 +167,18 @@
     {% for offer in profile.offers %}
         {% if offer.service_id == 1 %}
             {% set urlOffer = path('service_trade',{idOffer: offer.id}) %}
+
         {% elseif offer.service_id == 2 %}
             {% set urlOffer = path('service_clothes',{idOffer: offer.id}) %}
+
         {% elseif offer.service_id == 3  %}
             {% set urlOffer = path('service_barter',{idOffer: offer.id}) %}
+
+        {% elseif offer.service_id == 4  %}
+            {% set urlOffer = path('offShareCar',{idOffer: offer.id}) %}
+
+        {% elseif offer.service_id == 5  %}
+            {% set urlOffer = path('offCourierCar',{idOffer: offer.id}) %}
         {% endif %}
 
     <div class="us-off-elem">
