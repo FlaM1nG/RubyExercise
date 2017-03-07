@@ -134,7 +134,11 @@ class ProfileHouseController extends Controller{
         $form->handleRequest($request);
 
         if($form->isSubmitted() AND $form->isValid()):
-            $this->updateHouse($request, $house);
+            $result = $this->updateHouse($request, $house);
+
+            if($result == 'ok'):
+                return $this->redirectToRoute('user_profile_listHouse');
+            endif;
         endif;
 
         return $this->render('UserBundle:Profile/House:profileNewHouse.html.twig',array(
@@ -168,32 +172,35 @@ class ProfileHouseController extends Controller{
 
         $file = MyConstants::PATH_APIREST.'/user/house/update_house_photo.php';
         $ch = new ApiRest();
+        $ut = new Utilities();
 
         $arrayAttr = $house->getAttr();
 
-//        print_r($house);
         $data['id_user'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
-        $data['city'] = "'".$house->getAddress()->getCity()."'";
-        $data['zip_code'] = $house->getAddress()->getZipCode();
-        $data['region'] = "'".$house->getAddress()->getRegion()."'";
-        $data['country'] = "'".$house->getAddress()->getCountry()->getCountry()."'";
-        $data['street'] = "'".$house->getAddress()->getStreet()."'";
+        $data['address']['city'] = "'".$house->getAddress()->getCity()."'";
+        $data['address']['zip_code'] = $house->getAddress()->getZipCode();
+        $data['address']['region'] = "'".$house->getAddress()->getRegion()."'";
+        $data['address']['country'] = "'".$house->getAddress()->getCountry()->getCountry()."'";
+        $data['address']['street'] = "'".$house->getAddress()->getStreet()."'";
 
         foreach($arrayAttr as $attr):
 
             $aux = Inflector::tableize($attr);
+            if($attr == 'detectorCO') $aux = 'detector_co';
+
             $f = 'get'.ucfirst($attr);
 
             if(!empty($house->$f())):
-                if(is_bool($house->$f())):
+                if($attr == 'description' || $attr == 'licenseNumber' || $attr == 'title'):
+                    $data[$aux] = "'".$house->$f()."'";
+                elseif(is_bool($house->$f())):
                     $data[$aux] = 1;
                 else:
                     $data[$aux] = $house->$f();
                 endif;
-            elseif($attr == 'description' || $attr == 'licenseNumber'):
-                $data[$aux] = "'".$house->$f()."'";
+
             else:
                 $data[$aux] = 0;
             endif;    
@@ -201,7 +208,7 @@ class ProfileHouseController extends Controller{
 
         $info['data'] = json_encode($data);
 
-        if(!empty($request->files->get('house')['imgHouse'])):
+        if(!empty($request->files->get('house')['imgHouse'][0])):
             $photos = $request->files->get('house')['imgHouse'];
             $count = 0;
 
@@ -212,10 +219,11 @@ class ProfileHouseController extends Controller{
             }
         endif;
 
-print_r($info);
         $result = $ch->resultApiRed($info, $file);
 
-        print_r($result);
+        $ut->flashMessage('general',$request,null);
+
+        return $result['result'];
     }
 
     public function showHouseAction(Request $request){
@@ -248,6 +256,37 @@ print_r($info);
 
         return $response;
 
+    }
+
+    public function deleteImgHouseAction(Request $request){
+
+        $response = new JsonResponse();
+
+        $id = $request->get('id');
+        $key = $request->get('key');
+        $file = MyConstants::PATH_APIREST.'user/house/delete_house_photo.php';
+        $ch = new ApiRest();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['house_id'] = $id;
+        $data['photos_id'] = $key;
+
+        $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+            $response->setData(array(
+                'result' => 'ok',
+                'message' => 'Datos actualizados correctamente'));
+        else:
+            $response->setData(array(
+                'result' => 'ko',
+                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo')
+            );
+        endif;
+
+        return $response;
     }
 
 }
