@@ -227,7 +227,14 @@ class ProfileHouseController extends Controller{
     }
 
     public function showHouseAction(Request $request){
-        return new Response();
+
+        $house = null;
+
+        $house = $this->getHouse($request);
+
+        return $this->render('UserBundle:Profile/House:profileObjectHouse.html.twig',array(
+                             'house' => $house
+        ));
     }
 
     public function deleteHouseAction(Request $request){
