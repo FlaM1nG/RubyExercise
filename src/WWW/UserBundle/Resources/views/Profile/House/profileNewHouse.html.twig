@@ -47,6 +47,8 @@
 
         </div>
     </div>
+
+
 {% endblock %}
 
 
@@ -64,10 +66,10 @@
         {% set arrayUrl = "" %}
         {% set arrayCaption = "" %}
 
-        {% for house in house.photos %}
+        {% for h in house.photos %}
 
-        {% set arrayUrl = arrayUrl~"'"~asset(house.url,'img')~"'," %}
-        {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~house.id|number_format~" ,extra: {id: "~house.id~" }}," %}
+        {% set arrayUrl = arrayUrl~"'"~asset(h.url,'img')~"'," %}
+        {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~h.id|number_format~" ,extra: {id: "~house.id~" }}," %}
 
         {% endfor %}
 
@@ -89,11 +91,14 @@
                 showZoom: false,
                 initialCaption: '',
                 language: "es",
-                validateInitialCount: true,
                 allowedFileExtensions: ["jpg", "jpeg", "png"],
                 minFileCount:1,
                 maxFileCount: 50,
-                extra: {idHouse: {{ house.id }} }
+                validateInitialCount: true,
+                deleteUrl: "{{ url('user_ajax_deleteImgHouse') }}",
+                uploadExtraData: {
+                    idHouse: "{{ house is not null ? house.id:"" }}",
+                }
             });
         });
     </script>
