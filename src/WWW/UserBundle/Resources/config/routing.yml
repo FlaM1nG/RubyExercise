@@ -225,3 +225,8 @@ user_profile_showHouse:
 user_ajax_deleteHouse:
       path: /ajax/deleteHouse/
       defaults: { _controller: UserBundle:ProfileHouse:deleteHouse }
+
+user_ajax_deleteImgHouse:
+      path: /ajax/deleteImgHouse/
+      defaults: { _controller: UserBundle:ProfileHouse:deleteImgHouse }
+
