@@ -1,8 +1,7 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
-{% import 'macros/coche.html.twig' as coches %}
 
 {% block title %}
-    Coches
+    Casas
 {% endblock %}
 
 {% block alertProfile %}
@@ -27,28 +26,11 @@
 {% block bodyProfile %}
 
     <h3>
-        Coche
+        Casas
     </h3>
     <hr/>
 
-    {# Array de imagenes para la galeria #}
-
-    {% set imgGran = [car.photos.0.url] %}
-    {% set photosCar = [] %}
-    {% for photos in car.photos%}
-        {% set photosCar = photosCar|merge([photos.url]) %}
-    {% endfor %}
-
-    {{ coches.cocheVista(imgGran,
-    photosCar,
-    car.model.brand.name,
-    car.model.name,
-    car.color,
-    car.type,
-    car.plate,
-    car.description,
-    options
-    ) }}
+    {{ dump(house) }}
 
 
 {% endblock %}
@@ -57,8 +39,6 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
-
-    {{ include('owlCarousel/owlCochesScript.html.twig') }}
 
     {{ include('lightbox/lightboxScript.html.twig') }}
 

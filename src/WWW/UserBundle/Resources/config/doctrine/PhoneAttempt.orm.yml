@@ -1,0 +1,22 @@
+WWW\UserBundle\Entity\PhoneAttempt:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\PhoneAttemptRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        token:
+            type: string
+            length: 255
+        date:
+            type: datetime
+    manyToOne:
+        user:
+            targetEntity: User
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }
