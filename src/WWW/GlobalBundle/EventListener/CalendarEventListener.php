@@ -37,15 +37,8 @@ class CalendarEventListener
             ->select('u')
             ->from('GlobalBundle:MyCompanyEvents', 'u')
             ->where('u.calendarID = :calendarID')
-            ->andWhere('u.serviceID = :serviceID')
-            ->setParameter(':calendarID', $id)
-            ->setParameter(':serviceID', 6)
+            ->setParameter(':calendarID', 1)
             ->getQuery()->getResult();
-
-        ->join('\BackBundle\Entity\FeaturesLangs', 'ds', 'WITH', 'p = ds.feature')
-        ->join('\BackBundle\Entity\Languages', 'ln', 'WITH', 'ds.language = ln')
-
-
 
 
 
