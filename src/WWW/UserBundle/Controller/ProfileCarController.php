@@ -270,6 +270,11 @@ class ProfileCarController extends Controller{
             $response->setData(array(
                 'result' => 'ok',
                 'message' => 'Datos actualizados correctamente'));
+
+        elseif($result['result'] == 'active_car'):
+            $response->setData(array(
+                'result' => 'ko',
+                'message' => 'No se ha podido llevar a cabo la opción de borrado ya que el coche tiene ofertas vigentes'));
         else:
             $response->setData(array(
                 'result' => 'ko',
