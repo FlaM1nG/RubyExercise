@@ -33,11 +33,11 @@
     {{ form_row(form.date) }}
 
     {% if service == 4 %}
-        {{ form_row(form.offer.holders,{'label':'Plazas disponibles'}) }}
+        {{ form_row(form.offer.holders,{'label':'Plazas disponibles','attr':{'min':min}}) }}
         {{ form_row(form.backTwo) }}
         {{ form_row(form.price) }}
     {% else %}
-        {{ form_row(form.offer.holders,{'label':'Número de paquetes'}) }}
+        {{ form_row(form.offer.holders,{'label':'Número de paquetes','attr':{'min':min} }) }}
     {% endif %}
 
     {{ form_row(form.newShareCar) }}
