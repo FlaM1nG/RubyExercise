@@ -30,10 +30,12 @@ class ProfileCarController extends Controller{
 
         if($form->isSubmitted() AND $form->isValid()):
             $result = $this->saveNewCar($request, $car);
-
+            
             if($result == 'ok'):
                 $path =$request->getSession()->get('_security.user.target_path');
+
                 if($path == 'car_shareCarNew'):
+                    $request->getSession()->set('_security.user.target_path','');
                     return $this->redirectToRoute('car_shareCarNew');
                 else:
                     return $this->redirectToRoute('user_profileListCars');
