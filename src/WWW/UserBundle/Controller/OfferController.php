@@ -81,7 +81,9 @@ class OfferController extends Controller{
 
         $this->ut = new Utilities();
         $pathRender = "";
-        $form = $this->searchOffer($request);
+        $minHolders = null;
+
+        $form = $this->searchOffer($request, $minHolders); echo $minHolders;
         $form->handleRequest($request);
 
         if($form->isSubmitted()):
@@ -108,11 +110,13 @@ class OfferController extends Controller{
         return $this->render($pathRender,
                         array('form' => $form->createView(),
                               'service' => $this->service,
-                              'offer' => $this->offer ));
+                              'offer' => $this->offer,
+                              'min' => $minHolders  ));
 
     }
 
     private function updateOfferShareCar(Request $request){
+        
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/offer/update_offer_photos.php";
 
@@ -194,7 +198,7 @@ class OfferController extends Controller{
         return $result['result'];
     }
 
-    private function searchOffer(Request $request){
+    private function searchOffer(Request $request, &$minHolder){
 
        $file = MyConstants::PATH_APIREST."services/offer/get_offer.php";
        $ch = new ApiRest();
@@ -217,7 +221,9 @@ class OfferController extends Controller{
                  $this->offer = new ShareCar($result);
                  $arrayCars = $this->getCarsUser($request);
                  $formulario = $this->createForm(ShareCarType::class ,$this->offer, array('listCar' => $arrayCars));
-
+                 $minHolder = 1;
+                 if(!empty($this->offer->getOffer()->getInscriptions()))
+                     $minHolder = sizeof($this->offer->getOffer()->getInscriptions());
              endif;
         else:
             $this->ut->flashMessage("offer", $request, $result);
