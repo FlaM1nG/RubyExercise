@@ -83,7 +83,7 @@ class OfferController extends Controller{
         $pathRender = "";
         $minHolders = null;
 
-        $form = $this->searchOffer($request, $minHolders); echo $minHolders;
+        $form = $this->searchOffer($request, $minHolders); 
         $form->handleRequest($request);
 
         if($form->isSubmitted()):
