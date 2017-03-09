@@ -173,7 +173,9 @@ class TradeController extends Controller{
                 foreach($request->query->get('category') as $cat):
                     $data['filters']['categories'][] = (int)$cat;
                 endforeach;
-            endif;     
+            endif;
+        else:
+            $data['filters']['sort'] = 'date';
              
         endif;
         

@@ -38,7 +38,8 @@ Coches
             </h3>
             <hr/>
             {% for car in arrayCars %}
-                {{ coches.coche(path('user_profileCar', {idCar: car.id}), asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img'), '0000-ZZZ',
+                
+                {{ coches.coche(path('user_profileCar', {idCar: car.id}), asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img'), car.plate,
                 car.model.brand.name, car.model.name, car.seats, car.description,
                 path('user_profileEditCar', {idCar: car.id} ), 'dataEdit', 'titleEdit',
                 '#', car.id, 'Delete car') }}

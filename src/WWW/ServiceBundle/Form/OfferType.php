@@ -47,7 +47,7 @@ class OfferType extends AbstractType{
 
                 ->add('holders', IntegerType::class, array('label' => '',
                                                            'empty_data' => '1',
-                                                           'attr' => array('min' =>1)))
+                                                           'attr' => array('min' =>1, 'readonly' => false)))
 
                 ->add('description','textarea', array('label'=>'Descripción',
                                                     'required' => false,

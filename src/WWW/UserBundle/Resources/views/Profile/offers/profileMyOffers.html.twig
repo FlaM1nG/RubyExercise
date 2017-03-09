@@ -62,9 +62,8 @@
                     {% elseif offer.service.id == 4 %}
                         {% set url = path('offShareCar', {idOffer: offer.id}) %}
 
-                        {% if offer.hasInscriptions == 1 %}
-                            {%  set pathEditar = "" %}
-                        {% endif %}
+                    {% elseif offer.service.id == 5 %}
+                        {% set url = path('offCourierCar', {idOffer: offer.id}) %}
 
                     {% endif%}
 

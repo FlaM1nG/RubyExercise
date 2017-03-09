@@ -28,12 +28,14 @@ class ProfileCarController extends Controller{
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()):
+        if($form->isSubmitted() AND $form->isValid()):
             $result = $this->saveNewCar($request, $car);
-
+            
             if($result == 'ok'):
                 $path =$request->getSession()->get('_security.user.target_path');
+
                 if($path == 'car_shareCarNew'):
+                    $request->getSession()->set('_security.user.target_path','');
                     return $this->redirectToRoute('car_shareCarNew');
                 else:
                     return $this->redirectToRoute('user_profileListCars');
@@ -88,8 +90,8 @@ class ProfileCarController extends Controller{
 
         $info['data']= json_encode($data);
 
-        if(!empty($request->files->get('imgCar'))):
-            $photos = $request->files->get('imgCar');
+        if(!empty($request->files->get('newCar')['imgCar'][0])):
+            $photos = $request->files->get('newCar')['imgCar'];
             $count = 0;
 
             foreach($photos as $photo){
@@ -270,6 +272,11 @@ class ProfileCarController extends Controller{
             $response->setData(array(
                 'result' => 'ok',
                 'message' => 'Datos actualizados correctamente'));
+
+        elseif($result['result'] == 'active_car'):
+            $response->setData(array(
+                'result' => 'ko',
+                'message' => 'No se ha podido llevar a cabo la opción de borrado ya que el coche tiene ofertas vigentes'));
         else:
             $response->setData(array(
                 'result' => 'ko',
