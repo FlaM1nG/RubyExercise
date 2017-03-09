@@ -3,6 +3,15 @@
 {% import 'macros/sidebar.html.twig' as sidebars %}
 {% import 'macros/houseRentsList.html.twig' as houses %}
 
+{% set service = 6 %}
+{% if service == 6 %}
+    {% set pathFilter = path('serHouseRents') %}
+    {% set routingOffer = 'offHouseRents' %}
+    {% set routingNewOffer = 'building_newOfferHouseRent' %}
+    {% set titleService = 'Alquiler de viviendas turísticas' %}
+
+
+{% endif %}
 {% block title %}
     House Rents
 {% endblock %}

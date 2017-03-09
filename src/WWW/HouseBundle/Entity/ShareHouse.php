@@ -19,6 +19,21 @@ class ShareHouse
      */
     private $autobooking;
 
+    /**
+     * @var \WWW\ServiceBundle\Entity\Offer
+     */
+    private $offer;
+
+    /**
+     * @var \WWW\HouseBundle\Entity\House
+     */
+    private $house;
+
+    /**
+     * @var float
+     */
+    private $price;
+
 
     /**
      * Get id
@@ -52,16 +67,6 @@ class ShareHouse
     {
         return $this->autobooking;
     }
-    /**
-     * @var \WWW\ServiceBundle\Entity\Offer
-     */
-    private $offer;
-
-    /**
-     * @var \WWW\HouseBundle\Entity\House
-     */
-    private $house;
-
 
     /**
      * Set offer
@@ -108,11 +113,7 @@ class ShareHouse
     {
         return $this->house;
     }
-    /**
-     * @var float
-     */
-    private $price;
-
+    
 
     /**
      * Set price
