@@ -65,6 +65,8 @@ class PaymentPurchaseController extends Controller {
                 
                 //cargamos el pago por tarjeta sabadell
                 $payment = $form->getData();
+                var_dump($payment);
+                die;
                 //numero de referencia por la hora y fecha
                 $payment->setNumber(date('ymdHis'));
                 $payment->setClientId(uniqid());
