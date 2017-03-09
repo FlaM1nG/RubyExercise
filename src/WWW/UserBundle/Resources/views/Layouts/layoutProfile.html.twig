@@ -102,7 +102,7 @@
                         active
                     {% endif %}
                     ">
-                        <a href="{{ path('user_profileMessage') }}">
+                        <a href="{{ path('user_profileNewMessage') }}">
                             Mensajes
                             {% if app.session.get('numMessage') > 0 %}
                             <span class="count">{{app.session.get('numMessage')}}</span>
@@ -136,7 +136,7 @@
 
 
                     <li class="has-children userCar">
-                        <a href="">Coches</a>
+                        <a href="{{ path('user_profileListCars') }}">Coches</a>
 
                         <ul>
                             <li><a href="{{ path('user_profileListCars') }}">Lista de coches</a></li>
@@ -146,7 +146,7 @@
 
 
                     <li class="has-children userHouse">
-                        <a href="">Casas</a>
+                        <a href="{{ path('user_profile_listHouse') }}">Casas</a>
 
                         <ul>
                             <li><a href="{{ path('user_profile_listHouse') }}">Lista de casas</a></li>

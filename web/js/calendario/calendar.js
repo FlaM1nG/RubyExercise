@@ -93,7 +93,7 @@ $(document).ready(function() {
         Event[2] = end;
 
         $.ajax({
-            url: Routing.generate('fullcalendar_delete'),
+            url: 'editEventDate.php',
             type: "POST",
             data: {Event:Event},
             success: function(rep) {
