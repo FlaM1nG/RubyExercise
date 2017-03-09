@@ -29,7 +29,7 @@ class HouseOffersController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted()):
-            $result = $this->saveNewOffer($request);
+            $result = $this->saveNewOffer($request,$shareHouse);
 
             if($result == 'ok'):
                 echo "hay que redireccionar al listado cuando esté hecho";
@@ -59,34 +59,34 @@ class HouseOffersController extends Controller
         foreach($result['houses'] as $data):
             $house = new House($data);
             $arrayHouses[] = $house;
-        print_r($data);
         endforeach;
 
         return $arrayHouses;
 
     }
 
-    private function saveNewOffer(Request $request){
+    private function saveNewOffer(Request $request, ShareHouse $shareHouse){
         
-        $file = MyConstants::PATH_APIREST.'services/share-house/insert_share_house.php';
+        $file = MyConstants::PATH_APIREST.'services/share_house/insert_share_house.php';
         $ch = new ApiRest();
         $ut = new Utilities();
 
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
-        $data['title'] = $request->getSession()->get('title');
-        $data['description'] = $request->getSession()->get('description');
-        $data['service_id'] = $request->getSession()->get('service_id');
-        $data['holders'] = $request->getSession()->get('holders');
-        $dataOffer['price'] = $request->get('shareHouse')['price'];
-        $dataOffer['house_id'] = $request->get('shareHouse')['price'];
+        $data['title'] = $shareHouse->getOffer()->getTitle();
+        $data['description'] = $shareHouse->getOffer()->getDescription();
+        $data['service_id'] = 6;
+        $data['holders'] = $shareHouse->getOffer()->getHolders();
+        $data['house_id'] = $shareHouse->getHouse()->getId();
+        $dataOffer['price'] = $shareHouse->getPrice();
 
         $data['data'] = json_encode($dataOffer);
 
         $result = $ch->resultApiRed($data, $file);
 
         $ut->flashMessage('offer',$request,$result);
+
         return $result['result'];
     }
 
