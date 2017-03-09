@@ -131,11 +131,11 @@ class MyCompanyEvents
     
     protected $otherFields = array();
     
-      public function __construct($title, $price, $url,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = true, $allDay = false)
+      public function __construct($title, $price,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = true, $allDay = false)
     {
         $this->title = $title;
          $this->price = $price;
-         $this->url = $url;
+      
          $this->bgColor = $bgColor;
          $this->fgColor = $fgColor;
         $this->startDatetime = $startDatetime;
