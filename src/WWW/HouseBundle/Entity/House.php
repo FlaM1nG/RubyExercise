@@ -462,6 +462,9 @@ class House
         $this->address = $address;
     }
 
+    public function setId($id){
+        $this->id = $id;
+    }
 
     /**
      * Get id

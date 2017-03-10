@@ -8,7 +8,7 @@ serHouseRents:
 
 offHouseRents:
     path: /house-rents/offer/{idOffer}
-    defaults: { _controller: AppBundle:Index:offHouseRents }
+    defaults: { _controller: HouseBundle:HouseOffers:listOfferShareHouse }
     requirements:
           idOffer: \d+
 
