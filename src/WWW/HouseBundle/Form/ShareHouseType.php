@@ -9,6 +9,7 @@
 namespace WWW\HouseBundle\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -32,6 +33,9 @@ class ShareHouseType extends AbstractType{
             ->add('offer', OfferType::class, array('label' => ''))
 
             ->add('price', MoneyType::class, array('label' => 'Precio base'))
+
+            ->add('houseId', HiddenType::class, array('data' => $options['data']->getHouse()->getId(),
+                                                      'mapped'=>false  ))
 
             ->add('newShareHouse', SubmitType::class, array('label' => 'Guardar'));
     }
