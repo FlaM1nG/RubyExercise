@@ -33,12 +33,33 @@ class CalendarEventListener
         // load events using your custom logic here,
         // for instance, retrieving events from a repository
 
+
+
+
+
+#}       $companyEvents = $this->entityManager->createQueryBuilder()
+
+#}          ->select('u')
+
+#}        ->from('GlobalBundle:MyCompanyEvents', 'u')
+
+#}          ->where('u.calendarID = :calendarID')
+
+#}          ->setParameter(':calendarID', 1)
+
+#}          ->getQuery()->getResult();
+
+
         $companyEvents = $this->entityManager->createQueryBuilder()
-            ->select('u')
-            ->from('GlobalBundle:MyCompanyEvents', 'u')
-            ->where('u.calendarID = :calendarID')
-            ->setParameter(':calendarID', 1)
+            ->select('ds.house,ds.price,em.calendar')
+            ->from('HouseBundle:ShareHouse', 'ds')
+            ->join('HouseBundle:House', 'em')
+            ->where('ds.house = :house')
+
+            ->setParameter('ds.offer', $request->get('idOffer'))
             ->getQuery()->getResult();
+
+
 
 
 
@@ -53,9 +74,9 @@ class CalendarEventListener
 
             // create an event with a start/end time, or an all day event
             if ($companyEvent->getAllDay() === false) {
-                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$companyEvent->getPrice(), $companyEvent->getBgColor(), $companyEvent->getFgColor(),  $companyEvent->getStartDatetime(), $companyEvent->getEndDatetime(),true, true);
+                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$request->get('idOffer'), $companyEvent->getBgColor(), $companyEvent->getFgColor(),  $companyEvent->getStartDatetime(), $companyEvent->getEndDatetime(),true, true);
             } else {
-                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$companyEvent->getPrice(), $companyEvent->getBgColor(), $companyEvent->getFgColor(), $companyEvent->getStartDatetime(), null,true, true);
+                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$request->get('idOffer'), $companyEvent->getBgColor(), $companyEvent->getFgColor(), $companyEvent->getStartDatetime(), null,true, true);
             }
 
             //optional calendar event settings

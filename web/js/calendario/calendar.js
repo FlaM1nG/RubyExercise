@@ -7,6 +7,14 @@ $(document).ready(function() {
     var m = date.getMonth();
     var y = date.getFullYear();
 
+    var local = window.location.href.split('/');
+    var idoferta = local[local.length-2];
+
+    console.log(idoferta);
+
+
+
+
 
 		$('#calendar-holder').fullCalendar({
 
@@ -69,7 +77,7 @@ $(document).ready(function() {
                 url: Routing.generate('fullcalendar_loader'),
                 type: 'POST',
                 // A way to add custom filters to your event listeners
-                data: {
+                data: {'idOffer' : idoferta
                 },
                 error: function() {
                    //alert('There was an error while fetching Google Calendar!');
