@@ -3,9 +3,9 @@ fullcalendar_loader:
     defaults: { _controller: GlobalBundle:Calendar:loadCalendar }
     options:
         expose: true
-        
-updateInfo:
-    pattern: /addevent
-    defaults: { _controller: GlobalBundle:Calendar:updateData }
+
+fullcalendar_delete:
+    path: /fc-load-delete
+    defaults: { _controller: GlobalBundle:Calendar:deleteEvent }
     options:
         expose: true
