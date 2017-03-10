@@ -172,7 +172,7 @@ class HouseType extends AbstractType{
 
             ->add('imgHouse', FileType::class, array('label' => ' ',
                                                'multiple' => true,
-                                               'required' => true,
+                                               'required' => false,
                                                'mapped' => false,
                                                'attr' => array('accept' => 'image/*', 'class' => 'file-loading',)))
             ->add('saveNewHouse', SubmitType::class, array('label' => 'Guardar'));
