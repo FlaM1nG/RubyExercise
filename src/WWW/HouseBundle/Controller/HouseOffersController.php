@@ -91,6 +91,11 @@ class HouseOffersController extends Controller
     }
 
     public function listOfferShareHouseAction(Request $request){
+
+        return $this->render('services/serHouseRents.html.twig');
+    }
+
+    private function getOffersShareHouse(Request $request){
         
     }
 }

@@ -3,6 +3,7 @@
 namespace WWW\HouseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use WWW\ServiceBundle\Entity\Offer;
 
 /**
  * ShareHouse
@@ -34,6 +35,16 @@ class ShareHouse
      */
     private $price;
 
+    public function __construct($arrayData = null) {
+        $this->house = new House();
+
+        if(gettype($arrayData)== 'array' AND !empty($arrayData)):
+            $this->house->setId($arrayData['house_id']);
+            $this->price = $arrayData['price'];
+            $this->offer = new Offer($arrayData);
+        endif;
+
+    }
 
     /**
      * Get id
