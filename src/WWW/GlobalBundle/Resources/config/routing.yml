@@ -4,8 +4,8 @@ fullcalendar_loader:
     options:
         expose: true
 
-fullcalendar_delete:
-    path: /fc-load-delete
-    defaults: { _controller: GlobalBundle:Calendar:deleteEvent }
+fullcalendar_edit:
+    path: /fc-load-edit
+    defaults: { _controller: GlobalBundle:Calendar:editEvent }
     options:
         expose: true

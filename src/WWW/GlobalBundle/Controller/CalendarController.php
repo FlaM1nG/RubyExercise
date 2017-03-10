@@ -5,6 +5,7 @@ namespace WWW\GlobalBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Event\CalendarEvent;
+use WWW\GlobalBundle\Entity\MyCompanyEvents;
 
 
 
@@ -39,6 +40,28 @@ class CalendarController extends Controller
         $response->setContent(json_encode($return_events));
 
         return $response;
+    }
+
+
+    public function editEventAction($id, $title, $price, $serviceID) {
+
+
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('GlobalBundle:MyCompanyEvents')->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+
+        $product->setTitle($title);
+        $product->setPrice($price);
+        $product->setServiceID($serviceID);
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('homepage'));
     }
 
 
