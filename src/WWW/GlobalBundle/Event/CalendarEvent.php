@@ -24,8 +24,6 @@ class CalendarEvent extends Event
 
     private $events;
     
-    private $idOffer;
-    
     /**
      * Constructor method requires a start and end time for event listeners to use.
      * 
