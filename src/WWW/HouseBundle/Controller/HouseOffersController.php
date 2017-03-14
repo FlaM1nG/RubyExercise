@@ -9,6 +9,7 @@
 namespace WWW\HouseBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
@@ -16,6 +17,10 @@ use Symfony\Component\HttpFoundation\Request;
 use WWW\HouseBundle\Entity\ShareHouse;
 use WWW\HouseBundle\Entity\House;
 use WWW\HouseBundle\Form\ShareHouseType;
+use WWW\GlobalBundle\Entity\MyCompanyEvents;
+use Doctrine\ORM\EntityManager;
+use Sonata\CoreBundle\Date;
+use WWW\ServiceBundle\Entity\Service;
 
 
 class HouseOffersController extends Controller
@@ -66,7 +71,7 @@ class HouseOffersController extends Controller
     }
 
     private function saveNewOffer(Request $request, ShareHouse $shareHouse){
-        
+
         $file = MyConstants::PATH_APIREST.'services/share_house/insert_share_house.php';
         $ch = new ApiRest();
         $ut = new Utilities();
@@ -84,8 +89,26 @@ class HouseOffersController extends Controller
         $data['data'] = json_encode($dataOffer);
 
         $result = $ch->resultApiRed($data, $file);
+//        $result['result'] = 'ok';
 
         $ut->flashMessage('offer',$request,$result);
+
+//        if($result['result'] == 'ok'):
+//
+//            $em = $this->getDoctrine()->getManager();
+//            $dateNow = new \DateTime('now');
+//            $dateEnd =  new \DateTime('now');
+//            $dateEnd->add(new \DateInterval('P10Y'));
+//
+//            $mce = new MyCompanyEvents(5,'€',$shareHouse->getPrice(),'','',$dateNow, $dateEnd);
+//            $mce->setServiceID(6);
+//            $mce->setCalendarID(10);
+//
+//            $em->persist($mce);
+//
+//            $em->flush();
+//
+//        endif;
 
         return $result['result'];
     }
