@@ -49,19 +49,40 @@ class CalendarEventListener
 
 #}          ->getQuery()->getResult();
 
+        $query = $this->entityManager->createQueryBuilder()
+                      ->select('sh','h')
+                     ->from('HouseBundle:ShareHouse', 'sh')
+                     ->innerJoin('sh.house','h')
+                     ->where('sh.offer = :idOffer')
+                     ->setParameter(':idOffer', $request->get('idOffer'))
+                     ->getQuery()->getArrayResult();
+
+        $houseId = $query[0]['house']['id'];
+       
+
+        $queryHouseC = $this->entityManager->createQueryBuilder()
+                                           ->select('h','c')
+                                            ->from('HouseBundle:house','h')
+                                            ->innerJoin('h.calendar','c')
+                                            ->where('h.id = :idHouse')
+                                            ->setParameter(':idHouse',$houseId)
+                                            ->getQuery()->getArrayResult();
+
+        $calendarId = $queryHouseC[0]['calendar']['id'];
 
         $companyEvents = $this->entityManager->createQueryBuilder()
-            ->select('ds.house,ds.price,em.calendar')
-            ->from('HouseBundle:ShareHouse', 'ds')
-            ->join('HouseBundle:House', 'em')
-            ->where('ds.house = :house')
 
-            ->setParameter('ds.offer', $request->get('idOffer'))
+            ->select('u')
+
+            ->from('GlobalBundle:MyCompanyEvents', 'u')
+
+            ->where('u.calendarID = :calendarID')
+
+            ->setParameter(':calendarID', 9)
+
             ->getQuery()->getResult();
 
-
-
-
+//        \Doctrine\Common\Util\Debug::dump($companyEvents);
 
         // $companyEvents and $companyEvent in this example
         // represent entities from your database, NOT instances of EventEntity
@@ -71,14 +92,14 @@ class CalendarEventListener
         // from your own entities/database values.
 
         foreach($companyEvents as $companyEvent) {
-
+//print_r($companyEvent);
             // create an event with a start/end time, or an all day event
             if ($companyEvent->getAllDay() === false) {
-                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$request->get('idOffer'), $companyEvent->getBgColor(), $companyEvent->getFgColor(),  $companyEvent->getStartDatetime(), $companyEvent->getEndDatetime(),true, true);
+                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$companyEvent->getPrice(), $companyEvent->getBgColor(), $companyEvent->getFgColor(),  $companyEvent->getStartDatetime(), null,true, true);
             } else {
-                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$request->get('idOffer'), $companyEvent->getBgColor(), $companyEvent->getFgColor(), $companyEvent->getStartDatetime(), null,true, true);
+                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$companyEvent->getPrice(), $companyEvent->getBgColor(), $companyEvent->getFgColor(), $companyEvent->getStartDatetime(), null,true, true);
             }
-
+            $calendarEvent->addEvent($eventEntity);
             //optional calendar event settings
         //    $eventEntity->setAllDay(false); // default is false, set to true if this is an all day event
         //      $eventEntity->setBgColor('#FF0000'); //set the background color of the event's label
@@ -89,7 +110,7 @@ class CalendarEventListener
             
 
             //finally, add the event to the CalendarEvent for displaying on the calendar
-            $calendarEvent->addEvent($eventEntity);
+
         }
     }
 }
