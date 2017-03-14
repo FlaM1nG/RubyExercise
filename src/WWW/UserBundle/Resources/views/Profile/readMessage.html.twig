@@ -37,7 +37,7 @@
         <h2>MENSAJES RECIBIDO ABIERTO</h2>
         {{ message.messElementReceivedOpen(mensaje.from.username, mensaje.createdDate,
             mensaje.subject, mensaje.message,
-            mensaje.id, '#borrar', mensaje.id, '#contestar', 'contestar') }}
+            mensaje.id, '#borrar', 'borrar', '#contestar', 'contestar') }}
             
         <div id="replyForm" style="display:none">
             {{form_start(form)}}
