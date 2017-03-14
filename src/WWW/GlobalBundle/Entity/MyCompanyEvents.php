@@ -9,8 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="mycompanyevents")
  * @ORM\Entity
  */
-class MyCompanyEvents 
-{
+class MyCompanyEvents implements  \Serializable {
     /**
      * @var int
      *
@@ -129,7 +128,7 @@ class MyCompanyEvents
     
     
     
-    protected $otherFields = array();
+//    protected $otherFields = array();
     
       public function __construct($title, $price,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = true, $allDay = false)
     {
@@ -205,9 +204,9 @@ class MyCompanyEvents
          $event['isDeleted'] = $this->isDeleted;
         
         $event['allDay'] = $this->allDay;
-        foreach ($this->otherFields as $field => $value) {
-            $event[$field] = $value;
-        }
+//        foreach ($this->otherFields as $field => $value) {
+//            $event[$field] = $value;
+//        }
         
         if ($this->serviceID !== null) {
             $event['service_id'] = $this->serviceID;
@@ -384,20 +383,20 @@ class MyCompanyEvents
      * @param string $name
      * @param string $value
      */
-    public function addField($name, $value)
-    {
-        $this->otherFields[$name] = $value;
-    }
-    /**
-     * @param string $name
-     */
-    public function removeField($name)
-    {
-        if (!array_key_exists($name, $this->otherFields)) {
-            return;
-        }
-        unset($this->otherFields[$name]);
-    }
+//    public function addField($name, $value)
+//    {
+//        $this->otherFields[$name] = $value;
+//    }
+//    /**
+//     * @param string $name
+//     */
+//    public function removeField($name)
+//    {
+//        if (!array_key_exists($name, $this->otherFields)) {
+//            return;
+//        }
+//        unset($this->otherFields[$name]);
+//    }
     /**
      * @var \WWW\GlobalBundle\Entity\Calendar
      */
@@ -409,28 +408,23 @@ class MyCompanyEvents
     private $service;
 
 
-    /**
-     * Set otherFields
-     *
-     * @param string $otherFields
-     * @return MyCompanyEvents
-     */
-    public function setOtherFields($otherFields)
-    {
-        $this->otherFields = $otherFields;
 
-        return $this;
-    }
+//    public function setOtherFields($otherFields)
+//    {
+//        $this->otherFields = $otherFields;
+//
+//        return $this;
+//    }
 
     /**
      * Get otherFields
      *
      * @return string 
      */
-    public function getOtherFields()
-    {
-        return $this->otherFields;
-    }
+//    public function getOtherFields()
+//    {
+//        return $this->otherFields;
+//    }
 
     /**
      * Set calendar
@@ -476,5 +470,37 @@ class MyCompanyEvents
     public function getService()
     {
         return $this->service;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->calendarID,
+            $this->title,
+            $this->price,
+            $this->url,
+            $this->bgColor,
+            $this->fgColor,
+            $this->allDay,
+            $this->serviceID,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->calendarID,
+            $this->title,
+            $this->price,
+            $this->url,
+            $this->bgColor,
+            $this->fgColor,
+            $this->allDay,
+            $this->serviceID,
+            ) = unserialize($serialized);
     }
 }

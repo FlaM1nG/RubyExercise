@@ -60,6 +60,12 @@ class Calendar
         $this->myCompanyEvents = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /*
+     * @param int $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
     /**
      * Set name
      *
