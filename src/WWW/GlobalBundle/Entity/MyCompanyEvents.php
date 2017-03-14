@@ -48,7 +48,7 @@ class MyCompanyEvents implements  \Serializable {
      * @var boolean 
      * @ORM\Column(type="boolean")
      */
-    protected $ocuppate = true;
+    protected $ocuppate = false;
      
      
     /**
@@ -130,7 +130,7 @@ class MyCompanyEvents implements  \Serializable {
     
 //    protected $otherFields = array();
     
-      public function __construct($title, $price,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = true, $allDay = false)
+      public function __construct($title, $price,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = false, $allDay = false)
     {
         $this->title = $title;
          $this->price = $price;
@@ -256,7 +256,7 @@ class MyCompanyEvents implements  \Serializable {
         return $this->price;
     }
     
-      public function setOcuppate($ocuppate = true)
+      public function setOcuppate($ocuppate = false)
     {
         $this->ocuppate = (boolean) $ocuppate;
     }
