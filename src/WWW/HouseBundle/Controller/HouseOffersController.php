@@ -11,6 +11,7 @@ namespace WWW\HouseBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\Entity\Calendar;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,10 +22,11 @@ use WWW\GlobalBundle\Entity\MyCompanyEvents;
 use Doctrine\ORM\EntityManager;
 use Sonata\CoreBundle\Date;
 use WWW\ServiceBundle\Entity\Service;
-
+use Doctrine\Common\Persistence\ObjectManager;
 
 class HouseOffersController extends Controller
 {
+
     public function createNewOfferAction(Request $request){
 
         $arrayHouses = $this->getHousesUser($request);
@@ -95,14 +97,16 @@ class HouseOffersController extends Controller
 
 //        if($result['result'] == 'ok'):
 //
+//
 //            $em = $this->getDoctrine()->getManager();
 //            $dateNow = new \DateTime('now');
 //            $dateEnd =  new \DateTime('now');
 //            $dateEnd->add(new \DateInterval('P10Y'));
 //
-//            $mce = new MyCompanyEvents(5,'€',$shareHouse->getPrice(),'','',$dateNow, $dateEnd);
+//            $mce = new MyCompanyEvents('€',$shareHouse->getPrice(),'#008000','#fff',$dateNow, $dateEnd, null,null);
 //            $mce->setServiceID(6);
-//            $mce->setCalendarID(10);
+//            $mce->setCalendarID(11);
+//            $mce->setUrl("pruebatonta");
 //
 //            $em->persist($mce);
 //
