@@ -5,6 +5,16 @@
     {{ include('nav/menu.html.twig') }}
 {% endblock %}
 
+
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('css/calendario/datepi/jquery-ui.css') }}" />
+
+{% endblock %}
+
+
 {% block alert %}
     {% for flash_message in app.session.flashbag.get('messageFail') %}
         {{  alerts.alert('alert-warning', flash_message, null) }}
@@ -36,6 +46,9 @@
         {{ form_row(form.price) }}
         {{ form_row(form.newShareHouse) }}
 
+        <input type="text" id="DatePicker">
+
+
     </div>
 
 
@@ -44,6 +57,18 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
+
+
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/core.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/md5.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/datep.js') }}"></script>
+
+
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
 
     <!-- the main fileinput plugin file -->
     <script src="{{ asset('js/fileinput.js') }}"></script>
