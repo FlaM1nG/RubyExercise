@@ -27,6 +27,8 @@ use com\realexpayments\remote\sdk\domain\payment\PaymentType;
 use com\realexpayments\remote\sdk\RealexClient;
 use com\realexpayments\remote\sdk\http\HttpConfiguration;
 use Crevillo\Payum\Redsys\Api;
+use Acme\PaymentBundle\Form\PagoType;
+use WWW\UserBundle\Entity\User;
 
 class PaymentPurchaseController extends Controller {
 
@@ -43,60 +45,59 @@ class PaymentPurchaseController extends Controller {
     public function prepareAction(Request $request) {
         //Redsys <20
         //Addons >20
+        $user = $this->getUserProfile($request);
         $this->setUpVars($request);
 
-        $form = $this->createPurchaseForm();
+        $form = $this->createForm(PagoType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Si el usuario elige pagar con tarjeta
-            if ($form->get('gateway_name')->getData() == 'addon_payments') {
-                //cargamos el pago por tarjeta
-                return $this->redirectToRoute('acme_payment_card', array(
-                            'idOffer' => $this->offer->getOffer()->getId(),
-                            'service' => $this->service,
-                ));
-            }
-            if ($form->get('gateway_name')->getData() == 'redsys') {
-                        // 4548812049400004
-                        // 12/20
-                        // 123
-                        // 123456
-                
-                //cargamos el pago por tarjeta sabadell
-                $payment = $form->getData();
-                var_dump($payment);
-                die;
-                //numero de referencia por la hora y fecha
-                $payment->setNumber(date('ymdHis'));
-                $payment->setClientId(uniqid());
-                $payment->setDescription(sprintf('An order %s for a client %s', $payment->getNumber(), $payment->getClientEmail()));
-                $payment->setTotalAmount($this->offer->getPrice() * 100);
+        if ($form->isSubmitted() && $form->get('submit')->isClicked()) {
+
+//            Si el usuario elige pagar con tarjeta (LA CAIXA)
+//            if ($form->get('gateway_name')->getData() == 'addon_payments') {
+//                //cargamos el pago por tarjeta
+//                return $this->redirectToRoute('acme_payment_card', array(
+//                            'idOffer' => $this->offer->getOffer()->getId(),
+//                            'service' => $this->service,
+//                ));
+//            }
+            $payment = new Payment;
+            //numero de referencia por la hora y fecha
+            $payment->setNumber(date('ymdHis'));
+            $payment->setClientId(uniqid());
+            $payment->setDescription(sprintf('An order %s for a client %s', $this->offer->getPrice(), $user->getEmail()));
+            $payment->setTotalAmount($this->offer->getPrice() * 100);
+            $payment->setCurrencyCode('EUR');
+
+            //REDSYS
+            if (isset($request->get('previoPago')['card'])) {
+                // 4548812049400004
+                // 12/20
+                // 123
+                // 123456
+
                 $storage = $this->getPayum()->getStorage('Acme\PaymentBundle\Entity\PaymentDetails');
                 $details = $storage->create();
                 $details['Ds_Merchant_Amount'] = $this->offer->getPrice() * 100;
                 $details['Ds_Merchant_Currency'] = '978';
                 $details['Ds_Merchant_Order'] = date('ymdHis');
                 $details['Ds_Merchant_TransactionType'] = Api::TRANSACTIONTYPE_AUTHORIZATION;
-                $details['Ds_Merchant_ConsumerLanguage'] = Api::CONSUMERLANGUAGE_SPANISH;                                    
+                $details['Ds_Merchant_ConsumerLanguage'] = Api::CONSUMERLANGUAGE_SPANISH;
                 $storage->update($details);
                 //Las notificaciones de compra se guardan en la tabla payum_payments_details
                 //de ahi se tienen que sacar el DS_Response y manejar la respuesta
                 $notifyToken = $this->getPayum()->getTokenFactory()->createNotifyToken(
-                        $form->get('gateway_name')->getData(),
-                        $details
-                        );
-                
+                        'redsys', $details
+                );
+
                 $details['Ds_Merchant_MerchantURL'] = $notifyToken->getTargetUrl();
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
                 $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
-                        $form->get('gateway_name')->getData(),
-                        $payment,
-                        'acme_payment_done'
+                        'redsys', $payment, 'acme_payment_done'
                 );
-                
+
                 $details['Ds_Merchant_UrlOK'] = $notifyToken->getTargetUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
                 $details['Ds_Merchant_UrlKO'] = $captureToken->getAfterUrl();
                 $payment->setDetails($details);
@@ -105,33 +106,25 @@ class PaymentPurchaseController extends Controller {
                 $storagePay->update($payment);
                 return $this->redirect($captureToken->getTargetUrl());
             }
-                
-                //Si no, se paga por paypal
+
+            //Si no, se paga por PAYPAL
             else {
-                /** @var Payment $payment */
-                $payment = $form->getData();
-                //numero de referencia por la hora y fecha
-                $payment->setNumber(date('ymdHis'));
-                $payment->setClientId(uniqid());
-                $payment->setDescription(sprintf('An order %s for a client %s', $payment->getNumber(), $payment->getClientEmail()));
-                $payment->setTotalAmount($this->offer->getPrice() * 100);
-                
+
                 $storage = $this->getPayum()->getStorage($payment);
-                
                 $storage->update($payment);
-                
+
                 $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
-                        $form->get('gateway_name')->getData(), $payment, 'acme_payment_done'
+                        'paypal_express_checkout_with_ipn_enabled', $payment, 'acme_payment_done'
                 );
-                
-                
+
+
                 return $this->redirect($captureToken->getTargetUrl());
-                
             }
         }
 
-        return $this->render('AcmePaymentBundle::prepare.html.twig', array(
-                    'form' => $form->createView()
+        return $this->render('pay/payPage.html.twig', array(
+                    'form' => $form->createView(),
+                    'offer' => $this->offer,
         ));
     }
 
@@ -207,10 +200,10 @@ class PaymentPurchaseController extends Controller {
         $formBuilder = $this->createFormBuilder(null, array('data_class' => Payment::class));
 
         return $formBuilder
-            ->add('gateway_name', 'choice', array(
-                    'choices' => array(
-                        'paypal_express_checkout_with_ipn_enabled' => 'Paypal ExpressCheckout',
-                        'addon_payments' => 'Pago con Tarjeta',
+                        ->add('gateway_name', 'choice', array(
+                            'choices' => array(
+                                'paypal_express_checkout_with_ipn_enabled' => 'Paypal ExpressCheckout',
+                                'addon_payments' => 'Pago con Tarjeta',
 //                    'paypal_pro_checkout' => 'Paypal ProCheckout',
 //                    'stripe_js' => 'Stripe.Js',
 //                    'stripe_checkout' => 'Stripe Checkout',
@@ -218,27 +211,27 @@ class PaymentPurchaseController extends Controller {
 //                    'be2bill' => 'Be2bill',
 //                    'be2bill_offsite' => 'Be2bill Offsite',
 //                    'payex' => 'Payex',
-                        'redsys' => 'Redsys',
+                                'redsys' => 'Redsys',
 //                    'offline' => 'Offline',
 //                    'stripe_via_omnipay' => 'Stripe (Omnipay)',
 //                    'paypal_express_checkout_via_omnipay' => 'Paypal ExpressCheckout (Omnipay)',
-                    ),
-                    'mapped' => false,
-                    'constraints' => array(new NotBlank())
-                ))
-                ->add('totalAmount', 'number', array(
-                    'data' => $this->offer->getPrice(),
-                    'constraints' => array(new Range(array('max' => 1000, 'min' => 1)), new NotBlank())
-                ))
-                ->add('currencyCode', 'text', array(
-                    'data' => 'EUR',
-                    'constraints' => array(new NotBlank())
-                ))
-                ->add('clientEmail', 'text', array(
-                    'data' => $this->getUser()->getEmail(),
-                    'constraints' => array(new Email(), new NotBlank())
-                ))
-                ->getForm();
+                            ),
+                            'mapped' => false,
+                            'constraints' => array(new NotBlank())
+                        ))
+                        ->add('totalAmount', 'number', array(
+                            'data' => $this->offer->getPrice(),
+                            'constraints' => array(new Range(array('max' => 1000, 'min' => 1)), new NotBlank())
+                        ))
+                        ->add('currencyCode', 'text', array(
+                            'data' => 'EUR',
+                            'constraints' => array(new NotBlank())
+                        ))
+                        ->add('clientEmail', 'text', array(
+                            'data' => $this->getUser()->getEmail(),
+                            'constraints' => array(new Email(), new NotBlank())
+                        ))
+                        ->getForm();
     }
 
     /**
@@ -266,7 +259,7 @@ class PaymentPurchaseController extends Controller {
             $this->serviceId = 4;
 //            $this->getOfferShareCar($request);
             $this->getOfferInfo($request);
-        elseif(strstr($path, 'courier-car') !== false):
+        elseif (strstr($path, 'courier-car') !== false):
             $this->service = 'courier-car';
             $this->serviceId = 5;
             $this->getOfferInfo($request);
@@ -311,10 +304,10 @@ class PaymentPurchaseController extends Controller {
         return $this->offer;
     }
 
-    private function getOfferInfo(Request $request){
+    private function getOfferInfo(Request $request) {
         $file = MyConstants::PATH_APIREST . 'services/offer/get_infoOffersPrice.php';
         $ch = new ApiRest();
-        
+
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
@@ -323,11 +316,28 @@ class PaymentPurchaseController extends Controller {
 
         $result = $ch->resultApiRed($data, $file);
 
-        if($this->serviceId == 4 || $this->serviceId == 5):
+        if ($this->serviceId == 4 || $this->serviceId == 5):
             $this->offer = new ShareCar($result['data']);
         endif;
+    }
 
-        
+    private function getUserProfile(Request $request) {
+
+        $user = null;
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST . 'user/data/get_info_user.php';
+
+        $data['id'] = $this->getUser()->getId();
+        $data['username'] = $this->getUser()->getUsername();
+        $data['password'] = $request->getSession()->get('password');
+
+        $result = $ch->resultApiRed($data, $file);
+
+        if ($result['result'] == 'ok'):
+            $user = new User($result);
+        endif;
+
+        return $user;
     }
 
 }
