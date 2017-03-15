@@ -16,3 +16,7 @@ building_newOfferHouseRent:
     path: /house-rents/newOffer/
     defaults: { _controller: HouseBundle:HouseOffers:createNewOffer }
 
+
+house_lisShareHouse:
+    path: /share-house/
+    defaults: { _controller: HouseBundle:HouseOffers:listOfferShareHouse}
