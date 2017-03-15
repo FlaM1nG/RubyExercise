@@ -1,4 +1,12 @@
+acme_redsys:
+    resource:   "@AcmePaymentBundle/Controller/"
+    type:       annotation
+    prefix:     /
 
+acme_mobile_payment2:
+    path: /payment/mobile2
+    defaults: { _controller: AcmePaymentBundle:Mobile:prepare }
+ 
 acme_payment_homepage:
     path:  /payment/{service}/offer/{idOffer}/
 #    defaults: { _controller: AcmePaymentBundle:Default:index }

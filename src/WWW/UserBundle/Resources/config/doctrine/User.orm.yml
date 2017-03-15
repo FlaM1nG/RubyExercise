@@ -131,6 +131,9 @@ WWW\UserBundle\Entity\User:
         houses:
             targetEntity: WWW\HouseBundle\Entity\House
             mappedBy: user
+        wallet:
+            targetEntity: Wallet
+            mappedBy: user
     oneToOne:        
         photo:
             nullable: true

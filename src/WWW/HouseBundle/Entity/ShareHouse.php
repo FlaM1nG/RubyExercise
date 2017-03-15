@@ -153,4 +153,60 @@ class ShareHouse
     {
         return $this->price;
     }
+    /**
+     * @var \DateTime
+     */
+    private $entryTime;
+
+    /**
+     * @var \DateTime
+     */
+    private $departureTime;
+
+
+    /**
+     * Set entryTime
+     *
+     * @param \DateTime $entryTime
+     * @return ShareHouse
+     */
+    public function setEntryTime($entryTime)
+    {
+        $this->entryTime = $entryTime;
+
+        return $this;
+    }
+
+    /**
+     * Get entryTime
+     *
+     * @return \DateTime 
+     */
+    public function getEntryTime()
+    {
+        return $this->entryTime;
+    }
+
+    /**
+     * Set departureTime
+     *
+     * @param \DateTime $departureTime
+     * @return ShareHouse
+     */
+    public function setDepartureTime($departureTime)
+    {
+        $this->departureTime = $departureTime;
+
+        return $this;
+    }
+
+    /**
+     * Get departureTime
+     *
+     * @return \DateTime 
+     */
+    public function getDepartureTime()
+    {
+        return $this->departureTime;
+    }
 }

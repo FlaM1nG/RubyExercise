@@ -20,6 +20,16 @@ WWW\ServiceBundle\Entity\Service:
             length: 255
         defaultStatus:
             type: integer
+        sellerPenalty:
+            type: string
+            length: 255
+        buyerPenalty:
+            type: string
+            length: 255
+        fatherWallet:
+            type: integer
+        plusWallet:
+            type: integer
     oneToOne:        
         photo:
             targetEntity: WWW\GlobalBundle\Entity\Photo
