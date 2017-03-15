@@ -6,6 +6,7 @@
     {{ parent() }}
 
     <link rel="stylesheet" href="{{ asset('css/calendario/fullcalendar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/calendario/datepi/jquery-ui.css') }}" />
 
 {% endblock %}
 
@@ -54,7 +55,7 @@
         <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form class="form-horizontal" method="POST" action="addEvent.php">
+                    <form class="form-horizontal" method="POST" action="{{ path('fullcalendar_create') }}">
 
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -77,9 +78,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="serviceID" class="col-sm-2 control-label">Servicio</label>
+                                <label for="service_id" class="col-sm-2 control-label">Servicio</label>
                                 <div class="col-sm-10">
-                                    <select name="serviceID" class="form-control" id="serviceID">
+                                    <select name="service_id" class="form-control" id="service_id">
                                         <option value="">Elegir</option>
                                         <option style="color:#40E0D0;" value="6">&#9724; Alquiler Turístico</option>
                                         <option style="color:#FF0000;" value="7">&#9724; Casa Compartida </option>
@@ -115,7 +116,7 @@
         <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form class="form-horizontal" method="POST" href="{{ path('fullcalendar_edit') }}">
+                    <form class="form-horizontal" method="POST" action="{{ path('fullcalendar_edit') }}">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">Editar Evento</h4>
@@ -137,13 +138,21 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="serviceID" class="col-sm-2 control-label">Servicio</label>
+                                <label for="id" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
-                                    <select name="serviceID" class="form-control" id="serviceID">
-                                        <option value="">Elegir</option>
-                                        <option style="color:#40E0D0;" value="6">&#9724; Alquiler Turístico</option>
-                                        <option style="color:#FF0000;" value="7">&#9724; Casa Compartida </option>
-                                    </select>
+                                    <input type="hidden" name="id" class="form-control" id="id">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="calendar_id" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="hidden" name="calendar_id" class="form-control" id="calendar_id">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="service_id" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="hidden" name="service_id" class="form-control" id="service_id">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -181,6 +190,8 @@
     {{ form_row(form.newShareHouse) }}
 
 
+    <input type="text" id="DatePicker">
+
 
 
 {% endblock %}
@@ -210,6 +221,11 @@
     <script type="text/javascript" src="{{ asset('js/calendario/calendar.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 
+
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/core.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/md5.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/datep.js') }}"></script>
 
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>

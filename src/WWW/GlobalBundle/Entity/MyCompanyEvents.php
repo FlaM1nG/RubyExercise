@@ -130,11 +130,14 @@ class MyCompanyEvents implements  \Serializable {
     
 //    protected $otherFields = array();
     
-      public function __construct($title, $price,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = false, $allDay = false)
+      public function __construct($id,$title, $price,$calendarID, $serviceID,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = false, $allDay = false)
     {
+
+        $this->id = $id;
         $this->title = $title;
          $this->price = $price;
-      
+        $this->calendarID = $calendarID;
+        $this->serviceID = $serviceID;
          $this->bgColor = $bgColor;
          $this->fgColor = $fgColor;
         $this->startDatetime = $startDatetime;

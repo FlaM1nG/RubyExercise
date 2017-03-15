@@ -64,13 +64,16 @@ class CalendarEventListener
             ->getQuery()->getResult();
 
 
+
+
         foreach($companyEvents as $companyEvent) {
 
+          
             // create an event with a start/end time, or an all day event
             if ($companyEvent->getAllDay() === false) {
-                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$companyEvent->getPrice(), $companyEvent->getBgColor(), $companyEvent->getFgColor(),  $companyEvent->getStartDatetime(), $companyEvent->getEndDatetime(),false, true);
+                $eventEntity = new MyCompanyEvents($companyEvent->getId(),$companyEvent->getTitle(),$companyEvent->getPrice(),$companyEvent->getCalendarID(),$companyEvent->getServiceID(), $companyEvent->getBgColor(), $companyEvent->getFgColor(),  $companyEvent->getStartDatetime(), $companyEvent->getEndDatetime(),false, true);
             } else {
-                $eventEntity = new MyCompanyEvents($companyEvent->getTitle(),$companyEvent->getPrice(), $companyEvent->getBgColor(), $companyEvent->getFgColor(), $companyEvent->getStartDatetime(), $companyEvent->getEndDatetime(),false, true);
+                $eventEntity = new MyCompanyEvents($companyEvent->getId(),$companyEvent->getTitle(),$companyEvent->getPrice(),$companyEvent->getCalendarID(),$companyEvent->getServiceID(), $companyEvent->getBgColor(), $companyEvent->getFgColor(), $companyEvent->getStartDatetime(), $companyEvent->getEndDatetime(),false, true);
             }
             $calendarEvent->addEvent($eventEntity);
 

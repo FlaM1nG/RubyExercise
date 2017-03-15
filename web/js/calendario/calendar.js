@@ -56,7 +56,10 @@ $(document).ready(function() {
                     $('#ModalEdit #id').val(event.id);
                     $('#ModalEdit #title').val(event.title);
                     $('#ModalEdit #price').val(event.price);
-                    $('#ModalEdit #serviceID').val(event.serviceID);
+                    $('#ModalEdit #calendar_id').val(event.calendar_id);
+                    $('#ModalEdit #service_id').val(event.service_id);
+
+                    console.log(event);
                     $('#ModalEdit').modal('show');
                 });
             },
@@ -94,11 +97,17 @@ $(document).ready(function() {
         }
 
         id =  event.id;
+        price = event.price;
+        calendarID = event.calendarID;
+        serviceID = event.serviceID;
 
         Event = [];
         Event[0] = id;
         Event[1] = start;
         Event[2] = end;
+        Event[3] = price;
+        Event[4] = calendarID;
+        Event[5] = serviceID;
 
         $.ajax({
             url: Routing.generate('fullcalendar_edit'),
