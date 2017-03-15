@@ -229,3 +229,12 @@ services:
 
     acme_payment.foo_bar.status:
         class: Acme\OtherExamplesBundle\Payum\FooBarGateway\Action\StatusAction
+    
+    payum.buzz.client:
+        class: Buzz\Client\ClientInterface
+        factory_class: Payum\Core\Bridge\Buzz\ClientFactory
+        factory_method: createCurl
+        calls:
+          - [setTimeout,[200]]
+          # remove CURLOPT_SSL_CIPHER_LIST from options list
+          - [setOption, [10083, null]]
