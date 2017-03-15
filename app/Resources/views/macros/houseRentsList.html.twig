@@ -70,6 +70,8 @@
 {% macro element(hrefOffer, srcImgBig, srcImgSmallF, srcImgSmallS, title, 
     capacidad, habitaciones, banos, hrefUser, srcImgUser, nameUser, price,
     vote ) %}
+
+    {% import 'macros/star.html.twig' as rating %}
 <!-- ELEMENT -->
 <div class="row row-hre-element">
     <!-- COLUMNA IMAGEN PRICIPAL -->
@@ -191,13 +193,7 @@
         <div class="row">
             <!-- VALORACIONES -->
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <div class="rating hre-rating">
-                        <span>☆</span>
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
-                    </div>
+                {{ rating.staticRating(vote) }}
             </div>
             <!-- FIN VALORACIONES -->
             
