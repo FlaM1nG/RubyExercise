@@ -167,7 +167,7 @@ class HouseOffersController extends Controller
 
         return $this->render('offer/offHouseRents.html.twig', array(
                              'offer' => $offerShareHouse,
-                             'arrayAttr' => $offerShareHouse->getArrayGroupsAttrH(),
+                             'arrayAttr' => $offerShareHouse->getHouse()->getArrayGroupsAttrH(),
                              'formMessage' => $formMessage->createView(),
                              'formComment' => $formComment->createView(),
                              'formSubscribe' => $formSubscribe->createView(),
