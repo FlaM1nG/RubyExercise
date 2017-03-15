@@ -261,7 +261,22 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @var \Doctrine\Common\Collections\Collection
      */
     private $downs;
+    
+    /**
+     * @var \WWW\GlobalBundle\Entity\Address
+     */
+    private $addressPay;
+    
+    /**
+    * @var array
+    *
+    * @ORM\Column(name="questionnaire", type="json_array", nullable=true)
+    */
+    private $questionnaire = [
+        'name'=>'',    
+    ];
 
+    
     /**
      * Constructor
      */
@@ -1560,6 +1575,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         return $this->houses;
     }
+<<<<<<< HEAD
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -1597,5 +1613,13 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     public function getWallet()
     {
         return $this->wallet;
+=======
+    
+    public function getAddressPay(){
+        return $this->addressPay;
+    }
+    public function setAddressPay($addressPay){
+        $this->addressPay= $addressPay;
+>>>>>>> week-10
     }
 }

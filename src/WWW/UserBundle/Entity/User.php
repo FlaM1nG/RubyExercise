@@ -261,6 +261,12 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @var \Doctrine\Common\Collections\Collection
      */
     private $downs;
+    
+    /**
+     * @var \WWW\GlobalBundle\Entity\Address
+     */
+    private $addressPay;
+    
 
     /**
      * Constructor
@@ -1559,6 +1565,13 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     public function getHouses()
     {
         return $this->houses;
+    }
+    
+    public function getAddressPay(){
+        return $this->addressPay;
+    }
+    public function setAddressPay($addressPay){
+        $this->addressPay= $addressPay;
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
