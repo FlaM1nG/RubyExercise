@@ -16,6 +16,10 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use WWW\HouseBundle\Entity\House;
+use WWW\HouseBundle\Entity\ShareHouse;
+use WWW\HouseBundle\Form\HouseType;
+use WWW\HouseBundle\Form\ShareHouseType;
 use WWW\ServiceBundle\Entity\Offer;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Form\TradeType;
@@ -90,8 +94,19 @@ class OfferController extends Controller{
             $result = null;
             if($this->service <= 3):
                 $result = $this->updateOfferTrade($request);
+            
             elseif($this->service == 4 || $this->service == 5):
                 $result = $this->updateOfferShareCar($request);
+            
+            elseif($this->service == 6):
+                $house = new House();
+                $house->setId($request->get('shareHouse')['houseId']);
+                $this->offer->setHouse($house);
+
+                $request->getSession()->set('_security.user.target_path','');
+                $request->getSession()->remove('offer');
+
+                $result = $this->updateOfferHouseRent($request);
             endif;
 
             if($result == 'ok'):
@@ -104,7 +119,12 @@ class OfferController extends Controller{
 
         elseif($this->service == 4 || $this->service == 5):
             $pathRender = 'UserBundle:Profile:offers/profileEditOfferShareCar.html.twig';
-
+        
+        elseif($this->service == 6):
+            $pathRender = 'UserBundle:Profile:House/profileEditOfferHouseRent.html.twig';
+            $route = $request->get('_route');
+            $request->getSession()->set('_security.user.target_path',$route);
+            $request->getSession()->set('offer',$this->offer->getOffer()->getId());
         endif;
 
         return $this->render($pathRender,
@@ -197,6 +217,27 @@ class OfferController extends Controller{
 
         return $result['result'];
     }
+    
+    private function updateOfferHouseRent(Request $request){
+
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/offer/update_offer_photos.php";
+
+        $info['id'] = $request->getSession()->get('id');
+        $info['username'] = $request->getSession()->get('username');
+        $info['password'] = $request->getSession()->get('password');
+        $info['offer_id'] = $this->offer->getOffer()->getId();
+        $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'";
+        $data['sub_values']['price'] = $this->offer->getPrice();
+
+        $info['data']= json_encode($data);
+
+        $result = $ch->resultApiRed($info, $file);
+
+        $this->ut->flashMessage("general", $request, $result);
+
+        return $result['result'];
+    }
 
     private function searchOffer(Request $request, &$minHolder){
 
@@ -222,8 +263,14 @@ class OfferController extends Controller{
                  $arrayCars = $this->getCarsUser($request);
                  $formulario = $this->createForm(ShareCarType::class ,$this->offer, array('listCar' => $arrayCars));
                  $minHolder = 1;
-                 if(!empty($this->offer->getOffer()->getInscriptions()))
+                 if(!empty($this->offer->getOffer()->getInscriptions())):
                      $minHolder = sizeof($this->offer->getOffer()->getInscriptions());
+                 endif;
+
+             elseif($result['service_id'] == 6):
+                 $this->offer = new ShareHouse($result);
+                 $formulario = $this->createForm(ShareHouseType::class, $this->offer);
+
              endif;
         else:
             $this->ut->flashMessage("offer", $request, $result);
@@ -255,7 +302,7 @@ class OfferController extends Controller{
 
     }
 
-   private function createTrade($result){
+    private function createTrade($result){
 
         $offer = new Trade($result);
 
@@ -267,7 +314,7 @@ class OfferController extends Controller{
 
    }
    
-   public function deleteImageOfferAction(Request $request){
+    public function deleteImageOfferAction(Request $request){
       
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/photos/delete_offer_photo.php";
@@ -304,13 +351,12 @@ class OfferController extends Controller{
             $count += 1;
         }
 
-
         $result = $ch->resultApiRed($data, $file);
 //        print_r($result);
 
     }
    
-   public function valorationOfferAction(Request $request){
+    public function valorationOfferAction(Request $request){
 
        $file = MyConstants::PATH_APIREST."services/inscription/rate.php";
        $ch = new ApiRest();

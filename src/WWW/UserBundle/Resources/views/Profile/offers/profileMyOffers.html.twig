@@ -65,6 +65,8 @@
                     {% elseif offer.service.id == 5 %}
                         {% set url = path('offCourierCar', {idOffer: offer.id}) %}
 
+                    {% elseif offer.service.id == 6 %}
+                        {% set url = path('offHouseRents', {idOffer: offer.id}) %}
                     {% endif%}
 
                     {{ offers.offUser(url, offer.photos.0.url ,offer.title,

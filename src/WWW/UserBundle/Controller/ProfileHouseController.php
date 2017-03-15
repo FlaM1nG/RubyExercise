@@ -32,6 +32,7 @@ class ProfileHouseController extends Controller{
         if($form->isSubmitted()):
             $result = $this->saveNewHouse($request);
 
+
             if($result == 'ok'):
                 return $this->redirectToRoute('user_profile_listHouse');
             endif;
@@ -136,8 +137,15 @@ class ProfileHouseController extends Controller{
         if($form->isSubmitted() AND $form->isValid()):
             $result = $this->updateHouse($request, $house);
 
+            $path = $request->getSession()->get('_security.user.target_path');
+            $idOffer = $request->getSession()->get('offer');
+
             if($result == 'ok'):
-                return $this->redirectToRoute('user_profile_listHouse');
+                if($path == 'user_profiler_editOffer'):
+                    return $this->redirectToRoute('user_profiler_editOffer',array('idOffer'=>$idOffer));
+                else:
+                    return $this->redirectToRoute('user_profile_listHouse');
+                endif;
             endif;
         endif;
 

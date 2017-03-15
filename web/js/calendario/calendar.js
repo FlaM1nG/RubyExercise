@@ -10,16 +10,16 @@ $(document).ready(function() {
 
 		$('#calendar-holder').fullCalendar({
 
-                       
+
                        lang: 'es',
-                       
+
 			header: {
 				left: 'prev,next today',
 				center: 'title',
 				right: 'month,basicWeek,basicDay'
 			},
-                       
-                       
+
+
                        buttonText:
                          {
                                  prev:     '◄',
@@ -62,8 +62,13 @@ $(document).ready(function() {
                 edit(event);
 
             },
+<<<<<<< HEAD
+
+
+=======
         
         
+>>>>>>> e8af1b87f74dbf753ef07e92379c16a8a10f6b75
 		 eventSources: [
             {
                 url: Routing.generate('fullcalendar_loader'),
@@ -93,7 +98,11 @@ $(document).ready(function() {
         Event[2] = end;
 
         $.ajax({
+<<<<<<< HEAD
+            url: 'editEventDate.php',
+=======
             url: Routing.generate('fullcalendar_delete'),
+>>>>>>> e8af1b87f74dbf753ef07e92379c16a8a10f6b75
             type: "POST",
             data: {Event:Event},
             success: function(rep) {
