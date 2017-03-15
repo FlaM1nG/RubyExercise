@@ -46,6 +46,8 @@
                 </p>
             {% else %}
 
+                {{ dump(pagination) }}
+
                 {% for offer in pagination %}
 
                     {% set pathEditar = path('user_profiler_editOffer',{idOffer:offer.id}) %}
@@ -69,8 +71,13 @@
                         {% set url = path('offHouseRents', {idOffer: offer.id}) %}
                     {% endif%}
 
-                    {{ offers.offUser(url, offer.photos.0.url ,offer.title,
-                    offer.description, 'leer', pathEditar, 'editar', '#borrar','Borrar', offer.id) }}
+                    {% if offer.expired == 1 %}
+                        {{ offers.offUserExp(url, offer.photos.0.url ,offer.title,
+                        offer.description, 'leer', '#borrar','Borrar') }}
+                    {% else %}
+                        {{ offers.offUser(url, offer.photos.0.url ,offer.title,
+                        offer.description, 'leer', pathEditar, 'editar', '#borrar','Borrar', offer.id) }}
+                    {% endif %}
 
                 {% endfor %}
 

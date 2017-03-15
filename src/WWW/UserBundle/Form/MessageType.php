@@ -38,9 +38,12 @@ class MessageType extends AbstractType{
                 ->add('message',TextareaType::class,array('label' => '',
                                                           'required' => false))
                 
-                ->add('enviar', 'submit', array('label' => 'Enviar'))
+                ->add('enviar', 'submit', array('label' => 'Enviar',
+                                                'attr' => array('class' => 'btn-default btn-normal'
+                                                                )
+                                                ))
                 ->add('cancelar','submit', array('label' => 'Cancelar',
-                                               'attr' => array('class' => 'btn-default buttonCancel') ));
+                                               'attr' => array('class' => 'btn-default btn-normal buttonCancel') ));
     }
 
     public function configureOptions(OptionsResolver $resolver){
