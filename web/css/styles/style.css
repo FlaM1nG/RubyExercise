@@ -12820,7 +12820,9 @@ a.boton-leer-post:focus {
   height: 100px;
   width: 100px;
 }
-.us-image-checkbox {
+.us-image-checkbox,
+.check-payment-method,
+.check-send-method {
   background-color: #ffffff;
   /*cursor: pointer;
     box-sizing: border-box;
@@ -12830,7 +12832,11 @@ a.boton-leer-post:focus {
     outline: 0;*/
 }
 .us-image-checkbox img,
-.us-image-checkbox img:focus {
+.check-payment-method img,
+.check-send-method img,
+.us-image-checkbox img:focus,
+.check-payment-method img:focus,
+.check-send-method img:focus {
   cursor: pointer;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -12842,19 +12848,33 @@ a.boton-leer-post:focus {
   transition: 0.3s ease-in-out;
   background: #ffffff;
 }
-.us-image-checkbox img:hover {
+.us-image-checkbox img:hover,
+.check-payment-method img:hover,
+.check-send-method img:hover {
   opacity: .5;
 }
 .us-image-checkbox:hover,
-.us-image-checkbox:focus {
+.us-image-checkbox:focus,
+.check-payment-method:hover,
+.check-payment-method:focus,
+.check-send-method:hover,
+.check-send-method:focus {
   background-color: #ffffff;
 }
-.us-image-checkbox input[type="checkbox"] {
+.us-image-checkbox input[type="checkbox"],
+.check-payment-method input[type="checkbox"],
+.check-send-method input[type="checkbox"] {
   display: none;
 }
 .us-image-checkbox-checked img,
+.check-payment-method-checked img,
+.check-send-method-checked img,
 .us-image-checkbox-checked img:hover,
-.us-image-checkbox-checked img:focus {
+.check-payment-method-checked img:hover,
+.check-send-method-checked img:hover,
+.us-image-checkbox-checked img:focus,
+.check-payment-method-checked img:focus,
+.check-send-method-checked img:focus {
   border: 5px solid #ff6600;
   opacity: 1;
 }
@@ -15335,6 +15355,42 @@ textarea {
   .btn-sid-pulse3 {
     right: 13%;
   }
+}
+/* Pagos */
+.btn-float-none {
+  float: none !important;
+}
+.table-pago {
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
+  border: 1px solid #333333;
+}
+.table-pago .table-pago-total {
+  background-color: #333333 !important;
+  color: #ffffff;
+}
+.table-pago .table-pago-total th,
+.table-pago .table-pago-total td {
+  border: 0;
+  text-align: right;
+}
+.img-metodo-pago {
+  width: 50%;
+}
+.img-metodo-envio {
+  width: 80%;
+}
+.cont-pago {
+  border: 1px solid #ff6600;
+  padding: 2%;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+}
+.form-cien {
+  width: 100%;
 }
 /* Inscritos */
 .cont-inscri {
