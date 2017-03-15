@@ -51,7 +51,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/",
      *               message="La contraseña debe contener letras y números",
      *               groups = {"register","password"})
-     * @Assert\Length(min=8, groups = {"register","password"})
+     * @Assert\Length(min=8, minMessage="La longitud mínima es de 8 caracteres ", groups = {"register","password"})
      * 
      */
     private $password;
@@ -1559,5 +1559,43 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     public function getHouses()
     {
         return $this->houses;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $wallet;
+
+
+    /**
+     * Add wallet
+     *
+     * @param \WWW\UserBundle\Entity\Wallet $wallet
+     * @return User
+     */
+    public function addWallet(\WWW\UserBundle\Entity\Wallet $wallet)
+    {
+        $this->wallet[] = $wallet;
+
+        return $this;
+    }
+
+    /**
+     * Remove wallet
+     *
+     * @param \WWW\UserBundle\Entity\Wallet $wallet
+     */
+    public function removeWallet(\WWW\UserBundle\Entity\Wallet $wallet)
+    {
+        $this->wallet->removeElement($wallet);
+    }
+
+    /**
+     * Get wallet
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWallet()
+    {
+        return $this->wallet;
     }
 }

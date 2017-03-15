@@ -1,0 +1,30 @@
+WWW\UserBundle\Entity\Wallet:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\WalletRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        quantity:
+            type: integer
+        date:
+            type: datetime
+        concept:
+            type: string
+            length: 255
+            nullable: true
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: wallet
+            joinColumn:
+                referencedColumnName: id
+        service:
+            targetEntity: WWW\ServiceBundle\Entity\Service
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

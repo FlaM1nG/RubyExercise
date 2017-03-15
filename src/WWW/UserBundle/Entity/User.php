@@ -1560,4 +1560,42 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         return $this->houses;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $wallet;
+
+
+    /**
+     * Add wallet
+     *
+     * @param \WWW\UserBundle\Entity\Wallet $wallet
+     * @return User
+     */
+    public function addWallet(\WWW\UserBundle\Entity\Wallet $wallet)
+    {
+        $this->wallet[] = $wallet;
+
+        return $this;
+    }
+
+    /**
+     * Remove wallet
+     *
+     * @param \WWW\UserBundle\Entity\Wallet $wallet
+     */
+    public function removeWallet(\WWW\UserBundle\Entity\Wallet $wallet)
+    {
+        $this->wallet->removeElement($wallet);
+    }
+
+    /**
+     * Get wallet
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWallet()
+    {
+        return $this->wallet;
+    }
 }
