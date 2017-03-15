@@ -21,6 +21,9 @@ WWW\ServiceBundle\Entity\Concept:
         price:
             type: integer
             nullable: true
+        paid:
+            type: boolean
+            nullable: true
     manyToOne:
         billing:
             targetEntity: Billing

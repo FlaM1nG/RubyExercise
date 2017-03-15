@@ -1,0 +1,27 @@
+WWW\ServiceBundle\Entity\InscriptionHistory:
+    type: entity
+    table: null
+    repositoryClass: WWW\ServiceBundle\Repository\InscriptionHistoryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        concept:
+            type: string
+            length: 255
+            nullable: true
+        keyLog:
+            type: string
+            length: 255
+            nullable: true
+        date:
+            type: datetime
+    manyToOne:
+        inscription:
+            targetEntity: Inscription
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }
