@@ -2426,6 +2426,7 @@ class House
      * Función que crea un array que sirve que luego en twig se agrupen las opciones de la casa y pueda coger el label y
      * el atributo que le corresponde.
      * Esto en realidad lo suyo sería que estuviera en la BBDD pero de momento es lo más rápido
+     * En caso de que no se quiera ese orden es cuestión de cambiar el orden en el que se está creando cada grupo
      * 
      * @return array
      */
