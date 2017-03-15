@@ -98,20 +98,29 @@ class HouseOffersController extends Controller
 
     public function listOfferShareHouseAction(Request $request){
 
+        $service = null;
         $arrayOffers = $this->getOffersShareHouse();
+
+        if(strpos($request->getPathInfo(),'house-rents') !== false):
+            $service = 6;
+        elseif(strpos($request->getPathInfo(),'share-house') !== false):
+            $service = 7;
+        endif;
+
+        $arrayOffers = $this->getOffersShareHouse($service);
 
         return $this->render('services/serHouseRents.html.twig', array(
                              'arrayOffers' => $arrayOffers
         ));
     }
 
-    private function getOffersShareHouse() {
+    private function getOffersShareHouse($idService) {
 
         $file = MyConstants::PATH_APIREST . 'services/share_house/list_share_house.php';
         $ch = new ApiRest();
         $arrayOffers = null;
 
-        $data['service_id'] = 6;
+        $data['service_id'] = $idService;
         $data['search'] = "";
 
         $info['data'] = json_encode($data);
