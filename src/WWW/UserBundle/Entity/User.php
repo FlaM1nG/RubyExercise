@@ -1585,4 +1585,32 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         return $this->wallet;
     }
+    /**
+     * @var boolean
+     */
+    private $emailConfirmed;
+
+
+    /**
+     * Set emailConfirmed
+     *
+     * @param boolean $emailConfirmed
+     * @return User
+     */
+    public function setEmailConfirmed($emailConfirmed)
+    {
+        $this->emailConfirmed = $emailConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get emailConfirmed
+     *
+     * @return boolean 
+     */
+    public function getEmailConfirmed()
+    {
+        return $this->emailConfirmed;
+    }
 }
