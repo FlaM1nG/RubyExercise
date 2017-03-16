@@ -40,10 +40,14 @@
             {{ form_row(form.address.street) }}
             {{ form_row(form.address.zipCode) }}
 
-            {% for row in form.children if row.vars.name!='address' %}
-                    {{ form_row(row) }}
+            {% for key, attr in arrayAttr %}
+                <h4> {{ key|capitalize }}</h4>
+
+                {% for data in attr %}
+                    {{ form_row(attribute(form, data.attr),{'label': data.label|capitalize}) }}
+                {% endfor %}
+                
             {% endfor %}
-            {#<input id="imgHouse" name="imgHouse[]" type="file" multiple class="file-loading" accept="image/*" required >#}
 
         </div>
     </div>
