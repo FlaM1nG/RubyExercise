@@ -407,7 +407,13 @@
 
 
                     <!-- DATO -->
-                    {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
+                    {% if service == 6 and dato.attr != 'entradaPrivada'%}
+                         {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
+
+                    {% elseif  service == 7 %}
+                        {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
+
+                    {% endif %}
                     <!-- DATO -->
 
 
