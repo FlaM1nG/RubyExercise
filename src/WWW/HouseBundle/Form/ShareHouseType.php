@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WWW\ServiceBundle\Form\OfferType;
@@ -33,6 +34,10 @@ class ShareHouseType extends AbstractType{
             ->add('offer', OfferType::class, array('label' => ''))
 
             ->add('price', MoneyType::class, array('label' => 'Precio base'))
+
+            ->add('entryTime',TimeType::class, array('label' => 'Hora de entrada'))
+
+            ->add('departureTime',TimeType::class, array('label' => 'Hora de salida'))
 
             ->add('houseId', HiddenType::class, array('data' => $options['data']->getHouse()->getId(),
                                                       'mapped'=>false  ))

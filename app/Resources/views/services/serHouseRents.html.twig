@@ -1,6 +1,7 @@
 {% extends '::services/layoutService.html.twig' %}
 {% import 'macros/popup.html.twig' as popups %}
 {% import 'macros/sidebar.html.twig' as sidebars %}
+{% import 'macros/star.html.twig' as rating %}
 {% import 'macros/houseRentsList.html.twig' as houses %}
 
 {% set service = 6 %}
@@ -12,6 +13,7 @@
 
 
 {% endif %}
+
 {% block title %}
     House Rents
 {% endblock %}
@@ -32,12 +34,24 @@ sha-header-title
     {#{ include('services/subTitles/shareCarSubTitle.html.twig') }#}
 {% endblock %}
 
+{% block alert %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+{% endblock %}
+
 {% block serviceFilters %} 
-    {{ include('services/filters/shareCarFilter.html.twig') }}
+    {{ include('services/filters/houseRentFilters.html.twig') }}
 {% endblock %}
             
 {% block serviceList %}
-    {% for i in 0..9 %}
+    {% for offer in arrayOffers %}
         {#{ include('services/lists/houseRentsList.html.twig') }#}
         {% set imgBig = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
                             
@@ -47,9 +61,9 @@ sha-header-title
                             
         {% set titlehouse = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}
                             
-        {{ houses.element('#ELEMENT', imgBig, imgSmall1, imgSmall2, titlehouse, 
-            random(8), random(4), random(3), '#USER', asset('img/usuario1.jpg'), 
-            'Paco J', random(999) ) }}
+        {{ houses.element(path('offHouseRents',{idOffer: offer.offer_id}), asset(offer.house_photo,'img'), imgSmall1, imgSmall2, offer.title,
+            offer.capacity, offer.bedrooms, offer.bathrooms, path('user_public_profile',{username: offer.username}), asset(offer.user_photo,'img'),
+            offer.username, offer.price, offer.avg_score ) }}
     {% endfor %}
         
 {% endblock %}
@@ -67,6 +81,7 @@ sha-header-title
     {{ parent() }}
     {{ include('services/sidebar/ocioScript.html.twig') }}
     {{ include('services/sidebar/ocioMovilScript.html.twig') }}
+    {{ rating.staticRatingJS() }}
 {% endblock %}
 
 {% block popupBlock %}

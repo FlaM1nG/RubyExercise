@@ -1,5 +1,9 @@
 {% extends '::offer/layoutOffer.html.twig' %}
 {% import '::macros/offer.html.twig' as offers %}
+{% import '::macros/star.html.twig' as rating %}
+{% import 'macros/popup.html.twig' as popups %}
+{% import 'macros/message.html.twig' as comentarios %}
+{% import 'macros/user.html.twig' as users %}
 
 {#{ BLOQUES -->     offerImage 
                     offerUser
@@ -15,28 +19,32 @@
                     offerOtherData 
 }#}
 
+{% block alert %}
 
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+{% endblock %}
 
 {% block offerImage %}
+    {#{{ dump(offer) }}#}
     <div id="off-img-big" class="owl-carousel">
         {% set imgGallery = []  %}
         
-        {% for i in 0..6 %}
-            
-            {% set imageOff = random([asset('img/seat.jpg'), 
-                asset('img/articulo1.jpg'), 
-                asset('img/macbook.png'),
-                asset('img/alquilerTuristico3.jpg')]) %}
+        {% for photo in offer.offer.photos %}
 
-
-            {% set imgGallery = imgGallery|merge([imageOff] ) %}
             <div class="item">
                 <div class="off-img-marco-grande">
-                    <a href="{{ imageOff }}" 
+                    <a href="{{ asset(photo.url, 'img') }}"
                         data-lightbox="offer-item">
                         
                         <img class="img-responsive off-img-expo" 
-                            src="{{ imageOff }}" 
+                            src="{{ asset(photo.url, 'img') }}"
                             alt="">
                     </a>
                 </div>
@@ -45,11 +53,13 @@
     </div>
 
     <div id="off-img-small" class="owl-carousel">
-        {% for i in 0..6 %}
+        {% for photo in offer.offer.photos %}
+            {% set arrayPhoto = photo.url|split('.') %}
+            {% set photoThumb = arrayPhoto[0]~'_250.'~arrayPhoto[1] %}
         <div class="item off-item-dime">
             <div class="off-img-marco-peque">
                 <img class="img-responsive off-img-slid" 
-                    src="{{ imgGallery[i] }}" 
+                    src="{{ asset(photoThumb,'img') }}"
                     alt="">
             </div>
         </div>
@@ -62,13 +72,13 @@
 {% block offerUser %} 
     <!-- IMAGEN USUARIO -->
     <div class="row row-off-user-name">
-        <a class="off-user-image" href="#USUARIO">
+        <a class="off-user-image" href={{ path('user_public_profile', {username: offer.offer.userAdmin.username}) }}>
             <img class=" img-circle img-responsive" 
-                src="{{ asset('img/usuario1.jpg') }}" 
+                src="{{ asset(offer.offer.userAdmin.photo.url, 'img') }}"
                 width="50" alt="">
         </a>
                     
-        <a class="off-user-name" href="#USUARIO">Paco J</a>
+        <a class="off-user-name" href={{ path('user_public_profile', {username: offer.offer.userAdmin.username}) }}>{{ offer.offer.userAdmin.username }}</a>
         
     </div>
     <!-- FIN NOMBRE USUARIO -->
@@ -76,50 +86,30 @@
 
 
 {% block offerTitle %}
-    {{ random(['Titulo objeto en venta', 
-            'Aleatorio para que el texto sea diferentes', 
-            'Yo soy corto', 
-            'Soy un titulo para ver que aparece', 
-            'Te ha tocado la loteria!!']) }}
+    {{ offer.offer.title }}
 {% endblock %}
 
 
 {% block offerPrice %} 
-    {{ random(999) }} €
+    {{ offer.price }} €
 {% endblock %}
 
 
 {% block offerVote %} 
     <!-- VALORACIONES -->
-    <div class="rating">
-        <span>☆</span>
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-    </div>
+    {{ rating.staticRating(offer.offer.userAdmin.avgScore) }}
     <!-- FIN VALORACIONES -->
 {% endblock %}
 
 
 {% block offerDate %} 
-    {{ 'now'|date('d/m/Y') }}
+    {{ offer.offer.modifiedDate|date('d/m/Y') }}
 {% endblock %} 
 
 
 {% block offerDescription %}
     <p>
-        Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho 
-        peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
-        Diodeno amatomaa pecador diodeno sexuarl. No te digo trigo por no 
-        llamarte Rodrigor fistro papaar papaar se calle ustée. La caidita ese 
-        pedazo de de la pradera sexuarl ese que llega tiene musho peligro 
-        diodenoo ese pedazo de tiene musho peligro. Pecador jarl te voy a 
-        borrar el cerito se calle ustée diodeno a gramenawer va usté muy 
-        cargadoo la caidita qué dise usteer. No te digo trigo por no llamarte 
-        Rodrigor está la cosa muy malar ahorarr condemor sexuarl. Apetecan a wan 
-        ese hombree ese pedazo de qué dise usteer tiene musho peligro jarl tiene 
-        musho peligro jarl. Qué dise usteer pecador mamaar apetecan la caidita. 
+        {{offer.offer.description ~ offer.house.description}}
     </p>
 {% endblock %}
 
@@ -140,26 +130,22 @@
 
             <div class="row off-row-date-prin">
                 <!-- CAPACIDAD -->
-                {{ offers.atriHouRen('capacidad', 'fa-users', random(15), 
-                    3, 6, 6, 6) }}
+                {{ offers.atriHouRen('capacidad', 'fa-users', offer.house.capacity,3, 6, 6, 6) }}
                 <!-- FIN CAPACIDAD -->
 
 
                 <!-- BAÑOS -->
-                {{ offers.atriHouRen('baños', 'fa-bath', random(15), 
-                    3, 6, 6, 6) }}
+                {{ offers.atriHouRen('baños', 'fa-bath', offer.house.bathrooms,3, 6, 6, 6) }}
                 <!-- FIN BAÑOS -->
 
 
                 <!-- DORMITORIOS -->
-                {{ offers.atriHouRen('dormitorios', 'fa-home', random(15), 
-                    3, 6, 6, 6) }}
+                {{ offers.atriHouRen('dormitorios', 'fa-home', offer.house.bedrooms,3, 6, 6, 6) }}
                 <!-- FIN DORMITORIOS -->
 
 
                 <!-- CAMAS -->
-                {{ offers.atriHouRen('camas', 'fa-bed', random(15), 
-                    3, 6, 6, 6) }}
+                {{ offers.atriHouRen('camas', 'fa-bed', offer.house.beds,3, 6, 6, 6) }}
                 <!-- FIN CAMAS -->
 
 
@@ -180,13 +166,13 @@
 
             <div class="row off-row-date-prin">
                 <!-- LLEGADA -->
-                {{ offers.atriHouRen('llegada', 'fa-sign-in', '16:00', 
+                {{ offers.atriHouRen('llegada', 'fa-sign-in', offer.entryTime.date|date('H:i'),
                     6, 6, 6, 6) }}
                 <!-- FIN LLEGADA -->
 
 
                 <!-- SALIDA -->
-                {{ offers.atriHouRen('salida', 'fa-sign-out', '12:00', 
+                {{ offers.atriHouRen('salida', 'fa-sign-out', offer.departureTime.date|date('H:i'),
                     6, 6, 6, 6) }}
                 <!-- FIN SALIDA -->
 
@@ -197,144 +183,253 @@
     </div>
     
     
-    <!-- SERVICIOS -->
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h4>
-                Servicios
-            </h4>
-            <hr>
-        </div>
-    </div>
-    
-    
-    {% set datos = ['Acceso 24h', 'Acceso discapacitados', 'Internet', 'Wifi', 
-        'Jacuzzi', 'Aire acondicionado', 'Lavadora', 'Parking gratuito', 
-        'Apto para familias y niños', 'Perchas', 'Piscina', 'Plancha', 
-        'Calefacción', 'Champu', 'Portero', 'Salón privado', 'Chimenea interior', 
-        'Secador de pelo', 'Cocina', 'Secadora', 'Desayuno', 'Ascensor', 
-        'Telefonillo / Timbre', 'Elementos básicos', 'Tv', 'Tv por satélite', 
-        'Gimnasio', 'Zona para trabajar con portátiles', 'Necesario coche'] %}
-        
-    {% set col = 0 %}
-    
-    {% for dato in datos|sort %}
-        {% if col == 0 %}
-            <div class="row off-row-date-second">
-        {% endif %}
-        
-        
-        <!-- DATO -->
-        {{ offers.atriOffer(dato) }}
-        <!-- DATO -->
-                
-                
-        {% if col < 3 %}
-            {% set col = 1 + col %}
-        {% else %}
-            {% set col = 0 %}
-             </div>
-        {% endif %}
-            
-   
-    {% endfor %}
-    
+    {#<!-- Varios -->#}
+    {#<div class="row">#}
+        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+            {#<h4>#}
+                {#Varios#}
+            {#</h4>#}
+            {#<hr>#}
+        {#</div>#}
+    {#</div>#}
+
+        {##}
+    {#{% set col = 0 %}#}
+    {##}
+    {#{% for dato in arrayAttr.varios %}#}
+        {#{% if col == 0 %}#}
+            {#<div class="row off-row-date-second">#}
+        {#{% endif %}#}
+        {##}
+        {##}
+        {#<!-- DATO -->#}
+        {#{{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}#}
+        {#<!-- DATO -->#}
+                {##}
+                {##}
+        {#{% if col < 3 %}#}
+            {#{% set col = 1 + col %}#}
+        {#{% else %}#}
+            {#{% set col = 0 %}#}
+             {#</div>#}
+        {#{% endif %}#}
+            {##}
+   {##}
+    {#{% endfor %}#}
+    {##}
     {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
-    {% if col != 0 %}
-        </div>
-    {% endif %}
-    
-    <!-- SERVICIOS -->
-    
-    
-    <!-- NORMAS -->
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h4>
-                Normas
-            </h4>
-            <hr>
-        </div>
-    </div>
-    
-    
-    {% set datos = ['Fumar', 'Mascotas', 'Fiestas', 'Eventos'] %}
-        
-    {% set col = 0 %}
-    
-    {% for dato in datos|sort %}
-        {% if col == 0 %}
-            <div class="row off-row-date-second">
-        {% endif %}
-        
-        
-        <!-- DATO -->
-        {{ offers.atriOffer(dato) }}
-        <!-- DATO -->
-                
-                
-        {% if col < 3 %}
-            {% set col = 1 + col %}
-        {% else %}
-            {% set col = 0 %}
-             </div>
-        {% endif %}
-            
-   
-    {% endfor %}
-    
+    {#{% if col != 0 %}#}
+        {#</div>#}
+    {#{% endif %}#}
+    {##}
+    {#<!-- VARIOS -->#}
+
+    {#<!-- ACCESIBILIDAD -->#}
+    {#<div class="row">#}
+        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+            {#<h4>#}
+                {#Varios#}
+            {#</h4>#}
+            {#<hr>#}
+        {#</div>#}
+    {#</div>#}
+
+
+    {#{% set col = 0 %}#}
+
+    {#{% for dato in arrayAttr.accesibilidad %}#}
+        {#{% if col == 0 %}#}
+            {#<div class="row off-row-date-second">#}
+        {#{% endif %}#}
+
+
+        {#<!-- DATO -->#}
+        {#{{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}#}
+        {#<!-- DATO -->#}
+
+
+        {#{% if col < 3 %}#}
+            {#{% set col = 1 + col %}#}
+        {#{% else %}#}
+            {#{% set col = 0 %}#}
+            {#</div>#}
+        {#{% endif %}#}
+
+
+    {#{% endfor %}#}
+
     {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
-    {% if col != 0 %}
-        </div>
-    {% endif %}
-    
-    <!-- NORMAS -->
-    
-    
-    <!-- SEGURIDAD -->
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h4>
-                Seguridad
-            </h4>
-            <hr>
-        </div>
-    </div>
-    
-    
-    {% set datos = ['Detector de humo', 'Detector de monóxido de carbono', 
-        'Ficha de instrucciones de seguridad', 'Extintor de incendios',
-        'Botiquín', 'Pestillo en la puerta del dormitorio'] %}
-        
-    {% set col = 0 %}
-    
-    {% for dato in datos|sort %}
-        {% if col == 0 %}
-            <div class="row off-row-date-second">
-        {% endif %}
-        
-        
-        <!-- DATO -->
-        {{ offers.atriOffer(dato) }}
-        <!-- DATO -->
-                
-                
-        {% if col < 3 %}
-            {% set col = 1 + col %}
-        {% else %}
-            {% set col = 0 %}
-             </div>
-        {% endif %}
-            
-   
-    {% endfor %}
-    
+    {#{% if col != 0 %}#}
+        {#</div>#}
+    {#{% endif %}#}
+
+    {#<!-- ACCESIBILIDAD -->#}
+    {##}
+    {##}
+    {#<!-- NORMAS -->#}
+    {#<div class="row">#}
+        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+            {#<h4>#}
+                {#Normas#}
+            {#</h4>#}
+            {#<hr>#}
+        {#</div>#}
+    {#</div>#}
+        {##}
+    {#{% set col = 0 %}#}
+    {##}
+    {#{% for dato in arrayAttr['normas'] %}#}
+        {#{% if col == 0 %}#}
+            {#<div class="row off-row-date-second">#}
+        {#{% endif %}#}
+        {##}
+        {##}
+        {#<!-- DATO -->#}
+        {#{{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}#}
+        {#<!-- DATO -->#}
+                {##}
+                {##}
+        {#{% if col < 3 %}#}
+            {#{% set col = 1 + col %}#}
+        {#{% else %}#}
+            {#{% set col = 0 %}#}
+             {#</div>#}
+        {#{% endif %}#}
+            {##}
+   {##}
+    {#{% endfor %}#}
+    {##}
     {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
-    {% if col != 0 %}
+    {#{% if col != 0 %}#}
+        {#</div>#}
+    {#{% endif %}#}
+    {##}
+    {#<!-- NORMAS -->#}
+
+    {#<!-- BAÑO -->#}
+    {#<div class="row">#}
+        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+            {#<h4>#}
+                {#Baño#}
+            {#</h4>#}
+            {#<hr>#}
+        {#</div>#}
+    {#</div>#}
+
+
+    {#{% set col = 0 %}#}
+
+    {#{% for dato in arrayAttr.varios %}#}
+        {#{% if col == 0 %}#}
+            {#<div class="row off-row-date-second">#}
+        {#{% endif %}#}
+
+
+        {#<!-- DATO -->#}
+        {#{{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}#}
+        {#<!-- DATO -->#}
+
+
+        {#{% if col < 3 %}#}
+            {#{% set col = 1 + col %}#}
+        {#{% else %}#}
+            {#{% set col = 0 %}#}
+            {#</div>#}
+        {#{% endif %}#}
+
+
+    {#{% endfor %}#}
+
+    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
+    {#{% if col != 0 %}#}
+        {#</div>#}
+    {#{% endif %}#}
+
+    {#<!-- BAÑO -->#}
+    {##}
+    {##}
+    {#<!-- SEGURIDAD -->#}
+    {#<div class="row">#}
+        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
+            {#<h4>#}
+                {#Seguridad#}
+            {#</h4>#}
+            {#<hr>#}
+        {#</div>#}
+    {#</div>#}
+        {##}
+    {#{% set col = 0 %}#}
+
+    {#{% for dato in arrayAttr['seguridad'] %}#}
+        {#{{ dump(dato) }}#}
+        {#{% if col == 0 %}#}
+            {#<div class="row off-row-date-second">#}
+        {#{% endif %}#}
+        {##}
+        {##}
+        {#<!-- DATO -->#}
+{#{{ dump(attribute(offer.house,dato.attr)) }}#}
+        {#{{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}#}
+        {#<!-- DATO -->#}
+                {##}
+                {##}
+        {#{% if col < 3 %}#}
+            {#{% set col = 1 + col %}#}
+        {#{% else %}#}
+            {#{% set col = 0 %}#}
+             {#</div>#}
+        {#{% endif %}#}
+            {##}
+   {##}
+    {#{% endfor %}#}
+    {##}
+    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
+    {#{% if col != 0 %}#}
+        {#</div>#}
+    {#{% endif %}#}
+    {##}
+    {#<!-- SEGURIDAD -->#}
+
+    {% for key, arrayDatos in arrayAttr %}
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>
+                    {{key|capitalize}}
+                </h4>
+                <hr>
+                {% set col = 0 %}
+
+                {% for dato in arrayDatos %}
+                    {% if col == 0 %}
+                        <div class="row off-row-date-second">
+                    {% endif %}
+
+
+                    <!-- DATO -->
+                    {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
+                    <!-- DATO -->
+
+
+                    {% if col < 3 %}
+                        {% set col = 1 + col %}
+                    {% else %}
+                        {% set col = 0 %}
+                        </div>
+                    {% endif %}
+
+
+                {% endfor %}
+
+                {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
+                {% if col != 0 %}
+                    </div>
+                {% endif %}
+
+            </div>
         </div>
-    {% endif %}
-    
-    <!-- SEGURIDAD -->
+
+    {% endfor %}
     
     
 {% endblock %}
@@ -346,9 +441,57 @@
     {% endfor %}
 {% endblock %}
 
+{% block popupBlock %}
+    {% set title = 'Enviar mensaje a ' ~ offer.offer.userAdmin.username %}
+    {{ popups.popup('writeUser', title, include('offer/offPrivateMessage.html.twig') ) }}
+{% endblock %}
 
 {% block offerComments %}
-    <p>COMENTARIOS</p>
+
+    {% if offer.offer.comments is empty %}
+
+        <div class="row separacion-inferior">
+            <div class="col-lg-12">
+                <h4>
+                    Aún no hay comentarios
+                </h4>
+                <p>
+                    ¡Se el primero en comentar!
+                </p>
+            </div>
+        </div>
+
+    {% else %}
+
+        {% set numPage = pagination.currentPageNumber %}
+        {% if numPage == 1 %}
+            {% set i = 0 %}
+        {% else %}
+            {% set i = numComment *(numPage-1) %}
+        {% endif %}
+
+        {% for comment in pagination%}
+
+            {{ comentarios.messComentarioPublico(
+            path('user_public_profile', {username: offer.offer.userAdmin.username} ),
+            asset(comment.user.photo,'img'),
+            comment.user.username,
+            comment.createdDate,
+            i,
+            comment.comment)
+            }}
+
+            {% set i = i+1 %}
+        {% endfor %}
+
+        {% if pagination is not null %}
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        {% endif %}
+
+    {% endif %}
+
 {% endblock %}
 
 
@@ -378,4 +521,9 @@
         peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo. 
         Diodeno amatomaa pecador diodeno sexuarl. 
     </p>
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ rating.staticRatingJS() }}
 {% endblock %}
