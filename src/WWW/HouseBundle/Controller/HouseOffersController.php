@@ -115,9 +115,22 @@ class HouseOffersController extends Controller
 
         $arrayOffers = $this->getOffersShareHouse($service);
 
+        $paginator = $this->get('knp_paginator');
+        $pagination = null;
+
+        if(!empty($arrayOffers)):
+            $pagination = $paginator->paginate(
+                $arrayOffers,
+                $request->query->getInt('page', 1),
+                MyConstants::NUM_HOUSE_PAGINATOR
+            );
+
+        endif;
+
         return $this->render('services/serHouseRents.html.twig', array(
                              'arrayOffers' => $arrayOffers,
-                             'service' => $service
+                             'service' => $service,
+                             'pagination' => $pagination,
         ));
     }
 

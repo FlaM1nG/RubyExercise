@@ -56,7 +56,7 @@ sha-header-title
 {% endblock %}
             
 {% block serviceList %}
-    {% for offer in arrayOffers %}
+    {% for offer in pagination %}
         {#{ include('services/lists/houseRentsList.html.twig') }#}
 
         {# Cambiar para mostrar solo una imagen y no 3#}
@@ -68,6 +68,12 @@ sha-header-title
             offer.capacity, offer.bedrooms, offer.bathrooms, path('user_public_profile',{username: offer.username}), asset(offer.user_photo,'img'),
             offer.username, offer.price, offer.avg_score ) }}
     {% endfor %}
+
+    {% if pagination is not null %}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% endif %}
         
 {% endblock %}
 
