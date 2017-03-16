@@ -196,4 +196,32 @@ class Concept
     {
         return $this->inscription;
     }
+    /**
+     * @var boolean
+     */
+    private $paid;
+
+
+    /**
+     * Set paid
+     *
+     * @param boolean $paid
+     * @return Concept
+     */
+    public function setPaid($paid)
+    {
+        $this->paid = $paid;
+
+        return $this;
+    }
+
+    /**
+     * Get paid
+     *
+     * @return boolean 
+     */
+    public function getPaid()
+    {
+        return $this->paid;
+    }
 }

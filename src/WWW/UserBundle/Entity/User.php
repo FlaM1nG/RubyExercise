@@ -261,6 +261,12 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @var \Doctrine\Common\Collections\Collection
      */
     private $downs;
+    
+    /**
+     * @var \WWW\GlobalBundle\Entity\Address
+     */
+    private $addressPay;
+    
 
     /**
      * Constructor
@@ -1559,5 +1565,50 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     public function getHouses()
     {
         return $this->houses;
+    }
+    
+    public function getAddressPay(){
+        return $this->addressPay;
+    }
+    public function setAddressPay($addressPay){
+        $this->addressPay= $addressPay;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $wallet;
+
+
+    /**
+     * Add wallet
+     *
+     * @param \WWW\UserBundle\Entity\Wallet $wallet
+     * @return User
+     */
+    public function addWallet(\WWW\UserBundle\Entity\Wallet $wallet)
+    {
+        $this->wallet[] = $wallet;
+
+        return $this;
+    }
+
+    /**
+     * Remove wallet
+     *
+     * @param \WWW\UserBundle\Entity\Wallet $wallet
+     */
+    public function removeWallet(\WWW\UserBundle\Entity\Wallet $wallet)
+    {
+        $this->wallet->removeElement($wallet);
+    }
+
+    /**
+     * Get wallet
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWallet()
+    {
+        return $this->wallet;
     }
 }
