@@ -28,6 +28,8 @@ class HouseOffersController extends Controller
 {
     public function createNewOfferAction(Request $request){
 
+        $service = $this->getIdService($request);
+
         $arrayHouses = $this->getHousesUser($request);
 
         $shareHouse = new ShareHouse();
@@ -36,15 +38,23 @@ class HouseOffersController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted()):
-            $result = $this->saveNewOffer($request,$shareHouse);
+            $result = $this->saveNewOffer($request,$shareHouse, $service);
 
             if($result == 'ok'):
-               return $this->redirectToRoute('serHouseRents');
+                if($service == 6):
+                    return $this->redirectToRoute('serHouseRents');
+
+                elseif($service == 7):
+                    return $this->redirectToRoute('house_lisShareHouse');
+                
+                endif;
+
             endif;
+
         endif;
 
         return $this->render("HouseBundle::newOfferHouseRent.html.twig", array(
-                      'service' => 6,
+                      'service' => $service,
                       'form' => $form->createView()
         ));
     }
@@ -72,7 +82,7 @@ class HouseOffersController extends Controller
 
     }
 
-    private function saveNewOffer(Request $request, ShareHouse $shareHouse){
+    private function saveNewOffer(Request $request, ShareHouse $shareHouse, $service){
         
         $file = MyConstants::PATH_APIREST.'services/share_house/insert_share_house.php';
         $ch = new ApiRest();
@@ -83,7 +93,7 @@ class HouseOffersController extends Controller
         $data['password'] = $request->getSession()->get('password');
         $data['title'] = $shareHouse->getOffer()->getTitle();
         $data['description'] = $shareHouse->getOffer()->getDescription();
-        $data['service_id'] = 6;
+        $data['service_id'] = $service;
         $data['holders'] = $shareHouse->getOffer()->getHolders();
         $data['house_id'] = $shareHouse->getHouse()->getId();
         $dataOffer['entry_time'] = "'".$shareHouse->getEntryTime()->format('H:i:s')."'";
@@ -101,18 +111,13 @@ class HouseOffersController extends Controller
 
     public function listOfferShareHouseAction(Request $request){
 
-        $service = null;
-
-        if(strpos($request->getPathInfo(),'house-rents') !== false):
-            $service = 6;
-        elseif(strpos($request->getPathInfo(),'share-house') !== false):
-            $service = 7;
-        endif;
+        $service = $this->getIdService($request);
 
         $arrayOffers = $this->getOffersShareHouse($service);
 
         return $this->render('services/serHouseRents.html.twig', array(
-                             'arrayOffers' => $arrayOffers
+                             'arrayOffers' => $arrayOffers,
+                             'service' => $service
         ));
     }
 
@@ -268,5 +273,16 @@ class HouseOffersController extends Controller
 
         $ut->flashMessage("message", $request, $result);
 
+    }
+
+    public function getIdService(Request $request){
+
+        if(strpos($request->getPathInfo(),'house-rents') !== false):
+            $service = 6;
+        elseif(strpos($request->getPathInfo(),'share-house') !== false):
+            $service = 7;
+        endif;
+
+        return $service;
     }
 }
