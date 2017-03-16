@@ -2460,7 +2460,7 @@ class House
             array('label' =>'microondas','attr' => 'microondas'),
             array('label' =>'nevera','attr' => 'nevera'));
 
-        $arrayAttr['habitacion'] = array(array('label' =>'armarios','attr' =>'armario'),
+        $arrayAttr['habitación'] = array(array('label' =>'armarios','attr' =>'armario'),
             array('label' =>'sábanas','attr' => 'sabanas'),
             array('label' =>'perchero','attr' => 'perchero'),
             array('label' =>'perchas','attr' => 'perchas'),

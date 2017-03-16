@@ -24,7 +24,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <h3>
-                    Nueva Oferta Alquiler Turístico
+                    {% if service == 6 %}
+                        Nueva Oferta Alquiler Turístico
+
+                    {% elseif service == 7 %}
+                        Nueva Oferta Casa Compartida
+
+                    {% endif %}
                 </h3>
                 <hr/>
             </div>

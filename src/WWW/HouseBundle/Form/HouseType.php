@@ -170,6 +170,8 @@ class HouseType extends AbstractType{
             
             ->add('protectorEnchufes', CheckboxType::class, array('label' => 'Protectores de enchufes', 'required' => false))
 
+            ->add('pestillo', CheckboxType::class, array('label' => 'Pestillo en la habitación', 'required' => false))
+
             ->add('imgHouse', FileType::class, array('label' => ' ',
                                                'multiple' => true,
                                                'required' => false,
