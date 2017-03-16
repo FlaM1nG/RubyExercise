@@ -55,9 +55,9 @@ class CalendarController extends Controller
         $dateEnd->add(new \DateInterval('P10Y'));
 
         $mce = new MyCompanyEvents('€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'), '#008000', '#fff', $dateNow, $dateEnd, null, null);
-       // $mce->setServiceID(6);
-       // $mce->setCalendarID(11);
-       // $mce->setUrl("pruebatonta");
+        // $mce->setServiceID(6);
+        // $mce->setCalendarID(11);
+        // $mce->setUrl("pruebatonta");
 
         $em->persist($mce);
 
@@ -76,7 +76,7 @@ class CalendarController extends Controller
 
         if (!$test) {
             throw $this->createNotFoundException(
-                'No hay datos para el id '.$request->get('id')
+                'No hay datos para el id ' . $request->get('id')
             );
         }
 
@@ -91,25 +91,37 @@ class CalendarController extends Controller
     {
 
 
-
         $json = file_get_contents(dirname(__FILE__) . '\precios.json');
 
         $input_arrays = json_decode($json, true);
-        //echo "<pre>"; die(print_r($input_arrays[0]));
+
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->headers->set('Content-Type', 'application/json');
 
 
         if (!empty($input_arrays[0])) {
 
+            if (!empty($input_arrays[0]['start_datetime']) && !empty($input_arrays[0]['end_datetime']) && !empty($input_arrays[0]['price'])) {
 
-            $response->setContent( json_encode($input_arrays[0]));
+                // We get the start date
+                $timestampIni = strtotime($input_arrays[0]['start_datetime']);
+                $initDate = date("d", $timestampIni);
 
+                // We get the end date
+                $timestampEnd = strtotime($input_arrays[0]['end_datetime']);
+                $endDate = date("d", $timestampEnd);
+
+                // We create an array with the list of days and prices
+                $result = array();
+                for ($i = $initDate; $i <= $endDate; $i++) {
+                    $result[$i] = $input_arrays[0]['price'] . '€';
+                }
+
+                $response->setContent(json_encode($result));
+            }
+
+            return $response;
         }
-
-
-        return $response;
     }
-    
 
 }

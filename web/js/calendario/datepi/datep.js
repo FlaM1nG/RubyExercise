@@ -10,13 +10,13 @@ $(document).ready(function() {
         type: 'post',
         success: function(data) {
 
-            cellContents = jQuery.parseJSON(data);
+            cellContents = data;
 
 
-        }
-    });
+}
+});
 
-    $('#DatePicker').datepicker({
+$('#DatePicker').datepicker({
         changeMonth: true,
         changeYear: true,
         minDate: 0,
@@ -31,6 +31,23 @@ $(document).ready(function() {
             updateDatePickerCells();
         }
     });
+
+    $('#DatePickerto').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        minDate: 0,
+        //The calendar is recreated OnSelect for inline calendar
+        onSelect: function (date, dp) {
+            updateDatePickerCells();
+        },
+        onChangeMonthYear: function(month, year, dp) {
+            updateDatePickerCells();
+        },
+        beforeShow: function(elem, dp) { //This is for non-inline datepicker
+            updateDatePickerCells();
+        }
+    });
+
     updateDatePickerCells();
     function updateDatePickerCells(dp) {
 
@@ -49,7 +66,7 @@ $(document).ready(function() {
 
                 // dynamically create a css rule to add the contents //with the :after
                 //             selector so we don't break the datepicker //functionality
-                var className = 'datepicker-content-' + value.toString(); // + CryptoJS.MD5(value).toString();
+                var className = 'datepicker-content-' + CryptoJS.MD5(value).toString(); //value.toString(); //
 
                 if(value == 0)
                     addCSSRule('.ui-datepicker td a.' + className + ':after {content: "\\a0";}'); //&nbsp;
