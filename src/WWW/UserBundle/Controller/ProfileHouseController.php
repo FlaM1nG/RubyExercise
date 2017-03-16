@@ -40,7 +40,8 @@ class ProfileHouseController extends Controller{
 
         return $this->render('UserBundle:Profile/House:profileNewHouse.html.twig',
                             array('form' => $form->createView(),
-                                  'house' => $house));
+                                  'house' => $house,
+                                  'arrayAttr' => $house->getArrayGroupsAttrH()  ));
         
     }
 
