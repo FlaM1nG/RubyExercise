@@ -46,7 +46,7 @@ class HouseOffersController extends Controller
 
                 elseif($service == 7):
                     return $this->redirectToRoute('house_lisShareHouse');
-                
+
                 endif;
 
             endif;
@@ -144,6 +144,7 @@ class HouseOffersController extends Controller
 
         $message = new Message();
         $comment = new Comment();
+        $service = $this->getIdService($request);
 
         $formSubscribe = $this->createForm(OfferSuscribeType::class);
 
@@ -189,7 +190,7 @@ class HouseOffersController extends Controller
                              'formSubscribe' => $formSubscribe->createView(),
                              'pagination' => $pagination,
                              'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR,
-                             'service' => 6
+                             'service' => $service
         ));
     }
 
