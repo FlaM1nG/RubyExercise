@@ -102,7 +102,6 @@ class HouseOffersController extends Controller
     public function listOfferShareHouseAction(Request $request){
 
         $service = null;
-        $arrayOffers = $this->getOffersShareHouse();
 
         if(strpos($request->getPathInfo(),'house-rents') !== false):
             $service = 6;
