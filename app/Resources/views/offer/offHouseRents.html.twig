@@ -166,13 +166,13 @@
 
             <div class="row off-row-date-prin">
                 <!-- LLEGADA -->
-                {{ offers.atriHouRen('llegada', 'fa-sign-in', '16:00', 
+                {{ offers.atriHouRen('llegada', 'fa-sign-in', offer.entryTime.date|date('H:i'),
                     6, 6, 6, 6) }}
                 <!-- FIN LLEGADA -->
 
 
                 <!-- SALIDA -->
-                {{ offers.atriHouRen('salida', 'fa-sign-out', '12:00', 
+                {{ offers.atriHouRen('salida', 'fa-sign-out', offer.departureTime.date|date('H:i'),
                     6, 6, 6, 6) }}
                 <!-- FIN SALIDA -->
 

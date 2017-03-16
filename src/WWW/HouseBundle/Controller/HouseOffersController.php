@@ -29,6 +29,7 @@ class HouseOffersController extends Controller
     public function createNewOfferAction(Request $request){
 
         $arrayHouses = $this->getHousesUser($request);
+
         $shareHouse = new ShareHouse();
 
         $form = $this->createForm(ShareHouseType::class,$shareHouse, array('arrayHouses' => $arrayHouses));
@@ -38,7 +39,7 @@ class HouseOffersController extends Controller
             $result = $this->saveNewOffer($request,$shareHouse);
 
             if($result == 'ok'):
-                echo "hay que redireccionar al listado cuando esté hecho";
+               return $this->redirectToRoute('serHouseRents');
             endif;
         endif;
 
@@ -85,6 +86,8 @@ class HouseOffersController extends Controller
         $data['service_id'] = 6;
         $data['holders'] = $shareHouse->getOffer()->getHolders();
         $data['house_id'] = $shareHouse->getHouse()->getId();
+        $dataOffer['entry_time'] = "'".$shareHouse->getEntryTime()->format('H:i:s')."'";
+        $dataOffer['departure_time'] = "'".$shareHouse->getDepartureTime()->format('H:i:s')."'";
         $dataOffer['price'] = $shareHouse->getPrice();
 
         $data['data'] = json_encode($dataOffer);
