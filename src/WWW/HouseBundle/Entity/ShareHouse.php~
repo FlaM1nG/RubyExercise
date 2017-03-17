@@ -3,6 +3,7 @@
 namespace WWW\HouseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use WWW\ServiceBundle\Entity\Offer;
 
 /**
  * ShareHouse
@@ -19,6 +20,31 @@ class ShareHouse
      */
     private $autobooking;
 
+    /**
+     * @var \WWW\ServiceBundle\Entity\Offer
+     */
+    private $offer;
+
+    /**
+     * @var \WWW\HouseBundle\Entity\House
+     */
+    private $house;
+
+    /**
+     * @var float
+     */
+    private $price;
+
+    public function __construct($arrayData = null) {
+        $this->house = new House();
+
+        if(gettype($arrayData)== 'array' AND !empty($arrayData)):
+            $this->house->setId($arrayData['house_id']);
+            $this->price = $arrayData['price'];
+            $this->offer = new Offer($arrayData);
+        endif;
+
+    }
 
     /**
      * Get id
@@ -52,16 +78,6 @@ class ShareHouse
     {
         return $this->autobooking;
     }
-    /**
-     * @var \WWW\ServiceBundle\Entity\Offer
-     */
-    private $offer;
-
-    /**
-     * @var \WWW\HouseBundle\Entity\House
-     */
-    private $house;
-
 
     /**
      * Set offer
@@ -108,11 +124,7 @@ class ShareHouse
     {
         return $this->house;
     }
-    /**
-     * @var float
-     */
-    private $price;
-
+    
 
     /**
      * Set price
@@ -135,5 +147,61 @@ class ShareHouse
     public function getPrice()
     {
         return $this->price;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $entryTime;
+
+    /**
+     * @var \DateTime
+     */
+    private $departureTime;
+
+
+    /**
+     * Set entryTime
+     *
+     * @param \DateTime $entryTime
+     * @return ShareHouse
+     */
+    public function setEntryTime($entryTime)
+    {
+        $this->entryTime = $entryTime;
+
+        return $this;
+    }
+
+    /**
+     * Get entryTime
+     *
+     * @return \DateTime 
+     */
+    public function getEntryTime()
+    {
+        return $this->entryTime;
+    }
+
+    /**
+     * Set departureTime
+     *
+     * @param \DateTime $departureTime
+     * @return ShareHouse
+     */
+    public function setDepartureTime($departureTime)
+    {
+        $this->departureTime = $departureTime;
+
+        return $this;
+    }
+
+    /**
+     * Get departureTime
+     *
+     * @return \DateTime 
+     */
+    public function getDepartureTime()
+    {
+        return $this->departureTime;
     }
 }

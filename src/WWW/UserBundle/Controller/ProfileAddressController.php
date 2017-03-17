@@ -166,8 +166,8 @@ class ProfileAddressController extends Controller
             $data['prefix'] = "'".$address->getPrefix()."'";
             $data['phone'] = "'".$address->getPhone()."'";
         endif;
-        
-        if(isset($data['isDefault'])):
+
+        if(!empty($address->getIsDefault())):
             $data['is_default'] = 1;
         else:
             $data['is_default'] = 0;
@@ -176,7 +176,7 @@ class ProfileAddressController extends Controller
         $info['data'] = json_encode($data);
 
         $result = $ch->resultApiRed($info, $file);
-        
+
         $ut->flashMessage("general", $request, $result);
 
     }

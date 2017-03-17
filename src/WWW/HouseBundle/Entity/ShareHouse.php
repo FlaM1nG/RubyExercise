@@ -35,13 +35,32 @@ class ShareHouse
      */
     private $price;
 
+    /**
+     * @var \DateTime
+     */
+    private $entryTime;
+
+    /**
+     * @var \DateTime
+     */
+    private $departureTime;
+    
+
     public function __construct($arrayData = null) {
-        $this->house = new House();
 
         if(gettype($arrayData)== 'array' AND !empty($arrayData)):
-            $this->house->setId($arrayData['house_id']);
+            if(array_key_exists('house', $arrayData)):
+                $this->house = new House($arrayData['house']);
+            else:
+                $this->house = new House();
+                $this->house->setId($arrayData['house_id']);
+            endif;
             $this->price = $arrayData['price'];
             $this->offer = new Offer($arrayData);
+            $this->departureTime = \DateTime::createFromFormat('H:i:s', $arrayData['departure_time']);
+            $this->entryTime = \DateTime::createFromFormat('H:i:s', $arrayData['entry_time']);
+        else:
+            $this->house = new House();
         endif;
 
     }
@@ -147,5 +166,51 @@ class ShareHouse
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set entryTime
+     *
+     * @param \DateTime $entryTime
+     * @return ShareHouse
+     */
+    public function setEntryTime($entryTime)
+    {
+        $this->entryTime = $entryTime;
+
+        return $this;
+    }
+
+    /**
+     * Get entryTime
+     *
+     * @return \DateTime 
+     */
+    public function getEntryTime()
+    {
+        return $this->entryTime;
+    }
+
+    /**
+     * Set departureTime
+     *
+     * @param \DateTime $departureTime
+     * @return ShareHouse
+     */
+    public function setDepartureTime($departureTime)
+    {
+        $this->departureTime = $departureTime;
+
+        return $this;
+    }
+
+    /**
+     * Get departureTime
+     *
+     * @return \DateTime 
+     */
+    public function getDepartureTime()
+    {
+        return $this->departureTime;
     }
 }
