@@ -16,7 +16,6 @@
         {{ alerts.alert('alert-warning', flash_message, null) }}
     {% endfor %}
 
-
 {% endblock %}
 
 
@@ -32,21 +31,31 @@
                 Agregar una nueva casa
             </h3>
             <hr/>
-            {#{{ form(form) }}#}
+
             {{ form_start(form) }}
 
+            {{ form_row(form.title) }}
             {{ form_row(form.address.country) }}
             {{ form_row(form.address.city) }}
             {{ form_row(form.address.street) }}
             {{ form_row(form.address.zipCode) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.capacity) }}
+            {{ form_row(form.bedrooms) }}
+            {{ form_row(form.beds) }}
+            {{ form_row(form.bathrooms) }}
+            {{ form_row(form.licenseNumber) }}
 
+            {{ form_row(form.imgHouse) }}
             {% for key, attr in arrayAttr %}
                 <h4> {{ key|capitalize }}</h4>
 
                 {% for data in attr %}
                     {{ form_row(attribute(form, data.attr),{'label': data.label|capitalize}) }}
                 {% endfor %}
-                
+            {{ form_row(form._token) }}
+            {{ form_row(form.saveNewHouse) }}
+
             {% endfor %}
 
         </div>
