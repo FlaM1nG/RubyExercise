@@ -149,7 +149,7 @@
 
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            {#{% if formComment is defined %}#}
+                            {% if formComment is defined %}
                             <h4>COMENTARIOS</h4>
                             <hr>
                             {% if is_granted('ROLE_USER') %}
@@ -161,14 +161,18 @@
 
                                         <span class="input-group-btn">
                                             {{ form_widget(formComment.newComment, { 'attr': { 'class': 'btn btn-primary off-com-btn' } }) }}
+
                                         </span>
 
                                     </div>
                                 </div>
+
+                                {{ form_errors(formComment.comment) }}
                                 {{ form_end(formComment) }}
+
                             {%endif%}
                             {% block offerComments %} {% endblock %}
-                            {#{% endif %}#}
+                            {% endif %}
                         </div>
                     </div>
                 </div>

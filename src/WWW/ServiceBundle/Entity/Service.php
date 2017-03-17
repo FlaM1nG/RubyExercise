@@ -234,4 +234,116 @@ class Service
     {
         return $this->offers;
     }
+    /**
+     * @var string
+     */
+    private $sellerPenalty;
+
+    /**
+     * @var string
+     */
+    private $buyerPenalty;
+
+    /**
+     * @var integer
+     */
+    private $fatherWallet;
+
+    /**
+     * @var integer
+     */
+    private $plusWallet;
+
+
+    /**
+     * Set sellerPenalty
+     *
+     * @param string $sellerPenalty
+     * @return Service
+     */
+    public function setSellerPenalty($sellerPenalty)
+    {
+        $this->sellerPenalty = $sellerPenalty;
+
+        return $this;
+    }
+
+    /**
+     * Get sellerPenalty
+     *
+     * @return string 
+     */
+    public function getSellerPenalty()
+    {
+        return $this->sellerPenalty;
+    }
+
+    /**
+     * Set buyerPenalty
+     *
+     * @param string $buyerPenalty
+     * @return Service
+     */
+    public function setBuyerPenalty($buyerPenalty)
+    {
+        $this->buyerPenalty = $buyerPenalty;
+
+        return $this;
+    }
+
+    /**
+     * Get buyerPenalty
+     *
+     * @return string 
+     */
+    public function getBuyerPenalty()
+    {
+        return $this->buyerPenalty;
+    }
+
+    /**
+     * Set fatherWallet
+     *
+     * @param integer $fatherWallet
+     * @return Service
+     */
+    public function setFatherWallet($fatherWallet)
+    {
+        $this->fatherWallet = $fatherWallet;
+
+        return $this;
+    }
+
+    /**
+     * Get fatherWallet
+     *
+     * @return integer 
+     */
+    public function getFatherWallet()
+    {
+        return $this->fatherWallet;
+    }
+
+    /**
+     * Set plusWallet
+     *
+     * @param integer $plusWallet
+     * @return Service
+     */
+    public function setPlusWallet($plusWallet)
+    {
+        $this->plusWallet = $plusWallet;
+
+        return $this;
+    }
+
+    /**
+     * Get plusWallet
+     *
+     * @return integer 
+     */
+    public function getPlusWallet()
+    {
+        return $this->plusWallet;
+    }
 }
