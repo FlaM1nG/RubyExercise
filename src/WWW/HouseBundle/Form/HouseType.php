@@ -26,11 +26,11 @@ class HouseType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
-            ->add('address', AddressType::class, array('label' => ''))
+            ->add('address', AddressType::class, array('label' => '', 'validation_groups' => 'house'))
 
             ->add('licenseNumber', TextType::class, array('label' => 'Número de licencia', 'required' => false))
 
-            ->add('title', TextareaType::class, array('label' => 'Título'))
+            ->add('title', TextType::class, array('label' => 'Título'))
 
             ->add('description', TextareaType::class, array('label' => 'Descripción'))
 
@@ -184,7 +184,7 @@ class HouseType extends AbstractType{
 
     public function configureOptions(OptionsResolver $resolver){
 
-        $resolver->setDefaults(array('data_class' => 'WWW\HouseBundle\Entity\House'));
+        $resolver->setDefaults(array('data_class' => 'WWW\HouseBundle\Entity\House','validation_groups' => 'house'));
     }
 
     public function getBlockPrefix(){
