@@ -3,7 +3,7 @@
 namespace Acme\PaymentBundle\Controller;
 
 require_once ( 'C:\xampp\htdocs\wwweb\vendor\autoload.php' );
-
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/JS9NAJ8JEABj8jcsk9xbGTC7VSM9XAMbaxnbs3873778dhd4m/vendor/autoload.php';
 use Acme\PaymentBundle\Entity\Payment;
 use Payum\Core\Payum;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -65,7 +65,7 @@ class PaymentPurchaseController extends Controller {
             //numero de referencia por la hora y fecha
             $payment->setNumber(date('ymdHis'));
             $payment->setClientId(uniqid());
-            $payment->setDescription(sprintf('An order %s for a client %s', $this->offer->getPrice(), $user->getEmail()));
+            $payment->setDescription(sprintf('An order %s for a client %s', $this->offer->getPrice(), $user->getUsername()));
             $payment->setTotalAmount($this->offer->getPrice() * 100);
             $payment->setCurrencyCode('EUR');
 
@@ -98,7 +98,7 @@ class PaymentPurchaseController extends Controller {
                         'redsys', $payment, 'acme_payment_done'
                 );
 
-                $details['Ds_Merchant_UrlOK'] = $notifyToken->getTargetUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
+                $details['Ds_Merchant_UrlOK'] = $captureToken->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
                 $details['Ds_Merchant_UrlKO'] = $captureToken->getAfterUrl();
                 $payment->setDetails($details);
                 $storagePay = $this->getPayum()->getStorage($payment);
@@ -109,14 +109,14 @@ class PaymentPurchaseController extends Controller {
 
             //Si no, se paga por PAYPAL
             else {
-
+                
                 $storage = $this->getPayum()->getStorage($payment);
                 $storage->update($payment);
-
+                
                 $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
                         'paypal_express_checkout_with_ipn_enabled', $payment, 'acme_payment_done'
                 );
-
+                
 
                 return $this->redirect($captureToken->getTargetUrl());
             }
