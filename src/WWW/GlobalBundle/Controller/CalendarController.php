@@ -91,37 +91,146 @@ class CalendarController extends Controller
     {
 
 
-        $json = file_get_contents(dirname(__FILE__) . '\precios.json');
 
-        $input_arrays = json_decode($json, true);
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+
+        $query = "SELECT start_datetime,price,end_datetime FROM my_company_events";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $input_arrays = $stmt->fetchAll();
+
+
 
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->headers->set('Content-Type', 'application/json');
 
 
-        if (!empty($input_arrays[0])) {
+        // precios
+      // $json = file_get_contents(dirname(__FILE__) . '/precios.json');
 
-            if (!empty($input_arrays[0]['start_datetime']) && !empty($input_arrays[0]['end_datetime']) && !empty($input_arrays[0]['price'])) {
+// Aquí pondremos todos los meses del año
+        $result = array('0' => array(), '1' => array(), '2' => array(), '3' => array(), '4' => array());
 
-                // We get the start date
-                $timestampIni = strtotime($input_arrays[0]['start_datetime']);
-                $initDate = date("d", $timestampIni);
+//        $input_arrays = json_decode($json, true);
+//echo "<pre>"; die(print_r($result));
+        if (!empty($input_arrays)) {
 
-                // We get the end date
-                $timestampEnd = strtotime($input_arrays[0]['end_datetime']);
-                $endDate = date("d", $timestampEnd);
+            foreach ($input_arrays as $key => $value) {
 
-                // We create an array with the list of days and prices
-                $result = array();
-                for ($i = $initDate; $i <= $endDate; $i++) {
-                    $result[$i] = $input_arrays[0]['price'] . '€';
+                if (!empty($value['start_datetime']) && !empty($value['end_datetime']) && !empty($value['price'])) {
+
+                    // We get the start date
+                    $timestampIni = strtotime($value['start_datetime']);
+                    $initDay = date("d", $timestampIni);
+                    $initMonth = intval(date("m", $timestampIni)); // intval: Obtiene el valor entero de una variable
+
+                    // We get the end date
+                    $timestampEnd = strtotime($value['end_datetime']);
+                    $endDay = date("d", $timestampEnd);
+                    $endMonth = intval(date("m", $timestampEnd));
+
+                    for ($i = $initDay; $i <= $endDay; $i++) { // Moving between days
+                        //echo ($initMonth . ' == ' . $endMonth) . '<br>';
+                        if ($initMonth == '0' || $endMonth == '0') {
+                            $result['0'][$i] = $value['price'] . '€';
+                        } else if ($initMonth == '1' || $endMonth == '1') {
+                            $result['1'][$i] = $value['price'] . '€';
+                        } else if ($initMonth == '2' || $endMonth == '2') {
+                            $result['2'][$i] = $value['price'] . '€';
+                        } else if ($initMonth == '3' || $endMonth == '3') {
+                            $result['3'][$i] = $value['price'] . '€';
+                        } else if ($initMonth == '4' || $endMonth == '4') {
+                            $result['4'][$i] = $value['price'] . '€';
+                        }
+                    }
                 }
-
-                $response->setContent(json_encode($result));
             }
 
-            return $response;
+            // To remove empty months
+            foreach($result as $key => $month)
+            {
+                if (empty($month)) {
+                    unset($result[$key]);
+                }
+            }
+
+            //echo "<pre>"; die(print_r($result));
+
+            $response->setContent(json_encode($result));;
         }
+
+
+
+        return $response;
+
     }
 
+
+
+
 }
+
+/***
+ *
+ *
+ *
+$json = file_get_contents(dirname(__FILE__) . '\precios.json');
+
+$input_arrays = json_decode($json, true);
+
+$response = new \Symfony\Component\HttpFoundation\Response();
+$response->headers->set('Content-Type', 'application/json');
+
+
+if (!empty($input_arrays[0])) {
+
+if (!empty($input_arrays[0]['start_datetime']) && !empty($input_arrays[0]['end_datetime']) && !empty($input_arrays[0]['price'])) {
+
+// We get the start date
+$timestampIni = strtotime($input_arrays[0]['start_datetime']);
+$initDate = date("d", $timestampIni);
+
+// We get the end date
+$timestampEnd = strtotime($input_arrays[0]['end_datetime']);
+$endDate = date("d", $timestampEnd);
+
+// We create an array with the list of days and prices
+$result = array();
+for ($i = $initDate; $i <= $endDate; $i++) {
+$result[$i] = $input_arrays[0]['price'] . '€';
+}
+
+$response->setContent(json_encode($result));
+}
+
+return $response;
+}
+ *
+ *
+ *
+ *       $em = $this->getDoctrine()->getEntityManager();
+$db = $em->getConnection();
+
+
+$response = new \Symfony\Component\HttpFoundation\Response();
+$response->headers->set('Content-Type', 'application/json');
+
+$query = "SELECT start_datetime,price,title,end_datetime FROM my_company_events";
+$stmt = $db->prepare($query);
+$params = array();
+$stmt->execute($params);
+$po = $stmt->fetchAll();
+
+
+$response->setContent(json_encode($po));
+
+return $response;
+
+ *
+ *
+ *
+ *
+ *
+ */

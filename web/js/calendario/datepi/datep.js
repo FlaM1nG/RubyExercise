@@ -1,5 +1,5 @@
-
 var cellContents;
+var monthNumber = '';
 
 $(document).ready(function() {
 
@@ -48,7 +48,31 @@ $('#DatePicker').datepicker({
         }
     });
 
+
     updateDatePickerCells();
+
+
+    $(function($){
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+    });
+
     function updateDatePickerCells(dp) {
 
         /* Wait until current callstack is finished so the datepicker
@@ -56,26 +80,40 @@ $('#DatePicker').datepicker({
         setTimeout(function () {
             //Fill this with the data you want to insert (I use and AJAX request).  Key is day of month
             //NOTE* watch out for CSS special characters in the value
+            //var cellContents = {1: '20', 2: '13', 15: '60', 20: '50€', 28: '99.99€', 1: '30€', 1: '40€', 2: '25€', 2: '10€'};
 
-            //var cellContents = {1: '20', 15: '60', 20: '450€', 28: '99.99€'};
-
-            //Select disabled days (span) for proper indexing but // apply the rule only to enabled days(a)
-            $('.ui-datepicker td > *').each(function (idx, elem) {
-
-                var value = cellContents[idx + 1] || 0;
-
-                // dynamically create a css rule to add the contents //with the :after
-                //             selector so we don't break the datepicker //functionality
-                var className = 'datepicker-content-' + CryptoJS.MD5(value).toString(); //value.toString(); //
-
-                if(value == 0)
-                    addCSSRule('.ui-datepicker td a.' + className + ':after {content: "\\a0";}'); //&nbsp;
-                else
-                    addCSSRule('.ui-datepicker td a.' + className + ':after {content: "' + value + '";}');
-
-                $(this).addClass(className);
+            // We set on each '<a>' tag the month number
+            $('.ui-datepicker a').each(function () {
+                monthNumber = $(this).parent().data('month');
+                $(this).addClass('month-' + monthNumber);
+                $(this).attr("data-current-month", monthNumber);
             });
 
+            // We have to do a foreach per each month
+            $.each(cellContents, function (index, valueCell) {
+
+                //Select disabled days (span) for proper indexing but // apply the rule only to enabled days(a)
+                $('.ui-datepicker td > *').each(function (idx, elem) {
+
+                    var value = valueCell[idx + 1] || 0;
+
+                    // If the month data is the same one that is shown on the view we include the price
+                    if (index-1 == $('.ui-datepicker td a').data('current-month')) {
+
+                        // dynamically create a css rule to add the contents //with the :after
+                        // selector so we don't break the datepicker //functionality
+                        var className = 'datepicker-content-' + CryptoJS.MD5(value).toString(); // + CryptoJS.MD5(value).toString();
+
+                        if(value == 0) {
+                            addCSSRule('.ui-datepicker td a.' + className + ':after {content: "\\a0";}'); //&nbsp;
+                        } else {
+                            addCSSRule('.ui-datepicker td a.' + className + ':after {content: "' + value + '";}');
+                        }
+
+                        $(this).addClass(className);
+                    }
+                });
+            });
         }, 0);
     }
     var dynamicCSSRules = [];
