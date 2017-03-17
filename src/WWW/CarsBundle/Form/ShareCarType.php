@@ -37,9 +37,15 @@ class ShareCarType extends AbstractType {
         endif;
 
         $arrayReadOnly = array();
+        $arrayDisabled = array();
 
-        if(!empty($options['data']->getOffer()->getInscriptions()))
+        $widget = 'choice';
+        if(!empty($options['data']->getOffer()->getInscriptions())):
             $arrayReadOnly['readonly'] = true;
+            $arrayDisabled['disabled'] = true;
+            $widget = 'single_text';
+        endif;
+
 
         $builder
 
@@ -56,6 +62,8 @@ class ShareCarType extends AbstractType {
                                                      'html5' => true,
                                                      'data' => $defaultDate,
                                                      'years' => array($year,$year+1,$year+2,$year+3,$year+4),
+                                                     'format' => 'dd-MM-YYYY HH:mm',
+                                                     'widget' => $widget,
                                                      'attr' => $arrayReadOnly))
 
             ->add('car', ChoiceType::class, array('label' => 'Elija el coche',
@@ -64,7 +72,7 @@ class ShareCarType extends AbstractType {
                                                   'choice_label' => 'plate',
                                                   'choices_as_values' => true,
                                                   'data' => $options['data']->getCar(),
-                                                  'attr' => $arrayReadOnly))
+                                                  'attr' => $arrayDisabled))
 
             ->add('id', HiddenType::class)
 
