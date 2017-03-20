@@ -67,6 +67,9 @@
 
                     {% elseif offer.service.id == 6 %}
                         {% set url = path('offHouseRents', {idOffer: offer.id}) %}
+
+                    {% elseif offer.service.id == 7 %}
+                        {% set url = path('house_offerShareHouse', {idOffer: offer.id})%}
                     {% endif%}
 
                     {% if offer.expired == 1 %}

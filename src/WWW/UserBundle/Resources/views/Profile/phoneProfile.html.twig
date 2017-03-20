@@ -41,7 +41,7 @@
                     {{app.user.prefix}} &nbsp; {{ app.user.phone }}
                 </p>
 
-                {% if app.user.smsConfirmed %}
+                {% if app.user.isConfirmed %}
                     <a class="btn btn-default us-btn-phoneProfile" href="{{ path('user_profileChangePhone') }}"
                        id="changePhone"
                        data="confirm" >

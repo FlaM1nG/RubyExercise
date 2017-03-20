@@ -177,10 +177,6 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @var \Doctrine\Common\Collections\Collection
      */
     private $valorations;    
-    /**
-     * @var boolean
-     */
-    private $smsConfirmed;
 
     /**
      * @var string
@@ -268,8 +264,6 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     private $addressPay;
     
 
-
-    
     /**
      * Constructor
      */
@@ -289,7 +283,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
             $this->password = $user['password'];
             $this->numAccount = $user['num_account'];
             $this->prefix = $user['prefix'];
-            $this->smsConfirmed = $user['sms_confirmed'];
+          //  $this->smsConfirmed = $user['sms_confirmed'];
           //  $this->role = $user['ROLE_USER'];
             $this->offers = $this->searchOffers();
             if(array_key_exists('photo', $user)):
@@ -946,28 +940,6 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
         return $this->prefix;
     }
 
-    /**
-     * Set smsConfirmed
-     *
-     * @param boolean $smsConfirmed
-     * @return User
-     */
-    public function setSmsConfirmed($smsConfirmed)
-    {
-        $this->smsConfirmed = $smsConfirmed;
-
-        return $this;
-    }
-
-    /**
-     * Get smsConfirmed
-     *
-     * @return boolean 
-     */
-    public function getSmsConfirmed()
-    {
-        return $this->smsConfirmed;
-    }
     
 
 
@@ -1574,5 +1546,71 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     }
     public function setAddressPay($addressPay){
         $this->addressPay= $addressPay;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $wallet;
+
+
+    /**
+     * Add wallet
+     *
+     * @param \WWW\UserBundle\Entity\Wallet $wallet
+     * @return User
+     */
+    public function addWallet(\WWW\UserBundle\Entity\Wallet $wallet)
+    {
+        $this->wallet[] = $wallet;
+
+        return $this;
+    }
+
+    /**
+     * Remove wallet
+     *
+     * @param \WWW\UserBundle\Entity\Wallet $wallet
+     */
+    public function removeWallet(\WWW\UserBundle\Entity\Wallet $wallet)
+    {
+        $this->wallet->removeElement($wallet);
+    }
+
+    /**
+     * Get wallet
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWallet()
+    {
+        return $this->wallet;
+    }
+    /**
+     * @var boolean
+     */
+    private $emailConfirmed;
+
+
+    /**
+     * Set emailConfirmed
+     *
+     * @param boolean $emailConfirmed
+     * @return User
+     */
+    public function setEmailConfirmed($emailConfirmed)
+    {
+        $this->emailConfirmed = $emailConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get emailConfirmed
+     *
+     * @return boolean 
+     */
+    public function getEmailConfirmed()
+    {
+        return $this->emailConfirmed;
     }
 }

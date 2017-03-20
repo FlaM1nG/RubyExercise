@@ -54,6 +54,11 @@ class Inscription
     private $offer;
 
     /**
+     * @var \WWW\ServiceBundle\Entity\MessengerPrice
+     */
+    private $messengerPrice;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -223,4 +228,28 @@ class Inscription
     {
         return $this->offer;
     }
+
+    /**
+     * Set messengerPrice
+     *
+     * @param \WWW\ServiceBundle\Entity\MessengerPrice $messengerPrice
+     * @return Inscription
+     */
+    public function setMessengerPrice(\WWW\ServiceBundle\Entity\MessengerPrice $messengerPrice = null)
+    {
+        $this->messengerPrice = $messengerPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get messengerPrice
+     *
+     * @return \WWW\ServiceBundle\Entity\MessengerPrice
+     */
+    public function getMessengerPrice()
+    {
+        return $this->messengerPrice;
+    }
+   
 }

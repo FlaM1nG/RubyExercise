@@ -10,16 +10,24 @@ WWW\ServiceBundle\Entity\Concept:
                 strategy: AUTO
     fields:
         reference:
-            type: integer
+            type: string
             nullable: true
         name:
             type: string
             length: 255
+            nullable: true
+        description:
+            type: string
+            length: 255
+            nullable: true
         iva:
             type: integer
             nullable: true
         price:
             type: integer
+            nullable: true
+        paid:
+            type: boolean
             nullable: true
     manyToOne:
         billing:
