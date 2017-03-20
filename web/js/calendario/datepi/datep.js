@@ -144,7 +144,6 @@ $(document).ready(function() {
 
                     var value = valueCell['precio'][idx + 1] || 0;
                     var value2 = valueCell['ocuppate'][idx + 1] || 0;
-                    //console.log("P: " + value);
 
                     // If the month data is the same one that is shown on the view we include the price
                     if (index-1 == $('.ui-datepicker td a').data('current-month')) {
@@ -157,10 +156,15 @@ $(document).ready(function() {
                             addCSSRule('.ui-datepicker td a.' + className + ':after {content: "\\a0";}'); //&nbsp;
                         } else {
                             addCSSRule('.ui-datepicker td a.' + className + ':after {content: "' + value + '";}');
-                            if (value2 == 0) {
-                                //$(elem::after).css("color", "red");
+
+                            if (value2 == 1) {
+                                // To deactivate the ocuppated days
+                                $(elem).parent().addClass('ui-state-disabled ui-datepicker-unselectable');
+
+                                // To set the color on the price
+                                addCSSRule('.ui-datepicker td a.' + className + ':after {color: red;}');
                             } else {
-                                //$(elem::after).css("color", "green");
+                                addCSSRule('.ui-datepicker td a.' + className + ':after {color: green;}');
                             }
                         }
 
@@ -172,8 +176,7 @@ $(document).ready(function() {
 
             // To deactivate dates without price
             $('.ui-datepicker .datepicker-content-0').each(function (idx, elem) {
-                $(elem).parent().addClass('ui-datepicker-unselectable');
-                $(elem).parent().addClass('ui-state-disabled');
+                $(elem).parent().addClass('ui-state-disabled ui-datepicker-unselectable');
             });
 
         }, 0);

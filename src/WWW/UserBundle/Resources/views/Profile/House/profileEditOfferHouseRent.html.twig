@@ -6,7 +6,25 @@
     {{ parent() }}
 
     <link rel="stylesheet" href="{{ asset('css/calendario/fullcalendar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/calendario/datepi/jquery-ui.css') }}" />
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style type="text/css">
+
+        .ui-datepicker td a:after
+        {
+            content: "";
+            display: block;
+            text-align: center;
+            color: Blue;
+            font-size: small;
+            font-weight: bold;
+        }
+
+        div.ui-datepicker{
+            font-size:18px;
+        }
+    </style>
 
 {% endblock %}
 
