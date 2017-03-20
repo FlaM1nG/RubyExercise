@@ -76,7 +76,6 @@ $(document).ready(function() {
                 return event;
             },
 
-
             eventSources: [
             {
                 url: Routing.generate('fullcalendar_loader'),
