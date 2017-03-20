@@ -68,9 +68,16 @@ $(document).ready(function() {
                 edit(event);
 
             },
-        
-        
-		 eventSources: [
+
+            eventDataTransform: function(event) {
+                if(event.allDay) {
+                    event.end = moment(event.end).add(1, 'days')
+                }
+                return event;
+            },
+
+
+            eventSources: [
             {
                 url: Routing.generate('fullcalendar_loader'),
                 type: 'POST',
