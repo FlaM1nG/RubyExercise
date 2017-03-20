@@ -37,7 +37,7 @@ class MobileController extends Controller {
             $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
                     'paypal_express_checkout_with_ipn_enabled',
                     $payment,
-                    'acme_payment_done'
+                    'acme_payment_mobile_done'
             );
             
             
@@ -69,7 +69,7 @@ class MobileController extends Controller {
             $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
                     'redsys',
                     $payment,
-                    'acme_payment_done'
+                    'acme_payment_mobile_done'
             );
 
             $details['Ds_Merchant_UrlOK'] = 'https://whatwantweb.com/JS9NAJ8JEABj8jcsk9xbGTC7VSM9XAMbaxnbs3873778dhd4m/web/payment/mobile/ok'; //podriamos poner el setAfterUrl con una direccion de exito o fracaso
