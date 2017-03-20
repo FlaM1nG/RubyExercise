@@ -2,7 +2,7 @@ var cellContents;
 var monthNumber = '';
 var local = window.location.href.split('/');
 var idoferta = local[local.length-2];
-
+var totalPrice;
 $(document).ready(function() {
 
     // We get the list of days and prices
@@ -18,16 +18,34 @@ $(document).ready(function() {
 }
 });
 
-$('#DatePicker').datepicker({
+    $('#DatePicker').datepicker({
         changeMonth: true,
         changeYear: true,
         minDate: 0,
+        dateFormat: 'dd-mm-yy',
         //The calendar is recreated OnSelect for inline calendar
         onSelect: function (date, dp) {
             updateDatePickerCells();
 
-            var date = $('#DatePicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+            var initDate = $('#DatePicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+            var endDate = $('#endDate').val();
 
+            // We store the initial date in a hidden input
+            $('#startDate').val(initDate);
+
+            // To show the initial date on the view
+            $('#fechaInicial').text(initDate);
+
+            $.ajax({
+                url: Routing.generate('fullcalendar_dateprice'),
+                data: {'initDate' : initDate, 'endDate' : endDate,'idOffer' : idoferta},
+                type: 'post',
+                success: function(data) {
+                    totalPrice = data;
+                    console.log(data);
+                    $('#precioTotal').text(totalPrice);
+                }
+            });
 
         },
         onChangeMonthYear: function(month, year, dp) {
@@ -42,9 +60,32 @@ $('#DatePicker').datepicker({
         changeMonth: true,
         changeYear: true,
         minDate: 0,
+        dateFormat: 'dd-mm-yy',
         //The calendar is recreated OnSelect for inline calendar
         onSelect: function (date, dp) {
             updateDatePickerCells();
+
+            var endDate = $('#DatePickerto').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+            var initDate = $('#startDate').val();
+
+            // We store the initial date in a hidden input
+            $('#endDate').val(endDate);
+
+            // To show the end date on the view
+            $('#fechaFinal').text(endDate);
+
+
+            $.ajax({
+                url: Routing.generate('fullcalendar_dateprice'),
+                data: {'initDate' : initDate, 'endDate' : endDate,'idOffer' : idoferta},
+                type: 'post',
+                success: function(data) {
+                    totalPrice = data;
+                    console.log(data);
+                    $('#precioTotal').text(totalPrice);
+
+                }
+            });
         },
         onChangeMonthYear: function(month, year, dp) {
             updateDatePickerCells();
@@ -101,25 +142,40 @@ $('#DatePicker').datepicker({
                 //Select disabled days (span) for proper indexing but // apply the rule only to enabled days(a)
                 $('.ui-datepicker td > *').each(function (idx, elem) {
 
-                    var value = valueCell[idx + 1] || 0;
+                    var value = valueCell['precio'][idx + 1] || 0;
+                    var value2 = valueCell['ocuppate'][idx + 1] || 0;
+                    //console.log("P: " + value);
 
                     // If the month data is the same one that is shown on the view we include the price
                     if (index-1 == $('.ui-datepicker td a').data('current-month')) {
 
                         // dynamically create a css rule to add the contents //with the :after
                         // selector so we don't break the datepicker //functionality
-                        var className = 'datepicker-content-' + CryptoJS.MD5(value).toString(); // + CryptoJS.MD5(value).toString();
+                        var className = 'datepicker-content-' + value.toString(); // + CryptoJS.MD5(value).toString();
 
                         if(value == 0) {
                             addCSSRule('.ui-datepicker td a.' + className + ':after {content: "\\a0";}'); //&nbsp;
                         } else {
                             addCSSRule('.ui-datepicker td a.' + className + ':after {content: "' + value + '";}');
+                            if (value2 == 0) {
+                                //$(elem::after).css("color", "red");
+                            } else {
+                                //$(elem::after).css("color", "green");
+                            }
                         }
 
                         $(this).addClass(className);
                     }
                 });
+
             });
+
+            // To deactivate dates without price
+            $('.ui-datepicker .datepicker-content-0').each(function (idx, elem) {
+                $(elem).parent().addClass('ui-datepicker-unselectable');
+                $(elem).parent().addClass('ui-state-disabled');
+            });
+
         }, 0);
     }
     var dynamicCSSRules = [];

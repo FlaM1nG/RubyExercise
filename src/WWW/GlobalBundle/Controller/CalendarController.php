@@ -95,7 +95,7 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-        $query = "select sh.house_id, my.price,h.calendar_id,my.start_datetime, my.end_datetime from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id WHERE sh.offer_id=$idoffer";
+        $query = "select sh.house_id, my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id WHERE sh.offer_id=$idoffer";
 
         $stmt = $db->prepare($query);
         $params = array();
@@ -135,18 +135,24 @@ class CalendarController extends Controller
                     $endDay = date("d", $timestampEnd);
                     $endMonth = intval(date("m", $timestampEnd));
 
+
                     for ($i = $initDay; $i <= $endDay; $i++) { // Moving between days
                         //echo ($initMonth . ' == ' . $endMonth) . '<br>';
                         if ($initMonth == '0' || $endMonth == '0') {
-                            $result['0'][$i] = $value['price'] . '€';
+                            $result['0']['precio'][$i] = $value['price'] . '€';
+                            $result['0']['ocuppate'][$i] = $value['ocuppate'];
                         } else if ($initMonth == '1' || $endMonth == '1') {
-                            $result['1'][$i] = $value['price'] . '€';
+                            $result['1']['precio'][$i] = $value['price'] . '€';
+                            $result['1']['ocuppate'][$i] = $value['ocuppate'];
                         } else if ($initMonth == '2' || $endMonth == '2') {
-                            $result['2'][$i] = $value['price'] . '€';
+                            $result['2']['precio'][$i] = $value['price'] . '€';
+                            $result['2']['ocuppate'][$i] = $value['ocuppate'];
                         } else if ($initMonth == '3' || $endMonth == '3') {
-                            $result['3'][$i] = $value['price'] . '€';
+                            $result['3']['precio'][$i] = $value['price'] . '€';
+                            $result['3']['ocuppate'][$i] = $value['ocuppate'];
                         } else if ($initMonth == '4' || $endMonth == '4') {
-                            $result['4'][$i] = $value['price'] . '€';
+                            $result['4']['precio'][$i] = $value['price'] . '€';
+                            $result['4']['ocuppate'][$i] = $value['ocuppate'];
                         }
                     }
                 }
@@ -171,9 +177,93 @@ class CalendarController extends Controller
 
     }
 
+    public function cargarPriceAction(Request $request)
+    {
+
+
+        /**
+         * Returns every date between two dates as an array
+         * @param string $startDate the start of the date range
+         * @param string $endDate the end of the date range
+         * @param string $format DateTime format, default is Y-m-d
+         * @return array returns every date between $startDate and $endDate, formatted as "d-m-Y"
+         */
+        function createDateRange($startDate, $endDate, $price, $format = "d-m-Y")
+        {
+            $begin = new \DateTime($startDate);
+            $end = new \DateTime($endDate);
+            $end->modify('+1 day');
+
+            $interval = new \DateInterval('P1D'); // 1 Day
+            $dateRange = new \DatePeriod($begin, $interval, $end);
+            //echo "<pre>"; die(print_r($dateRange));
+            $range = array();
+            foreach ($dateRange as $key => $date) {
+                //$range[$key]['fecha'] = $date->format($format);
+                //$range[$key]['price'] = $price;
+                $range[date_format($date, $format)] = $price;
+            }
+
+
+            return $range;
+        }
 
 
 
+        $response = new \Symfony\Component\HttpFoundation\Response();
+        $response->headers->set('Content-Type', 'application/json');
+        // precios
+        $idoffer = $request->get('idOffer');
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+
+        $query = "select sh.house_id, my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id WHERE sh.offer_id=$idoffer";
+
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $fechas = $stmt->fetchAll();
+        //echo "<pre>"; die(print_r($fechas));
+
+        $result = array();
+
+        if (!empty($fechas)) {
+            //echo "<pre>"; die(print_r($input_arrays));
+            foreach ($fechas as $key => $value) {
+
+                if (!empty($value['start_datetime']) && !empty($value['end_datetime'])) {
+                    $result[] = createDateRange($value['start_datetime'], $value['end_datetime'], $value['price']);
+                }
+            }
+        }
+        //echo "<pre>"; die(print_r($result));
+
+        $totalPrice = '0';
+
+        //echo "<pre>"; die(print_r($_POST));
+        if (!empty($_POST['initDate']) && !empty($_POST['endDate'])) {
+            // We receive the initial and end dates
+            foreach ($result as $value) {
+                foreach ($value as $fecha => $precio) {
+
+                    // We calculate the price between the two dates entered. The format date is: 20-03-2017
+                    if ((strtotime($fecha) >= strtotime($_POST['initDate'])) && (strtotime($fecha) <= strtotime($_POST['endDate']))) {
+                        //echo "Fechas :" . $fecha . '<br>';
+                        $totalPrice += $precio;
+                    }
+                }
+            }
+
+            $response->setContent(json_encode($totalPrice));
+
+        }
+
+        return $response;
+
+
+
+    }
 }
 
 /***

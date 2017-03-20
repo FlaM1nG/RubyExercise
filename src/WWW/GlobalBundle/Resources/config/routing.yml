@@ -22,4 +22,9 @@ fullcalendar_datepick:
     options:
         expose: true
 
+fullcalendar_dateprice:
+    path: /fc-load-dateprice
+    defaults: { _controller: GlobalBundle:Calendar:cargarPrice }
+    options:
+        expose: true
 
