@@ -1,0 +1,33 @@
+WWW\HouseBundle\Entity\ShareHouse:
+    type: entity
+    table: null
+    repositoryClass: WWW\HouseBundle\Repository\ShareHouseRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        autobooking:
+            type: boolean
+            nullable: true
+        price:
+            type: float
+        entryTime:
+            type: time
+        departureTime:
+            type: time
+    oneToOne:
+        offer:
+            targetEntity: WWW\ServiceBundle\Entity\Offer
+            joinColumn:
+                referencedColumnName: id
+                onDelete: CASCADE
+    manyToOne:
+        house:
+            targetEntity: House
+            joinColumn:
+                referencedColumnName: id
+
+    lifecycleCallbacks: {  }

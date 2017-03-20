@@ -69,7 +69,7 @@ WWW\UserBundle\Entity\User:
             type: string
             length: 255
             column: confirmation_token
-        smsConfirmed:
+        emailConfirmed:
             type: boolean
         nif:
             type: string
@@ -130,6 +130,9 @@ WWW\UserBundle\Entity\User:
             mappedBy: user
         houses:
             targetEntity: WWW\HouseBundle\Entity\House
+            mappedBy: user
+        wallet:
+            targetEntity: Wallet
             mappedBy: user
     oneToOne:        
         photo:

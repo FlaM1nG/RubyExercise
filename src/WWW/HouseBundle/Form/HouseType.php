@@ -26,11 +26,11 @@ class HouseType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
-            ->add('address', AddressType::class, array('label' => ''))
+            ->add('address', AddressType::class, array('label' => '', 'validation_groups' => 'house'))
 
-            ->add('licenseNumber', TextType::class, array('label' => 'Número de licencia'))
+            ->add('licenseNumber', TextType::class, array('label' => 'Número de licencia', 'required' => false))
 
-            ->add('title', TextareaType::class, array('label' => 'Título'))
+            ->add('title', TextType::class, array('label' => 'Título'))
 
             ->add('description', TextareaType::class, array('label' => 'Descripción'))
 
@@ -170,9 +170,11 @@ class HouseType extends AbstractType{
             
             ->add('protectorEnchufes', CheckboxType::class, array('label' => 'Protectores de enchufes', 'required' => false))
 
+            ->add('pestillo', CheckboxType::class, array('label' => 'Pestillo en la habitación', 'required' => false))
+
             ->add('imgHouse', FileType::class, array('label' => ' ',
                                                'multiple' => true,
-                                               'required' => true,
+                                               'required' => false,
                                                'mapped' => false,
                                                'attr' => array('accept' => 'image/*', 'class' => 'file-loading',)))
             ->add('saveNewHouse', SubmitType::class, array('label' => 'Guardar'));
@@ -182,7 +184,7 @@ class HouseType extends AbstractType{
 
     public function configureOptions(OptionsResolver $resolver){
 
-        $resolver->setDefaults(array('data_class' => 'WWW\HouseBundle\Entity\House'));
+        $resolver->setDefaults(array('data_class' => 'WWW\HouseBundle\Entity\House','validation_groups' => 'house'));
     }
 
     public function getBlockPrefix(){

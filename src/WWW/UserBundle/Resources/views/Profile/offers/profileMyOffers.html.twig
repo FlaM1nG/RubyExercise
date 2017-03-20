@@ -62,10 +62,14 @@
                     {% elseif offer.service.id == 4 %}
                         {% set url = path('offShareCar', {idOffer: offer.id}) %}
 
-                        {% if offer.hasInscriptions == 1 %}
-                            {%  set pathEditar = "" %}
-                        {% endif %}
+                    {% elseif offer.service.id == 5 %}
+                        {% set url = path('offCourierCar', {idOffer: offer.id}) %}
 
+                    {% elseif offer.service.id == 6 %}
+                        {% set url = path('offHouseRents', {idOffer: offer.id}) %}
+
+                    {% elseif offer.service.id == 7 %}
+                        {% set url = path('house_offerShareHouse', {idOffer: offer.id})%}
                     {% endif%}
 
                     {{ offers.offUser(url, offer.photos.0.url ,offer.title,

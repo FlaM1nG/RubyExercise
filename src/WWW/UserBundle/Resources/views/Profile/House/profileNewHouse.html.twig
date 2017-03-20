@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    Coches
+    Casas
 {% endblock %}
 
 {% block alertProfile %}
@@ -15,7 +15,6 @@
     {% for flash_message in app.session.flashbag.get('messageFail') %}
         {{ alerts.alert('alert-warning', flash_message, null) }}
     {% endfor %}
-
 
 {% endblock %}
 
@@ -32,21 +31,37 @@
                 Agregar una nueva casa
             </h3>
             <hr/>
-            {#{{ form(form) }}#}
+
             {{ form_start(form) }}
 
+            {{ form_row(form.title) }}
             {{ form_row(form.address.country) }}
             {{ form_row(form.address.city) }}
             {{ form_row(form.address.street) }}
             {{ form_row(form.address.zipCode) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.capacity) }}
+            {{ form_row(form.bedrooms) }}
+            {{ form_row(form.beds) }}
+            {{ form_row(form.bathrooms) }}
+            {{ form_row(form.licenseNumber) }}
 
-            {% for row in form.children if row.vars.name!='address' %}
-                    {{ form_row(row) }}
+            {{ form_row(form.imgHouse) }}
+            {% for key, attr in arrayAttr %}
+                <h4> {{ key|capitalize }}</h4>
+
+                {% for data in attr %}
+                    {{ form_row(attribute(form, data.attr),{'label': data.label|capitalize}) }}
+                {% endfor %}
+            {{ form_row(form._token) }}
+            {{ form_row(form.saveNewHouse) }}
+
             {% endfor %}
-            {#<input id="imgHouse" name="imgHouse[]" type="file" multiple class="file-loading" accept="image/*" required >#}
 
         </div>
     </div>
+
+
 {% endblock %}
 
 
@@ -57,14 +72,30 @@
 
     <!-- the main fileinput plugin file -->
     <script src="{{ asset('js/fileinput.js') }}"></script>
+    <script src="{{ asset('js/locales/es.js') }}"></script>
 
     <script type="text/javascript">
+
+        {% set arrayUrl = "" %}
+        {% set arrayCaption = "" %}
+
+        {% for h in house.photos %}
+
+        {% set arrayUrl = arrayUrl~"'"~asset(h.url,'img')~"'," %}
+        {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~h.id|number_format~" ,extra: {id: "~house.id~" }}," %}
+
+        {% endfor %}
 
 
         $(document).ready(function(){
 
             $(".file-loading").fileinput({
-
+                initialPreview: [
+                    {{arrayUrl|raw}}
+                ],
+                initialPreviewConfig: [
+                    {{arrayCaption|raw}}
+                ],
                 initialPreviewAsData: true,
                 overwriteInitial: false,
                 maxFileSize: 3072,
@@ -72,8 +103,15 @@
                 showUpload: false,
                 showZoom: false,
                 initialCaption: '',
+                language: "es",
+                allowedFileExtensions: ["jpg", "jpeg", "png"],
+                minFileCount:1,
                 maxFileCount: 50,
-
+                validateInitialCount: true,
+                deleteUrl: "{{ url('user_ajax_deleteImgHouse') }}",
+                uploadExtraData: {
+                    idHouse: "{{ house is not null ? house.id:"" }}",
+                }
             });
         });
     </script>

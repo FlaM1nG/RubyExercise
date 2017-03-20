@@ -1,4 +1,12 @@
+acme_redsys:
+    resource:   "@AcmePaymentBundle/Controller/"
+    type:       annotation
+    prefix:     /
 
+acme_mobile_payment:
+    path: /payment/mobile
+    defaults: { _controller: AcmePaymentBundle:Mobile:prepare }
+ 
 acme_payment_homepage:
     path:  /payment/{service}/offer/{idOffer}/
 #    defaults: { _controller: AcmePaymentBundle:Default:index }
@@ -58,7 +66,11 @@ acme_payment_prepare_obtain_credit_card_paypal_pro:
 acme_payment_done:
     path:  /payment/details
     defaults: { _controller: AcmePaymentBundle:Details:view }
-
+    
+acme_payment_mobile_done:
+    path:  /payment/mobile_details
+    defaults: { _controller: AcmePaymentBundle:DetailsMobile:view }
+    
 acme_payment_done:
     path:  /payment/order/done
     defaults: { _controller: AcmePaymentBundle:Details:viewPayment }

@@ -34,22 +34,23 @@
             <hr/>
 
 {#{{ dump(form) }}#}
-    <form action="{{ path('user_profileNewCar') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_row(form.brand) }}
-        {{ form_row(form.model) }}
-        {{ form_row(form.type) }}
-        {{ form_row(form.plate)}}
-        {{ form_row(form.color) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.seats) }}
-        {{ form_row(form.smoke) }}
-        {{ form_row(form.animals) }}
-        {{ form_row(form.music) }}
-        {{ form_row(form.talk) }}
-        {{ form_row(form._token) }}
-        <input id="imgCar" name="imgCar[]" type="file" multiple class="file-loading" accept="image/*" required >
-        {{ form_row(form.saveNewCar) }}
-
+            <form action="{{ path('user_profileNewCar') }}" method="post" {{ form_enctype(form) }}>
+                {{ form_row(form.brand) }}
+                {{ form_row(form.model) }}
+                {{ form_row(form.type) }}
+                {{ form_row(form.plate)}}
+                {{ form_row(form.color) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.seats) }}
+                {{ form_row(form.smoke) }}
+                {{ form_row(form.animals) }}
+                {{ form_row(form.music) }}
+                {{ form_row(form.talk) }}
+                {{ form_row(form.imgCar) }}
+                {{ form_row(form._token) }}
+                <div class="us-guardarPersonal-row">
+                {{ form_row(form.saveNewCar) }}
+                </div>
         </div>
     </div>
 {% endblock %}
@@ -62,9 +63,9 @@
 
     <!-- the main fileinput plugin file -->
     <script src="{{ asset('js/fileinput.js') }}"></script>
+    <script src="{{ asset('js/locales/es.js') }}"></script>
 
     <script type="text/javascript">
-
 
         $(document).ready(function(){
             brand = $('#newCar_brand');
@@ -90,7 +91,6 @@
             }
 
             $(".file-loading").fileinput({
-
                 initialPreviewAsData: true,
                 overwriteInitial: false,
                 maxFileSize: 3072,
@@ -99,7 +99,10 @@
                 showZoom: false,
                 initialCaption: '',
                 maxFileCount: 5,
-
+                minFileCount: 1,
+                validateInitialCount: true,
+                allowedFileExtensions: ["jpg", "jpeg", "png"],
+                language: "es",
             });
         });
     </script>

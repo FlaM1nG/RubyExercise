@@ -12987,7 +12987,10 @@ input#registroUsuario_captcha {
   min-height: 400px;
 }
 .us-dataPersonal-row {
-  padding: 40px 20% 20px 18%;
+  padding: 30px 20% 20px 18%;
+}
+.us-guardarPersonal-row {
+  padding: 30px 0;
 }
 #profilePersonalData_savePersonalData {
   float: none;

@@ -116,7 +116,7 @@
                         '</button>';
 
         var aux  = '{{ user.photo.url }}';
-        var img = '{{ asset('web/img/userDefault','img') }}';
+        var img = '{{ asset('web/img/userDefault.jpg','img') }}';
 
         if(aux != ''){
             var img = '{{ asset(user.photo.url,'img') }}';
@@ -131,7 +131,7 @@
             removeLabel: '',
             browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
             removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-            removeTitle: 'Cancel or reset changes',
+            removeTitle: 'Cancelar o resetear cambios',
             elErrorContainer: '#kv-avatar-errors-1',
             msgErrorClass: 'alert alert-block alert-danger',
             defaultPreviewContent: '<img src="'+img+'" alt="Your Avatar" style="width:160px">',

@@ -10,10 +10,16 @@ WWW\ServiceBundle\Entity\Billing:
                 strategy: AUTO
     fields:
         reference:
-            type: integer
-            unique: true
+            type: string
+            length: 255
         date:
             type: datetime
+        paidDate:
+            type: datetime
+            nullable: true
+        paid:
+            type: boolean
+            nullable: true
     manyToOne:
         user:
             targetEntity: WWW\UserBundle\Entity\User
@@ -22,7 +28,7 @@ WWW\ServiceBundle\Entity\Billing:
                 referencedColumnName: id
         address:
             targetEntity: WWW\GlobalBundle\Entity\Address
-            inversedBy: conceptsbillings
+            inversedBy: billings
             joinColumn:
                 referencedColumnName: id
     oneToMany:

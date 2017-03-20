@@ -8,6 +8,7 @@ use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Request\Sync;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DetailsController extends PayumController
 {
@@ -60,14 +61,14 @@ class DetailsController extends PayumController
         if ($details instanceof  \Traversable) {
             $details = iterator_to_array($details);
         }
-
-        return $this->render('AcmePaymentBundle:Details:view.html.twig', array(
-            'status' => $status->getValue(),
-            'payment' => htmlspecialchars(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)),
-            'gatewayTitle' => ucwords(str_replace(array('_', '-'), ' ', $token->getGatewayName())),
-            'refundToken' => $refundToken,
-            'captureToken' => $captureToken,
-            'cancelToken' => $cancelToken,
-        ));
+        return new Response(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+//        return $this->render('AcmePaymentBundle:Details:view.html.twig', array(
+//            'status' => $status->getValue(),
+//            'payment' => htmlspecialchars(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)),
+//            'gatewayTitle' => ucwords(str_replace(array('_', '-'), ' ', $token->getGatewayName())),
+//            'refundToken' => $refundToken,
+//            'captureToken' => $captureToken,
+//            'cancelToken' => $cancelToken,
+//        ));
     }
 }
