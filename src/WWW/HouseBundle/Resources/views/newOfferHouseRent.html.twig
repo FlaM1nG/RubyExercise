@@ -36,9 +36,14 @@
             </div>
         </div>
 
+        {% if form.house.vars.choices|length == 0 %}
+            No tiene ninguna casa creada, pinche <a href="{{ path('user_profile_newHouse') }}">aquí </a>para crear una
+        {% else %}
+            {{ form_row(form.house) }}
+        {% endif %}
+
         {{ form_row(form.offer.title) }}
         {{ form_row(form.offer.description) }}
-        {{ form_row(form.house) }}
         {{ form_row(form.entryTime) }}
         {{ form_row(form.departureTime) }}
         {{ form_row(form.price) }}
