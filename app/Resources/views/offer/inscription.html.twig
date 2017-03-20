@@ -61,11 +61,19 @@
                 <div class="row row-user-col">
 
                     {% for inscription in offer.offer.inscriptions %}
+                        {% if offer.offer.service.id == 5 %}
 
-                        <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
+                                {{ usuarios.userInscr(path('user_public_profile',{username:inscription.username}),
+                                    asset(inscription.user_photo,'img'), inscription.username,
+                                    inscription.avg_score, inscription.valoration_num, '##',formMessage, inscription.courier.weight_min, inscription.courier.weight_max) }}
+                        {% else %}
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
                             {{ usuarios.userInscr(path('user_public_profile',{username:inscription.username}),
                                 asset(inscription.user_photo,'img'), inscription.username,
-                                inscription.avg_score, 5, '##',formMessage) }}
+                                inscription.avg_score, inscription.valoration_num, '##',formMessage) }}
+                        {% endif %}
+
                         </div>
                     {% endfor %}
                 </div>
