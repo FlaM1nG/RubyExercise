@@ -12,10 +12,7 @@ class Billing
      */
     private $id;
 
-    /**
-     * @var int
-     */
-    private $reference;
+
 
     /**
      * @var \DateTime
@@ -33,29 +30,7 @@ class Billing
         return $this->id;
     }
 
-    /**
-     * Set reference
-     *
-     * @param integer $reference
-     *
-     * @return Billing
-     */
-    public function setReference($reference)
-    {
-        $this->reference = $reference;
-
-        return $this;
-    }
-
-    /**
-     * Get reference
-     *
-     * @return int
-     */
-    public function getReference()
-    {
-        return $this->reference;
-    }
+    
 
     /**
      * Set date
@@ -211,5 +186,61 @@ class Billing
     public function getPaid()
     {
         return $this->paid;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $paidDate;
+
+
+    /**
+     * Set paidDate
+     *
+     * @param \DateTime $paidDate
+     * @return Billing
+     */
+    public function setPaidDate($paidDate)
+    {
+        $this->paidDate = $paidDate;
+
+        return $this;
+    }
+
+    /**
+     * Get paidDate
+     *
+     * @return \DateTime 
+     */
+    public function getPaidDate()
+    {
+        return $this->paidDate;
+    }
+    /**
+     * @var string
+     */
+    private $reference;
+
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     * @return Billing
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string 
+     */
+    public function getReference()
+    {
+        return $this->reference;
     }
 }

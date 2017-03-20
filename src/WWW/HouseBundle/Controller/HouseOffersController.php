@@ -38,13 +38,17 @@ class HouseOffersController extends Controller
         $form = $this->createForm(ShareHouseType::class,$shareHouse, array('arrayHouses' => $arrayHouses));
         $form->handleRequest($request);
 
+        $route = $request->get('_route');
+        $request->getSession()->set('_security.user.target_path',$route);
+        
         if($form->isSubmitted()):
             $result = $this->saveNewOffer($request,$shareHouse, $service);
 
             if($result == 'ok'):
+                $request->getSession()->remove('_security.user.target_path');
+
                 if($service == 6):
                     return $this->redirectToRoute('serHouseRents');
-
                 elseif($service == 7):
                     return $this->redirectToRoute('house_lisShareHouse');
 
@@ -65,7 +69,7 @@ class HouseOffersController extends Controller
         $file = MyConstants::PATH_APIREST.'user/house/get_houseUserList.php';
         $ch = new ApiRest();
 
-        $arrayHouses = null;
+        $arrayHouses = array();
 
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
