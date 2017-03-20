@@ -1,12 +1,14 @@
 var cellContents;
 var monthNumber = '';
+var local = window.location.href.split('/');
+var idoferta = local[local.length-2];
 
 $(document).ready(function() {
 
     // We get the list of days and prices
     $.ajax({
         url: Routing.generate('fullcalendar_datepick'),
-        data: {},
+        data: {'idOffer' : idoferta},
         type: 'post',
         success: function(data) {
 
@@ -23,6 +25,10 @@ $('#DatePicker').datepicker({
         //The calendar is recreated OnSelect for inline calendar
         onSelect: function (date, dp) {
             updateDatePickerCells();
+
+            var date = $('#DatePicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+
+
         },
         onChangeMonthYear: function(month, year, dp) {
             updateDatePickerCells();

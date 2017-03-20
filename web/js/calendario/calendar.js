@@ -10,11 +10,6 @@ $(document).ready(function() {
     var local = window.location.href.split('/');
     var idoferta = local[local.length-2];
 
-    console.log(idoferta);
-
-
-
-
 
 		$('#calendar-holder').fullCalendar({
 
@@ -59,7 +54,7 @@ $(document).ready(function() {
                     $('#ModalEdit #calendar_id').val(event.calendar_id);
                     $('#ModalEdit #service_id').val(event.service_id);
 
-                    console.log(event);
+                   
                     $('#ModalEdit').modal('show');
                 });
             },

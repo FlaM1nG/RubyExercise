@@ -16,8 +16,12 @@ use Symfony\Component\HttpFoundation\Request;
 use WWW\HouseBundle\Entity\ShareHouse;
 use WWW\HouseBundle\Entity\House;
 use WWW\HouseBundle\Form\ShareHouseType;
+use WWW\ServiceBundle\Entity\Comment;
+use WWW\ServiceBundle\Form\CommentType;
+use WWW\ServiceBundle\Form\OfferSuscribeType;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
+use WWW\UserBundle\Entity\User;
 
 
 

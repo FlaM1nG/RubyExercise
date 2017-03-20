@@ -87,15 +87,16 @@ class CalendarController extends Controller
 
     }
 
-    public function cargarDateAction()
+    public function cargarDateAction(Request $request)
     {
 
-
+        $idoffer = $request->get('idOffer');
 
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-        $query = "SELECT start_datetime,price,end_datetime FROM my_company_events";
+        $query = "select sh.house_id, my.price,h.calendar_id,my.start_datetime, my.end_datetime from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id WHERE sh.offer_id=$idoffer";
+
         $stmt = $db->prepare($query);
         $params = array();
         $stmt->execute($params);
@@ -103,6 +104,9 @@ class CalendarController extends Controller
 
 
 
+
+        //select house_id.share_house, id.house from share_house INNER JOIN house ON share_house.house_id=house.id
+    
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->headers->set('Content-Type', 'application/json');
 

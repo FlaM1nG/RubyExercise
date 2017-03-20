@@ -266,7 +266,7 @@ class MyCompanyEvents implements  \Serializable {
     
     public function getOcuppate()
     {
-        return $this->occupate;
+        return $this->ocuppate;
     }
     
     public function setUrl($url)
