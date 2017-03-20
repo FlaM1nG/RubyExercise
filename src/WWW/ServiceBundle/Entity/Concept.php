@@ -12,10 +12,6 @@ class Concept
      */
     private $id;
 
-    /**
-     * @var int
-     */
-    private $reference;
 
     /**
      * @var string
@@ -43,29 +39,9 @@ class Concept
         return $this->id;
     }
 
-    /**
-     * Set reference
-     *
-     * @param integer $reference
-     *
-     * @return Concept
-     */
-    public function setReference($reference)
-    {
-        $this->reference = $reference;
+    
 
-        return $this;
-    }
-
-    /**
-     * Get reference
-     *
-     * @return int
-     */
-    public function getReference()
-    {
-        return $this->reference;
-    }
+    
 
     /**
      * Set name
@@ -223,5 +199,61 @@ class Concept
     public function getPaid()
     {
         return $this->paid;
+    }
+    /**
+     * @var string
+     */
+    private $description;
+
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Concept
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    /**
+     * @var string
+     */
+    private $reference;
+
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     * @return Concept
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string 
+     */
+    public function getReference()
+    {
+        return $this->reference;
     }
 }
