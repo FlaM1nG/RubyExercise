@@ -23,6 +23,9 @@ class ShareHouseType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
         
         $arrayHouses = $options['arrayHouses'];
+        $disabled = false;
+
+        if(isset($arrayHouses) AND sizeof($arrayHouses) == 0 ) $disabled = true;
 
         $builder
             ->add('house', ChoiceType::class, array('label' => 'Seleccione una casa',
@@ -42,7 +45,8 @@ class ShareHouseType extends AbstractType{
             ->add('houseId', HiddenType::class, array('data' => $options['data']->getHouse()->getId(),
                                                       'mapped'=>false  ))
 
-            ->add('newShareHouse', SubmitType::class, array('label' => 'Guardar'));
+            ->add('newShareHouse', SubmitType::class, array('label' => 'Guardar',
+                                                            'attr' => array('disabled' => $disabled)));
     }
 
     public function configureOptions(OptionsResolver $resolver){

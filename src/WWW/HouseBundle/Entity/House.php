@@ -5,6 +5,7 @@ namespace WWW\HouseBundle\Entity;
 use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\GlobalBundle\Entity\Address;
 use WWW\GlobalBundle\Entity\Photo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * House
@@ -18,16 +19,19 @@ class House
 
     /**
      * @var string
+     * @Assert\NotBlank(message="Por favor rellene este campo")
      */
     private $title;
 
     /**
      * @var string
+     * @Assert\NotBlank(message="Por favor rellene este campo")
      */
     private $description;
 
     /**
      * @var \WWW\GlobalBundle\Entity\Address
+     * @Assert\Valid()
      */
     private $address;
 
@@ -73,21 +77,29 @@ class House
 
     /**
      * @var integer
+     * @Assert\NotBlank(message="Por favor rellene este campo")
+     * @Assert\Range(min=1, minMessage="El valor mínimo permitidos es 1")
      */
     private $capacity;
 
     /**
-     * @var integer
+     * @var
+     * @Assert\NotBlank(message="Por favor rellene este campo")
+     * @Assert\Range(min=1, minMessage="El valor mínimo permitidos es 1")
      */
     private $bathrooms;
 
     /**
      * @var string
+     * @Assert\NotBlank(message="Por favor rellene este campo")
+     * @Assert\Range(min=0, minMessage="El valor mínimo permitidos es 0")
      */
     private $bedrooms;
 
     /**
      * @var integer
+     * @Assert\NotBlank(message="Por favor rellene este campo")
+     * @Assert\Range(min=0, minMessage="El valor mínimo permitidos es 0")
      */
     private $beds;
 

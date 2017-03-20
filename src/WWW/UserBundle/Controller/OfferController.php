@@ -98,7 +98,7 @@ class OfferController extends Controller{
             elseif($this->service == 4 || $this->service == 5):
                 $result = $this->updateOfferShareCar($request);
             
-            elseif($this->service == 6):
+            elseif($this->service == 6 || $this->service == 7):
                 $house = new House();
                 $house->setId($request->get('shareHouse')['houseId']);
                 $this->offer->setHouse($house);
@@ -120,7 +120,7 @@ class OfferController extends Controller{
         elseif($this->service == 4 || $this->service == 5):
             $pathRender = 'UserBundle:Profile:offers/profileEditOfferShareCar.html.twig';
         
-        elseif($this->service == 6):
+        elseif($this->service == 6 || $this->service == 7):
             $pathRender = 'UserBundle:Profile:House/profileEditOfferHouseRent.html.twig';
             $route = $request->get('_route');
             $request->getSession()->set('_security.user.target_path',$route);
@@ -267,7 +267,7 @@ class OfferController extends Controller{
                      $minHolder = sizeof($this->offer->getOffer()->getInscriptions());
                  endif;
 
-             elseif($result['service_id'] == 6):
+             elseif($result['service_id'] == 6 || $result['service_id'] == 7 ):
                  $this->offer = new ShareHouse($result);
                  $formulario = $this->createForm(ShareHouseType::class, $this->offer);
 

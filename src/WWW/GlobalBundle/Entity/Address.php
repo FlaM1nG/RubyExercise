@@ -18,7 +18,7 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
 
     /**
      * @var string
-     * @Assert\NotBlank(groups={"address"})
+     * @Assert\NotBlank(groups={"address","house"}, message="Por favor rellene este campo")
      */
     private $street;
     /**
@@ -59,26 +59,25 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
     
     /**
      * @var integer
-     * @Assert\NotBlank(groups={"address"})
+     * @Assert\NotBlank(groups={"address","house"}, message="Por favor rellene este campo")
      */
     private $zipCode;
 
     /**
      * @var string
-     * @Assert\NotBlank(groups={"address"})
+     * @Assert\NotBlank(groups={"address","house"}, message="Por favor rellene este campo")
      */
     private $city;
 
     /**
      * @var string
-     * @Assert\NotBlank(groups={"address"})
      */
     
     private $region;
 
     /**
      * @var string
-     * @Assert\NotBlank(groups={"address"})
+     * @Assert\NotBlank(groups={"address", "house"}, message="Por favor rellene este campo")
      */
     private $country;
     
@@ -106,15 +105,7 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
             endforeach;
         
             $this->country = new Region(null,$this->region, $this->country );
-//        else:
-//            $this->id = 0;
-//            $this->street = "";
-//            $this->name = "";
-//            $this->isDefault = "";
-//            $this->createdDate = "";
-//            $this->modifiedDate = "";
-//            $this->deletedDate = "";
-//            $this->isDeleted = "";
+
         endif;
 
     }
@@ -475,12 +466,14 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
      */
     public function getGroupSequence()
     {
-        $groups = array('Address');
+        $groups = array('Address','House');
 
         if ($this->isAddress()) {
             
             $groups[] = 'Address';
             
+        }elseif($this->isHouse()){
+            $groups[] = 'House';
         }
 
         return $groups;
