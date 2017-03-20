@@ -69,7 +69,7 @@ WWW\UserBundle\Entity\User:
             type: string
             length: 255
             column: confirmation_token
-        smsConfirmed:
+        emailConfirmed:
             type: boolean
         nif:
             type: string
