@@ -24,23 +24,38 @@ class ProfileHouseController extends Controller{
     public function createHouseAction(Request $request){
 
         $house = new House();
-
+        
         $form = $this->createForm(HouseType::class, $house);
-
         $form->handleRequest($request);
 
-        if($form->isSubmitted()):
-            $result = $this->saveNewHouse($request);
+        if($form->isSubmitted() AND $form->isValid()):
 
+            if(!empty($request->files->get('house')['imgHouse'][0])):
 
-            if($result == 'ok'):
-                return $this->redirectToRoute('user_profile_listHouse');
+                $result = $this->saveNewHouse($request);
+
+                if($result == 'ok'):
+                    if($request->getSession()->get('_security.user.target_path') == 'building_newOfferHouseRent'):
+                        return $this->redirectToRoute('building_newOfferHouseRent');
+
+                    elseif($request->getSession()->get('_security.user.target_path') == 'house_newOfferShareHouse'):
+                        return $this->redirectToRoute('house_newOfferShareHouse');
+
+                    else:
+                        return $this->redirectToRoute('user_profile_listHouse');
+                    endif;
+                endif;
+            else:
+                $ut = new Utilities();
+                $result['result'] = 'ko';
+                $ut->flashMessage('',$request,$result,'La casa debe contener al menos una imagen');
             endif;
         endif;
 
         return $this->render('UserBundle:Profile/House:profileNewHouse.html.twig',
                             array('form' => $form->createView(),
-                                  'house' => $house));
+                                  'house' => $house,
+                                  'arrayAttr' => $house->getArrayGroupsAttrH()  ));
         
     }
 
@@ -62,7 +77,11 @@ class ProfileHouseController extends Controller{
         $data['address']['region'] = "'".$auxAddress[1]."'";
 
         foreach($arrayFields as $key => $value):
-            $key = Inflector::tableize($key);
+            if($key == 'detectorCO'):
+                $key = 'detector_co';
+            else:
+                $key = Inflector::tableize($key);
+            endif;
 
             if($key != 'address' AND $key !='save_new_house' AND $key != '_token'):
                 if(is_numeric($value)):
@@ -112,7 +131,7 @@ class ProfileHouseController extends Controller{
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
-       
+
         $result = $ch->resultApiRed($data, $file);
 
         if($result['result'] == 'ok'):
@@ -128,6 +147,7 @@ class ProfileHouseController extends Controller{
     }
 
     public function editHouseAction(Request $request){
+
         $house = $this->getHouse($request);
 
         $form = $this->createForm(HouseType::class,$house);
@@ -152,6 +172,7 @@ class ProfileHouseController extends Controller{
         return $this->render('UserBundle:Profile/House:profileNewHouse.html.twig',array(
                              'form' => $form->createView(),
                              'house' => $house,
+                             'arrayAttr' => $house->getArrayGroupsAttrH()
         ));
     }
 

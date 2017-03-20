@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use WWW\ServiceBundle\Form\OfferType;
@@ -22,6 +23,9 @@ class ShareHouseType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
         
         $arrayHouses = $options['arrayHouses'];
+        $disabled = false;
+
+        if(isset($arrayHouses) AND sizeof($arrayHouses) == 0 ) $disabled = true;
 
         $builder
             ->add('house', ChoiceType::class, array('label' => 'Seleccione una casa',
@@ -34,10 +38,15 @@ class ShareHouseType extends AbstractType{
 
             ->add('price', MoneyType::class, array('label' => 'Precio base'))
 
+            ->add('entryTime',TimeType::class, array('label' => 'Hora de entrada'))
+
+            ->add('departureTime',TimeType::class, array('label' => 'Hora de salida'))
+
             ->add('houseId', HiddenType::class, array('data' => $options['data']->getHouse()->getId(),
                                                       'mapped'=>false  ))
 
-            ->add('newShareHouse', SubmitType::class, array('label' => 'Guardar'));
+            ->add('newShareHouse', SubmitType::class, array('label' => 'Guardar',
+                                                            'attr' => array('disabled' => $disabled)));
     }
 
     public function configureOptions(OptionsResolver $resolver){

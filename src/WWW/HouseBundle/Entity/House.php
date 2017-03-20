@@ -5,6 +5,7 @@ namespace WWW\HouseBundle\Entity;
 use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\GlobalBundle\Entity\Address;
 use WWW\GlobalBundle\Entity\Photo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * House
@@ -18,16 +19,19 @@ class House
 
     /**
      * @var string
+     * @Assert\NotBlank(message="Por favor rellene este campo")
      */
     private $title;
 
     /**
      * @var string
+     * @Assert\NotBlank(message="Por favor rellene este campo")
      */
     private $description;
 
     /**
      * @var \WWW\GlobalBundle\Entity\Address
+     * @Assert\Valid()
      */
     private $address;
 
@@ -73,21 +77,29 @@ class House
 
     /**
      * @var integer
+     * @Assert\NotBlank(message="Por favor rellene este campo")
+     * @Assert\Range(min=1, minMessage="El valor mínimo permitidos es 1")
      */
     private $capacity;
 
     /**
-     * @var integer
+     * @var
+     * @Assert\NotBlank(message="Por favor rellene este campo")
+     * @Assert\Range(min=1, minMessage="El valor mínimo permitidos es 1")
      */
     private $bathrooms;
 
     /**
      * @var string
+     * @Assert\NotBlank(message="Por favor rellene este campo")
+     * @Assert\Range(min=0, minMessage="El valor mínimo permitidos es 0")
      */
     private $bedrooms;
 
     /**
      * @var integer
+     * @Assert\NotBlank(message="Por favor rellene este campo")
+     * @Assert\Range(min=0, minMessage="El valor mínimo permitidos es 0")
      */
     private $beds;
 
@@ -2420,5 +2432,83 @@ class House
                 $array[] = $key;
         
         return $array;
+    }
+
+    /**
+     * Función que crea un array que sirve que luego en twig se agrupen las opciones de la casa y pueda coger el label y
+     * el atributo que le corresponde.
+     * Esto en realidad lo suyo sería que estuviera en la BBDD pero de momento es lo más rápido
+     * En caso de que no se quiera ese orden es cuestión de cambiar el orden en el que se está creando cada grupo
+     * 
+     * @return array
+     */
+    public function getArrayGroupsAttrH(){
+        $arrayAttr = array();
+        $arrayAttr['varios'] = array(   array('label' =>'Aire acondicionado','attr' => 'aireAcondicionado'),
+            array('label' =>'Calefacción','attr' => 'calefaccion'),
+            array('label' =>'Ascensor','attr' => 'ascensor'),
+            array('label' =>'Portero','attr' => 'portero'),
+            array('label' =>'Timbre','attr' => 'timbre'),
+            array('label' =>'Apartamento privado en edificio','attr' => 'apartamentoEdificio'));
+
+        $arrayAttr['accesibilidad'] = array(array('label' =>'Acceso para discapacitados','attr' => 'accesoDiscapacitados'));
+
+        $arrayAttr['aparcamiento'] = array(array('label' =>'Parking público','attr' => 'parkingPublico'),
+            array('label' =>'Parking gratuito','attr' => 'parkingGratuito'));
+
+        $arrayAttr['baño'] = array( array('label' =>'papel higiénico','attr' => 'papelHigienico'),
+            array('label' =>'bidé','attr' => 'bidet'),
+            array('label' =>'bañera','attr' => 'banera'),
+            array('label' =>'secador de pelo','attr' => 'secadorPelo'),
+            array('label' =>'jacuzzi','attr' => 'jacuzzi'),
+            array('label' =>'champú y gel','attr' => 'champu'));
+
+        $arrayAttr['cocina'] = array(array('label' =>'mesa de comedor','attr' => 'mesaComedor'),
+            array('label' =>'cafetera','attr' => 'cafetera'),
+            array('label' =>'productos de limpieza','attr' => 'productosLimpieza'),
+            array('label' =>'fogones','attr' => 'fogones'),
+            array('label' =>'horno','attr' => 'horno'),
+            array('label' =>'utensilios de cocina','attr' => 'utensiliosCocina'),
+            array('label' =>'microondas','attr' => 'microondas'),
+            array('label' =>'nevera','attr' => 'nevera'));
+
+        $arrayAttr['habitación'] = array(array('label' =>'armarios','attr' =>'armario'),
+            array('label' =>'sábanas','attr' => 'sabanas'),
+            array('label' =>'perchero','attr' => 'perchero'),
+            array('label' =>'perchas','attr' => 'perchas'),
+            array('label' =>'insonorización','attr' => 'insonorizacion'),
+            array('label' =>'entrada privada','attr' => 'entradaPrivada'),
+            array('label' =>'ventilador','attr' => 'ventilador'),
+            array('label' =>'pestillo','attr' => 'pestillo'));
+
+        $arrayAttr['sala de estar'] = array(array('label' =>'sofa cama','attr' => 'sofaCama'),
+            array('label' =>'zona de comedor','attr' => 'comedor'),
+            array('label' =>'escritorio','attr' => 'escritorio'),
+            array('label' =>'chimenea','attr' => 'chimenea'),
+            array('label' =>'zona para trabajar con portátiles','attr' => 'zonaPortatiles'));
+
+        $arrayAttr['vistas'] = array(array('label' =>'vistas a la ciudad','attr' => 'vistasCiudad'),
+            array('label' =>'vistas de interés','attr' => 'vistasInteres'));
+
+        $arrayAttr['equipamiento audiovisual y tecnológico'] = array(array('label' =>'televisión','attr' => 'tv'),
+            array('label' =>'televisión plana','attr' => 'tvPlana'),
+            array('label' =>'tevisión por satétlite','attr'=> 'tvSatelite'),
+            array('label' =>'wifi','attr' => 'wifi'),
+            array('label' =>'dvd','attr' => 'dvd'));
+
+        $arrayAttr['normas'] = array(array('label' => 'eventos', 'attr' => 'eventos'),
+            array('label' => 'fiestas', 'attr' => 'fiestas'),
+            array('label' => 'fumar', 'attr' => 'fumar'),
+            array('label' => 'mascotas', 'attr' => 'mascotas'));
+
+        $arrayAttr['seguridad'] = array(array('label' => 'botiquín', 'attr'=> 'botiquin'),
+            array('label' => 'detector de humos', 'attr' => 'detectorHumo'),
+            array('label' => 'detector de monóxido de carbono', 'attr' => 'detectorCO'),
+            array('label' => 'extintor', 'attr' => 'extintor'),
+            array('label' => 'ficha de instrucciones de seguridad', 'attr' => 'fichaInstrucciones'),
+            array('label' => 'pestillo en la puerta del dormitorio', 'attr' => 'pestillo'),
+            array('label' => 'protectores de enchufes para niños', 'attr' => 'protectorEnchufes')) ;
+
+        return $arrayAttr;
     }
 }
