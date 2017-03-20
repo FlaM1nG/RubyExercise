@@ -63,7 +63,8 @@ class TradeType extends AbstractType{
                                                     'group_by' => 'country'
 
             ))
-            ->add('saveTrade',SubmitType::class,array('label'=>'Guardar'));
+            ->add('saveTrade',SubmitType::class, array('label'=>'Guardar',
+                                                        'attr' => array('class' => 'btn btn-default btn-normal-derecha')));
 
         if($service != 3):
 
