@@ -12430,6 +12430,9 @@ a.boton-leer-post:focus {
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 /* ------------------ USER  ------------------
 ******************************************************************/
+.input-group-addon {
+  border: 1px solid #ccc !important;
+}
 .row-us-name {
   padding-top: 10px;
 }
@@ -12764,9 +12767,18 @@ a.boton-leer-post:focus {
   padding: 7px 12px;
   float: none;
 }
-.us-mess-sent-element .us-open-mess {
+.us-mess-sent-element .us-open-mess,
+#replyForm .us-open-mess {
   margin: 0 auto;
   float: none;
+  border: 1px solid #333333;
+  -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  padding: 0 5%;
+}
+#replyForm .us-open-mess {
+  padding: 3% 5%;
 }
 .btn.btn-default.us-profileAddresses {
   float: none;
@@ -15362,6 +15374,10 @@ textarea {
 /* Pagos */
 .btn-float-none {
   float: none !important;
+}
+.btn-normal-derecha {
+  float: right;
+  margin-top: 20px;
 }
 .table-pago {
   -webkit-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);

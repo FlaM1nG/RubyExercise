@@ -72,14 +72,14 @@
                         {% set url = path('house_offerShareHouse', {idOffer: offer.id})%}
                     {% endif%}
 
-                    {% if offer.expired == 1 %}
-                        {{ offers.offUserExp(url, offer.photos.0.url ,offer.title,
-                        offer.description, 'leer', '#borrar','Borrar') }}
-                    {% else %}
+                    {% if is_granted('offer_expired', offer) %}
+                        {{ offers.offUserExp(url, offer.photos.0.url, offer.title, offer.description, 'leer',
+                        '#borrar', 'Borrar')}}
+                    {%else%}
+
                         {{ offers.offUser(url, offer.photos.0.url ,offer.title,
                         offer.description, 'leer', pathEditar, 'editar', '#borrar','Borrar', offer.id) }}
-                    {% endif %}
-
+                    {%endif%}
                 {% endfor %}
 
                 {% if pagination is not null %}
