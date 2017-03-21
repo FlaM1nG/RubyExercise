@@ -34,7 +34,7 @@ class HouseOffersController extends Controller
 
         $shareHouse = new ShareHouse();
 
-        $form = $this->createForm(ShareHouseType::class,$shareHouse, array('arrayHouses' => $arrayHouses));
+        $form = $this->createForm(ShareHouseType::class,$shareHouse, array('arrayHouses' => $arrayHouses,'service' =>$service));
         $form->handleRequest($request);
 
         $route = $request->get('_route');
@@ -48,8 +48,15 @@ class HouseOffersController extends Controller
 
                 if($service == 6):
                     return $this->redirectToRoute('serHouseRents');
+                
                 elseif($service == 7):
                     return $this->redirectToRoute('house_lisShareHouse');
+                
+                elseif($service == 8):
+                    return  $this->redirectToRoute('house_listHouseSwap');
+                
+                elseif($service == 9):
+                    return $this->redirectToRoute('house_listBedroomSwap');
 
                 endif;
 
@@ -100,9 +107,13 @@ class HouseOffersController extends Controller
         $data['service_id'] = $service;
         $data['holders'] = $shareHouse->getOffer()->getHolders();
         $data['house_id'] = $shareHouse->getHouse()->getId();
-        $dataOffer['entry_time'] = "'".$shareHouse->getEntryTime()->format('H:i:s')."'";
-        $dataOffer['departure_time'] = "'".$shareHouse->getDepartureTime()->format('H:i:s')."'";
-        $dataOffer['price'] = $shareHouse->getPrice();
+        $dataOffer['price'] = 0;
+
+        if($service == 6 || $service == 7):
+            $dataOffer['entry_time'] = "'".$shareHouse->getEntryTime()->format('H:i:s')."'";
+            $dataOffer['departure_time'] = "'".$shareHouse->getDepartureTime()->format('H:i:s')."'";
+            $dataOffer['price'] = $shareHouse->getPrice();
+        endif;
 
         $data['data'] = json_encode($dataOffer);
 
@@ -297,8 +308,16 @@ class HouseOffersController extends Controller
 
         if(strpos($request->getPathInfo(),'house-rents') !== false):
             $service = 6;
+
         elseif(strpos($request->getPathInfo(),'share-house') !== false):
             $service = 7;
+
+        elseif(strpos($request->getPathInfo(),'house-swap') !== false):
+            $service = 8;
+
+        elseif(strpos($request->getPathInfo(),'bedroom-swap') !== false):
+            $service = 9;
+        
         endif;
 
         return $service;

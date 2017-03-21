@@ -29,3 +29,31 @@ house_offerShareHouse:
     defaults: { _controller: HouseBundle:HouseOffers:showOfferShareHouse }
     requirements:
             idOffer: \d+
+
+house_listHouseSwap:
+    path: /house-swap/
+    defaults: { _controller: HouseBundle:HouseOffers:listOfferShareHouse}
+
+house_newOfferHouseSwap:
+    path: /house-swap/newOffer/
+    defaults: { _controller: HouseBundle:HouseOffers:createNewOffer }
+
+house_offerHouseSwap:
+    path: /house-swap/offer/{idOffer}
+    defaults: { _controller: HouseBundle:HouseOffers:showOfferShareHouse }
+    requirements:
+            idOffer: \d+
+
+house_listBedroomSwap:
+    path: /bedroom-swap/
+    defaults: { _controller: HouseBundle:HouseOffers:listOfferShareHouse}
+
+house_newOfferBedroomSwap:
+    path: /bedroom-swap/newOffer/
+    defaults: { _controller: HouseBundle:HouseOffers:createNewOffer }
+
+house_offerBedroomSwap:
+    path: /bedroom-swap/offer/{idOffer}
+    defaults: { _controller: HouseBundle:HouseOffers:showOfferShareHouse }
+    requirements:
+            idOffer: \d+

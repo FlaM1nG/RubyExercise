@@ -17,6 +17,18 @@
     {% set routingNewOffer = 'house_newOfferShareHouse' %}
     {% set titleService = 'Casa compartida' %}
 
+{% elseif service == 8 %}
+    {% set pathFilter = path('serHouseRents') %}
+    {% set routingOffer = 'house_offerHouseSwap' %}
+    {% set routingNewOffer = 'house_newOfferHouseSwap' %}
+    {% set titleService = 'Intercambio de casa' %}
+
+{% elseif service == 9 %}
+    {% set pathFilter = path('serHouseRents') %}
+    {% set routingOffer = 'house_offerBedroomSwap' %}
+    {% set routingNewOffer = 'house_newOfferBedroomSwap' %}
+    {% set titleService = 'Intercambio de habitaciones entre estudiantes' %}
+
 {% endif %}
 
 {% block title %}
@@ -66,7 +78,7 @@ sha-header-title
 
         {{ houses.element(path(routingOffer,{idOffer: offer.offer_id}), asset(offer.house_photo,'img'), imgSmall1, imgSmall2, offer.title,
             offer.capacity, offer.bedrooms, offer.bathrooms, path('user_public_profile',{username: offer.username}), asset(offer.user_photo,'img'),
-            offer.username, offer.price, offer.avg_score ) }}
+            offer.username, offer.price, offer.avg_score, service ) }}
     {% endfor %}
 
     {% if pagination is not null %}
