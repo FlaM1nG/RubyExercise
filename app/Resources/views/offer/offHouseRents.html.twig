@@ -31,6 +31,31 @@
 
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style type="text/css">
+
+        .ui-datepicker td a:after
+        {
+            content: "";
+            display: block;
+            text-align: center;
+            color: Blue;
+            font-size: small;
+            font-weight: bold;
+        }
+
+        div.ui-datepicker{
+            font-size:18px;
+        }
+    </style>
+
+{% endblock %}
+
+
 {% block offerImage %}
     {#{{ dump(offer) }}#}
     <div id="off-img-big" class="owl-carousel">
@@ -92,6 +117,16 @@
 
 {% block offerPrice %} 
     {{ offer.price }} €
+
+    <input type="text" id="DatePicker">
+    <input type="text" id="DatePickerto">
+
+    <input type="hidden" id="startDate" name="startDate" value="">
+    <input type="hidden" id="endDate" name="endDate" value="">
+
+    <p>Fecha Inicial: <span id="fechaInicial"></span></p>
+    <p>Fecha Final: <span id="fechaFinal"></span></p>
+    <p>Precio Total: <span id="precioTotal"></span> €</p>
 {% endblock %}
 
 
@@ -532,4 +567,15 @@
 {% block javascriptsFooter %}
     {{ parent() }}
     {{ rating.staticRatingJS() }}
+
+
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/core.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/md5.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/datep.js') }}"></script>
+
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
 {% endblock %}

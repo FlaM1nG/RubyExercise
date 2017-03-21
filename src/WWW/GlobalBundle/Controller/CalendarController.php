@@ -115,7 +115,7 @@ class CalendarController extends Controller
       // $json = file_get_contents(dirname(__FILE__) . '/precios.json');
 
 // Aquí pondremos todos los meses del año
-        $result = array('0' => array(), '1' => array(), '2' => array(), '3' => array(), '4' => array());
+        $result = array('0' => array(), '1' => array(), '2' => array(), '3' => array(), '4' => array(), '5' => array(),'6' => array(),'7' => array(),'8' => array(),'9' => array(),'10' => array(),'11' => array());
 
 //        $input_arrays = json_decode($json, true);
 //echo "<pre>"; die(print_r($result));
@@ -226,7 +226,7 @@ class CalendarController extends Controller
         $fechas = $stmt->fetchAll();
         //echo "<pre>"; die(print_r($fechas));
 
-        $result = array();
+        $result = array('0' => array(), '1' => array(), '2' => array(), '3' => array(), '4' => array(), '5' => array(),'6' => array(),'7' => array(),'8' => array(),'9' => array(),'10' => array(),'11' => array());
 
         if (!empty($fechas)) {
             //echo "<pre>"; die(print_r($input_arrays));
@@ -265,66 +265,3 @@ class CalendarController extends Controller
 
     }
 }
-
-/***
- *
- *
- *
-$json = file_get_contents(dirname(__FILE__) . '\precios.json');
-
-$input_arrays = json_decode($json, true);
-
-$response = new \Symfony\Component\HttpFoundation\Response();
-$response->headers->set('Content-Type', 'application/json');
-
-
-if (!empty($input_arrays[0])) {
-
-if (!empty($input_arrays[0]['start_datetime']) && !empty($input_arrays[0]['end_datetime']) && !empty($input_arrays[0]['price'])) {
-
-// We get the start date
-$timestampIni = strtotime($input_arrays[0]['start_datetime']);
-$initDate = date("d", $timestampIni);
-
-// We get the end date
-$timestampEnd = strtotime($input_arrays[0]['end_datetime']);
-$endDate = date("d", $timestampEnd);
-
-// We create an array with the list of days and prices
-$result = array();
-for ($i = $initDate; $i <= $endDate; $i++) {
-$result[$i] = $input_arrays[0]['price'] . '€';
-}
-
-$response->setContent(json_encode($result));
-}
-
-return $response;
-}
- *
- *
- *
- *       $em = $this->getDoctrine()->getEntityManager();
-$db = $em->getConnection();
-
-
-$response = new \Symfony\Component\HttpFoundation\Response();
-$response->headers->set('Content-Type', 'application/json');
-
-$query = "SELECT start_datetime,price,title,end_datetime FROM my_company_events";
-$stmt = $db->prepare($query);
-$params = array();
-$stmt->execute($params);
-$po = $stmt->fetchAll();
-
-
-$response->setContent(json_encode($po));
-
-return $response;
-
- *
- *
- *
- *
- *
- */
