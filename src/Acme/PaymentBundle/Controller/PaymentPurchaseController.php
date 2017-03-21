@@ -68,6 +68,7 @@ class PaymentPurchaseController extends Controller {
             $payment->setDescription(sprintf('An order %s for a client %s', $this->offer->getPrice(), $user->getUsername()));
             $payment->setTotalAmount($this->offer->getPrice() * 100);
             $payment->setCurrencyCode('EUR');
+            $payment->setClientEmail($user->getUsername());
 
             //REDSYS
             if (isset($request->get('previoPago')['card'])) {
