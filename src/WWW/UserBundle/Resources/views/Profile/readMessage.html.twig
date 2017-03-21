@@ -25,32 +25,41 @@
 
 
 {% block bodyProfile %}
-    
-    {% if type == 'send' %}
-        <h2>MENSAJES ENVIADO ABIERTO</h2>
-        {{ message.messElementSentOpen(mensaje.to.username, mensaje.createdDate,
-            mensaje.subject, mensaje.message,
-            mensaje.id, '#borrar', 'borrar') }}
-            
-    {% else %}
-        
-        <h2>MENSAJES RECIBIDO ABIERTO</h2>
-        {{ message.messElementReceivedOpen(mensaje.from.username, mensaje.createdDate,
-            mensaje.subject, mensaje.message,
-            mensaje.id, '#borrar', 'borrar', '#contestar', 'contestar') }}
-            
-        <div id="replyForm" style="display:none">
-            {{form_start(form)}}
-                {{form_row(form.id)}}
-                {{form_row(form.to.username,{'attr':{'readonly':'true'} })}}
-                {{form_row(form.subject,{'attr':{'readonly':'true'} })}}
-                {{form_row(form.message)}}
-                {{form_row(form.enviar)}}
-                {{form_row(form.cancelar)}}
-                {{form_row(form._token)}}
-        </div>    
-    {% endif %}
-    
+    <div class="row us-dataPersonal-row us-writte-message">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {% if type == 'send' %}
+                <h3>MENSAJES ENVIADO ABIERTO</h3>
+                <hr>
+                {{ message.messElementSentOpen(mensaje.to.username, mensaje.createdDate,
+                    mensaje.subject, mensaje.message,
+                    mensaje.id, '#borrar', 'borrar') }}
+
+            {% else %}
+
+                <h3>MENSAJES RECIBIDO ABIERTO</h3>
+                <hr>
+                {{ message.messElementReceivedOpen(mensaje.from.username, mensaje.createdDate,
+                    mensaje.subject, mensaje.message,
+                    mensaje.id, '#borrar', 'borrar', '#contestar', 'contestar') }}
+
+                <div id="replyForm" style="display:none">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-open-mess">
+                            {{ form_start(form) }}
+                            {{ form_row(form.id) }}
+                            {{ form_label(form.to) }}
+                            {{ form_widget(form.to.username,{'attr':{'readonly':'true'} }) }}
+                            {{ form_row(form.subject,{'attr':{'readonly':'true'} }) }}
+                            {{ form_row(form.message) }}
+                            {{ form_row(form.enviar) }}
+                            {{ form_row(form.cancelar) }}
+                            {{ form_row(form._token) }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
     
 {% endblock %}
 
@@ -66,7 +75,7 @@
              $(document).on('click','.bDeleteMessage', deleteMessage);
              
              function showForm(e){
-                 e.preventDefault;
+                 e.preventDefault();
                  
                  if($('.containerMessage').is(':visible')){
                      $('.containerMessage').hide();
