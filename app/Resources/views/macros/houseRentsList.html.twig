@@ -69,7 +69,7 @@
 
 {% macro element(hrefOffer, srcImgBig, srcImgSmallF, srcImgSmallS, title, 
     capacidad, habitaciones, banos, hrefUser, srcImgUser, nameUser, price,
-    vote ) %}
+    vote, service ) %}
 
     {% import 'macros/star.html.twig' as rating %}
 <!-- ELEMENT -->
@@ -197,15 +197,15 @@
             </div>
             <!-- FIN VALORACIONES -->
             
-            
+        {% if service == 6 or service == 7 %}
             <!-- PRECIO DIA -->
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-hre-price">
                 <span class="hre-price">
-                    {{ price|e }}€/dia
+                    Desde {{ price|e }}€/dia
                 </span>
             </div>
             <!-- FIN PRECIO DIA -->
-            
+        {% endif %}
             
         </div>
         <!-- FIN VALORACIÓN Y PRECIO DIA -->
