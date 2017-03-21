@@ -166,6 +166,11 @@ adesigns_calendar:
 prueba_pago:
     path: /prueba/previopago
     defaults: { _controller: AppBundle:Index:pruebaPantallaPago }
+
+prueba_postpago:
+    path: /prueba/postpago
+    defaults: { _controller: AppBundle:Index:pruebaPantallaPostPago }
+
 #house:
 #    resource: "@HouseBundle/Resources/config/routing.yml"
 #    prefix:   /
