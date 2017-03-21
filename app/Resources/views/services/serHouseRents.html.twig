@@ -17,6 +17,18 @@
     {% set routingNewOffer = 'house_newOfferShareHouse' %}
     {% set titleService = 'Casa compartida' %}
 
+{% elseif service == 8 %}
+    {% set pathFilter = path('serHouseRents') %}
+    {% set routingOffer = 'house_offerHouseSwap' %}
+    {% set routingNewOffer = 'house_newOfferHouseSwap' %}
+    {% set titleService = 'Intercambio de casa' %}
+
+{% elseif service == 9 %}
+    {% set pathFilter = path('serHouseRents') %}
+    {% set routingOffer = 'house_offerBedroomSwap' %}
+    {% set routingNewOffer = 'house_newOfferBedroomSwap' %}
+    {% set titleService = 'Intercambio de habitaciones entre estudiantes' %}
+
 {% endif %}
 
 {% block title %}
