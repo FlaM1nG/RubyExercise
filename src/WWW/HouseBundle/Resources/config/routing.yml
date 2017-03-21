@@ -25,7 +25,7 @@ house_newOfferShareHouse:
     defaults: { _controller: HouseBundle:HouseOffers:createNewOffer }
 
 house_offerShareHouse:
-    path: /share-house/offer/{idOffer}
+    path: /share-house/offer/{idOffer}/
     defaults: { _controller: HouseBundle:HouseOffers:showOfferShareHouse }
     requirements:
             idOffer: \d+

@@ -259,7 +259,7 @@ class MyCompanyEvents implements  \Serializable {
         return $this->price;
     }
     
-      public function setOcuppate($ocuppate = false)
+      public function setOcuppate($ocuppate)
     {
         $this->ocuppate = (boolean) $ocuppate;
     }

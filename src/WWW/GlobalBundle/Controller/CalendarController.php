@@ -92,6 +92,7 @@ class CalendarController extends Controller
 
         $idoffer = $request->get('idOffer');
 
+
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
@@ -214,6 +215,7 @@ class CalendarController extends Controller
         $response->headers->set('Content-Type', 'application/json');
         // precios
         $idoffer = $request->get('idOffer');
+
 
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();

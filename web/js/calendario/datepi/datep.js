@@ -42,7 +42,6 @@ $(document).ready(function() {
                 type: 'post',
                 success: function(data) {
                     totalPrice = data;
-                    console.log(data);
                     $('#precioTotal').text(totalPrice);
                 }
             });
@@ -81,7 +80,6 @@ $(document).ready(function() {
                 type: 'post',
                 success: function(data) {
                     totalPrice = data;
-                    console.log(data);
                     $('#precioTotal').text(totalPrice);
 
                 }

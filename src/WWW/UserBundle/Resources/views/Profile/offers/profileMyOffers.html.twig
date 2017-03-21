@@ -29,7 +29,7 @@
     <div class="row us-dataPersonal-row-fluid">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h3>
-                Mis ofertas publicadas
+                Editando oferta publicada
             </h3>
             <hr/>
 
@@ -72,8 +72,13 @@
                         {% set url = path('house_offerShareHouse', {idOffer: offer.id})%}
                     {% endif%}
 
-                    {{ offers.offUser(url, offer.photos.0.url ,offer.title,
-                    offer.description, 'leer', pathEditar, 'editar', '#borrar','Borrar', offer.id) }}
+                    {% if offer.expired == 1 %}
+                        {{ offers.offUserExp(url, offer.photos.0.url ,offer.title,
+                        offer.description, 'leer', '#borrar','Borrar') }}
+                    {% else %}
+                        {{ offers.offUser(url, offer.photos.0.url ,offer.title,
+                        offer.description, 'leer', pathEditar, 'editar', '#borrar','Borrar', offer.id) }}
+                    {% endif %}
 
                 {% endfor %}
 

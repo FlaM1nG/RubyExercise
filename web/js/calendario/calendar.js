@@ -39,7 +39,7 @@ $(document).ready(function() {
 			eventLimit: true, // allow "more" link when too many events
 			selectable: true,
 			selectHelper: true,
-            disableDragging: true,
+            eventStartEditable: false,
 
             select: function(start, end) {
 
@@ -55,9 +55,6 @@ $(document).ready(function() {
                     $('#ModalEdit #calendar_id').val(event.calendar_id);
                     $('#ModalEdit #service_id').val(event.service_id);
 
-                    element.draggable = true;
-
-                   
                     $('#ModalEdit').modal('show');
                 });
             },
