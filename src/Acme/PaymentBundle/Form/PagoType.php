@@ -91,12 +91,12 @@ class PagoType extends AbstractType {
                 'required' => false
             ))
 
-            ->add('dhl', CheckboxType::class, array(
-                'attr' => array('class' => 'check-send-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
+//            ->add('dhl', CheckboxType::class, array(
+//                'attr' => array('class' => 'check-send-method center-block'),
+//                'label' => ' ',
+//                'mapped' =>false,
+//                'required' => false
+//            ))
 
             ->add('otros', CheckboxType::class, array(
                 'attr' => array('class' => 'check-send-method center-block'),

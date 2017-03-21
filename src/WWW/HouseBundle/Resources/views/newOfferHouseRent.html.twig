@@ -40,6 +40,12 @@
                     {% elseif service == 7 %}
                         Nueva Oferta Casa Compartida
 
+                    {% elseif service == 8 %}
+                        Nueva Oferta Intercambio de Casa
+
+                    {% elseif service == 9 %}
+                        Nueva Oferta Intercambio de Habitaciones
+
                     {% endif %}
                 </h3>
                 <hr/>
@@ -54,9 +60,13 @@
 
         {{ form_row(form.offer.title) }}
         {{ form_row(form.offer.description) }}
-        {{ form_row(form.entryTime) }}
-        {{ form_row(form.departureTime) }}
-        {{ form_row(form.price) }}
+
+        {% if service == 6 or service == 7 %}
+            {{ form_row(form.entryTime) }}
+            {{ form_row(form.departureTime) }}
+            {{ form_row(form.price) }}
+        {% endif %}
+
         {{ form_row(form.newShareHouse) }}
 
         <input type="text" id="DatePicker">
