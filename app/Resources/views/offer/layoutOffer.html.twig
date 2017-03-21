@@ -111,7 +111,7 @@
                             {% if is_granted('select_offer', offer.offer) %}
 
                                 {# comprueba que no es tu propia oferta, el servicio no es de trueque y hay plaza s libres #}
-                                {% if offer.offer.userAdmin.id != app.session.get('id') and service != 3
+                                {% if offer.offer.userAdmin.id != app.session.get('id') and service != 3 and service != 8 and service != 9
                                    and offer.offer.holders-offer.offer.inscriptions|length > 0%}
 
                                         {{form_start(formSubscribe)}}
