@@ -91,7 +91,12 @@
 
 
 {% block offerPrice %} 
-    {{ offer.price }} €
+    {% if service == 6 or service == 7 %}
+
+        {{ offer.price }} €
+
+    {% endif %}
+
 {% endblock %}
 
 
@@ -152,7 +157,8 @@
             </div>
             <!-- FIN DATOS IMPORTATNES DEL SERVICIO -->
         </div>
-        
+
+    {% if service == 6 or service == 7 %}
         <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
             <!-- LLEGADA Y SALIDA -->
             <div class="row">
@@ -180,6 +186,7 @@
             </div>
             <!-- FIN LLEGADA Y SALIDA -->
         </div>
+    {% endif %}
     </div>
     
     
@@ -410,7 +417,7 @@
                     {% if service == 6 and dato.attr != 'entradaPrivada'%}
                          {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
 
-                    {% elseif  service == 7 %}
+                    {% else %}
                         {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
 
                     {% endif %}
