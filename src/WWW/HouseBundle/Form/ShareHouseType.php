@@ -25,6 +25,7 @@ class ShareHouseType extends AbstractType{
         $arrayHouses = $options['arrayHouses'];
         $disabled = false;
 
+
         if(isset($arrayHouses) AND sizeof($arrayHouses) == 0 ) $disabled = true;
 
         $builder
@@ -36,23 +37,28 @@ class ShareHouseType extends AbstractType{
                                                     'data' => $options['data']->getHouse() ))
             ->add('offer', OfferType::class, array('label' => ''))
 
-            ->add('price', MoneyType::class, array('label' => 'Precio base'))
-
-            ->add('entryTime',TimeType::class, array('label' => 'Hora de entrada'))
-
-            ->add('departureTime',TimeType::class, array('label' => 'Hora de salida'))
-
             ->add('houseId', HiddenType::class, array('data' => $options['data']->getHouse()->getId(),
                                                       'mapped'=>false  ))
 
             ->add('newShareHouse', SubmitType::class, array('label' => 'Guardar',
                                                             'attr' => array('disabled' => $disabled)));
+
+        if($options['service'] = 6 || $options['service'] == 7 ):
+
+            $builder
+                ->add('price', MoneyType::class, array('label' => 'Precio base'))
+
+                ->add('entryTime',TimeType::class, array('label' => 'Hora de entrada'))
+
+                ->add('departureTime',TimeType::class, array('label' => 'Hora de salida'));
+        endif;
     }
 
     public function configureOptions(OptionsResolver $resolver){
 
         $resolver->setDefaults(array('data_class' => 'WWW\HouseBundle\Entity\ShareHouse',
-                                     'arrayHouses' => null));
+                                     'arrayHouses' => null,
+                                     'service' => null ));
     }
 
     public function getBlockPrefix(){
