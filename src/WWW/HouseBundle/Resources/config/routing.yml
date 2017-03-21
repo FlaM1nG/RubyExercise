@@ -45,15 +45,15 @@ house_offerHouseSwap:
             idOffer: \d+
 
 house_listBedroomSwap:
-    path: /house-swap/
+    path: /bedroom-swap/
     defaults: { _controller: HouseBundle:HouseOffers:listOfferShareHouse}
 
 house_newOfferBedroomSwap:
-    path: /house-swap/newOffer/
+    path: /bedroom-swap/newOffer/
     defaults: { _controller: HouseBundle:HouseOffers:createNewOffer }
 
 house_offerBedroomSwap:
-    path: /house-swap/offer/{idOffer}
+    path: /bedroom-swap/offer/{idOffer}
     defaults: { _controller: HouseBundle:HouseOffers:showOfferShareHouse }
     requirements:
             idOffer: \d+
