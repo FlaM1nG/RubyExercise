@@ -9705,6 +9705,9 @@ body.pg-loading {
 .navigation {
   text-align: center;
 }
+.row-min-hei {
+  min-height: 40vh;
+}
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
 /*######################   RANGO ANCHO [1600 � 1200[ ######################*/
 /*######################   RANGO ANCHO [1200 �  992[  ######################*/
@@ -9720,6 +9723,12 @@ body.pg-loading {
   }
   .col-pad {
     padding: 0px;
+  }
+  .cd-main-content-special {
+    padding-top: 0 !important;
+  }
+  .titulo-pago {
+    font-size: 30px;
   }
 }
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
