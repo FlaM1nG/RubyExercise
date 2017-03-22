@@ -31,16 +31,17 @@ class PagoType extends AbstractType {
         array_unshift($arrayAddress,$defaultDir);
         
         if($listDir[0]!= null):
-            foreach($listDir as $value):
+            foreach($listDir[0] as $value):
                 array_push($arrayAddress,$value);
             endforeach;
         endif;
-       
+
          
         
         $builder
 
             ->add('addressPay', ChoiceType::class, array(
+                'data_class' => 'WWW\GlobalBundle\Entity\Address',
                 'label' => 'Dirección envio',
                 'choices' => $arrayAddress,
                 'choice_value' => 'id',
@@ -48,7 +49,13 @@ class PagoType extends AbstractType {
                 'choices_as_values' => true,
 //                'data' => $options['data']->getAddressPay() // OBTENER DIRECCION
             ))
-
+            
+            ->add('newAddress', SubmitType::class, array(
+                'attr' => array('class' => 'btn btn-default btn-normal'),
+                'label' => 'NUEVA DIRECCIÓN',
+                
+            ))    
+                
             ->add('facture', CheckboxType::class, array(
                 'attr' => array('class' => 'check-facturacion'),
                 'label' => 'Marque la casilla si desea factura.',

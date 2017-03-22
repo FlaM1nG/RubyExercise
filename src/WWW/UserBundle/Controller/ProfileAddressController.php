@@ -53,10 +53,16 @@ class ProfileAddressController extends Controller
             $result = $this->createAddress($request, $address);
 
             if($result == 'ok'):
+                $session = $request->getSession();
+                $path = $session->get('_security.user.target_path');
+                
+                if ($path != NULL) {
+                    return $this->redirect($path);
+                }
                 return $this->forward('UserBundle:ProfileAddress:listAddress');
             endif;
         endif;
-        
+       
         return $this->render('UserBundle:Profile:profileNewAddress.html.twig',
                              array('form' => $formAddress->createView() )
                             );

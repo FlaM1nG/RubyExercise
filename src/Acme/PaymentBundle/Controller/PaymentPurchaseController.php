@@ -50,8 +50,14 @@ class PaymentPurchaseController extends Controller {
 
         $form = $this->createForm(PagoType::class, $user);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->get('submit')->isClicked()) {
+        $session = $request->getSession();
+        $session->set('_security.user.target_path',null);
+        if ($form->isSubmitted() && $form->get('newAddress')->isClicked()) {
+            $url = $request->getUri();
+            $session->set('_security.user.target_path',$url);
+            return $this->redirectToRoute('user_profiler_newAdress');
+        }
+        elseif ($form->isSubmitted() && $form->get('submit')->isClicked()) { 
 
 //            Si el usuario elige pagar con tarjeta (LA CAIXA)
 //            if ($form->get('gateway_name')->getData() == 'addon_payments') {
