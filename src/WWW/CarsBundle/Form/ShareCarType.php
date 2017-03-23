@@ -76,7 +76,8 @@ class ShareCarType extends AbstractType {
 
             ->add('id', HiddenType::class)
 
-            ->add('newShareCar', SubmitType::class, array('label' => 'Guardar'));
+            ->add('newShareCar', SubmitType::class, array('label' => 'Guardar',
+                                                            'attr' => array('class' => 'btn btn-default btn-normal-derecha')));
 
         if($options['data']->getOffer()->getService()->getId() == 4):
 
