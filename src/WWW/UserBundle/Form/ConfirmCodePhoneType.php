@@ -11,6 +11,7 @@ namespace WWW\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Description of ProfilePhoneType
@@ -20,16 +21,30 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class ConfirmCodePhoneType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-        
+
+        $disabled = array();
+
+        if($options['sendSMS'] != null) $disabled['disabled'] = true;
+
         $builder
                 
-                ->add('codConfirmation', 'text', array('label' => 'Código de confirmación',
-                                                        'mapped' => false,
-                                                        'required' => false))
+            ->add('codConfirmation', 'text', array('label' => 'Código de confirmación',
+                                                    'mapped' => false,
+                                                    'required' => false))
 
-                ->add('confirmPhone',SubmitType::class, array('label' => 'Confirmar',
-                                                      'validation_groups' => false)) ;
-                
+            ->add('confirmPhone',SubmitType::class, array(  'label' => 'Confirmar',
+                                                            'validation_groups' => false))
+
+            ->add('sendSMS', SubmitType::class, array(  'label' => 'Nuevo código',
+                                                        'validation_groups' => false,
+                                                        'disabled' => $disabled));
+
+    }
+
+    public function configureOptions(OptionsResolver $resolver){
+
+        $resolver->setDefaults(array('sendSMS' => null));
+
 
     }
     

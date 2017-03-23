@@ -5,7 +5,7 @@
     Teléfono
 {% endblock %}
 
-{% block alertalertProfile %}
+{% block alertProfile %}
     
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
             {{ alerts.alert('alert-success', flash_message, null) }}
@@ -26,9 +26,13 @@
 
 
 {% block bodyProfile %}
-    
-    {{form(form)}}
-    
+
+    Teléfono actual {{ app.user.phone}} <br>
+    Teléfono nuevo {{ phone }} <br>
+
+    {{form_start(form)}}
+    {{ form_end(form) }}
+
 {% endblock %}
 
 
