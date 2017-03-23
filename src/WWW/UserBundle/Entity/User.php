@@ -1239,7 +1239,7 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @param $pos
      */
     public function removeReceived($pos)
-    { echo "RECEIVED";
+    { 
         unset($this->received[$pos]);
     }
 
