@@ -1,66 +1,67 @@
-<!-- FRANJA SERVICIOS -->
+{% import 'macros/iconos.html.twig' as ico %}
+
+
+
+
+
+
+
+{# Array de imagenes para la galeria #}
+{#
+ {% set nav = {
+ share_car:{ faX: "fa-car", href: "serShareCar", text: "Coche Compartido"},
+ courier:{ faX: "fa-envelope", href: "serShareCar", text: "Mensajería"},
+ renting:{ faX: "fa-weixin", href: "serShareCar", text: "Renting"},
+ camping:{ faX: "fa-envira", href: "serHouseRents", text: "Camping"},
+ money:{ faX: "fa-money", href: "service_listTrade", text: "Compra/Venta"},
+ ticket:{ faX: "fa-ticket", href: "service_listTrade", text: "Entradas Ocio"},
+ } %}
+    {% set photosCar = [] %}
+    {% for nav.share_car.fax.href.text in car.photos%}
+        {% set photosCar = photosCar|merge([photos.url]) %}
+    {% endfor %}
+
 <div class="container">
-    <div class="row row-franja">
-
-        <!-- ICONO 1 -->
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 franja">
-            <a href="#" class="service-ref">
-                <p class="service-text">
-                    <span class="fa fa-car"></span>
-                    <br>Coche Compartido
-                </p>
-            </a>
-        </div>
-
-        <!-- ICONO 2 -->
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 franja">
-            <a href="#" class="service-ref">
-                <p class="service-text">
-                    <span class="fa fa-envelope"></span>
-                    <br>Mensajería
-                </p>
-            </a>
-        </div>
-
-        <!-- ICONO 3 -->
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 franja">
-            <a href="#" class="service-ref">
-                <p class="service-text">
-                    <span class="fa fa-weixin"></span>
-                    <br>Renting
-                </p>
-            </a>
-        </div>
-
-        <!-- ICONO 4 -->
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 franja">
-            <a href="#" class="service-ref">
-                <p class="service-text">
-                    <span class="fa fa-envira"></span>
-                    <br>Camping
-                </p>
-            </a>
-        </div>
-
-        <!-- ICONO 5 -->
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 franja">
-            <a href="#" class="service-ref">
-                <p class="service-text">
-                    <span class="fa fa-money"></span>
-                    <br>Compra/Venta 
-                </p>
-            </a>
-        </div>
-
-        <!-- ICONO 6 -->
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 franja">
-            <a href="#" class="service-ref">
-                <p class="service-text">
-                    <span class="fa fa-ticket"></span>
-                    <br>Entradas Ocio
-                </p>
-            </a>
-        </div>
-    </div> 
+    {{ ico.icon(nav,href,text) }}
 </div>
-<!-- FIN FRANJA SERVICIOS -->
+
+    {% endblock %}
+
+
+#}
+
+{#
+{% import 'macros/offer.html.twig' as ico %}
+
+
+
+    {% set nav = {
+    share_car:{ faX: "fa-car", href: "serShareCar", text: "Coche Compartido"},
+    courier:{ faX: "fa-envelope", href: "serShareCar", text: "Mensajería"},
+    renting:{ faX: "fa-weixin", href: "serShareCar", text: "Renting"},
+    camping:{ faX: "fa-envira", href: "serHouseRents", text: "Camping"},
+    money:{ faX: "fa-money", href: "service_listTrade", text: "Compra/Venta"},
+    ticket:{ faX: "fa-ticket", href: "service_listTrade", text: "Entradas Ocio"},
+    } %}
+
+
+
+    {% for i in 0..6 %}
+
+            {% if nav.share_car or nav.courier or nav.renting or nav.camping or nav.money or nav.ticket not in nav %}
+                <!-- FRANJA SERVICIOS -->
+                     * {{i}}
+                <div class="container">
+               {{ico.icon(faX, href, text)}}
+                </div>
+                <!-- FIN FRANJA SERVICIOS -->
+                {% set nav = nav|merge([random(nav.share_car,nav.courier,nav.renting,nav.camping,nav.money,nav.ticket)]) %}
+            {% endif %}
+
+
+    {% endfor %}
+
+
+
+
+#}
