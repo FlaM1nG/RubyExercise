@@ -149,11 +149,11 @@ _sonata_admin:
     prefix: /admin
 
 
-prueba_inscripcion:
-    path: /prueba/inscritos
-    defaults: { _controller: AppBundle:Index:pruebaInscripcion }
-
-    prefix:   /services/trade
+#prueba_inscripcion:
+                              #    path: /prueba/inscritos
+                              #    defaults: { _controller: AppBundle:Index:pruebaInscripcion }
+                              #
+                              #    prefix:   /services/trade
 
 # app/config/routing.yml
 fos_js_routing:
