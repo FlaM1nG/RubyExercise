@@ -432,7 +432,7 @@
 
                     <!-- DATO -->
                     {% if service == 6 and dato.attr != 'entradaPrivada'%}
-                         {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
+                        {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
 
                     {% else %}
                         {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
@@ -453,10 +453,10 @@
 
                 {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
                 {% if col != 0 %}
-                    </div>
-                {% endif %}
-
             </div>
+            {% endif %}
+
+        </div>
         </div>
 
     {% endfor %}
