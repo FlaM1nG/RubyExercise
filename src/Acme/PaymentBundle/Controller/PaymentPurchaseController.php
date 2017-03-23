@@ -47,8 +47,10 @@ class PaymentPurchaseController extends Controller {
         //Addons >20
         $user = $this->getUserProfile($request);
         $this->setUpVars($request);
-
-        $form = $this->createForm(PagoType::class, $user);
+        if($this->serviceId == 2 ){
+           $courierPrice= $this->getDataCourier($request,  $this->offer->getPrice());
+        }
+        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice() ));
         $form->handleRequest($request);
         $session = $request->getSession();
         $session->set('_security.user.target_path',null);
@@ -346,5 +348,31 @@ class PaymentPurchaseController extends Controller {
 
         return $user;
     }
+    
+    private function getDataCourier(Request $request, &$priceMin){
 
+        $file = MyConstants::PATH_APIREST."services/courier/get_courierPrice.php";
+        $ch = new ApiRest();
+        $courierPrice = null;
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['id_messengerService'] = 2;
+        
+        $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+
+            foreach ($result['messengerPrice'] as $data):
+                $courier = new MessengerPrice($data);
+                $courierPrice[$data['id']] = $courier;
+
+                if($courier->getWeightMin() == 0)
+                    $priceMin = $courier->getPriceES();
+            endforeach;
+        endif;
+        return $courierPrice;
+    }
+    
 }

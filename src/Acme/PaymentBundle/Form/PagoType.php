@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,7 +25,7 @@ use WWW\GlobalBundle\Entity\Address;
 class PagoType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        
+        $amount= $options['amount'];
         $listDir = $options['data']->getAddresses();
         $defaultDir = $options['data']->getDefaultAddress();
         $arrayAddress= [] ;
@@ -111,6 +112,13 @@ class PagoType extends AbstractType {
                 'mapped' =>false,
                 'required' => false
             ))
+           
+            ->add('totalAmount', NumberType::class, array(
+                'attr' => array('class' => 'check-send-method center-block'),
+                'data' => $amount,
+                'mapped' =>false,
+                'required' => false
+            ))    
 
             ->add('submit', SubmitType::class, array(
                 'attr' => array('class' => 'btn btn-default btn-float-none'),
@@ -124,7 +132,8 @@ class PagoType extends AbstractType {
 
        $resolver->setDefaults(array(
            'data_class'=> 'WWW\UserBundle\Entity\User',
-           'validation_groups' => false
+           'validation_groups' => false,
+           'amount' => null
            ));
     }
 

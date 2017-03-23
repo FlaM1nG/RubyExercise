@@ -148,7 +148,8 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <h4>Total</h4>
-                <h4>{{ offer.price|number_format(2, ',') }} €</h4>
+                {#<h4>{{ offer.price|number_format(2, ',') }} €</h4>#}
+                <h4>{{form_row(form.totalAmount)}} €</h4>
                 {{form_row(form.submit, {'id': 'pagar_ofertas'})}}
             </div>
         </div>
