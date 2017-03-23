@@ -7,7 +7,9 @@
 {% set to = app.session.get('username') %}
 
 {% for inscription in offer.offer.inscriptions %}
+    {# Debe estar en estado 3 para poder enviarle los mensajes #}
     {% if inscription.status == 3 %}
+        {# compruebo que el nombre del usuario no esté ya dentro del array 'to' #}
         {% if inscription.username not in to %}
             {% set to = to ~ ',' ~ inscription.username %}
         {% endif %}
@@ -50,7 +52,7 @@
         </div>
 
         {# Si la oferta no tiene inscritos #}
-        {% if offer.offer.hasInscriptions == 1 %}
+        {% if offer.offer.hasInscriptions != 1 %}
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <p>Aún no tienes a gente inscrita, seguro que pronto comprará alguien tu servicio.</p>
@@ -73,10 +75,9 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row row-user-col">
-
                         {% for inscription in offer.offer.inscriptions %}
+                            {# Compruebo que en la lista de inscritos el inscrito sea oficial, que haya pagado (status == 3) #}
                             {% if inscription.status == 3 %}
-
                                 {% if offer.offer.service.id == 5 %}
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
                                         {{ usuarios.userInscr(path('user_public_profile',{username:inscription.username}),
