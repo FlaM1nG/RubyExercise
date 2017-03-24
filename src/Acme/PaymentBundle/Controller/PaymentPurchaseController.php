@@ -103,17 +103,20 @@ class PaymentPurchaseController extends Controller {
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
-                $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
-                        'redsys', $payment, 'acme_payment_done'
+                $captureTokenOK = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                        'redsys', $payment, 'prueba_postpago_ok'
+                );
+                $captureTokenKO = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                        'redsys', $payment, 'prueba_postpago_ko'
                 );
 
-                $details['Ds_Merchant_UrlOK'] = $captureToken->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
-                $details['Ds_Merchant_UrlKO'] = $captureToken->getAfterUrl();
+                $details['Ds_Merchant_UrlOK'] = $captureTokenOK->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
+                $details['Ds_Merchant_UrlKO'] = $captureTokenKO->getAfterUrl() ;
                 $payment->setDetails($details);
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
-                return $this->redirect($captureToken->getTargetUrl());
+                return $this->redirect($captureTokenOK->getTargetUrl());
             }
 
             //Si no, se paga por PAYPAL

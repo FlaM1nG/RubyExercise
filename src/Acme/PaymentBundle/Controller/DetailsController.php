@@ -54,15 +54,28 @@ class DetailsController extends PayumController
 
         
         $details = $status->getFirstModel();
+       $IDPayment= $details->getNumber();
+        if(isset($details->getDetails()['CANCELLED'])){
+            return $this->render('pay/postPayPageKO.html.twig',array(
+            'details' => $details
+            
+            ));
+        }
+        else {
+            return $this->render('pay/postPayPageOK.html.twig',array(
+            'id' => $IDPayment
+            
+            ));
+        }
         
-        if ($details instanceof  DetailsAggregateInterface) {
-            $details = $details->getDetails();
-        }
-
-        if ($details instanceof  \Traversable) {
-            $details = iterator_to_array($details);
-        }
-        return new Response(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+//        if ($details instanceof  DetailsAggregateInterface) {
+//            $details = $details->getDetails();
+//        }
+//
+//        if ($details instanceof  \Traversable) {
+//            $details = iterator_to_array($details);
+//        }
+//        return new Response(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 //        return $this->render('AcmePaymentBundle:Details:view.html.twig', array(
 //            'status' => $status->getValue(),
 //            'payment' => htmlspecialchars(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)),

@@ -167,13 +167,7 @@ prueba_pago:
     path: /prueba/previopago
     defaults: { _controller: AppBundle:Index:pruebaPantallaPago }
 
-prueba_postpago_ok:
-    path: /prueba/postpagook
-    defaults: { _controller: AppBundle:Index:pruebaPantallaPostPagoOk }
 
-prueba_postpago_ko:
-    path: /prueba/postpagoko
-    defaults: { _controller: AppBundle:Index:pruebaPantallaPostPagoKO }
 
 #house:
 #    resource: "@HouseBundle/Resources/config/routing.yml"

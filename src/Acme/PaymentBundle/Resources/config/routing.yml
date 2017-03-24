@@ -2,7 +2,12 @@ acme_redsys:
     resource:   "@AcmePaymentBundle/Controller/"
     type:       annotation
     prefix:     /
-
+prueba_postpago_ok:
+    path: /payment/completed
+    defaults: { _controller: AcmePaymentBundle:PaymentDoneOK:view }
+prueba_postpago_ko:
+    path: /payment/failed
+    defaults: { _controller: AcmePaymentBundle:PaymentDoneKO:view }
 acme_mobile_payment:
     path: /mobile/payments
     defaults: { _controller: AcmePaymentBundle:Mobile:prepare }
