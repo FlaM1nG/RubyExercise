@@ -262,7 +262,8 @@ class ProfileHouseController extends Controller{
         $house = $this->getHouse($request);
 
         return $this->render('UserBundle:Profile/House:profileObjectHouse.html.twig',array(
-                             'house' => $house
+                                'house' => $house,
+                                'arrayAttr' => $house->getArrayGroupsAttrH()
         ));
     }
 
