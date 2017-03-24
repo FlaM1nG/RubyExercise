@@ -24,6 +24,7 @@ use WWW\UserBundle\Form\MessageType;
 use WWW\UserBundle\Entity\User;
 
 
+
 class HouseOffersController extends Controller
 {
     public function createNewOfferAction(Request $request){

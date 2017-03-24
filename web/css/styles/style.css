@@ -12439,9 +12439,6 @@ a.boton-leer-post:focus {
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 /* ------------------ USER  ------------------
 ******************************************************************/
-.input-group-addon {
-  border: 1px solid #ccc !important;
-}
 .row-us-name {
   padding-top: 10px;
 }
@@ -12456,6 +12453,7 @@ a.boton-leer-post:focus {
   -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  margin-top: 20px;
 }
 .user-inscrip .us-val {
   padding-bottom: 10px;
@@ -15380,6 +15378,9 @@ textarea {
     right: 13%;
   }
 }
+.not-margin {
+  margin: 0;
+}
 /* Pagos */
 .btn-float-none {
   float: none !important;
@@ -15779,6 +15780,9 @@ textarea {
 .off-price-offer .input-group-addon {
   border: 1px solid #CCC;
 }
+.off-special-price .input-group-addon {
+  border: 1px solid #CCC;
+}
 .off-texto-matizar p {
   font-size: 12px;
 }
@@ -15842,6 +15846,12 @@ textarea {
     padding-left: 15px;
     padding-right: 15px;
     float: left;
+  }
+  .off-middle-hijo {
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+    width: 50%;
   }
 }
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
