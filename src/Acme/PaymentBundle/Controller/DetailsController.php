@@ -54,6 +54,7 @@ class DetailsController extends PayumController
 
         
         $details = $status->getFirstModel();
+        
         if ($details instanceof  DetailsAggregateInterface) {
             $details = $details->getDetails();
         }
@@ -71,4 +72,9 @@ class DetailsController extends PayumController
 //            'cancelToken' => $cancelToken,
 //        ));
     }
+    
+    private function getStatusPayment(){
+        
+    }
+    
 }

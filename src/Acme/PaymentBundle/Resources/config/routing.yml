@@ -4,7 +4,7 @@ acme_redsys:
     prefix:     /
 
 acme_mobile_payment:
-    path: /payment/mobile
+    path: /mobile/payments
     defaults: { _controller: AcmePaymentBundle:Mobile:prepare }
  
 acme_payment_homepage:
