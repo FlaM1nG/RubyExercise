@@ -7,7 +7,13 @@
 {% set to = app.session.get('username') %}
 
 {% for inscription in offer.offer.inscriptions %}
-    {% set to = to ~ ',' ~ inscription.username%}
+    {# Debe estar en estado 3 para poder enviarle los mensajes #}
+    {% if inscription.status == 3 %}
+        {# compruebo que el nombre del usuario no esté ya dentro del array 'to' #}
+        {% if inscription.username not in to %}
+            {% set to = to ~ ',' ~ inscription.username %}
+        {% endif %}
+    {% endif %}
 {% endfor %}
 
 {% block header %}
@@ -29,7 +35,7 @@
 {% endblock %}
 
 {% block body %}
-
+    {#{{ dump(offer) }}#}
     <div class="container cd-main-content cont-inscri">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -45,40 +51,53 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <button class="btn-default btn off-btn-write butonWriteUser"
-                        data-toggle="modal"
-                        data-target="#writeUser"
-                        data-name="{{ to }}">
-                    Escribe a todos
-                </button>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="row row-user-col">
-
-                    {% for inscription in offer.offer.inscriptions %}
-                        {% if offer.offer.service.id == 5 %}
-
-                            <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
-                                {{ usuarios.userInscr(path('user_public_profile',{username:inscription.username}),
-                                    asset(inscription.user_photo,'img'), inscription.username,
-                                    inscription.avg_score, inscription.valoration_num, '##',formMessage, inscription.courier.weight_min, inscription.courier.weight_max) }}
-                        {% else %}
-                            <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
-                            {{ usuarios.userInscr(path('user_public_profile',{username:inscription.username}),
-                                asset(inscription.user_photo,'img'), inscription.username,
-                                inscription.avg_score, inscription.valoration_num, '##',formMessage) }}
-                        {% endif %}
-
-                        </div>
-                    {% endfor %}
+        {# Si la oferta no tiene inscritos #}
+        {% if offer.offer.hasInscriptions != 1 %}
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p>Aún no tienes a gente inscrita, seguro que pronto comprará alguien tu servicio.</p>
                 </div>
             </div>
-        </div>
+
+        {# Si la oferta tiene inscritos #}
+        {% else %}
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button class="btn-default btn off-btn-write butonWriteUser"
+                            data-toggle="modal"
+                            data-target="#writeUser"
+                            data-name="{{ to }}">
+                        Escribe a todos
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row row-user-col">
+                        {% for inscription in offer.offer.inscriptions %}
+                            {# Compruebo que en la lista de inscritos el inscrito sea oficial, que haya pagado (status == 3) #}
+                            {% if inscription.status == 3 %}
+                                {% if offer.offer.service.id == 5 %}
+                                    <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
+                                        {{ usuarios.userInscr(path('user_public_profile',{username:inscription.username}),
+                                        asset(inscription.user_photo,'img'), inscription.username,
+                                        inscription.avg_score, inscription.valoration_num, '##',formMessage,
+                                        inscription.courier.weight_min, inscription.courier.weight_max) }}
+                                {% else %}
+                                    <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
+                                        {{ usuarios.userInscr(path('user_public_profile',{username:inscription.username}),
+                                        asset(inscription.user_photo,'img'), inscription.username,
+                                        inscription.avg_score, inscription.valoration_num, '##',formMessage) }}
+                                {% endif %}
+                                    </div>
+
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+        {% endif %}
     </div>
 
 {% endblock %}
