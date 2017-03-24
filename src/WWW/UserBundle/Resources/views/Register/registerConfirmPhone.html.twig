@@ -28,7 +28,7 @@
     <!-- CUERPO FORMULARIO -->
 
     <div class="container cd-main-content">
-        Teléfono actual: {{ dump(app.user) }}
+        Teléfono actual: {{ app.session.get('phone') }}
         Teléfono a confirmar: {{ newPhone }}
 
         <br><br>
