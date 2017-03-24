@@ -99,9 +99,15 @@ class IndexController extends Controller
         return $this->render('pay/payPage.html.twig');
     }
 
-    public function pruebaPantallaPostPagoAction(){
+    public function pruebaPantallaPostPagoOKAction(){
 //        $formulario = $this->createForm(PagoType::class);
 
-        return $this->render('pay/postPayPage.html.twig');
+        return $this->render('pay/postPayPageOK.html.twig');
+    }
+
+    public function pruebaPantallaPostPagoKOAction(){
+//        $formulario = $this->createForm(PagoType::class);
+
+        return $this->render('pay/postPayPageKO.html.twig');
     }
 }
