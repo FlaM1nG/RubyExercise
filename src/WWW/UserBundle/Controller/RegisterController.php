@@ -32,7 +32,7 @@ class RegisterController extends Controller{
     private $ut = null;
     
     public function registerAction(Request $request,$token){
-        echo "que pasa???";
+
         $this->usuario = new User();
         $this->ut =  new Utilities();
         
@@ -48,9 +48,7 @@ class RegisterController extends Controller{
         if($formulario->isSubmitted() AND $formulario->isValid()):
             //el sms se envía solo
             $result = $this->newUser($request, $totalHobbies);
-            print_r($result);
 
-//            $result['result'] = 'ok';
             if ($result['result'] == 'ok'):
 
                 $this->saveSessionUser($request, $result);
@@ -128,6 +126,7 @@ class RegisterController extends Controller{
         $session->set("id",$result['id']);
         $session->set("username",$result['username']);
         $session->set("password",$result['password']);
+        $session->set('phone', $result['phone']);
 
     }
 
@@ -139,15 +138,11 @@ class RegisterController extends Controller{
         $timeSMS = null;
 
         $resultUnconfirmePhones = $this->unconfirmedPhones($request);
-        print_r($resultUnconfirmePhones);
 
         $phoneNew = $resultUnconfirmePhones['phones'][sizeof($resultUnconfirmePhones['phones'])-1]['phone'];
         $arrayTried = $this->getTried($request);
         $numTried = $arrayTried['phone_attempt_num'];
         $numSMS = $arrayTried['confirm_sms_num'];
-
-        echo "<br>";
-        print_r($arrayTried);
 
         $form = $this->createForm(ConfirmCodePhoneType::class,null,array('sendSMS' => $numSMS, 'tried' => $numTried));
 
@@ -326,18 +321,5 @@ class RegisterController extends Controller{
         return $interval->format('%d días %h horas y %i minutos');
 
     }
-
-
-
-
-
-
-
-
-
-    
-
-
-    
 
 }
