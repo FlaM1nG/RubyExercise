@@ -51,6 +51,14 @@ class PaymentPurchaseController extends Controller {
         $form = $this->createForm(PagoType::class, $user);
         $form->handleRequest($request);
 
+        $arrayCourier = null;
+        $this->serviceId = $this->offer->getOffer()->getService()->getId();
+
+        if($this->serviceId == 1 || $this->serviceId == 2):
+            $arrayCourier = $this->getCourierPrice($request);
+
+        endif;
+        
         if ($form->isSubmitted() && $form->get('submit')->isClicked()) {
 
 //            Si el usuario elige pagar con tarjeta (LA CAIXA)
@@ -126,6 +134,7 @@ class PaymentPurchaseController extends Controller {
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
                     'offer' => $this->offer,
+                    'arrayCourier' => $arrayCourier
         ));
     }
 
@@ -339,6 +348,26 @@ class PaymentPurchaseController extends Controller {
         endif;
 
         return $user;
+    }
+
+    private function getCourierPrice(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'services/courier/get_courierPrice.php';
+        $ch = new ApiRest();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['id_messengerService'] = 2;
+        $data['weight'] = $this->offer->getWeight();
+        
+        $result = $ch->resultApiRed($data, $file);
+
+        if($result['result'] == 'ok'):
+            return $result['messengerPrice'][0];
+        else:
+            return null;
+        endif;
     }
 
 }
