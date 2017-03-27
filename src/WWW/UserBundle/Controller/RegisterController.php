@@ -126,7 +126,7 @@ class RegisterController extends Controller{
         $session->set("id",$result['id']);
         $session->set("username",$result['username']);
         $session->set("password",$result['password']);
-        $session->set('phone', $result['phone']);
+        $session->set('phone', $this->usuario->getPhone());
 
     }
 
@@ -140,21 +140,23 @@ class RegisterController extends Controller{
         $resultUnconfirmePhones = $this->unconfirmedPhones($request);
 
         $phoneNew = $resultUnconfirmePhones['phones'][sizeof($resultUnconfirmePhones['phones'])-1]['phone'];
-        $arrayTried = $this->getTried($request);
-        $numTried = $arrayTried['phone_attempt_num'];
-        $numSMS = $arrayTried['confirm_sms_num'];
+
+        $this->getInfoTriedSMS($request, $numTried, $numSMS, $timeTried, $timeSMS);
+//        $arrayTried = $this->getTried($request);
+//        $numTried = $arrayTried['phone_attempt_num'];
+//        $numSMS = $arrayTried['confirm_sms_num'];
+//
+//        if(array_key_exists('phone_attempt_date', $arrayTried)):
+//            $timeTried = $this->calculateTimeNewTried($arrayTried['phone_attempt_date']['date']);
+//        endif;
+//
+//        if(array_key_exists('confirm_sms_date', $arrayTried)):
+//            $timeSMS = $this->calculteTimeNewSMS($arrayTried['confirm_sms_date']['date']);
+//        endif;
 
         $form = $this->createForm(ConfirmCodePhoneType::class,null,array('sendSMS' => $numSMS, 'tried' => $numTried));
 
         $form->handleRequest($request);
-
-        if(array_key_exists('phone_attempt_date', $arrayTried)):
-            $timeTried = $this->calculateTimeNewTried($arrayTried['phone_attempt_date']['date']);
-        endif;
-
-        if(array_key_exists('confirm_sms_date', $arrayTried)):
-            $timeSMS = $this->calculteTimeNewSMS($arrayTried['confirm_sms_date']['date']);
-        endif;
 
         if($form->isSubmitted()):
 
@@ -164,6 +166,12 @@ class RegisterController extends Controller{
 
                 if($result == 'ok'):
                     return $this->redirectToRoute('user_login');
+                else:
+                    $timeTried --;
+                    if($timeTried == 0):
+                        $this->getInfoTriedSMS($request, $numTried, $numSMS, $timeTried, $timeSMS);
+                        $form = $this->createForm(ConfirmCodePhoneType::class,null,array('sendSMS' => $numSMS, 'tried' => $numTried));
+                    endif;
                 endif;
 
             elseif( $form->get('sendSMS')->isClicked()):
@@ -173,8 +181,10 @@ class RegisterController extends Controller{
             endif;
 
         endif;
+
+
         
-        return $this->render('UserBundle:Register:registerConfirmPhone.html.twig',array(
+        return $this->render('UserBundle:validation:validation.html.twig',array(
                              'newPhone' => $phoneNew,
                              'form' => $form->createView(),
                              'numTried' => $numTried,
@@ -198,6 +208,21 @@ class RegisterController extends Controller{
         $result = $ch->resultApiRed($data, $file);
 
         return $result;
+    }
+
+    private function getInfoTriedSMS(Request $request, &$numTried, &$numSMS, &$timeTried, &$timeSMS){
+
+        $arrayTried = $this->getTried($request);
+        $numTried = $arrayTried['phone_attempt_num'];
+        $numSMS = $arrayTried['confirm_sms_num'];
+
+        if(array_key_exists('phone_attempt_date', $arrayTried)):
+            $timeTried = $this->calculateTimeNewTried($arrayTried['phone_attempt_date']['date']);
+        endif;
+
+        if(array_key_exists('confirm_sms_date', $arrayTried)):
+            $timeSMS = $this->calculteTimeNewSMS($arrayTried['confirm_sms_date']['date']);
+        endif;
     }
 
     private function getTried(Request $request){

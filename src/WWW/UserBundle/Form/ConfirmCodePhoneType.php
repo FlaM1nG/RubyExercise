@@ -30,9 +30,10 @@ class ConfirmCodePhoneType extends AbstractType{
 
         $builder
                 
-            ->add('codConfirmation', 'text', array('label' => 'Código de confirmación',
+            ->add('codConfirmation', 'text', array('label' => 'Código',
                                                     'mapped' => false,
-                                                    'required' => false,))
+                                                    'required' => false,
+                                                    'attr' => array('placeholder' => 'Ej: xxx123')))
 
             ->add('confirmPhone',SubmitType::class, array(  'label' => 'Confirmar',
                                                             'validation_groups' => false,
