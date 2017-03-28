@@ -11,13 +11,6 @@
 {% endblock %}
 
 {% block body %}
-    {#{{ dump(offer) }}#}
-  {#{% set regionOrigen = offer.region|lower %}#}
-
-  {#{% set address = form.children.addressPay.vars.choices %}#}
-  {#{% set regionDestino = address.0.data.region|lower %}#}
-  {#{{ regionOrigen }}#}
-    {#{{ dump(regionDestino) }}#}
 
   {{form_start(form)}}
     <div class="container cd-main-content">
@@ -90,13 +83,9 @@
                 <div class="us-check-group-element col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label class="check-payment-method center-block" title="Paypal">
                         <img class="img-responsive center-block img-metodo-pago" src="{{ asset('img/paypal.png') }}" />
-                        {#{{form_widget(form.paypal)}}#}
                         {{ form_widget(form.payMethod.0) }}
                     </label>
 
-                    {#<span class="us-register-text-hobby">#}
-                    {#Paypal#}
-                    {#</span>#}
                 </div>
 
                 <div class="us-check-group-element col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -106,31 +95,27 @@
                         {{ form_widget(form.payMethod.1) }}
                     </label>
 
-                    {#<span class="us-register-text-hobby">#}
-                    {#Tarjeta#}
-                    {#</span>#}
                 </div>
             </div>
         </div>
 
+    <!-- Métodos de envío -->
+
+    {% if service == 1 or service == 2 %}
         <div class="cont-pago">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 separacion-inferior">
                     <h4>Método de envio</h4>
                 </div>
             </div>
-{#{{ form_widget(form.sendMethod) }}#}
+
             <div class="row row-send-method">
                  <div class="us-check-group-element col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label class="check-send-method center-block" title="Correos">
                         <img class="img-responsive center-block img-metodo-envio" src="{{ asset('img/correos.jpg') }}" />
-                        {#{{form_widget(form.correos)}}#}
                         {{ form_widget(form.sendMethod.0,{'id':'sendMethod_correos','attr': {'class':'check-send-method center-block'}}) }}
                     </label>
 
-                    {#<span class="us-register-text-hobby">#}
-                    {#Correos#}
-                    {#</span>#}
                 </div>
 
 {#                <div class="us-check-group-element col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -156,7 +141,9 @@
                 </div>
             </div>
         </div>
-
+        
+    {% endif %}
+    <!-- Fin métodos de envío -->
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
@@ -176,10 +163,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% if service == 1 or service == 2 %}
                         <tr>
                             <td>Gastos de envío</td>
                             <td class="text-right gastosEnvio">0.00 €</td>
                         </tr>
+                    {% endif %}
                         <tr>
                             <td>Gastos de gestión</td>
                             <td class="text-right iva">0.00 €</td>
@@ -202,6 +191,7 @@
         </div>
 
     </div>
+
 {% endblock %}
 
 {% block javascriptsFooter %}
@@ -209,61 +199,12 @@
 
     {{ include('nav/menuScript.html.twig') }}
 
+    {% if service == 1 or service == 2 %}
+        {{ include('pay/payGastosEnvio.html.twig') }}
+    {% endif %}
+
     <script type="text/javascript">
         $(document).ready(function () {
-
-            var addresses = '{{ arrayAddresses|json_encode|raw}}';
-            region=[];
-
-            $(document).on('click','.check-send-method', actualizaGastosEnvio);
-            $(document).on('change','#previoPago_addressPay', actualizaGastosEnvio);
-
-
-            var arrayAddress = JSON.parse(addresses, function (key, value){
-                var clave = parseInt(key);
-
-                region[clave] = value;
-
-                return region;
-            });
-
-//            console.log(arrayAddress);
-
-            function actualizaGastosEnvio(){
-//                console.log('pincho en metodo envio');
-                var index = document.getElementById('previoPago_addressPay').value;
-                var regionDestino = arrayAddress[index];
-                var regionOrigen = '{{ offer.region }}';
-                var gastosEnvio = 0;
-                var precioTotal = parseFloat({{ offer.price}});
-
-                if(document.getElementById('sendMethod_correos').checked) {
-
-                    if(regionOrigen == 'las palmas' || regionOrigen == 's.c.tenerife' ||
-                            regionDestino == 'las palmas' || regionDestino == 's.c.tenerife') {
-                        gastosEnvio = parseFloat({{ arrayCourier.price_ca }});
-
-                    }else if(regionOrigen == 'baleares' || regionOrigen == 'melilla' || regionOrigen == 'ceuta' ||
-                            regionDestino == 'baleares' || regionDestino == 'melilla' || regionDestino == 'ceuta') {
-
-                        gastosEnvio = parseFloat({{ arrayCourier.price_ba }});
-                    }else {
-                        gastosEnvio = parseFloat({{ arrayCourier.price_es }});
-                    }
-
-                }else if(document.getElementById('sendMethod_others').checked){
-                    gastosEnvio = 0.00;
-                }
-
-//                gastosEnvio =  parseFloat(gastosEnvio).toFixed(2);
-                precioTotalAux = parseFloat(gastosEnvio + precioTotal).toFixed(2);
-
-                $('.gastosEnvio').html(parseFloat(gastosEnvio).toFixed(2)+' €');
-                $('.precioTotal').html(precioTotalAux+' €')
-
-//                console.log('origen: '+regionOrigen+' destino: '+regionDestino+' gastosEnvio '+gastosEnvio);
-            }
-
 
             {# Funcionalidad para mostrar o no para realizar factura. #}
             $('.check-facturacion').on('click', function () {
