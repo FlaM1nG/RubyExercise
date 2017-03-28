@@ -46,6 +46,14 @@ class PaymentPurchaseController extends Controller {
         //Redsys <20
         //Addons >20
         $user = $this->getUserProfile($request);
+        $arrayAddressesPay = array();
+
+        foreach($user->getAddresses()[0] as $data ):
+            $arrayAddressesPay[$data->getId()] = $data->getRegion();
+        endforeach;
+
+        $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
+
         $this->setUpVars($request);
 
         $form = $this->createForm(PagoType::class, $user);
@@ -58,7 +66,7 @@ class PaymentPurchaseController extends Controller {
             $arrayCourier = $this->getCourierPrice($request);
 
         endif;
-        
+
         if ($form->isSubmitted() && $form->get('submit')->isClicked()) {
 
 //            Si el usuario elige pagar con tarjeta (LA CAIXA)
@@ -79,7 +87,7 @@ class PaymentPurchaseController extends Controller {
             $payment->setClientEmail($user->getUsername());
 
             //REDSYS
-            if (isset($request->get('previoPago')['card'])) {
+            if ($request->get('previoPago')['payMethod'] == 'card') {
                 // 4548812049400004
                 // 12/20
                 // 123
@@ -117,7 +125,7 @@ class PaymentPurchaseController extends Controller {
             }
 
             //Si no, se paga por PAYPAL
-            else {
+            elseif($request->get('previoPago')['payMethod'] == 'paypal') {
                 
                 $storage = $this->getPayum()->getStorage($payment);
                 $storage->update($payment);
@@ -134,7 +142,8 @@ class PaymentPurchaseController extends Controller {
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
                     'offer' => $this->offer,
-                    'arrayCourier' => $arrayCourier
+                    'arrayCourier' => $arrayCourier,
+                    'arrayAddresses' => $arrayAddressesPay,
         ));
     }
 
