@@ -20,10 +20,11 @@
 
             var index = document.getElementById('previoPago_addressPay').value;
             var regionDestino = arrayAddress[index];
-            var regionOrigen = '{{ offer.region }}';
+            var regionOrigen = '{{ offer.region|lower }}';
 
             var gastosEnvio = 0;
             var precioTotal = parseFloat({{ offer.price}});
+
 
             if(document.getElementById('sendMethod_correos').checked) {
 
