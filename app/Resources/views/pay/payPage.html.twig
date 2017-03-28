@@ -11,6 +11,14 @@
 {% endblock %}
 
 {% block body %}
+    {#{{ dump(offer) }}#}
+  {#{% set regionOrigen = offer.region|lower %}#}
+
+  {#{% set address = form.children.addressPay.vars.choices %}#}
+  {#{% set regionDestino = address.0.data.region|lower %}#}
+  {#{{ regionOrigen }}#}
+    {#{{ dump(regionDestino) }}#}
+
   {{form_start(form)}}
     <div class="container cd-main-content">
         <div class="row">
@@ -82,7 +90,8 @@
                 <div class="us-check-group-element col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label class="check-payment-method center-block" title="Paypal">
                         <img class="img-responsive center-block img-metodo-pago" src="{{ asset('img/paypal.png') }}" />
-                        {{form_widget(form.paypal)}}
+                        {#{{form_widget(form.paypal)}}#}
+                        {{ form_widget(form.payMethod.0) }}
                     </label>
 
                     {#<span class="us-register-text-hobby">#}
@@ -93,7 +102,8 @@
                 <div class="us-check-group-element col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label class="check-payment-method center-block" title="Tarjeta">
                         <img class="img-responsive center-block img-metodo-pago" src="{{ asset('img/tarjetas3.jpg') }}" />
-                        {{form_widget(form.card)}}
+                        {#{{form_widget(form.card)}}#}
+                        {{ form_widget(form.payMethod.1) }}
                     </label>
 
                     {#<span class="us-register-text-hobby">#}
@@ -109,12 +119,13 @@
                     <h4>Método de envio</h4>
                 </div>
             </div>
-
+{#{{ form_widget(form.sendMethod) }}#}
             <div class="row row-send-method">
                  <div class="us-check-group-element col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label class="check-send-method center-block" title="Correos">
                         <img class="img-responsive center-block img-metodo-envio" src="{{ asset('img/correos.jpg') }}" />
-                        {{form_widget(form.correos)}}
+                        {#{{form_widget(form.correos)}}#}
+                        {{ form_widget(form.sendMethod.0,{'id':'sendMethod_correos','attr': {'class':'check-send-method center-block'}}) }}
                     </label>
 
                     {#<span class="us-register-text-hobby">#}
@@ -136,7 +147,7 @@
                  <div class="us-check-group-element col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label class="check-send-method center-block" title="Otros">
                         <img class="img-responsive center-block img-metodo-envio" src="{{ asset('img/otro.png') }}" />
-                        {{form_widget(form.otros)}}
+                        {{ form_widget(form.sendMethod.1,{'id':'sendMethod_others','attr': {'class':'check-send-method center-block'}}) }}
                     </label>
 
                     {#<span class="us-register-text-hobby">#}
@@ -150,7 +161,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <h4>Total</h4>
-                <h4>{{ offer.price|number_format(2, ',') }} €</h4>
+                <h4 class="precioTotal">{{ offer.price|number_format(2, ',') }} €</h4>
                 {{form_row(form.submit, {'id': 'pagar_ofertas'})}}
             </div>
         </div>
@@ -167,11 +178,15 @@
                     <tbody>
                         <tr>
                             <td>Gastos de envío</td>
-                            <td class="text-right">Precio</td>
+                            <td class="text-right gastosEnvio">0.00 €</td>
+                        </tr>
+                        <tr>
+                            <td>Gastos de gestión</td>
+                            <td class="text-right iva">0.00 €</td>
                         </tr>
                         <tr>
                             <td>%IVA</td>
-                            <td class="text-right">Precio</td>
+                            <td class="text-right iva">Precio</td>
                         </tr>
                         <tr class="table-pago-total">
                             <th></th>
@@ -179,14 +194,12 @@
                         </tr>
                         <tr class="table-pago-total">
                             <td></td>
-                            <td>{{ offer.price|number_format(2, ',') }} €</td>
+                            <td class="precioTotal">{{ offer.price|number_format(2, ',') }} €</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
-
 
     </div>
 {% endblock %}
@@ -198,6 +211,59 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            var addresses = '{{ arrayAddresses|json_encode|raw}}';
+            region=[];
+
+            $(document).on('click','.check-send-method', actualizaGastosEnvio);
+            $(document).on('change','#previoPago_addressPay', actualizaGastosEnvio);
+
+
+            var arrayAddress = JSON.parse(addresses, function (key, value){
+                var clave = parseInt(key);
+
+                region[clave] = value;
+
+                return region;
+            });
+
+//            console.log(arrayAddress);
+
+            function actualizaGastosEnvio(){
+//                console.log('pincho en metodo envio');
+                var index = document.getElementById('previoPago_addressPay').value;
+                var regionDestino = arrayAddress[index];
+                var regionOrigen = '{{ offer.region }}';
+                var gastosEnvio = 0;
+                var precioTotal = parseFloat({{ offer.price}});
+
+                if(document.getElementById('sendMethod_correos').checked) {
+
+                    if(regionOrigen == 'las palmas' || regionOrigen == 's.c.tenerife' ||
+                            regionDestino == 'las palmas' || regionDestino == 's.c.tenerife') {
+                        gastosEnvio = parseFloat({{ arrayCourier.price_ca }});
+
+                    }else if(regionOrigen == 'baleares' || regionOrigen == 'melilla' || regionOrigen == 'ceuta' ||
+                            regionDestino == 'baleares' || regionDestino == 'melilla' || regionDestino == 'ceuta') {
+
+                        gastosEnvio = parseFloat({{ arrayCourier.price_ba }});
+                    }else {
+                        gastosEnvio = parseFloat({{ arrayCourier.price_es }});
+                    }
+
+                }else if(document.getElementById('sendMethod_others').checked){
+                    gastosEnvio = 0.00;
+                }
+
+//                gastosEnvio =  parseFloat(gastosEnvio).toFixed(2);
+                precioTotalAux = parseFloat(gastosEnvio + precioTotal).toFixed(2);
+
+                $('.gastosEnvio').html(parseFloat(gastosEnvio).toFixed(2)+' €');
+                $('.precioTotal').html(precioTotalAux+' €')
+
+//                console.log('origen: '+regionOrigen+' destino: '+regionDestino+' gastosEnvio '+gastosEnvio);
+            }
+
 
             {# Funcionalidad para mostrar o no para realizar factura. #}
             $('.check-facturacion').on('click', function () {
