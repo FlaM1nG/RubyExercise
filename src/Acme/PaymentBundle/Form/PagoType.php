@@ -31,7 +31,7 @@ class PagoType extends AbstractType {
         array_unshift($arrayAddress,$defaultDir);
         
         if($listDir[0]!= null):
-            foreach($listDir as $value):
+            foreach($listDir[0] as $value):
                 array_push($arrayAddress,$value);
             endforeach;
         endif;
@@ -70,27 +70,35 @@ class PagoType extends AbstractType {
                 'mapped' =>false,
                 'required' => false
             ))
-            ->add('paypal', CheckboxType::class, array(
-                'attr' => array('class' => 'check-payment-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
+//            ->add('paypal', CheckboxType::class, array(
+//                'attr' => array('class' => 'check-payment-method center-block'),
+//                'label' => ' ',
+//                'mapped' =>false,
+//                'required' => false
+//            ))
+//
+//            ->add('card', CheckboxType::class, array(
+//                'attr' => array('class' => 'check-payment-method center-block'),
+//                'label' => ' ',
+//                'mapped' =>false,
+//                'required' => false
+//            ))
 
-            ->add('card', CheckboxType::class, array(
-                'attr' => array('class' => 'check-payment-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
+//            ->add('correos', CheckboxType::class, array(
+//                'attr' => array('class' => 'check-send-method center-block'),
+//                'label' => ' ',
+//                'mapped' =>false,
+//                'required' => false
+//            ))
+            ->add('payMethod', ChoiceType::class, array('choices' => array('paypal' =>' ', 'card' => ' '),
+                                                        'expanded' => true,
+                                                        'multiple' => false,
+                                                        'mapped' => false))
 
-            ->add('correos', CheckboxType::class, array(
-                'attr' => array('class' => 'check-send-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
-
+            ->add('sendMethod', ChoiceType::class, array('choices' => array('correos' => ' ', 'otros' =>' '),
+                                                         'expanded' => true,
+                                                         'multiple' => false,
+                                                         'mapped' => false))
 //            ->add('dhl', CheckboxType::class, array(
 //                'attr' => array('class' => 'check-send-method center-block'),
 //                'label' => ' ',
@@ -98,12 +106,12 @@ class PagoType extends AbstractType {
 //                'required' => false
 //            ))
 
-            ->add('otros', CheckboxType::class, array(
-                'attr' => array('class' => 'check-send-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
+//            ->add('otros', CheckboxType::class, array(
+//                'attr' => array('class' => 'check-send-method center-block'),
+//                'label' => ' ',
+//                'mapped' =>false,
+//                'required' => false
+//            ))
 
             ->add('submit', SubmitType::class, array(
                 'attr' => array('class' => 'btn btn-default btn-float-none'),
