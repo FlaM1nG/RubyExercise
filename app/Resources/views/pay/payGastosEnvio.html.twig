@@ -1,0 +1,56 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var addresses = '{{ arrayAddresses|json_encode|raw}}';
+        region=[];
+
+        $(document).on('click','.check-send-method', actualizaGastosEnvio);
+        $(document).on('change','#previoPago_addressPay', actualizaGastosEnvio);
+
+
+        var arrayAddress = JSON.parse(addresses, function (key, value){
+            var clave = parseInt(key);
+
+            region[clave] = value;
+
+            return region;
+        });
+
+        function actualizaGastosEnvio(){
+
+            var index = document.getElementById('previoPago_addressPay').value;
+            var regionDestino = arrayAddress[index];
+            var regionOrigen = '{{ offer.region }}';
+
+            var gastosEnvio = 0;
+            var precioTotal = parseFloat({{ offer.price}});
+
+            if(document.getElementById('sendMethod_correos').checked) {
+
+                if(regionOrigen == 'las palmas' || regionOrigen == 's.c.tenerife' ||
+                        regionDestino == 'las palmas' || regionDestino == 's.c.tenerife') {
+                    gastosEnvio = parseFloat({{ arrayCourier.price_ca }});
+
+                }else if(regionOrigen == 'baleares' || regionOrigen == 'melilla' || regionOrigen == 'ceuta' ||
+                        regionDestino == 'baleares' || regionDestino == 'melilla' || regionDestino == 'ceuta') {
+
+                    gastosEnvio = parseFloat({{ arrayCourier.price_ba }});
+                }else {
+                    gastosEnvio = parseFloat({{ arrayCourier.price_es }});
+                }
+
+            }else if(document.getElementById('sendMethod_others').checked){
+                gastosEnvio = 0.00;
+            }
+
+            precioTotalAux = parseFloat(gastosEnvio + precioTotal).toFixed(2);
+
+            $('.gastosEnvio').html(parseFloat(gastosEnvio).toFixed(2)+' €');
+            $('.precioTotal').html(precioTotalAux+' €')
+
+        }
+
+
+
+    });
+</script>
