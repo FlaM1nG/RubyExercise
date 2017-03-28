@@ -142,6 +142,7 @@ class PaymentPurchaseController extends Controller {
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
                     'offer' => $this->offer,
+                    'service' => $this->serviceId,
                     'arrayCourier' => $arrayCourier,
                     'arrayAddresses' => $arrayAddressesPay,
         ));
