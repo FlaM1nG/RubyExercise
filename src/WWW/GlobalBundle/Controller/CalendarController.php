@@ -8,10 +8,6 @@ use WWW\GlobalBundle\Event\CalendarEvent;
 use WWW\GlobalBundle\Entity\MyCompanyEvents;
 
 
-
-
-
-
 class CalendarController extends Controller
 {
     /**
@@ -183,7 +179,7 @@ class CalendarController extends Controller
      //   }
 
         $sql =  "select sh.house_id, sh.price as precio_base,my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$idoffer and off.service_id = my.service_id";
-        
+
         $stmt = $db->prepare($sql);
         $params = array();
         $stmt->execute($params);
@@ -638,10 +634,9 @@ class CalendarController extends Controller
 
 //print_r($eventosEspecificos);die;
 
-
 //print_r( createDateRange( '2017-01-01', '2017-12-31', $basePrice) );
 
-        $eventos = $this->createDateRangeBase( '2017-01-01', '2017-12-31', $alEspecificos['precio_base'], "€");
+        $eventos = $this->createDateRangeBase( '2017-01-01', '2018-12-31', $alEspecificos['precio_base'], "€");
         //print_r($eventos);die;
         foreach ($eventos as $key => $value) {
             foreach ($eventosEspecificos as $key2 => $value2) {
