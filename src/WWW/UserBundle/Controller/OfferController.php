@@ -98,20 +98,25 @@ class OfferController extends Controller{
             elseif($this->service == 4 || $this->service == 5):
                 $result = $this->updateOfferShareCar($request);
             
-            elseif($this->service == 6 || $this->service == 7):
-                $house = new House();
-                $house->setId($request->get('shareHouse')['houseId']);
-                $this->offer->setHouse($house);
+            elseif($this->service == 6 || $this->service == 7 || $this->service == 8 || $this->service == 9):
 
-                $request->getSession()->set('_security.user.target_path','');
-                $request->getSession()->remove('offer');
+                if($this->service != 9 ):
+                    $house = new House();
+                    $house->setId($request->get('shareHouse')['houseId']);
+                    $this->offer->setHouse($house);
+
+                    $request->getSession()->set('_security.user.target_path','');
+                    $request->getSession()->remove('offer');
+                endif;
 
                 $result = $this->updateOfferHouseRent($request);
+
             endif;
 
             if($result == 'ok'):
                 return $this->redirectToRoute('user_profiler_offers');
             endif;
+        
         endif;
 
         if($this->service <= 3):
@@ -120,7 +125,7 @@ class OfferController extends Controller{
         elseif($this->service == 4 || $this->service == 5):
             $pathRender = 'UserBundle:Profile:offers/profileEditOfferShareCar.html.twig';
         
-        elseif($this->service == 6 || $this->service == 7):
+        elseif($this->service == 6 || $this->service == 7 || $this->service == 8 || $this->service == 9):
             $pathRender = 'UserBundle:Profile:House/profileEditOfferHouseRent.html.twig';
             $route = $request->get('_route');
             $request->getSession()->set('_security.user.target_path',$route);
@@ -227,8 +232,13 @@ class OfferController extends Controller{
         $info['username'] = $request->getSession()->get('username');
         $info['password'] = $request->getSession()->get('password');
         $info['offer_id'] = $this->offer->getOffer()->getId();
+        $info['serviceId'] = $this->service;
         $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'";
-        $data['sub_values']['price'] = $this->offer->getPrice();
+        $data['values']['title'] = "'". $this->offer->getOffer()->getTitle()."'";
+
+        if($this->service == 6 || $this->service == 7):
+            $data['sub_values']['price'] = $this->offer->getPrice();
+        endif;
 
         $info['data']= json_encode($data);
 
@@ -267,7 +277,7 @@ class OfferController extends Controller{
                      $minHolder = sizeof($this->offer->getOffer()->getInscriptions());
                  endif;
 
-             elseif($result['service_id'] == 6 || $result['service_id'] == 7 ):
+             elseif($result['service_id'] == 6 || $result['service_id'] == 7 || $result['service_id'] == 8 || $result['service_id'] == 9 ):
                  $this->offer = new ShareHouse($result);
                  $formulario = $this->createForm(ShareHouseType::class, $this->offer);
 
