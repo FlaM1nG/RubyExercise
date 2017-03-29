@@ -92,10 +92,8 @@ $(document).ready(function() {
             updateDatePickerCells();
         }
     });
-
-
+    
     updateDatePickerCells();
-
 
     $(function($){
         $.datepicker.regional['es'] = {

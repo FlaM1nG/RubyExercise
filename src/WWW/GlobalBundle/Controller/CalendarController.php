@@ -394,7 +394,6 @@ class CalendarController extends Controller
         }
 */
 
-
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
