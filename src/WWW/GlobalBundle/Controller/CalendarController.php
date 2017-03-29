@@ -240,9 +240,8 @@ class CalendarController extends Controller
         }
 
 
-
 // Aquí pondremos todos los meses del año
-        $result = array('0' => array(), '1' => array(), '2' => array(), '3' => array(), '4' => array(), '5' => array(),'6' => array(),'7' => array(),'8' => array(),'9' => array(),'10' => array(),'11' => array(),'12' => array());
+        $result = array('1' => array(), '2' => array(), '3' => array(), '4' => array(), '5' => array(),'6' => array(),'7' => array(),'8' => array(),'9' => array(),'10' => array(),'11' => array(),'12' => array());
 
 //        $input_arrays = json_decode($json, true);
 //echo "<pre>"; die(print_r($result));
@@ -264,10 +263,7 @@ class CalendarController extends Controller
 
                 for ($i = (int)$initDay; $i <= (int)$endDay; $i++) { // Moving between days
                         //echo ($initMonth . ' == ' . $endMonth) . '<br>';
-                        if ($initMonth == '0' || $endMonth == '0') {
-                            $result['0']['precio'][$i] = $value['price'] . '€';
-                            $result['0']['ocuppate'][$i] = $value['ocuppate'];
-                        } else if ($initMonth == '1' || $endMonth == '1') {
+                        if ($initMonth == '1' || $endMonth == '1') {
                             $result['1']['precio'][$i] = $value['price'] . '€';
                             $result['1']['ocuppate'][$i] = $value['ocuppate'];
                         } else if ($initMonth == '2' || $endMonth == '2') {
@@ -437,7 +433,7 @@ class CalendarController extends Controller
         // List of dates and base prices
         $aBase = createDateRange('2017-01-01', '2017-12-31', $aEspecificos['precio_base']);
 
-        $result = array('0' => array(), '1' => array(), '2' => array(), '3' => array(), '4' => array(), '5' => array(),'6' => array(),'7' => array(),'8' => array(),'9' => array(),'10' => array(),'11' => array(),'12' => array());
+        $result = array('1' => array(), '2' => array(), '3' => array(), '4' => array(), '5' => array(),'6' => array(),'7' => array(),'8' => array(),'9' => array(),'10' => array(),'11' => array(),'12' => array());
 
         if (!empty($fechas)) {
             //echo "<pre>"; die(print_r($input_arrays));
