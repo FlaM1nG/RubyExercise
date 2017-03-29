@@ -132,13 +132,12 @@ class HouseOffersController extends Controller
 
                 foreach($photos as $photo){
                     $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
-                    $info['photos['.$count.']'] = $ch_photo;
+                    $data['photos['.$count.']'] = $ch_photo;
                     $count += 1;
                 }
             endif;
 
         endif;
-        echo "<br>";
 
         $result = $ch->resultApiRed($data, $file);
 
@@ -147,8 +146,7 @@ class HouseOffersController extends Controller
         else:
             $ut->flashMessage('offer',$request,$result);
         endif;
-
-
+        
         return $result['result'];
     }
 
