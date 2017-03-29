@@ -9,6 +9,9 @@
 namespace WWW\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,9 +26,9 @@ class LoginType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
-                ->add('_username','text', array('label'=>'Usuario'))
-                ->add('_password','password', array('label' => 'Contraseña'))
-                ->add('enviar','submit',array('label'=>'Enviar'))
+                ->add('_username',TextType::class, array('label'=>'Usuario'))
+                ->add('_password',PasswordType::class, array('label' => 'Contraseña'))
+                ->add('enviar',SubmitType::class, array('label'=>'Enviar'))
                 ->add('captcha', 'captcha', array( 'as_url' => true, 
                                                    'reload' => true,
                                                    'label' => " "));

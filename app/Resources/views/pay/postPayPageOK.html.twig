@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+{% import 'macros/alert.html.twig' as alerts %}
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block title %}
+    Pago correctamente
+{% endblock %}
+
+{% block alert %}
+
+{% endblock %}
+
+{% block body %}
+    {# Indicar en el condicional de correcto o incorrecto la señal OK o KO según proceda. #}
+
+    <div class="container cd-main-content cd-main-content-special">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2 class="titulo-pago">Pago realizado correctamente</h2>
+                <hr/>
+            </div>
+        </div>
+        <div class="row row-min-hei">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    ¡Muchas gracias por confiar en nosotros! Cada vez sois más los que confiais en nosotros.
+                </p>
+         
+                <p>
+                    Su código de referencia de pago es {# Código #} {{id}}
+                    {# Si el pago ha tenido envio --> y tu código de seguimiento del envio es el {{ random(99999999999999) }}. #}
+                </p>
+
+                <p>
+                    Si desea obtener más información o ponerte en contacto con nosotros pincha <a href="{{ path('contact') }}">aquí</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    {{ include('nav/menuScript.html.twig') }}
+{% endblock %}
+
+{% block footer %}
+    {{ include('footer/sponsorFooter.html.twig') }}
+    {{ parent() }}
+{% endblock %}
