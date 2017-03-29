@@ -172,15 +172,10 @@ class CalendarController extends Controller
                             $result['2']['precio'][$i] = $value['price'] . '€';
                             $result['2']['ocuppate'][$i] = $value['ocuppate'];
                         } else if ($initMonth == '3' || $endMonth == '3') {
-                            if (!empty($value['price'])) {
-
-                                $result['3']['precio'][$i] = $value['precio_base'] . '€';
-                                $result['3']['ocuppate'][$i] = $value['ocuppate'];
-                            } else {
 
                             $result['3']['precio'][$i] = $value['price'] . '€';
                             $result['3']['ocuppate'][$i] = $value['ocuppate'];
-                        }
+                        
                         } else if ($initMonth == '4' || $endMonth == '4') {
                             $result['4']['precio'][$i] = $value['price'] . '€';
                             $result['4']['ocuppate'][$i] = $value['ocuppate'];
