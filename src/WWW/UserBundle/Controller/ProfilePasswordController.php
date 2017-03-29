@@ -29,8 +29,9 @@ class ProfilePasswordController extends Controller{
         
         $form = $this->createForm(ProfilePasswordType::class, $user);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()):
+
             $this->changePassword($request, $user);
            
         endif;
@@ -46,10 +47,10 @@ class ProfilePasswordController extends Controller{
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST.'user/data/get_info_user.php';
         
-        $data['id'] = $this->getUser()->getId();
-        $data['username'] = $this->getUser()->getUsername();
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
-        
+
         $result = $ch->resultApiRed($data, $file);
        
         if($result['result'] == 'ok'):
@@ -71,11 +72,16 @@ class ProfilePasswordController extends Controller{
         $data['new_password'] = $user->getPassword();
         
         $result = $ch->resultApiRed($data, $file);
-        
+
         if($result['result'] == 'ok'):
             $request->getSession()->set("password",$result['password']);
+            $ut->flashMessage("general", $request, $result);
+        elseif($result['result'] == 'bad_credentials'):
+            $ut->flashMessage("general",$request, $result, "La contraseña no es correcta");
+        else:
+            $ut->flashMessage("general", $request, $result);
         endif;
-        $ut->flashMessage("general", $request, $result);
+
         
     }
 }
