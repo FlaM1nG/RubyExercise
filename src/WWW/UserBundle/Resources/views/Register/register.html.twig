@@ -9,14 +9,10 @@
 {% block body %}
 <!-- TITULO REGISTRO -->
 <div class="container cd-main-content">
-    <h1>Register</h1>
+    <h1>Registro</h1>
     <hr>
 </div>
 <!-- FIN TITULO REGISTRO -->
-
-{{ form_start(formulario, {'action':path('user_register'),
-    'attr':{'onsubmit':'return validaRegistro()'}}) }}
-  {{ form_errors(formulario) }}
   
   {% block alert %}
         
@@ -31,7 +27,7 @@
     
 <!-- CUERPO FORMULARIO -->
 <div class="container cd-main-content">
-
+{{ form_start(formulario) }}
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <!-- FILA USUARIO NOMBRE Y TELEFONO -->
         <div class="row">
