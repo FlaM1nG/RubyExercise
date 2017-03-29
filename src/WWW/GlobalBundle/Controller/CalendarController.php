@@ -134,7 +134,6 @@ class CalendarController extends Controller
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->headers->set('Content-Type', 'application/json');
 
-
         // precios
       // $json = file_get_contents(dirname(__FILE__) . '/precios.json');
 
@@ -172,10 +171,8 @@ class CalendarController extends Controller
                             $result['2']['precio'][$i] = $value['price'] . '€';
                             $result['2']['ocuppate'][$i] = $value['ocuppate'];
                         } else if ($initMonth == '3' || $endMonth == '3') {
-
                             $result['3']['precio'][$i] = $value['price'] . '€';
                             $result['3']['ocuppate'][$i] = $value['ocuppate'];
-                        
                         } else if ($initMonth == '4' || $endMonth == '4') {
                             $result['4']['precio'][$i] = $value['price'] . '€';
                             $result['4']['ocuppate'][$i] = $value['ocuppate'];
