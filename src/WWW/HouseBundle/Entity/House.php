@@ -2479,7 +2479,7 @@ class House
             array('label' =>'insonorización','attr' => 'insonorizacion'),
             array('label' =>'entrada privada','attr' => 'entradaPrivada'),
             array('label' =>'ventilador','attr' => 'ventilador'),
-            array('label' =>'pestillo','attr' => 'pestillo'));
+            array('label' =>'pestillo en la puerta del dormitorio','attr' => 'pestillo'));
 
         $arrayAttr['sala de estar'] = array(array('label' =>'sofa cama','attr' => 'sofaCama'),
             array('label' =>'zona de comedor','attr' => 'comedor'),
@@ -2506,7 +2506,6 @@ class House
             array('label' => 'detector de monóxido de carbono', 'attr' => 'detectorCO'),
             array('label' => 'extintor', 'attr' => 'extintor'),
             array('label' => 'ficha de instrucciones de seguridad', 'attr' => 'fichaInstrucciones'),
-            array('label' => 'pestillo en la puerta del dormitorio', 'attr' => 'pestillo'),
             array('label' => 'protectores de enchufes para niños', 'attr' => 'protectorEnchufes')) ;
 
         return $arrayAttr;

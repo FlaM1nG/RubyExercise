@@ -22,28 +22,32 @@ class ConfirmCodePhoneType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options){
 
-        $disabled = array();
+        $disabledConfirm = array();
+        $disabledNewSMS = array();
 
-        if($options['sendSMS'] != null) $disabled['disabled'] = true;
+        if(empty($options['sendSMS'])) $disabledNewSMS = true;
+        if(empty($options['tried'])) $disabledConfirm = true;
 
         $builder
                 
-            ->add('codConfirmation', 'text', array('label' => 'Código de confirmación',
+            ->add('codConfirmation', 'text', array('label' => 'Código',
                                                     'mapped' => false,
-                                                    'required' => false))
+                                                    'required' => false,
+                                                    'attr' => array('placeholder' => 'Ej: xxx123')))
 
             ->add('confirmPhone',SubmitType::class, array(  'label' => 'Confirmar',
-                                                            'validation_groups' => false))
+                                                            'validation_groups' => false,
+                                                            'disabled' => $disabledConfirm))
 
             ->add('sendSMS', SubmitType::class, array(  'label' => 'Nuevo código',
                                                         'validation_groups' => false,
-                                                        'disabled' => $disabled));
+                                                        'disabled' => $disabledNewSMS));
 
     }
 
     public function configureOptions(OptionsResolver $resolver){
 
-        $resolver->setDefaults(array('sendSMS' => null));
+        $resolver->setDefaults(array('sendSMS' => null, 'tried' => null));
 
 
     }

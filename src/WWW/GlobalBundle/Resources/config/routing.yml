@@ -28,3 +28,8 @@ fullcalendar_dateprice:
     options:
         expose: true
 
+fullcalendar_calendar:
+    path: /fc-load-calendar
+    defaults: { _controller: GlobalBundle:Calendar:calendar }
+    options:
+        expose: true

@@ -47,11 +47,19 @@ class PaymentPurchaseController extends Controller {
         //Addons >20
         $user = $this->getUserProfile($request);
         $this->setUpVars($request);
-
-        $form = $this->createForm(PagoType::class, $user);
+        if($this->serviceId == 2 ){
+           $courierPrice= $this->getDataCourier($request,  $this->offer->getPrice());
+        }
+        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice() ));
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->get('submit')->isClicked()) {
+        $session = $request->getSession();
+        $session->set('_security.user.target_path',null);
+        if ($form->isSubmitted() && $form->get('newAddress')->isClicked()) {
+            $url = $request->getUri();
+            $session->set('_security.user.target_path',$url);
+            return $this->redirectToRoute('user_profiler_newAdress');
+        }
+        elseif ($form->isSubmitted() && $form->get('submit')->isClicked()) { 
 
 //            Si el usuario elige pagar con tarjeta (LA CAIXA)
 //            if ($form->get('gateway_name')->getData() == 'addon_payments') {
@@ -95,17 +103,20 @@ class PaymentPurchaseController extends Controller {
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
-                $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
-                        'redsys', $payment, 'acme_payment_done'
+                $captureTokenOK = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                        'redsys', $payment, 'prueba_postpago_ok'
+                );
+                $captureTokenKO = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                        'redsys', $payment, 'prueba_postpago_ko'
                 );
 
-                $details['Ds_Merchant_UrlOK'] = $captureToken->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
-                $details['Ds_Merchant_UrlKO'] = $captureToken->getAfterUrl();
+                $details['Ds_Merchant_UrlOK'] = $captureTokenOK->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
+                $details['Ds_Merchant_UrlKO'] = $captureTokenKO->getAfterUrl() ;
                 $payment->setDetails($details);
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
-                return $this->redirect($captureToken->getTargetUrl());
+                return $this->redirect($captureTokenOK->getTargetUrl());
             }
 
             //Si no, se paga por PAYPAL
@@ -340,5 +351,31 @@ class PaymentPurchaseController extends Controller {
 
         return $user;
     }
+    
+    private function getDataCourier(Request $request, &$priceMin){
 
+        $file = MyConstants::PATH_APIREST."services/courier/get_courierPrice.php";
+        $ch = new ApiRest();
+        $courierPrice = null;
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['id_messengerService'] = 2;
+        
+        $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+
+            foreach ($result['messengerPrice'] as $data):
+                $courier = new MessengerPrice($data);
+                $courierPrice[$data['id']] = $courier;
+
+                if($courier->getWeightMin() == 0)
+                    $priceMin = $courier->getPriceES();
+            endforeach;
+        endif;
+        return $courierPrice;
+    }
+    
 }
