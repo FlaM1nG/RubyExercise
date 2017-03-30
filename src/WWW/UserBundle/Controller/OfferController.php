@@ -117,7 +117,7 @@ class OfferController extends Controller{
             if($result == 'ok'):
                 return $this->redirectToRoute('user_profiler_offers');
             endif;
-        
+
         endif;
 
         if($this->service <= 3):
@@ -318,7 +318,7 @@ class OfferController extends Controller{
                  endif;
 
              elseif($result['service_id'] == 6 || $result['service_id'] == 7 || $result['service_id'] == 8 || $result['service_id'] == 9 ):
-                 
+
                  $this->offer = new ShareHouse($result);
 
                  if($result['service_id'] == 9):
