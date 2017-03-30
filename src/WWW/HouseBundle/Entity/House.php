@@ -6,12 +6,14 @@ use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\GlobalBundle\Entity\Address;
 use WWW\GlobalBundle\Entity\Photo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\GroupSequenceProviderInterface;
 
 /**
  * House
+ *
+ * @Assert\GroupSequenceProvider
  */
-class House
-{
+class House implements GroupSequenceProviderInterface{
     /**
      * @var integer
      */
@@ -72,6 +74,7 @@ class House
 
     /**
      * @var string
+     * @Assert\NotBlank(groups = {"licenciaObligatoria"}, message="Para este tipo de ofertas la casa debe de tener licencia")
      */
     private $licenseNumber;
 
@@ -2508,6 +2511,36 @@ class House
             array('label' => 'ficha de instrucciones de seguridad', 'attr' => 'fichaInstrucciones'),
             array('label' => 'protectores de enchufes para niños', 'attr' => 'protectorEnchufes')) ;
 
+        $arrayAttr['servicios extras'] = array(array('label' => 'desayuno incluido', 'attr'=> 'desayuno'));
+
+        $arrayAttr['equipamiento'] = array(array('label' => 'tendedero', 'attr'=> 'tendedero'),
+            array('label' => 'lavadora', 'attr' => 'lavadora'),
+            array('label' => 'secadora', 'attr' => 'secadora'),
+            array('label' => 'plancha', 'attr' => 'plancha'));
+
+        $arrayAttr['ocio'] = array(array('label' => 'libros', 'attr'=> 'libros'),
+            array('label' => 'puzzles', 'attr' => 'puzzles'),
+            array('label' => 'piscina', 'attr' => 'piscina'),
+            array('label' => 'gimnasio', 'attr' => 'gimnasio')) ;
+
+
+
         return $arrayAttr;
+    }
+
+    /*
+     * @return Array de grupos
+     */
+    public function getGroupSequence()
+    {
+        $groups = array('House');
+
+        if ($this->isLicenciaObligatoria()) {
+
+            $groups[] = 'licenciaObligatoria';
+
+        }
+
+        return $groups;
     }
 }

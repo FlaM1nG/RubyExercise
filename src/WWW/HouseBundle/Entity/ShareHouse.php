@@ -4,6 +4,7 @@ namespace WWW\HouseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use WWW\ServiceBundle\Entity\Offer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ShareHouse
@@ -27,6 +28,7 @@ class ShareHouse
 
     /**
      * @var \WWW\HouseBundle\Entity\House
+     * @Assert\Valid()
      */
     private $house;
 

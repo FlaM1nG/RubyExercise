@@ -4,15 +4,9 @@ fullcalendar_loader:
     options:
         expose: true
 
-fullcalendar_create:
-    path: /fc-load-create
-    defaults: { _controller: GlobalBundle:Calendar:createEvent }
-    options:
-        expose: true
-
-fullcalendar_edit:
+fullcalendar_edit_create:
     path: /fc-load-edit
-    defaults: { _controller: GlobalBundle:Calendar:editEvent }
+    defaults: { _controller: GlobalBundle:Calendar:editcreateEvent }
     options:
         expose: true
 
