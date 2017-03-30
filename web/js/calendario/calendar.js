@@ -58,6 +58,9 @@ $(document).ready(function() {
                     $('#ModalEdit').modal('show');
                 });
             },
+
+
+            
             eventDrop: function(event, delta, revertFunc) { // si changement de position
 
                 edit(event);

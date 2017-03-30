@@ -87,6 +87,33 @@ class OfferController extends Controller{
         $pathRender = "";
         $minHolders = null;
 
+        $idoffer = $request->get('idOffer');
+
+
+
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+
+        $query =  "select sh.house_id, sh.price,h.calendar_id, off.service_id from share_house as sh 
+                    inner join house as h on h.id=sh.house_id 
+                    inner join offer as off on sh.offer_id= off.id
+                    WHERE sh.offer_id=$idoffer";
+
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $fechas = $stmt->fetchAll();
+
+     
+
+        $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+        //   print_r($fechas);
+
+// query for a single product matching the given name and price
+        $test = $repository->findOneBy(
+            array('calendarID' => $fechas[0]['calendar_id'], 'serviceID' => $fechas[0]['service_id']));
+       
         $form = $this->searchOffer($request, $minHolders); 
         $form->handleRequest($request);
 
@@ -136,7 +163,10 @@ class OfferController extends Controller{
                         array('form' => $form->createView(),
                               'service' => $this->service,
                               'offer' => $this->offer,
-                              'min' => $minHolders  ));
+                              'min' => $minHolders,
+                              'calendarID' => $fechas[0]['calendar_id'],
+                              'serviceID' => $fechas[0]['service_id']
+                        ));
 
     }
 

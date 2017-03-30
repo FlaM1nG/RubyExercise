@@ -1,0 +1,48 @@
+{% extends '::base.html.twig' %}
+
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    <!-- TITULO REGISTRO -->
+    <div class="container cd-main-content">
+        <h1>Confirmar Teléfono</h1>
+        <hr>
+    </div>
+    <!-- FIN TITULO REGISTRO -->
+
+
+    {% block alert %}
+
+        {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{  alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %}
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{  alerts.alert('alert-warning', flash_message, null) }}
+        {% endfor %}
+    {% endblock %}
+
+    <!-- CUERPO FORMULARIO -->
+
+    <div class="container cd-main-content">
+        {{ form_start(formulario) }}
+            {{ form_row(formulario.prefix) }}
+            {{ form_row(formulario.phone) }}
+            {{ form_row(formulario.savePhone) }}
+            {{ form_row(formulario._token) }}
+    </div>
+    <!-- FIN CUERPO FORMULARIO -->
+
+{% endblock %}
+
+
+{% block javascriptsFooter %}
+
+    {{ parent() }}
+    {{ include('nav/menuScript.html.twig') }}
+
+{% endblock %}

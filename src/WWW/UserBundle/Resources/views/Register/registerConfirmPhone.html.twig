@@ -1,0 +1,61 @@
+{% extends '::base.html.twig' %}
+
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+       
+{% block body %}
+    <!-- TITULO REGISTRO -->
+    <div class="container cd-main-content">
+        <h1>Confirmar Teléfono</h1>
+        <hr>
+    </div>
+    <!-- FIN TITULO REGISTRO -->
+
+    {% block alert %}
+
+        {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+            {{  alerts.alert('alert-success', flash_message, null) }}
+        {% endfor %}
+
+        {% for flash_message in app.session.flashbag.get('messageFail') %}
+            {{  alerts.alert('alert-warning', flash_message, null) }}
+        {% endfor %}
+    {% endblock %}
+
+    <!-- CUERPO FORMULARIO -->
+
+    <div class="container cd-main-content">
+        Teléfono actual: {{ app.session.get('phone') }}
+        Teléfono a confirmar: {{ newPhone }}
+
+        <br><br>
+        Le quedan {{ numTried }} intentos y {{ numSMS }} sms <br><br>
+
+        {% if timeTried is not null %}
+            Puede volver a intentarlo en {{ timeTried }}
+        {% endif %}
+
+        {% if timeSMS is not null %}
+            Puede solicitar un nuevo mensaje en {{ timeSMS }}
+        {% endif %}
+
+        {{ form_start(form) }}
+        {{ form_row(form.codConfirmation) }}
+        {{ form_row(form.confirmPhone) }}
+        {{ form_row(form.sendSMS) }}
+
+    </div>
+    <!-- FIN CUERPO FORMULARIO -->
+
+{% endblock %}
+
+
+{% block javascriptsFooter %}
+
+    {{ parent() }}
+    {{ include('nav/menuScript.html.twig') }}
+
+{% endblock %}

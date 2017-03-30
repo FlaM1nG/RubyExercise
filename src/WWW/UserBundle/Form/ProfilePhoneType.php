@@ -9,6 +9,7 @@
 namespace WWW\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -26,18 +27,22 @@ class ProfilePhoneType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $arrayPrefix = $this->getPrefixes();
+        $disabled = false;
+
+        if($options['sendSMS'] != null) $disabled = true;
         
         $builder
                 ->add('prefix',ChoiceType::class, array('label' => 'Teléfono',
                                                         'required' => false,
                                                         'empty_value' => false,
-                                                        'choices' => $arrayPrefix,
+                                                        'choices' => $arrayPrefix,'preferred_choices'=>array('+34')
                                                         ))
                 
-                ->add('phone','number',array('label'=>' ',
+                ->add('phone',NumberType::class,array('label'=>' ',
                                              'required' => false))
                 
                 ->add('savePhone',SubmitType::class,array('label' => 'Guardar',
+                                                          'disabled' => $disabled,
                                                           'validation_groups' => false ));
 
     }
@@ -61,11 +66,13 @@ class ProfilePhoneType extends AbstractType{
 
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data_class'=>'WWW\UserBundle\Entity\User')
+        $resolver->setDefaults(array('data_class'=>'WWW\UserBundle\Entity\User',
+                                     'validation_groups' => false,
+                                     'sendSMS' => false)
             );
     }
     
     public function getBlockPrefix(){
-        return 'profilePhone';
+        return 'profileNewCodePhone';
     }
 }

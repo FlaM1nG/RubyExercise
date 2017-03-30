@@ -46,12 +46,35 @@ class PaymentPurchaseController extends Controller {
         //Redsys <20
         //Addons >20
         $user = $this->getUserProfile($request);
+        $arrayAddressesPay = array();
+
+        foreach($user->getAddresses()[0] as $data ):
+            $arrayAddressesPay[$data->getId()] = $data->getRegion();
+        endforeach;
+
+        $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
+
         $this->setUpVars($request);
 
-        $form = $this->createForm(PagoType::class, $user);
+        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice()));
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->get('submit')->isClicked()) {
+        $arrayCourier = null;
+        $this->serviceId = $this->offer->getOffer()->getService()->getId();
+
+        if($this->serviceId == 1 || $this->serviceId == 2):
+            $arrayCourier = $this->getCourierPrice($request);
+
+        endif;
+
+        $session = $request->getSession();
+        $session->set('_security.user.target_path',null);
+        if ($form->isSubmitted() && $form->get('newAddress')->isClicked()) {
+            $url = $request->getUri();
+            $session->set('_security.user.target_path',$url);
+            return $this->redirectToRoute('user_profiler_newAdress');
+        }
+        elseif ($form->isSubmitted() && $form->get('submit')->isClicked()) {
 
 //            Si el usuario elige pagar con tarjeta (LA CAIXA)
 //            if ($form->get('gateway_name')->getData() == 'addon_payments') {
@@ -71,7 +94,7 @@ class PaymentPurchaseController extends Controller {
             $payment->setClientEmail($user->getUsername());
 
             //REDSYS
-            if (isset($request->get('previoPago')['card'])) {
+            if ($request->get('previoPago')['payMethod'] == 'card') {
                 // 4548812049400004
                 // 12/20
                 // 123
@@ -95,21 +118,24 @@ class PaymentPurchaseController extends Controller {
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
-                $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
-                        'redsys', $payment, 'acme_payment_done'
+                $captureTokenOK = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                        'redsys', $payment, 'prueba_postpago_ok'
+                );
+                $captureTokenKO = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                        'redsys', $payment, 'prueba_postpago_ko'
                 );
 
-                $details['Ds_Merchant_UrlOK'] = $captureToken->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
-                $details['Ds_Merchant_UrlKO'] = $captureToken->getAfterUrl();
+                $details['Ds_Merchant_UrlOK'] = $captureTokenOK->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
+                $details['Ds_Merchant_UrlKO'] = $captureTokenKO->getAfterUrl() ;
                 $payment->setDetails($details);
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
-                return $this->redirect($captureToken->getTargetUrl());
+                return $this->redirect($captureTokenOK->getTargetUrl());
             }
 
             //Si no, se paga por PAYPAL
-            else {
+            elseif($request->get('previoPago')['payMethod'] == 'paypal') {
                 
                 $storage = $this->getPayum()->getStorage($payment);
                 $storage->update($payment);
@@ -126,6 +152,9 @@ class PaymentPurchaseController extends Controller {
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
                     'offer' => $this->offer,
+                    'service' => $this->serviceId,
+                    'arrayCourier' => $arrayCourier,
+                    'arrayAddresses' => $arrayAddressesPay,
         ));
     }
 
@@ -339,6 +368,26 @@ class PaymentPurchaseController extends Controller {
         endif;
 
         return $user;
+    }
+
+    private function getCourierPrice(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'services/courier/get_courierPrice.php';
+        $ch = new ApiRest();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['id_messengerService'] = 2;
+        $data['weight'] = $this->offer->getWeight();
+        
+        $result = $ch->resultApiRed($data, $file);
+
+        if($result['result'] == 'ok'):
+            return $result['messengerPrice'][0];
+        else:
+            return null;
+        endif;
     }
 
 }
