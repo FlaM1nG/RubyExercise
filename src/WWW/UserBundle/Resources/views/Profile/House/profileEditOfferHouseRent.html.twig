@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/calendario/fullcalendar.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('css/calendario/datepi/jquery-ui.css') }}" />
-
-
+    
 {% endblock %}
 
 
@@ -37,7 +36,6 @@
 
 
 {% block bodyProfile %}
-
 
     {% if service != 8 and service != 9 %}
         <div class="container">
@@ -204,6 +202,9 @@
     {% if service != 9 %}
         <a href="{{ path('user_profile_editHouse',{idHouse: offer.house.id}) }}">Editar casa</a>
         {{ form_row(form.houseId) }}
+    {% endif %}
+
+    {% if service != 8 and service != 9 %}
         {{ form_row(form.price) }}
     {% endif %}
 
