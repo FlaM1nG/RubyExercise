@@ -86,33 +86,35 @@ class OfferController extends Controller{
         $this->ut = new Utilities();
         $pathRender = "";
         $minHolders = null;
+        $calendarId = null;
+        $serviceId = null;
 
-        $idoffer = $request->get('idOffer');
-
-
-
-
-        $em = $this->getDoctrine()->getEntityManager();
-        $db = $em->getConnection();
-
-        $query =  "select sh.house_id, sh.price,h.calendar_id, off.service_id from share_house as sh 
-                    inner join house as h on h.id=sh.house_id 
-                    inner join offer as off on sh.offer_id= off.id
-                    WHERE sh.offer_id=$idoffer";
-
-        $stmt = $db->prepare($query);
-        $params = array();
-        $stmt->execute($params);
-        $fechas = $stmt->fetchAll();
-
-     
-
-        $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
-        //   print_r($fechas);
-
-// query for a single product matching the given name and price
-        $test = $repository->findOneBy(
-            array('calendarID' => $fechas[0]['calendar_id'], 'serviceID' => $fechas[0]['service_id']));
+//        $idoffer = $request->get('idOffer');
+//
+//
+//
+//
+//        $em = $this->getDoctrine()->getEntityManager();
+//        $db = $em->getConnection();
+//
+//        $query =  "select sh.house_id, sh.price,h.calendar_id, off.service_id from share_house as sh
+//                    inner join house as h on h.id=sh.house_id
+//                    inner join offer as off on sh.offer_id= off.id
+//                    WHERE sh.offer_id=$idoffer";
+//
+//        $stmt = $db->prepare($query);
+//        $params = array();
+//        $stmt->execute($params);
+//        $fechas = $stmt->fetchAll();
+//
+//
+//
+//        $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+//        //   print_r($fechas);
+//
+//// query for a single product matching the given name and price
+//        $test = $repository->findOneBy(
+//            array('calendarID' => $fechas[0]['calendar_id'], 'serviceID' => $fechas[0]['service_id']));
        
         $form = $this->searchOffer($request, $minHolders); 
         $form->handleRequest($request);
@@ -153,20 +155,51 @@ class OfferController extends Controller{
             $pathRender = 'UserBundle:Profile:offers/profileEditOfferShareCar.html.twig';
         
         elseif($this->service == 6 || $this->service == 7 || $this->service == 8 || $this->service == 9):
+            if($this->service == 6 ||$this->service == 7):
+                $this->getDataCalendar($request, $calendarId, $serviceId);
+            endif;
+
             $pathRender = 'UserBundle:Profile:House/profileEditOfferHouseRent.html.twig';
             $route = $request->get('_route');
             $request->getSession()->set('_security.user.target_path',$route);
             $request->getSession()->set('offer',$this->offer->getOffer()->getId());
         endif;
-
+echo "calendarId ".$calendarId." serviceId ".$serviceId." service ". $this->service;
         return $this->render($pathRender,
                         array('form' => $form->createView(),
                               'service' => $this->service,
                               'offer' => $this->offer,
                               'min' => $minHolders,
-                              'calendarID' => $fechas[0]['calendar_id'],
-                              'serviceID' => $fechas[0]['service_id']
+                              'calendarID' => $calendarId,
+                              'serviceID' => $serviceId
                         ));
+
+    }
+
+    private function getDataCalendar(Request $request, &$calendarID, &$serviceID){
+        $idoffer = $request->get('idOffer');
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+
+        $query =  "select sh.house_id, sh.price,h.calendar_id, off.service_id from share_house as sh 
+                    inner join house as h on h.id=sh.house_id 
+                    inner join offer as off on sh.offer_id= off.id
+                    WHERE sh.offer_id=".$idoffer;
+
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $fechas = $stmt->fetchAll();
+
+        $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+
+        // query for a single product matching the given name and price
+        $test = $repository->findOneBy(
+            array('calendarID' => $fechas[0]['calendar_id'], 'serviceID' => $fechas[0]['service_id']));
+
+        $calendarID = $fechas[0]['calendar_id'];
+        $serviceID = $fechas[0]['service_id'];
 
     }
 
@@ -308,8 +341,16 @@ class OfferController extends Controller{
                  endif;
 
              elseif($result['service_id'] == 6 || $result['service_id'] == 7 || $result['service_id'] == 8 || $result['service_id'] == 9 ):
+                 print_r($result);
                  $this->offer = new ShareHouse($result);
-                 $formulario = $this->createForm(ShareHouseType::class, $this->offer);
+
+                 if($result['service_id'] == 9):
+                     $validation = 'licenciaObligatoria';
+                 else:
+                     $validation = null;
+                 endif;
+
+                 $formulario = $this->createForm(ShareHouseType::class, $this->offer,array('service' => $result['service_id'],'validation_groups' => $validation ));
 
              endif;
         else:
