@@ -89,9 +89,6 @@ class OfferController extends Controller{
 
         $idoffer = $request->get('idOffer');
 
-
-
-
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
