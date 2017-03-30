@@ -87,34 +87,6 @@ class OfferController extends Controller{
         $pathRender = "";
         $minHolders = null;
         $calendarId = null;
-        $serviceId = null;
-
-//        $idoffer = $request->get('idOffer');
-//
-//
-//
-//
-//        $em = $this->getDoctrine()->getEntityManager();
-//        $db = $em->getConnection();
-//
-//        $query =  "select sh.house_id, sh.price,h.calendar_id, off.service_id from share_house as sh
-//                    inner join house as h on h.id=sh.house_id
-//                    inner join offer as off on sh.offer_id= off.id
-//                    WHERE sh.offer_id=$idoffer";
-//
-//        $stmt = $db->prepare($query);
-//        $params = array();
-//        $stmt->execute($params);
-//        $fechas = $stmt->fetchAll();
-//
-//
-//
-//        $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
-//        //   print_r($fechas);
-//
-//// query for a single product matching the given name and price
-//        $test = $repository->findOneBy(
-//            array('calendarID' => $fechas[0]['calendar_id'], 'serviceID' => $fechas[0]['service_id']));
        
         $form = $this->searchOffer($request, $minHolders); 
         $form->handleRequest($request);
@@ -156,7 +128,7 @@ class OfferController extends Controller{
         
         elseif($this->service == 6 || $this->service == 7 || $this->service == 8 || $this->service == 9):
             if($this->service == 6 ||$this->service == 7):
-                $this->getDataCalendar($request, $calendarId, $serviceId);
+                $calendarId = $this->getDataCalendar($this->offer->getHouse()->getId());
             endif;
 
             $pathRender = 'UserBundle:Profile:House/profileEditOfferHouseRent.html.twig';
@@ -164,28 +136,23 @@ class OfferController extends Controller{
             $request->getSession()->set('_security.user.target_path',$route);
             $request->getSession()->set('offer',$this->offer->getOffer()->getId());
         endif;
-echo "calendarId ".$calendarId." serviceId ".$serviceId." service ". $this->service;
+
         return $this->render($pathRender,
                         array('form' => $form->createView(),
                               'service' => $this->service,
                               'offer' => $this->offer,
                               'min' => $minHolders,
                               'calendarID' => $calendarId,
-                              'serviceID' => $serviceId
                         ));
 
     }
 
-    private function getDataCalendar(Request $request, &$calendarID, &$serviceID){
-        $idoffer = $request->get('idOffer');
+    private function getDataCalendar($idHouse){
 
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-        $query =  "select sh.house_id, sh.price,h.calendar_id, off.service_id from share_house as sh 
-                    inner join house as h on h.id=sh.house_id 
-                    inner join offer as off on sh.offer_id= off.id
-                    WHERE sh.offer_id=".$idoffer;
+        $query =  "select calendar_id from house where id=".$idHouse;
 
         $stmt = $db->prepare($query);
         $params = array();
@@ -194,12 +161,7 @@ echo "calendarId ".$calendarId." serviceId ".$serviceId." service ". $this->serv
 
         $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
 
-        // query for a single product matching the given name and price
-        $test = $repository->findOneBy(
-            array('calendarID' => $fechas[0]['calendar_id'], 'serviceID' => $fechas[0]['service_id']));
-
-        $calendarID = $fechas[0]['calendar_id'];
-        $serviceID = $fechas[0]['service_id'];
+        return $fechas[0]['calendar_id'];
 
     }
 
@@ -305,6 +267,21 @@ echo "calendarId ".$calendarId." serviceId ".$serviceId." service ". $this->serv
 
         $info['data']= json_encode($data);
 
+        if($this->service == 9):
+
+            if(!empty($request->files->get('shareHouse')['imgBedroom'][0])):
+                $photos = $request->files->get('shareHouse')['imgBedroom'];
+                $count = 0;
+
+                foreach($photos as $photo){
+                    $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
+                    $info['photos['.$count.']'] = $ch_photo;
+                    $count += 1;
+                }
+            endif;
+
+        endif;
+
         $result = $ch->resultApiRed($info, $file);
 
         $this->ut->flashMessage("general", $request, $result);
@@ -341,7 +318,7 @@ echo "calendarId ".$calendarId." serviceId ".$serviceId." service ". $this->serv
                  endif;
 
              elseif($result['service_id'] == 6 || $result['service_id'] == 7 || $result['service_id'] == 8 || $result['service_id'] == 9 ):
-                 print_r($result);
+                 
                  $this->offer = new ShareHouse($result);
 
                  if($result['service_id'] == 9):
@@ -396,7 +373,7 @@ echo "calendarId ".$calendarId." serviceId ".$serviceId." service ". $this->serv
    }
    
     public function deleteImageOfferAction(Request $request){
-      
+
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/photos/delete_offer_photo.php";
         
@@ -433,7 +410,6 @@ echo "calendarId ".$calendarId." serviceId ".$serviceId." service ". $this->serv
         }
 
         $result = $ch->resultApiRed($data, $file);
-//        print_r($result);
 
     }
    
