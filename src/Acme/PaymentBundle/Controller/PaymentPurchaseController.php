@@ -71,7 +71,7 @@ class PaymentPurchaseController extends Controller {
 //            }
             $payment = new Payment;
             //numero de referencia por la hora y fecha
-            $payment->setNumber(date('ymdHis'));
+            $payment->setNumber(date('ymdHis'). '-' . $request->get('idOffer'));
             $payment->setClientId(uniqid());
             $payment->setDescription(sprintf('An order %s for a client %s', $this->offer->getPrice(), $user->getUsername()));
             $payment->setTotalAmount($this->offer->getPrice() * 100);
@@ -121,15 +121,15 @@ class PaymentPurchaseController extends Controller {
 
             //Si no, se paga por PAYPAL
             else {
-                
+
                 $storage = $this->getPayum()->getStorage($payment);
                 $storage->update($payment);
                 
                 $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
                         'paypal_express_checkout_with_ipn_enabled', $payment, 'acme_payment_done'
                 );
-                
 
+                
                 return $this->redirect($captureToken->getTargetUrl());
             }
         }
@@ -204,47 +204,7 @@ class PaymentPurchaseController extends Controller {
         ;
     }
 
-    /**
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createPurchaseForm() {
 
-        $formBuilder = $this->createFormBuilder(null, array('data_class' => Payment::class));
-
-        return $formBuilder
-                        ->add('gateway_name', 'choice', array(
-                            'choices' => array(
-                                'paypal_express_checkout_with_ipn_enabled' => 'Paypal ExpressCheckout',
-                                'addon_payments' => 'Pago con Tarjeta',
-//                    'paypal_pro_checkout' => 'Paypal ProCheckout',
-//                    'stripe_js' => 'Stripe.Js',
-//                    'stripe_checkout' => 'Stripe Checkout',
-//                    'authorize_net' => 'Authorize.Net AIM',
-//                    'be2bill' => 'Be2bill',
-//                    'be2bill_offsite' => 'Be2bill Offsite',
-//                    'payex' => 'Payex',
-                                'redsys' => 'Redsys',
-//                    'offline' => 'Offline',
-//                    'stripe_via_omnipay' => 'Stripe (Omnipay)',
-//                    'paypal_express_checkout_via_omnipay' => 'Paypal ExpressCheckout (Omnipay)',
-                            ),
-                            'mapped' => false,
-                            'constraints' => array(new NotBlank())
-                        ))
-                        ->add('totalAmount', 'number', array(
-                            'data' => $this->offer->getPrice(),
-                            'constraints' => array(new Range(array('max' => 1000, 'min' => 1)), new NotBlank())
-                        ))
-                        ->add('currencyCode', 'text', array(
-                            'data' => 'EUR',
-                            'constraints' => array(new NotBlank())
-                        ))
-                        ->add('clientEmail', 'text', array(
-                            'data' => $this->getUser()->getEmail(),
-                            'constraints' => array(new Email(), new NotBlank())
-                        ))
-                        ->getForm();
-    }
 
     /**
      * @return Payum
@@ -329,7 +289,9 @@ class PaymentPurchaseController extends Controller {
         $result = $ch->resultApiRed($data, $file);
 
         if ($this->serviceId == 4 || $this->serviceId == 5):
+
             $this->offer = new ShareCar($result['data']);
+
         endif;
     }
 
@@ -342,7 +304,7 @@ class PaymentPurchaseController extends Controller {
         $data['id'] = $this->getUser()->getId();
         $data['username'] = $this->getUser()->getUsername();
         $data['password'] = $request->getSession()->get('password');
-
+        
         $result = $ch->resultApiRed($data, $file);
 
         if ($result['result'] == 'ok'):
