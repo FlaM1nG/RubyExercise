@@ -12881,8 +12881,8 @@ a.boton-leer-post:focus {
   background-color: #ffffff;
 }
 .us-image-checkbox input[type="checkbox"],
-.check-payment-method input[type="checkbox"],
-.check-send-method input[type="checkbox"] {
+.check-payment-method input[type="radio"],
+.check-send-method input[type="radio"] {
   display: none;
 }
 .us-image-checkbox-checked img,
