@@ -523,7 +523,7 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-        $sql =  "select sh.house_id, sh.price as precio_base,my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$offerID and off.service_id = my.service_id";
+        $sql =  "select sh.house_id, sh.price as precio_base,my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate as ocupado ,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$offerID and off.service_id = my.service_id";
 
 
         $stmt = $db->prepare($sql);
@@ -536,7 +536,7 @@ class CalendarController extends Controller
 
                 if (!empty($value['precio_base'])) {
                     $alEspecificos['precio_base'] = $value['precio_base'];
-
+                    $alEspecificos['ocupado'] = $value['ocupado'];
 
                 }
             }
@@ -567,7 +567,7 @@ class CalendarController extends Controller
             $range = array();
             foreach ($dateRange as $key => $date) {
                 $aux['id'] = $key;
-                $aux['title'] = $title;
+                $aux['ocupado'] = $title;
                 $aux['start'] = date_format($date, $format);
                 $aux['price'] = $price;
                 $range = $aux;
@@ -622,7 +622,7 @@ class CalendarController extends Controller
 
                 if (!empty($value['start_datetime']) && !empty($value['end_datetime'])) {
                     //die($value['start_datetime'] . ' - ' . $value['end_datetime'] . ' - ' . $value['price']);
-                    $eventosEspecificos[] = createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['title']);
+                    $eventosEspecificos[] = createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate']);
                 }
             }
         }
@@ -631,7 +631,7 @@ class CalendarController extends Controller
 
 //print_r( createDateRange( '2017-01-01', '2017-12-31', $basePrice) );
 
-        $eventos = $this->createDateRangeBase( '2017-01-01', '2018-12-31', $alEspecificos['precio_base'], "€");
+        $eventos = $this->createDateRangeBase( '2017-01-01', '2022-12-31', $alEspecificos['precio_base'], $alEspecificos['ocupado']);
         //print_r($eventos);die;
         foreach ($eventos as $key => $value) {
             foreach ($eventosEspecificos as $key2 => $value2) {
@@ -668,7 +668,7 @@ class CalendarController extends Controller
         $range = array();
         foreach ($dateRange as $key => $date) {
             $range[$key]['id'] = $key;
-            $range[$key]['title'] = $title;
+            $range[$key]['ocuppate'] = $title;
             $range[$key]['start'] = date_format($date, $format);
             $range[$key]['price'] = $price;
 

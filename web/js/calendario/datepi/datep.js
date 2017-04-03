@@ -44,7 +44,7 @@ $(document).ready(function() {
                     totalPrice = data;
                     $('#precioTotal').text(totalPrice);
                 }
-            });
+            }); 
 
         },
         onChangeMonthYear: function(month, year, dp) {
