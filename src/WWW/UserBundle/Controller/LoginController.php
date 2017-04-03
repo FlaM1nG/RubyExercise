@@ -15,7 +15,7 @@ class LoginController extends Controller{
     
     public function loginAction(Request $request){
         $session=$request->getSession();
-        
+
         if(empty($session->get('intentoLogin')))
             $session->set('intentoLogin',0);
         
@@ -25,27 +25,17 @@ class LoginController extends Controller{
         $formulario->handleRequest($request);
 
         if($formulario->isSubmitted()):
-            
-            $email=$request->request->all()['loginUser']['_username'];
-            $password=$request->request->all()['loginUser']['_password'];  
-         
-            $file = MyConstants::PATH_APIREST."user/registration/login_user.php";
-            $data = array("username" => $email,
-                          "password" => $password);
-            
-            $ch = new ApiRest();
-            
-            $result = $ch->resultApiRed($data, $file);
+
+            $result = $this->getInfoLogin($request);
 
             $authenticationUtils = $this->get('security.authentication_utils');
             // get the login error if there is one
             $error = $authenticationUtils->getLastAuthenticationError();
             // last username entered by the user
             $lastUsername = $authenticationUtils->getLastUsername();
-            
-                
+
             if($result['result'] == 'ok'):
-                
+
                 $file = MyConstants::PATH_APIREST."user/data/get_info_user.php";
                 $ch = new ApiRest();
                 $data['id'] = $result['id'];
@@ -55,7 +45,6 @@ class LoginController extends Controller{
                 $resultUser = $ch->resultApiRed($data, $file);
                 
                 $user = new User($resultUser);
-//                print_r($user->getAddresses()); exit;
             
                 if(!$this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')){        
                     $this->get('app.manager.usuario_manager')->login($user);
@@ -68,15 +57,21 @@ class LoginController extends Controller{
                $session->set("password",$result['password']);
                $session->set('intentoLogin',0);
                $path =$session->get('_security.user.target_path');
-               
+
                if($path==NULL || $path=='user_register'){
                    return $this->redirectToRoute('user_profiler');
                }
-               else{  
+               else{
                    return $this->redirect($path);
                }
-                   
-           else:
+
+
+           elseif($result['result'] == 'not_activate'):
+                $this->saveSession($request, $result);
+
+                return $this->redirectToRoute('user_registerConfirmPhone');
+
+           else: 
                 $session->set('intentoLogin',$session->get('intentoLogin')+1);
             
                 $this->addFlash(
@@ -86,7 +81,7 @@ class LoginController extends Controller{
                 return $this->render('UserBundle:Default:login.html.twig',array('last_username' => $lastUsername,'error' => $error,'formulario'=>$formulario->createView()));
             endif;
         
-        else: 
+        else:
             $authenticationUtils = $this->get('security.authentication_utils');
                 // get the login error if there is one
                 $error = $authenticationUtils->getLastAuthenticationError();
@@ -96,6 +91,33 @@ class LoginController extends Controller{
         endif;
     }
     
+    private function getInfoLogin(Request $request){
+        
+        $email=$request->get('loginUser')['_username'];
+        $password=$request->get('loginUser')['_password'];
+
+        $file = MyConstants::PATH_APIREST."user/registration/login_user.php";
+        $data = array("username" => $email,
+            "password" => $password);
+
+        $ch = new ApiRest();
+
+        $result = $ch->resultApiRed($data, $file);
+
+        return $result;
+
+    }
+
+    private function saveSession(Request $request, $result){
+
+        $session = $request->getSession();
+
+        $session->set("id",$result['id']);
+        $session->set("username",$result['username']);
+        $session->set("password",$result['password']);
+        $session->set("phone", $result['phone']);
+    }
+
     public function logoutAction(Request $request){
         $session=$request->getSession();
         $session->clear();
@@ -107,7 +129,7 @@ class LoginController extends Controller{
                     return $this->redirect($this->generateUrl('user_login'));
     }
       /**
-     * @Route("/login_check", name="usuario_login_check")
+     * @Route("/login_check", name="usuario_login_check"
      */
     public function loginCheckAction()
     {

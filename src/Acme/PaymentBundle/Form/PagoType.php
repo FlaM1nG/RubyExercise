@@ -36,13 +36,12 @@ class PagoType extends AbstractType {
                 array_push($arrayAddress,$value);
             endforeach;
         endif;
-
+       
          
         
         $builder
 
             ->add('addressPay', ChoiceType::class, array(
-                'data_class' => 'WWW\GlobalBundle\Entity\Address',
                 'label' => 'Dirección envio',
                 'choices' => $arrayAddress,
                 'choice_value' => 'id',
@@ -78,27 +77,35 @@ class PagoType extends AbstractType {
                 'mapped' =>false,
                 'required' => false
             ))
-            ->add('paypal', CheckboxType::class, array(
-                'attr' => array('class' => 'check-payment-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
+//            ->add('paypal', CheckboxType::class, array(
+//                'attr' => array('class' => 'check-payment-method center-block'),
+//                'label' => ' ',
+//                'mapped' =>false,
+//                'required' => false
+//            ))
+//
+//            ->add('card', CheckboxType::class, array(
+//                'attr' => array('class' => 'check-payment-method center-block'),
+//                'label' => ' ',
+//                'mapped' =>false,
+//                'required' => false
+//            ))
 
-            ->add('card', CheckboxType::class, array(
-                'attr' => array('class' => 'check-payment-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
+//            ->add('correos', CheckboxType::class, array(
+//                'attr' => array('class' => 'check-send-method center-block'),
+//                'label' => ' ',
+//                'mapped' =>false,
+//                'required' => false
+//            ))
+            ->add('payMethod', ChoiceType::class, array('choices' => array('paypal' =>' ', 'card' => ' '),
+                                                        'expanded' => true,
+                                                        'multiple' => false,
+                                                        'mapped' => false))
 
-            ->add('correos', CheckboxType::class, array(
-                'attr' => array('class' => 'check-send-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
-
+            ->add('sendMethod', ChoiceType::class, array('choices' => array('correos' => ' ', 'otros' =>' '),
+                                                         'expanded' => true,
+                                                         'multiple' => false,
+                                                         'mapped' => false))
 //            ->add('dhl', CheckboxType::class, array(
 //                'attr' => array('class' => 'check-send-method center-block'),
 //                'label' => ' ',
@@ -106,20 +113,20 @@ class PagoType extends AbstractType {
 //                'required' => false
 //            ))
 
-            ->add('otros', CheckboxType::class, array(
-                'attr' => array('class' => 'check-send-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
-           
+//            ->add('otros', CheckboxType::class, array(
+//                'attr' => array('class' => 'check-send-method center-block'),
+//                'label' => ' ',
+//                'mapped' =>false,
+//                'required' => false
+//            ))
+
             ->add('totalAmount', NumberType::class, array(
                 'attr' => array('class' => 'check-send-method center-block'),
                 'data' => $amount,
                 'mapped' =>false,
                 'required' => false
             ))    
-
+            
             ->add('submit', SubmitType::class, array(
                 'attr' => array('class' => 'btn btn-default btn-float-none'),
                 'label' => 'Pagar',

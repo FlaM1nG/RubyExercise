@@ -44,7 +44,7 @@ $(document).ready(function() {
                     totalPrice = data;
                     $('#precioTotal').text(totalPrice);
                 }
-            });
+            }); 
 
         },
         onChangeMonthYear: function(month, year, dp) {
@@ -92,10 +92,8 @@ $(document).ready(function() {
             updateDatePickerCells();
         }
     });
-
-
+    
     updateDatePickerCells();
-
 
     $(function($){
         $.datepicker.regional['es'] = {

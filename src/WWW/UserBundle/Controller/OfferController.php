@@ -86,7 +86,8 @@ class OfferController extends Controller{
         $this->ut = new Utilities();
         $pathRender = "";
         $minHolders = null;
-
+        $calendarId = null;
+       
         $form = $this->searchOffer($request, $minHolders); 
         $form->handleRequest($request);
 
@@ -98,20 +99,25 @@ class OfferController extends Controller{
             elseif($this->service == 4 || $this->service == 5):
                 $result = $this->updateOfferShareCar($request);
             
-            elseif($this->service == 6 || $this->service == 7):
-                $house = new House();
-                $house->setId($request->get('shareHouse')['houseId']);
-                $this->offer->setHouse($house);
+            elseif($this->service == 6 || $this->service == 7 || $this->service == 8 || $this->service == 9):
 
-                $request->getSession()->set('_security.user.target_path','');
-                $request->getSession()->remove('offer');
+                if($this->service != 9 ):
+                    $house = new House();
+                    $house->setId($request->get('shareHouse')['houseId']);
+                    $this->offer->setHouse($house);
+
+                    $request->getSession()->set('_security.user.target_path','');
+                    $request->getSession()->remove('offer');
+                endif;
 
                 $result = $this->updateOfferHouseRent($request);
+
             endif;
 
             if($result == 'ok'):
                 return $this->redirectToRoute('user_profiler_offers');
             endif;
+
         endif;
 
         if($this->service <= 3):
@@ -120,7 +126,11 @@ class OfferController extends Controller{
         elseif($this->service == 4 || $this->service == 5):
             $pathRender = 'UserBundle:Profile:offers/profileEditOfferShareCar.html.twig';
         
-        elseif($this->service == 6 || $this->service == 7):
+        elseif($this->service == 6 || $this->service == 7 || $this->service == 8 || $this->service == 9):
+            if($this->service == 6 ||$this->service == 7):
+                $calendarId = $this->getDataCalendar($this->offer->getHouse()->getId());
+            endif;
+
             $pathRender = 'UserBundle:Profile:House/profileEditOfferHouseRent.html.twig';
             $route = $request->get('_route');
             $request->getSession()->set('_security.user.target_path',$route);
@@ -131,7 +141,27 @@ class OfferController extends Controller{
                         array('form' => $form->createView(),
                               'service' => $this->service,
                               'offer' => $this->offer,
-                              'min' => $minHolders  ));
+                              'min' => $minHolders,
+                              'calendarID' => $calendarId,
+                        ));
+
+    }
+
+    private function getDataCalendar($idHouse){
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+
+        $query =  "select calendar_id from house where id=".$idHouse;
+
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $fechas = $stmt->fetchAll();
+
+        $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+
+        return $fechas[0]['calendar_id'];
 
     }
 
@@ -227,10 +257,30 @@ class OfferController extends Controller{
         $info['username'] = $request->getSession()->get('username');
         $info['password'] = $request->getSession()->get('password');
         $info['offer_id'] = $this->offer->getOffer()->getId();
+        $info['serviceId'] = $this->service;
         $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'";
-        $data['sub_values']['price'] = $this->offer->getPrice();
+        $data['values']['title'] = "'". $this->offer->getOffer()->getTitle()."'";
+
+        if($this->service == 6 || $this->service == 7):
+            $data['sub_values']['price'] = $this->offer->getPrice();
+        endif;
 
         $info['data']= json_encode($data);
+
+        if($this->service == 9):
+
+            if(!empty($request->files->get('shareHouse')['imgBedroom'][0])):
+                $photos = $request->files->get('shareHouse')['imgBedroom'];
+                $count = 0;
+
+                foreach($photos as $photo){
+                    $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
+                    $info['photos['.$count.']'] = $ch_photo;
+                    $count += 1;
+                }
+            endif;
+
+        endif;
 
         $result = $ch->resultApiRed($info, $file);
 
@@ -267,9 +317,17 @@ class OfferController extends Controller{
                      $minHolder = sizeof($this->offer->getOffer()->getInscriptions());
                  endif;
 
-             elseif($result['service_id'] == 6 || $result['service_id'] == 7 ):
+             elseif($result['service_id'] == 6 || $result['service_id'] == 7 || $result['service_id'] == 8 || $result['service_id'] == 9 ):
+
                  $this->offer = new ShareHouse($result);
-                 $formulario = $this->createForm(ShareHouseType::class, $this->offer);
+
+                 if($result['service_id'] == 9):
+                     $validation = 'licenciaObligatoria';
+                 else:
+                     $validation = null;
+                 endif;
+
+                 $formulario = $this->createForm(ShareHouseType::class, $this->offer,array('service' => $result['service_id'],'validation_groups' => $validation ));
 
              endif;
         else:
@@ -315,7 +373,7 @@ class OfferController extends Controller{
    }
    
     public function deleteImageOfferAction(Request $request){
-      
+
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST."services/photos/delete_offer_photo.php";
         
@@ -352,7 +410,6 @@ class OfferController extends Controller{
         }
 
         $result = $ch->resultApiRed($data, $file);
-//        print_r($result);
 
     }
    

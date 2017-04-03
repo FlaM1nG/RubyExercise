@@ -46,12 +46,27 @@ class PaymentPurchaseController extends Controller {
         //Redsys <20
         //Addons >20
         $user = $this->getUserProfile($request);
+        $arrayAddressesPay = array();
+
+        foreach($user->getAddresses()[0] as $data ):
+            $arrayAddressesPay[$data->getId()] = $data->getRegion();
+        endforeach;
+
+        $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
+
         $this->setUpVars($request);
-        if($this->serviceId == 2 ){
-           $courierPrice= $this->getDataCourier($request,  $this->offer->getPrice());
-        }
-        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice() ));
+
+        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice()));
         $form->handleRequest($request);
+
+        $arrayCourier = null;
+        $this->serviceId = $this->offer->getOffer()->getService()->getId();
+
+        if($this->serviceId == 1 || $this->serviceId == 2):
+            $arrayCourier = $this->getCourierPrice($request);
+
+        endif;
+
         $session = $request->getSession();
         $session->set('_security.user.target_path',null);
         if ($form->isSubmitted() && $form->get('newAddress')->isClicked()) {
@@ -59,7 +74,7 @@ class PaymentPurchaseController extends Controller {
             $session->set('_security.user.target_path',$url);
             return $this->redirectToRoute('user_profiler_newAdress');
         }
-        elseif ($form->isSubmitted() && $form->get('submit')->isClicked()) { 
+        elseif ($form->isSubmitted() && $form->get('submit')->isClicked()) {
 
 //            Si el usuario elige pagar con tarjeta (LA CAIXA)
 //            if ($form->get('gateway_name')->getData() == 'addon_payments') {
@@ -79,7 +94,7 @@ class PaymentPurchaseController extends Controller {
             $payment->setClientEmail($user->getUsername());
 
             //REDSYS
-            if (isset($request->get('previoPago')['card'])) {
+            if ($request->get('previoPago')['payMethod'] == 'card') {
                 // 4548812049400004
                 // 12/20
                 // 123
@@ -120,8 +135,8 @@ class PaymentPurchaseController extends Controller {
             }
 
             //Si no, se paga por PAYPAL
-            else {
-
+            elseif($request->get('previoPago')['payMethod'] == 'paypal') {
+                
                 $storage = $this->getPayum()->getStorage($payment);
                 $storage->update($payment);
                 
@@ -137,6 +152,9 @@ class PaymentPurchaseController extends Controller {
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
                     'offer' => $this->offer,
+                    'service' => $this->serviceId,
+                    'arrayCourier' => $arrayCourier,
+                    'arrayAddresses' => $arrayAddressesPay,
         ));
     }
 
@@ -313,31 +331,25 @@ class PaymentPurchaseController extends Controller {
 
         return $user;
     }
-    
-    private function getDataCourier(Request $request, &$priceMin){
 
-        $file = MyConstants::PATH_APIREST."services/courier/get_courierPrice.php";
+    private function getCourierPrice(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'services/courier/get_courierPrice.php';
         $ch = new ApiRest();
-        $courierPrice = null;
 
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
         $data['id_messengerService'] = 2;
+        $data['weight'] = $this->offer->getWeight();
         
-        $result = $ch->resultApiRed($data,$file);
+        $result = $ch->resultApiRed($data, $file);
 
         if($result['result'] == 'ok'):
-
-            foreach ($result['messengerPrice'] as $data):
-                $courier = new MessengerPrice($data);
-                $courierPrice[$data['id']] = $courier;
-
-                if($courier->getWeightMin() == 0)
-                    $priceMin = $courier->getPriceES();
-            endforeach;
+            return $result['messengerPrice'][0];
+        else:
+            return null;
         endif;
-        return $courierPrice;
     }
-    
+
 }

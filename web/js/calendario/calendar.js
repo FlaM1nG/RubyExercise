@@ -58,6 +58,9 @@ $(document).ready(function() {
                     $('#ModalEdit').modal('show');
                 });
             },
+
+
+            
             eventDrop: function(event, delta, revertFunc) { // si changement de position
 
                 edit(event);
@@ -111,7 +114,7 @@ $(document).ready(function() {
         Event[5] = serviceID;
 
         $.ajax({
-            url: Routing.generate('fullcalendar_edit'),
+            url: Routing.generate('fullcalendar_edit_create'),
             type: "POST",
             data: {Event:Event},
             success: function(rep) {

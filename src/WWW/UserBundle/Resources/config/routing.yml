@@ -2,6 +2,14 @@ user_register:
     path: /register/{token}
     defaults: { _controller: UserBundle:Register:register,token:null  }
 
+user_registerConfirmPhone:
+    path: /register/confirmPhone/
+    defaults: { _controller: UserBundle:Register:confirmPhone }
+
+user_registerNewSMS:
+    path: /register/newPhone/
+    defaults: { _controller: UserBundle:Register:newPhone }
+
 user_login:
     path: /login/
     defaults: { _controller: UserBundle:Login:login }
