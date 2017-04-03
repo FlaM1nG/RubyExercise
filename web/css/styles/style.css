@@ -9705,6 +9705,9 @@ body.pg-loading {
 .navigation {
   text-align: center;
 }
+.row-min-hei {
+  min-height: 40vh;
+}
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
 /*######################   RANGO ANCHO [1600 � 1200[ ######################*/
 /*######################   RANGO ANCHO [1200 �  992[  ######################*/
@@ -9720,6 +9723,12 @@ body.pg-loading {
   }
   .col-pad {
     padding: 0px;
+  }
+  .cd-main-content-special {
+    padding-top: 0 !important;
+  }
+  .titulo-pago {
+    font-size: 30px;
   }
 }
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
@@ -12444,6 +12453,7 @@ a.boton-leer-post:focus {
   -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  margin-top: 20px;
 }
 .user-inscrip .us-val {
   padding-bottom: 10px;
@@ -12764,9 +12774,18 @@ a.boton-leer-post:focus {
   padding: 7px 12px;
   float: none;
 }
-.us-mess-sent-element .us-open-mess {
+.us-mess-sent-element .us-open-mess,
+#replyForm .us-open-mess {
   margin: 0 auto;
   float: none;
+  border: 1px solid #333333;
+  -webkit-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+  padding: 0 5%;
+}
+#replyForm .us-open-mess {
+  padding: 3% 5%;
 }
 .btn.btn-default.us-profileAddresses {
   float: none;
@@ -12862,8 +12881,8 @@ a.boton-leer-post:focus {
   background-color: #ffffff;
 }
 .us-image-checkbox input[type="checkbox"],
-.check-payment-method input[type="checkbox"],
-.check-send-method input[type="checkbox"] {
+.check-payment-method input[type="radio"],
+.check-send-method input[type="radio"] {
   display: none;
 }
 .us-image-checkbox-checked img,
@@ -15359,9 +15378,16 @@ textarea {
     right: 13%;
   }
 }
+.not-margin {
+  margin: 0;
+}
 /* Pagos */
 .btn-float-none {
   float: none !important;
+}
+.btn-normal-derecha {
+  float: right;
+  margin-top: 20px;
 }
 .table-pago {
   -webkit-box-shadow: 10px 10px 5px 0 rgba(0, 0, 0, 0.15);
@@ -15754,6 +15780,9 @@ textarea {
 .off-price-offer .input-group-addon {
   border: 1px solid #CCC;
 }
+.off-special-price .input-group-addon {
+  border: 1px solid #CCC;
+}
 .off-texto-matizar p {
   font-size: 12px;
 }
@@ -15817,6 +15846,12 @@ textarea {
     padding-left: 15px;
     padding-right: 15px;
     float: left;
+  }
+  .off-middle-hijo {
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+    width: 50%;
   }
 }
 /*######################   RANGO ANCHO [480 � 320[  ######################*/

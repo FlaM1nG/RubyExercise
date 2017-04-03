@@ -89,13 +89,25 @@ class IndexController extends Controller
         return $this->render('TwigBundle:Exception:error404.html.twig');
     }
 
-    public function pruebaInscripcionAction(){
-        return $this->render('offer/inscription.html.twig');
-    }
+//    public function pruebaInscripcionAction(){
+//        return $this->render('offer/inscription.html.twig');
+//    }
 
     public function pruebaPantallaPagoAction(){
 //        $formulario = $this->createForm(PagoType::class);
 
         return $this->render('pay/payPage.html.twig');
+    }
+
+    public function pruebaPantallaPostPagoOKAction(){
+//        $formulario = $this->createForm(PagoType::class);
+
+        return $this->render('pay/postPayPageOK.html.twig');
+    }
+
+    public function pruebaPantallaPostPagoKOAction(){
+//        $formulario = $this->createForm(PagoType::class);
+
+        return $this->render('pay/postPayPageKO.html.twig');
     }
 }

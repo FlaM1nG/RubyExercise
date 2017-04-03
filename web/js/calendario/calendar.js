@@ -7,19 +7,22 @@ $(document).ready(function() {
     var m = date.getMonth();
     var y = date.getFullYear();
 
+    var local = window.location.href.split('/');
+    var idoferta = local[local.length-2];
+
 
 		$('#calendar-holder').fullCalendar({
 
-
+                       
                        lang: 'es',
-
+                       
 			header: {
 				left: 'prev,next today',
 				center: 'title',
 				right: 'month,basicWeek,basicDay'
 			},
-
-
+                       
+                       
                        buttonText:
                          {
                                  prev:     '◄',
@@ -36,6 +39,7 @@ $(document).ready(function() {
 			eventLimit: true, // allow "more" link when too many events
 			selectable: true,
 			selectHelper: true,
+            eventStartEditable: false,
 
             select: function(start, end) {
 
@@ -48,10 +52,15 @@ $(document).ready(function() {
                     $('#ModalEdit #id').val(event.id);
                     $('#ModalEdit #title').val(event.title);
                     $('#ModalEdit #price').val(event.price);
-                    $('#ModalEdit #serviceID').val(event.serviceID);
+                    $('#ModalEdit #calendar_id').val(event.calendar_id);
+                    $('#ModalEdit #service_id').val(event.service_id);
+
                     $('#ModalEdit').modal('show');
                 });
             },
+
+
+            
             eventDrop: function(event, delta, revertFunc) { // si changement de position
 
                 edit(event);
@@ -62,19 +71,20 @@ $(document).ready(function() {
                 edit(event);
 
             },
-<<<<<<< HEAD
 
+            eventDataTransform: function(event) {
+                if(event.allDay) {
+                    event.end = moment(event.end).add(1, 'days')
+                }
+                return event;
+            },
 
-=======
-        
-        
->>>>>>> e8af1b87f74dbf753ef07e92379c16a8a10f6b75
-		 eventSources: [
+            eventSources: [
             {
                 url: Routing.generate('fullcalendar_loader'),
                 type: 'POST',
                 // A way to add custom filters to your event listeners
-                data: {
+                data: {'idOffer' : idoferta
                 },
                 error: function() {
                    //alert('There was an error while fetching Google Calendar!');
@@ -91,18 +101,20 @@ $(document).ready(function() {
         }
 
         id =  event.id;
+        price = event.price;
+        calendarID = event.calendarID;
+        serviceID = event.serviceID;
 
         Event = [];
         Event[0] = id;
         Event[1] = start;
         Event[2] = end;
+        Event[3] = price;
+        Event[4] = calendarID;
+        Event[5] = serviceID;
 
         $.ajax({
-<<<<<<< HEAD
-            url: 'editEventDate.php',
-=======
-            url: Routing.generate('fullcalendar_delete'),
->>>>>>> e8af1b87f74dbf753ef07e92379c16a8a10f6b75
+            url: Routing.generate('fullcalendar_edit_create'),
             type: "POST",
             data: {Event:Event},
             success: function(rep) {

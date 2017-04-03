@@ -31,6 +31,14 @@
 
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('css/calendario/datepi/jquery-ui.css') }}" />
+
+{% endblock %}
+
+
 {% block offerImage %}
     {#{{ dump(offer) }}#}
     <div id="off-img-big" class="owl-carousel">
@@ -91,7 +99,21 @@
 
 
 {% block offerPrice %} 
-    {{ offer.price }} €
+    {% if service == 6 or service == 7 %}
+
+        {{ offer.price }} €
+
+    {% endif %}
+
+    <input type="text" id="DatePicker">
+    <input type="text" id="DatePickerto">
+
+    <input type="hidden" id="startDate" name="startDate" value="">
+    <input type="hidden" id="endDate" name="endDate" value="">
+
+    <p>Fecha Inicial: <span id="fechaInicial"></span></p>
+    <p>Fecha Final: <span id="fechaFinal"></span></p>
+    <p>Precio Total: <span id="precioTotal"></span> €</p>
 {% endblock %}
 
 
@@ -152,7 +174,8 @@
             </div>
             <!-- FIN DATOS IMPORTATNES DEL SERVICIO -->
         </div>
-        
+
+    {% if service == 6 or service == 7 %}
         <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
             <!-- LLEGADA Y SALIDA -->
             <div class="row">
@@ -180,6 +203,7 @@
             </div>
             <!-- FIN LLEGADA Y SALIDA -->
         </div>
+    {% endif %}
     </div>
     
     
@@ -408,9 +432,9 @@
 
                     <!-- DATO -->
                     {% if service == 6 and dato.attr != 'entradaPrivada'%}
-                         {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
+                        {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
 
-                    {% elseif  service == 7 %}
+                    {% else %}
                         {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
 
                     {% endif %}
@@ -429,10 +453,10 @@
 
                 {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
                 {% if col != 0 %}
-                    </div>
-                {% endif %}
-
             </div>
+            {% endif %}
+
+        </div>
         </div>
 
     {% endfor %}
@@ -532,4 +556,15 @@
 {% block javascriptsFooter %}
     {{ parent() }}
     {{ rating.staticRatingJS() }}
+
+
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/core.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/md5.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/datep.js') }}"></script>
+
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
 {% endblock %}

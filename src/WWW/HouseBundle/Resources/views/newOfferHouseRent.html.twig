@@ -5,6 +5,16 @@
     {{ include('nav/menu.html.twig') }}
 {% endblock %}
 
+
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('css/calendario/datepi/jquery-ui.css') }}" />
+
+{% endblock %}
+
+
 {% block alert %}
     {% for flash_message in app.session.flashbag.get('messageFail') %}
         {{  alerts.alert('alert-warning', flash_message, null) }}
@@ -13,7 +23,7 @@
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
         {{  alerts.alert('alert-success', flash_message, null) }}
     {% endfor %}
-    {#{{ form_errors(form) }}#}
+    {{ form_errors(form) }}
 
 {% endblock %}
 
@@ -30,24 +40,45 @@
                     {% elseif service == 7 %}
                         Nueva Oferta Casa Compartida
 
+                    {% elseif service == 8 %}
+                        Nueva Oferta Intercambio de Casa
+
+                    {% elseif service == 9 %}
+                        Nueva Oferta Intercambio de Habitaciones
+
                     {% endif %}
                 </h3>
                 <hr/>
             </div>
         </div>
+        {% if service != 9 %}
 
-        {% if form.house.vars.choices|length == 0 %}
-            No tiene ninguna casa creada, pinche <a href="{{ path('user_profile_newHouse') }}">aquí </a>para crear una
-        {% else %}
-            {{ form_row(form.house) }}
+            {% if form.house.vars.choices|length == 0 %}
+                No tiene ninguna casa creada, pinche <a href="{{ path('user_profile_newHouse') }}">aquí </a>para crear una
+            {% else %}
+                {{ form_row(form.house) }}
+            {% endif %}
+
         {% endif %}
 
         {{ form_row(form.offer.title) }}
         {{ form_row(form.offer.description) }}
-        {{ form_row(form.entryTime) }}
-        {{ form_row(form.departureTime) }}
-        {{ form_row(form.price) }}
+
+        {% if service == 6 or service == 7 %}
+            {{ form_row(form.entryTime) }}
+            {{ form_row(form.departureTime) }}
+            {{ form_row(form.price) }}
+        {% endif %}
+
+        {% if service == 9 %}
+            {{ form_row(form.imgBedroom) }}
+        {% endif %}
+
         {{ form_row(form.newShareHouse) }}
+        {{ form_row(form._token) }}
+
+        <input type="text" id="DatePicker">
+
 
     </div>
 
@@ -58,26 +89,39 @@
 {% block javascriptsFooter %}
     {{ parent() }}
 
-    <!-- the main fileinput plugin file -->
-    <script src="{{ asset('js/fileinput.js') }}"></script>
 
-    <script type="text/javascript">
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/core.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/md5.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/calendario/datepi/datep.js') }}"></script>
 
-        $(document).ready(function() {
 
-            $("#imgOffer").fileinput({
 
-                initialPreviewAsData: true,
-                overwriteInitial: false,
-                maxFileSize: 3072,
-                showRemove: false,
-                showUpload: false,
-                showZoom: false,
-                initialCaption: '',
-                maxFileCount: 5,
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+    {% if service == 9 %}
+        <!-- the main fileinput plugin file -->
+        <script src="{{ asset('js/fileinput.js') }}"></script>
+        <script src="{{ asset('js/locales/es.js') }}"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+
+                $('.file-loading').fileinput({
+
+                    initialPreviewAsData: true,
+                    overwriteInitial: false,
+                    maxFileSize: 3072,
+                    showRemove: false,
+                    showUpload: false,
+                    showZoom: false,
+                    initialCaption: '',
+                    maxFileCount: 5,
+                });
             });
-        });
 
-
-    </script>
+        </script>
+    {% endif %}
 {% endblock %}

@@ -46,12 +46,35 @@ class PaymentPurchaseController extends Controller {
         //Redsys <20
         //Addons >20
         $user = $this->getUserProfile($request);
+        $arrayAddressesPay = array();
+
+        foreach($user->getAddresses()[0] as $data ):
+            $arrayAddressesPay[$data->getId()] = $data->getRegion();
+        endforeach;
+
+        $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
+
         $this->setUpVars($request);
 
-        $form = $this->createForm(PagoType::class, $user);
+        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice()));
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->get('submit')->isClicked()) {
+        $arrayCourier = null;
+        $this->serviceId = $this->offer->getOffer()->getService()->getId();
+
+        if($this->serviceId == 1 || $this->serviceId == 2):
+            $arrayCourier = $this->getCourierPrice($request);
+
+        endif;
+
+        $session = $request->getSession();
+        $session->set('_security.user.target_path',null);
+        if ($form->isSubmitted() && $form->get('newAddress')->isClicked()) {
+            $url = $request->getUri();
+            $session->set('_security.user.target_path',$url);
+            return $this->redirectToRoute('user_profiler_newAdress');
+        }
+        elseif ($form->isSubmitted() && $form->get('submit')->isClicked()) {
 
 //            Si el usuario elige pagar con tarjeta (LA CAIXA)
 //            if ($form->get('gateway_name')->getData() == 'addon_payments') {
@@ -63,14 +86,15 @@ class PaymentPurchaseController extends Controller {
 //            }
             $payment = new Payment;
             //numero de referencia por la hora y fecha
-            $payment->setNumber(date('ymdHis'));
+            $payment->setNumber(date('ymdHis'). '-' . $request->get('idOffer'));
             $payment->setClientId(uniqid());
             $payment->setDescription(sprintf('An order %s for a client %s', $this->offer->getPrice(), $user->getUsername()));
             $payment->setTotalAmount($this->offer->getPrice() * 100);
             $payment->setCurrencyCode('EUR');
+            $payment->setClientEmail($user->getUsername());
 
             //REDSYS
-            if (isset($request->get('previoPago')['card'])) {
+            if ($request->get('previoPago')['payMethod'] == 'card') {
                 // 4548812049400004
                 // 12/20
                 // 123
@@ -94,21 +118,24 @@ class PaymentPurchaseController extends Controller {
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
-                $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
-                        'redsys', $payment, 'acme_payment_done'
+                $captureTokenOK = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                        'redsys', $payment, 'prueba_postpago_ok'
+                );
+                $captureTokenKO = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                        'redsys', $payment, 'prueba_postpago_ko'
                 );
 
-                $details['Ds_Merchant_UrlOK'] = $captureToken->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
-                $details['Ds_Merchant_UrlKO'] = $captureToken->getAfterUrl();
+                $details['Ds_Merchant_UrlOK'] = $captureTokenOK->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
+                $details['Ds_Merchant_UrlKO'] = $captureTokenKO->getAfterUrl() ;
                 $payment->setDetails($details);
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
-                return $this->redirect($captureToken->getTargetUrl());
+                return $this->redirect($captureTokenOK->getTargetUrl());
             }
 
             //Si no, se paga por PAYPAL
-            else {
+            elseif($request->get('previoPago')['payMethod'] == 'paypal') {
                 
                 $storage = $this->getPayum()->getStorage($payment);
                 $storage->update($payment);
@@ -116,8 +143,8 @@ class PaymentPurchaseController extends Controller {
                 $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
                         'paypal_express_checkout_with_ipn_enabled', $payment, 'acme_payment_done'
                 );
-                
 
+                
                 return $this->redirect($captureToken->getTargetUrl());
             }
         }
@@ -125,6 +152,9 @@ class PaymentPurchaseController extends Controller {
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
                     'offer' => $this->offer,
+                    'service' => $this->serviceId,
+                    'arrayCourier' => $arrayCourier,
+                    'arrayAddresses' => $arrayAddressesPay,
         ));
     }
 
@@ -192,47 +222,7 @@ class PaymentPurchaseController extends Controller {
         ;
     }
 
-    /**
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createPurchaseForm() {
 
-        $formBuilder = $this->createFormBuilder(null, array('data_class' => Payment::class));
-
-        return $formBuilder
-                        ->add('gateway_name', 'choice', array(
-                            'choices' => array(
-                                'paypal_express_checkout_with_ipn_enabled' => 'Paypal ExpressCheckout',
-                                'addon_payments' => 'Pago con Tarjeta',
-//                    'paypal_pro_checkout' => 'Paypal ProCheckout',
-//                    'stripe_js' => 'Stripe.Js',
-//                    'stripe_checkout' => 'Stripe Checkout',
-//                    'authorize_net' => 'Authorize.Net AIM',
-//                    'be2bill' => 'Be2bill',
-//                    'be2bill_offsite' => 'Be2bill Offsite',
-//                    'payex' => 'Payex',
-                                'redsys' => 'Redsys',
-//                    'offline' => 'Offline',
-//                    'stripe_via_omnipay' => 'Stripe (Omnipay)',
-//                    'paypal_express_checkout_via_omnipay' => 'Paypal ExpressCheckout (Omnipay)',
-                            ),
-                            'mapped' => false,
-                            'constraints' => array(new NotBlank())
-                        ))
-                        ->add('totalAmount', 'number', array(
-                            'data' => $this->offer->getPrice(),
-                            'constraints' => array(new Range(array('max' => 1000, 'min' => 1)), new NotBlank())
-                        ))
-                        ->add('currencyCode', 'text', array(
-                            'data' => 'EUR',
-                            'constraints' => array(new NotBlank())
-                        ))
-                        ->add('clientEmail', 'text', array(
-                            'data' => $this->getUser()->getEmail(),
-                            'constraints' => array(new Email(), new NotBlank())
-                        ))
-                        ->getForm();
-    }
 
     /**
      * @return Payum
@@ -317,7 +307,9 @@ class PaymentPurchaseController extends Controller {
         $result = $ch->resultApiRed($data, $file);
 
         if ($this->serviceId == 4 || $this->serviceId == 5):
+
             $this->offer = new ShareCar($result['data']);
+
         endif;
     }
 
@@ -330,7 +322,7 @@ class PaymentPurchaseController extends Controller {
         $data['id'] = $this->getUser()->getId();
         $data['username'] = $this->getUser()->getUsername();
         $data['password'] = $request->getSession()->get('password');
-
+        
         $result = $ch->resultApiRed($data, $file);
 
         if ($result['result'] == 'ok'):
@@ -338,6 +330,26 @@ class PaymentPurchaseController extends Controller {
         endif;
 
         return $user;
+    }
+
+    private function getCourierPrice(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'services/courier/get_courierPrice.php';
+        $ch = new ApiRest();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['id_messengerService'] = 2;
+        $data['weight'] = $this->offer->getWeight();
+        
+        $result = $ch->resultApiRed($data, $file);
+
+        if($result['result'] == 'ok'):
+            return $result['messengerPrice'][0];
+        else:
+            return null;
+        endif;
     }
 
 }

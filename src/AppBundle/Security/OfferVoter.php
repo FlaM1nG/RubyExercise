@@ -16,6 +16,7 @@ class OfferVoter extends Voter
     const DELETE = 'delete_offer';
     const SELECT = 'select_offer';
     const SHOW = 'show_inscriptions_offer';
+    const SELLED = 'offer_expired';
     
     private $decisionManager;
 
@@ -28,7 +29,7 @@ class OfferVoter extends Voter
     {
         
         // si el atributo no es uno de los que soportamos, devolver false
-        if (!in_array($attribute, array(self::SELECT,  self::CREATE, self::SHOW))) {
+        if (!in_array($attribute, array(self::SELECT,  self::CREATE, self::SHOW, self::SELLED))) {
            
            // print_r('1');
             return false;
@@ -67,6 +68,8 @@ class OfferVoter extends Voter
                 return $this->canCreate($token );
             case self::SHOW:
                 return $this->canShowInsc($offer,$user,$token);
+            case self::SELLED:
+                return $this->isSelled($offer);
         }
 
         throw new \LogicException('Este código no debería ser visto');
@@ -105,6 +108,17 @@ class OfferVoter extends Voter
         }
         else{
             print_r("no deberia entrar aqui");
+        }
+    }
+    private function isSelled( \WWW\ServiceBundle\Entity\Offer $offer)
+    {
+        
+        
+        if ($offer->getExpired()) {
+            return true;
+        }
+        else{
+            return false;
         }
     }
 }   

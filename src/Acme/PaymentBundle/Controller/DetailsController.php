@@ -9,6 +9,8 @@ use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Request\Sync;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 
 class DetailsController extends PayumController
 {
@@ -54,14 +56,31 @@ class DetailsController extends PayumController
 
         
         $details = $status->getFirstModel();
-        if ($details instanceof  DetailsAggregateInterface) {
-            $details = $details->getDetails();
+        $IDPayment= $details->getNumber();
+        list($ref,$idOffer)=explode("-",$IDPayment);
+        if(isset($details->getDetails()['CANCELLED'])){
+            return $this->render('pay/postPayPageKO.html.twig',array(
+            'details' => $details
+            
+            ));
         }
-
-        if ($details instanceof  \Traversable) {
-            $details = iterator_to_array($details);
+        else {
+            $this->updateStatus($idOffer, $request);
+            
+            return $this->render('pay/postPayPageOK.html.twig',array(
+            'id' => $IDPayment
+            
+            ));
         }
-        return new Response(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+        
+//        if ($details instanceof  DetailsAggregateInterface) {
+//            $details = $details->getDetails();
+//        }
+//
+//        if ($details instanceof  \Traversable) {
+//            $details = iterator_to_array($details);
+//        }
+//        return new Response(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 //        return $this->render('AcmePaymentBundle:Details:view.html.twig', array(
 //            'status' => $status->getValue(),
 //            'payment' => htmlspecialchars(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)),
@@ -71,4 +90,26 @@ class DetailsController extends PayumController
 //            'cancelToken' => $cancelToken,
 //        ));
     }
+    
+    private function getStatusPayment(){
+        
+    }
+    
+    private function updateStatus($idOffer,Request $request){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST . 'services/inscription/transition.php';
+
+        $data['id'] = $this->getUser()->getId();
+        $data['username'] = $this->getUser()->getUsername();
+        $data['password'] = $request->getSession()->get('password');
+        $data['user_id'] = $this->getUser()->getId();
+        $data['offer_id'] = $idOffer;
+        $data['status'] = '3';
+
+        $result = $ch->resultApiRed($data, $file);
+
+        var_dump($result);
+    }
+    
 }

@@ -29,7 +29,7 @@
     <div class="row us-dataPersonal-row-fluid">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h3>
-                Mis ofertas publicadas
+                Editando oferta publicada
             </h3>
             <hr/>
 
@@ -70,11 +70,24 @@
 
                     {% elseif offer.service.id == 7 %}
                         {% set url = path('house_offerShareHouse', {idOffer: offer.id})%}
+
+                    {% elseif offer.service.id == 8 %}
+                        {% set url = path('house_offerHouseSwap', {idOffer: offer.id})%}
+
+                    {% elseif offer.service.id == 9 %}
+                        {% set url = path('house_offerBedroomSwap', {idOffer: offer.id})%}
                     {% endif%}
 
-                    {{ offers.offUser(url, offer.photos.0.url ,offer.title,
-                    offer.description, 'leer', pathEditar, 'editar', '#borrar','Borrar', offer.id) }}
+                    {% if is_granted('offer_expired', offer) %}
+                        {{ offers.offUserExp(url, offer.photos.0.url, offer.title, offer.description, 'leer',
+                        '#borrar', 'Borrar')}}
 
+                    {%else%}
+
+                        {{ offers.offUser(url, offer.photos.0.url ,offer.title,
+                        offer.description, 'leer', pathEditar, 'editar', '#borrar','Borrar', offer.id) }}
+
+                    {%endif%}
                 {% endfor %}
 
                 {% if pagination is not null %}

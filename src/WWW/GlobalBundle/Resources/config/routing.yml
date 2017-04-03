@@ -4,8 +4,26 @@ fullcalendar_loader:
     options:
         expose: true
 
-fullcalendar_delete:
-    path: /fc-load-delete
-    defaults: { _controller: GlobalBundle:Calendar:deleteEvent }
+fullcalendar_edit_create:
+    path: /fc-load-edit
+    defaults: { _controller: GlobalBundle:Calendar:editcreateEvent }
+    options:
+        expose: true
+
+fullcalendar_datepick:
+    path: /fc-load-datepick
+    defaults: { _controller: GlobalBundle:Calendar:cargarDate }
+    options:
+        expose: true
+
+fullcalendar_dateprice:
+    path: /fc-load-dateprice
+    defaults: { _controller: GlobalBundle:Calendar:cargarPrice }
+    options:
+        expose: true
+
+fullcalendar_calendar:
+    path: /fc-load-calendar
+    defaults: { _controller: GlobalBundle:Calendar:calendar }
     options:
         expose: true
