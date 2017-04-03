@@ -523,7 +523,7 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-        $sql =  "select sh.house_id, sh.price as precio_base,my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate as ocupado ,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$offerID and off.service_id = my.service_id";
+        $sql =  "select sh.house_id, sh.price as precio_base,my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$offerID and off.service_id = my.service_id";
 
 
         $stmt = $db->prepare($sql);
@@ -536,7 +536,8 @@ class CalendarController extends Controller
 
                 if (!empty($value['precio_base'])) {
                     $alEspecificos['precio_base'] = $value['precio_base'];
-                    $alEspecificos['ocupado'] = $value['ocupado'];
+                    $alEspecificos['ocuppate'] = $value['ocuppate'];
+
 
                 }
             }
@@ -567,7 +568,7 @@ class CalendarController extends Controller
             $range = array();
             foreach ($dateRange as $key => $date) {
                 $aux['id'] = $key;
-                $aux['ocupado'] = $title;
+                $aux['ocuppate'] = $title;
                 $aux['start'] = date_format($date, $format);
                 $aux['price'] = $price;
                 $range = $aux;
@@ -579,7 +580,7 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-      //  $query = "select sh.house_id, my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$offerID and off.service_id = my.service_id";
+        //  $query = "select sh.house_id, my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$offerID and off.service_id = my.service_id";
 
 
         $query =  "select * from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my on h.calendar_id=my.calendar_id and off.service_id=my.service_id WHERE sh.offer_id=$offerID";
@@ -598,22 +599,22 @@ class CalendarController extends Controller
         $stmt2->execute($params2);
         $aEspecificos = $stmt2->fetchAll();
 
-       // $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents')->findBy(
+        // $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents')->findBy(
 //                array('calendarID' => $test[0]['calendar_id'], 'serviceID' => $test[0]['service_id']));
 
         //echo "<pre>"; die(print_r($aEspecificos));
         //$start = $_POST['start'] . ' 00:00:00';//new \DateTime ($_POST['start']);
         //die($test[0]['calendar_id'] . ' --' . $test[0]['service_id']);
 // query for a single product matching the given name and price
-     //   $especificos = $repository->findBy(
-      //      array('calendarID' => $test[0]['calendar_id'], 'serviceID' => $test[0]['service_id'])); //'startDatetime' => $start));
+        //   $especificos = $repository->findBy(
+        //      array('calendarID' => $test[0]['calendar_id'], 'serviceID' => $test[0]['service_id'])); //'startDatetime' => $start));
         //$aEspecificos = $especificos->getArrayResult();
 
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->headers->set('Content-Type', 'application/json');
-        
+
         //  $jsonFechas = file_get_contents(dirname(__FILE__) . '/json/fechas.json');
-       // $especificos = json_decode($jsonFechas, true);
+        // $especificos = json_decode($jsonFechas, true);
 
         $eventosEspecificos = array();
         if (!empty($aEspecificos)) {
@@ -631,7 +632,7 @@ class CalendarController extends Controller
 
 //print_r( createDateRange( '2017-01-01', '2017-12-31', $basePrice) );
 
-        $eventos = $this->createDateRangeBase( '2017-01-01', '2022-12-31', $alEspecificos['precio_base'], $alEspecificos['ocupado']);
+        $eventos = $this->createDateRangeBase( '2017-01-01', '2022-12-31', $alEspecificos['precio_base'],  $alEspecificos['ocuppate']);
         //print_r($eventos);die;
         foreach ($eventos as $key => $value) {
             foreach ($eventosEspecificos as $key2 => $value2) {
@@ -644,7 +645,7 @@ class CalendarController extends Controller
         // echo json_encode($eventos);
 
         $response->setContent(json_encode($eventos));
-        
+
         return $response;
 
 //die("PRECIO BASE" . $basePrice);
