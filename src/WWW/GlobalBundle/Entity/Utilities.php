@@ -60,7 +60,7 @@ class Utilities{
     public function flashMessage($type, Request $request, $result = null,$messageError = null){
 
         $success = "";
-        $error = "Se ha producido un error, por favor vuelva a intentarlo";
+        $error = "Se ha producido un error, por favor vuelva a intentarlo más tarde";
         
         if(!empty($messageError)) $error = $messageError;
         
