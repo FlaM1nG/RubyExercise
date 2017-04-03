@@ -26,7 +26,7 @@
 
 
 {% block bodyProfile %}
-    <div class="row">
+    <div class="row row-house">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             {#{{ dump(house) }}#}
 
@@ -81,7 +81,7 @@
                     <div class="row row-hr">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <h4>
-                                Casa
+                                Dirección
                             </h4>
                             <hr>
                         </div>
@@ -90,7 +90,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <p>
-                                <strong>Dirección</strong> {{ house.address.street }} <br>
+                                {{ house.address.street }} <br>
                                 {{ house.address.zipCode }} - {{ house.address.city }} ({{ house.address.region }})
                             </p>
                         </div>
@@ -178,7 +178,7 @@
 {% block javascriptsFooter %}
     {{ parent() }}
 
-    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
+    {{ codMenu.scriptUserMenu('.row-house') }}
 
     {{ include('owlCarousel/owlCochesScript.html.twig') }}
 

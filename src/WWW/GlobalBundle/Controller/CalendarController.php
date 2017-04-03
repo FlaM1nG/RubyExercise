@@ -312,7 +312,7 @@ class CalendarController extends Controller
 
     public function calendarAction(Request $request)
     {
-        $link = mysqli_connect("localhost", "root", "", "whatwantweb");
+        $link = mysqli_connect("localhost", "root", "", "symfony");
 
 // Check connection
         if($link === false){
