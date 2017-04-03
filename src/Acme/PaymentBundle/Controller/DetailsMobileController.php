@@ -9,7 +9,8 @@ use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Request\Sync;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 class DetailsMobileController extends PayumController
 {
     public function viewAction(Request $request)
@@ -54,12 +55,16 @@ class DetailsMobileController extends PayumController
 
         
         $details = $status->getFirstModel();
+        list($ref,$idOffer)=explode("-",$details->getNumber());
         if ($details instanceof  DetailsAggregateInterface) {
             $details = $details->getDetails();
         }
 
         if ($details instanceof  \Traversable) {
             $details = iterator_to_array($details);
+        }
+        if(!isset($details->getDetails()['CANCELLED'])){     
+            $this->updateStatus($idOffer, $request);   
         }
         return new Response(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 //        return $this->render('AcmePaymentBundle:Details:view.html.twig', array(
@@ -70,5 +75,21 @@ class DetailsMobileController extends PayumController
 //            'captureToken' => $captureToken,
 //            'cancelToken' => $cancelToken,
 //        ));
+    }
+    private function updateStatus($idOffer,Request $request){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST . 'services/inscription/transition.php';
+
+        $data['id'] = $this->getUser()->getId();
+        $data['username'] = $this->getUser()->getUsername();
+        $data['password'] = $request->getSession()->get('password');
+        $data['user_id'] = $this->getUser()->getId();
+        $data['offer_id'] = $idOffer;
+        $data['status'] = '3';
+
+        $result = $ch->resultApiRed($data, $file);
+
+        var_dump($result);
     }
 }
