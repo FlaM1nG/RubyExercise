@@ -1,3 +1,7 @@
+acme_correos:
+    path: /correos
+    defaults: {_controller: AcmePaymentBundle:PruebaCorreos:index  }
+
 acme_redsys:
     resource:   "@AcmePaymentBundle/Controller/"
     type:       annotation
