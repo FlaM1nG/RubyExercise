@@ -536,6 +536,7 @@ class CalendarController extends Controller
 
                 if (!empty($value['precio_base'])) {
                     $alEspecificos['precio_base'] = $value['precio_base'];
+                    $alEspecificos['ocuppate'] = $value['ocuppate'];
 
 
                 }
@@ -567,7 +568,7 @@ class CalendarController extends Controller
             $range = array();
             foreach ($dateRange as $key => $date) {
                 $aux['id'] = $key;
-                $aux['title'] = $title;
+                $aux['ocuppate'] = $title;
                 $aux['start'] = date_format($date, $format);
                 $aux['price'] = $price;
                 $range = $aux;
@@ -622,7 +623,7 @@ class CalendarController extends Controller
 
                 if (!empty($value['start_datetime']) && !empty($value['end_datetime'])) {
                     //die($value['start_datetime'] . ' - ' . $value['end_datetime'] . ' - ' . $value['price']);
-                    $eventosEspecificos[] = createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['title']);
+                    $eventosEspecificos[] = createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate']);
                 }
             }
         }
@@ -631,7 +632,7 @@ class CalendarController extends Controller
 
 //print_r( createDateRange( '2017-01-01', '2017-12-31', $basePrice) );
 
-        $eventos = $this->createDateRangeBase( '2017-01-01', '2022-12-31', $alEspecificos['precio_base'], "€");
+        $eventos = $this->createDateRangeBase( '2017-01-01', '2022-12-31', $alEspecificos['precio_base'],  $alEspecificos['ocuppate']);
         //print_r($eventos);die;
         foreach ($eventos as $key => $value) {
             foreach ($eventosEspecificos as $key2 => $value2) {
@@ -668,7 +669,7 @@ class CalendarController extends Controller
         $range = array();
         foreach ($dateRange as $key => $date) {
             $range[$key]['id'] = $key;
-            $range[$key]['title'] = $title;
+            $range[$key]['ocuppate'] = $title;
             $range[$key]['start'] = date_format($date, $format);
             $range[$key]['price'] = $price;
 
