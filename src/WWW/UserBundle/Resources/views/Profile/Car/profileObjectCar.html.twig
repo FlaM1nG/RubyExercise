@@ -1,5 +1,6 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
 {% import 'macros/coche.html.twig' as coches %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block title %}
     Coches
@@ -25,38 +26,41 @@
 
 
 {% block bodyProfile %}
+    <div class="row row-car">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Coche
+            </h3>
+            <hr/>
 
-    <h3>
-        Coche
-    </h3>
-    <hr/>
+            {# Array de imagenes para la galeria #}
 
-    {# Array de imagenes para la galeria #}
+            {% set imgGran = [car.photos.0.url] %}
+            {% set photosCar = [] %}
+            {% for photos in car.photos%}
+                {% set photosCar = photosCar|merge([photos.url]) %}
+            {% endfor %}
 
-    {% set imgGran = [car.photos.0.url] %}
-    {% set photosCar = [] %}
-    {% for photos in car.photos%}
-        {% set photosCar = photosCar|merge([photos.url]) %}
-    {% endfor %}
-
-    {{ coches.cocheVista(imgGran,
-    photosCar,
-    car.model.brand.name,
-    car.model.name,
-    car.color,
-    car.type,
-    car.plate,
-    car.description,
-    options
-    ) }}
-
-
+            {{ coches.cocheVista(imgGran,
+            photosCar,
+            car.model.brand.name,
+            car.model.name,
+            car.color,
+            car.type,
+            car.plate,
+            car.description,
+            options
+            ) }}
+        </div>
+    </div>
 {% endblock %}
 
 
 
 {% block javascriptsFooter %}
     {{ parent() }}
+
+    {{ codMenu.scriptUserMenu('.row-car') }}
 
     {{ include('owlCarousel/owlCochesScript.html.twig') }}
 
