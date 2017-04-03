@@ -70,15 +70,23 @@
 
                     {% elseif offer.service.id == 7 %}
                         {% set url = path('house_offerShareHouse', {idOffer: offer.id})%}
+
+                    {% elseif offer.service.id == 8 %}
+                        {% set url = path('house_offerHouseSwap', {idOffer: offer.id})%}
+
+                    {% elseif offer.service.id == 9 %}
+                        {% set url = path('house_offerBedroomSwap', {idOffer: offer.id})%}
                     {% endif%}
 
                     {% if is_granted('offer_expired', offer) %}
                         {{ offers.offUserExp(url, offer.photos.0.url, offer.title, offer.description, 'leer',
                         '#borrar', 'Borrar')}}
+
                     {%else%}
 
                         {{ offers.offUser(url, offer.photos.0.url ,offer.title,
                         offer.description, 'leer', pathEditar, 'editar', '#borrar','Borrar', offer.id) }}
+
                     {%endif%}
                 {% endfor %}
 

@@ -105,15 +105,17 @@ hrefDelete, dataDelete, titleDelete) %}
                 </div>
 
                 <div id="us-img-small" class="owl-carousel">
-                    {% for imagenPeque in imagenesPequenas %}
-                        <div class="item off-item-dime">
-                            <div class="us-img-marco-peque">
-                                <img class="img-responsive off-img-slid"
-                                     src="{{  asset(imagenPeque|e|default('img/placeholder.jpg'), 'img') }}"
-                                     alt="">
+                    {% if imagenesPequenas|length > 1 %}
+                        {% for imagenPeque in imagenesPequenas %}
+                            <div class="item off-item-dime">
+                                <div class="us-img-marco-peque">
+                                    <img class="img-responsive off-img-slid"
+                                         src="{{  asset(imagenPeque|e|default('img/placeholder.jpg'), 'img') }}"
+                                         alt="">
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
 
@@ -141,19 +143,29 @@ hrefDelete, dataDelete, titleDelete) %}
                         <span>{{ matricula|upper|e }}</span>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <p>{{ descripcion }}</p>
-                    </div>
-                </div>
-
-                <div class="row row-us-car-opt">
-                    {% for opcion in posibilidades|sort %}
-                        {{ iconos.atriOffer(opcion.text, opcion.number) }}
-                    {% endfor %}
-                </div>
             </div>
         </div>
+
+        <div class="row row-hr">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>Descripción</h4>
+                <hr>
+                <p>{{ descripcion }}</p>
+            </div>
+        </div>
+
+        <div class="row row-hr">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>Opciones en vehículo</h4>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row row-us-car-opt">
+            {% for opcion in posibilidades|sort %}
+                {{ iconos.atriOffer(opcion.text, opcion.number) }}
+            {% endfor %}
+        </div>
+
     </div>
 {% endmacro %}
