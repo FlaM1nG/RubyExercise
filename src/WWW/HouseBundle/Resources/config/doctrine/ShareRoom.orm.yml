@@ -1,0 +1,38 @@
+WWW\HouseBundle\Entity\ShareRoom:
+    type: entity
+    table: null
+    repositoryClass: WWW\HouseBundle\Repository\ShareRoomRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        street:
+            type: string
+            length: 255
+            nullable: true
+        name:
+            type: string
+            length: 255
+            nullable: true
+        city:
+            type: string
+            length: 255
+            nullable: true
+        region:
+            type: string
+            length: 255
+            nullable: true
+        country:
+            type: string
+            length: 255
+            nullable: true
+    oneToOne:
+        offer:
+            targetEntity: WWW\ServiceBundle\Entity\Offer
+            joinColumn:
+                referencedColumnName: id
+                onDelete: CASCADE
+    lifecycleCallbacks: {  }
