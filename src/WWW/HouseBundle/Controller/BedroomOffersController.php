@@ -13,10 +13,7 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
 use Symfony\Component\HttpFoundation\Request;
-use WWW\HouseBundle\Entity\ShareHouse;
 use WWW\HouseBundle\Entity\ShareRoom;
-use WWW\HouseBundle\Entity\House;
-use WWW\HouseBundle\Form\ShareHouseType;
 use WWW\HouseBundle\Form\ShareRoomType;
 use WWW\ServiceBundle\Entity\Comment;
 use WWW\ServiceBundle\Form\CommentType;
@@ -27,8 +24,8 @@ use WWW\UserBundle\Entity\User;
 
 
 
-class BedroomOffersController extends Controller
-{
+class BedroomOffersController extends Controller {
+    
     public function createNewOfferAction(Request $request){
 
         $service = $this->getIdService($request);
@@ -129,7 +126,7 @@ class BedroomOffersController extends Controller
 
         endif;
 
-        return $this->render('services/serHouseRents.html.twig', array(
+        return $this->render('HouseBundle::listSwapBedroom.html.twig', array(
             'arrayOffers' => $arrayOffers,
             'service' => $service,
             'pagination' => $pagination,
@@ -197,7 +194,7 @@ class BedroomOffersController extends Controller
 
         endif;
 
-        return $this->render('offer/offHouseRents.html.twig', array(
+        return $this->render('HouseBundle::offerSwapBedroom.html.twig', array(
             'offer' => $offer,
             'formMessage' => $formMessage->createView(),
             'formComment' => $formComment->createView(),
