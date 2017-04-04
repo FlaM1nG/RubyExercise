@@ -9,7 +9,8 @@ use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Request\Sync;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 class PaymentDoneOKController extends PayumController
 {
     public function viewAction(Request $request)
@@ -55,6 +56,7 @@ class PaymentDoneOKController extends PayumController
         
         $details = $status->getFirstModel();
         $IDPayment= $details->getNumber();
+        list($ref,$idOffer)=explode("-",$IDPayment);
         if ($details instanceof  DetailsAggregateInterface) {
             $details = $details->getDetails();
         }
@@ -62,6 +64,7 @@ class PaymentDoneOKController extends PayumController
         if ($details instanceof  \Traversable) {
             $details = iterator_to_array($details);
         }
+        $this->updateStatus($idOffer, $request);
         return $this->render('pay/postPayPageOK.html.twig',array(
             'id' => $IDPayment
             
@@ -70,6 +73,22 @@ class PaymentDoneOKController extends PayumController
     
     private function getStatusPayment(){
         
+    }
+    private function updateStatus($idOffer,Request $request){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST . 'services/inscription/transition.php';
+
+        $data['id'] = $this->getUser()->getId();
+        $data['username'] = $this->getUser()->getUsername();
+        $data['password'] = $request->getSession()->get('password');
+        $data['user_id'] = $this->getUser()->getId();
+        $data['offer_id'] = $idOffer;
+        $data['status'] = '3';
+
+        $result = $ch->resultApiRed($data, $file);
+
+        var_dump($result);
     }
     
 }

@@ -9,6 +9,8 @@ use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Request\Sync;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\MyConstants;
 
 class DetailsController extends PayumController
 {
@@ -54,7 +56,8 @@ class DetailsController extends PayumController
 
         
         $details = $status->getFirstModel();
-       $IDPayment= $details->getNumber();
+        $IDPayment= $details->getNumber();
+        list($ref,$idOffer)=explode("-",$IDPayment);
         if(isset($details->getDetails()['CANCELLED'])){
             return $this->render('pay/postPayPageKO.html.twig',array(
             'details' => $details
@@ -62,6 +65,8 @@ class DetailsController extends PayumController
             ));
         }
         else {
+            $this->updateStatus($idOffer, $request);
+            
             return $this->render('pay/postPayPageOK.html.twig',array(
             'id' => $IDPayment
             
@@ -88,6 +93,23 @@ class DetailsController extends PayumController
     
     private function getStatusPayment(){
         
+    }
+    
+    private function updateStatus($idOffer,Request $request){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST . 'services/inscription/transition.php';
+
+        $data['id'] = $this->getUser()->getId();
+        $data['username'] = $this->getUser()->getUsername();
+        $data['password'] = $request->getSession()->get('password');
+        $data['user_id'] = $this->getUser()->getId();
+        $data['offer_id'] = $idOffer;
+        $data['status'] = '3';
+
+        $result = $ch->resultApiRed($data, $file);
+
+        var_dump($result);
     }
     
 }
