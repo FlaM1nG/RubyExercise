@@ -3,6 +3,7 @@
 {% import 'macros/sidebar.html.twig' as sidebars %}
 {% import 'macros/star.html.twig' as rating %}
 {% import 'macros/houseRentsList.html.twig' as houses %}
+{% import 'macros/filter.html.twig' as filters %}
 
 {#{% set service = 6 %}#}
 {% if service == 6 %}
@@ -64,7 +65,8 @@ sha-header-title
 {% endblock %}
 
 {% block serviceFilters %}
-    {{ include('services/filters/houseRentFilters.html.twig') }}
+    {#{{ include('services/filters/houseRentFilters.html.twig') }}#}
+    {{ filters.filterHouse('get', pathFilter , service) }}
 {% endblock %}
             
 {% block serviceList %}
