@@ -112,7 +112,7 @@ class BedroomOffersController extends Controller {
 
         $service = $this->getIdService($request);
 
-        $arrayOffers = $this->getOffersBedroom($service);
+        $arrayOffers = $this->getOffersBedroom($request, $service);
 
         $paginator = $this->get('knp_paginator');
         $pagination = null;
@@ -133,7 +133,7 @@ class BedroomOffersController extends Controller {
         ));
     }
 
-    private function getOffersBedroom($idService) {
+    private function getOffersBedroom(Request $request, $idService) {
 
         $file = MyConstants::PATH_APIREST . 'services/share_house/list_share_room.php';
         $ch = new ApiRest();
@@ -141,6 +141,14 @@ class BedroomOffersController extends Controller {
 
         $data['service_id'] = $idService;
         $data['search'] = "";
+
+        if(!empty($request->query->all())):
+            $dataFilters['place'] = $request->query->get('destiny');
+            $dataFilters['capacity'] = $request->query->get('capacity');
+
+            $data['filters'] = $dataFilters;
+        endif;
+
 
         $info['data'] = json_encode($data);
 
