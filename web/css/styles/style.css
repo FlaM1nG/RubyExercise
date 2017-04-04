@@ -12439,6 +12439,12 @@ a.boton-leer-post:focus {
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 /* ------------------ USER  ------------------
 ******************************************************************/
+.row-hr hr {
+  margin: 0 0 10px 0;
+}
+.row-house {
+  padding-bottom: 40px;
+}
 .row-us-name {
   padding-top: 10px;
 }
@@ -15480,9 +15486,6 @@ textarea {
 }
 .col-off-date {
   margin-top: 7px;
-}
-.col-off-prin {
-  padding: 0 2%;
 }
 .panel-off-heading {
   text-align: center;

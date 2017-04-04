@@ -266,6 +266,8 @@ class OfferController extends Controller{
 
         if($this->service == 6 || $this->service == 7):
             $data['sub_values']['price'] = $this->offer->getPrice();
+            $data['sub_values']['entry_time'] = "'".$this->offer->getEntryTime()->format('H:i:s')."'";
+            $data['sub_values']['departure_time'] = "'".$this->offer->getDepartureTime()->format('H:i:s')."'";
         endif;
 
         $info['data']= json_encode($data);

@@ -192,7 +192,7 @@ class HouseOffersController extends Controller
 
         $service = $this->getIdService($request);
 
-        $arrayOffers = $this->getOffersShareHouse($service);
+        $arrayOffers = $this->getOffersShareHouse($request, $service);
 
         $paginator = $this->get('knp_paginator');
         $pagination = null;
@@ -213,7 +213,7 @@ class HouseOffersController extends Controller
         ));
     }
 
-    private function getOffersShareHouse($idService) {
+    private function getOffersShareHouse(Request $request, $idService) {
 
         $file = MyConstants::PATH_APIREST . 'services/share_house/list_share_house.php';
         $ch = new ApiRest();
@@ -222,10 +222,24 @@ class HouseOffersController extends Controller
         $data['service_id'] = $idService;
         $data['search'] = "";
 
+        if(!empty($request->query->all())):
+            $dataFilters['place'] = $request->query->get('destiny');
+            $dataFilters['capacity'] = $request->query->get('capacity');
+
+            if(!empty($request->query->get('minPrice')))
+                $dataFilters['min_price'] = (int)$request->query->get('minPrice');
+
+            if(!empty($request->query->get('maxPrice')))
+                $dataFilters['max_price'] = (int)$request->query->get('maxPrice');
+
+            $data['filters'] = $dataFilters;
+        endif;
+
+
         $info['data'] = json_encode($data);
 
         $result = $ch->resultApiRed($info, $file);
-
+;
         if ($result['result'] == 'ok')
             $arrayOffers = $result['offers'];
 
