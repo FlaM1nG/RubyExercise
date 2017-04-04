@@ -34,8 +34,6 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('css/calendario/datepi/jquery-ui.css') }}" />
-
 {% endblock %}
 
 
@@ -117,7 +115,7 @@
 
 {% block offerDescription %}
     <p>
-        {{offer.offer.description ~ offer.house.description}}
+        {{offer.offer.description}}
     </p>
 {% endblock %}
 
@@ -138,7 +136,7 @@
 
             <div class="row off-row-date-prin">
                 <!-- CAPACIDAD -->
-                {{ offers.atriHouRen('capacidad', 'fa-users', offer.house.capacity,3, 6, 6, 6) }}
+                {{ offers.atriHouRen('capacidad', 'fa-users', offer.offer.holders,3, 6, 6, 6) }}
                 <!-- FIN CAPACIDAD -->
 
             </div>
