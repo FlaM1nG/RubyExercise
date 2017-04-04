@@ -73,7 +73,6 @@ $(document).ready(function() {
             // To show the end date on the view
             $('#fechaFinal').text(endDate);
 
-
             $.ajax({
                 url: Routing.generate('fullcalendar_dateprice'),
                 data: {'initDate' : initDate, 'endDate' : endDate,'idOffer' : idoferta},
@@ -189,7 +188,6 @@ $(document).ready(function() {
 
 });
 
-
 /*
 
  if(value == 0) {
@@ -209,3 +207,4 @@ $(document).ready(function() {
  }
 
  */
+

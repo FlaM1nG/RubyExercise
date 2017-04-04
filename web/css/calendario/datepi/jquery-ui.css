@@ -997,7 +997,7 @@ a.ui-button:active,
 .ui-button:active,
 .ui-button.ui-state-active:hover {
 	border: 1px solid #003eff;
-	background: #007fff;
+	background: #00b5ffe6;
 	font-weight: normal;
 	color: #ffffff;
 }
@@ -1019,7 +1019,7 @@ a.ui-button:active,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
 	border: 1px solid #dad55e;
-	background: #f609;
+	background: #ffa366;
 	color: #777620;
 }
 .ui-state-checked {
