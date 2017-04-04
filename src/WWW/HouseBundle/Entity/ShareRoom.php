@@ -46,18 +46,22 @@ class ShareRoom
     */
     private $offer;
 
-    public function __construct($data){
+    public function __construct($data = null){
 
-        foreach($data as $key => $value):
-            $keyCamelize = Inflector::camelize($key);
+        if(!empty($data)):
+            foreach($data as $key => $value):
+                $keyCamelize = Inflector::camelize($key);
 
-            if(property_exists("WWW\HouseBundle\Entity\ShareRoom", $keyCamelize)):
-                $this->$keyCamelize = $value;
-            endif;
+                if(property_exists("WWW\HouseBundle\Entity\ShareRoom", $keyCamelize)):
+                    $this->$keyCamelize = $value;
+                endif;
 
-        endforeach;
+            endforeach;
 
-        $this->offer = new Offer($data);
+            $this->offer = new Offer($data);
+        else:
+            $this->offer = new Offer();
+        endif;
     }
 
     /**
