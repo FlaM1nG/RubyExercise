@@ -128,7 +128,7 @@ class OfferController extends Controller{
         elseif($this->service == 4 || $this->service == 5):
             $pathRender = 'UserBundle:Profile:offers/profileEditOfferShareCar.html.twig';
         
-        elseif($this->service == 6 || $this->service == 7 || $this->service == 8 || $this->service == 9):
+        elseif($this->service == 6 || $this->service == 7 || $this->service == 8):
             if($this->service == 6 ||$this->service == 7):
                 $calendarId = $this->getDataCalendar($this->offer->getHouse()->getId());
             endif;
@@ -137,6 +137,10 @@ class OfferController extends Controller{
             $route = $request->get('_route');
             $request->getSession()->set('_security.user.target_path',$route);
             $request->getSession()->set('offer',$this->offer->getOffer()->getId());
+        
+        elseif($this->service == 9):
+            $pathRender = 'UserBundle:Profile:House/profileEditOfferBedroom.html.twig';
+        
         endif;
 
         return $this->render($pathRender,
