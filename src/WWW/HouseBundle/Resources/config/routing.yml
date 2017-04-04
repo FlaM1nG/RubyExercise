@@ -46,7 +46,7 @@ house_offerHouseSwap:
 
 house_listBedroomSwap:
     path: /bedroom-swap/
-    defaults: { _controller: HouseBundle:BedroomOffers:listOfferBedroom}
+    defaults: { _controller: HouseBundle:BedroomOffers:listOfferBedroom }
 
 house_newOfferBedroomSwap:
     path: /bedroom-swap/newOffer/
