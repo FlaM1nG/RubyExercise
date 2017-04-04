@@ -29,7 +29,7 @@ $(document).ready(function() {
         editable: true,
         navLinks: true, // can click day/week names to navigate views
         eventLimit: true, // allow "more" link when too many events
-        eventStartEditable: false, // para que no se muevan los eventos
+        eventStartEditable: false, // don't let you move the event
 
         eventRender: function(event, element, view) {
             // To include the price on the render

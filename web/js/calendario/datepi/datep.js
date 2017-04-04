@@ -151,16 +151,18 @@ $(document).ready(function() {
                         if(value == 0) {
                             addCSSRule('.ui-datepicker td a.' + className + ':after {content: "\\a0";}'); //&nbsp;
                         } else {
-                            addCSSRule('.ui-datepicker td a.' + className + ':after {content: "' + value + '";}');
+                          //  addCSSRule('.ui-datepicker td a.' + className + ':after {content: "' + value + '";}');
 
                             if (value2 == 1) {
                                 // To deactivate the ocuppated days
                                 $(elem).parent().addClass('ui-state-disabled ui-datepicker-unselectable');
 
-                                // To set the color on the price
-                                addCSSRule('.ui-datepicker td a.' + className + ':after {color: red;}');
+                                // To set the color on the price red
+                            //    addCSSRule('.ui-datepicker td a.' + className + ':after {color: red;}');
                             } else {
-                                addCSSRule('.ui-datepicker td a.' + className + ':after {color: green;}');
+                                addCSSRule('.ui-datepicker td a.' + className + ':after {content: "' + value + '"; color: green;}');
+
+
                             }
                         }
 
@@ -186,3 +188,24 @@ $(document).ready(function() {
     }
 
 });
+
+
+/*
+
+ if(value == 0) {
+ addCSSRule('.ui-datepicker td a.' + className + ':after {content: "\\a0";}'); //&nbsp;
+ } else {
+ addCSSRule('.ui-datepicker td a.' + className + ':after {content: "' + value + '";}');
+
+ if (value2 == 1) {
+ // To deactivate the ocuppated days
+ $(elem).parent().addClass('ui-state-disabled ui-datepicker-unselectable');
+
+ // To set the color on the price
+ addCSSRule('.ui-datepicker td a.' + className + ':after {color: red;}');
+ } else {
+ addCSSRule('.ui-datepicker td a.' + className + ':after {color: green;}');
+ }
+ }
+
+ */
