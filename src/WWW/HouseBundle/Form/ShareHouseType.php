@@ -65,6 +65,8 @@ class ShareHouseType extends AbstractType{
 
         if($options['service'] == 9):
             $builder
+                ->add('address' ,ShareRoomType::class, array('label' => ' '))
+                
                 ->add('imgBedroom', FileType::class, array( 'label' => ' ',
                     'mapped' => false,
                     'multiple' => true,
