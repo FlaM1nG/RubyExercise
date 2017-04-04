@@ -18,13 +18,13 @@ use WWW\GlobalBundle\MyConstants;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use WWW\HouseBundle\Entity\House;
 use WWW\HouseBundle\Entity\ShareHouse;
-use WWW\HouseBundle\Form\HouseType;
 use WWW\HouseBundle\Form\ShareHouseType;
+use WWW\HouseBundle\Form\ShareRoomType;
 use WWW\ServiceBundle\Entity\Offer;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Form\TradeType;
-use WWW\ServiceBundle\Entity\Service;
 use WWW\CarsBundle\Entity\Car;
+use WWW\HouseBundle\Entity\ShareRoom;
 
 
 /**
@@ -99,18 +99,20 @@ class OfferController extends Controller{
             elseif($this->service == 4 || $this->service == 5):
                 $result = $this->updateOfferShareCar($request);
             
-            elseif($this->service == 6 || $this->service == 7 || $this->service == 8 || $this->service == 9):
+            elseif($this->service == 6 || $this->service == 7 || $this->service == 8):
 
-                if($this->service != 9 ):
-                    $house = new House();
-                    $house->setId($request->get('shareHouse')['houseId']);
-                    $this->offer->setHouse($house);
+                $house = new House();
+                $house->setId($request->get('shareHouse')['houseId']);
+                $this->offer->setHouse($house);
 
-                    $request->getSession()->set('_security.user.target_path','');
-                    $request->getSession()->remove('offer');
-                endif;
+                $request->getSession()->set('_security.user.target_path','');
+                $request->getSession()->remove('offer');
 
                 $result = $this->updateOfferHouseRent($request);
+
+            elseif($this->service == 9):
+
+                $result = $this->updateOfferSwapBedroom($request);
 
             endif;
 
@@ -258,6 +260,7 @@ class OfferController extends Controller{
         $info['password'] = $request->getSession()->get('password');
         $info['offer_id'] = $this->offer->getOffer()->getId();
         $info['serviceId'] = $this->service;
+
         $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'";
         $data['values']['title'] = "'". $this->offer->getOffer()->getTitle()."'";
 
@@ -267,19 +270,43 @@ class OfferController extends Controller{
 
         $info['data']= json_encode($data);
 
-        if($this->service == 9):
+        $result = $ch->resultApiRed($info, $file);
 
-            if(!empty($request->files->get('shareHouse')['imgBedroom'][0])):
-                $photos = $request->files->get('shareHouse')['imgBedroom'];
-                $count = 0;
+        $this->ut->flashMessage("general", $request, $result);
 
-                foreach($photos as $photo){
-                    $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
-                    $info['photos['.$count.']'] = $ch_photo;
-                    $count += 1;
-                }
-            endif;
+        return $result['result'];
+    }
 
+    private function updateOfferSwapBedroom(Request $request){
+
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/offer/update_offer_photos.php";
+
+        $info['id'] = $request->getSession()->get('id');
+        $info['username'] = $request->getSession()->get('username');
+        $info['password'] = $request->getSession()->get('password');
+        $info['offer_id'] = $this->offer->getOffer()->getId();
+        $info['serviceId'] = $this->service;
+
+        $data['values']['description'] = "'".$this->offer->getOffer()->getDescription()."'";
+        $data['values']['title'] = "'". $this->offer->getOffer()->getTitle()."'";
+        $data['values']['holders'] = $this->offer->getOffer()->getHolders();
+
+        $data['sub_values']['city'] = "'".$this->offer->getCity()."'";
+        $data['sub_values']['region'] = "'".$this->offer->getCountry()->getRegion()."'";
+        $data['sub_values']['country'] = "'".$this->offer->getCountry()->getCountry()."'";
+
+        $info['data']= json_encode($data);
+
+        if(!empty($request->files->get('shareRoom')['imgBedroom'][0])):
+            $photos = $request->files->get('shareRoom')['imgBedroom'];
+            $count = 0;
+
+            foreach($photos as $photo){
+                $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
+                $info['photos['.$count.']'] = $ch_photo;
+                $count += 1;
+            }
         endif;
 
         $result = $ch->resultApiRed($info, $file);
@@ -287,6 +314,7 @@ class OfferController extends Controller{
         $this->ut->flashMessage("general", $request, $result);
 
         return $result['result'];
+
     }
 
     private function searchOffer(Request $request, &$minHolder){
@@ -317,11 +345,11 @@ class OfferController extends Controller{
                      $minHolder = sizeof($this->offer->getOffer()->getInscriptions());
                  endif;
 
-             elseif($result['service_id'] == 6 || $result['service_id'] == 7 || $result['service_id'] == 8 || $result['service_id'] == 9 ):
+             elseif($result['service_id'] == 6 || $result['service_id'] == 7 || $result['service_id'] == 8):
 
                  $this->offer = new ShareHouse($result);
 
-                 if($result['service_id'] == 9):
+                 if($result['service_id'] == 6 || $result['service_id'] == 7):
                      $validation = 'licenciaObligatoria';
                  else:
                      $validation = null;
@@ -329,9 +357,16 @@ class OfferController extends Controller{
 
                  $formulario = $this->createForm(ShareHouseType::class, $this->offer,array('service' => $result['service_id'],'validation_groups' => $validation ));
 
+             elseif($result['service_id'] == 9):
+
+                 $this->offer = new ShareRoom($result);
+
+                 $formulario = $this->createForm(ShareRoomType::class, $this->offer);
+
              endif;
         else:
             $this->ut->flashMessage("offer", $request, $result);
+            
         endif;
 
         return $formulario;
