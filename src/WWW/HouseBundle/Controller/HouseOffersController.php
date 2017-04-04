@@ -14,8 +14,10 @@ use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\HouseBundle\Entity\ShareHouse;
+use WWW\HouseBundle\Entity\ShareRoom;
 use WWW\HouseBundle\Entity\House;
 use WWW\HouseBundle\Form\ShareHouseType;
+use WWW\HouseBundle\Form\ShareRoomType;
 use WWW\ServiceBundle\Entity\Comment;
 use WWW\ServiceBundle\Form\CommentType;
 use WWW\ServiceBundle\Form\OfferSuscribeType;
@@ -30,22 +32,34 @@ class HouseOffersController extends Controller
     public function createNewOfferAction(Request $request){
 
         $service = $this->getIdService($request);
+        $arrayHouses = null;
 
-        $arrayHouses = $this->getHousesUser($request);
+        if($service != 9):
+            $arrayHouses = $this->getHousesUser($request);
+            $offer = new ShareHouse();
 
-        $shareHouse = new ShareHouse();
+            $form = $this->createForm(ShareHouseType::class,$offer,
+                array('arrayHouses' => $arrayHouses,'service' =>$service,
+                      'validation_groups' => $service == 6 || $service == 7 ?'licenciaObligatoria':false));
+        else:
+            $offer = new ShareRoom();
 
-        $form = $this->createForm(ShareHouseType::class,$shareHouse,
-                                  array('arrayHouses' => $arrayHouses,'service' =>$service,
-                                        'validation_groups' => $service == 6 || $service == 7 ?'licenciaObligatoria':false));
+            $form = $this->createForm(ShareRoomType::class, $offer);
+        endif;
+
+
         $form->handleRequest($request);
 
         $route = $request->get('_route');
         $request->getSession()->set('_security.user.target_path',$route);
         
         if($form->isSubmitted() AND $form->isValid()):
-            
-            $result = $this->saveNewOffer($request,$shareHouse, $service);
+
+            if($service == 9):
+                $result = $this->saveOfferBedroom($request,$offer);
+            else:
+                $result = $this->saveNewOffer($request,$offer, $service);
+            endif;
 
             if($result == 'ok'):
                 $request->getSession()->remove('_security.user.target_path');
@@ -97,8 +111,8 @@ class HouseOffersController extends Controller
 
     }
 
-    private function saveNewOffer(Request $request, ShareHouse $shareHouse, $service){
-        
+    private function saveNewOffer(Request $request, $offer, $service){
+
         $file = MyConstants::PATH_APIREST.'services/share_house/insert_share_house.php';
         $ch = new ApiRest();
         $ut = new Utilities();
@@ -106,38 +120,20 @@ class HouseOffersController extends Controller
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
-        $data['title'] = $shareHouse->getOffer()->getTitle();
-        $data['description'] = $shareHouse->getOffer()->getDescription();
+        $data['title'] = $offer->getOffer()->getTitle();
+        $data['description'] = $offer->getOffer()->getDescription();
         $data['service_id'] = $service;
-        $data['holders'] = $shareHouse->getOffer()->getHolders();
+        $data['holders'] = $offer->getOffer()->getHolders();
+        $data['house_id'] = $offer->getHouse()->getId();
         $dataOffer['price'] = 0;
-
-        if($service != 9):
-            $data['house_id'] = $shareHouse->getHouse()->getId();
-        endif;
         
         if($service == 6 || $service == 7):
-            $dataOffer['entry_time'] = "'".$shareHouse->getEntryTime()->format('H:i:s')."'";
-            $dataOffer['departure_time'] = "'".$shareHouse->getDepartureTime()->format('H:i:s')."'";
-            $dataOffer['price'] = $shareHouse->getPrice();
+            $dataOffer['entry_time'] = "'".$offer->getEntryTime()->format('H:i:s')."'";
+            $dataOffer['departure_time'] = "'".$offer->getDepartureTime()->format('H:i:s')."'";
+            $dataOffer['price'] = $offer->getPrice();
         endif;
 
         $data['data'] = json_encode($dataOffer);
-
-        if($service == 9):
-
-            if(!empty($request->files->get('shareHouse')['imgBedroom'][0])):
-                $photos = $request->files->get('shareHouse')['imgBedroom'];
-                $count = 0;
-
-                foreach($photos as $photo){
-                    $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
-                    $data['photos['.$count.']'] = $ch_photo;
-                    $count += 1;
-                }
-            endif;
-
-        endif;
 
         $result = $ch->resultApiRed($data, $file);
 
@@ -146,7 +142,49 @@ class HouseOffersController extends Controller
         else:
             $ut->flashMessage('offer',$request,$result);
         endif;
-        
+
+        return $result['result'];
+    }
+
+    private function saveOfferBedroom(Request $request, $offer){
+
+        $file = MyConstants::PATH_APIREST.'services/offer/insert_offer.php';
+        $ch = new ApiRest();
+        $ut = new Utilities();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['title'] = $offer->getOffer()->getTitle();
+        $data['description'] = $offer->getOffer()->getDescription();
+        $data['service_id'] = 9;
+        $data['holders'] = $offer->getOffer()->getHolders();
+
+        $dataOffer['city'] = "'".$offer->getCity()."'";
+        $dataOffer['region'] = "'".$offer->getCountry()->getRegion()."'";
+        $dataOffer['country'] = "'".$offer->getCountry()->getCountry()."'";
+
+        if(!empty($request->files->get('shareRoom')['imgBedroom'][0])):
+            $photos = $request->files->get('shareRoom')['imgBedroom'];
+            $count = 0;
+
+            foreach($photos as $photo){
+                $ch_photo = new \CURLFile($photo->getPathname(),$photo->getMimetype());
+                $data['photos['.$count.']'] = $ch_photo;
+                $count += 1;
+            }
+        endif;
+
+        $data['data'] = json_encode($dataOffer);
+
+        $result = $ch->resultApiRed($data, $file);
+
+        if($result['result'] == 'data_error' AND $result['error'] == 'Offer created yet'):
+            $ut->flashMessage('offer',$request,$result,'Ya existe una oferta con esta casa y solo se puede tener una oferta por casa');
+        else:
+            $ut->flashMessage('offer',$request,$result);
+        endif;
+
         return $result['result'];
     }
 
@@ -198,6 +236,7 @@ class HouseOffersController extends Controller
 
         $message = new Message();
         $comment = new Comment();
+        $arrayAttr = null;
         $service = $this->getIdService($request);
 
         $formSubscribe = $this->createForm(OfferSuscribeType::class);
@@ -210,7 +249,11 @@ class HouseOffersController extends Controller
             $formComment = $this->createForm(CommentType::class, new Comment());
         endif;
 
-        $offerShareHouse = $this->getoffer($request);
+        $offerShareHouse = $this->getoffer($request, $service);
+
+        if($service != 9):
+            $arrayAttr = $offerShareHouse->getHouse()->getArrayGroupsAttrH();
+        endif;
 
         $message = $this->fillMessage($request, $offerShareHouse);
 
@@ -236,9 +279,9 @@ class HouseOffersController extends Controller
 
         endif;
 
-        return $this->render('offer/offHouseRents.html.twig', array(
+        return $this->render('HouseBundle::offHouseRents.html.twig', array(
                              'offer' => $offerShareHouse,
-                             'arrayAttr' => $offerShareHouse->getHouse()->getArrayGroupsAttrH(),
+                             'arrayAttr' => $arrayAttr,
                              'formMessage' => $formMessage->createView(),
                              'formComment' => $formComment->createView(),
                              'formSubscribe' => $formSubscribe->createView(),
@@ -248,7 +291,7 @@ class HouseOffersController extends Controller
         ));
     }
 
-    private function getoffer(Request $request){
+    private function getoffer(Request $request, $service){
 
         $file = MyConstants::PATH_APIREST.'services/share_house/get_share_house.php';
         $ch = new ApiRest();
@@ -258,10 +301,12 @@ class HouseOffersController extends Controller
 
         $result = $ch->resultApiRed($data,$file);
 
+        if($service == 9):
+            $offer = new ShareRoom($result);
+        else:
+            $offer = new ShareHouse($result);
+        endif;
 
-//        print_r($result);
-
-        $offer = new ShareHouse($result);
         return $offer;
 
     }
