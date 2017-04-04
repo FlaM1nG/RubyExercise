@@ -214,7 +214,12 @@
     {{ form_row(form._token) }}
 
     {% if service == 9 %}
+
+        {{ form_row(form.country) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.offer.holders, {'label': 'Capacidad'}) }}
         {{ form_row(form.imgBedroom) }}
+
     {% endif %}
 
     {{ form_row(form.newShareHouse) }}
