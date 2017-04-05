@@ -37,7 +37,7 @@ class ShareHouseType extends AbstractType{
             ->add('newShareHouse', SubmitType::class, array('label' => 'Guardar',
                                                             'attr' => array('disabled' => $disabled)));
 
-        if($options['service'] == 6 || $options['service'] == 7 ):
+        if($options['service'] != 8 ):
 
             $builder
                 ->add('price', MoneyType::class, array('label' => 'Precio base'))
@@ -46,31 +46,20 @@ class ShareHouseType extends AbstractType{
 
                 ->add('departureTime',TimeType::class, array('label' => 'Hora de salida'));
         endif;
-
-        if($options['service'] != 9):
             
-            $builder
-                ->add('house', ChoiceType::class, array('label' => 'Seleccione una casa',
-                                                                'choices' => $arrayHouses,
-                                                                'choice_label' => 'title',
-                                                                'choice_value' => 'id',
-                                                                'choices_as_values' => true,
-                                                                'validation_groups' => $options['validation_groups'],
-                                                                'data' => $options['data']->getHouse() ))
+        $builder
+            ->add('house', ChoiceType::class, array('label' => 'Seleccione una casa',
+                                                            'choices' => $arrayHouses,
+                                                            'choice_label' => 'title',
+                                                            'choice_value' => 'id',
+                                                            'choices_as_values' => true,
+                                                            'validation_groups' => $options['validation_groups'],
+                                                            'data' => $options['data']->getHouse() ))
 
-                ->add('houseId', HiddenType::class, array('data' => $options['data']->getHouse()->getId(),
-                                                          'mapped'=>false  ));
+            ->add('houseId', HiddenType::class, array('data' => $options['data']->getHouse()->getId(),
+                                                      'mapped'=>false  ));
 
-        endif;
 
-        if($options['service'] == 9):
-            $builder
-                ->add('imgBedroom', FileType::class, array( 'label' => ' ',
-                    'mapped' => false,
-                    'multiple' => true,
-                    'required' => true,
-                    'attr' => array('accept' => 'image/*', 'class' => 'file-loading')));
-        endif;
     }
 
     public function configureOptions(OptionsResolver $resolver){

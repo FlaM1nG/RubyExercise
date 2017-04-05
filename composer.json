@@ -52,7 +52,8 @@
         "authorizenet/authorizenet": "^1.8",
         "symfony/property-access": "2.7.3",
         "symfony/serializer": "2.7.3",
-        "realexpayments/rxp-remote-php": "1.2.0"
+        "realexpayments/rxp-remote-php": "1.2.0",
+        "postmen/sdk-php": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
