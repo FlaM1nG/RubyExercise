@@ -14,9 +14,45 @@ class IndexController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $entrada = array(
+            "share_car" => array(
+                "faX" => "fa-car",
+                "href" => "serShareCar",
+                "text" => "Coche Compartido"
+            ),
+            "courier" => array(
+                "faX" => "fa-envelope",
+                "href" => "serShareCar",
+                "text" => "Mensajeria"
+            ),
+            "renting" => array(
+                "faX" => "fa-weixin",
+                "href" => "serShareCar",
+                "text" => "Renting"
+            ),
+            "camping" => array(
+                "faX" => "fa-envira",
+                "href" => "serHouseRents",
+                "text" => "Camping"
+            ),
+            "money" => array(
+                "faX" => "fa-money",
+                "href" => "service_listTrade",
+                "text" => "Compra/Venta"
+            ),
+            "ticket" => array(
+                "faX" => "fa-ticket",
+                "href" => "service_listTrade",
+                "text" => "Entradas Ocio"
+            ),
+        );
+
+        shuffle($entrada);
+
         // replace this example code with whatever you need
         return $this->render('home/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
+            'servicesFranja' => $entrada
         ));
     }
     
