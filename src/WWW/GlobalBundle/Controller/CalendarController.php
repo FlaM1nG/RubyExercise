@@ -397,7 +397,6 @@ class CalendarController extends Controller
 
                 if (!empty($value['precio_base'])) {
                     $alEspecificos['precio_base'] = $value['precio_base'];
-
                 }
             }
         }
@@ -442,6 +441,7 @@ class CalendarController extends Controller
 
         $calendarIDaux = $test[0]["calendar_id"];
         $serviceIDaux = $test[0]["service_id"];
+
         $query2 =  "select * from my_company_events WHERE calendar_id = $calendarIDaux AND service_id = $serviceIDaux";
 
         $stmt2 = $db->prepare($query2);
@@ -462,7 +462,7 @@ class CalendarController extends Controller
                 }
             }
         }
-
+        
         $eventos = $this->createDateRangeBase( '2017-03-01', '2022-12-31', $alEspecificos['precio_base'], "€");
 
         foreach ($eventos as $key => $value) {

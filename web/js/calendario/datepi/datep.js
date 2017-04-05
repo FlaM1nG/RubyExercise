@@ -11,12 +11,9 @@ $(document).ready(function() {
         data: {'idOffer' : idoferta},
         type: 'post',
         success: function(data) {
-
             cellContents = data;
-
-
-}
-});
+        }
+    });
 
     $('#DatePicker').datepicker({
         changeMonth: true,
@@ -24,8 +21,10 @@ $(document).ready(function() {
         minDate: 0,
         dateFormat: 'dd-mm-yy',
         //The calendar is recreated OnSelect for inline calendar
-        onSelect: function (date, dp) {
+        onSelect: function (selectedDate,date, dp) {
             updateDatePickerCells();
+
+            $("#DatePickerto").datepicker("option", "minDate", selectedDate);
 
             var initDate = $('#DatePicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
             var endDate = $('#endDate').val();
@@ -61,8 +60,10 @@ $(document).ready(function() {
         minDate: 0,
         dateFormat: 'dd-mm-yy',
         //The calendar is recreated OnSelect for inline calendar
-        onSelect: function (date, dp) {
+        onSelect: function (selectedDate,date, dp) {
             updateDatePickerCells();
+
+            $("#DatePicker").datepicker("option", "maxDate", selectedDate);
 
             var endDate = $('#DatePickerto').datepicker({ dateFormat: 'dd-mm-yy' }).val();
             var initDate = $('#startDate').val();
@@ -120,10 +121,6 @@ $(document).ready(function() {
         /* Wait until current callstack is finished so the datepicker
          is fully rendered before attempting to modify contents */
         setTimeout(function () {
-            //Fill this with the data you want to insert (I use and AJAX request).  Key is day of month
-            //NOTE* watch out for CSS special characters in the value
-            //var cellContents = {1: '20', 2: '13', 15: '60', 20: '50€', 28: '99.99€', 1: '30€', 1: '40€', 2: '25€', 2: '10€'};
-
             // We set on each '<a>' tag the month number
             $('.ui-datepicker a').each(function () {
                 monthNumber = $(this).parent().data('month');

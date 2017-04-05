@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="{{ asset('css/calendario/fullcalendar.css') }}" />
 
-    <link rel="stylesheet" href="{{ asset('css/calendario/datepi/jquery-ui.css') }}" />
 
 {% endblock %}
 
@@ -222,14 +221,6 @@
     <script type="text/javascript" src="{{ asset('js/calendario/fullcalendar-lang-all.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/calendario/prueba/calendario.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-
-    <!-- datepicker (Lo quitare de aqui es solo para pruebas el datepicker -->
-{#
-        <script type="text/javascript" src="{{ asset('js/calendario/datepi/jquery-ui.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/calendario/datepi/core.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/calendario/datepi/md5.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/calendario/datepi/datep.js') }}"></script>
-#}
 
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
