@@ -40,7 +40,9 @@ class OfferController extends Controller{
 
     public function myOffersAction(Request $request){
 
-        $offers = $this->listMyOffers($request);
+        $service = $request->get('typeOffer');
+
+        $offers = $this->listMyOffers($request, $service);
 
         $paginator = $this->get('knp_paginator');
         $pagination = null;
@@ -57,9 +59,10 @@ class OfferController extends Controller{
                        array('listOffers' => $offers,
                              'pagination' => $pagination));
     }
+
     
-    private function listMyOffers(Request $request){
-        
+    private function listMyOffers(Request $request, $service = null){
+
         $file = MyConstants::PATH_APIREST."services/offer/get_all_user_offers.php";
         $ch = new ApiRest();
         $session = $request->getSession();
@@ -68,6 +71,10 @@ class OfferController extends Controller{
         $data['username'] = $session->get('username');
         $data['id'] = $session->get('id');
         $data['password'] = $session->get('password');
+
+        if(!empty($service)):
+            $data['service'] = $service;
+        endif;
         
         $result = $ch->resultApiRed($data, $file);
 

@@ -23,8 +23,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class PurchasesController extends Controller{
     
     public function myPurchasesAction(Request $request){
+
+        $service = $request->get('typeOffer');
         
-        $purchases = $this->getPurchases($request);
+        $purchases = $this->getPurchases($request, $service);
 
         $paginator = $this->get('knp_paginator');
         $pagination = null;
@@ -45,14 +47,19 @@ class PurchasesController extends Controller{
         
     }
     
-    private function getPurchases(Request $request){
+    private function getPurchases(Request $request, $service = null){
+
         $file = MyConstants::PATH_APIREST."services/inscription/get_inscriptions.php";
         $ch = new ApiRest();
 
         $data['username'] = $request->getSession()->get('username');
         $data['id'] = $request->getSession()->get('id');
         $data['password'] = $request->getSession()->get('password');
-        
+
+        if(!empty($service)):
+            $data['service'] = $service;
+        endif;
+
         $result = $ch->resultApiRed($data, $file);
 
         if($result['result'] == 'ok')

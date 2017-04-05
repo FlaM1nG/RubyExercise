@@ -71,10 +71,12 @@ user_profiler_editAdress:
 user_profiler_newAdress:
     path: /profile/newAddress/
     defaults: { _controller: UserBundle:ProfileAddress:newAddress }    
-       
-user_profiler_offers:
-    path: /profile/offers/
-    defaults: { _controller: UserBundle:Offer:myOffers }
+
+user_profile_offers:
+    path: /profile/offers/{typeOffer}/
+    defaults: { _controller: UserBundle:Offer:myOffers,typeOffer:null }
+    requirements:
+        typeOffer: "trade|vehicles|buildings|"
         
 user_profiler_editOffer:    
     path: /profile/offer/{idOffer}/
@@ -83,8 +85,10 @@ user_profiler_editOffer:
         idOffer: \d+
 
 user_profiler_purchases:
-    path: /profile/purchases/
-    defaults: { _controller: UserBundle:Purchases:myPurchases }
+    path: /profile/purchases/{typeOffer}/
+    defaults: { _controller: UserBundle:Purchases:myPurchases,typeOffer:null }
+    requirements:
+       typeOffer: "trade|vehicles|buildings|"
     
 user_profiler_purchasesValoration:
     path: /profile/purchases/valoration/{idOffer}/
