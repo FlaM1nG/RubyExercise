@@ -85,8 +85,10 @@ user_profiler_editOffer:
         idOffer: \d+
 
 user_profiler_purchases:
-    path: /profile/purchases/
-    defaults: { _controller: UserBundle:Purchases:myPurchases }
+    path: /profile/purchases/{typeOffer}/
+    defaults: { _controller: UserBundle:Purchases:myPurchases,typeOffer:null }
+    requirements:
+       typeOffer: "trade|vehicles|buildings|"
     
 user_profiler_purchasesValoration:
     path: /profile/purchases/valoration/{idOffer}/
