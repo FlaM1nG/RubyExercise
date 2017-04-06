@@ -381,6 +381,7 @@ class CalendarController extends Controller
 
         $offerID = $request->get('idOffer');
 
+       /*
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
@@ -400,7 +401,7 @@ class CalendarController extends Controller
                 }
             }
         }
-
+*/
         /**
          * Returns every date between two dates as an array
          * @param string $startDate the start of the date range
