@@ -191,12 +191,39 @@
 
     {{ include('nav/menuScript.html.twig') }}
 
-    {% if (service == 1 or service == 2) %}
+    {% if service == 1 or service == 2 %}
         {{ include('pay/payGastosEnvio.html.twig') }}
     {% endif %}
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+        {% if service != 1 and service != 2 %}
+
+            $(document).on('click','.checkPayMethod', function (){ actualizaGastosGestionPago();});
+
+            function actualizaGastosGestionPago(){
+                var gastos = 0;
+                var total = 0;
+                var precio = parseFloat({{ offer.price }});
+
+                total = parseFloat(precio + {{ administrationFees }});
+
+                if (document.getElementById('previoPago_payMethod_0').checked) {
+                    gastos = total *{{ paypalFee }};
+                }
+                total = parseFloat(total+gastos);
+
+
+                $('.gestionPago').html(parseFloat(gastos).toFixed(2) + ' €');
+                $('#previoPago_managementPayFee').val(parseFloat(gastos).toFixed(2));
+
+                $('.precioTotal').html(parseFloat(total).toFixed(2)+' €');
+                document.getElementById('previoPago_totalAmount').value = parseFloat(total).toFixed(2);
+
+            }
+
+        {% endif %}
 
             {# Funcionalidad para mostrar o no para realizar factura. #}
             $('.check-facturacion').on('click', function () {
