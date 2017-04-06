@@ -1,67 +1,11 @@
-{% import 'macros/iconos.html.twig' as ico %}
-
-
-
-
-
-
-
-{# Array de imagenes para la galeria #}
-{#
- {% set nav = {
- share_car:{ faX: "fa-car", href: "serShareCar", text: "Coche Compartido"},
- courier:{ faX: "fa-envelope", href: "serShareCar", text: "Mensajería"},
- renting:{ faX: "fa-weixin", href: "serShareCar", text: "Renting"},
- camping:{ faX: "fa-envira", href: "serHouseRents", text: "Camping"},
- money:{ faX: "fa-money", href: "service_listTrade", text: "Compra/Venta"},
- ticket:{ faX: "fa-ticket", href: "service_listTrade", text: "Entradas Ocio"},
- } %}
-    {% set photosCar = [] %}
-    {% for nav.share_car.fax.href.text in car.photos%}
-        {% set photosCar = photosCar|merge([photos.url]) %}
-    {% endfor %}
+{% import 'macros/iconos.html.twig' as iconos %}
 
 <div class="container">
-    {{ ico.icon(nav,href,text) }}
+    <div class="row row-franja">
+
+        {% for e in 0..5 %}
+            {{ iconos.icon(servicesFranja[e].faX, servicesFranja[e].href, servicesFranja[e].text) }}
+        {% endfor %}
+
+    </div>
 </div>
-
-    {% endblock %}
-
-
-#}
-
-{#
-{% import 'macros/offer.html.twig' as ico %}
-
-
-
-    {% set nav = {
-    share_car:{ faX: "fa-car", href: "serShareCar", text: "Coche Compartido"},
-    courier:{ faX: "fa-envelope", href: "serShareCar", text: "Mensajería"},
-    renting:{ faX: "fa-weixin", href: "serShareCar", text: "Renting"},
-    camping:{ faX: "fa-envira", href: "serHouseRents", text: "Camping"},
-    money:{ faX: "fa-money", href: "service_listTrade", text: "Compra/Venta"},
-    ticket:{ faX: "fa-ticket", href: "service_listTrade", text: "Entradas Ocio"},
-    } %}
-
-
-
-    {% for i in 0..6 %}
-
-            {% if nav.share_car or nav.courier or nav.renting or nav.camping or nav.money or nav.ticket not in nav %}
-                <!-- FRANJA SERVICIOS -->
-                     * {{i}}
-                <div class="container">
-               {{ico.icon(faX, href, text)}}
-                </div>
-                <!-- FIN FRANJA SERVICIOS -->
-                {% set nav = nav|merge([random(nav.share_car,nav.courier,nav.renting,nav.camping,nav.money,nav.ticket)]) %}
-            {% endif %}
-
-
-    {% endfor %}
-
-
-
-
-#}
