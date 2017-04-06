@@ -432,8 +432,7 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-        $query =  "select * from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my on h.calendar_id=my.calendar_id and off.service_id=my.service_id WHERE sh.offer_id=$offerID";
-
+        $query =  "select sh.house_id, sh.price as precio_base ,h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id WHERE sh.offer_id=$offerID";
         $stmt = $db->prepare($query);
         $params = array();
         $stmt->execute($params);
@@ -462,8 +461,8 @@ class CalendarController extends Controller
                 }
             }
         }
-        
-        $eventos = $this->createDateRangeBase( '2017-03-01', '2022-12-31', $alEspecificos['precio_base'], "€");
+
+        $eventos = $this->createDateRangeBase( '2017-03-01', '2022-12-31',  $test[0]["precio_base"], "€");
 
         foreach ($eventos as $key => $value) {
             foreach ($eventosEspecificos as $key2 => $value2) {
