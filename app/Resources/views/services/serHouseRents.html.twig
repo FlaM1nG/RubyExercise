@@ -52,7 +52,7 @@ sha-header-title
     {#{ include('services/subTitles/shareCarSubTitle.html.twig') }#}
 {% endblock %}
 
-{% block alert %}
+{% block alertService %}
 
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
         {{ alerts.alert('alert-success', flash_message, null) }}
