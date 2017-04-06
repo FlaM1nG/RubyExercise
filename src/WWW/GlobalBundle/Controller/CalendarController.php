@@ -73,7 +73,7 @@ class CalendarController extends Controller
 
             }
 
-        return $this->redirectToRoute('user_profiler_offers');
+        return $this->redirectToRoute('user_profile_offers');
     }
 
 
