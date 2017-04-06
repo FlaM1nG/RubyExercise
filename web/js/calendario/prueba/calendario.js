@@ -31,7 +31,25 @@ $(document).ready(function() {
         eventLimit: true, // allow "more" link when too many events
         eventStartEditable: false, // don't let you move the event
 
-        eventRender: function(event, element, view) {
+        viewRender: function(currentView){
+            var minDate = moment(),
+                maxDate = moment().add(18,'month');
+            // Past
+            if (minDate >= currentView.start && minDate <= currentView.end) {
+                $(".fc-prev-button").prop('disabled', true).addClass('fc-state-disabled');
+            }
+            else {
+                $(".fc-prev-button").removeClass('fc-state-disabled').prop('disabled', false);;
+            }
+            // Future
+            if (maxDate >= currentView.start && maxDate <= currentView.end) {
+                $(".fc-next-button").prop('disabled', true).addClass('fc-state-disabled');
+            } else {
+                $(".fc-next-button").removeClass('fc-state-disabled').prop('disabled', false);
+            }
+        },
+
+    eventRender: function(event, element, view) {
             // To include the price on the render
 
             element.bind('dblclick', function() {

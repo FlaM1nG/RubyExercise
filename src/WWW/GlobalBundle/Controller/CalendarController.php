@@ -379,7 +379,7 @@ class CalendarController extends Controller
     public function calendarAction(Request $request)
     {
 
-        $offerID = $request->get('idOffer');
+
 
        /*
         $em = $this->getDoctrine()->getEntityManager();
@@ -430,6 +430,8 @@ class CalendarController extends Controller
             return $range;
         }
 
+        $offerID = $request->get('idOffer');
+
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
@@ -463,7 +465,8 @@ class CalendarController extends Controller
             }
         }
 
-        $eventos = $this->createDateRangeBase( '2017-03-01', '2022-12-31',  $test[0]["precio_base"], "€");
+
+        $eventos = $this->createDateRangeBase( '2017-04-01', '2018-12-31',  $test[0]["precio_base"], "€");
 
         foreach ($eventos as $key => $value) {
             foreach ($eventosEspecificos as $key2 => $value2) {
