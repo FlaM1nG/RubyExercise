@@ -71,9 +71,10 @@
 
 
 {% block offerUser %}
+{#{{ dump(offer) }}#}
     {{ users.userOffer(
         path('user_public_profile',{username: offer.offer.userAdmin.username} ),
-        asset(offer.offer.userAdmin.photo.url,'img'),
+        offer.offer.userAdmin.photo.url,
         offer.offer.userAdmin.username)
     }}
     <!-- FIN NOMBRE USUARIO -->
@@ -215,7 +216,7 @@
 {% block javascriptsFooter %}
     {{ parent() }}
 
-    <script src="{{ asset('js/starRating/star-rating.js') }}"></script>
+    <script async src="{{ asset('js/starRating/star-rating.js') }}"></script>
 
     <script>
         $(document).ready( function(){

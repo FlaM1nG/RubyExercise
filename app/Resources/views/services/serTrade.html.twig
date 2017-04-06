@@ -53,7 +53,7 @@ sha-header-title
     </a>#}
 {% endblock %}
 
-{% block alert %}
+{% block alertService %}
     {% for flash_message in app.session.flashbag.get('messageFail') %}
         {{  alerts.alert('alert-warning', flash_message, null) }}
     {% endfor %}
@@ -70,6 +70,7 @@ sha-header-title
 {% endblock %}
             
 {% block serviceList %}
+
     <div class="row row-tra-base" id="tra-cont-base">
     {#{% for trade in arrayTrades %}#}
     {% for trade in pagination %}

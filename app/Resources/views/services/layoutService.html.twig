@@ -31,14 +31,15 @@
 <!-- BODY -->
 <div class="container cd-main-content">
     
-    <!-- SUBTITLE BLOCK  -->
-    <div class="row row-service-title">
-        {% block serviceSubTitle %}  {% endblock %}
-    </div>
-    <!-- END SUBTITLE BLOCK  -->
+    {#<!-- SUBTITLE BLOCK  -->#}
+    {#<div class="row row-service-title">#}
+        {#{% block serviceSubTitle %}  {% endblock %}#}
+    {#</div>#}
+    {#<!-- END SUBTITLE BLOCK  -->#}
     
     <!-- LIST ELEMENTS WITH FILTERS -->
     <div class="row separacion-inferior">
+        {% block alertService %} {% endblock %}
         
         <!-- COLUMN FILTERS -->
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">

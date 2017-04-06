@@ -4,8 +4,9 @@
         var addresses = '{{ arrayAddresses|json_encode|raw}}';
         region=[];
 
-        $(document).on('click','.check-send-method', actualizaGastosEnvio);
+        $(document).on('click','input.check-send-method', actualizaGastosEnvio);
         $(document).on('change','#previoPago_addressPay', actualizaGastosEnvio);
+        $(document).on('click','.checkPayMethod', function (){ actualizaGastosGestionPago(0);});
 
 
         var arrayAddress = JSON.parse(addresses, function (key, value){
@@ -23,7 +24,7 @@
             var regionOrigen = '{{ offer.region|lower }}';
 
             var gastosEnvio = 0;
-            var precioTotal = parseFloat({{ offer.price}});
+            var precioTotal = parseFloat({{ offer.price}}+{{ administrationFees }});
 
 
             if(document.getElementById('sendMethod_correos').checked) {
@@ -47,7 +48,53 @@
             precioTotalAux = parseFloat(gastosEnvio + precioTotal).toFixed(2);
 
             $('.gastosEnvio').html(parseFloat(gastosEnvio).toFixed(2)+' €');
-            $('.precioTotal').html(precioTotalAux+' €')
+            $('#previoPago_shippingCost').val(gastosEnvio);
+
+
+
+            actualizaGastosGestionPago(precioTotalAux);
+
+        }
+
+        function actualizaGastosGestionPago(precioTotal){
+            var gastos = 0;
+            var total = 0;
+
+            if(precioTotal == 0) {
+
+                var precio = parseFloat({{ offer.price }});
+                total = parseFloat(precio + {{ administrationFees }});
+
+
+                if(!$('#previoPago_shippingCost').empty() ){
+                    total = parseFloat(total+parseFloat(document.getElementById('previoPago_shippingCost').value));
+                }
+
+                if (document.getElementById('previoPago_payMethod_0').checked) {
+                    gastos = total *{{ paypalFee }};
+                }
+                total = parseFloat(total+gastos);
+
+            }else{
+
+                if (document.getElementById('previoPago_payMethod_0').checked) {
+                    gastos = parseFloat(precioTotal *{{ paypalFee }});
+//                    console.log('paypal '+gastos);
+
+                    total = parseFloat(parseFloat(precioTotal) + parseFloat(gastos));
+//                    console.log('total con correos '+precioTotal);
+//                    console.log('total '+total);
+                }else{
+                    total = precioTotal;
+                }
+            }
+
+
+            $('.gestionPago').html(parseFloat(gastos).toFixed(2) + ' €');
+            $('#previoPago_managementPayFee').val(parseFloat(gastos).toFixed(2));
+
+            $('.precioTotal').html(parseFloat(total).toFixed(2)+' €');
+            document.getElementById('previoPago_totalAmount').value = parseFloat(total).toFixed(2);
 
         }
 
