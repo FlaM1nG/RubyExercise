@@ -88,14 +88,23 @@ class PaymentPurchaseController extends Controller {
 //                            'service' => $this->service,
 //                ));
 //            }
-            $arrayPay['direccion'] = $request->get('previoPago')['addressPay'];
-            $arrayPay['metodo_envio'] = $request->get('previoPago')['sendMethod'];
+            
+            //Guardamos los datos en la base de datos
+            $arrayPay['gastos_gestion']= $administrationFees;
+            $arrayPay['gastos_pago']= $request->get('previoPago')['managementPayFee'];
+            $arrayPay['gastos_totales'] = $request->get('previoPago')['totalAmount'];
+            if ($this->serviceId == 1 || $this->serviceId == 2){
+                $arrayPay['direccion'] = $request->get('previoPago')['addressPay'];
+                $arrayPay['metodo_envio'] = $request->get('previoPago')['sendMethod'];
+                $arrayPay['gastos_envio'] = $request->get('previoPago')['shippingCost'];
+            }
+            
             $payment = new Payment;
             //numero de referencia por la hora y fecha
             $payment->setNumber(date('ymdHis'). '-' . $request->get('idOffer'));
             $payment->setClientId(uniqid());
-            $payment->setDescription(sprintf('An order %s for a client %s', $this->offer->getPrice(), $user->getUsername()));
-            $payment->setTotalAmount($this->offer->getPrice() * 100);
+            $payment->setDescription(sprintf('An order %s for a client %s', $request->get('previoPago')['totalAmount'], $user->getUsername()));
+            $payment->setTotalAmount($request->get('previoPago')['totalAmount'] * 100);
             $payment->setCurrencyCode('EUR');
             $payment->setClientEmail($user->getUsername());
             $payment->setDetails($arrayPay);

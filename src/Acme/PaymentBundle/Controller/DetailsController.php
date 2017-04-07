@@ -68,11 +68,13 @@ class DetailsController extends PayumController
         else {
             
             $this->updateStatus($idOffer, $request);
-            if($details->getDetails()['metodo_envio']== 'correos'){
-                $codigo =new CorreosController();
-               
-                //hacer que se llame a esta funcion una vez solo           
-                $codigo->getTrackingNumberAction($idOffer, $request, $details->getDetails()['direccion']);
+            if(isset($details->getDetails()['metodo_envio'])){
+                if($details->getDetails()['metodo_envio']== 'correos'){
+                    $codigo =new CorreosController();
+
+                    //hacer que se llame a esta funcion una vez solo           
+                    $codigo->getTrackingNumberAction($idOffer, $request, $details->getDetails()['direccion']);
+                }
             }
             return $this->render('pay/postPayPageOK.html.twig',array(
             'id' => $IDPayment

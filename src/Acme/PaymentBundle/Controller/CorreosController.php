@@ -38,7 +38,7 @@ class CorreosController extends Controller {
         //Se cargan los datos 
         $this->buyer = $this->getUserProfile($request);
         $this->getOffer($idOffer, $request);
-        
+         
         if ($this->buyer->getDefaultAddress()->getId() == $idDir) {
             $this->addressBuyer = $this->buyer->getDefaultAddress();
         } else {
@@ -170,7 +170,7 @@ class CorreosController extends Controller {
         $data['id'] = $id;
 
         $result = $ch->resultApiRed($data, $file);
-        
+     
         if ($result['result'] == 'ok'):
             $this->offer = new Trade($result);
             
