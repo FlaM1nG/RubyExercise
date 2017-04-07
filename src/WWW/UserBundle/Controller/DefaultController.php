@@ -23,11 +23,11 @@ class DefaultController extends Controller{
         return $this->render('UserBundle:Validation:validationFalse.html.twig');
     }
     
-    public function indexAction(Request $request)
-    {
-        $session = $request->getSession();
-        return $this->render('::home/index.html.twig');
-    }
+//    public function indexAction(Request $request)
+//    {
+//        $session = $request->getSession();
+//        return $this->render('::home/index.html.twig');
+//    }
     
     /**
      * Matches /change/*
