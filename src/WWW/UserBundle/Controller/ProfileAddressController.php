@@ -43,6 +43,44 @@ class ProfileAddressController extends Controller
     }
     
     public function newAddressAction(Request $request){
+
+        $this->redirectRouteAddresses($request);
+        
+        $address = new Address();
+        $formAddress = $this->createForm(AddressType::class, $address);
+        
+        $formAddress->handleRequest($request);
+        
+        if($formAddress->isSubmitted() && $formAddress->isValid()):
+            $result = $this->createAddress($request, $address);
+
+            if($result == 'ok'):
+
+                $path = $request->getSession()->get('_security.user.target_path');
+                
+                if (!empty($path)):
+                    $request->getSession()->remove('_security.user.target_path');
+
+                    if(strpos($path, '/payment/trade/offer/') !== false):
+                        return $this->redirect($path);
+                    else:
+                        return $this->redirect($this->generateUrl($path));
+                    endif;
+                else:
+                    return $this->forward('UserBundle:ProfileAddress:listAddress');
+                    
+                endif;
+
+            endif;
+        endif;
+       
+        return $this->render('UserBundle:Profile:profileNewAddress.html.twig',
+                             array('form' => $formAddress->createView() )
+                            );
+    }
+
+    private function redirectRouteAddresses(Request $request){
+
         $path = parse_url($request->headers->get('referer'),PHP_URL_PATH);
 
         if($path == $this->generateUrl('service_newClothes')):
@@ -56,33 +94,6 @@ class ProfileAddressController extends Controller
 
         endif;
 
-        $address = new Address();
-        $formAddress = $this->createForm(AddressType::class, $address);
-        
-        $formAddress->handleRequest($request);
-        
-        if($formAddress->isSubmitted() && $formAddress->isValid()):
-//            $result = $this->createAddress($request, $address);
-$result = 'ok';
-            if($result == 'ok'):
-
-                $path = $request->getSession()->get('_security.user.target_path');
-                
-                if (!empty($path)) :
-                    $request->getSession()->remove('_security.user.target_path');
-                    return $this->redirect($this->generateUrl($path));
-
-                else:
-                    return $this->forward('UserBundle:ProfileAddress:listAddress');
-                    
-                endif;
-
-            endif;
-        endif;
-       
-        return $this->render('UserBundle:Profile:profileNewAddress.html.twig',
-                             array('form' => $formAddress->createView() )
-                            );
     }
     
     private function createAddress(Request $request, $address){
