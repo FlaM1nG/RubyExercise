@@ -39,7 +39,10 @@ class TradeController extends Controller{
     private $service;
     
     public function createOfferAction(Request $request){
-        
+//        print_r($request);
+//        print_r($request->headers->get('referer'));
+//       echo "<br>". parse_url($request->headers->get('referer'),PHP_URL_PATH );
+
         $this->setUpVars($request);
         $hasAddresses = true;
 
@@ -49,7 +52,7 @@ class TradeController extends Controller{
 
         if($hasAddresses):
 
-            $request->getSession()->remove('_security.user.target_path');
+//            $request->getSession()->remove('_security.user.target_path');
 
             $trade = new Trade();
 
@@ -85,9 +88,9 @@ class TradeController extends Controller{
 
         else:
 
-            $route = $request->get('_route');
-
-            $request->getSession()->set('_security.user.target_path',$route);
+//            $route = $request->get('_route');
+//
+//            $request->getSession()->set('_security.user.target_path',$route);
 
             return $this->render('OthersBundle:Trade:offerTrade.html.twig',
                             array('service' => $this->service,

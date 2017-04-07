@@ -43,25 +43,40 @@ class ProfileAddressController extends Controller
     }
     
     public function newAddressAction(Request $request){
-        
+        $path = parse_url($request->headers->get('referer'),PHP_URL_PATH);
+
+        if($path == $this->generateUrl('service_newClothes')):
+            $request->getSession()->set('_security.user.target_path','service_newClothes');
+
+        elseif($path == $this->generateUrl('service_newTrade')):
+            $request->getSession()->set('_security.user.target_path','service_newTrade');
+
+        elseif(strpos($path, '/payment/trade/offer/') !== false):
+            $request->getSession()->set('_security.user.target_path',$request->headers->get('referer'));
+
+        endif;
+
         $address = new Address();
         $formAddress = $this->createForm(AddressType::class, $address);
         
         $formAddress->handleRequest($request);
         
         if($formAddress->isSubmitted() && $formAddress->isValid()):
-            $result = $this->createAddress($request, $address);
-
+//            $result = $this->createAddress($request, $address);
+$result = 'ok';
             if($result == 'ok'):
-                $session = $request->getSession();
-                $path = $session->get('_security.user.target_path');
-                
-                if ($path != NULL) {
-                    return $this->redirect($this->generateUrl($path));
-//                    return $this->redirectToRoute($path);
-                }
 
-                return $this->forward('UserBundle:ProfileAddress:listAddress');
+                $path = $request->getSession()->get('_security.user.target_path');
+                
+                if (!empty($path)) :
+                    $request->getSession()->remove('_security.user.target_path');
+                    return $this->redirect($this->generateUrl($path));
+
+                else:
+                    return $this->forward('UserBundle:ProfileAddress:listAddress');
+                    
+                endif;
+
             endif;
         endif;
        
