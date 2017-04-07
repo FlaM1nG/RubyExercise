@@ -57,8 +57,10 @@ class ProfileAddressController extends Controller
                 $path = $session->get('_security.user.target_path');
                 
                 if ($path != NULL) {
-                    return $this->redirect($path);
+                    return $this->redirect($this->generateUrl($path));
+//                    return $this->redirectToRoute($path);
                 }
+
                 return $this->forward('UserBundle:ProfileAddress:listAddress');
             endif;
         endif;
