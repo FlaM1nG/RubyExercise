@@ -1,5 +1,5 @@
 easy_admin:
-    disabled_actions: ['new']
+    disabled_actions: ['delete']
     list:
         actions: ['edit', 'search','show']
     formats:
@@ -17,17 +17,19 @@ easy_admin:
                 title: 'Mensajes entre Usuarios'
                 fields: #['id','subject','message','status','revisionDate','createdDate','from','to']
                     - id
-                    - { property: 'subject', label: 'Titulo'}
-                    - { property: 'message', label: 'Mensaje'}
-                    - { property: 'status', label: 'Estado'}
+                    - { property: 'subject', label: 'Titulo', type: 'text'}
+                    - { property: 'message', label: 'Mensaje', type: 'text'}
+                    - { property: 'statusString', label: 'Estado', type: 'text'}
                     - { property: 'revisionDate', label: 'Fecha Revisión' }
                     - { property: 'createdDate', label: 'Fecha Alta'}
-                    - { property: 'from', label: 'Emisor'}
-                    - { property: 'to', label: 'Remitente'}
-#            form:
-#                fields:
-#                    - status
-#                    - { property: 'revisionDate',format: 'j/n/Y' }
+                    - { property: 'fromNick', label: 'Emisor', sortable: true}
+                    - { property: 'toNick', label: 'Remitente'}
+            form:
+                fields:
+                    - status
+                    - { property: 'revisionDate',format: 'j/n/Y' }
+            new:
+                title: 'Mensaje a usuario'
         Photo:
             class: WWW\GlobalBundle\Entity\Photo
             list:
