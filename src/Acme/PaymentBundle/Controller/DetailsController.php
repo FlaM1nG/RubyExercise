@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
+use Acme\PaymentBundle\Controller\CorreosController;
 
 class DetailsController extends PayumController
 {
@@ -65,30 +66,20 @@ class DetailsController extends PayumController
             ));
         }
         else {
-            $this->updateStatus($idOffer, $request);
             
+            $this->updateStatus($idOffer, $request);
+            if($details->getDetails()['metodo_envio']== 'correos'){
+                $codigo =new CorreosController();
+               
+                //hacer que se llame a esta funcion una vez solo           
+                $codigo->getTrackingNumberAction($idOffer, $request, $details->getDetails()['direccion']);
+            }
             return $this->render('pay/postPayPageOK.html.twig',array(
             'id' => $IDPayment
             
             ));
         }
         
-//        if ($details instanceof  DetailsAggregateInterface) {
-//            $details = $details->getDetails();
-//        }
-//
-//        if ($details instanceof  \Traversable) {
-//            $details = iterator_to_array($details);
-//        }
-//        return new Response(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
-//        return $this->render('AcmePaymentBundle:Details:view.html.twig', array(
-//            'status' => $status->getValue(),
-//            'payment' => htmlspecialchars(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)),
-//            'gatewayTitle' => ucwords(str_replace(array('_', '-'), ' ', $token->getGatewayName())),
-//            'refundToken' => $refundToken,
-//            'captureToken' => $captureToken,
-//            'cancelToken' => $cancelToken,
-//        ));
     }
     
     private function getStatusPayment(){

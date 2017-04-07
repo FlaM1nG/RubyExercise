@@ -84,6 +84,8 @@ class PaymentPurchaseController extends Controller {
 //                            'service' => $this->service,
 //                ));
 //            }
+            $arrayPay['direccion'] = $request->get('previoPago')['addressPay'];
+            $arrayPay['metodo_envio'] = $request->get('previoPago')['sendMethod'];
             $payment = new Payment;
             //numero de referencia por la hora y fecha
             $payment->setNumber(date('ymdHis'). '-' . $request->get('idOffer'));
@@ -92,6 +94,7 @@ class PaymentPurchaseController extends Controller {
             $payment->setTotalAmount($this->offer->getPrice() * 100);
             $payment->setCurrencyCode('EUR');
             $payment->setClientEmail($user->getUsername());
+            $payment->setDetails($arrayPay);
 
             //REDSYS
             if ($request->get('previoPago')['payMethod'] == 'card') {
