@@ -5,50 +5,32 @@
 {% import 'macros/houseRentsList.html.twig' as houses %}
 {% import 'macros/filter.html.twig' as filters %}
 
-{#{% set service = 6 %}#}
-{% if service == 6 %}
-    {% set pathFilter = path('serHouseRents') %}
-    {% set routingOffer = 'offHouseRents' %}
-    {% set routingNewOffer = 'building_newOfferHouseRent' %}
-    {% set titleService = 'Alquiler de viviendas turísticas' %}
 
-{% elseif service == 7 %}
-    {% set pathFilter = path('serHouseRents') %}
-    {% set routingOffer = 'house_offerShareHouse' %}
-    {% set routingNewOffer = 'house_newOfferShareHouse' %}
-    {% set titleService = 'Casa compartida' %}
-
-{% elseif service == 8 %}
-    {% set pathFilter = path('serHouseRents') %}
-    {% set routingOffer = 'house_offerHouseSwap' %}
-    {% set routingNewOffer = 'house_newOfferHouseSwap' %}
-    {% set titleService = 'Intercambio de casa' %}
-
-{% elseif service == 9 %}
-    {% set pathFilter = path('serHouseRents') %}
+{#{% elseif service == 9 %}#}
+    {% set pathFilter = path('house_listBedroomSwap') %}
     {% set routingOffer = 'house_offerBedroomSwap' %}
     {% set routingNewOffer = 'house_newOfferBedroomSwap' %}
     {% set titleService = 'Intercambio de habitaciones entre estudiantes' %}
 
-{% endif %}
+{#{% endif %}#}
 
 {% block title %}
     House Rents
 {% endblock %}
 
 {% block cssParallax %}
-hre-parallax
+    hre-parallax
 {% endblock %}
 
 {% block cssTitleParallax %}
-sha-header-title
+    sha-header-title
 {% endblock %}
 
-{% block serviceTitle %} 
+{% block serviceTitle %}
     {{ titleService }}
 {% endblock %}
 
-{% block serviceSubTitle %}  
+{% block serviceSubTitle %}
     {#{ include('services/subTitles/shareCarSubTitle.html.twig') }#}
 {% endblock %}
 
@@ -68,19 +50,19 @@ sha-header-title
     {#{{ include('services/filters/houseRentFilters.html.twig') }}#}
     {{ filters.filterHouse('get', pathFilter , service) }}
 {% endblock %}
-            
+
 {% block serviceList %}
     {% for offer in pagination %}
         {#{ include('services/lists/houseRentsList.html.twig') }#}
 
         {# Cambiar para mostrar solo una imagen y no 3#}
         {% set imgSmall1 = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
-                            
+
         {% set imgSmall2 = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
 
-        {{ houses.element(path(routingOffer,{idOffer: offer.offer_id}), asset(offer.house_photo,'img'), imgSmall1, imgSmall2, offer.title,
-            offer.capacity, offer.bedrooms, offer.bathrooms, path('user_public_profile',{username: offer.username}), asset(offer.user_photo,'img'),
-            offer.username, offer.price, offer.avg_score, service ) }}
+        {{ houses.element(path(routingOffer,{idOffer: offer.offer_id}), asset(offer.offer_photo,'img'), imgSmall1, imgSmall2, offer.title,
+        offer.holders, 0, 0, path('user_public_profile',{username: offer.username}), asset(offer.user_photo,'img'),
+        offer.username, 0, offer.avg_score, service ) }}
     {% endfor %}
 
     {% if pagination is not null %}
@@ -108,12 +90,12 @@ sha-header-title
 {% endblock %}
 
 {% block popupBlock %}
-    {{ popups.popup('sid-restaurante', 'Restaurante', 
-        sidebars.sidebarElementDemo()) }}
-        
-    {{ popups.popup('sid-ocio', 'Ocio', 
-        sidebars.sidebarElementDemo()) }}
-        
-    {{ popups.popup('sid-tiendas', 'Tiendas', 
-        sidebars.sidebarElementDemo()) }}
+    {{ popups.popup('sid-restaurante', 'Restaurante',
+    sidebars.sidebarElementDemo()) }}
+
+    {{ popups.popup('sid-ocio', 'Ocio',
+    sidebars.sidebarElementDemo()) }}
+
+    {{ popups.popup('sid-tiendas', 'Tiendas',
+    sidebars.sidebarElementDemo()) }}
 {% endblock %}

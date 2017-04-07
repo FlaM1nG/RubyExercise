@@ -56,7 +56,9 @@ class PaymentPurchaseController extends Controller {
 
         $this->setUpVars($request);
 
-        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice()));
+        $administrationFees = $this->offer->getPrice()*(MyConstants::ADMINISTRATION_FEES/100);
+
+        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice()+$administrationFees));
         $form->handleRequest($request);
 
         $arrayCourier = null;
@@ -69,6 +71,8 @@ class PaymentPurchaseController extends Controller {
 
         $session = $request->getSession();
         $session->set('_security.user.target_path',null);
+
+
         if ($form->isSubmitted() && $form->get('newAddress')->isClicked()) {
             $url = $request->getUri();
             $session->set('_security.user.target_path',$url);
@@ -158,6 +162,8 @@ class PaymentPurchaseController extends Controller {
                     'service' => $this->serviceId,
                     'arrayCourier' => $arrayCourier,
                     'arrayAddresses' => $arrayAddressesPay,
+                    'administrationFees' => $administrationFees,
+                    'paypalFee' => MyConstants::PAYPAL_FEE/100
         ));
     }
 
@@ -340,18 +346,25 @@ class PaymentPurchaseController extends Controller {
         $file = MyConstants::PATH_APIREST.'services/courier/get_courierPrice.php';
         $ch = new ApiRest();
 
-        $data['id'] = $request->getSession()->get('id');
-        $data['username'] = $request->getSession()->get('username');
-        $data['password'] = $request->getSession()->get('password');
-        $data['id_messengerService'] = 2;
-        $data['weight'] = $this->offer->getWeight();
-        
-        $result = $ch->resultApiRed($data, $file);
+        if($this->offer->getWeight() <= 30):
 
-        if($result['result'] == 'ok'):
-            return $result['messengerPrice'][0];
+            $data['id'] = $request->getSession()->get('id');
+            $data['username'] = $request->getSession()->get('username');
+            $data['password'] = $request->getSession()->get('password');
+            $data['id_messengerService'] = 2;
+            $data['weight'] = $this->offer->getWeight();
+
+            $result = $ch->resultApiRed($data, $file);
+
+            if($result['result'] == 'ok'):
+                return $result['messengerPrice'][0];
+            else:
+                return null;
+            endif;
         else:
-            return null;
+//            esto es para que no me pete en twig
+            $array = array('price_es'=> null, 'price_ba' => null, 'price_ca' => null);
+            return $array;
         endif;
     }
 

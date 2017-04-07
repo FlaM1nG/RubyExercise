@@ -125,11 +125,26 @@
                         active
                     {% endif %}
                     ">
-                        <a href="{{path('user_profiler_offers')}}">Ofertas</a>
+                        <a href="{{ path('user_profile_offers') }}">Ofertas</a>
 
                         <ul>
-                            <li><a href="{{path('user_profiler_offers')}}">Mis ofertas</a></li>
-                            <li><a href="{{path('user_profiler_purchases')}}">Compras</a></li>
+                            <li>
+                                <a href="{{ path('user_profile_offers') }}">Mis ofertas</a>
+                                <ul>
+                                    <li><a href="{{ path('user_profile_offers',{typeOffer: 'vehicle'}) }}">Vehículos</a></li>
+                                    <li><a href="{{ path('user_profile_offers',{typeOffer: 'buildings'}) }}">Inmuebles</a></li>
+                                    <li><a href="{{ path('user_profile_offers',{typeOffer: 'trade'}) }}">¿Qué necesitas?</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="{{path('user_profiler_purchases')}}">Compras</a>
+                                <ul>
+                                    <li><a href="{{ path('user_profiler_purchases',{typeOffer: 'vehicle'}) }}">Vehículos</a></li>
+                                    <li><a href="{{ path('user_profiler_purchases',{typeOffer: 'buildings'}) }}">Inmuebles</a></li>
+                                    <li><a href="{{ path('user_profiler_purchases',{typeOffer: 'trade'}) }}">¿Qué necesitas?</a></li>
+                                </ul>
+                            </li>
                           {# <li><a href="{{path('user_profiler_inscriptions')}}">Inscripciones</a></li>#}
                         </ul>
                     </li>

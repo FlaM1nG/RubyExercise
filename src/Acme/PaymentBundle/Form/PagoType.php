@@ -36,8 +36,6 @@ class PagoType extends AbstractType {
                 array_push($arrayAddress,$value);
             endforeach;
         endif;
-       
-         
         
         $builder
 
@@ -77,26 +75,7 @@ class PagoType extends AbstractType {
                 'mapped' =>false,
                 'required' => false
             ))
-//            ->add('paypal', CheckboxType::class, array(
-//                'attr' => array('class' => 'check-payment-method center-block'),
-//                'label' => ' ',
-//                'mapped' =>false,
-//                'required' => false
-//            ))
-//
-//            ->add('card', CheckboxType::class, array(
-//                'attr' => array('class' => 'check-payment-method center-block'),
-//                'label' => ' ',
-//                'mapped' =>false,
-//                'required' => false
-//            ))
 
-//            ->add('correos', CheckboxType::class, array(
-//                'attr' => array('class' => 'check-send-method center-block'),
-//                'label' => ' ',
-//                'mapped' =>false,
-//                'required' => false
-//            ))
             ->add('payMethod', ChoiceType::class, array('choices' => array('paypal' =>' ', 'card' => ' '),
                                                         'expanded' => true,
                                                         'multiple' => false,
@@ -106,30 +85,22 @@ class PagoType extends AbstractType {
                                                          'expanded' => true,
                                                          'multiple' => false,
                                                          'mapped' => false))
-//            ->add('dhl', CheckboxType::class, array(
-//                'attr' => array('class' => 'check-send-method center-block'),
-//                'label' => ' ',
-//                'mapped' =>false,
-//                'required' => false
-//            ))
 
-//            ->add('otros', CheckboxType::class, array(
-//                'attr' => array('class' => 'check-send-method center-block'),
-//                'label' => ' ',
-//                'mapped' =>false,
-//                'required' => false
-//            ))
+            ->add('totalAmount', HiddenType::class, array(  'attr' => array('class' => 'check-send-method center-block'),
+                                                            'data' => $amount,
+                                                            'mapped' =>false,
+                                                        ))
+            ->add('shippingCost', HiddenType::class, array( 'attr' => array('class' => 'shippingCost'),
+                                                            'mapped' => false,
+                                                            'data' => 0))
 
-            ->add('totalAmount', NumberType::class, array(
-                'attr' => array('class' => 'check-send-method center-block'),
-                'data' => $amount,
-                'mapped' =>false,
-                'required' => false
-            ))    
+            ->add('managementPayFee', HiddenType::class, array('attr' => array('class' => 'managementPayFee'),
+                                                               'mapped' => false,
+                                                               'data' => 0))
             
             ->add('submit', SubmitType::class, array(
-                'attr' => array('class' => 'btn btn-default btn-float-none'),
-                'label' => 'Pagar',
+                                                    'attr' => array('class' => 'btn btn-default btn-float-none'),
+                                                    'label' => 'Pagar',
                 
             ));
 
@@ -140,7 +111,7 @@ class PagoType extends AbstractType {
        $resolver->setDefaults(array(
            'data_class'=> 'WWW\UserBundle\Entity\User',
            'validation_groups' => false,
-           'amount' => null
+           'amount' => null,
            ));
     }
 
