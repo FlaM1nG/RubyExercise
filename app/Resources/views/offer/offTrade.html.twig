@@ -159,7 +159,7 @@
 
             {{ comentarios.messComentarioPublico(
                 path('user_public_profile', {username: offer.offer.userAdmin.username} ),
-                asset(comment.user.photo,'img'),
+                comment.user.photo,
                 comment.user.username,
                 comment.createdDate,
                 i,

@@ -61,7 +61,7 @@
         <div class="us-perfil-list center-block">
             <a href="{{ href|default('#')|e }}">
                 <img class="img-responsive"
-                     src="{{ src|e|default(asset('web/img/userDefault.jpg')) }}"
+                     src="{{ asset(src|e|default('web/img/userDefault.jpg'),'img') }}"
                      alt="img-perfil-{{ nombre|e }}">
             </a>
         </div>
