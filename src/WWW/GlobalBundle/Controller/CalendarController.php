@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Event\CalendarEvent;
 use WWW\GlobalBundle\Entity\MyCompanyEvents;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class CalendarController extends Controller
@@ -60,7 +61,7 @@ class CalendarController extends Controller
 
             $dateEnd = $date;
 
-            $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'), '#fff' , '#368d3a', $date, $dateEnd, '0' , null);
+            $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'), null , null, $date, $dateEnd, '0' , null);
 
             $em->persist($mce);
 
@@ -134,26 +135,29 @@ class CalendarController extends Controller
             }
         }
 
-        $sql =  "select sh.house_id, sh.price as precio_base,my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$idoffer and off.service_id = my.service_id";
-
+        $sql =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado,h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$idoffer";
         $stmt = $db->prepare($sql);
         $params = array();
         $stmt->execute($params);
         $aEspecificos  = $stmt->fetchAll();
+
+
+
 
         if (!empty($aEspecificos)) {
             foreach ($aEspecificos as $key => $value) {
 
                 if (!empty($value['precio_base'])) {
                     $aEspecificos['precio_base'] = $value['precio_base'];
-                    $aEspecificos['ocuppate'] = $value['ocuppate'];
+                    $aEspecificos['ocupado'] = $value['ocupado'];
 
                 }
             }
         }
 
+
 // PRECIOS BASE. Por ejemplo: 10€
-        $aBase = createDateRangeBase('2017-01-01', '2017-12-31', $aEspecificos['precio_base'], $aEspecificos['ocuppate']);
+        $aBase = createDateRangeBase('2017-01-01', '2017-12-31', $aEspecificos['precio_base'], $aEspecificos['ocupado']);
 
         if (!empty($resultEspecificos) && !empty($aBase)) {
             foreach ($aBase as $key => $value) {
@@ -379,7 +383,7 @@ class CalendarController extends Controller
     public function calendarAction(Request $request)
     {
 
-
+        $session = $request->getSession();
 
        /*
         $em = $this->getDoctrine()->getEntityManager();
@@ -409,7 +413,7 @@ class CalendarController extends Controller
          * @param string $format DateTime format, default is Y-m-d
          * @return array returns every date between $startDate and $endDate, formatted as "d-m-Y"
          */
-        function createDateRange($startDate, $endDate, $price, $title, $format = "Y-m-d")
+        function createDateRange($startDate, $endDate, $price, $ocuppate, $title, $format = "Y-m-d")
         {
             $begin = new \DateTime($startDate);
             $end = new \DateTime($endDate);
@@ -424,18 +428,31 @@ class CalendarController extends Controller
                 $aux['title'] = $title;
                 $aux['start'] = date_format($date, $format);
                 $aux['price'] = $price;
+                $aux['ocuppate'] = $ocuppate;
                 $range = $aux;
             }
 
             return $range;
         }
 
+
+        $response = new \Symfony\Component\HttpFoundation\Response();
+        $response->headers->set('Content-Type', 'application/json');
+
+        $eventos = array();
+
+        $eventos = $session->get('foo');
+
+
+
+        if(empty($eventos)){
+
         $offerID = $request->get('idOffer');
 
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-        $query =  "select sh.house_id, sh.price as precio_base ,h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id WHERE sh.offer_id=$offerID";
+        $query =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado,h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$offerID";
         $stmt = $db->prepare($query);
         $params = array();
         $stmt->execute($params);
@@ -451,8 +468,7 @@ class CalendarController extends Controller
         $stmt2->execute($params2);
         $aEspecificos = $stmt2->fetchAll();
 
-        $response = new \Symfony\Component\HttpFoundation\Response();
-        $response->headers->set('Content-Type', 'application/json');
+
 
         $eventosEspecificos = array();
         if (!empty($aEspecificos)) {
@@ -460,13 +476,13 @@ class CalendarController extends Controller
             foreach ($aEspecificos as $key => $value) {
 
                 if (!empty($value['start_datetime']) && !empty($value['end_datetime'])) {
-                    $eventosEspecificos[] = createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['title']);
+                    $eventosEspecificos[] = createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'], $value['title']);
                 }
             }
         }
 
 
-        $eventos = $this->createDateRangeBase( '2017-04-01', '2018-12-31',  $test[0]["precio_base"], "€");
+        $eventos = $this->createDateRangeBase( '2017-04-01', '2018-12-31',  $test[0]["precio_base"], $test[0]["ocupado"],"€" );
 
         foreach ($eventos as $key => $value) {
             foreach ($eventosEspecificos as $key2 => $value2) {
@@ -476,14 +492,26 @@ class CalendarController extends Controller
             }
         }
 
+            $session->set('foo', $eventos);
+
+        }//cierra el if
+
+        else{
+
+
+            $eventos = $session->get('foo');
+
+
+        }
+
+
+
         $response->setContent(json_encode($eventos));
 
         return $response;
     }
 
-
-
-    function createDateRangeBase($startDate, $endDate, $price, $title, $format = "Y-m-d")
+    function createDateRangeBase($startDate, $endDate, $price,$ocuppate, $title, $format = "Y-m-d")
     {
         $begin = new \DateTime($startDate);
         $end = new \DateTime($endDate);
@@ -498,10 +526,14 @@ class CalendarController extends Controller
             $range[$key]['title'] = $title;
             $range[$key]['start'] = date_format($date, $format);
             $range[$key]['price'] = $price;
+            $range[$key]['ocuppate'] = $ocuppate;
+
 
         }
 
         return $range;
     }
+
+
 
 }

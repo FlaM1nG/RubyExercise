@@ -49,10 +49,18 @@ $(document).ready(function() {
             }
         },
 
+
+
     eventRender: function(event, element, view) {
             // To include the price on the render
+      //(event.start._i > '2017-04-07')
 
-            element.bind('dblclick', function() {
+        //Obtener la fecha actual
+       hoy = new Date().toJSON().slice(0,10);
+
+        if ((event.ocuppate == 0) && (event.start._i > hoy)) {
+
+            element.bind('dblclick', function () {
 
                 $('#ModalEdit #id').val(event.id);
                 $('#ModalEdit #title').val(event.title);
@@ -66,6 +74,7 @@ $(document).ready(function() {
             });
 
             element.find(event.price + ' €');
+        }
         },
 
         eventClick: function(calEvent, jsEvent, view) {
@@ -84,22 +93,44 @@ $(document).ready(function() {
 
         },
 
+
+
+
         events: function(start, end, timezone, callback) {
-            $.ajax({
-                url: Routing.generate('fullcalendar_calendar'),
-                dataType: 'json',
-                type: 'post',
-                data: {'idOffer' : idoferta},
-                success: function(doc) {
-                 
-                    var events = [];
-                 
-                    events = doc;
-                    callback(events);
-                }
-            });
-        }
-        ,
+
+                $.ajax({
+                    url: Routing.generate('fullcalendar_calendar'),
+                    dataType: 'json',
+                    type: 'post',
+                    data: {'idOffer': idoferta},
+                    success: function (doc) {
+
+                        var events = [];
+
+                        events = doc;
+
+                        callback(events);
+
+
+                    }
+                });
+
+
+
+        },
+
+        //Cambiar el color si esta ocupado o no
+        eventAfterRender: function (event, element, view) {
+
+            if (event.ocuppate == 0) {
+                //event.color = "#FFB347"; //Em andamento
+                element.css('color', '#368d3a');
+            } else {
+                //event.color = "#77DD77"; //Concluído OK
+                element.css('color', '#FF0000');
+
+            }
+        },
         loading: function(bool) {
             $('#loading').toggle(bool);
         }
