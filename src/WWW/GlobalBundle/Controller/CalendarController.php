@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\GlobalBundle\Event\CalendarEvent;
 use WWW\GlobalBundle\Entity\MyCompanyEvents;
-use Symfony\Component\HttpFoundation\Session\Session;
+
 
 
 class CalendarController extends Controller
@@ -290,7 +290,7 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-        $sql =  "select sh.house_id, sh.price as precio_base,my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$offerID and off.service_id = my.service_id";
+        $sql =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado,h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$offerID";
 
 
         $stmt = $db->prepare($sql);
@@ -319,8 +319,7 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-        $query =  "select sh.house_id, my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$idoffer and off.service_id = my.service_id";
-
+        $query =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado,h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$idoffer";
         $stmt = $db->prepare($query);
         $params = array();
         $stmt->execute($params);
@@ -385,6 +384,10 @@ class CalendarController extends Controller
 
         $session = $request->getSession();
 
+       $idoffer = $request->getSession();
+
+        $offerID = $request->get('idOffer');
+
        /*
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
@@ -443,9 +446,15 @@ class CalendarController extends Controller
 
         $eventos = $session->get('foo');
 
+        $idoffer = array();
 
 
-        if(empty($eventos)){
+        $idoffer = $session->get('oferta');
+
+
+        if(empty($eventos) || $idoffer != $offerID ){
+
+
 
         $offerID = $request->get('idOffer');
 
@@ -494,12 +503,20 @@ class CalendarController extends Controller
 
             $session->set('foo', $eventos);
 
+            $session->set('sesion', $idoffer);
+
+
+
+
         }//cierra el if
 
         else{
 
+      
 
             $eventos = $session->get('foo');
+
+            $idoffer = $session->get('sesion');
 
 
         }
