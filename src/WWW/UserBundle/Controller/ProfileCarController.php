@@ -30,7 +30,7 @@ class ProfileCarController extends Controller{
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() AND $form->isValid()): echo "enviado y válido";
+        if($form->isSubmitted() AND $form->isValid()): 
             $result = $this->saveNewCar($request, $car);
 
             if($result == 'ok'):
@@ -54,14 +54,14 @@ class ProfileCarController extends Controller{
 
         $path = parse_url($request->headers->get('referer'),PHP_URL_PATH);
 
-        if($path == $this->generateUrl('car_shareCarNew')): echo "oferta shareCar";
+        if($path == $this->generateUrl('car_shareCarNew')):
             $request->getSession()->set('_security.user.target_path','car_shareCarNew');
 
-        elseif($path == $this->generateUrl('serCourier_newOffer')): echo "oferta paquetería";
+        elseif($path == $this->generateUrl('serCourier_newOffer')):
             $request->getSession()->set('_security.user.target_path','serCourier_newOffer');
 
         //vengo de hacer un submit o de cualquier otro sitio
-        elseif($path != $this->generateUrl('user_profileNewCar')): echo "cualquier sitio menos yo mismo";
+        elseif($path != $this->generateUrl('user_profileNewCar')):
             $request->getSession()->remove('_security.user.target_path');
 
         endif;
