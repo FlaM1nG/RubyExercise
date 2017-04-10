@@ -48,18 +48,16 @@ class PaymentPurchaseController extends Controller {
         //Addons >20
         $user = $this->getUserProfile($request);
         $arrayAddressesPay = array();
+        $arrayAddressesForm = array();
 
-        foreach ($user->getAddresses()[0] as $data):
-            $arrayAddressesPay[$data->getId()] = $data->getRegion();
-        endforeach;
-
-        $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
+        $this->createArraysAddresses($user, $arrayAddressesPay, $arrayAddressesForm);
 
         $this->setUpVars($request);
 
         $administrationFees = $this->offer->getPrice() * (MyConstants::ADMINISTRATION_FEES / 100);
 
-        $form = $this->createForm(PagoType::class, $user, array('amount' => $this->offer->getPrice() + $administrationFees));
+        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice()+$administrationFees,
+                                                                'arrayAddresses' => $arrayAddressesForm));
         $form->handleRequest($request);
 
         $arrayCourier = null;
@@ -73,12 +71,7 @@ class PaymentPurchaseController extends Controller {
         $session = $request->getSession();
         $session->set('_security.user.target_path', null);
 
-
-        if ($form->isSubmitted() && $form->get('newAddress')->isClicked()) {
-            $url = $request->getUri();
-            $session->set('_security.user.target_path', $url);
-            return $this->redirectToRoute('user_profiler_newAdress');
-        } elseif ($form->isSubmitted() && $form->get('submit')->isClicked()) {
+        if ($form->isSubmitted() && $form->get('submit')->isClicked()) {
 
 //            Si el usuario elige pagar con tarjeta (LA CAIXA)
 //            if ($form->get('gateway_name')->getData() == 'addon_payments') {
@@ -383,5 +376,24 @@ class PaymentPurchaseController extends Controller {
             return $array;
         endif;
     }
+    
+    private function createArraysAddresses(User $user, &$arrayAddressesPay, &$arrayAddressesForm){
+
+        $addressDefault = $user->getDefaultAddress();
+
+        array_unshift($arrayAddressesForm,$addressDefault);
+
+        if(!empty($user->getAddresses()[0])):
+            
+            foreach($user->getAddresses()[0] as $data ):
+                $arrayAddressesPay[$data->getId()] = $data->getRegion();
+                array_push($arrayAddressesForm,$data);
+            endforeach;
+
+            $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
+        endif;
+
+    }
 
 }
+
