@@ -23,6 +23,8 @@ class ProfileHouseController extends Controller{
     
     public function createHouseAction(Request $request){
 
+        $this->redirectRouteAddresses($request);
+
         $house = new House();
         
         $form = $this->createForm(HouseType::class, $house);
@@ -35,15 +37,18 @@ class ProfileHouseController extends Controller{
                 $result = $this->saveNewHouse($request);
 
                 if($result == 'ok'):
-                    if($request->getSession()->get('_security.user.target_path') == 'building_newOfferHouseRent'):
-                        return $this->redirectToRoute('building_newOfferHouseRent');
 
-                    elseif($request->getSession()->get('_security.user.target_path') == 'house_newOfferShareHouse'):
-                        return $this->redirectToRoute('house_newOfferShareHouse');
+                    $path = $request->getSession()->get('_security.user.target_path');
+
+                    if (!empty($path)):
+                        $request->getSession()->remove('_security.user.target_path');
+                        return $this->redirect($this->generateUrl($path));
 
                     else:
                         return $this->redirectToRoute('user_profile_listHouse');
+
                     endif;
+
                 endif;
             else:
                 $ut = new Utilities();
@@ -57,6 +62,27 @@ class ProfileHouseController extends Controller{
                                   'house' => $house,
                                   'arrayAttr' => $house->getArrayGroupsAttrH()  ));
         
+    }
+
+    private function redirectRouteAddresses(Request $request){
+
+        $path = parse_url($request->headers->get('referer'),PHP_URL_PATH);
+
+        if($path == $this->generateUrl('building_newOfferHouseRent')):
+            $request->getSession()->set('_security.user.target_path','building_newOfferHouseRent');
+
+        elseif($path == $this->generateUrl('house_newOfferShareHouse')):
+            $request->getSession()->set('_security.user.target_path','house_newOfferShareHouse');
+
+        elseif($path == $this->generateUrl('house_newOfferHouseSwap')):
+            $request->getSession()->set('_security.user.target_path','house_newOfferHouseSwap');
+
+        //vengo de hacer un submit o de cualquier otro sitio
+        elseif($path != $this->generateUrl('user_profile_newHouse')):
+            $request->getSession()->remove('_security.user.target_path');
+
+        endif;
+
     }
 
     private function saveNewHouse(Request $request){
