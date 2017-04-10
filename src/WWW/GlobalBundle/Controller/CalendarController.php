@@ -157,7 +157,7 @@ class CalendarController extends Controller
 
 
 // PRECIOS BASE. Por ejemplo: 10€
-        $aBase = createDateRangeBase('2017-01-01', '2017-12-31', $aEspecificos['precio_base'], $aEspecificos['ocupado']);
+        $aBase = createDateRangeBase('2017-01-01', '2018-12-31', $aEspecificos['precio_base'], $aEspecificos['ocupado']);
 
         if (!empty($resultEspecificos) && !empty($aBase)) {
             foreach ($aBase as $key => $value) {
@@ -183,56 +183,65 @@ class CalendarController extends Controller
                 $timestampIni = strtotime($value['start_datetime']);
                 (int)$initDay = date("d", $timestampIni);
                 $initMonth = intval(date("m", $timestampIni)); // intval: Obtiene el valor entero de una variable
+                $initYear = date("Y", $timestampIni);
 
                 // We get the end date
                 $timestampEnd = strtotime($value['end_datetime']);
                 (int)$endDay = date("d", $timestampEnd);
                 $endMonth = intval(date("m", $timestampEnd));
+                $endYear = date("Y", $timestampEnd);
 
+                if (!empty($initYear) && !empty($endYear) && !empty($initDay) && !empty($endDay) ) {
 
-                for ($i = (int)$initDay; $i <= (int)$endDay; $i++) { // Moving between days
+                    // We take care of the year
+                    for ($j = (int)$initYear; $j <= (int)$endYear; $j++) {
 
-                        if ($initMonth == '1' || $endMonth == '1') {
-                            $result['1']['precio'][$i] = $value['price'] . '€';
-                            $result['1']['ocuppate'][$i] = $value['ocuppate'];
-                        } else if ($initMonth == '2' || $endMonth == '2') {
-                            $result['2']['precio'][$i] = $value['price'] . '€';
-                            $result['2']['ocuppate'][$i] = $value['ocuppate'];
-                        } else if ($initMonth == '3' || $endMonth == '3') {
-                            $result['3']['precio'][$i] = $value['price'] . '€';
-                            $result['3']['ocuppate'][$i] = $value['ocuppate'];
+                        for ($i = (int)$initDay; $i <= (int)$endDay; $i++) { // Moving between days
 
-                        } else if ($initMonth == '4' || $endMonth == '4') {
-                            $result['4']['precio'][$i] = $value['price'] . '€';
-                            $result['4']['ocuppate'][$i] = $value['ocuppate'];
+                            if ($initMonth == '1' || $endMonth == '1') {
+                                $result[$j]['1']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['1']['ocuppate'][$i] = $value['ocuppate'];
+                            } else if ($initMonth == '2' || $endMonth == '2') {
+                                $result[$j]['2']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['2']['ocuppate'][$i] = $value['ocuppate'];
+                            } else if ($initMonth == '3' || $endMonth == '3') {
+                                $result[$j]['3']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['3']['ocuppate'][$i] = $value['ocuppate'];
 
-                        } else if ($initMonth == '5' || $endMonth == '5') {
-                            $result['5']['precio'][$i] = $value['price'] . '€';
-                            $result['5']['ocuppate'][$i] = $value['ocuppate'];
-                        } else if ($initMonth == '6' || $endMonth == '6') {
-                            $result['6']['precio'][$i] = $value['price'] . '€';
-                            $result['6']['ocuppate'][$i] = $value['ocuppate'];
-                        } else if ($initMonth == '7' || $endMonth == '7') {
-                            $result['7']['precio'][$i] = $value['price'] . '€';
-                            $result['7']['ocuppate'][$i] = $value['ocuppate'];
-                        } else if ($initMonth == '8' || $endMonth == '8') {
-                            $result['8']['precio'][$i] = $value['price'] . '€';
-                            $result['8']['ocuppate'][$i] = $value['ocuppate'];
-                        } else if ($initMonth == '9' || $endMonth == '9') {
-                            $result['9']['precio'][$i] = $value['price'] . '€';
-                            $result['9']['ocuppate'][$i] = $value['ocuppate'];
-                        } else if ($initMonth == '10' || $endMonth == '10') {
-                            $result['10']['precio'][$i] = $value['price'] . '€';
-                            $result['10']['ocuppate'][$i] = $value['ocuppate'];
-                        } else if ($initMonth == '11' || $endMonth == '11'){
-                            $result['11']['precio'][$i] = $value['price'] . '€';
-                            $result['11']['ocuppate'][$i] = $value['ocuppate'];
+                            } else if ($initMonth == '4' || $endMonth == '4') {
+                                $result[$j]['4']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['4']['ocuppate'][$i] = $value['ocuppate'];
 
-                        }else if ($initMonth == '12' || $endMonth == '12'){
-                            $result['12']['precio'][$i] = $value['price'] . '€';
-                            $result['12']['ocuppate'][$i] = $value['ocuppate'];
+                            } else if ($initMonth == '5' || $endMonth == '5') {
+                                $result[$j]['5']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['5']['ocuppate'][$i] = $value['ocuppate'];
+                            } else if ($initMonth == '6' || $endMonth == '6') {
+                                $result[$j]['6']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['6']['ocuppate'][$i] = $value['ocuppate'];
+                            } else if ($initMonth == '7' || $endMonth == '7') {
+                                $result[$j]['7']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['7']['ocuppate'][$i] = $value['ocuppate'];
+                            } else if ($initMonth == '8' || $endMonth == '8') {
+                                $result[$j]['8']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['8']['ocuppate'][$i] = $value['ocuppate'];
+                            } else if ($initMonth == '9' || $endMonth == '9') {
+                                $result[$j]['9']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['9']['ocuppate'][$i] = $value['ocuppate'];
+                            } else if ($initMonth == '10' || $endMonth == '10') {
+                                $result[$j]['10']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['10']['ocuppate'][$i] = $value['ocuppate'];
+                            } else if ($initMonth == '11' || $endMonth == '11') {
+                                $result[$j]['11']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['11']['ocuppate'][$i] = $value['ocuppate'];
 
+                            } else if ($initMonth == '12' || $endMonth == '12') {
+                                $result[$j]['12']['precio'][$i] = $value['price'] . '€';
+                                $result[$j]['12']['ocuppate'][$i] = $value['ocuppate'];
+
+                            }
                         }
+
+                    }
 
                     }
                 }
@@ -550,6 +559,13 @@ class CalendarController extends Controller
 
         return $range;
     }
+
+
+ 
+
+
+
+
 
 
 

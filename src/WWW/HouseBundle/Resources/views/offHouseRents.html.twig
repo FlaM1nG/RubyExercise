@@ -103,6 +103,7 @@
 
         {{ offer.price }} €
 
+
         <input type="text" id="DatePicker">
         <input type="text" id="DatePickerto">
 
@@ -112,6 +113,9 @@
         <p>Fecha Inicial: <span id="fechaInicial"></span></p>
         <p>Fecha Final: <span id="fechaFinal"></span></p>
         <p>Precio Total: <span id="precioTotal"></span> €</p>
+
+       {#{{ form_start(form, {'action':'','method':'POST'}) }}
+        {{ form_end(form) }}#}
 
     {% endif %}
 

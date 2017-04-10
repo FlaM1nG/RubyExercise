@@ -57,3 +57,9 @@ house_offerBedroomSwap:
     defaults: { _controller: HouseBundle:BedroomOffers:showOfferBedroom }
     requirements:
             idOffer: \d+
+
+  house_datepicker:
+  path: /fc-load-datepicker
+  defaults: { _controller: HouseBundle:HouseOffers:form }
+ options:
+        expose: true

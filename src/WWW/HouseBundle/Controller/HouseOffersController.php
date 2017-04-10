@@ -24,6 +24,8 @@ use WWW\ServiceBundle\Form\OfferSuscribeType;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
 use WWW\UserBundle\Entity\User;
+use WWW\HouseBundle\Form\Datepicker;
+
 
 
 
@@ -407,4 +409,18 @@ class HouseOffersController extends Controller
 
         return $service;
     }
+
+
+    public function formAction()
+    {
+        $fecha = new Datepicker();
+        $form = $this->createForm(Datepicker::class, $fecha);
+
+        return $this->render('HouseBundle::offHouseRents.html.twig', array(
+        'form' => $form->createView()
+
+    ));
+
+        }
+    
 }
