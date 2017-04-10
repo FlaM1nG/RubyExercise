@@ -29,18 +29,18 @@ use WWW\ServiceBundle\Form\OfferSuscribeType;
 class ShareCarController extends Controller {
     
     public function createShareCarAction(Request $request){
-
-        $route = $request->get('_route');
-
-        $request->getSession()->set('_security.user.target_path',$route);
+//
+//        $route = $request->get('_route');
+//
+//        $request->getSession()->set('_security.user.target_path',$route);
 
         $arrayCourierPrice = null;
         $fileRender = 'CarsBundle:ShareCar:newShareCarOffer.html.twig';
         $shareCar = new ShareCar();
         $service = null;
 
-        $arrayCars = $this->getCarsUser($request);
-
+//        $arrayCars = $this->getCarsUser($request);
+$arrayCars = array();
 
         if(strpos($request->getPathInfo(),'share-car') !== false):
             $service = 4;
