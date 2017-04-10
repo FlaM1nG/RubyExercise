@@ -56,7 +56,7 @@ class PaymentDoneOKController extends PayumController
         
         $details = $status->getFirstModel();
         $IDPayment= $details->getNumber();
-        list($ref,$idOffer)=explode("-",$IDPayment);
+        list($ref,$idOffer)=explode("W",$IDPayment);
         if ($details instanceof  DetailsAggregateInterface) {
             $details = $details->getDetails();
         }

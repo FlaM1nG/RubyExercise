@@ -55,6 +55,7 @@ class PaymentDoneKOController extends PayumController
         
         $details = $status->getFirstModel();
         $IDPayment= $details->getNumber();
+        
         if ($details instanceof  DetailsAggregateInterface) {
             $details = $details->getDetails();
         }

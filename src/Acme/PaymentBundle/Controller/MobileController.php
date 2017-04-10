@@ -22,6 +22,8 @@ class MobileController extends Controller {
     
     private $offer;
     private $offerPrice;
+    
+    //EDITARRRRRRRRRRRRR
     public function prepareAction(Request $request) {
 
         $amount = $request->request->get("price");

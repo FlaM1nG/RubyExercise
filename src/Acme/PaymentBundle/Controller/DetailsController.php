@@ -58,7 +58,7 @@ class DetailsController extends PayumController
         
         $details = $status->getFirstModel();
         $IDPayment= $details->getNumber();
-        list($ref,$idOffer)=explode("-",$IDPayment);
+        list($ref,$idOffer)=explode("W",$IDPayment);
         if(isset($details->getDetails()['CANCELLED'])){
             return $this->render('pay/postPayPageKO.html.twig',array(
             'details' => $details

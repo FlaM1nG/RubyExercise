@@ -59,7 +59,7 @@ security:
     access_control:
              
         - { path: ^/user/profile,           roles: ROLE_USER } 
-        - { path: ^/payment,                roles: ROLE_USER }
+        - { path: ^/payment/offer,                roles: ROLE_USER }
         - { path: ^/services/trade/newTrade, roles: ROLE_USER}
         - { path: ^/services/clothes/newClothers/, roles: ROLE_USER}
         - { path: ^/services/barter/newBarter/, roles: ROLE_USER}

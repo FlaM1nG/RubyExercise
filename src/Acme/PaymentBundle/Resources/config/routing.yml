@@ -14,7 +14,7 @@ acme_mobile_payment:
     defaults: { _controller: AcmePaymentBundle:Mobile:prepare }
  
 acme_payment_homepage:
-    path:  /payment/{service}/offer/{idOffer}/
+    path:  /payment/offer/{service}/{idOffer}/
 #    defaults: { _controller: AcmePaymentBundle:Default:index }
     defaults: { _controller: AcmePaymentBundle:PaymentPurchase:prepare }
     requirements:
