@@ -49,9 +49,6 @@ class HouseOffersController extends Controller
 
 
         $form->handleRequest($request);
-
-        $route = $request->get('_route');
-        $request->getSession()->set('_security.user.target_path',$route);
         
         if($form->isSubmitted() AND $form->isValid()):
 
@@ -62,7 +59,6 @@ class HouseOffersController extends Controller
             endif;
 
             if($result == 'ok'):
-                $request->getSession()->remove('_security.user.target_path');
 
                 if($service == 6):
                     return $this->redirectToRoute('serHouseRents');

@@ -91,7 +91,10 @@ class ProfileAddressController extends Controller
 
         elseif(strpos($path, '/payment/trade/offer/') !== false):
             $request->getSession()->set('_security.user.target_path',$request->headers->get('referer'));
-
+        //vengo de hacer un submit o de cualquier otro sitio
+        elseif($path != $this->generateUrl('user_profiler_newAdress')):
+            $request->getSession()->remove('_security.user.target_path');
+        
         endif;
 
     }
