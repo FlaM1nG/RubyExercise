@@ -169,7 +169,8 @@
                     {% endif %}
                         <tr>
                             <td>Gastos de gestión</td>
-                            <td class="text-right iva">{{ administrationFees|number_format(2,',') }} €</td>
+                            <td class="text-right gastosGestion">0.00 €</td>
+                            {{ form_row(form.managementFee) }}
                         </tr>
                         <tr>
                             <td> Gastos de gestión de pago <span>+2% pago con paypal</span></td>
@@ -182,7 +183,7 @@
                         </tr>
                         <tr class="table-pago-total">
                             <td></td>
-                            <td class="precioTotal">{{ (offer.price+administrationFees)|number_format(2, ',') }} €</td>
+                            <td class="precioTotal">{{ (offer.price)|number_format(2, ',') }} €</td>
                         </tr>
                     </tbody>
                 </table>
@@ -198,39 +199,52 @@
 
     {{ include('nav/menuScript.html.twig') }}
 
-    {% if (service == 1 or service == 2) and arrayAddresses is not empty %}
-        {{ include('pay/payGastosEnvio.html.twig') }}
-    {% endif %}
-
     <script type="text/javascript">
         $(document).ready(function () {
 
-        {% if service != 1 and service != 2 %}
+            function calculaGastosGestion(precioTotal){
 
-            $(document).on('click','.checkPayMethod', function (){ actualizaGastosGestionPago();});
+                var gastos = precioTotal*{{ administrationFees }}
 
-            function actualizaGastosGestionPago(){
-                var gastos = 0;
-                var total = 0;
-                var precio = parseFloat({{ offer.price }});
+                $('.gastosGestion').html(parseFloat(gastos).toFixed(2)+' €');
+                $('#previoPago_managementFee').val(gastos);
 
-                total = parseFloat(precio + {{ administrationFees }});
-
-                if (document.getElementById('previoPago_payMethod_0').checked) {
-                    gastos = total *{{ paypalFee }};
-                }
-                total = parseFloat(total+gastos);
-
-
-                $('.gestionPago').html(parseFloat(gastos).toFixed(2) + ' €');
-                $('#previoPago_managementPayFee').val(parseFloat(gastos).toFixed(2));
-
-                $('.precioTotal').html(parseFloat(total).toFixed(2)+' €');
-                document.getElementById('previoPago_totalAmount').value = parseFloat(total).toFixed(2);
+                return gastos;
 
             }
 
-        {% endif %}
+            {% if (service == 1 or service == 2) and arrayAddresses is not empty %}
+                {{ include('pay/payGastosEnvio.html.twig') }}
+
+
+            {% else %}
+
+                $(document).on('click','.checkPayMethod', function (){ actualizaGastosGestionPago();});
+
+                function actualizaGastosGestionPago(){
+                    var gastos = 0;
+                    var total = 0;
+                    var administrationFees = calculaGastosGestion({{ offer.price }});
+                    var precio = parseFloat({{ offer.price }})
+
+                    total = parseFloat(precio + administrationFees );
+
+
+                    if (document.getElementById('previoPago_payMethod_0').checked) {
+                        gastos = total *{{ paypalFee }};
+                    }
+                    total = parseFloat(total+gastos);
+
+
+                    $('.gestionPago').html(parseFloat(gastos).toFixed(2) + ' €');
+                    $('#previoPago_managementPayFee').val(parseFloat(gastos).toFixed(2));
+
+                    $('.precioTotal').html(parseFloat(total).toFixed(2)+' €');
+                    document.getElementById('previoPago_totalAmount').value = parseFloat(total).toFixed(2);
+
+                }
+
+            {% endif %}
 
             {# Funcionalidad para mostrar o no para realizar factura. #}
             $('.check-facturacion').on('click', function () {

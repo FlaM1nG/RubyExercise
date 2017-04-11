@@ -1,13 +1,18 @@
-<script type="text/javascript">
-    $(document).ready(function () {
+{#<script type="text/javascript">#}
+    {#$(document).ready(function () {#}
 
         var addresses = '{{ arrayAddresses|json_encode|raw}}';
         region=[];
 
-        $(document).on('click','input.check-send-method', actualizaGastosEnvio);
-        $(document).on('change','#previoPago_addressPay', actualizaGastosEnvio);
-        $(document).on('click','.checkPayMethod', function (){ actualizaGastosGestionPago(0);});
+        {% if offer.weight <= 30 %}
+            $(document).on('click','input.check-send-method', actualizaGastosEnvio);
+            $(document).on('change','#previoPago_addressPay', actualizaGastosEnvio);
+            $(document).on('click','.checkPayMethod',actualizaGastosEnvio);
 
+        {% else %}
+            $(document).on('click','.checkPayMethod', function (){ actualizaGastosGestionPago(0)});
+
+        {% endif %}
 
         var arrayAddress = JSON.parse(addresses, function (key, value){
             var clave = parseInt(key);
@@ -24,7 +29,7 @@
             var regionOrigen = '{{ offer.region|lower }}';
 
             var gastosEnvio = 0;
-            var precioTotal = parseFloat({{ offer.price}}+{{ administrationFees }});
+            var precioTotal = parseFloat({{ offer.price}});
 
 
             if(document.getElementById('sendMethod_correos').checked) {
@@ -45,26 +50,30 @@
                 gastosEnvio = 0.00;
             }
 
-            precioTotalAux = parseFloat(gastosEnvio + precioTotal).toFixed(2);
+
 
             $('.gastosEnvio').html(parseFloat(gastosEnvio).toFixed(2)+' €');
             $('#previoPago_shippingCost').val(gastosEnvio);
 
+            precioTotalAux = parseFloat(gastosEnvio + precioTotal).toFixed(2);
 
+            var gastosGestion = calculaGastosGestion(precioTotalAux);
+
+            precioTotalAux = parseFloat(precioTotalAux)+parseFloat(gastosGestion);
 
             actualizaGastosGestionPago(precioTotalAux);
 
         }
+
 
         function actualizaGastosGestionPago(precioTotal){
             var gastos = 0;
             var total = 0;
 
             if(precioTotal == 0) {
-
                 var precio = parseFloat({{ offer.price }});
-                total = parseFloat(precio + {{ administrationFees }});
-
+                var gastosGestion = calculaGastosGestion(precio);
+                total = parseFloat(precio + gastosGestion);
 
                 if(!$('#previoPago_shippingCost').empty() ){
                     total = parseFloat(total+parseFloat(document.getElementById('previoPago_shippingCost').value));
@@ -76,14 +85,10 @@
                 total = parseFloat(total+gastos);
 
             }else{
-
                 if (document.getElementById('previoPago_payMethod_0').checked) {
                     gastos = parseFloat(precioTotal *{{ paypalFee }});
-//                    console.log('paypal '+gastos);
 
                     total = parseFloat(parseFloat(precioTotal) + parseFloat(gastos));
-//                    console.log('total con correos '+precioTotal);
-//                    console.log('total '+total);
                 }else{
                     total = precioTotal;
                 }
@@ -100,5 +105,5 @@
 
 
 
-    });
-</script>
+    {#});#}
+{#</script>#}

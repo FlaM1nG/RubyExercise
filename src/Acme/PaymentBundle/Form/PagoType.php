@@ -89,6 +89,9 @@ class PagoType extends AbstractType {
             ->add('managementPayFee', HiddenType::class, array('attr' => array('class' => 'managementPayFee'),
                                                                'mapped' => false,
                                                                'data' => 0))
+            ->add('managementFee', HiddenType::class, array('attr' => array('class' => 'managementFee'),
+                                                                'mapped' => false,
+                                                                'data' => 0))
             
             ->add('submit', SubmitType::class, array(
                                                     'attr' => $arrayAttrSubmit,
