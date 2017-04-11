@@ -35,16 +35,31 @@
             <h3>
                 Casas
             </h3>
-            <hr/>
-{#  Necesito que el botón de borrar que lleva la clase deleteCar se llame deleteHouse y en el script cuando se llama a la función deleteHouse cambiar deleteCar por deleteHouse
-    Tal y como está ahora mismo funciona borrar perfectamente y muestra el mensaje flash en su sitio
-#}
+            <hr>
+
+        {% if arrayHouses is not empty %}
+            {#  Necesito que el botón de borrar que lleva la clase deleteCar se llame deleteHouse y en el script cuando se llama a la función deleteHouse cambiar deleteCar por deleteHouse
+            Tal y como está ahora mismo funciona borrar perfectamente y muestra el mensaje flash en su sitio
+            #}
             {% for house in arrayHouses %}
                 {{ coches.coche(path('user_profile_showHouse', {idHouse: house.id}), asset(house.photos.0.url|default('web/img/placeholder.jpg'),'img'), house.address.country.country,
                 house.title, house.address.street, 0, house.description,
                 path('user_profile_editHouse', {idHouse: house.id} ), 'dataEdit', 'titleEdit',
                 '#', house.id, 'Delete house') }}
             {% endfor %}
+
+        {% else %}
+
+            <a href="{{ path('user_profile_newHouse') }}" class="btn btn-default us-profileBtnLeft">Nueva casa</a>
+
+            <h4>
+                No tiene ninguna casa creada.
+            </h4>
+            <p>
+                Para poder crear ofertas de inmuebles debe de crear una casa. La misma casa no se puede utilizar en
+                distintas ofertas.
+            </p>
+        {% endif %}
         </div>
     </div>
 

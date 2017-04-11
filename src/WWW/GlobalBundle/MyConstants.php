@@ -22,4 +22,7 @@ class MyConstants {
     const NUM_HOUSE_PAGINATOR = 5;
     const NUM_OFFERS_PROFILE = 10;
     const NUM_MESSAGE_PROFILE = 10;
+    // x%
+    const ADMINISTRATION_FEES = 3;
+    const PAYPAL_FEE = 2;
 }

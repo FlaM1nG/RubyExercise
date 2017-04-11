@@ -47,16 +47,16 @@ class PaymentPurchaseController extends Controller {
         //Addons >20
         $user = $this->getUserProfile($request);
         $arrayAddressesPay = array();
+        $arrayAddressesForm = array();
 
-        foreach($user->getAddresses()[0] as $data ):
-            $arrayAddressesPay[$data->getId()] = $data->getRegion();
-        endforeach;
-
-        $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
+        $this->createArraysAddresses($user, $arrayAddressesPay, $arrayAddressesForm);
 
         $this->setUpVars($request);
 
-        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice()));
+        $administrationFeesPercent = MyConstants::ADMINISTRATION_FEES/100;
+
+        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice(),
+                                                                'arrayAddresses' => $arrayAddressesForm));
         $form->handleRequest($request);
 
         $arrayCourier = null;
@@ -69,12 +69,8 @@ class PaymentPurchaseController extends Controller {
 
         $session = $request->getSession();
         $session->set('_security.user.target_path',null);
-        if ($form->isSubmitted() && $form->get('newAddress')->isClicked()) {
-            $url = $request->getUri();
-            $session->set('_security.user.target_path',$url);
-            return $this->redirectToRoute('user_profiler_newAdress');
-        }
-        elseif ($form->isSubmitted() && $form->get('submit')->isClicked()) {
+
+        if ($form->isSubmitted() && $form->get('submit')->isClicked()) {
 
 //            Si el usuario elige pagar con tarjeta (LA CAIXA)
 //            if ($form->get('gateway_name')->getData() == 'addon_payments') {
@@ -155,6 +151,8 @@ class PaymentPurchaseController extends Controller {
                     'service' => $this->serviceId,
                     'arrayCourier' => $arrayCourier,
                     'arrayAddresses' => $arrayAddressesPay,
+                    'administrationFees' => $administrationFeesPercent,
+                    'paypalFee' => MyConstants::PAYPAL_FEE/100
         ));
     }
 
@@ -337,19 +335,45 @@ class PaymentPurchaseController extends Controller {
         $file = MyConstants::PATH_APIREST.'services/courier/get_courierPrice.php';
         $ch = new ApiRest();
 
-        $data['id'] = $request->getSession()->get('id');
-        $data['username'] = $request->getSession()->get('username');
-        $data['password'] = $request->getSession()->get('password');
-        $data['id_messengerService'] = 2;
-        $data['weight'] = $this->offer->getWeight();
-        
-        $result = $ch->resultApiRed($data, $file);
+        if($this->offer->getWeight() <= 30):
 
-        if($result['result'] == 'ok'):
-            return $result['messengerPrice'][0];
+            $data['id'] = $request->getSession()->get('id');
+            $data['username'] = $request->getSession()->get('username');
+            $data['password'] = $request->getSession()->get('password');
+            $data['id_messengerService'] = 2;
+            $data['weight'] = $this->offer->getWeight();
+
+            $result = $ch->resultApiRed($data, $file);
+
+            if($result['result'] == 'ok'):
+                return $result['messengerPrice'][0];
+            else:
+                return null;
+            endif;
         else:
-            return null;
+//            esto es para que no me pete en twig
+            $array = array('price_es'=> null, 'price_ba' => null, 'price_ca' => null);
+            return $array;
         endif;
+    }
+    
+    private function createArraysAddresses(User $user, &$arrayAddressesPay, &$arrayAddressesForm){
+
+        $addressDefault = $user->getDefaultAddress();
+
+        array_unshift($arrayAddressesForm,$addressDefault);
+
+        if(!empty($user->getAddresses()[0])):
+            
+            foreach($user->getAddresses()[0] as $data ):
+                $arrayAddressesPay[$data->getId()] = $data->getRegion();
+                array_push($arrayAddressesForm,$data);
+            endforeach;
+
+            $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
+        endif;
+
     }
 
 }
+

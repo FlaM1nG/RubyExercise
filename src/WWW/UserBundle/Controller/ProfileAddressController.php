@@ -43,6 +43,8 @@ class ProfileAddressController extends Controller
     }
     
     public function newAddressAction(Request $request){
+
+        $this->redirectRouteAddresses($request);
         
         $address = new Address();
         $formAddress = $this->createForm(AddressType::class, $address);
@@ -53,19 +55,48 @@ class ProfileAddressController extends Controller
             $result = $this->createAddress($request, $address);
 
             if($result == 'ok'):
-                $session = $request->getSession();
-                $path = $session->get('_security.user.target_path');
+
+                $path = $request->getSession()->get('_security.user.target_path');
                 
-                if ($path != NULL) {
-                    return $this->redirect($path);
-                }
-                return $this->forward('UserBundle:ProfileAddress:listAddress');
+                if (!empty($path)):
+                    $request->getSession()->remove('_security.user.target_path');
+
+                    if(strpos($path, '/payment/trade/offer/') !== false):
+                        return $this->redirect($path);
+                    else:
+                        return $this->redirect($this->generateUrl($path));
+                    endif;
+                else:
+                    return $this->forward('UserBundle:ProfileAddress:listAddress');
+                    
+                endif;
+
             endif;
         endif;
        
         return $this->render('UserBundle:Profile:profileNewAddress.html.twig',
                              array('form' => $formAddress->createView() )
                             );
+    }
+
+    private function redirectRouteAddresses(Request $request){
+
+        $path = parse_url($request->headers->get('referer'),PHP_URL_PATH);
+
+        if($path == $this->generateUrl('service_newClothes')):
+            $request->getSession()->set('_security.user.target_path','service_newClothes');
+
+        elseif($path == $this->generateUrl('service_newTrade')):
+            $request->getSession()->set('_security.user.target_path','service_newTrade');
+
+        elseif(strpos($path, '/payment/trade/offer/') !== false):
+            $request->getSession()->set('_security.user.target_path',$request->headers->get('referer'));
+        //vengo de hacer un submit o de cualquier otro sitio
+        elseif($path != $this->generateUrl('user_profiler_newAdress')):
+            $request->getSession()->remove('_security.user.target_path');
+        
+        endif;
+
     }
     
     private function createAddress(Request $request, $address){
