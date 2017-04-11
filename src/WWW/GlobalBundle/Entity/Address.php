@@ -307,6 +307,20 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
     {
         return $this->user;
     }
+
+    /**
+     * Get user
+     *
+     * @return \WWW\UserBundle\Entity\User
+     */
+    public function getUserId()
+    {
+        if($this->user == null) {
+            return 0;
+        }else{
+            return $this->user->getId();
+        }
+    }
     
     public function toArray(){
         
@@ -436,6 +450,24 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Get phone and prefix
+     *
+     * @return string
+     */
+    public function getPhoneCompleto()
+    {
+        if(($this->prefix != null || $this->prefix != '') && ($this->phone != null || $this->phone != 0 )){
+            return  $this->prefix . ' ' . $this->phone;
+        }else if($this->prefix == null || $this->prefix == ''){
+            return $this->phone;
+        }else if($this->phone == null || $this->phone == 0){
+            return $this->prefix;
+        }else{
+            return null;
+        }
     }
 
     /**

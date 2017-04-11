@@ -8,12 +8,96 @@ easy_admin:
         datetime: 'd/m/Y H:i:s'
     design:
         brand_color: '#f60'
-    site_name: 'WhatWantWeb_Management'
+        menu:
+            - label: 'Usuarios'
+              children: ['BusquedaUsuario', 'DireccionesUsuarios', 'Message', 'Photo']
+    site_name: 'Gestión WhatWantWeb'
     entities:
+        BusquedaUsuario:
+            class: WWW\UserBundle\Entity\User
+            label: 'Busqueda de usuarios'
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Busqueda de usuarios'
+                fields:
+                    - id
+                    - { property: 'username', label: 'Nick Usuario'}
+                    - { property: 'email', label: 'Email', type: 'email'}
+                    - { property: 'isConfirmedText', label: 'Confirmado'} #hay que traducir 1 o 0 según proceda
+                    - { property: 'phone', label: 'Teléfono'}
+                    - { property: 'name', label: 'Nombre'}
+                    - { property: 'surname', label: 'Apellidos'}
+                    - { property: 'sex', label: 'Sexo'} #Hay que traducir m o f según procesda
+            show:
+                title: 'Usuario'
+                fields:
+                    - { property: 'id', label: 'ID'}
+                    - { property: 'username', label: 'Nick Usuario' }
+                    - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'name', label: 'Nombre' }
+                    - { property: 'surname', label: 'Apellidos' }
+                    - { property: 'sex', label: 'Sexo' }
+                    - { property: 'birthdate', label: 'Cumpleaños', type: 'date' }
+                    - { property: 'prefix', label: 'Prefijo' }
+                    - { property: 'phone', label: 'Teléfono' }
+                    - { property: 'isConfirmedText', label: 'Confirmado', type: 'text' }
+                    - { property: 'created_date', label: 'Fecha creación cuenta', type: 'datetime'}
+                    - { property: 'modified_date', label: 'Fecha último cambio', type: 'datetime'}
+                    - { property: 'is_deleted', label: 'Eliminar', type: 'text' }
+                    - { property: 'deleted_date', label: 'Fecha eliminado', type: 'datetime'}
+#                    - { property: 'offersUser', label: 'Ofertas'}
+            form:
+                title: 'Usuario'
+                fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - { property: 'username', label: 'Nick Usuario' }
+                    - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'name', label: 'Nombre' }
+                    - { property: 'surname', label: 'Apellidos' }
+                    - { property: 'sex', label: 'Sexo' }
+                    - { property: 'birthdate', label: 'Cumpleaños', type: 'date' }
+                    - { property: 'prefix', label: 'Prefijo' }
+                    - { property: 'phone', label: 'Teléfono' }
+                    - { property: 'is_confirmed', label: 'Confirmado', type: 'text' }
+                    - { property: 'created_date', label: 'Fecha creación cuenta', type: 'datetime', type_options: { widget: 'single_text', disabled: true} }
+                    - { property: 'modified_date', label: 'Fecha último cambio', type: 'datetime', type_options: { widget: 'single_text', disabled: true} }
+                    - { property: 'is_deleted', label: 'Eliminar', type: 'text' }
+                    - { property: 'deleted_date', label: 'Fecha eliminado', type: 'datetime', type_options: { widget: 'single_text', disabled: true} }
+        DireccionesUsuarios:
+            class: WWW\GlobalBundle\Entity\Address
+            label: 'Direcciones de usuarios'
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Direcciones de usuarios'
+                fields:
+                    - id
+                    - { property: 'userId', label: 'ID Usuario', type: 'integer' }
+                    - { property: 'name', label: 'Nombre', type: 'text' }
+                    - { property: 'street', label: 'Dirección', type: 'text' }
+                    - { property: 'city', label: 'Ciudad', type: 'text' }
+                    - { property: 'region', label: 'Población', type: 'text' }
+                    - { property: 'country', label: 'Pais', type: 'text' }
+                    - { property: 'is_deleted', label: 'Borrado' }
+            show:
+                title: 'Usuario'
+                fields:
+                    - id
+                    - { property: 'userId', label: 'ID Usuario', type: 'integer' }
+                    - { property: 'name', label: 'Nombre', type: 'text' }
+                    - { property: 'street', label: 'Dirección', type: 'text' }
+                    - { property: 'city', label: 'Ciudad', type: 'text' }
+                    - { property: 'region', label: 'Población', type: 'text' }
+                    - { property: 'country', label: 'Pais', type: 'text' }
+                    - { property: 'is_deleted', label: 'Borrado' }
+                    - { property: 'phoneCompleto', label: 'Teléfono Dirr', type: 'text' }
+
+
+
         Message:
             class: WWW\UserBundle\Entity\Message
             label: 'Mensajes'
             list:
+#                dql_filter: 'entity.status > 2'
                 title: 'Mensajes entre Usuarios'
                 fields: #['id','subject','message','status','revisionDate','createdDate','from','to']
                     - id
