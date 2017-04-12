@@ -61,7 +61,7 @@ class CalendarController extends Controller
 
             $dateEnd = $date;
 
-            $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'), null , null, $date, $dateEnd, '0' , null);
+            $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'),null,null, $date, $dateEnd,0,0,0);
 
             $em->persist($mce);
 
@@ -70,6 +70,7 @@ class CalendarController extends Controller
             }else{
 
                     $test->setPrice($request->get('price'));
+                    $test->setBlocked($request->get('blocked'));
                     $em->flush();
 
             }
@@ -81,7 +82,7 @@ class CalendarController extends Controller
     public function cargarDateAction(Request $request)
     {
 
-        function createDateRangeBase($startDate, $endDate, $price, $ocuppate, $format = "d-m-Y")
+        function createDateRangeBase($startDate, $endDate, $price, $ocuppate, $blocked, $format = "d-m-Y")
         {
             $begin = new \DateTime($startDate);
             $end = new \DateTime($endDate);
@@ -99,6 +100,11 @@ class CalendarController extends Controller
                 } else {
                     $range[$key]['ocuppate'] = 1;
                 }
+                if (!$blocked) {
+                    $range[$key]['blocked'] = $blocked;
+                } else {
+                    $range[$key]['blocked'] = 1;
+                }
 
                 $range[$key]['price'] = $price;
 
@@ -113,7 +119,7 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-        $query =  "select sh.house_id, sh.price as precio_base,my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$idoffer and off.service_id = my.service_id";
+        $query =  "select sh.house_id, sh.price as precio_base,my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate,my.blocked,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$idoffer and off.service_id = my.service_id";
 
         $stmt = $db->prepare($query);
         $params = array();
@@ -130,12 +136,12 @@ class CalendarController extends Controller
             foreach ($aEspecificos as $key => $value) {
 
                 if (!empty($value['start_datetime']) && !empty($value['end_datetime'])) {
-                    $resultEspecificos[] = createDateRangeBase($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate']);
+                    $resultEspecificos[] = createDateRangeBase($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'],$value['blocked']);
                 }
             }
         }
 
-        $sql =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado,h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$idoffer";
+        $sql =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado, my.blocked as bloqueado, h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$idoffer";
         $stmt = $db->prepare($sql);
         $params = array();
         $stmt->execute($params);
@@ -150,6 +156,7 @@ class CalendarController extends Controller
                 if (!empty($value['precio_base'])) {
                     $aEspecificos['precio_base'] = $value['precio_base'];
                     $aEspecificos['ocupado'] = $value['ocupado'];
+                    $aEspecificos['bloqueado'] = $value['bloqueado'];
 
                 }
             }
@@ -157,7 +164,7 @@ class CalendarController extends Controller
 
 
 // PRECIOS BASE. Por ejemplo: 10€
-        $aBase = createDateRangeBase('2017-01-01', '2018-12-31', $aEspecificos['precio_base'], $aEspecificos['ocupado']);
+        $aBase = createDateRangeBase('2017-01-01', '2018-12-31', $aEspecificos['precio_base'], $aEspecificos['ocupado'],$aEspecificos['bloqueado']);
 
         if (!empty($resultEspecificos) && !empty($aBase)) {
             foreach ($aBase as $key => $value) {
@@ -166,6 +173,7 @@ class CalendarController extends Controller
                         if ($value['start_datetime'] == $value3['start_datetime']) {
                             $aBase[$key]['price'] = $value3['price'];
                             $aBase[$key]['ocuppate'] = $value3['ocuppate'];
+                            $aBase[$key]['blocked'] = $value3['blocked'];
                         }
                     }
                 }
@@ -201,42 +209,53 @@ class CalendarController extends Controller
                             if ($initMonth == '1' || $endMonth == '1') {
                                 $result[$j]['1']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['1']['ocuppate'][$i] = $value['ocuppate'];
+                                $result[$j]['1']['blocked'][$i] = $value['blocked'];
                             } else if ($initMonth == '2' || $endMonth == '2') {
                                 $result[$j]['2']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['2']['ocuppate'][$i] = $value['ocuppate'];
+                                $result[$j]['2']['blocked'][$i] = $value['blocked'];
                             } else if ($initMonth == '3' || $endMonth == '3') {
                                 $result[$j]['3']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['3']['ocuppate'][$i] = $value['ocuppate'];
+                                $result[$j]['3']['blocked'][$i] = $value['blocked'];
 
                             } else if ($initMonth == '4' || $endMonth == '4') {
                                 $result[$j]['4']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['4']['ocuppate'][$i] = $value['ocuppate'];
-
+                                $result[$j]['4']['blocked'][$i] = $value['blocked'];
                             } else if ($initMonth == '5' || $endMonth == '5') {
                                 $result[$j]['5']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['5']['ocuppate'][$i] = $value['ocuppate'];
+                                $result[$j]['5']['blocked'][$i] = $value['blocked'];
                             } else if ($initMonth == '6' || $endMonth == '6') {
                                 $result[$j]['6']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['6']['ocuppate'][$i] = $value['ocuppate'];
+                                $result[$j]['6']['blocked'][$i] = $value['blocked'];
                             } else if ($initMonth == '7' || $endMonth == '7') {
                                 $result[$j]['7']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['7']['ocuppate'][$i] = $value['ocuppate'];
+                                $result[$j]['7']['blocked'][$i] = $value['blocked'];
                             } else if ($initMonth == '8' || $endMonth == '8') {
                                 $result[$j]['8']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['8']['ocuppate'][$i] = $value['ocuppate'];
+                                $result[$j]['8']['blocked'][$i] = $value['blocked'];
                             } else if ($initMonth == '9' || $endMonth == '9') {
                                 $result[$j]['9']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['9']['ocuppate'][$i] = $value['ocuppate'];
+                                $result[$j]['9']['blocked'][$i] = $value['blocked'];
                             } else if ($initMonth == '10' || $endMonth == '10') {
                                 $result[$j]['10']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['10']['ocuppate'][$i] = $value['ocuppate'];
+                                $result[$j]['10']['blocked'][$i] = $value['blocked'];
                             } else if ($initMonth == '11' || $endMonth == '11') {
                                 $result[$j]['11']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['11']['ocuppate'][$i] = $value['ocuppate'];
+                                $result[$j]['11']['blocked'][$i] = $value['blocked'];
 
                             } else if ($initMonth == '12' || $endMonth == '12') {
                                 $result[$j]['12']['precio'][$i] = $value['price'] . '€';
                                 $result[$j]['12']['ocuppate'][$i] = $value['ocuppate'];
+                                $result[$j]['12']['blocked'][$i] = $value['blocked'];
 
                             }
                         }
@@ -425,7 +444,7 @@ class CalendarController extends Controller
          * @param string $format DateTime format, default is Y-m-d
          * @return array returns every date between $startDate and $endDate, formatted as "d-m-Y"
          */
-        function createDateRange($startDate, $endDate, $price, $ocuppate, $title, $format = "Y-m-d")
+        function createDateRange($startDate, $endDate, $price, $ocuppate, $blocked, $title, $format = "Y-m-d")
         {
             $begin = new \DateTime($startDate);
             $end = new \DateTime($endDate);
@@ -441,6 +460,7 @@ class CalendarController extends Controller
                 $aux['start'] = date_format($date, $format);
                 $aux['price'] = $price;
                 $aux['ocuppate'] = $ocuppate;
+                $aux['blocked'] = $blocked;
                 $range = $aux;
             }
 
@@ -470,7 +490,7 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-        $query =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado,h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$offerID";
+        $query =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado, my.blocked as bloqueado, h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$offerID";
         $stmt = $db->prepare($query);
         $params = array();
         $stmt->execute($params);
@@ -494,13 +514,13 @@ class CalendarController extends Controller
             foreach ($aEspecificos as $key => $value) {
 
                 if (!empty($value['start_datetime']) && !empty($value['end_datetime'])) {
-                    $eventosEspecificos[] = createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'], $value['title']);
+                    $eventosEspecificos[] = createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'],$value['blocked'], $value['title']);
                 }
             }
         }
 
 
-        $eventos = $this->createDateRangeBase( '2017-04-01', '2018-12-31',  $test[0]["precio_base"], $test[0]["ocupado"],"€" );
+        $eventos = $this->createDateRangeBase( '2017-04-01', '2018-12-31',  $test[0]["precio_base"], $test[0]["ocupado"],$test[0]["bloqueado"],"€" );
 
         foreach ($eventos as $key => $value) {
             foreach ($eventosEspecificos as $key2 => $value2) {
@@ -537,7 +557,7 @@ class CalendarController extends Controller
         return $response;
     }
 
-    function createDateRangeBase($startDate, $endDate, $price,$ocuppate, $title, $format = "Y-m-d")
+    function createDateRangeBase($startDate, $endDate, $price,$ocuppate, $blocked, $title, $format = "Y-m-d")
     {
         $begin = new \DateTime($startDate);
         $end = new \DateTime($endDate);
@@ -553,6 +573,7 @@ class CalendarController extends Controller
             $range[$key]['start'] = date_format($date, $format);
             $range[$key]['price'] = $price;
             $range[$key]['ocuppate'] = $ocuppate;
+            $range[$key]['blocked'] = $blocked;
 
 
         }

@@ -65,6 +65,7 @@ $(document).ready(function() {
                 $('#ModalEdit #id').val(event.id);
                 $('#ModalEdit #title').val(event.title);
                 $('#ModalEdit #price').val(event.price);
+                $('#ModalEdit #blocked').val(event.blocked);
                 $('#ModalEdit #calendar_id').val($('#calendarID').val());
                 $('#ModalEdit #service_id').val($('#serviceID').val());
                 $('#ModalEdit #start').val($('#startDateCalendario').val());
@@ -122,14 +123,24 @@ $(document).ready(function() {
         //Cambiar el color si esta ocupado o no
         eventAfterRender: function (event, element, view) {
 
-            if (event.ocuppate == 0) {
-                //event.color = "#FFB347"; //Em andamento
-                element.css('color', '#368d3a');
-            } else {
-                //event.color = "#77DD77"; //Concluído OK
-                element.css('color', '#FF0000');
+            if (event.blocked == 0) {
 
-            }
+                if (event.ocuppate == 0) {
+                    //event.color = "#FFB347"; //Em andamento
+
+                    element.css('color', '#368d3a');
+                } else {
+                    //event.color = "#77DD77"; //Concluído OK
+
+                    element.css('color', '#FF0000');
+
+                }
+
+            }else{
+
+                    element.addClass('fc-state-disabled');
+                }
+
         },
         loading: function(bool) {
             $('#loading').toggle(bool);
@@ -142,6 +153,7 @@ $(document).ready(function() {
         price = event.price;
         calendarID = event.calendarID;
         serviceID = event.serviceID;
+        blocked = event.blocked;
 
         Event = [];
 
@@ -150,6 +162,7 @@ $(document).ready(function() {
         Event['calendar_id'] = calendarID;
         Event['service_id'] = serviceID;
         Event['idOffer'] = idoferta;
+        Event['blocked'] = blocked;
 
         $.ajax({
             url: Routing.generate('fullcalendar_edit_create'),

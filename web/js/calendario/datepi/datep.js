@@ -16,7 +16,7 @@ $(document).ready(function() {
     });
 
  
-    $('#DatePicker').datepicker({
+    $('#datepicker_DatePicker').datepicker({
         changeMonth: true,
         changeYear: true,
         minDate: 0,
@@ -26,16 +26,16 @@ $(document).ready(function() {
         onSelect: function (selectedDate,date, dp) {
             updateDatePickerCells();
 
-            $("#DatePickerto").datepicker("option", "minDate", selectedDate);
+            $("#datepicker_DatePickerto").datepicker("option", "minDate", selectedDate);
 
-            var initDate = $('#DatePicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
-            var endDate = $('#endDate').val();
+            var initDate = $('#datepicker_DatePicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+            var endDate = $('#datepicker_endDate').val();
 
             // We store the initial date in a hidden input
-            $('#startDate').val(initDate);
+            $('#datepicker_startDate').val(initDate);
 
             // To show the initial date on the view
-            $('#fechaInicial').text(initDate);
+            $('#datepicker_fechaInicial').text(initDate);
 
             $.ajax({
                 url: Routing.generate('fullcalendar_dateprice'),
@@ -43,7 +43,7 @@ $(document).ready(function() {
                 type: 'post',
                 success: function(data) {
                     totalPrice = data;
-                    $('#precioTotal').text(totalPrice);
+                    $('#datepicker_precioTotal').text(totalPrice);
                 }
             }); 
 
@@ -56,7 +56,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#DatePickerto').datepicker({
+    $('#datepicker_DatePickerto').datepicker({
         changeMonth: true,
         changeYear: true,
         minDate: 0,
@@ -66,16 +66,16 @@ $(document).ready(function() {
         onSelect: function (selectedDate,date, dp) {
             updateDatePickerCells();
 
-            $("#DatePicker").datepicker("option", "maxDate", selectedDate);
+            $("#datepicker_DatePicker").datepicker("option", "maxDate", selectedDate);
 
-            var endDate = $('#DatePickerto').datepicker({ dateFormat: 'dd-mm-yy' }).val();
-            var initDate = $('#startDate').val();
+            var endDate = $('#datepicker_DatePickerto').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+            var initDate = $('#datepicker_startDate').val();
 
             // We store the initial date in a hidden input
-            $('#endDate').val(endDate);
+            $('#datepicker_endDate').val(endDate);
 
             // To show the end date on the view
-            $('#fechaFinal').text(endDate);
+            $('#datepicker_fechaFinal').text(endDate);
 
             $.ajax({
                 url: Routing.generate('fullcalendar_dateprice'),
@@ -83,7 +83,7 @@ $(document).ready(function() {
                 type: 'post',
                 success: function(data) {
                     totalPrice = data;
-                    $('#precioTotal').text(totalPrice);
+                    $('#datepicker_precioTotal').text(totalPrice);
 
                 }
             });
@@ -142,6 +142,7 @@ $(document).ready(function() {
 
                     var value = valueCell['precio'][idx + 1] || 0;
                     var value2 = valueCell['ocuppate'][idx + 1] || 0;
+                    var value3 = valueCell['blocked'][idx + 1] || 0;
 
                     // If the year data is the same one that is shown on the view
                     if (indexYear == $('.ui-datepicker td a').parent().data('year')) {
@@ -158,8 +159,8 @@ $(document).ready(function() {
                             } else {
 
 
-                                if (value2 == 1) {
-                                    // To deactivate the ocuppated days
+                                if (value2 == 1 || value3 == 1 ) {
+                                    // To deactivate the ocuppated days and blocked days
                                     $(elem).parent().addClass('ui-state-disabled ui-datepicker-unselectable');
 
                                     // To set the color on the price
