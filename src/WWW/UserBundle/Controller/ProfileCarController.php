@@ -22,21 +22,23 @@ class ProfileCarController extends Controller{
 
     public function newCarAction(Request $request){
 
+        $this->redirectRouteAddresses($request);
+
         $car = new Car();
 
         $form = $this->createForm(CarType::class, $car);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() AND $form->isValid()):
+        if($form->isSubmitted() AND $form->isValid()): 
             $result = $this->saveNewCar($request, $car);
-            
+
             if($result == 'ok'):
                 $path =$request->getSession()->get('_security.user.target_path');
 
-                if($path == 'car_shareCarNew'):
-                    $request->getSession()->set('_security.user.target_path','');
-                    return $this->redirectToRoute('car_shareCarNew');
+                if(!empty($path)):
+                    $request->getSession()->remove('_security.user.target_path');
+                    return $this->redirect($this->generateUrl($path));
                 else:
                     return $this->redirectToRoute('user_profileListCars');
                 endif;
@@ -46,6 +48,24 @@ class ProfileCarController extends Controller{
         return $this->render('UserBundle:Profile:Car/profileNewCar.html.twig',
             array('form' => $form->createView(),
                   'car' => $car));
+    }
+
+    private function redirectRouteAddresses(Request $request){
+
+        $path = parse_url($request->headers->get('referer'),PHP_URL_PATH);
+
+        if($path == $this->generateUrl('car_shareCarNew')):
+            $request->getSession()->set('_security.user.target_path','car_shareCarNew');
+
+        elseif($path == $this->generateUrl('serCourier_newOffer')):
+            $request->getSession()->set('_security.user.target_path','serCourier_newOffer');
+
+        //vengo de hacer un submit o de cualquier otro sitio
+        elseif($path != $this->generateUrl('user_profileNewCar')):
+            $request->getSession()->remove('_security.user.target_path');
+
+        endif;
+
     }
 
     private function saveNewCar(Request $request, $car){

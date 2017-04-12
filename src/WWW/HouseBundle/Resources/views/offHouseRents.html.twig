@@ -84,7 +84,7 @@
     <div class="row row-off-user-name">
         <a class="off-user-image" href={{ path('user_public_profile', {username: offer.offer.userAdmin.username}) }}>
             <img class=" img-circle img-responsive" 
-                src="{{ asset(offer.offer.userAdmin.photo.url, 'img') }}"
+                src="{{ asset(offer.offer.userAdmin.photo.url|default('web/img/userDefault.jpg'), 'img') }}"
                 width="50" alt="">
         </a>
                     

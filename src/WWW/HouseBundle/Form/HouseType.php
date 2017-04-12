@@ -34,13 +34,17 @@ class HouseType extends AbstractType{
 
             ->add('description', TextareaType::class, array('label' => 'Descripción'))
 
-            ->add('capacity', IntegerType::class, array('label' => 'Capacidad'))
+            ->add('capacity', IntegerType::class, array('label' => 'Capacidad',
+                                                        'attr' => array('min' => 1)))
 
-            ->add('beds', IntegerType::class, array('label' => 'Número de camas'))
+            ->add('beds', IntegerType::class, array('label' => 'Número de camas',
+                                                    'attr' => array('min' => 0)))
 
-            ->add('bedrooms', IntegerType::class, array('label' => 'Número de habitaciones'))
+            ->add('bedrooms', IntegerType::class, array('label' => 'Número de habitaciones',
+                                                        'attr' => array('min' => 0)))
 
-            ->add('bathrooms', IntegerType::class, array('label' => 'Número de cuartos de baño'))
+            ->add('bathrooms', IntegerType::class, array('label' => 'Número de cuartos de baño',
+                                                         'attr' => array('min' => 1)))
 
             ->add('aireAcondicionado', CheckboxType::class, array('label' => 'Aire acondicionado', 'required' => false))
 

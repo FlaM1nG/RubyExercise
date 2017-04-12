@@ -6,10 +6,13 @@
 {% endblock %}
 
 {% block body %}
-    {{ include('homepage/franja.html.twig') }}
-    {{ include('homepage/publicidadSponsor.html.twig') }}
-    {{ include('homepage/packs.html.twig') }}
-    {{ include('homepage/blog.html.twig') }}
+    <div class="cd-main-content">
+        {{ include('homepage/franja.html.twig') }}
+        {{ include('homepage/publicidadSponsor.html.twig') }}
+        {{ include('homepage/packs.html.twig') }}
+        {{ include('homepage/blog.html.twig') }}
+    </div>
+
 {% endblock %}
 
 {% block javascriptsFooter %}

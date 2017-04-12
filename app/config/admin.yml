@@ -12,12 +12,22 @@ easy_admin:
     entities:
         Message:
             class: WWW\UserBundle\Entity\Message
+            label: 'Mensajes'
             list:
-                fields: ['id','subject','message','status','revisionDate','createdDate','from','to']
-            form:
-                fields:
-                    - status
-                    - { property: 'revisionDate',format: 'j/n/Y' }
+                title: 'Mensajes entre Usuarios'
+                fields: #['id','subject','message','status','revisionDate','createdDate','from','to']
+                    - id
+                    - { property: 'subject', label: 'Titulo'}
+                    - { property: 'message', label: 'Mensaje'}
+                    - { property: 'status', label: 'Estado'}
+                    - { property: 'revisionDate', label: 'Fecha Revisión' }
+                    - { property: 'createdDate', label: 'Fecha Alta'}
+                    - { property: 'from', label: 'Emisor'}
+                    - { property: 'to', label: 'Remitente'}
+#            form:
+#                fields:
+#                    - status
+#                    - { property: 'revisionDate',format: 'j/n/Y' }
         Photo:
             class: WWW\GlobalBundle\Entity\Photo
             list:
