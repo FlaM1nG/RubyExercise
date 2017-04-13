@@ -1138,6 +1138,22 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         return $this->defaultAddress;
     }
+
+    /**
+     * Get defaultAddress
+     *
+     * @return integer
+     */
+    public function getDefaultAddressUser()
+    {
+//        if($this->defaultAddress == null){
+//            return -1;
+//        }
+//
+//        return $this->defaultAddress;
+
+        return 2;
+    }
     
     /**
      * 

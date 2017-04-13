@@ -71,13 +71,14 @@ easy_admin:
                 title: 'Direcciones de usuarios'
                 fields:
                     - id
-                    - { property: 'userId', label: 'ID Usuario', type: 'integer' }
+                    - { property: 'userId', label: 'ID Usuario', type: 'integer'}
                     - { property: 'name', label: 'Nombre', type: 'text' }
                     - { property: 'street', label: 'Dirección', type: 'text' }
                     - { property: 'city', label: 'Ciudad', type: 'text' }
                     - { property: 'region', label: 'Población', type: 'text' }
                     - { property: 'country', label: 'Pais', type: 'text' }
-                    - { property: 'is_deleted', label: 'Borrado' }
+                    - { property: 'is_deleted', label: 'Borrado', type: 'boolean' }
+                    - { property: 'IsDefaultUser', label: 'Por defecto' }
             show:
                 title: 'Usuario'
                 fields:

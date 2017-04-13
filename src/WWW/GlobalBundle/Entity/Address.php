@@ -194,6 +194,21 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
     }
 
     /**
+     * Get isDefault
+     *
+     * @return boolean
+     */
+    public function getIsDefaultUser()
+    {
+//        if($this->getUser()->getDefaultAddress()->getId() == $this->getId()){
+//            return true;
+//        }
+//
+//        return false;
+        return $this->getUser()->getUsername();
+    }
+
+    /**
      * Set createdDate
      *
      * @param \DateTime $createdDate
@@ -311,7 +326,7 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
     /**
      * Get user
      *
-     * @return \WWW\UserBundle\Entity\User
+     * @return integer
      */
     public function getUserId()
     {
