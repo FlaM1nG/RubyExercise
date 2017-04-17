@@ -29,16 +29,43 @@ $(document).ready(function() {
         editable: true,
         navLinks: true, // can click day/week names to navigate views
         eventLimit: true, // allow "more" link when too many events
-        eventStartEditable: false, // para que no se muevan los eventos
+        eventStartEditable: false, // don't let you move the event
 
-        eventRender: function(event, element, view) {
+        viewRender: function(currentView){
+            var minDate = moment(),
+                maxDate = moment().add(18,'month');
+            // Past
+            if (minDate >= currentView.start && minDate <= currentView.end) {
+                $(".fc-prev-button").prop('disabled', true).addClass('fc-state-disabled');
+            }
+            else {
+                $(".fc-prev-button").removeClass('fc-state-disabled').prop('disabled', false);;
+            }
+            // Future
+            if (maxDate >= currentView.start && maxDate <= currentView.end) {
+                $(".fc-next-button").prop('disabled', true).addClass('fc-state-disabled');
+            } else {
+                $(".fc-next-button").removeClass('fc-state-disabled').prop('disabled', false);
+            }
+        },
+
+
+
+    eventRender: function(event, element, view) {
             // To include the price on the render
+      //(event.start._i > '2017-04-07')
 
-            element.bind('dblclick', function() {
+        //Obtener la fecha actual
+       hoy = new Date().toJSON().slice(0,10);
+
+        if ((event.ocuppate == 0) && (event.start._i > hoy)) {
+
+            element.bind('dblclick', function () {
 
                 $('#ModalEdit #id').val(event.id);
                 $('#ModalEdit #title').val(event.title);
                 $('#ModalEdit #price').val(event.price);
+                $('#ModalEdit #blocked').val(event.blocked);
                 $('#ModalEdit #calendar_id').val($('#calendarID').val());
                 $('#ModalEdit #service_id').val($('#serviceID').val());
                 $('#ModalEdit #start').val($('#startDateCalendario').val());
@@ -48,6 +75,7 @@ $(document).ready(function() {
             });
 
             element.find(event.price + ' €');
+        }
         },
 
         eventClick: function(calEvent, jsEvent, view) {
@@ -66,22 +94,54 @@ $(document).ready(function() {
 
         },
 
+
+
+
         events: function(start, end, timezone, callback) {
-            $.ajax({
-                url: Routing.generate('fullcalendar_calendar'),
-                dataType: 'json',
-                type: 'post',
-                data: {'idOffer' : idoferta},
-                success: function(doc) {
-                 
-                    var events = [];
-                 
-                    events = doc;
-                    callback(events);
+
+                $.ajax({
+                    url: Routing.generate('fullcalendar_calendar'),
+                    dataType: 'json',
+                    type: 'post',
+                    data: {'idOffer': idoferta},
+                    success: function (doc) {
+
+                        var events = [];
+
+                        events = doc;
+
+                        callback(events);
+
+
+                    }
+                });
+
+
+
+        },
+
+        //Cambiar el color si esta ocupado o no
+        eventAfterRender: function (event, element, view) {
+
+            if (event.blocked == 0) {
+
+                if (event.ocuppate == 0) {
+                    //event.color = "#FFB347"; //Em andamento
+
+                    element.css('color', '#368d3a');
+                } else {
+                    //event.color = "#77DD77"; //Concluído OK
+
+                    element.css('color', '#FF0000');
+
                 }
-            });
-        }
-        ,
+
+            }else{
+
+                element.css('color', '#151515');
+                }
+
+        },
         loading: function(bool) {
             $('#loading').toggle(bool);
         }
@@ -93,6 +153,7 @@ $(document).ready(function() {
         price = event.price;
         calendarID = event.calendarID;
         serviceID = event.serviceID;
+        blocked = event.blocked;
 
         Event = [];
 
@@ -101,6 +162,7 @@ $(document).ready(function() {
         Event['calendar_id'] = calendarID;
         Event['service_id'] = serviceID;
         Event['idOffer'] = idoferta;
+        Event['blocked'] = blocked;
 
         $.ajax({
             url: Routing.generate('fullcalendar_edit_create'),
