@@ -24,6 +24,7 @@ $(document).ready(function() {
         maxDate: "+2Y",
         //The calendar is recreated OnSelect for inline calendar
         onSelect: function (selectedDate,date, dp) {
+            
             updateDatePickerCells();
 
             $("#datepicker_DatePickerto").datepicker("option", "minDate", selectedDate);
@@ -42,8 +43,15 @@ $(document).ready(function() {
                 data: {'initDate' : initDate, 'endDate' : endDate,'idOffer' : idoferta},
                 type: 'post',
                 success: function(data) {
-                    totalPrice = data;
-                    $('#datepicker_precioTotal').text(totalPrice);
+                    if(data.response == "OK"){
+                        totalPrice = data;
+                        $('#datepicker_precioTotal').text(data.totalPrice);
+                        $('#datepicker_subscribeButton').attr("disabled",false);
+                    }else{
+                        $('#datepicker_precioTotal').text("Fecha no disponible");
+                        $('#datepicker_subscribeButton').attr("disabled",true);
+
+                    }
                 }
             }); 
 
@@ -82,9 +90,15 @@ $(document).ready(function() {
                 data: {'initDate' : initDate, 'endDate' : endDate,'idOffer' : idoferta},
                 type: 'post',
                 success: function(data) {
+                  //  console.log(data);
+                    if(data.response == "OK"){
                     totalPrice = data;
-                    $('#datepicker_precioTotal').text(totalPrice);
-
+                    $('#datepicker_precioTotal').text(data.totalPrice);
+                        $('#datepicker_subscribeButton').attr("disabled",false);
+                    }else{
+                        $('#datepicker_precioTotal').text("Fecha no disponible");
+                        $('#datepicker_subscribeButton').attr("disabled",true);
+                    }
                 }
             });
         },

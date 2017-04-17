@@ -138,7 +138,7 @@ $(document).ready(function() {
 
             }else{
 
-                    element.addClass('fc-state-disabled');
+                element.css('color', '#151515');
                 }
 
         },

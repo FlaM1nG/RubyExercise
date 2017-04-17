@@ -37,7 +37,7 @@ class DatepickerType extends AbstractType
 
                 ->add('precioTotal', FormType::class, array('label' => 'Precio Total'))
 
-                ->add('subscribeButton',SubmitType::class, array('label' => ''));
+                ->add('subscribeButton',SubmitType::class, array('label' => 'Comprar'));
 
 
 
