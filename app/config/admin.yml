@@ -78,7 +78,7 @@ easy_admin:
                     - { property: 'region', label: 'Población', type: 'text' }
                     - { property: 'country', label: 'Pais', type: 'text' }
                     - { property: 'is_deleted', label: 'Borrado', type: 'boolean' }
-                    - { property: 'getIsDefaultAddressUser', label: 'Por defecto', type: 'boolean', sortable: true }
+                    - { property: 'getIsDefaultAddressUser', label: 'Por defecto', type: 'boolean' }
             show:
                 title: 'Usuario'
                 fields:
@@ -91,6 +91,7 @@ easy_admin:
                     - { property: 'country', label: 'Pais', type: 'text' }
                     - { property: 'is_deleted', label: 'Borrado' }
                     - { property: 'phoneCompleto', label: 'Teléfono Dirr', type: 'text' }
+                    - { property: 'getIsDefaultAddressUser', label: 'Por defecto', type: 'boolean' }
 
 
 
