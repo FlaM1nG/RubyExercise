@@ -151,7 +151,7 @@ class IndexController extends Controller
     public function pruebaDatosAdminPanelAction(){
         $usuario = $this->getUser();
         
-        $direccion = $usuario->getDe;
+        $direccion = $usuario->getDefaultAddress();
 
         return $this->render('pages/pruebaAdmin.html.twig', array(
             'usuario' => $usuario,
