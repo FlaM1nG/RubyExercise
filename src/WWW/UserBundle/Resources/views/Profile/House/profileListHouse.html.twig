@@ -1,5 +1,5 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
-{% import 'macros/coche.html.twig' as coches %}
+{% import 'macros/house.html.twig' as casas %}
 {% import 'macros/script.html.twig' as codMenu %}
 
 
@@ -33,7 +33,7 @@
     <div class="row us-dataPersonal-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h3>
-                Casas
+                Mis Casas
             </h3>
             <hr>
 
@@ -42,8 +42,8 @@
             Tal y como está ahora mismo funciona borrar perfectamente y muestra el mensaje flash en su sitio
             #}
             {% for house in arrayHouses %}
-                {{ coches.coche(path('user_profile_showHouse', {idHouse: house.id}), asset(house.photos.0.url|default('web/img/placeholder.jpg'),'img'), house.address.country.country,
-                house.title, house.address.street, 0, house.description,
+                {{ casas.house(path('user_profile_showHouse', {idHouse: house.id}), asset(house.photos.0.url|default('web/img/placeholder.jpg'),'img'),
+                house.licenseNumber, house.title,house.address.region|capitalize ~' - '~house.address.city|capitalize, house.capacity, house.description,
                 path('user_profile_editHouse', {idHouse: house.id} ), 'dataEdit', 'titleEdit',
                 '#', house.id, 'Delete house') }}
             {% endfor %}
