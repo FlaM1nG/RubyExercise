@@ -558,7 +558,7 @@ class CalendarController extends Controller
         }
 
 
-        $eventos = $this->createDateRangeBase( '2017-04-01', '2018-12-31',  $test[0]["precio_base"], $test[0]["ocupado"],$test[0]["bloqueado"],"€" );
+        $eventos = $this->createDateRangeBaseCAL( '2017-04-01', '2018-12-31',  $test[0]["precio_base"], $test[0]["ocupado"],$test[0]["bloqueado"],"€" );
 
         foreach ($eventos as $key => $value) {
             foreach ($eventosEspecificos as $key2 => $value2) {
@@ -595,7 +595,7 @@ class CalendarController extends Controller
         return $response;
     }
 
-    function createDateRangeBaseNO($startDate, $endDate, $price,$ocuppate, $blocked, $title, $format = "Y-m-d")
+    function createDateRangeBaseCAL($startDate, $endDate, $price,$ocuppate, $blocked, $title, $format = "Y-m-d")
     {
         $begin = new \DateTime($startDate);
         $end = new \DateTime($endDate);
