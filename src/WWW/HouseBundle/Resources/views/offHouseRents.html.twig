@@ -103,7 +103,7 @@
 {% block offerPrice %}
     {% if service == 6 or service == 7 %}
 
-        {{ offer.price }} €
+       Desde {{ offer.price }} €
 
         {#
                 <input type="text" id="DatePicker">
@@ -116,10 +116,17 @@
                 <p>Fecha Final: <span id="fechaFinal"></span></p>
                 <p>Precio Total: <span id="precioTotal"></span> €</p>
         #}
-        {{ form_start(formSubscribe) }}
 
 
-        {{ form_end(formSubscribe) }}
+        {{ form_label(formSubscribe.DatePicker) }}
+        {{ form_widget(formSubscribe.DatePicker) }}
+        {{ form_label(formSubscribe.DatePickerto) }}
+        {{ form_widget(formSubscribe.DatePickerto) }}
+        {{ form_widget(formSubscribe.startDate) }}
+        {{ form_widget(formSubscribe.endDate) }}
+
+
+
 
     {% endif %}
 
@@ -132,6 +139,14 @@
     <!-- VALORACIONES -->
     {{ rating.staticRating(offer.offer.userAdmin.avgScore) }}
     <!-- FIN VALORACIONES -->
+    {% if service == 6 or service == 7 %}
+    {{ form_label(formSubscribe.precioTotal) }}
+    {{ form_widget(formSubscribe.precioTotal) }}
+    {{ form_label(formSubscribe.subscribeButton) }}
+    {{ form_widget(formSubscribe.subscribeButton) }}
+
+    {% endif %}
+
 {% endblock %}
 
 
@@ -143,6 +158,7 @@
 {% block offerDescription %}
     <p>
         {{offer.offer.description ~ offer.house.description}}
+
     </p>
 {% endblock %}
 

@@ -23,9 +23,9 @@ class DatepickerType extends AbstractType
     {
         {
             $builder
-                ->add('DatePicker', TextType::class)
+                ->add('DatePicker', TextType::class, array('label' => 'Fecha Llegada'))
 
-                ->add('DatePickerto', TextType::class)
+                ->add('DatePickerto', TextType::class, array('label' => 'Fecha Salida'))
 
                 ->add('startDate', HiddenType::class)
 
