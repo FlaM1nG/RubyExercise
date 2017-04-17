@@ -198,14 +198,14 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
      *
      * @return boolean
      */
-    public function getIsDefaultUser()
+    public function getIsDefaultAddressUser()
     {
 //        if($this->getUser()->getDefaultAddress()->getId() == $this->getId()){
 //            return true;
 //        }
 //
 //        return false;
-        return $this->getUser()->getUsername();
+        return $this->getUser()->getDefaultAddress()->getId();
     }
 
     /**
@@ -323,19 +323,19 @@ class Address implements GroupSequenceProviderInterface, \Serializable {
         return $this->user;
     }
 
-    /**
-     * Get user
-     *
-     * @return integer
-     */
-    public function getUserId()
-    {
-        if($this->user == null) {
-            return 0;
-        }else{
-            return $this->user->getId();
-        }
-    }
+//    /**
+//     * Get user
+//     *
+//     * @return integer
+//     */
+//    public function getUserId()
+//    {
+//        if($this->user == null) {
+//            return 0;
+//        }else{
+//            return $this->user->getId();
+//        }
+//    }
     
     public function toArray(){
         

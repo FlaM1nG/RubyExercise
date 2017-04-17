@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\CarsBundle\Form\PagoType;
+use WWW\UserBundle\Entity\User;
 
 class IndexController extends Controller
 {
@@ -145,5 +146,16 @@ class IndexController extends Controller
 //        $formulario = $this->createForm(PagoType::class);
 
         return $this->render('pay/postPayPageKO.html.twig');
+    }
+
+    public function pruebaDatosAdminPanelAction(){
+        $usuario = $this->getUser();
+        
+        $direccion = $usuario->getDe;
+
+        return $this->render('pages/pruebaAdmin.html.twig', array(
+            'usuario' => $usuario,
+            'direccion' => $direccion
+        ));
     }
 }

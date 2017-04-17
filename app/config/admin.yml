@@ -78,7 +78,7 @@ easy_admin:
                     - { property: 'region', label: 'Población', type: 'text' }
                     - { property: 'country', label: 'Pais', type: 'text' }
                     - { property: 'is_deleted', label: 'Borrado', type: 'boolean' }
-                    - { property: 'IsDefaultUser', label: 'Por defecto' }
+                    - { property: 'getIsDefaultAddressUser', label: 'Por defecto' }
             show:
                 title: 'Usuario'
                 fields:
