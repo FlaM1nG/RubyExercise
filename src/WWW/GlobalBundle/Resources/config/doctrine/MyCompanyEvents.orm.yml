@@ -21,6 +21,9 @@ WWW\GlobalBundle\Entity\MyCompanyEvents:
         ocuppate:
             type: boolean
             nullable: true
+        blocked:
+            type: boolean
+            nullable: true
         url:          
             type: string
             length: 255
