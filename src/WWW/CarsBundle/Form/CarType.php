@@ -44,7 +44,8 @@ class CarType extends AbstractType{
             ->add('description', TextareaType::class, array('label' => 'Descripción',
                                                             'required' => false ))
 
-            ->add('seats', IntegerType::class,array('label'=>'Número de plazas'))
+            ->add('seats', IntegerType::class,array('label'=>'Número de plazas',
+                                                    'attr' => array('min' => 2)))
 
             ->add('model', ChoiceType::class, array('label' => 'Modelo',
                                                     'choices' => $arrayModel,
