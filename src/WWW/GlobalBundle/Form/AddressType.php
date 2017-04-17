@@ -58,7 +58,7 @@ class AddressType extends AbstractType{
                 ->add('city','text', array('label'=>'Ciudad',
                                            'validation_groups' => array('address')))
                 
-                ->add('street','text', array('label'=>'Dirección',
+                ->add('street','text', array('label'=>'Calle',
                                              'validation_groups' => array('address')))
                 
                 ->add('zipCode','text', array('label'=>'CP',
