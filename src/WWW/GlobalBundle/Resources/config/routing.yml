@@ -27,3 +27,4 @@ fullcalendar_calendar:
     defaults: { _controller: GlobalBundle:Calendar:calendar }
     options:
         expose: true
+

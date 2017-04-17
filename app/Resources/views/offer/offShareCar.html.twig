@@ -67,7 +67,7 @@
 {% block offerUser %}
     {{ users.userOffer(
         path('user_public_profile',{username: offer.offer.userAdmin.username} ),
-        asset(offer.offer.userAdmin.photo.url,'img'),
+        offer.offer.userAdmin.photo.url,
         offer.offer.userAdmin.username)
     }}
 

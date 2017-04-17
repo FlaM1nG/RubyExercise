@@ -24,6 +24,8 @@ use WWW\ServiceBundle\Form\OfferSuscribeType;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
 use WWW\UserBundle\Entity\User;
+use WWW\HouseBundle\Form\DatepickerType;
+
 
 
 
@@ -49,9 +51,6 @@ class HouseOffersController extends Controller
 
 
         $form->handleRequest($request);
-
-        $route = $request->get('_route');
-        $request->getSession()->set('_security.user.target_path',$route);
         
         if($form->isSubmitted() AND $form->isValid()):
 
@@ -62,7 +61,6 @@ class HouseOffersController extends Controller
             endif;
 
             if($result == 'ok'):
-                $request->getSession()->remove('_security.user.target_path');
 
                 if($service == 6):
                     return $this->redirectToRoute('serHouseRents');
@@ -251,9 +249,15 @@ class HouseOffersController extends Controller
         $message = new Message();
         $comment = new Comment();
         $arrayAttr = null;
+        $formSubscribe = null;
         $service = $this->getIdService($request);
 
-        $formSubscribe = $this->createForm(OfferSuscribeType::class);
+        if($service == 6 || $service == 7){
+
+            $formSubscribe = $this->createForm(DatepickerType::class);
+
+            $formSubscribe=$formSubscribe->createView();
+        }
 
         $formComment = $this->createForm(CommentType::class, $comment);
         $formComment->handleRequest($request);
@@ -298,7 +302,7 @@ class HouseOffersController extends Controller
                              'arrayAttr' => $arrayAttr,
                              'formMessage' => $formMessage->createView(),
                              'formComment' => $formComment->createView(),
-                             'formSubscribe' => $formSubscribe->createView(),
+                             'formSubscribe' => $formSubscribe,
                              'pagination' => $pagination,
                              'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR,
                              'service' => $service
@@ -407,4 +411,7 @@ class HouseOffersController extends Controller
 
         return $service;
     }
+
+
+    
 }
