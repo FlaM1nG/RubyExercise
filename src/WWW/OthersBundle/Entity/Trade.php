@@ -62,7 +62,7 @@ class Trade
     private $region;
     
     public function __construct($arrayData = null) {
-  
+
         if(!empty($arrayData)):
             foreach($arrayData as $key => $value):
                 $key = Inflector::camelize($key);
@@ -75,9 +75,11 @@ class Trade
 
             $this->offer = new Offer($arrayData);
 
-            if(key_exists('category_id', $arrayData) && key_exists('category', $arrayData)):
+            if(key_exists('category_id', $arrayData)):
                 $this->category = new TradeCategory(null,$arrayData['category_id']);
-                $this->category->setName($arrayData['category']);
+                if( key_exists('category', $arrayData)):
+                    $this->category->setName($arrayData['category']);
+                endif;
             endif;
         else:
             $this->category = new TradeCategory();
