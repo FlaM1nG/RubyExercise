@@ -22,6 +22,13 @@ class CorreosController extends Controller {
     private $offer;
     private $buyer;
     private $addressBuyer;
+    private $em;
+
+
+    public function __construct(\Doctrine\ORM\EntityManager $entityManager)
+{
+        $this->em = $entityManager;
+}
 
     public function checkCode($idOffer) {
         
@@ -30,8 +37,9 @@ class CorreosController extends Controller {
         
     }
     
-    public function getTrackingNumberAction($idOffer, Request $request, $idDir) {
+    public function getTrackingNumberAction($idOffer, Request $request, $idDir, $sendOffice) {
         //Inicio las variables propias
+        $this->searchAddressBuyer($idDir);
         $this->offer = new Trade();
         $this->buyer = new User();
         
@@ -39,16 +47,7 @@ class CorreosController extends Controller {
         $this->buyer = $this->getUserProfile($request);
         $this->getOffer($idOffer, $request);
          
-        if ($this->buyer->getDefaultAddress()->getId() == $idDir) {
-            $this->addressBuyer = $this->buyer->getDefaultAddress();
-        } else {
-
-            foreach ($this->buyer->getAddresses()[0] as $address):
-                if ($address->getId() == $idDir) {
-                    $this->addressBuyer = new Address($address);
-                }
-            endforeach;
-        }
+        
         //claves 
         $api_key = 'e0955a76-61fc-4267-ae31-599f047aca58';
         $region = 'sandbox';
@@ -95,26 +94,40 @@ class CorreosController extends Controller {
             'contact_name' => $this->offer->getOffer()->getUserAdmin()->getName(),
             'email' => $this->offer->getOffer()->getUserAdmin()->getEmail(),
             'phone' => $this->offer->getOffer()->getUserAdmin()->getPhone(),
-            'street1' => $this->offer->getOffer()->getUserAdmin()->getDefaultAddress()->getStreet(),
-            'city' => $this->offer->getOffer()->getUserAdmin()->getDefaultAddress()->getCity(),
-            'postal_code' => $this->offer->getOffer()->getUserAdmin()->getDefaultAddress()->getZipCode(),
-            'state' => $this->offer->getOffer()->getUserAdmin()->getDefaultAddress()->getRegion(),            
+            'street1' => ' ',
+            'city' => ' ',
+            'postal_code' => ' ',
+            'state' => $this->offer->getRegion(),            
             'country' => 'ESP',
             'type' => 'residential'
         );
-
-        $receiver = array(
-            'contact_name' => $this->buyer->getName(),
-            'phone' => $this->buyer->getPhone(),
-            'email' => $this->buyer->getEmail(),
-            'street1' => $this->addressBuyer->getStreet(),
-            'postal_code' => $this->addressBuyer->getZipCode(),
-            'city' => $this->addressBuyer->getCity(),
-            'state' => $this->addressBuyer->getRegion(),            
-            'country' => 'ESP',    
-            'type' => 'residential'
-        );
-
+        
+        if($sendOffice=0){
+            $receiver = array(
+                'contact_name' => $this->buyer->getName(),
+                'phone' => $this->buyer->getPhone(),
+                'email' => $this->buyer->getEmail(),
+                'street1' => $this->addressBuyer->getStreet(),
+                'postal_code' => $this->addressBuyer->getZipCode(),
+                'city' => $this->addressBuyer->getCity(),
+                'state' => $this->addressBuyer->getRegion(),            
+                'country' => 'ESP',    
+                'type' => 'residential'
+            );
+        }
+        else {
+            $receiver = array(
+                'contact_name' => 'WhatWantWeb',
+                'phone' => '**************',
+                'email' => 'info@whatwantweb.com',
+                'street1' => 'Avd Fernado de los Ríos 11 bq. 1, of. 3',
+                'postal_code' => '18100',
+                'city' => 'Armilla',
+                'state' => 'Granada',            
+                'country' => 'ESP',    
+                'type' => 'business'
+            );
+        }
         $payload = array(
             'async' => false,
             'billing' => array(
@@ -197,6 +210,22 @@ class CorreosController extends Controller {
         endif;
 
         return $user;
+    }
+    private function searchAddressBuyer($idAddress){
+        
+        //Metodo para busar un usario por id usando Doctrine
+        $address= $this->em->getRepository('GlobalBundle:Address')->find($idAddress);
+        
+        if (!$address) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$address
+            );
+        
+        }
+        $this->addressBuyer = $address;
+        
+//        \Doctrine\Common\Util\Debug::dump($this->addressBuyer);
+//        die;
     }
 
 }

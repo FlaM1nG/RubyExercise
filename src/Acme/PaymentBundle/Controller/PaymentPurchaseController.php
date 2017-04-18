@@ -85,17 +85,20 @@ class PaymentPurchaseController extends Controller {
             $arrayPay['gastos_gestion'] = $administrationFees;
             $arrayPay['gastos_pago'] = $request->get('previoPago')['managementPayFee'];
             $arrayPay['gastos_totales'] = $request->get('previoPago')['totalAmount'];
+            $arrayPay['metodo_pago'] = $request->get('previoPago')['payMethod'];
             if ($this->serviceId == 1 || $this->serviceId == 2) {
                 $arrayPay['direccion'] = $request->get('previoPago')['addressPay'];
                 $arrayPay['metodo_envio'] = $request->get('previoPago')['sendMethod'];
                 $arrayPay['gastos_envio'] = $request->get('previoPago')['shippingCost'];
+                //$arrayPay['send_office'] = $request->get('previoPago')['send_office'];
+                //$arrayPay['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
             }
 
             $payment = new Payment;
             //numero de referencia por la hora y fecha
             $payment->setNumber(date('His') . 'W' . $request->get('idOffer'));
             $payment->setClientId(uniqid());
-            $payment->setDescription(sprintf('An order %s for a client %s', $request->get('previoPago')['totalAmount'], $user->getUsername()));
+            $payment->setDescription(sprintf('Pago total de %s del cliente %s', $request->get('previoPago')['totalAmount'], $user->getUsername()));
             $payment->setTotalAmount($request->get('previoPago')['totalAmount'] * 100);
             $payment->setCurrencyCode('EUR');
             $payment->setClientEmail($user->getUsername());
@@ -119,10 +122,13 @@ class PaymentPurchaseController extends Controller {
                 $details['gastos_gestion'] = $administrationFees;
                 $details['gastos_pago'] = $request->get('previoPago')['managementPayFee'];
                 $details['gastos_totales'] = $request->get('previoPago')['totalAmount'];
+                $details['metodo_pago'] = $request->get('previoPago')['payMethod'];
                 if ($this->serviceId == 1 || $this->serviceId == 2) {
                     $details['direccion'] = $request->get('previoPago')['addressPay'];
                     $details['metodo_envio'] = $request->get('previoPago')['sendMethod'];
                     $details['gastos_envio'] = $request->get('previoPago')['shippingCost'];
+                   // $details['send_office'] = $request->get('previoPago')['send_office'];
+                    //$arrayPay['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
                 }
 
                 $storage->update($details);

@@ -26,77 +26,101 @@ class MobileController extends Controller {
     //EDITARRRRRRRRRRRRR
     public function prepareAction(Request $request) {
 
-        $amount = $request->request->get("price");
+        $totalAmount = $request->request->get("total_price");
         $username = $request->request->get("username");
-        $pago = $request->request->get("pago");
+        $pago = $request->request->get("method");
         $idOffer = $request->request->get("id_offer");
+        
+        $gastosPago = $request->request->get("payment_fee");
         $this->getOffer($idOffer);
+        $gastosGestion = $this->offerPrice->getPrice() * (MyConstants::ADMINISTRATION_FEES / 100);
         
         if( $amount >= $this->offerPrice->getPrice()){
-			$payment = new Payment();
-			//numero de referencia por la hora y fecha
-			$payment->setNumber(date('ymdHis') . '-' . $idOffer);
-			$payment->setClientId(uniqid());
-			$payment->setDescription(sprintf('An order %s for a client %s', $amount*100, $email));
-			$payment->setTotalAmount($amount*100);
-			$payment->setCurrencyCode('EUR');
-			
-			//Comprobamos si el pago que nos llega es por Tarjeta o Paypal
-			if ($pago == 'paypal') {
-				
-				$storage = $this->getPayum()->getStorage($payment);
-				$storage->update($payment);
+            
+            //Guardamos los datos en la base de datos
+            $arrayPay['gastos_gestion'] = $gastosGestion;
+            $arrayPay['gastos_pago'] = $gastosPago;
+            $arrayPay['gastos_totales'] = $totalAmount;
+            if ($this->offer->getService()->getId()== 1 || $this->offer->getService()->getId()== 2) {
+                $arrayPay['direccion'] = $request->request->get("address_pay");;
+                $arrayPay['metodo_envio'] = $request->request->get("send_method");;
+                $arrayPay['gastos_envio'] = $request->request->get("shipping_cost");
+                $arrayPay['send_office'] = $request->get('previoPago')['send_office'];
+            }
+            
+            
+            $payment = new Payment();
+            //numero de referencia por la hora y fecha
+            $payment->setNumber(date(date('His') . 'W' . $idOffer));
+            $payment->setClientId(uniqid());
+            $payment->setDescription(sprintf('Pago total de %s del cliente %s', $totalAmount*100, $username));
+            $payment->setTotalAmount($totalAmount * 100);
+            $payment->setCurrencyCode('EUR');
+            $payment->setClientEmail($username);
+            $payment->setDetails($arrayPay);
+            //Comprobamos si el pago que nos llega es por Tarjeta o Paypal
+            if ($pago == 'paypal') {
 
-				$captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
-						'paypal_express_checkout_with_ipn_enabled',
-						$payment,
-						'acme_payment_mobile_done'
-				);
-				
-				
-				return new Response($captureToken->getTargetUrl());
-											
-			} else {
-			   
-				$storage = $this->getPayum()->getStorage('Acme\PaymentBundle\Entity\PaymentDetails');
+                $storage = $this->getPayum()->getStorage($payment);
+                $storage->update($payment);
 
-				$details = $storage->create();
-				$details['Ds_Merchant_Amount'] = $amount*100;
-				$details['Ds_Merchant_Currency'] = '978';
-				$details['Ds_Merchant_Order'] = date('ymdHis');
-				$details['Ds_Merchant_TransactionType'] = Api::TRANSACTIONTYPE_AUTHORIZATION;
-				$details['Ds_Merchant_ConsumerLanguage'] = Api::CONSUMERLANGUAGE_SPANISH;
-				$storage->update($details);
+                $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                                'paypal_express_checkout_with_ipn_enabled',
+                                $payment,
+                                'acme_payment_mobile_done'
+                );
+                return new Response($captureToken->getTargetUrl());
 
-				//Las notificaciones de compra se guardan en la tabla payum_payments_details
-				//de ahi se tienen que sacar el DS_Response y manejar la respuesta
+            } else {
 
-				$notifyToken = $this->getPayum()->getTokenFactory()->createNotifyToken(
-						'redsys', $details
-				);
+                $storage = $this->getPayum()->getStorage('Acme\PaymentBundle\Entity\PaymentDetails');
+                $details = $storage->create();
+                $details['Ds_Merchant_Amount'] = $totalAmount * 100;
+                $details['Ds_Merchant_Currency'] = '978';
+                $details['Ds_Merchant_Order'] = date('His') . 'W' . $idOffer;
+                $details['Ds_Merchant_TransactionType'] = Api::TRANSACTIONTYPE_AUTHORIZATION;
+                $details['Ds_Merchant_ConsumerLanguage'] = Api::CONSUMERLANGUAGE_SPANISH;
+                $details['gastos_gestion'] = $gastosGestion;
+                $details['gastos_pago'] = $gastosPago;
+                $details['gastos_totales'] = $totalAmount;
+                if ($this->offer->getService()->getId()== 1 || $this->offer->getService()->getId()== 2) {
+                    $details['direccion'] = $request->request->get("address_pay");;
+                    $details['metodo_envio'] = $request->request->get("send_method");;
+                    $details['gastos_envio'] = $request->request->get("shipping_cost");
+                    $details['send_office'] = $request->get('previoPago')['send_office'];
+                }
+                
+                $storage->update($details);
 
-				$details['Ds_Merchant_MerchantURL'] = $notifyToken->getTargetUrl();
-				$storagePay = $this->getPayum()->getStorage($payment);
-				$payment->setDetails($details);
-				$storagePay->update($payment);
-				$captureTokenOK = $this->getPayum()->getTokenFactory()->createCaptureToken(
-							'redsys', $payment, 'prueba_postpago_ok'
-					);
-				$captureTokenKO = $this->getPayum()->getTokenFactory()->createCaptureToken(
-							'redsys', $payment, 'prueba_postpago_ko'
-					);
+                //Las notificaciones de compra se guardan en la tabla payum_payments_details
+                //de ahi se tienen que sacar el DS_Response y manejar la respuesta
 
-					$details['Ds_Merchant_UrlOK'] = $captureTokenOK->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
-					$details['Ds_Merchant_UrlKO'] = $captureTokenKO->getAfterUrl() ;
+                $notifyToken = $this->getPayum()->getTokenFactory()->createNotifyToken(
+                                'redsys', $details
+                );
 
-				$payment->setDetails($details);
-				$storagePay = $this->getPayum()->getStorage($payment);
-				$payment->setDetails($details);
-				$storagePay->update($payment);
+                $details['Ds_Merchant_MerchantURL'] = $notifyToken->getTargetUrl();
+                $storagePay = $this->getPayum()->getStorage($payment);
+                $payment->setDetails($details);
+                $storagePay->update($payment);
+                $captureTokenOK = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                                        'redsys', $payment, 'prueba_postpago_ok'
+                        );
+                $captureTokenKO = $this->getPayum()->getTokenFactory()->createCaptureToken(
+                                        'redsys', $payment, 'prueba_postpago_ko'
+                        );
 
-				return new Response($captureTokenOK->getTargetUrl());
-				//return new Response($captureToken->getTargetUrl()  );
-		}
+                $details['Ds_Merchant_UrlOK'] = $captureTokenOK->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
+                $details['Ds_Merchant_UrlKO'] = $captureTokenKO->getAfterUrl() ;
+
+                $payment->setDetails($details);
+                $storagePay = $this->getPayum()->getStorage($payment);
+                $payment->setDetails($details);
+                $storagePay->update($payment);
+
+                return new Response($captureTokenOK->getTargetUrl());
+                //return new Response($captureToken->getTargetUrl()  );
+            }
         }else{
            echo "Tu que vienes... aqui a hacer trampas???";
         }

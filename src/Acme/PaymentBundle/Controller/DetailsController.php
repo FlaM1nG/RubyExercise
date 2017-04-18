@@ -13,7 +13,7 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 use Acme\PaymentBundle\Controller\CorreosController;
 
-class DetailsController extends PayumController
+class DetailsController extends PayumController 
 {
     public function viewAction(Request $request)
     {
@@ -57,6 +57,8 @@ class DetailsController extends PayumController
 
         
         $details = $status->getFirstModel();
+        print_r($status->getToken());
+        die;
         $IDPayment= $details->getNumber();
         list($ref,$idOffer)=explode("W",$IDPayment);
         if(isset($details->getDetails()['CANCELLED'])){
@@ -67,13 +69,18 @@ class DetailsController extends PayumController
         }
         else {
             
-            $this->updateStatus($idOffer, $request);
+            $this->updateStatus($idOffer,$details,$IDPayment, $request);
             if(isset($details->getDetails()['metodo_envio'])){
                 if($details->getDetails()['metodo_envio']== 'correos'){
-                    $codigo =new CorreosController();
-
-                    //hacer que se llame a esta funcion una vez solo           
-                    $codigo->getTrackingNumberAction($idOffer, $request, $details->getDetails()['direccion']);
+                    $codigo =new CorreosController($this->getDoctrine()->getManager());
+                    $idDir= $details->getDetails()['direccion'];
+                    //hacer que se llame a esta funcion una vez solo
+                    if(isset($details->getDetails()['send_office'])){
+                        $sendOffice= 1;
+                    }
+                    $sendOffice = 0;
+                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice);
+                    print_r($codigo);
                 }
             }
             return $this->render('pay/postPayPageOK.html.twig',array(
@@ -83,22 +90,33 @@ class DetailsController extends PayumController
         }
         
     }
+        
     
     private function getStatusPayment(){
         
     }
     
-    private function updateStatus($idOffer,Request $request){
+    private function updateStatus($idOffer,$details,$idPayment,Request $request){
         
         $ch = new ApiRest();
-        $file = MyConstants::PATH_APIREST . 'services/inscription/transition.php';
+        $file = MyConstants::PATH_APIREST . 'services/payment/pay.php';
 
         $data['id'] = $this->getUser()->getId();
         $data['username'] = $this->getUser()->getUsername();
         $data['password'] = $request->getSession()->get('password');
-        $data['user_id'] = $this->getUser()->getId();
         $data['offer_id'] = $idOffer;
-        $data['status'] = '3';
+        $extra['concept']= $details->getDescription();
+        $extra['reference'] = $idPayment;
+        $extra['price'] = $details->getDetails()['gastos_totales'];
+        if(isset($details->getDetails()['metodo_envio'])){
+            $extra['mail']['name']= $details->getDetails()['metodo_envio'];
+            $extra['mail']['description']= 'paqueteria';
+            $extra['mail']['price']= $details->getDetails()['gastos_envio'];
+        }
+        $extra['pay']['name']= $details->getDetails()['metodo_pago'];
+        $extra['pay']['description']= 'metodo de pago';
+        $extra['pay']['price']= $details->getDetails()['gastos_pago'];
+        $data['data']= json_encode($extra);
 
         $result = $ch->resultApiRed($data, $file);
 

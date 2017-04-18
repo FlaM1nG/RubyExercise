@@ -76,17 +76,27 @@ class DetailsMobileController extends PayumController
 //            'cancelToken' => $cancelToken,
 //        ));
     }
-    private function updateStatus($idOffer,Request $request){
+    private function updateStatus($idOffer,$details,$idPayment,Request $request){
         
         $ch = new ApiRest();
-        $file = MyConstants::PATH_APIREST . 'services/inscription/transition.php';
+        $file = MyConstants::PATH_APIREST . 'services/payment/pay.php';
 
         $data['id'] = $this->getUser()->getId();
         $data['username'] = $this->getUser()->getUsername();
         $data['password'] = $request->getSession()->get('password');
-        $data['user_id'] = $this->getUser()->getId();
         $data['offer_id'] = $idOffer;
-        $data['status'] = '3';
+        $extra['concept']= $details->getDescription();
+        $extra['reference'] = $idPayment;
+        $extra['price'] = $details->getDetails()['gastos_totales'];
+        if(isset($details->getDetails()['metodo_envio'])){
+            $extra['mail']['name']= $details->getDetails()['metodo_envio'];
+            $extra['mail']['description']= 'paqueteria';
+            $extra['mail']['price']= $details->getDetails()['gastos_envio'];
+        }
+        $extra['pay']['name']= $details->getDetails()['metodo_pago'];
+        $extra['pay']['description']= 'metodo de pago';
+        $extra['pay']['price']= $details->getDetails()['gastos_pago'];
+        $data['data']= json_encode($extra);
 
         $result = $ch->resultApiRed($data, $file);
 
