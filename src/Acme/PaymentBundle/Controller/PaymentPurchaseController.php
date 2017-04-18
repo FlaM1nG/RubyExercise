@@ -54,9 +54,9 @@ class PaymentPurchaseController extends Controller {
 
         $this->setUpVars($request);
 
-        $administrationFees = $this->offer->getPrice() * (MyConstants::ADMINISTRATION_FEES / 100);
+        $administrationFeesPercent = MyConstants::ADMINISTRATION_FEES/100;
 
-        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice()+$administrationFees,
+        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice(),
                                                                 'arrayAddresses' => $arrayAddressesForm));
         $form->handleRequest($request);
 
@@ -179,8 +179,8 @@ class PaymentPurchaseController extends Controller {
                     'service' => $this->serviceId,
                     'arrayCourier' => $arrayCourier,
                     'arrayAddresses' => $arrayAddressesPay,
-                    'administrationFees' => $administrationFees,
-                    'paypalFee' => MyConstants::PAYPAL_FEE / 100
+                    'administrationFees' => $administrationFeesPercent,
+                    'paypalFee' => MyConstants::PAYPAL_FEE/100
         ));
     }
 

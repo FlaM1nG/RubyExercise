@@ -11,38 +11,47 @@ $(document).ready(function() {
         data: {'idOffer' : idoferta},
         type: 'post',
         success: function(data) {
-
             cellContents = data;
+        }
+    });
 
-
-}
-});
-
-    $('#DatePicker').datepicker({
+ 
+    $('#datepicker_DatePicker').datepicker({
         changeMonth: true,
         changeYear: true,
         minDate: 0,
         dateFormat: 'dd-mm-yy',
+        maxDate: "+2Y",
         //The calendar is recreated OnSelect for inline calendar
-        onSelect: function (date, dp) {
+        onSelect: function (selectedDate,date, dp) {
+            
             updateDatePickerCells();
 
-            var initDate = $('#DatePicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
-            var endDate = $('#endDate').val();
+            $("#datepicker_DatePickerto").datepicker("option", "minDate", selectedDate);
+
+            var initDate = $('#datepicker_DatePicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+            var endDate = $('#datepicker_endDate').val();
 
             // We store the initial date in a hidden input
-            $('#startDate').val(initDate);
+            $('#datepicker_startDate').val(initDate);
 
             // To show the initial date on the view
-            $('#fechaInicial').text(initDate);
+            $('#datepicker_fechaInicial').text(initDate);
 
             $.ajax({
                 url: Routing.generate('fullcalendar_dateprice'),
                 data: {'initDate' : initDate, 'endDate' : endDate,'idOffer' : idoferta},
                 type: 'post',
                 success: function(data) {
-                    totalPrice = data;
-                    $('#precioTotal').text(totalPrice);
+                    if(data.response == "OK"){
+                        totalPrice = data;
+                        $('#datepicker_precioTotal').text(data.totalPrice);
+                        $('#datepicker_subscribeButton').attr("disabled",false);
+                    }else{
+                        $('#datepicker_precioTotal').text("Fecha no disponible");
+                        $('#datepicker_subscribeButton').attr("disabled",true);
+
+                    }
                 }
             }); 
 
@@ -55,33 +64,41 @@ $(document).ready(function() {
         }
     });
 
-    $('#DatePickerto').datepicker({
+    $('#datepicker_DatePickerto').datepicker({
         changeMonth: true,
         changeYear: true,
         minDate: 0,
         dateFormat: 'dd-mm-yy',
+        maxDate: "+2Y",
         //The calendar is recreated OnSelect for inline calendar
-        onSelect: function (date, dp) {
+        onSelect: function (selectedDate,date, dp) {
             updateDatePickerCells();
 
-            var endDate = $('#DatePickerto').datepicker({ dateFormat: 'dd-mm-yy' }).val();
-            var initDate = $('#startDate').val();
+            $("#datepicker_DatePicker").datepicker("option", "maxDate", selectedDate);
+
+            var endDate = $('#datepicker_DatePickerto').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+            var initDate = $('#datepicker_startDate').val();
 
             // We store the initial date in a hidden input
-            $('#endDate').val(endDate);
+            $('#datepicker_endDate').val(endDate);
 
             // To show the end date on the view
-            $('#fechaFinal').text(endDate);
-
+            $('#datepicker_fechaFinal').text(endDate);
 
             $.ajax({
                 url: Routing.generate('fullcalendar_dateprice'),
                 data: {'initDate' : initDate, 'endDate' : endDate,'idOffer' : idoferta},
                 type: 'post',
                 success: function(data) {
+                  //  console.log(data);
+                    if(data.response == "OK"){
                     totalPrice = data;
-                    $('#precioTotal').text(totalPrice);
-
+                    $('#datepicker_precioTotal').text(data.totalPrice);
+                        $('#datepicker_subscribeButton').attr("disabled",false);
+                    }else{
+                        $('#datepicker_precioTotal').text("Fecha no disponible");
+                        $('#datepicker_subscribeButton').attr("disabled",true);
+                    }
                 }
             });
         },
@@ -121,10 +138,6 @@ $(document).ready(function() {
         /* Wait until current callstack is finished so the datepicker
          is fully rendered before attempting to modify contents */
         setTimeout(function () {
-            //Fill this with the data you want to insert (I use and AJAX request).  Key is day of month
-            //NOTE* watch out for CSS special characters in the value
-            //var cellContents = {1: '20', 2: '13', 15: '60', 20: '50€', 28: '99.99€', 1: '30€', 1: '40€', 2: '25€', 2: '10€'};
-
             // We set on each '<a>' tag the month number
             $('.ui-datepicker a').each(function () {
                 monthNumber = $(this).parent().data('month');
@@ -132,45 +145,56 @@ $(document).ready(function() {
                 $(this).attr("data-current-month", monthNumber);
             });
 
+            // We have to do a foreach per each year
+            $.each(cellContents, function (indexYear, yearCell) {
+
             // We have to do a foreach per each month
-            $.each(cellContents, function (index, valueCell) {
+                $.each(yearCell, function (index, valueCell) {
 
                 //Select disabled days (span) for proper indexing but // apply the rule only to enabled days(a)
                 $('.ui-datepicker td > *').each(function (idx, elem) {
 
                     var value = valueCell['precio'][idx + 1] || 0;
                     var value2 = valueCell['ocuppate'][idx + 1] || 0;
+                    var value3 = valueCell['blocked'][idx + 1] || 0;
 
-                    // If the month data is the same one that is shown on the view we include the price
-                    if (index-1 == $('.ui-datepicker td a').data('current-month')) {
+                    // If the year data is the same one that is shown on the view
+                    if (indexYear == $('.ui-datepicker td a').parent().data('year')) {
 
-                        // dynamically create a css rule to add the contents //with the :after
-                        // selector so we don't break the datepicker //functionality
-                        var className = 'datepicker-content-' + value.toString(); // + CryptoJS.MD5(value).toString();
+                        // If the month data is the same one that is shown on the view we include the price
+                        if (index - 1 == $('.ui-datepicker td a').data('current-month')) {
 
-                        if(value == 0) {
-                            addCSSRule('.ui-datepicker td a.' + className + ':after {content: "\\a0";}'); //&nbsp;
-                        } else {
-                            addCSSRule('.ui-datepicker td a.' + className + ':after {content: "' + value + '";}');
+                            // dynamically create a css rule to add the contents //with the :after
+                            // selector so we don't break the datepicker //functionality
+                            var className = 'datepicker-content-' + value.toString(); // + CryptoJS.MD5(value).toString();
 
-                            if (value2 == 1) {
-                                // To deactivate the ocuppated days
-                                $(elem).parent().addClass('ui-state-disabled ui-datepicker-unselectable');
-
-                                // To set the color on the price
-                                addCSSRule('.ui-datepicker td a.' + className + ':after {color: red;}');
+                            if (value == 0) {
+                                addCSSRule('.ui-datepicker td a.' + className + ':after {content: "\\a0";}'); //&nbsp;
                             } else {
-                                addCSSRule('.ui-datepicker td a.' + className + ':after {color: green;}');
+
+
+                                if (value2 == 1 || value3 == 1 ) {
+                                    // To deactivate the ocuppated days and blocked days
+                                    $(elem).parent().addClass('ui-state-disabled ui-datepicker-unselectable');
+
+                                    // To set the color on the price
+                                    //  addCSSRule('.ui-datepicker td a.' + className + ':after {color: red;}');
+                                } else {
+                                    addCSSRule('.ui-datepicker td a.' + className + ':after {content: "' + value + '"; color: green;}');
+                                }
                             }
+
+                            $(this).addClass(className);
                         }
 
-                        $(this).addClass(className);
                     }
                 });
 
+              });
+
             });
 
-            // To deactivate dates without price
+                // To deactivate dates without price
             $('.ui-datepicker .datepicker-content-0').each(function (idx, elem) {
                 $(elem).parent().addClass('ui-state-disabled ui-datepicker-unselectable');
             });
@@ -186,3 +210,24 @@ $(document).ready(function() {
     }
 
 });
+
+/*
+
+ if(value == 0) {
+ addCSSRule('.ui-datepicker td a.' + className + ':after {content: "\\a0";}'); //&nbsp;
+ } else {
+ addCSSRule('.ui-datepicker td a.' + className + ':after {content: "' + value + '";}');
+
+ if (value2 == 1) {
+ // To deactivate the ocuppated days
+ $(elem).parent().addClass('ui-state-disabled ui-datepicker-unselectable');
+
+ // To set the color on the price
+ addCSSRule('.ui-datepicker td a.' + className + ':after {color: red;}');
+ } else {
+ addCSSRule('.ui-datepicker td a.' + className + ':after {color: green;}');
+ }
+ }
+
+ */
+

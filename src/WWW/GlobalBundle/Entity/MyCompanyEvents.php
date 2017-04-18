@@ -49,8 +49,15 @@ class MyCompanyEvents implements  \Serializable {
      * @ORM\Column(type="boolean")
      */
     protected $ocuppate = false;
-     
-     
+
+
+
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    protected $blocked = false;
+    
     /**
      * @var string URL Relative to current path.
      * 
@@ -130,7 +137,7 @@ class MyCompanyEvents implements  \Serializable {
     
 //    protected $otherFields = array();
     
-      public function __construct($id,$title, $price,$calendarID, $serviceID,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = false, $allDay = false)
+      public function __construct($id,$title, $price,$calendarID, $serviceID,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = false, $blocked = false, $allDay = false)
     {
 
         $this->id = $id;
@@ -142,6 +149,7 @@ class MyCompanyEvents implements  \Serializable {
          $this->fgColor = $fgColor;
         $this->startDatetime = $startDatetime;
         $this->setOcuppate($ocuppate);
+        $this->setBlocked($blocked);
         $this->setAllDay($allDay);
         
         if ($endDatetime === null && $this->allDay === false) {
@@ -171,6 +179,8 @@ class MyCompanyEvents implements  \Serializable {
         $event['price'] = $this->price;
         
         $event['ocuppate'] = $this->ocuppate;
+
+        $event['blocked'] = $this->blocked;
         
         $event['start'] = $this->startDatetime->format("Y-m-d\TH:i:sP");
         
@@ -267,6 +277,16 @@ class MyCompanyEvents implements  \Serializable {
     public function getOcuppate()
     {
         return $this->ocuppate;
+    }
+
+    public function setBlocked($blocked)
+    {
+        $this->blocked = (boolean) $blocked;
+    }
+
+    public function getBlocked()
+    {
+        return $this->blocked;
     }
     
     public function setUrl($url)
@@ -488,6 +508,7 @@ class MyCompanyEvents implements  \Serializable {
             $this->fgColor,
             $this->allDay,
             $this->serviceID,
+            $this->blocked,
         ));
     }
 
@@ -504,6 +525,7 @@ class MyCompanyEvents implements  \Serializable {
             $this->fgColor,
             $this->allDay,
             $this->serviceID,
+            $this->blocked,
             ) = unserialize($serialized);
     }
 }

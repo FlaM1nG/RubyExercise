@@ -37,12 +37,6 @@ class ShareCarController extends Controller {
 
         $arrayCars = $this->getCarsUser($request);
 
-        if(empty($arrayCars)):
-            $route = $request->get('_route');
-
-            $request->getSession()->set('_security.user.target_path',$route);
-        endif;
-
         if(strpos($request->getPathInfo(),'share-car') !== false):
             $service = 4;
             $shareCar->getOffer()->getService()->setId($service);
@@ -70,10 +64,7 @@ class ShareCarController extends Controller {
             endif;
         endif;
         
-        return $this->render($fileRender,
-                       array('form' => $form->createView()
-                       )
-        );
+        return $this->render($fileRender, array('form' => $form->createView()));
     }
 
     private function getCarsUser(Request $request){
