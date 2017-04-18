@@ -144,7 +144,7 @@ class PaymentPurchaseController extends Controller {
                 return $this->redirect($captureToken->getTargetUrl());
             }
         }
-
+//print_r($this->offer);
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
                     'offer' => $this->offer,
@@ -152,6 +152,7 @@ class PaymentPurchaseController extends Controller {
                     'arrayCourier' => $arrayCourier,
                     'arrayAddresses' => $arrayAddressesPay,
                     'administrationFees' => $administrationFeesPercent,
+                    'sendOfficePercent' => MyConstants::SEND_OFFICE/100,
                     'paypalFee' => MyConstants::PAYPAL_FEE/100
         ));
     }
@@ -242,15 +243,18 @@ class PaymentPurchaseController extends Controller {
         if (strstr($path, 'trade') !== false):
             $this->service = 'trade';
             $this->getOffer($request);
+        
         elseif (strstr($path, 'share-car') !== false):
             $this->service = 'share-car';
             $this->serviceId = 4;
 //            $this->getOfferShareCar($request);
             $this->getOfferInfo($request);
+        
         elseif (strstr($path, 'courier-car') !== false):
             $this->service = 'courier-car';
             $this->serviceId = 5;
             $this->getOfferInfo($request);
+        
         else:
             $this->service = 2;
         endif;
@@ -269,7 +273,7 @@ class PaymentPurchaseController extends Controller {
 
         if ($result['result'] == 'ok'):
             $this->offer = new Trade($result);
-
+//print_r($result);exit;
         else:
             $this->ut->flashMessage("general", $request);
         endif;
@@ -366,8 +370,8 @@ class PaymentPurchaseController extends Controller {
         if(!empty($user->getAddresses()[0])):
             
             foreach($user->getAddresses()[0] as $data ):
-                $arrayAddressesPay[$data->getId()] = $data->getRegion();
                 array_push($arrayAddressesForm,$data);
+                $arrayAddressesPay[$data->getId()] = strtolower($data->getRegion());
             endforeach;
 
             $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
