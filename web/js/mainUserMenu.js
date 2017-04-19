@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){ console.log("entro");
+jQuery(document).ready(function(){ 
 	//cache DOM elements
 	var mainContent = $('.cd-main-content'),
 		header = $('.cd-main-header'),
