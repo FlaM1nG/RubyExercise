@@ -41,7 +41,7 @@ class AddressType extends AbstractType{
                                                     'required' => false
                                                     ))
                 
-                ->add('country', ChoiceType::class, array('label' => 'Población',
+                ->add('country', ChoiceType::class, array('label' => 'Provincia',
                                                         'required' => false,
                                                         'empty_value' => false,
                                                         'choices' =>$arrayRegion,
@@ -69,11 +69,13 @@ class AddressType extends AbstractType{
                                                         'required' => false,
                                                         'empty_value' => false,
                                                         'choices' => $this->arrayPrefix,
-                                                        'preferred_choices' => array('+34')
+                                                        'preferred_choices' => array('+34'),
+                                                        'attr' => array('class'=>'prefixPhone')
                                                         ))
                 
                 ->add('phone','number',array('label'=>' ',
-                                             'required' => false))
+                                             'required' => false,
+                                             'attr' => array('class'=>'phoneNumber')))
                      
                 ->add('id','hidden', array('label' => ' '))
                 ->add('editAddress','submit',array('label' => 'Guardar',
