@@ -59,7 +59,6 @@ class OfferController extends Controller{
                        array('listOffers' => $offers,
                              'pagination' => $pagination));
     }
-
     
     private function listMyOffers(Request $request, $service = null){
 

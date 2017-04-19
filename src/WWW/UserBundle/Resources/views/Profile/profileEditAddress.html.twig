@@ -25,9 +25,34 @@
 
 
 {% block bodyProfile %}
-    
-    {{form(form)}}
 
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <h3>Editar dirección</h3>
+            <hr>
+
+            {{ form_start(form)}}
+            {{ form_row(form.name) }}
+            {{ form_row(form.isDefault) }}
+            {{ form_row(form.country) }}
+            {{ form_row(form.city) }}
+            {{ form_row(form.street) }}
+            {{ form_row(form.zipCode) }}
+            {#<div class="form-group">#}
+                {{ form_label(form.prefix) }}
+                <div class="user-register-phone">
+                    {{ form_widget(form.prefix) }}
+                    {{ form_widget(form.phone) }}
+                </div>
+            {#</div>#}
+            {{ form_row(form._token) }}
+            {#<div class="row">#}
+                {{ form_row(form.editAddress) }}
+            {#</div>#}
+
+        </div>
+    </div>
     
 {% endblock %}
 
