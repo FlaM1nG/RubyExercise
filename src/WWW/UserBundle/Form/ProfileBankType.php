@@ -23,7 +23,8 @@ class ProfileBankType extends AbstractType{
 
         $builder
                 ->add('numAccount',TextType::class, array('label' => 'Número de cuenta',
-                                                          'required' => false))
+                                                          'required' => false,
+                                                          'attr' => array('placeholder'=>'ESxxBBBBOOOODDCCCCCCCCCC')))
                 ->add('saveBank','submit',array('label' => 'Guardar',
                                                 'validation_groups' => array('bank')));
                                                              
