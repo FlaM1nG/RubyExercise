@@ -34,14 +34,14 @@
             <hr/>
 
             {# Array de imagenes para la galeria #}
-
-            {% set imgGran = [car.photos.0.url] %}
+            {#{% set imgGran = [car.photos.0.url] %}#}
             {% set photosCar = [] %}
+
             {% for photos in car.photos%}
                 {% set photosCar = photosCar|merge([photos.url]) %}
             {% endfor %}
 
-            {{ coches.cocheVista(imgGran,
+            {{ coches.cocheVista(photosCar,
                                 photosCar,
                                 car.model.brand.name,
                                 car.model.name,
