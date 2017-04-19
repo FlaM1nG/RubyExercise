@@ -53,22 +53,40 @@ class PaymentDoneOKController extends PayumController
             );
         }
 
-        
+        $storageDetails = $this->getPayum()->getStorage('Acme\PaymentBundle\Entity\PaymentDetails');
+        //Aqui hayq ue pillar el id de la tabla payum_payment_details para obtener el resultado
         $details = $status->getFirstModel();
+        print_r($details->getDetails()['idRedsys']);
+        
         $IDPayment= $details->getNumber();
         list($ref,$idOffer)=explode("W",$IDPayment);
-        if ($details instanceof  DetailsAggregateInterface) {
-            $details = $details->getDetails();
+        if(isset($details->getDetails()['CANCELLED'])){
+            return $this->render('pay/postPayPageKO.html.twig',array(
+            'details' => $details
+            
+            ));
         }
-
-        if ($details instanceof  \Traversable) {
-            $details = iterator_to_array($details);
-        }
-        $this->updateStatus($idOffer, $request);
-        return $this->render('pay/postPayPageOK.html.twig',array(
+        else {
+            
+            $this->updateStatus($idOffer,$details,$IDPayment, $request);
+            if(isset($details->getDetails()['metodo_envio'])){
+                if($details->getDetails()['metodo_envio']== 'correos'){
+                    $codigo =new CorreosController($this->getDoctrine()->getManager());
+                    $idDir= $details->getDetails()['direccion'];
+                    //hacer que se llame a esta funcion una vez solo
+                    if(isset($details->getDetails()['send_office'])){
+                        $sendOffice= 1;
+                    }
+                    $sendOffice = 0;
+                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice);
+                    print_r($codigo);
+                }
+            }
+            return $this->render('pay/postPayPageOK.html.twig',array(
             'id' => $IDPayment
             
-        ));
+            ));
+        }
     }
     
     private function getStatusPayment(){
@@ -83,6 +101,9 @@ class PaymentDoneOKController extends PayumController
         $data['username'] = $this->getUser()->getUsername();
         $data['password'] = $request->getSession()->get('password');
         $data['offer_id'] = $idOffer;
+        //secreto = dgv7Hbh5OMmC0Kmx2SDRC
+        $extra['idPayment'] = $details->getId();
+        $extra['hash'] = hash_hmac('sha512', $idPayment, 'dgv7Hbh5OMmC0Kmx2SDRC');
         $extra['concept']= $details->getDescription();
         $extra['reference'] = $idPayment;
         $extra['price'] = $details->getDetails()['gastos_totales'];
@@ -94,6 +115,7 @@ class PaymentDoneOKController extends PayumController
         $extra['pay']['name']= $details->getDetails()['metodo_pago'];
         $extra['pay']['description']= 'metodo de pago';
         $extra['pay']['price']= $details->getDetails()['gastos_pago'];
+        
         $data['data']= json_encode($extra);
 
         $result = $ch->resultApiRed($data, $file);

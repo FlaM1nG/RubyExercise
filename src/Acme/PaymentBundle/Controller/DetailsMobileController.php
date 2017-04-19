@@ -85,6 +85,9 @@ class DetailsMobileController extends PayumController
         $data['username'] = $this->getUser()->getUsername();
         $data['password'] = $request->getSession()->get('password');
         $data['offer_id'] = $idOffer;
+        //secreto = dgv7Hbh5OMmC0Kmx2SDRC
+        $extra['idPayment'] = $details->getId();
+        $extra['hash'] = hash_hmac('sha512', $idPayment, 'dgv7Hbh5OMmC0Kmx2SDRC');
         $extra['concept']= $details->getDescription();
         $extra['reference'] = $idPayment;
         $extra['price'] = $details->getDetails()['gastos_totales'];
@@ -96,6 +99,7 @@ class DetailsMobileController extends PayumController
         $extra['pay']['name']= $details->getDetails()['metodo_pago'];
         $extra['pay']['description']= 'metodo de pago';
         $extra['pay']['price']= $details->getDetails()['gastos_pago'];
+        
         $data['data']= json_encode($extra);
 
         $result = $ch->resultApiRed($data, $file);

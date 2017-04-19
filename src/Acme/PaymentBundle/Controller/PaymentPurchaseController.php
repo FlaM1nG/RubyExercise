@@ -82,7 +82,7 @@ class PaymentPurchaseController extends Controller {
 //                ));
 //            }
             //Guardamos los datos en la base de datos
-            $arrayPay['gastos_gestion'] = $administrationFees;
+            $arrayPay['gastos_gestion'] = $request->get('previoPago')['managementFee'];
             $arrayPay['gastos_pago'] = $request->get('previoPago')['managementPayFee'];
             $arrayPay['gastos_totales'] = $request->get('previoPago')['totalAmount'];
             $arrayPay['metodo_pago'] = $request->get('previoPago')['payMethod'];
@@ -119,7 +119,7 @@ class PaymentPurchaseController extends Controller {
                 $details['Ds_Merchant_TransactionType'] = Api::TRANSACTIONTYPE_AUTHORIZATION;
                 $details['Ds_Merchant_ConsumerLanguage'] = Api::CONSUMERLANGUAGE_SPANISH;
 
-                $details['gastos_gestion'] = $administrationFees;
+                $details['gastos_gestion'] = $request->get('previoPago')['managementFee'];
                 $details['gastos_pago'] = $request->get('previoPago')['managementPayFee'];
                 $details['gastos_totales'] = $request->get('previoPago')['totalAmount'];
                 $details['metodo_pago'] = $request->get('previoPago')['payMethod'];
@@ -142,6 +142,7 @@ class PaymentPurchaseController extends Controller {
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
+                $details['idRedsys'] = $details->getId();
                 $captureTokenOK = $this->getPayum()->getTokenFactory()->createCaptureToken(
                         'redsys', $payment, 'prueba_postpago_ok'
                 );

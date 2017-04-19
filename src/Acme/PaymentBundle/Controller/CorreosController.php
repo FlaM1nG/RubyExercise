@@ -4,6 +4,8 @@ namespace Acme\PaymentBundle\Controller;
 
 require_once ( 'C:\xampp\htdocs\wwweb\vendor\autoload.php' );
 
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/JS9NAJ8JEABj8jcsk9xbGTC7VSM9XAMbaxnbs3873778dhd4m/vendor/autoload.php';
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Postmen\Postmen;
 use Symfony\Component\HttpFoundation\Response;
