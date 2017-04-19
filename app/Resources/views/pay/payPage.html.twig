@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body %}
-
+}
   {{form_start(form)}}
     <div class="container cd-main-content">
         <div class="row">
@@ -51,6 +51,19 @@
                 </div>
             {% endif %}
             </div>
+
+        {% if service == 1 and offer.category.id == 2 and offer.price >= 100 and
+              (offer.region|lower != 'ceuta' and offer.region|lower != 'melilla' and offer.region|lower !='baleares' and
+               offer.region|lower != 's.c.tenerife' and offer.region|lower != 'las palmas') %}
+            <div class="row tra-testing">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 separacion-inferior">
+                    <label class="checkbox-inline">
+                    {{form_widget(form.sendOffice)}}
+
+                    </label>
+                </div>
+            </div>
+        {% endif %}
 
             {#<div class="row">#}
                 {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 separacion-inferior">#}
@@ -167,11 +180,23 @@
                             {{ form_row(form.shippingCost) }}
                         </tr>
                     {% endif %}
+
                         <tr>
                             <td>Gastos de gestión</td>
                             <td class="text-right gastosGestion">0.00 €</td>
                             {{ form_row(form.managementFee) }}
                         </tr>
+
+                    {% if service == 1 and offer.category.id == 2 and offer.price >= 100 and
+                    (offer.region|lower != 'ceuta' and offer.region|lower != 'melilla' and offer.region|lower !='baleares' and
+                    offer.region|lower != 's.c.tenerife' and offer.region|lower != 'las palmas')%}
+                        <tr class="tra-testing">
+                            <td>Gastos de comprobación</td>
+                            <td class="text-right gastosComprobacion"> 0.00 €</td>
+                            {{ form_row(form.testingCost) }}
+                        </tr>
+                    {% endif %}
+
                         <tr>
                             <td> Gastos de gestión de pago <span>+2% pago con paypal</span></td>
                             <td class="text-right gestionPago">0.00 €</td>
@@ -213,9 +238,36 @@
 
             }
 
-            {% if (service == 1 or service == 2) and arrayAddresses is not empty %}
-                {{ include('pay/payGastosEnvio.html.twig') }}
+            {# Funcionalidad para mostrar o no para realizar factura. #}
+            $('.check-facturacion').on('click', function () {
+                $('.row-facturacion').toggleClass('hidden');
+            });
 
+            {# Funcionalidad para elegir método de pago #}
+            $('.check-payment-method').on('click', '.img-metodo-pago', function () { console.log('entro');
+                var elegido = $('.row-payment-method').find('.check-payment-method-checked');
+
+                if($(elegido)){
+                    $(elegido).toggleClass('check-payment-method-checked');
+                }
+
+                $(this).parent().toggleClass('check-payment-method-checked');
+            });
+
+
+            {# Funcionalidad para elegir método de envio #}
+            $('.check-send-method').on('click', '.img-metodo-envio', function () {
+                var elegido = $('.row-send-method').find('.check-send-method-checked');
+
+                if($(elegido)){
+                    $(elegido).toggleClass('check-send-method-checked');
+                }
+
+                $(this).parent().toggleClass('check-send-method-checked');
+            });
+
+            {% if (service == 1 or service == 2) and arrayAddresses is not empty %}
+                    {{ include('pay/payGastosEnvio.html.twig') }}
 
             {% else %}
 
@@ -246,33 +298,6 @@
 
             {% endif %}
 
-            {# Funcionalidad para mostrar o no para realizar factura. #}
-            $('.check-facturacion').on('click', function () {
-                $('.row-facturacion').toggleClass('hidden');
-            });
-
-            {# Funcionalidad para elegir método de pago #}
-            $('.check-payment-method').on('click', '.img-metodo-pago', function () {
-                var elegido = $('.row-payment-method').find('.check-payment-method-checked');
-
-                if($(elegido)){
-                    $(elegido).toggleClass('check-payment-method-checked');
-                }
-
-                $(this).parent().toggleClass('check-payment-method-checked');
-            });
-
-
-            {# Funcionalidad para elegir método de envio #}
-            $('.check-send-method').on('click', '.img-metodo-envio', function () {
-                var elegido = $('.row-send-method').find('.check-send-method-checked');
-
-                if($(elegido)){
-                    $(elegido).toggleClass('check-send-method-checked');
-                }
-
-                $(this).parent().toggleClass('check-send-method-checked');
-            });
 
             {# Validación de datos para pago #}
             {#$('#pagar_ofertas').on('click', function () {#}
