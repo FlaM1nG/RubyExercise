@@ -25,4 +25,5 @@ class MyConstants {
     // x%
     const ADMINISTRATION_FEES = 3;
     const PAYPAL_FEE = 2;
+    const SEND_OFFICE = 10;
 }
