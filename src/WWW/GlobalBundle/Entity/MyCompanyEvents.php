@@ -57,6 +57,14 @@ class MyCompanyEvents implements  \Serializable {
      * @ORM\Column(type="boolean")
      */
     protected $blocked = false;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="inscriptionID", type="integer")
+     */
+
+    protected $inscriptionID;
     
     /**
      * @var string URL Relative to current path.
@@ -137,16 +145,17 @@ class MyCompanyEvents implements  \Serializable {
     
 //    protected $otherFields = array();
     
-      public function __construct($id,$title, $price,$calendarID, $serviceID,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = false, $blocked = false, $allDay = false)
+      public function __construct($id,$title, $price,$calendarID, $serviceID,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = false, $blocked = false, $allDay = false, $inscriptionID )
     {
 
         $this->id = $id;
         $this->title = $title;
-         $this->price = $price;
+        $this->price = $price;
         $this->calendarID = $calendarID;
         $this->serviceID = $serviceID;
-         $this->bgColor = $bgColor;
-         $this->fgColor = $fgColor;
+        $this->inscriptionID = $inscriptionID;
+        $this->bgColor = $bgColor;
+        $this->fgColor = $fgColor;
         $this->startDatetime = $startDatetime;
         $this->setOcuppate($ocuppate);
         $this->setBlocked($blocked);
@@ -181,6 +190,9 @@ class MyCompanyEvents implements  \Serializable {
         $event['ocuppate'] = $this->ocuppate;
 
         $event['blocked'] = $this->blocked;
+
+        $event['inscription_id'] = $this->inscriptionID;
+        
         
         $event['start'] = $this->startDatetime->format("Y-m-d\TH:i:sP");
         
@@ -288,7 +300,18 @@ class MyCompanyEvents implements  \Serializable {
     {
         return $this->blocked;
     }
-    
+
+    public function setInscriptionID($inscriptionID)
+    {
+        $this->inscriptionID = $inscriptionID;
+    }
+
+    public function getInscriptionID()
+    {
+        return $this->inscriptionID;
+    }
+
+
     public function setUrl($url)
     {
         $this->url = $url;
@@ -509,6 +532,7 @@ class MyCompanyEvents implements  \Serializable {
             $this->allDay,
             $this->serviceID,
             $this->blocked,
+            $this->inscriptionID,
         ));
     }
 
@@ -526,6 +550,7 @@ class MyCompanyEvents implements  \Serializable {
             $this->allDay,
             $this->serviceID,
             $this->blocked,
+            $this->inscriptionID,
             ) = unserialize($serialized);
     }
 }

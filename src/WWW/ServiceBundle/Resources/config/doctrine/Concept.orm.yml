@@ -24,9 +24,12 @@ WWW\ServiceBundle\Entity\Concept:
             type: integer
             nullable: true
         price:
-            type: integer
+            type: float
             nullable: true
         paid:
+            type: boolean
+            nullable: true
+        payment:
             type: boolean
             nullable: true
     manyToOne:

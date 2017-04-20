@@ -5,7 +5,7 @@ namespace WWW\ServiceBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Util\Inflector as Inflector;
 use WWW\UserBundle\Entity\User;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -18,7 +18,8 @@ class Comment
     private $id;
 
     /**
-     * @var string
+     * @var
+     * @Assert\NotBlank( message="Por favor rellene este campo")
      */
     private $comment;
 

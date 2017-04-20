@@ -257,6 +257,8 @@ class HouseOffersController extends Controller
             $formSubscribe = $this->createForm(DatepickerType::class);
 
             $formSubscribe=$formSubscribe->createView();
+
+
         }
 
         $formComment = $this->createForm(CommentType::class, $comment);
@@ -297,19 +299,50 @@ class HouseOffersController extends Controller
 
         endif;
 
+        $formSubscribe =  $this->createForm(DatepickerType::class);
+        $formSubscribe->handleRequest($request);
+
+        if($formSubscribe->isSubmitted()):
+            $this->offerSubscribe($request,$offerShareHouse->getOffer()->getId());
+                $nameService = "";
+                if($service == 6) $nameService = 'house-rents';
+                elseif($service == 7) $nameService = 'share-house';
+
+                return $this->redirectToRoute('acme_payment_homepage', array(
+                    'idOffer'=> $offerShareHouse->getOffer()->getId(),
+                    'service'=> $nameService,
+                ));
+        endif;
+
         return $this->render('HouseBundle::offHouseRents.html.twig', array(
                              'offer' => $offerShareHouse,
                              'arrayAttr' => $arrayAttr,
                              'formMessage' => $formMessage->createView(),
                              'formComment' => $formComment->createView(),
-                             'formSubscribe' => $formSubscribe,
+                             'formSubscribe' => $formSubscribe->createView(),
                              'pagination' => $pagination,
                              'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR,
                              'service' => $service
         ));
     }
 
-    private function getoffer(Request $request, $service){
+
+    private function offerSubscribe(Request $request,$offerId){
+
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/inscription/subscribe_user.php";
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['offer_id'] = $offerId;
+
+        $result = $ch->resultApiRed($data, $file);
+
+    }
+
+
+        private function getoffer(Request $request, $service){
 
         $file = MyConstants::PATH_APIREST.'services/share_house/get_share_house.php';
         $ch = new ApiRest();

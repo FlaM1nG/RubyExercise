@@ -14958,11 +14958,6 @@ textarea {
   margin: 0 auto;
 }
 /* ##### FIN GRID ##### */
-/* ##### PAGO TRADE #### */
-.tra-noTesting {
-  display: none;
-}
-/* ##### FIN PAGO TRADE #### */
 /* *****  ***** */
 /* ##### FIN  ##### */
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
@@ -15534,7 +15529,7 @@ textarea {
   transform: translate(-50%, -50%);
 }
 .off-img-expo {
-  height: 100%;
+  min-width: 100%;
   position: absolute;
   left: 50%;
   top: 50%;
