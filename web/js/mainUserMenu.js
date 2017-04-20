@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){
+jQuery(document).ready(function(){ 
 	//cache DOM elements
 	var mainContent = $('.cd-main-content'),
 		header = $('.cd-main-header'),
@@ -35,7 +35,7 @@ jQuery(document).ready(function(){
 	});
 
 	//click on item and show submenu
-	$('.has-children > a').on('click', function(event){
+	$('.navProfile > .has-children > a').on('click', function(event){
 		var mq = checkMQ(),
 			selectedItem = $(this);
 		if( mq == 'mobile' || mq == 'tablet' ) {

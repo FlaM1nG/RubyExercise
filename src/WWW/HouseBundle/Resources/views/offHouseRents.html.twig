@@ -5,6 +5,8 @@
 {% import 'macros/message.html.twig' as comentarios %}
 {% import 'macros/user.html.twig' as users %}
 
+
+
 {#{ BLOQUES -->     offerImage 
                     offerUser
                     offerTitle
@@ -98,23 +100,38 @@
 {% endblock %}
 
 
-{% block offerPrice %} 
+{% block offerPrice %}
     {% if service == 6 or service == 7 %}
 
-        {{ offer.price }} €
+       Desde {{ offer.price }} €
+
+        {#
+                <input type="text" id="DatePicker">
+                <input type="text" id="DatePickerto">
+
+                <input type="hidden" id="startDate" name="startDate" value="">
+                <input type="hidden" id="endDate" name="endDate" value="">
+
+                <p>Fecha Inicial: <span id="fechaInicial"></span></p>
+                <p>Fecha Final: <span id="fechaFinal"></span></p>
+                <p>Precio Total: <span id="precioTotal"></span> €</p>
+        #}
+
+
+        {{ form_label(formSubscribe.DatePicker) }}
+        {{ form_widget(formSubscribe.DatePicker) }}
+        {{ form_label(formSubscribe.DatePickerto) }}
+        {{ form_widget(formSubscribe.DatePickerto) }}
+        {{ form_widget(formSubscribe.startDate) }}
+        {{ form_widget(formSubscribe.endDate) }}
+
+
+
 
     {% endif %}
 
-    <input type="text" id="DatePicker">
-    <input type="text" id="DatePickerto">
 
-    <input type="hidden" id="startDate" name="startDate" value="">
-    <input type="hidden" id="endDate" name="endDate" value="">
 
-    <p>Fecha Inicial: <span id="fechaInicial"></span></p>
-    <p>Fecha Final: <span id="fechaFinal"></span></p>
-    <p>Precio Total: <span id="precioTotal"></span> €</p>
-    
 {% endblock %}
 
 
@@ -122,6 +139,14 @@
     <!-- VALORACIONES -->
     {{ rating.staticRating(offer.offer.userAdmin.avgScore) }}
     <!-- FIN VALORACIONES -->
+    {% if service == 6 or service == 7 %}
+    {{ form_label(formSubscribe.precioTotal) }}
+    {{ form_widget(formSubscribe.precioTotal) }}
+    {{ form_label(formSubscribe.subscribeButton) }}
+    {{ form_widget(formSubscribe.subscribeButton) }}
+
+    {% endif %}
+
 {% endblock %}
 
 
@@ -133,6 +158,7 @@
 {% block offerDescription %}
     <p>
         {{offer.offer.description ~ offer.house.description}}
+
     </p>
 {% endblock %}
 
