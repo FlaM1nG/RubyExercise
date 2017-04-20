@@ -3,6 +3,7 @@
 namespace Acme\PaymentBundle\Controller;
 
 require_once ( 'C:\xampp\htdocs\wwweb\vendor\autoload.php' );
+
 //require_once $_SERVER['DOCUMENT_ROOT'] . '/JS9NAJ8JEABj8jcsk9xbGTC7VSM9XAMbaxnbs3873778dhd4m/vendor/autoload.php';
 use Acme\PaymentBundle\Entity\Payment;
 use Payum\Core\Payum;
@@ -64,13 +65,13 @@ class PaymentPurchaseController extends Controller {
         $arrayCourier = null;
         $this->serviceId = $this->offer->getOffer()->getService()->getId();
 
-        if($this->serviceId == 1 || $this->serviceId == 2):
+        if ($this->serviceId == 1 || $this->serviceId == 2):
             $arrayCourier = $this->getCourierPrice($request);
 
         endif;
 
         $session = $request->getSession();
-        $session->set('_security.user.target_path',null);
+        $session->set('_security.user.target_path', null);
 
         if ($form->isSubmitted() && $form->get('submit')->isClicked()) {
 
@@ -82,14 +83,28 @@ class PaymentPurchaseController extends Controller {
 //                            'service' => $this->service,
 //                ));
 //            }
+            //Guardamos los datos en la base de datos
+            $arrayPay['gastos_gestion'] = $request->get('previoPago')['managementFee'];
+            $arrayPay['gastos_pago'] = $request->get('previoPago')['managementPayFee'];
+            $arrayPay['gastos_totales'] = $request->get('previoPago')['totalAmount'];
+            $arrayPay['metodo_pago'] = $request->get('previoPago')['payMethod'];
+            if ($this->serviceId == 1 || $this->serviceId == 2) {
+                $arrayPay['direccion'] = $request->get('previoPago')['addressPay'];
+                $arrayPay['metodo_envio'] = $request->get('previoPago')['sendMethod'];
+                $arrayPay['gastos_envio'] = $request->get('previoPago')['shippingCost'];
+                //$arrayPay['send_office'] = $request->get('previoPago')['send_office'];
+                //$arrayPay['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
+            }
+
             $payment = new Payment;
             //numero de referencia por la hora y fecha
-            $payment->setNumber(date('ymdHis'). '-' . $request->get('idOffer'));
+            $payment->setNumber(date('His') . 'W' . $request->get('idOffer'));
             $payment->setClientId(uniqid());
-            $payment->setDescription(sprintf('An order %s for a client %s', $this->offer->getPrice(), $user->getUsername()));
-            $payment->setTotalAmount($this->offer->getPrice() * 100);
+            $payment->setDescription(sprintf('Pago total de %s del cliente %s', $request->get('previoPago')['totalAmount'], $user->getUsername()));
+            $payment->setTotalAmount($request->get('previoPago')['totalAmount'] * 100);
             $payment->setCurrencyCode('EUR');
             $payment->setClientEmail($user->getUsername());
+            $payment->setDetails($arrayPay);
 
             //REDSYS
             if ($request->get('previoPago')['payMethod'] == 'card') {
@@ -100,11 +115,24 @@ class PaymentPurchaseController extends Controller {
 
                 $storage = $this->getPayum()->getStorage('Acme\PaymentBundle\Entity\PaymentDetails');
                 $details = $storage->create();
-                $details['Ds_Merchant_Amount'] = $this->offer->getPrice() * 100;
+                $details['Ds_Merchant_Amount'] = $request->get('previoPago')['totalAmount'] * 100;
                 $details['Ds_Merchant_Currency'] = '978';
-                $details['Ds_Merchant_Order'] = date('ymdHis');
+                $details['Ds_Merchant_Order'] = date('His') . 'W' . $request->get('idOffer');
                 $details['Ds_Merchant_TransactionType'] = Api::TRANSACTIONTYPE_AUTHORIZATION;
                 $details['Ds_Merchant_ConsumerLanguage'] = Api::CONSUMERLANGUAGE_SPANISH;
+
+                $details['gastos_gestion'] = $request->get('previoPago')['managementFee'];
+                $details['gastos_pago'] = $request->get('previoPago')['managementPayFee'];
+                $details['gastos_totales'] = $request->get('previoPago')['totalAmount'];
+                $details['metodo_pago'] = $request->get('previoPago')['payMethod'];
+                if ($this->serviceId == 1 || $this->serviceId == 2) {
+                    $details['direccion'] = $request->get('previoPago')['addressPay'];
+                    $details['metodo_envio'] = $request->get('previoPago')['sendMethod'];
+                    $details['gastos_envio'] = $request->get('previoPago')['shippingCost'];
+                   // $details['send_office'] = $request->get('previoPago')['send_office'];
+                    //$arrayPay['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
+                }
+
                 $storage->update($details);
                 //Las notificaciones de compra se guardan en la tabla payum_payments_details
                 //de ahi se tienen que sacar el DS_Response y manejar la respuesta
@@ -116,6 +144,7 @@ class PaymentPurchaseController extends Controller {
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
+                $details['idRedsys'] = $details->getId();
                 $captureTokenOK = $this->getPayum()->getTokenFactory()->createCaptureToken(
                         'redsys', $payment, 'prueba_postpago_ok'
                 );
@@ -124,7 +153,7 @@ class PaymentPurchaseController extends Controller {
                 );
 
                 $details['Ds_Merchant_UrlOK'] = $captureTokenOK->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
-                $details['Ds_Merchant_UrlKO'] = $captureTokenKO->getAfterUrl() ;
+                $details['Ds_Merchant_UrlKO'] = $captureTokenKO->getAfterUrl();
                 $payment->setDetails($details);
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
@@ -133,20 +162,20 @@ class PaymentPurchaseController extends Controller {
             }
 
             //Si no, se paga por PAYPAL
-            elseif($request->get('previoPago')['payMethod'] == 'paypal') {
-                
+            elseif ($request->get('previoPago')['payMethod'] == 'paypal') {
+
                 $storage = $this->getPayum()->getStorage($payment);
                 $storage->update($payment);
-                
+
                 $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
                         'paypal_express_checkout_with_ipn_enabled', $payment, 'acme_payment_done'
                 );
 
-                
+
                 return $this->redirect($captureToken->getTargetUrl());
             }
         }
-
+//print_r($this->offer);
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
                     'offer' => $this->offer,
@@ -154,6 +183,7 @@ class PaymentPurchaseController extends Controller {
                     'arrayCourier' => $arrayCourier,
                     'arrayAddresses' => $arrayAddressesPay,
                     'administrationFees' => $administrationFeesPercent,
+                    'sendOfficePercent' => MyConstants::SEND_OFFICE/100,
                     'paypalFee' => MyConstants::PAYPAL_FEE/100
         ));
     }
@@ -222,8 +252,6 @@ class PaymentPurchaseController extends Controller {
         ;
     }
 
-
-
     /**
      * @return Payum
      */
@@ -244,15 +272,18 @@ class PaymentPurchaseController extends Controller {
         if (strstr($path, 'trade') !== false):
             $this->service = 'trade';
             $this->getOffer($request);
+        
         elseif (strstr($path, 'share-car') !== false):
             $this->service = 'share-car';
             $this->serviceId = 4;
 //            $this->getOfferShareCar($request);
             $this->getOfferInfo($request);
+        
         elseif (strstr($path, 'courier-car') !== false):
             $this->service = 'courier-car';
             $this->serviceId = 5;
             $this->getOfferInfo($request);
+        
         elseif (strstr($path, 'house-rents') !== false):
             $this->service = 'house-rents';
             $this->serviceId = 6;
@@ -279,7 +310,7 @@ class PaymentPurchaseController extends Controller {
 
         if ($result['result'] == 'ok'):
             $this->offer = new Trade($result);
-
+//print_r($result);exit;
         else:
             $this->ut->flashMessage("general", $request);
         endif;
@@ -340,7 +371,7 @@ class PaymentPurchaseController extends Controller {
         $data['id'] = $this->getUser()->getId();
         $data['username'] = $this->getUser()->getUsername();
         $data['password'] = $request->getSession()->get('password');
-        
+
         $result = $ch->resultApiRed($data, $file);
 
         if ($result['result'] == 'ok'):
@@ -350,12 +381,12 @@ class PaymentPurchaseController extends Controller {
         return $user;
     }
 
-    private function getCourierPrice(Request $request){
+    private function getCourierPrice(Request $request) {
 
-        $file = MyConstants::PATH_APIREST.'services/courier/get_courierPrice.php';
+        $file = MyConstants::PATH_APIREST . 'services/courier/get_courierPrice.php';
         $ch = new ApiRest();
 
-        if($this->offer->getWeight() <= 30):
+        if ($this->offer->getWeight() <= 30):
 
             $data['id'] = $request->getSession()->get('id');
             $data['username'] = $request->getSession()->get('username');
@@ -365,14 +396,14 @@ class PaymentPurchaseController extends Controller {
 
             $result = $ch->resultApiRed($data, $file);
 
-            if($result['result'] == 'ok'):
+            if ($result['result'] == 'ok'):
                 return $result['messengerPrice'][0];
             else:
                 return null;
             endif;
         else:
 //            esto es para que no me pete en twig
-            $array = array('price_es'=> null, 'price_ba' => null, 'price_ca' => null);
+            $array = array('price_es' => null, 'price_ba' => null, 'price_ca' => null);
             return $array;
         endif;
     }
@@ -386,8 +417,8 @@ class PaymentPurchaseController extends Controller {
         if(!empty($user->getAddresses()[0])):
             
             foreach($user->getAddresses()[0] as $data ):
-                $arrayAddressesPay[$data->getId()] = $data->getRegion();
                 array_push($arrayAddressesForm,$data);
+                $arrayAddressesPay[$data->getId()] = strtolower($data->getRegion());
             endforeach;
 
             $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();

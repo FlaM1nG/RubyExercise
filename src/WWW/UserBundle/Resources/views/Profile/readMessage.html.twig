@@ -28,19 +28,19 @@
     <div class="row us-dataPersonal-row us-writte-message">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             {% if type == 'send' %}
-                <h3>MENSAJES ENVIADO ABIERTO</h3>
-                <hr>
+                {#<h3>MENSAJES ENVIADO ABIERTO</h3>#}
+                {#<hr>#}
                 {{ message.messElementSentOpen(mensaje.to.username, mensaje.createdDate,
                     mensaje.subject, mensaje.message,
-                    mensaje.id, '#borrar', 'borrar') }}
+                    mensaje.id, '#borrar', mensaje.id) }}
 
             {% else %}
 
-                <h3>MENSAJES RECIBIDO ABIERTO</h3>
-                <hr>
+                {#<h3>MENSAJES RECIBIDO ABIERTO</h3>#}
+                {#<hr>#}
                 {{ message.messElementReceivedOpen(mensaje.from.username, mensaje.createdDate,
                     mensaje.subject, mensaje.message,
-                    mensaje.id, '#borrar', 'borrar', '#contestar', 'contestar') }}
+                    '#borrar', mensaje.id, '#contestar', 'contestar') }}
 
                 <div id="replyForm" style="display:none">
                     <div class="row">

@@ -18,3 +18,8 @@ services:
         class: Payum\Paypal\ExpressCheckout\Nvp\Api
         factory_service: acme.payment.payum.api.factory
         factory_method: createPaypalExpressCheckoutApi
+        
+    acme.payment.correos_controller:
+        class: Acme\PaymentBundle\Controller\CorreosController
+        arguments:
+            - @doctrine.orm.entity_manager

@@ -27,21 +27,17 @@
         {% set imgGallery = []  %}
         
         {% for photo in offer.car.photos %}
-            
-            {% set imageOff = random([asset('img/seat.jpg'), 
-                asset('img/articulo1.jpg'), 
-                asset('img/macbook.png'),
-                asset('img/alquilerTuristico3.jpg')]) %}
 
+            {% set arrayAux = photo.url|split('.') %}
+            {% set url = arrayAux[0]~'_720.'~arrayAux[1] %}
 
-            {% set imgGallery = imgGallery|merge([imageOff] ) %}
             <div class="item">
                 <div class="off-img-marco-grande">
                     <a href="{{ asset(photo.url, 'img') }}"
                         data-lightbox="offer-item">
                         
                         <img class="img-responsive off-img-expo" 
-                            src="{{ asset(photo.url, 'img') }}"
+                            src="{{ asset(url, 'img') }}"
                             alt="">
                     </a>
                 </div>
@@ -51,13 +47,16 @@
 
     <div id="off-img-small" class="owl-carousel">
         {% for photo in offer.car.photos %}
-        <div class="item off-item-dime">
-            <div class="off-img-marco-peque">
-                <img class="img-responsive off-img-slid" 
-                    src="{{ asset(photo.url, 'img') }}"
-                    alt="">
+            {% set arrayAux = photo.url|split('.') %}
+            {% set url = arrayAux[0]~'_250.'~arrayAux[1] %}
+
+            <div class="item off-item-dime">
+                <div class="off-img-marco-peque">
+                    <img class="img-responsive off-img-slid"
+                        src="{{ asset(url, 'img') }}"
+                        alt="">
+                </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 
@@ -239,7 +238,7 @@
 
                 {{ comentarios.messComentarioPublico(
                 path('user_public_profile', {username: offer.offer.userAdmin.username} ),
-                asset(comment.user.photo,'img'),
+                comment.user.photo,
                 comment.user.username,
                 comment.createdDate,
                 i,
