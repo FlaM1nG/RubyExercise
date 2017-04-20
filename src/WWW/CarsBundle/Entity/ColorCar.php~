@@ -18,6 +18,9 @@ class ColorCar
     private $color;
 
 
+    public function __construct($color = null){ 
+        $this->color = $color;
+    }
     /**
      * Get id
      *
@@ -49,6 +52,12 @@ class ColorCar
      */
     public function getColor()
     {
+        return $this->color;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
         return $this->color;
     }
 }

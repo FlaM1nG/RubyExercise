@@ -228,4 +228,60 @@ class Concept
     {
         return $this->description;
     }
+    /**
+     * @var string
+     */
+    private $reference;
+
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     * @return Concept
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string 
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+    /**
+     * @var boolean
+     */
+    private $payment;
+
+
+    /**
+     * Set payment
+     *
+     * @param boolean $payment
+     * @return Concept
+     */
+    public function setPayment($payment)
+    {
+        $this->payment = $payment;
+
+        return $this;
+    }
+
+    /**
+     * Get payment
+     *
+     * @return boolean 
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
 }
