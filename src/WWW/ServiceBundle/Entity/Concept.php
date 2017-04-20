@@ -256,4 +256,32 @@ class Concept
     {
         return $this->reference;
     }
+    /**
+     * @var boolean
+     */
+    private $payment;
+
+
+    /**
+     * Set payment
+     *
+     * @param boolean $payment
+     * @return Concept
+     */
+    public function setPayment($payment)
+    {
+        $this->payment = $payment;
+
+        return $this;
+    }
+
+    /**
+     * Get payment
+     *
+     * @return boolean 
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
 }
