@@ -10,7 +10,7 @@ $(document).ready(function() {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay,listWeek'
+            right: 'month'
         },
 
         buttonText:
@@ -20,9 +20,7 @@ $(document).ready(function() {
             prevYear: ' &lt;&lt; ',
             nextYear: ' &gt;&gt; ',
             today:    'hoy',
-            month:    'mes',
-            week:     'semana',
-            day:      'día'
+            month:    'mes'
         },
 
         /*defaultDate: '2016-09-12',*/
@@ -69,6 +67,9 @@ $(document).ready(function() {
                 $('#ModalEdit #calendar_id').val($('#calendarID').val());
                 $('#ModalEdit #service_id').val($('#serviceID').val());
                 $('#ModalEdit #start').val($('#startDateCalendario').val());
+                $('#ModalEdit #idoffer').val($('#idoffer').val());
+                
+                
 
 
                 $('#ModalEdit').modal('show');
@@ -154,6 +155,7 @@ $(document).ready(function() {
         calendarID = event.calendarID;
         serviceID = event.serviceID;
         blocked = event.blocked;
+   
 
         Event = [];
 

@@ -44,10 +44,24 @@ class CalendarController extends Controller
     public function editcreateEventAction(Request $request)
     {
 
+
+
+
+        $session = $request->getSession();
+
+        //Guardamos el id de la oferta en la sesion
+
+        $session->set('idoferta', 'idOffer');
+
+        $idoferta = $session->get('offer');
+
+        
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
         $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+
+
 
         $date= new \DateTime ($_POST['start']);
 
@@ -75,7 +89,7 @@ class CalendarController extends Controller
 
             }
 
-        return $this->redirectToRoute('user_profile_offers');
+        return $this->redirectToRoute('user_profiler_editOffer', array('idOffer' => $idoferta), 301);
     }
 
 

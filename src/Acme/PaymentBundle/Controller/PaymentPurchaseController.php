@@ -16,6 +16,8 @@ use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\CarsBundle\Entity\ShareCar;
+use WWW\HouseBundle\Entity\ShareHouse;
+use WWW\HouseBundle\Entity\House;
 use com\realexpayments\remote\sdk\domain\Card;
 use com\realexpayments\remote\sdk\domain\CardType;
 use com\realexpayments\remote\sdk\domain\PresenceIndicator;
@@ -251,6 +253,14 @@ class PaymentPurchaseController extends Controller {
             $this->service = 'courier-car';
             $this->serviceId = 5;
             $this->getOfferInfo($request);
+        elseif (strstr($path, 'house-rents') !== false):
+            $this->service = 'house-rents';
+            $this->serviceId = 6;
+            $this->getOfferInfo($request);
+        elseif (strstr($path, 'share-house') !== false):
+            $this->service = 'share-house';
+            $this->serviceId = 7;
+            $this->getOfferInfo($request);
         else:
             $this->service = 2;
         endif;
@@ -302,6 +312,7 @@ class PaymentPurchaseController extends Controller {
         $data['offerId'] = $request->get('idOffer');
         $data['serviceId'] = $this->serviceId;
 
+
         $result = $ch->resultApiRed($data, $file);
 
         if ($this->serviceId == 4 || $this->serviceId == 5):
@@ -309,6 +320,15 @@ class PaymentPurchaseController extends Controller {
             $this->offer = new ShareCar($result['data']);
 
         endif;
+
+        if ($this->serviceId == 6 || $this->serviceId == 7):
+
+            $this->offer = new ShareHouse($result['data']);
+            //$this->offer = new House($result['data']);
+
+        endif;
+
+
     }
 
     private function getUserProfile(Request $request) {
