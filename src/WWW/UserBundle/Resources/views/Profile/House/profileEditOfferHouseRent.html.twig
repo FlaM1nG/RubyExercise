@@ -5,7 +5,7 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    {% if service != 8 %}
+    {% if service == 6 or service == 7 %}
 
         <link rel="stylesheet" href="{{ asset('css/calendario/fullcalendar.css') }}" />
 
@@ -39,7 +39,7 @@
 
 {% block bodyProfile %}
 
-    {% if service != 8 %}
+    {% if service == 6 or service == 7 %}
         <div class="container">
 
             <div class="row">
@@ -143,7 +143,7 @@
     <a href="{{ path('user_profile_editHouse',{idHouse: offer.house.id}) }}">Editar casa</a>
     {{ form_row(form.houseId) }}
 
-    {% if service != 8 %}
+    {% if service == 6 or service == 7 %}
         {{ form_row(form.price) }}
     {% endif %}
 
@@ -172,7 +172,7 @@
             type="text/javascript"></script>
 
 
-    {% if service != 8 %}
+    {% if service == 6 or service == 7 %}
 
 
     <!-- Calendario -->
