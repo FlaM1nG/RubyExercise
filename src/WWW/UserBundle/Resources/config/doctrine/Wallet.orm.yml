@@ -10,13 +10,34 @@ WWW\UserBundle\Entity\Wallet:
                 strategy: AUTO
     fields:
         quantity:
-            type: integer
+            type: float
         date:
             type: datetime
         concept:
             type: string
             length: 255
             nullable: true
+        cash:
+            type: boolean
+        payment:
+            type: boolean
+        consumed:
+            type: boolean
+        quantityConsumed:
+            type: float
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
+
     manyToOne:
         user:
             targetEntity: User

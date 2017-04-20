@@ -41,4 +41,9 @@ WWW\OthersBundle\Entity\Trade:
             inversedBy: trades
             joinColumn:
                 referencedColumnName: id
+        address:
+            nullable: true
+            targetEntity: WWW\GlobalBundle\Entity\Address
+            joinColumn:
+                referencedColumnName: id
     lifecycleCallbacks: {  }

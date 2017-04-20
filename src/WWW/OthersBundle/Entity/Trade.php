@@ -286,4 +286,32 @@ class Trade
     }
     
     
+    /**
+     * @var \WWW\GlobalBundle\Entity\Address
+     */
+    private $address;
+
+
+    /**
+     * Set address
+     *
+     * @param \WWW\GlobalBundle\Entity\Address $address
+     * @return Trade
+     */
+    public function setAddress(\WWW\GlobalBundle\Entity\Address $address = null)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return \WWW\GlobalBundle\Entity\Address 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
 }

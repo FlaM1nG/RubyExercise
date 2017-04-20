@@ -14,8 +14,20 @@ class Wallet
      */
     private $id;
 
+
     /**
-     * @var int
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    
+    /**
+     * @var float
      */
     private $quantity;
 
@@ -29,21 +41,61 @@ class Wallet
      */
     private $concept;
 
+    /**
+     * @var boolean
+     */
+    private $cash;
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @var boolean
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $payment;
+
+    /**
+     * @var boolean
+     */
+    private $consumed;
+
+    /**
+     * @var float
+     */
+    private $quantityConsumed;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $modifiedDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $deletedDate;
+
+    /**
+     * @var boolean
+     */
+    private $isDeleted;
+
+    /**
+     * @var \WWW\UserBundle\Entity\User
+     */
+    private $user;
+
+    /**
+     * @var \WWW\ServiceBundle\Entity\Service
+     */
+    private $service;
+
 
     /**
      * Set quantity
      *
-     * @param integer $quantity
+     * @param float $quantity
      * @return Wallet
      */
     public function setQuantity($quantity)
@@ -56,7 +108,7 @@ class Wallet
     /**
      * Get quantity
      *
-     * @return integer 
+     * @return float 
      */
     public function getQuantity()
     {
@@ -108,16 +160,190 @@ class Wallet
     {
         return $this->concept;
     }
-    /**
-     * @var \WWW\UserBundle\Entity\User
-     */
-    private $user;
 
     /**
-     * @var \WWW\ServiceBundle\Entity\Service
+     * Set cash
+     *
+     * @param boolean $cash
+     * @return Wallet
      */
-    private $service;
+    public function setCash($cash)
+    {
+        $this->cash = $cash;
 
+        return $this;
+    }
+
+    /**
+     * Get cash
+     *
+     * @return boolean 
+     */
+    public function getCash()
+    {
+        return $this->cash;
+    }
+
+    /**
+     * Set payment
+     *
+     * @param boolean $payment
+     * @return Wallet
+     */
+    public function setPayment($payment)
+    {
+        $this->payment = $payment;
+
+        return $this;
+    }
+
+    /**
+     * Get payment
+     *
+     * @return boolean 
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
+
+    /**
+     * Set consumed
+     *
+     * @param boolean $consumed
+     * @return Wallet
+     */
+    public function setConsumed($consumed)
+    {
+        $this->consumed = $consumed;
+
+        return $this;
+    }
+
+    /**
+     * Get consumed
+     *
+     * @return boolean 
+     */
+    public function getConsumed()
+    {
+        return $this->consumed;
+    }
+
+    /**
+     * Set quantityConsumed
+     *
+     * @param float $quantityConsumed
+     * @return Wallet
+     */
+    public function setQuantityConsumed($quantityConsumed)
+    {
+        $this->quantityConsumed = $quantityConsumed;
+
+        return $this;
+    }
+
+    /**
+     * Get quantityConsumed
+     *
+     * @return float 
+     */
+    public function getQuantityConsumed()
+    {
+        return $this->quantityConsumed;
+    }
+
+    /**
+     * Set createdDate
+     *
+     * @param \DateTime $createdDate
+     * @return Wallet
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createdDate
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * Set modifiedDate
+     *
+     * @param \DateTime $modifiedDate
+     * @return Wallet
+     */
+    public function setModifiedDate($modifiedDate)
+    {
+        $this->modifiedDate = $modifiedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedDate
+     *
+     * @return \DateTime 
+     */
+    public function getModifiedDate()
+    {
+        return $this->modifiedDate;
+    }
+
+    /**
+     * Set deletedDate
+     *
+     * @param \DateTime $deletedDate
+     * @return Wallet
+     */
+    public function setDeletedDate($deletedDate)
+    {
+        $this->deletedDate = $deletedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedDate
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedDate()
+    {
+        return $this->deletedDate;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return Wallet
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean 
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
 
     /**
      * Set user
