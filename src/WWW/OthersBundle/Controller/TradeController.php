@@ -159,7 +159,7 @@ class TradeController extends Controller{
         $result = $ch->resultApiRed($dataOffer, $file);
 
         $this->ut->flashMessage("general", $request, $result);
-print_r($result);
+
         return $result['result'];
     }
     
