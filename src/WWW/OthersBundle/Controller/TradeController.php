@@ -9,6 +9,7 @@
 namespace WWW\OthersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use WWW\GlobalBundle\Entity\Address;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Form\TradeType;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,13 +45,13 @@ class TradeController extends Controller{
 //       echo "<br>". parse_url($request->headers->get('referer'),PHP_URL_PATH );
 
         $this->setUpVars($request);
-        $hasAddresses = true;
+        $arrayAddresses = null;
 
         if($this->service != 3):
-            $hasAddresses = $this->hasAddresses($request);
+            $arrayAddresses = $this->hasAddresses($request);
         endif;
 
-        if($hasAddresses):
+        if(!empty($arrayAddresses)):
 
 //            $request->getSession()->remove('_security.user.target_path');
 
@@ -58,8 +59,8 @@ class TradeController extends Controller{
 
             $trade->getCategory()->setId($this->service);
             $trade->getOffer()->getService()->setId($this->service);
-
-            $formTrade = $this->createForm(TradeType::class,$trade);
+//print_r($arrayAddresses);
+            $formTrade = $this->createForm(TradeType::class,$trade,array('arrayAddresses' => $arrayAddresses));
 
             $formTrade->handleRequest($request);
 
@@ -84,7 +85,7 @@ class TradeController extends Controller{
                            array('formOffer' => $formTrade->createView(),
                                  'offer' => $trade,
                                  'service' => $this->service,
-                                 'hasAddresses' => $hasAddresses));
+                                 'addresses' => $arrayAddresses));
 
         else:
 
@@ -94,7 +95,7 @@ class TradeController extends Controller{
 
             return $this->render('OthersBundle:Trade:offerTrade.html.twig',
                             array('service' => $this->service,
-                                  'hasAddresses' => $hasAddresses));
+                                  'addresses' => $arrayAddresses));
         endif;
     }
 
@@ -130,11 +131,12 @@ class TradeController extends Controller{
                             "holders" => 1);
 
         $dataExtra["category_id"] = $trade->getCategory()->getId();
-        $dataExtra["region"] = "'".$trade->getRegion()->getRegion()."'";
+        $dataExtra["region"] = "'".$trade->getAddress()->getRegion()."'";
         $dataExtra["price"] = 0;
   
         if($this->service != 3):
             $dataExtra["price"] = $trade->getPrice();
+            $dataExtra["address_id"] = $trade->getAddress()->getId();
 //            $dataExtra["dimensions"] = "'".$request->get('trade')['width']."x".
 //                                                   $request->get('trade')['height']."x".
 //                                                   $request->get('trade')['long']."'";
@@ -157,7 +159,7 @@ class TradeController extends Controller{
         $result = $ch->resultApiRed($dataOffer, $file);
 
         $this->ut->flashMessage("general", $request, $result);
-
+print_r($result);
         return $result['result'];
     }
     
@@ -411,13 +413,21 @@ class TradeController extends Controller{
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
+        $data['info'] = 'addresses';
 
         $result = $ch->resultApiRed($data, $file);
 
         if(!empty($result['addresses'])):
-            return true;
+
+            foreach($result['addresses'] as $key => $value):
+                $address = new Address($value);
+                $arrayAddress[$key] = $address;
+            endforeach;
+
+            return $arrayAddress;
+
         else:
-            return false;
+            return null;
         endif;    
     }
     

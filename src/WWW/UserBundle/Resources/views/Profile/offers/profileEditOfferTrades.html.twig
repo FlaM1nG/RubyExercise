@@ -42,7 +42,7 @@
             {{ form_row(form.offer.title) }}
             {{ form_row(form.category) }}
             {{ form_row(form.offer.description) }}
-            {{ form_row(form.region) }}
+            {{ form_row(form.address) }}
             {% if service != 3 %}
                 {#{{form_row(form.width)}}#}
                 {#{{form_row(form.height)}}#}
@@ -53,9 +53,7 @@
 
             <input id="imgOffer" name="imgOffer[]" type="file" accept="image/*" multiple class="file-loading">
             {{ form_row(form.offer.id) }}
-
-        {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
-            {{ form_row(form.saveTrade) }}
+         {{ form_row(form.saveTrade) }}
     </div>
 </div>
 
