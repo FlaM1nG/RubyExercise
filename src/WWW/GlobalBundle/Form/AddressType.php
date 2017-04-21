@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Region;
 use WWW\GlobalBundle\MyConstants;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 /**
  * Description of AddressType
@@ -69,18 +70,16 @@ class AddressType extends AbstractType{
                                                         'required' => false,
                                                         'empty_value' => false,
                                                         'choices' => $this->arrayPrefix,
-                                                        'preferred_choices' => array('+34'),
-                                                        'attr' => array('class'=>'prefixPhone')
+                                                        'preferred_choices' => array('+34')
                                                         ))
                 
-                ->add('phone','number',array('label'=>' ',
-                                             'required' => false,
-                                             'attr' => array('class'=>'phoneNumber')))
+                ->add('phone',NumberType::class,array('label'=>'&nbsp;',
+                                             'required' => false))
                      
                 ->add('id','hidden', array('label' => ' '))
                 ->add('editAddress','submit',array('label' => 'Guardar',
-                                                   'validation_groups' => false,
-                                                    'attr' => array('class' => 'btn-default editAddressButton')));
+                                                   'validation_groups' => false
+                ));
     }
     
     private function arrayPrefix(){
