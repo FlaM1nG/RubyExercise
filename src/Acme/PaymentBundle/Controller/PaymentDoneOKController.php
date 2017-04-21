@@ -56,7 +56,7 @@ class PaymentDoneOKController extends PayumController
         $storageDetails = $this->getPayum()->getStorage('Acme\PaymentBundle\Entity\PaymentDetails');
         //Aqui hayq ue pillar el id de la tabla payum_payment_details para obtener el resultado
         $details = $status->getFirstModel();
-        print_r($details->getDetails()['idRedsys']);
+        //print_r($details->getDetails()['idRedsys']);
         
         $IDPayment= $details->getNumber();
         list($ref,$idOffer)=explode("W",$IDPayment);
@@ -97,30 +97,33 @@ class PaymentDoneOKController extends PayumController
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'services/payment/pay.php';
 
-        $data['id'] = $this->getUser()->getId();
-        $data['username'] = $this->getUser()->getUsername();
-        $data['password'] = $request->getSession()->get('password');
+        $data['id'] = $details->getDetails()['idUser'];
+        $data['username'] = $details->getDetails()['username'];
+        $data['password'] = $details->getDetails()['password'];
         $data['offer_id'] = $idOffer;
         //secreto = dgv7Hbh5OMmC0Kmx2SDRC
         $extra['idPayment'] = $details->getId();
-        $extra['hash'] = hash_hmac('sha512', $idPayment, 'dgv7Hbh5OMmC0Kmx2SDRC');
+        $extra['hash'] = hash_hmac('sha512', $details->getNumber(), 'dgv7Hbh5OMmC0Kmx2SDRC');
         $extra['concept']= $details->getDescription();
         $extra['reference'] = $idPayment;
         $extra['price'] = $details->getDetails()['gastos_totales'];
         if(isset($details->getDetails()['metodo_envio'])){
-            $extra['mail']['name']= $details->getDetails()['metodo_envio'];
-            $extra['mail']['description']= 'paqueteria';
-            $extra['mail']['price']= $details->getDetails()['gastos_envio'];
+			if($details->getDetails()['metodo_envio'] == correos){
+				$extra['mail']['name']= $details->getDetails()['metodo_envio'];
+				$extra['mail']['description']= 'paqueteria';
+				$extra['mail']['price']= $details->getDetails()['gastos_envio'];
+			}
         }
         $extra['pay']['name']= $details->getDetails()['metodo_pago'];
         $extra['pay']['description']= 'metodo de pago';
         $extra['pay']['price']= $details->getDetails()['gastos_pago'];
         
         $data['data']= json_encode($extra);
-
+		
         $result = $ch->resultApiRed($data, $file);
-
-        var_dump($result);
+		
+		var_dump($result);
+		
     }
     
 }

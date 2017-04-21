@@ -69,7 +69,7 @@ class DetailsController extends PayumController
         else {
             
             $this->updateStatus($idOffer,$details,$IDPayment, $request);
-            die;
+            
             if(isset($details->getDetails()['metodo_envio'])){
                 if($details->getDetails()['metodo_envio']== 'correos'){
                     $codigo =new CorreosController($this->getDoctrine()->getManager());
@@ -107,7 +107,7 @@ class DetailsController extends PayumController
         $data['offer_id'] = $idOffer;
         //secreto = dgv7Hbh5OMmC0Kmx2SDRC
         $extra['idPayment'] = $details->getId();
-        $extra['hash'] = hash_hmac('sha512', $idPayment, 'dgv7Hbh5OMmC0Kmx2SDRC');
+        $extra['hash'] = hash_hmac('sha512', $details->getNumber(), 'dgv7Hbh5OMmC0Kmx2SDRC');
         $extra['concept']= $details->getDescription();
         $extra['reference'] = $idPayment;
         $extra['price'] = $details->getDetails()['gastos_totales'];

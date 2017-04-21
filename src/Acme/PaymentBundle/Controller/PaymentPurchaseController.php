@@ -175,7 +175,7 @@ class PaymentPurchaseController extends Controller {
                 return $this->redirect($captureToken->getTargetUrl());
             }
         }
-//print_r($this->offer);
+
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
                     'offer' => $this->offer,
@@ -310,7 +310,7 @@ class PaymentPurchaseController extends Controller {
 
         if ($result['result'] == 'ok'):
             $this->offer = new Trade($result);
-//print_r($result);exit;
+
         else:
             $this->ut->flashMessage("general", $request);
         endif;

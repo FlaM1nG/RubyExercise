@@ -35,23 +35,27 @@ class MobileController extends Controller {
         $this->getOffer($idOffer);
         $gastosGestion = $this->offerPrice->getPrice() * (MyConstants::ADMINISTRATION_FEES / 100);
         
-        if( $amount >= $this->offerPrice->getPrice()){
+        if( $totalAmount > $this->offerPrice->getPrice()){
             
             //Guardamos los datos en la base de datos
             $arrayPay['gastos_gestion'] = $gastosGestion;
             $arrayPay['gastos_pago'] = $gastosPago;
             $arrayPay['gastos_totales'] = $totalAmount;
+			$arrayPay['metodo_pago'] = $pago;
             if ($this->offer->getService()->getId()== 1 || $this->offer->getService()->getId()== 2) {
                 $arrayPay['direccion'] = $request->request->get("address_pay");;
                 $arrayPay['metodo_envio'] = $request->request->get("send_method");;
                 $arrayPay['gastos_envio'] = $request->request->get("shipping_cost");
-                $arrayPay['send_office'] = $request->get('previoPago')['send_office'];
+                $arrayPay['send_office'] = $request->request->get('send_office');
+				$arrayPay['gastos_comprobacion'] = $request->request->get('testing_cost');
             }
-            
-            
+			$arrayPay['idUser'] = $request->request->get('id');
+            $arrayPay['username'] = $username;
+            $arrayPay['password'] = $request->request->get('password');
+			
             $payment = new Payment();
             //numero de referencia por la hora y fecha
-            $payment->setNumber(date(date('His') . 'W' . $idOffer));
+            $payment->setNumber(date('His') . 'W' . $idOffer);
             $payment->setClientId(uniqid());
             $payment->setDescription(sprintf('Pago total de %s del cliente %s', $totalAmount*100, $username));
             $payment->setTotalAmount($totalAmount * 100);
@@ -83,13 +87,17 @@ class MobileController extends Controller {
                 $details['gastos_gestion'] = $gastosGestion;
                 $details['gastos_pago'] = $gastosPago;
                 $details['gastos_totales'] = $totalAmount;
+				$details['metodo_pago'] = $pago;
                 if ($this->offer->getService()->getId()== 1 || $this->offer->getService()->getId()== 2) {
                     $details['direccion'] = $request->request->get("address_pay");;
                     $details['metodo_envio'] = $request->request->get("send_method");;
                     $details['gastos_envio'] = $request->request->get("shipping_cost");
-                    $details['send_office'] = $request->get('previoPago')['send_office'];
+                    $details['send_office'] = $request->request->get('send_office');
+					$details['gastos_comprobacion'] = $request->request->get('testing_cost');
                 }
-                
+                $details['idUser'] = $request->request->get('id');
+                $details['username'] = $username;
+		$details['password'] = $request->request->get('password');
                 $storage->update($details);
 
                 //Las notificaciones de compra se guardan en la tabla payum_payments_details
@@ -103,6 +111,7 @@ class MobileController extends Controller {
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
+				$details['idRedsys'] = $details->getId();
                 $captureTokenOK = $this->getPayum()->getTokenFactory()->createCaptureToken(
                                         'redsys', $payment, 'prueba_postpago_ok'
                         );
