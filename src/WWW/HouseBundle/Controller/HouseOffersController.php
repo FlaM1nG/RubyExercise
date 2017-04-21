@@ -298,6 +298,7 @@ class HouseOffersController extends Controller
             );
 
         endif;
+ 
 
         $formSubscribe =  $this->createForm(DatepickerType::class);
         $formSubscribe->handleRequest($request);
