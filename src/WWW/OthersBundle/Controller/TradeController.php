@@ -40,26 +40,19 @@ class TradeController extends Controller{
     private $service;
     
     public function createOfferAction(Request $request){
-//        print_r($request);
-//        print_r($request->headers->get('referer'));
-//       echo "<br>". parse_url($request->headers->get('referer'),PHP_URL_PATH );
 
         $this->setUpVars($request);
         $arrayAddresses = null;
 
-        if($this->service != 3):
-            $arrayAddresses = $this->hasAddresses($request);
-        endif;
+        $arrayAddresses = $this->hasAddresses($request);
 
         if(!empty($arrayAddresses)):
-
-//            $request->getSession()->remove('_security.user.target_path');
 
             $trade = new Trade();
 
             $trade->getCategory()->setId($this->service);
             $trade->getOffer()->getService()->setId($this->service);
-//print_r($arrayAddresses);
+
             $formTrade = $this->createForm(TradeType::class,$trade,array('arrayAddresses' => $arrayAddresses));
 
             $formTrade->handleRequest($request);
@@ -88,10 +81,6 @@ class TradeController extends Controller{
                                  'addresses' => $arrayAddresses));
 
         else:
-
-//            $route = $request->get('_route');
-//
-//            $request->getSession()->set('_security.user.target_path',$route);
 
             return $this->render('OthersBundle:Trade:offerTrade.html.twig',
                             array('service' => $this->service,
