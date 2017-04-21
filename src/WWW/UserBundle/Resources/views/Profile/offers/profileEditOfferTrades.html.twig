@@ -8,8 +8,6 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('css/calendario/fullcalendar.css') }}" />
-
 {% endblock %}
 
 {% block alertProfile %}
@@ -42,7 +40,7 @@
             {{ form_row(form.offer.title) }}
             {{ form_row(form.category) }}
             {{ form_row(form.offer.description) }}
-            {{ form_row(form.region) }}
+            {{ form_row(form.address) }}
             {% if service != 3 %}
                 {#{{form_row(form.width)}}#}
                 {#{{form_row(form.height)}}#}
@@ -53,9 +51,7 @@
 
             <input id="imgOffer" name="imgOffer[]" type="file" accept="image/*" multiple class="file-loading">
             {{ form_row(form.offer.id) }}
-
-        {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
-            {{ form_row(form.saveTrade) }}
+         {{ form_row(form.saveTrade) }}
     </div>
 </div>
 
@@ -69,9 +65,6 @@
     <script type="text/javascript" src="{{ asset('js/calendario/jquery-2.1.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/calendario/jquery-ui.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/calendario/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/fullcalendar.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/fullcalendar-lang-all.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/calendar.js') }}"></script>
 
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>

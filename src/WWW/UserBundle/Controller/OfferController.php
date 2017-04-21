@@ -25,6 +25,7 @@ use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Form\TradeType;
 use WWW\CarsBundle\Entity\Car;
 use WWW\HouseBundle\Entity\ShareRoom;
+use WWW\GlobalBundle\Entity\Address;
 
 
 /**
@@ -123,7 +124,7 @@ class OfferController extends Controller{
             endif;
 
             if($result == 'ok'):
-                return $this->redirectToRoute('user_profiler_offers');
+                return $this->redirectToRoute('user_profile_offers');
             endif;
 
         endif;
@@ -235,9 +236,10 @@ class OfferController extends Controller{
 //                                                    $request->get('trade')['long']."'";
             $data['sub_values']['weight'] = $this->offer->getWeight();
             $data['sub_values']['price'] = $this->offer->getPrice();
+            $data['sub_values']['address_id'] = $this->offer->getAddress()->getId();
         endif;
 
-        $data['sub_values']['region'] = "'".$this->offer->getRegion()->getRegion()."'";
+        $data['sub_values']['region'] = "'".$this->offer->getAddress()->getCountry()->getRegion()."'";
         $data['sub_values']['category_id'] = $this->offer->getCategory()->getId();
 
         $info['data']= json_encode($data);
@@ -259,7 +261,7 @@ class OfferController extends Controller{
 
         return $result['result'];
     }
-    
+
     private function updateOfferHouseRent(Request $request){
 
         $ch = new ApiRest();
@@ -339,14 +341,15 @@ class OfferController extends Controller{
        $result = $ch->resultApiRed($data, $file);
 
        $formulario = null;
-
+//        print_r($result);
         if($result['result'] == 'ok'):
 
             $this->service = $result['service_id'];
 
              if($result['service_id'] == 1 || $result['service_id'] == 2 || $result['service_id'] == 3):
                  $this->createTrade($result);
-                 $formulario = $this->createForm(TradeType::class,$this->offer);
+                 $addresses = $this->getAddresses($request);
+                 $formulario = $this->createForm(TradeType::class,$this->offer, array('arrayAddresses' => $addresses));
 
              elseif($result['service_id'] == 4 || $result['service_id'] == 5):
                  $this->offer = new ShareCar($result);
@@ -417,7 +420,33 @@ class OfferController extends Controller{
         
         $this->offer = $offer;
 
-   }
+    }
+
+    private function getAddresses(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'user/data/get_info_user.php';
+        $ch = new ApiRest();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['info'] = 'addresses';
+
+        $result = $ch->resultApiRed($data, $file);
+
+        if(!empty($result['addresses'])):
+
+            foreach($result['addresses'] as $key => $value):
+                $address = new Address($value);
+                $arrayAddress[$key] = $address;
+            endforeach;
+
+            return $arrayAddress;
+
+        else:
+            return null;
+        endif;
+    }
    
     public function deleteImageOfferAction(Request $request){
 
