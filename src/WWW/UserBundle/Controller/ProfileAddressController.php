@@ -89,6 +89,9 @@ class ProfileAddressController extends Controller
         elseif($path == $this->generateUrl('service_newTrade')):
             $request->getSession()->set('_security.user.target_path','service_newTrade');
 
+        elseif($path == $this->generateUrl('service_newBarter')):
+            $request->getSession()->set('_security.user.target_path','service_newBarter');
+
         elseif(strpos($path, '/payment/trade/offer/') !== false):
             $request->getSession()->set('_security.user.target_path',$request->headers->get('referer'));
         //vengo de hacer un submit o de cualquier otro sitio
@@ -231,15 +234,19 @@ class ProfileAddressController extends Controller
         $result = $ch->resultApiRed($data, $file);
         
         $response = new JsonResponse();
-       
+
         if($result['result'] == 'ok'):
             $response->setData(array(
                 'result' => 'ok',
                 'message' => 'Datos actualizados correctamente'));
-        else:
+        elseif($result['result'] == 'data_error' AND $result['error'] == 'addressTrade'):
              $response->setData(array(
                 'result' => 'ko',
-                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
+                'message' => 'No se ha podido llevar a cabo el borrado, la dirección está asociada a ofertas de compra-venta'));
+        else:
+            $response->setData(array(
+                'result' => 'ko',
+                'message' => 'Ha ocurrido un error, por favor, vuelvalo intentar más tarde'));
         endif;
         
         return $response;
