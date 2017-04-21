@@ -312,6 +312,7 @@ class HouseOffersController extends Controller
                 return $this->redirectToRoute('acme_payment_homepage', array(
                     'idOffer'=> $offerShareHouse->getOffer()->getId(),
                     'service'=> $nameService,
+
                 ));
         endif;
 
@@ -323,9 +324,13 @@ class HouseOffersController extends Controller
                              'formSubscribe' => $formSubscribe->createView(),
                              'pagination' => $pagination,
                              'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR,
-                             'service' => $service
+                             'service' => $service,
+
+
         ));
     }
+
+
 
 
     private function offerSubscribe(Request $request,$offerId){
