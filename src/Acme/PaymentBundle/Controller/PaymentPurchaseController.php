@@ -73,41 +73,61 @@ class PaymentPurchaseController extends Controller {
         }
 
 
-
         if ($this->serviceId == 1 || $this->serviceId == 2):
             $arrayCourier = $this->getCourierPrice($request);
 
         endif;
 
-
-      //  $this->serviceId = 6;
         $preciototal = null;
 
         if ($this->serviceId == 6 || $this->serviceId == 7):
-         
+
+           $precio_base= $this->offer->getPrice();
+
             $sesion = $request->getSession();
 
             //Guardamos el precio total en la sesion
 
             $preciototal = $sesion->get('preciototal');
 
-          //  $fechainicial = $sesion->get('fechainicial');
+            $fechainicial = $sesion->get('fechainicial');
 
-          //  $fechafinal = $sesion->get('fechafinal');
+            $offerID = $request->get('idOffer');
 
-         //  $fechaend = $fechainicial;
 
-          //  $em = $this->getDoctrine()->getEntityManager();
-          //  $db = $em->getConnection();
+            $date = new \DateTime ($fechainicial);
 
-         //   $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+            $calendarioId = $sesion->get('calendario_id');
 
-          //  $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'),null,null, $fechainicial, $fechaend,0,$request->get('blocked'),0,$request->get('inscription_id'));
+            $servicioId = $sesion->get('service_id');
 
-          //  $em->persist($mce);
+            $fechafinal = $sesion->get('fechafinal');
 
-        //    $em->flush();
-        
+            $fechaend = $date;
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $db = $em->getConnection();
+
+            $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+
+            $mce = new MyCompanyEvents('','€', $precio_base, $calendarioId, $servicioId ,null,null, $date, $fechaend,0,0,0,$request->get('inscription_id'));
+
+            $mce->setOcuppate(true);
+
+            $query =  "select id from inscription where offer_id=$offerID";
+
+            $stmt = $db->prepare($query);
+            $params = array();
+            $stmt->execute($params);
+            $fechas = $stmt->fetchAll();
+
+
+            $mce->setInscriptionID($fechas[0]['id']);
+
+            $em->persist($mce);
+
+            $em->flush();
+
 
         endif;
 

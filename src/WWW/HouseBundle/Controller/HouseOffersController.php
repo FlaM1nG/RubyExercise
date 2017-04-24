@@ -251,6 +251,7 @@ class HouseOffersController extends Controller
         $arrayAttr = null;
         $formSubscribe = null;
         $service = $this->getIdService($request);
+        
 
         $sesion = $request->getSession();
 
@@ -262,7 +263,7 @@ class HouseOffersController extends Controller
 
         $fechafinal = $sesion->get('fechafinal');
 
-    
+
 
         if($service == 6 || $service == 7){
 
@@ -320,6 +321,11 @@ class HouseOffersController extends Controller
 
         //Sacamos el calendar ID
         $calendarId = $this->getDataCalendar($offerShareHouse->getHouse()->getId());
+
+        // Lo guardo en la sesion el calendar ID y el servicio
+        $sesion->set('calendario_id', $calendarId);
+        $sesion->set('service_id', $service);
+        
 
 
         if($formSubscribe->isSubmitted()):
