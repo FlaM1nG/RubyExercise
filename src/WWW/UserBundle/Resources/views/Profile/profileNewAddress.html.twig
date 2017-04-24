@@ -30,12 +30,11 @@
                 Añadir Dirección
             </h3>
             <hr/>
-            {#{{form(form)}}#}
+
             {{ form_start(form) }}
             {{ form_row(form.name) }}
             {{ form_row(form.isDefault) }}
             {{ form_row(form.country) }}
-            {#{{ form_row(form.region) }}#}
             {{ form_row(form.city) }}
             {{ form_row(form.street) }}
             <div class="row us-address-new">

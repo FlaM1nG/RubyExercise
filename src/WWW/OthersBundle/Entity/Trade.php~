@@ -47,7 +47,7 @@ class Trade
 
     /**
      * @var \WWW\ServiceBundle\Entity\Offer
-     * @Assert\type(type="WWW\ServiceBundle\Entity\Offer")
+     * 
      */
     private $offer;
 
@@ -62,12 +62,12 @@ class Trade
     private $region;
     
     public function __construct($arrayData = null) {
-        
+  
         if(!empty($arrayData)):
             foreach($arrayData as $key => $value):
                 $key = Inflector::camelize($key);
 
-                if(property_exists('WWW\OthersBundle\Entity\Trade',$key)):
+                if(property_exists('WWW\OthersBundle\Entity\Trade',$key) && !empty($value) ):
                     $this->$key = $value;
 
                 endif;
@@ -79,6 +79,9 @@ class Trade
                 $this->category = new TradeCategory(null,$arrayData['category_id']);
                 $this->category->setName($arrayData['category']);
             endif;
+        else:
+            $this->category = new TradeCategory();
+            $this->offer = new Offer();
         endif;    
     }
     /**

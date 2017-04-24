@@ -44,7 +44,8 @@ class CarType extends AbstractType{
             ->add('description', TextareaType::class, array('label' => 'Descripción',
                                                             'required' => false ))
 
-            ->add('seats', IntegerType::class,array('label'=>'Número de plazas'))
+            ->add('seats', IntegerType::class,array('label'=>'Número de plazas',
+                                                    'attr' => array('min' => 2)))
 
             ->add('model', ChoiceType::class, array('label' => 'Modelo',
                                                     'choices' => $arrayModel,
@@ -63,7 +64,7 @@ class CarType extends AbstractType{
                                                       'required' => false  ))
             ->add('talk', CheckboxType::class, array('label' => 'Me gusta hablar',
                                                      'required' => false))
-            ->add('imgCar', FileType::class, array( 'label' => ' ',
+            ->add('imgCar', FileType::class, array( 'label' => 'Imágenes',
                                                     'mapped' => false,
                                                     'multiple' => true,
                                                     'required' => true,

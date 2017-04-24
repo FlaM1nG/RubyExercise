@@ -90,12 +90,18 @@ class PagoType extends AbstractType {
                                                                'mapped' => false,
                                                                'data' => 0))
             ->add('managementFee', HiddenType::class, array('attr' => array('class' => 'managementFee'),
-                                                                'mapped' => false,
-                                                                'data' => 0))
+                                                            'mapped' => false,
+                                                            'data' => 0))
+
+            ->add('sendOffice', CheckboxType::class, array('label' => 'Comprobación de estado',
+                                                           'mapped' => false,
+                                                           'required' => false ))
+
+            ->add('testingCost', HiddenType::class, array('mapped' => false,
+                                                          'data' => 0 ))
             
-            ->add('submit', SubmitType::class, array(
-                                                    'attr' => $arrayAttrSubmit,
-                                                    'label' => 'Pagar',
+            ->add('submit', SubmitType::class, array('attr' => $arrayAttrSubmit,
+                                                     'label' => 'Pagar'
                 
             ));
 

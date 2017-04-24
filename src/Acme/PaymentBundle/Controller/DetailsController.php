@@ -11,8 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
+use Acme\PaymentBundle\Controller\CorreosController;
 
-class DetailsController extends PayumController
+class DetailsController extends PayumController 
 {
     public function viewAction(Request $request)
     {
@@ -56,8 +57,9 @@ class DetailsController extends PayumController
 
         
         $details = $status->getFirstModel();
+       //Aqui con pillar el get Id de $details nos deberia dar el id para enviar
         $IDPayment= $details->getNumber();
-        list($ref,$idOffer)=explode("-",$IDPayment);
+        list($ref,$idOffer)=explode("W",$IDPayment);
         if(isset($details->getDetails()['CANCELLED'])){
             return $this->render('pay/postPayPageKO.html.twig',array(
             'details' => $details
@@ -65,47 +67,60 @@ class DetailsController extends PayumController
             ));
         }
         else {
-            $this->updateStatus($idOffer, $request);
             
+            $this->updateStatus($idOffer,$details,$IDPayment, $request);
+            die;
+            if(isset($details->getDetails()['metodo_envio'])){
+                if($details->getDetails()['metodo_envio']== 'correos'){
+                    $codigo =new CorreosController($this->getDoctrine()->getManager());
+                    $idDir= $details->getDetails()['direccion'];
+                    //hacer que se llame a esta funcion una vez solo
+                    if(isset($details->getDetails()['send_office'])){
+                        $sendOffice= 1;
+                    }
+                    $sendOffice = 0;
+                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice);
+                    print_r($codigo);
+                }
+            }
             return $this->render('pay/postPayPageOK.html.twig',array(
             'id' => $IDPayment
             
             ));
         }
         
-//        if ($details instanceof  DetailsAggregateInterface) {
-//            $details = $details->getDetails();
-//        }
-//
-//        if ($details instanceof  \Traversable) {
-//            $details = iterator_to_array($details);
-//        }
-//        return new Response(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
-//        return $this->render('AcmePaymentBundle:Details:view.html.twig', array(
-//            'status' => $status->getValue(),
-//            'payment' => htmlspecialchars(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)),
-//            'gatewayTitle' => ucwords(str_replace(array('_', '-'), ' ', $token->getGatewayName())),
-//            'refundToken' => $refundToken,
-//            'captureToken' => $captureToken,
-//            'cancelToken' => $cancelToken,
-//        ));
     }
+        
     
     private function getStatusPayment(){
         
     }
     
-    private function updateStatus($idOffer,Request $request){
+    private function updateStatus($idOffer,$details,$idPayment,Request $request){
         
         $ch = new ApiRest();
-        $file = MyConstants::PATH_APIREST . 'services/inscription/transition.php';
+        $file = MyConstants::PATH_APIREST . 'services/payment/pay.php';
 
         $data['id'] = $this->getUser()->getId();
         $data['username'] = $this->getUser()->getUsername();
         $data['password'] = $request->getSession()->get('password');
-        $data['user_id'] = $this->getUser()->getId();
         $data['offer_id'] = $idOffer;
-        $data['status'] = '3';
+        //secreto = dgv7Hbh5OMmC0Kmx2SDRC
+        $extra['idPayment'] = $details->getId();
+        $extra['hash'] = hash_hmac('sha512', $idPayment, 'dgv7Hbh5OMmC0Kmx2SDRC');
+        $extra['concept']= $details->getDescription();
+        $extra['reference'] = $idPayment;
+        $extra['price'] = $details->getDetails()['gastos_totales'];
+        if(isset($details->getDetails()['metodo_envio'])){
+            $extra['mail']['name']= $details->getDetails()['metodo_envio'];
+            $extra['mail']['description']= 'paqueteria';
+            $extra['mail']['price']= $details->getDetails()['gastos_envio'];
+        }
+        $extra['pay']['name']= $details->getDetails()['metodo_pago'];
+        $extra['pay']['description']= 'metodo de pago';
+        $extra['pay']['price']= $details->getDetails()['gastos_pago'];
+        
+        $data['data']= json_encode($extra);
 
         $result = $ch->resultApiRed($data, $file);
 

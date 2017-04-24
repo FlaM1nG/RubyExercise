@@ -24,6 +24,8 @@ WWW\GlobalBundle\Entity\MyCompanyEvents:
         blocked:
             type: boolean
             nullable: true
+        inscriptionID:
+            type: integer
         url:          
             type: string
             length: 255

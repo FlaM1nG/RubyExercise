@@ -9184,7 +9184,6 @@ button.close {
 .cbp-hrmenu .cbp-hrsub-inner > div {
   width: 33%;
   float: left;
-  padding: 0 2em 0;
 }
 .cbp-hrmenu .cbp-hrsub-inner:before,
 .cbp-hrmenu .cbp-hrsub-inner:after {
@@ -11692,6 +11691,12 @@ header.is-fixed {
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
 /*######################   RANGO ANCHO [1600 � 1200[ ######################*/
 /*######################   RANGO ANCHO [1200 �  992[  ######################*/
+@media only screen and (max-width: 1200px) {
+  .cd-main-content {
+    z-index: 0;
+    position: relative;
+  }
+}
 /*######################   RANGO ANCHO [992�  768[  ######################*/
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width: 768px) {
@@ -12794,6 +12799,9 @@ a.boton-leer-post:focus {
   padding: 3% 5%;
 }
 .btn.btn-default.us-profileAddresses {
+  float: none;
+}
+.btn.btn-default.us-profileBtnLeft {
   float: none;
 }
 /* ***** FIN PROFILE ***** */
@@ -14600,6 +14608,7 @@ textarea {
   -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
   padding: 2%;
+  border: 1px solid #333333;
 }
 .sha-offer-list:hover {
   background-color: #333333;
@@ -14742,7 +14751,7 @@ textarea {
     color: #ffffff;
   }
   .sha-offer-list:hover {
-    border: none;
+    border: 1px solid #333333;
     background-color: #ffffff;
     color: inherit;
   }
