@@ -80,7 +80,8 @@ class DetailsController extends PayumController
                     }
                     $sendOffice = 0;
                     $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice);
-                    print_r($codigo);
+                    
+                    
                 }
             }
             return $this->render('pay/postPayPageOK.html.twig',array(
