@@ -94,8 +94,8 @@ class CorreosController extends Controller {
         
         $sender = array(
             'contact_name' => $this->offer->getOffer()->getUserAdmin()->getUsername(),
-            'email' => 'test@test.com',//$this->offer->getOffer()->getUserAdmin()->getEmail(),
-            'phone' =>'623123123' ,// $this->offer->getOffer()->getUserAdmin()->getPhone(),
+            'email' => $this->offer->getOffer()->getUserAdmin()->getEmail(),
+            'phone' =>'623123123' ,// que empiece por 6 $this->offer->getOffer()->getUserAdmin()->getPhone(),
             'street1' => $this->offer->getAddress()->getStreet(),
             'city' => $this->offer->getAddress()->getCity(),
             'postal_code' => $this->offer->getAddress()->getZipCode(),
@@ -103,7 +103,7 @@ class CorreosController extends Controller {
             'country' => 'ESP',
             'type' => 'residential'
         );
-        
+       
         if($sendOffice==0){
             $receiver = array(
                 'contact_name' => $this->buyer->getUsername(),
