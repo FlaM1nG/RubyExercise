@@ -65,7 +65,7 @@ class CorreosController extends Controller {
             'description' => $this->offer->getOffer()->getTitle(),
             'box_type' => 'custom',
             'weight' => array(
-                'value' => $this->offer->getWeight(),
+                'value' => intval($this->offer->getWeight()),
                 'unit' => 'kg',
             ),
             'dimension' => array(
@@ -80,34 +80,34 @@ class CorreosController extends Controller {
                     'origin_country' => 'ESP',
                     'quantity' => 1,
                     'price' => array(
-                        'amount' => $this->offer->getPrice(),
+                        'amount' => floatval($this->offer->getPrice()),
                         'currency' => 'EUR',
                     ),
                     'weight' => array(
-                        'value' => $this->offer->getWeight(),
+                        'value' => intval($this->offer->getWeight()),
                         'unit' => 'kg',
                     ),
                     'sku' => 'imac2014'
                 ),
             ),
         );
-
+        
         $sender = array(
-            'contact_name' => $this->offer->getOffer()->getUserAdmin()->getName(),
-            'email' => $this->offer->getOffer()->getUserAdmin()->getEmail(),
-            'phone' => $this->offer->getOffer()->getUserAdmin()->getPhone(),
-            'street1' => ' ',
-            'city' => ' ',
-            'postal_code' => ' ',
+            'contact_name' => $this->offer->getOffer()->getUserAdmin()->getUsername(),
+            'email' => 'test@test.com',//$this->offer->getOffer()->getUserAdmin()->getEmail(),
+            'phone' =>'623123123' ,// $this->offer->getOffer()->getUserAdmin()->getPhone(),
+            'street1' => $this->offer->getAddress()->getStreet(),
+            'city' => $this->offer->getAddress()->getCity(),
+            'postal_code' => $this->offer->getAddress()->getZipCode(),
             'state' => $this->offer->getRegion(),            
             'country' => 'ESP',
             'type' => 'residential'
         );
         
-        if($sendOffice=0){
+        if($sendOffice==0){
             $receiver = array(
-                'contact_name' => $this->buyer->getName(),
-                'phone' => $this->buyer->getPhone(),
+                'contact_name' => $this->buyer->getUsername(),
+                'phone' => '623123123' ,//Tiene que empezar por 6 strval( $this->buyer->getPhone()),
                 'email' => $this->buyer->getEmail(),
                 'street1' => $this->addressBuyer->getStreet(),
                 'postal_code' => $this->addressBuyer->getZipCode(),
@@ -117,9 +117,11 @@ class CorreosController extends Controller {
                 'type' => 'residential'
             );
         }
+        
         else {
             $receiver = array(
-                'contact_name' => 'WhatWantWeb',
+                'contact_name' => 'Felix Estrada Muñoz',
+                'company_name' => 'WhatWantWeb',
                 'phone' => '**************',
                 'email' => 'info@whatwantweb.com',
                 'street1' => 'Avd Fernado de los Ríos 11 bq. 1, of. 3',
@@ -130,6 +132,7 @@ class CorreosController extends Controller {
                 'type' => 'business'
             );
         }
+        
         $payload = array(
             'async' => false,
             'billing' => array(
@@ -157,13 +160,15 @@ class CorreosController extends Controller {
 
             ),
         );
-
+//        print_r($payload);
+//        die;
         try {
             $api = new Postmen($api_key, $region);
             $result = $api->create('labels', $payload);
             echo "RESULT:\n";
             
             var_dump($result->tracking_numbers[0]);
+           
         } catch (exception $e) {
             echo "ERROR:\n";
             echo $e->getCode() . "\n";      // error code
