@@ -75,7 +75,7 @@ class CalendarController extends Controller
 
             $dateEnd = $date;
 
-            $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'),null,null, $date, $dateEnd,0,$request->get('blocked'),0,0);
+            $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'),null,null, $date, $dateEnd,0,$request->get('blocked'),0,$request->get('inscription_id'));
 
             $em->persist($mce);
 
@@ -443,6 +443,23 @@ class CalendarController extends Controller
 
 
                     }
+            }
+
+            if (!empty($res['totalPrice'])){
+
+
+                $sesion = $request->getSession();
+
+                //Guardamos el precio total en la sesion
+
+                $sesion->set('preciototal', $res['totalPrice']);
+
+                $sesion->set('fechainicial', $_POST['initDate']);
+
+                $sesion->set('fechafinal', $_POST['endDate']);
+
+             //   $idoferta = $session->get('offer');
+
             }
 
             if ($sePuede) {

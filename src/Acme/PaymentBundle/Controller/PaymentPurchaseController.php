@@ -18,6 +18,7 @@ use WWW\GlobalBundle\MyConstants;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\CarsBundle\Entity\ShareCar;
 use WWW\HouseBundle\Entity\ShareHouse;
+use WWW\GlobalBundle\Entity\MyCompanyEvents;
 use WWW\HouseBundle\Entity\House;
 use com\realexpayments\remote\sdk\domain\Card;
 use com\realexpayments\remote\sdk\domain\CardType;
@@ -56,17 +57,57 @@ class PaymentPurchaseController extends Controller {
 
         $this->setUpVars($request);
 
+
         $administrationFeesPercent = MyConstants::ADMINISTRATION_FEES/100;
 
         $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice(),
                                                                 'arrayAddresses' => $arrayAddressesForm));
         $form->handleRequest($request);
 
+
         $arrayCourier = null;
-        $this->serviceId = $this->offer->getOffer()->getService()->getId();
+
+        if(empty($this->serviceId)) {
+
+            $this->serviceId = $this->offer->getOffer()->getService()->getId();
+        }
+
+
 
         if ($this->serviceId == 1 || $this->serviceId == 2):
             $arrayCourier = $this->getCourierPrice($request);
+
+        endif;
+
+
+      //  $this->serviceId = 6;
+        $preciototal = null;
+
+        if ($this->serviceId == 6 || $this->serviceId == 7):
+         
+            $sesion = $request->getSession();
+
+            //Guardamos el precio total en la sesion
+
+            $preciototal = $sesion->get('preciototal');
+
+          //  $fechainicial = $sesion->get('fechainicial');
+
+          //  $fechafinal = $sesion->get('fechafinal');
+
+         //  $fechaend = $fechainicial;
+
+          //  $em = $this->getDoctrine()->getEntityManager();
+          //  $db = $em->getConnection();
+
+         //   $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+
+          //  $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'),null,null, $fechainicial, $fechaend,0,$request->get('blocked'),0,$request->get('inscription_id'));
+
+          //  $em->persist($mce);
+
+        //    $em->flush();
+        
 
         endif;
 
@@ -176,11 +217,14 @@ class PaymentPurchaseController extends Controller {
             }
         }
 //print_r($this->offer);
+        $this->offer->setPrice($preciototal);
+
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
                     'offer' => $this->offer,
                     'service' => $this->serviceId,
                     'arrayCourier' => $arrayCourier,
+                    'preciototal' =>  $preciototal,
                     'arrayAddresses' => $arrayAddressesPay,
                     'administrationFees' => $administrationFeesPercent,
                     'sendOfficePercent' => MyConstants::SEND_OFFICE/100,

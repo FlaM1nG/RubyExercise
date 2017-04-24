@@ -252,6 +252,18 @@ class HouseOffersController extends Controller
         $formSubscribe = null;
         $service = $this->getIdService($request);
 
+        $sesion = $request->getSession();
+
+        //Guardamos el precio total en la sesion
+
+        $precioTotal = $sesion->get('preciototal');
+
+        $fechainicial = $sesion->get('fechainicial');
+
+        $fechafinal = $sesion->get('fechafinal');
+
+    
+
         if($service == 6 || $service == 7){
 
             $formSubscribe = $this->createForm(DatepickerType::class);
@@ -270,6 +282,7 @@ class HouseOffersController extends Controller
         endif;
 
         $offerShareHouse = $this->getoffer($request, $service);
+
 
         if($service != 9):
             $arrayAttr = $offerShareHouse->getHouse()->getArrayGroupsAttrH();
@@ -303,6 +316,12 @@ class HouseOffersController extends Controller
         $formSubscribe =  $this->createForm(DatepickerType::class);
         $formSubscribe->handleRequest($request);
 
+        $calendarId = null;
+
+        //Sacamos el calendar ID
+        $calendarId = $this->getDataCalendar($offerShareHouse->getHouse()->getId());
+
+
         if($formSubscribe->isSubmitted()):
             $this->offerSubscribe($request,$offerShareHouse->getOffer()->getId());
                 $nameService = "";
@@ -316,6 +335,8 @@ class HouseOffersController extends Controller
                 ));
         endif;
 
+
+
         return $this->render('HouseBundle::offHouseRents.html.twig', array(
                              'offer' => $offerShareHouse,
                              'arrayAttr' => $arrayAttr,
@@ -325,12 +346,33 @@ class HouseOffersController extends Controller
                              'pagination' => $pagination,
                              'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR,
                              'service' => $service,
+                            'preciototal' => $precioTotal,
+                            'fechainicial' => $fechainicial,
+                            'fechafinal' => $fechafinal,
+                            'calendarID' => $calendarId,
+
 
 
         ));
     }
 
+    private function getDataCalendar($idHouse){
 
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+
+        $query =  "select calendar_id from house where id=".$idHouse;
+
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $fechas = $stmt->fetchAll();
+
+        $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+
+        return $fechas[0]['calendar_id'];
+
+    }
 
 
     private function offerSubscribe(Request $request,$offerId){

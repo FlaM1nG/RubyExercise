@@ -62,6 +62,13 @@ class ShareHouse
                 }
             }
 
+            if (isset($_SESSION['sesion'])){
+
+
+
+                $this->price = $arrayData['totalPrice'];
+
+            }
 
             $this->price = $arrayData['price'];
             $this->offer = new Offer($arrayData);
