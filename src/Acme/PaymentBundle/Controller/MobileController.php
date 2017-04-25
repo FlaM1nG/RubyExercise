@@ -42,6 +42,7 @@ class MobileController extends Controller {
             $arrayPay['gastos_pago'] = $gastosPago;
             $arrayPay['gastos_totales'] = $totalAmount;
 			$arrayPay['metodo_pago'] = $pago;
+			$arrayPay['precio_oferta'] = $this->offerPrice->getPrice();
             if ($this->offer->getService()->getId()== 1 || $this->offer->getService()->getId()== 2) {
                 $arrayPay['direccion'] = $request->request->get("address_pay");;
                 $arrayPay['metodo_envio'] = $request->request->get("send_method");;
@@ -87,7 +88,8 @@ class MobileController extends Controller {
                 $details['gastos_gestion'] = $gastosGestion;
                 $details['gastos_pago'] = $gastosPago;
                 $details['gastos_totales'] = $totalAmount;
-				$details['metodo_pago'] = $pago;
+                $details['metodo_pago'] = $pago;
+                $details['precio_oferta'] = $this->offerPrice->getPrice();
                 if ($this->offer->getService()->getId()== 1 || $this->offer->getService()->getId()== 2) {
                     $details['direccion'] = $request->request->get("address_pay");;
                     $details['metodo_envio'] = $request->request->get("send_method");;
@@ -97,7 +99,7 @@ class MobileController extends Controller {
                 }
                 $details['idUser'] = $request->request->get('id');
                 $details['username'] = $username;
-		$details['password'] = $request->request->get('password');
+				$details['password'] = $request->request->get('password');
                 $storage->update($details);
 
                 //Las notificaciones de compra se guardan en la tabla payum_payments_details
@@ -126,7 +128,7 @@ class MobileController extends Controller {
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
-
+				
                 return new Response($captureTokenOK->getTargetUrl());
                 //return new Response($captureToken->getTargetUrl()  );
             }

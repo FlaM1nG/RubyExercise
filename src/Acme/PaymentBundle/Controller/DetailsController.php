@@ -62,7 +62,7 @@ class DetailsController extends PayumController
         list($ref,$idOffer)=explode("W",$IDPayment);
         if(isset($details->getDetails()['CANCELLED'])){
             return $this->render('pay/postPayPageKO.html.twig',array(
-            'details' => $details
+            'id' => $IDPayment
             
             ));
         }
@@ -79,7 +79,8 @@ class DetailsController extends PayumController
                         $sendOffice= 1;
                     }
                     $sendOffice = 0;
-                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice);
+                    $arrayDetails = $details->getDetails();
+                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice,$arrayDetails);
                     
                     
                 }
@@ -111,7 +112,7 @@ class DetailsController extends PayumController
         $extra['hash'] = hash_hmac('sha512', $details->getNumber(), 'dgv7Hbh5OMmC0Kmx2SDRC');
         $extra['concept']= $details->getDescription();
         $extra['reference'] = $idPayment;
-        $extra['price'] = $details->getDetails()['gastos_totales'];
+        $extra['price'] = $details->getDetails()['precio_oferta'];
         if(isset($details->getDetails()['metodo_envio'])){
             $extra['mail']['name']= $details->getDetails()['metodo_envio'];
             $extra['mail']['description']= 'paqueteria';

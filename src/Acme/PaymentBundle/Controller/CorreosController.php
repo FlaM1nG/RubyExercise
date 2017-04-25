@@ -39,14 +39,14 @@ class CorreosController extends Controller {
         
     }
     
-    public function getTrackingNumberAction($idOffer, Request $request, $idDir, $sendOffice) {
+    public function getTrackingNumberAction($idOffer, Request $request, $idDir, $sendOffice,$arrayDetails) {
         //Inicio las variables propias
         $this->searchAddressBuyer($idDir);
         $this->offer = new Trade();
         $this->buyer = new User();
         
         //Se cargan los datos 
-        $this->buyer = $this->getUserProfile($request);
+        $this->buyer = $this->getUserProfile($request,$arrayDetails);
         $this->getOffer($idOffer, $request);
          
         
@@ -160,8 +160,8 @@ class CorreosController extends Controller {
 
             ),
         );
-//        print_r($payload);
-//        die;
+		
+
         try {
             $api = new Postmen($api_key, $region);
             $result = $api->create('labels', $payload);
@@ -200,15 +200,24 @@ class CorreosController extends Controller {
         endif;
     }
     
-    private function getUserProfile(Request $request) {
+    private function getUserProfile(Request $request, $arrayDetails) {
 
         $user = null;
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'user/data/get_info_user.php';
 
-        $data['id'] = $request->getSession()->get('id');
-        $data['username'] = $request->getSession()->get('username');
-        $data['password'] = $request->getSession()->get('password');
+        if(!empty($request->getSession()->get('password'))){
+            $data['id'] = $request->getSession()->get('id');
+            $data['username'] = $request->getSession()->get('username');
+            $data['password'] = $request->getSession()->get('password');
+        
+        }
+        else{
+            $data['id'] = $arrayDetails['idUser'];
+            $data['username'] = $arrayDetails['username'];
+            $data['password'] = $arrayDetails['password'];
+        }
+        
         
         $result = $ch->resultApiRed($data, $file);
 

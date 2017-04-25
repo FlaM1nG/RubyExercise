@@ -88,6 +88,7 @@ class PaymentPurchaseController extends Controller {
             $arrayPay['gastos_pago'] = $request->get('previoPago')['managementPayFee'];
             $arrayPay['gastos_totales'] = $request->get('previoPago')['totalAmount'];
             $arrayPay['metodo_pago'] = $request->get('previoPago')['payMethod'];
+            $arrayPay['precio_oferta'] = $this->offer->getPrice();
             if ($this->serviceId == 1 || $this->serviceId == 2) {
                 $arrayPay['direccion'] = $request->get('previoPago')['addressPay'];
                 $arrayPay['metodo_envio'] = $request->get('previoPago')['sendMethod'];
@@ -125,6 +126,7 @@ class PaymentPurchaseController extends Controller {
                 $details['gastos_pago'] = $request->get('previoPago')['managementPayFee'];
                 $details['gastos_totales'] = $request->get('previoPago')['totalAmount'];
                 $details['metodo_pago'] = $request->get('previoPago')['payMethod'];
+		$details['precio_oferta'] = $this->offer->getPrice();
                 if ($this->serviceId == 1 || $this->serviceId == 2) {
                     $details['direccion'] = $request->get('previoPago')['addressPay'];
                     $details['metodo_envio'] = $request->get('previoPago')['sendMethod'];

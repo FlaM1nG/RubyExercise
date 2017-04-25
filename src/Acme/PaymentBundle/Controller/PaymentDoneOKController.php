@@ -78,7 +78,8 @@ class PaymentDoneOKController extends PayumController
                         $sendOffice= 1;
                     }
                     $sendOffice = 0;
-                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice);
+					$arrayDetails = $details->getDetails();
+                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice,$arrayDetails);
                     print_r($codigo);
                 }
             }
@@ -97,16 +98,23 @@ class PaymentDoneOKController extends PayumController
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'services/payment/pay.php';
 
-        $data['id'] = $details->getDetails()['idUser'];
-        $data['username'] = $details->getDetails()['username'];
-        $data['password'] = $details->getDetails()['password'];
+        if(isset($request->getSession()->get('password'))){
+            $data['id'] = $this->getUser()->getId();
+            $data['username'] = $this->getUser()->getUsername();
+            $data['password'] = $request->getSession()->get('password');
+        }
+        else{
+            $data['id'] = $details->getDetails()['idUser'];
+            $data['username'] = $details->getDetails()['username'];
+            $data['password'] = $details->getDetails()['password'];
+        }
         $data['offer_id'] = $idOffer;
         //secreto = dgv7Hbh5OMmC0Kmx2SDRC
         $extra['idPayment'] = $details->getId();
         $extra['hash'] = hash_hmac('sha512', $details->getNumber(), 'dgv7Hbh5OMmC0Kmx2SDRC');
         $extra['concept']= $details->getDescription();
         $extra['reference'] = $idPayment;
-        $extra['price'] = $details->getDetails()['gastos_totales'];
+        $extra['price'] = $details->getDetails()['precio_oferta'];
         if(isset($details->getDetails()['metodo_envio'])){
 			if($details->getDetails()['metodo_envio'] == correos){
 				$extra['mail']['name']= $details->getDetails()['metodo_envio'];

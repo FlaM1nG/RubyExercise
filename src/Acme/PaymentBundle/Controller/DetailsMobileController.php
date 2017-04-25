@@ -57,10 +57,11 @@ class DetailsMobileController extends PayumController
         $details = $status->getFirstModel();
 		
         $IDPayment= $details->getNumber();
+		
         list($ref,$idOffer)=explode("W",$IDPayment);
         if(!isset($details->getDetails()['CANCELLED'])){   
 			
-            $this->updateStatus($idOffer,$details,$idPayment, $request);
+            $this->updateStatus($idOffer,$details,$IDPayment, $request);
 			
 			if(isset($details->getDetails()['metodo_envio'])){
                 if($details->getDetails()['metodo_envio']== 'correos'){
@@ -71,7 +72,8 @@ class DetailsMobileController extends PayumController
                         $sendOffice= 1;
                     }
                     $sendOffice = 0;
-                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice);
+                    $arrayDetails = $details->getDetails();
+                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice, $arrayDetails);
                     print_r($codigo);
                 }
             }
@@ -109,7 +111,7 @@ class DetailsMobileController extends PayumController
         $extra['hash'] = hash_hmac('sha512', $details->getNumber(), 'dgv7Hbh5OMmC0Kmx2SDRC');
         $extra['concept']= $details->getDescription();
         $extra['reference'] = $idPayment;
-        $extra['price'] = $details->getDetails()['gastos_totales'];
+        $extra['price'] = $details->getDetails()['precio_oferta'];
         if(isset($details->getDetails()['metodo_envio'])){
 			if($details->getDetails()['metodo_envio'] == correos){
 				$extra['mail']['name']= $details->getDetails()['metodo_envio'];
