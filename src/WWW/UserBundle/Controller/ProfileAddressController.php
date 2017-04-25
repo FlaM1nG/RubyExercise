@@ -166,10 +166,10 @@ class ProfileAddressController extends Controller
         
         $arrayAddress = $user->getAddresses();
         $addressDefault = $user->getDefaultAddress();
-        
+//        echo "<pre>";print_r($user);echo "</pre>";
         $address = null;
         
-        if($addressDefault->getId() == $idAddress):
+        if(!empty($addressDefault) AND $addressDefault->getId() == $idAddress):
             $address = $addressDefault;
             $address->setIsDefault(true);
         else:
@@ -187,14 +187,14 @@ class ProfileAddressController extends Controller
     }
     
     private function updateAddress(Request $request, $address, $ut){
-        
+
         $ch =  new ApiRest();
         $file = MyConstants::PATH_APIREST."user/addresses/update_address.php";
 
         $data['id_user'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
-        $data['id'] = $address->getId();
+        $data['id'] = $request->get('idAddress');
         $data['name'] = "'".$address->getName()."'";
         $data['street'] = "'".$address->getStreet()."'";
         $data['country'] = "'".$address->getCountry()->getCountry()."'";
