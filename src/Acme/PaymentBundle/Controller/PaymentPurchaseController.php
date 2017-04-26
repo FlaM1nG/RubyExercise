@@ -289,7 +289,11 @@ class PaymentPurchaseController extends Controller {
             }
         }
 //print_r($this->offer);
+        if ($this->serviceId == 6 || $this->serviceId == 7):
+
         $this->offer->setPrice($preciototal);
+
+            endif;
 
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
