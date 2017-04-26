@@ -1015,6 +1015,24 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
         return $this->isConfirmed;
     }
 
+
+    /**
+     * Get isConfirmed
+     *
+     * @return boolean
+     */
+    public function getIsConfirmedText()
+    {
+        if($this->isConfirmed == 0 || $this->isConfirmed == null){
+            return 'Sin confirmar';
+        }
+        else{
+            return 'Confirmado';
+        }
+
+        
+    }
+
     /**
      * Set hostUser
      *
@@ -1120,6 +1138,22 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     {
         return $this->defaultAddress;
     }
+
+    /**
+     * Get defaultAddress
+     *
+     * @return integer
+     */
+    public function getDefaultAddressUser()
+    {
+//        if($this->defaultAddress == null){
+//            return -1;
+//        }
+//
+//        return $this->defaultAddress;
+
+        return 2;
+    }
     
     /**
      * 
@@ -1131,6 +1165,27 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
        return $this->offers;
         
     }
+
+
+    /**
+     *
+     * @param type $index
+     * @return Array
+     */
+    public function getOffersUser(){
+        $file = MyConstants::PATH_APIREST.'services/offer/get_all_user_offers.php';
+        $ch = new ApiRest();
+
+        $data = array();
+        $data['username'] = $this->username;
+        $data['id'] = $this->id;
+        $data['password'] = $this->password;
+
+        $result = $ch->resultApiRed($data, $file);
+
+        return $result;
+    }
+
     
     public function setOffers($offers = null){
         

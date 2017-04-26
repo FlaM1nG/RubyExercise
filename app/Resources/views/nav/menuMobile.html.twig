@@ -296,12 +296,28 @@
                 </a>
             </li>#}
             
+            {#<li>#}
+                {#<a href="{{ path('service_listTrade') }}">#}
+                    {#<span class="glyphicon glyphicon-bullhorn faMovil">#}
+
+                    {#</span>#}
+                    {#Radio#}
+                {#</a>#}
+            {#</li>#}
+
             <li>
-                <a href="{{ path('service_listTrade') }}">
-                    <span class="glyphicon glyphicon-bullhorn faMovil">
-                        
+                <a id="play-music2">
+                    <span class="glyphicon glyphicon-stop faMovil">
+                        {#<audio id="audioPlayer" autoplay="" controls="" src="#}{#http://217.182.85.254:8004/;#}{#"></audio>#}
                     </span>
-                    Radio
+                    on/off
+                </a>
+            </li>
+
+            <li>
+                <a id="play-sound2">
+                    <span class="glyphicon glyphicon-volume-up faMovil"></span>
+                    Sonido
                 </a>
             </li>
         </ul> <!-- cd-single-item-wrapper -->

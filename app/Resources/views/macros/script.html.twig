@@ -29,3 +29,67 @@
         });
     </script>
 {% endmacro %}
+
+
+{% macro scriptReproductor() %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var audio = document.getElementById('audioPlayer');
+
+            {# Método para activar y desactivar la radio #}
+            $('#play-music').on("click", function (e) {
+                e.preventDefault();
+                if($(this).children('.glyphicon').hasClass('glyphicon-play')){
+                    $('audio').attr("src", "http://217.182.85.254:8004/;");
+                    audio.play();
+                }else{
+                    $('audio').attr("src", "");
+                }
+
+                $('.glyphicon-stop').toggleClass('glyphicon-play');
+                $('.glyphicon-play').toggleClass('glyphicon-stop');
+            });
+
+            {# Método para quitar o poner audio a la radio #}
+            $('#play-sound').on("click", function (e) {
+                e.preventDefault();
+                if($(this).children('.glyphicon').hasClass('glyphicon-volume-off')){
+                    $('audio').prop("muted", false);
+                }else{
+                    $('audio').prop("muted", true);
+                }
+
+                $('.glyphicon-volume-up').toggleClass('glyphicon-volume-off');
+                $('.glyphicon-volume-off').toggleClass('glyphicon-volume-up');
+            });
+
+
+            {# Método para activar y desactivar la radio #}
+            $('#play-music2').on("click", function (e) {
+                e.preventDefault();
+                if($(this).children('.glyphicon').hasClass('glyphicon-play')){
+                    $('audio').attr("src", "http://217.182.85.254:8004/;");
+                    audio.play();
+                }else{
+                    $('audio').attr("src", "");
+                }
+
+                $('.glyphicon-stop').toggleClass('glyphicon-play');
+                $('.glyphicon-play').toggleClass('glyphicon-stop');
+            });
+
+            {# Método para quitar o poner audio a la radio #}
+            $('#play-sound2').on("click", function (e) {
+                e.preventDefault();
+                if($(this).children('.glyphicon').hasClass('glyphicon-volume-off')){
+                    $('audio').prop("muted", false);
+                }else{
+                    $('audio').prop("muted", true);
+                }
+
+                $('.glyphicon-volume-up').toggleClass('glyphicon-volume-off');
+                $('.glyphicon-volume-off').toggleClass('glyphicon-volume-up');
+            });
+        });
+    </script>
+{% endmacro %}
