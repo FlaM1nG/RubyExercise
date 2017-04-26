@@ -1,0 +1,45 @@
+WWW\ServiceBundle\Entity\Cancelation:
+    type: entity
+    table: null
+    repositoryClass: WWW\ServiceBundle\Repository\CancelationRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        concept:
+            type: string
+            length: 255
+            nullable: true
+        revisionDate:
+            type: datetime
+            nullable: true
+        createdDate:
+            type: datetime
+            nullable: true
+        modifiedDate:
+            type: datetime
+            nullable: true
+        deletedDate:
+            type: datetime
+            nullable: true
+    manyToOne:
+        open_user:
+            targetEntity: WWW\UserBundle\Entity\User
+            joinColumn:
+                referencedColumnName: id
+        guilt_user:
+            targetEntity: WWW\UserBundle\Entity\User
+            joinColumn:
+                referencedColumnName: id
+        revision_user:
+            targetEntity: WWW\UserBundle\Entity\User
+            joinColumn:
+                referencedColumnName: id
+        inscription:
+            targetEntity: WWW\ServiceBundle\Entity\Inscription
+            joinColumn:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

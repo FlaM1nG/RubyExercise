@@ -178,3 +178,6 @@ house:
     prefix:   /services/building/
 
 
+pruebaAdminDatos:
+    path: /prueba/datosAdmin
+    defaults: { _controller: AppBundle:Index:pruebaDatosAdminPanel }
