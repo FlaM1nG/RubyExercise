@@ -93,7 +93,7 @@ class PaymentPurchaseController extends Controller {
 
         if ($this->serviceId == 6 || $this->serviceId == 7):
 
-          // $precio_base= $this->offer->getPrice();
+           $precio_base= $this->offer->getPrice();
 
             $sesion = $request->getSession();
 
@@ -134,7 +134,7 @@ class PaymentPurchaseController extends Controller {
 
                 if (!$test) {
 
-                $mce = new MyCompanyEvents('', '€', $preciototal, $calendarioId, $this->serviceId , null, null, $date, $fechaend, 0, 0, 0, $request->get('inscription_id'));
+                $mce = new MyCompanyEvents('', '€', $precio_base, $calendarioId, $this->serviceId , null, null, $date, $fechaend, 0, 0, 0, $request->get('inscription_id'));
 
                 $mce->setOcuppate(true);
 
@@ -170,9 +170,7 @@ class PaymentPurchaseController extends Controller {
 
                     $test->setInscriptionID($fechas[0]['id']);
                     $test->setOcuppate(true);
-                    $test->setPrice($preciototal);
-
-
+                 
                     $em->flush();
 
                     $fechaend->modify('+1 day');
