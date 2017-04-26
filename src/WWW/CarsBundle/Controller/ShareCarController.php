@@ -197,7 +197,21 @@ class ShareCarController extends Controller {
 
     public function offerCarAction(Request $request){
 
-        $shareCar = $this->getOfferShareCar($request);
+        //Miramos si venimos del perfil para que en ese caso si el coche se borró, igualmente me enseñe la oferta
+        if( strpos(parse_url($request->headers->get('referer'),PHP_URL_PATH),'user/profile/offers')!== false):
+            $profile = true;
+        else:
+            $profile = false;
+        endif;
+
+        $shareCar = $this->getOfferShareCar($request,$profile);
+
+        if($shareCar == 'error_shareCar'):
+            return $this->redirectToRoute('serShareCar');
+        elseif($shareCar == 'error_courier'):
+            return $this->redirectToRoute('serCourier_list');
+        endif;
+
         $courierPrice = null;
         $listCourierPrice = null;
         $formCourierPrice = null;
@@ -270,7 +284,7 @@ class ShareCarController extends Controller {
         
     }
 
-    private function getOfferShareCar(Request $request){
+    private function getOfferShareCar(Request $request, $profile = null){
 
         $file = MyConstants::PATH_APIREST.'services/share_car/get_share_car.php';
         $ch = new ApiRest();
@@ -280,9 +294,22 @@ class ShareCarController extends Controller {
         $data['id'] = $id;
         $data['option'] = "offer";
 
-        $result = $ch->resultApiRed($data, $file);
+        if($profile):
+            $data['forceWithCar'] = true;
+        endif;
 
-        $shareCar = new ShareCar($result);
+        $result = $ch->resultApiRed($data, $file);
+//echo "<pre>";print_r($result);echo "</pre>";
+        if($result['result'] == 'ok' AND isset($result['car']['existCar'])):
+            $shareCar = new ShareCar($result);
+
+        elseif($result['result'] == 'ok' AND $result['car']['result'] == 'data_error'):
+            if($result['service_id'] == '4'):
+                $shareCar = 'error_shareCar';
+            else:
+                $shareCar = 'error_courier';
+            endif;
+        endif;
 
         return $shareCar;
 

@@ -37,7 +37,7 @@ $(document).ready(function() {
                 $(".fc-prev-button").prop('disabled', true).addClass('fc-state-disabled');
             }
             else {
-                $(".fc-prev-button").removeClass('fc-state-disabled').prop('disabled', false);;
+                $(".fc-prev-button").removeClass('fc-state-disabled').prop('disabled', false);
             }
             // Future
             if (maxDate >= currentView.start && maxDate <= currentView.end) {
@@ -127,7 +127,7 @@ $(document).ready(function() {
             if (event.blocked == 0) {
 
                 if (event.ocuppate == 0) {
-                    //event.color = "#FFB347"; //Em andamento
+                    //event.color = "#FFB347"; 
 
                     element.css('color', '#368d3a');
                 } else {

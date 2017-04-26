@@ -73,8 +73,8 @@ user_profiler_newAdress:
     defaults: { _controller: UserBundle:ProfileAddress:newAddress }    
 
 user_profile_offers:
-    path: /profile/offers/{typeOffer}
-    defaults: { _controller: UserBundle:Offer:myOffers,typeOffer:null }
+    path: /profile/offers/{typeOffer}/
+    defaults: { _controller: UserBundle:Offer:myOffers,typeOffer:all }
     requirements:
         typeOffer: "trade|vehicles|buildings|"
         

@@ -30,7 +30,12 @@
 {% endblock %}
 
 {% block cssParallax %}
-sha-parallax
+    {% if service == 4 %}
+        sha-parallax
+    {% elseif service == 5 %}
+        men-parallax
+    {% endif %}
+
 {% endblock %}
 
 {% block cssTitleParallax %}

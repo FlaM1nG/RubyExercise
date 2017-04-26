@@ -1,4 +1,5 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -31,17 +32,27 @@
 
 {% block bodyProfile %}
 
-    {{ form_start(form) }}
-    {{ form_row(form.offer.title) }}
-    {{ form_row(form.offer.description) }}
-    {{ form_row(form.offer.id) }}
-    {{ form_row(form.country) }}
-    {{ form_row(form.city) }}
-    {{ form_row(form.offer.holders, {'label': 'Capacidad'}) }}
-    {{ form_row(form.imgBedroom) }}
-    {{ form_row(form._token) }}
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Editando oferta de intercambio de habitación
+            </h3>
+            <hr/>
 
-    {{ form_row(form.saveOffer) }}
+            {{ form_start(form) }}
+            {{ form_row(form.offer.title) }}
+            {{ form_row(form.offer.description) }}
+            {{ form_row(form.offer.id) }}
+            {{ form_row(form.country) }}
+            {{ form_row(form.city) }}
+            {{ form_row(form.offer.holders, {'label': 'Capacidad'}) }}
+            {{ form_row(form.imgBedroom) }}
+            {{ form_row(form._token) }}
+
+            {{ form_row(form.saveOffer) }}
+
+        </div>
+    </div>
 
 {% endblock %}
 
@@ -49,6 +60,7 @@
 {% block javascriptsFooter %}
     {{ parent() }}
 
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
     <script src="{{ asset('js/plugins/canvas-to-blob.min.js') }}"
             type="text/javascript"></script>
     <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
