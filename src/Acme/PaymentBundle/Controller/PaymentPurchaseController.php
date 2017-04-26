@@ -46,6 +46,9 @@ class PaymentPurchaseController extends Controller {
     //2- Cantidad a pagar
     //3- Moneda EU o USD
     //4- Correo del cliente
+
+
+
     public function prepareAction(Request $request) {
         //Redsys <20
         //Addons >20
@@ -82,7 +85,7 @@ class PaymentPurchaseController extends Controller {
 
         if ($this->serviceId == 6 || $this->serviceId == 7):
 
-           $precio_base= $this->offer->getPrice();
+          // $precio_base= $this->offer->getPrice();
 
             $sesion = $request->getSession();
 
@@ -108,26 +111,83 @@ class PaymentPurchaseController extends Controller {
             $em = $this->getDoctrine()->getEntityManager();
             $db = $em->getConnection();
 
+
+            // Funcion para calcular el numero de inserciones por fecha en my_company_events
+
+            function diferenciaDias($inicio, $fin)
+            {
+                $inicio = strtotime($inicio);
+                $fin = strtotime($fin);
+                $dif = $fin - $inicio;
+                $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+                return ceil($diasFalt);
+            }
+
+
+
+            $numero_dias = diferenciaDias($fechainicial, $fechafinal); //imprime el numero de dias entre el rango de fecha
+
+
             $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
 
-            $mce = new MyCompanyEvents('','€', $precio_base, $calendarioId, $servicioId ,null,null, $date, $fechaend,0,0,0,$request->get('inscription_id'));
+            // hacemos un for para insertar
 
-            $mce->setOcuppate(true);
+            for ($n=0; $n<$numero_dias; $n++) {
 
-            $query =  "select id from inscription where offer_id=$offerID";
+                $test = $repository->findOneBy(
+                    array('calendarID' => $calendarioId, 'serviceID' => $servicioId, 'startDatetime' => $date
+                    ));
 
-            $stmt = $db->prepare($query);
-            $params = array();
-            $stmt->execute($params);
-            $fechas = $stmt->fetchAll();
+                if (!$test) {
+
+                $mce = new MyCompanyEvents('', '€', $preciototal, $calendarioId, $servicioId, null, null, $date, $fechaend, 0, 0, 0, $request->get('inscription_id'));
+
+                $mce->setOcuppate(true);
+
+                $query = "select id from inscription where offer_id=$offerID";
+
+                $stmt = $db->prepare($query);
+                $params = array();
+                $stmt->execute($params);
+                $fechas = $stmt->fetchAll();
 
 
-            $mce->setInscriptionID($fechas[0]['id']);
+                $mce->setInscriptionID($fechas[0]['id']);
 
-            $em->persist($mce);
+                $em->persist($mce);
 
-            $em->flush();
+                $em->flush();
 
+                //vamos sumando un dia a las fechas
+
+                $fechaend->modify('+1 day');
+
+                $date = $fechaend;
+
+                }else{
+
+                    $query = "select id from inscription where offer_id=$offerID";
+
+                    $stmt = $db->prepare($query);
+                    $params = array();
+                    $stmt->execute($params);
+                    $fechas = $stmt->fetchAll();
+
+
+                    $test->setInscriptionID($fechas[0]['id']);
+                    $test->setOcuppate(true);
+                    $test->setPrice($preciototal);
+
+
+                    $em->flush();
+
+                    $fechaend->modify('+1 day');
+
+                    $date = $fechaend;
+
+
+                }
+            }
 
         endif;
 
@@ -351,11 +411,11 @@ class PaymentPurchaseController extends Controller {
         elseif (strstr($path, 'house-rents') !== false):
             $this->service = 'house-rents';
             $this->serviceId = 6;
-            $this->getOfferInfo($request);
+            $this->getOffer($request);
         elseif (strstr($path, 'share-house') !== false):
             $this->service = 'share-house';
             $this->serviceId = 7;
-            $this->getOfferInfo($request);
+            $this->getOffer($request);
         else:
             $this->service = 2;
         endif;
@@ -373,6 +433,9 @@ class PaymentPurchaseController extends Controller {
         $result = $ch->resultApiRed($data, $file);
 
         if ($result['result'] == 'ok'):
+            if($result['service_id'] == 6 || $result['service_id'] == 7){
+                $this->offer = new ShareHouse($result);
+            }
             $this->offer = new Trade($result);
 //print_r($result);exit;
         else:
@@ -416,9 +479,9 @@ class PaymentPurchaseController extends Controller {
 
         endif;
 
-        if ($this->serviceId == 6 || $this->serviceId == 7):
+       // if ($this->serviceId == 6 || $this->serviceId == 7):
 
-            $this->offer = new ShareHouse($result['data']);
+         //   $this->offer = new ShareHouse($result['data']);
             //$this->offer = new House($result['data']);
 
         endif;
