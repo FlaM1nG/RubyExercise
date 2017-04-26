@@ -1,0 +1,55 @@
+<?php
+
+namespace WWW\ServiceBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Cancelation
+ */
+class Cancelation
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $concept;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set concept
+     *
+     * @param string $concept
+     * @return Cancelation
+     */
+    public function setConcept($concept)
+    {
+        $this->concept = $concept;
+
+        return $this;
+    }
+
+    /**
+     * Get concept
+     *
+     * @return string 
+     */
+    public function getConcept()
+    {
+        return $this->concept;
+    }
+}
