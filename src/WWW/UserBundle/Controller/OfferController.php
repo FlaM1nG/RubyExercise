@@ -102,9 +102,17 @@ class OfferController extends Controller{
             $result = null;
             if($this->service <= 3):
                 $result = $this->updateOfferTrade($request);
+
+                if($result == 'ok'):
+                    return $this->redirectToRoute('user_profile_offers',array('typeOffer' => 'trades'));
+                endif;
             
             elseif($this->service == 4 || $this->service == 5):
-                $result = $this->updateOfferShareCar($request);
+                $result = $this->updateOfferShareCar($request, array('typeOffer' => 'vehicles'));
+
+                if($result == 'ok'):
+                    return $this->redirectToRoute('user_profile_offers');
+                endif;
             
             elseif($this->service == 6 || $this->service == 7 || $this->service == 8):
 
@@ -117,14 +125,18 @@ class OfferController extends Controller{
 
                 $result = $this->updateOfferHouseRent($request);
 
+                if($result == 'ok'):
+                    return $this->redirectToRoute('user_profile_offers', array('typeOffer' => 'buildings'));
+                endif;
+
             elseif($this->service == 9):
 
                 $result = $this->updateOfferSwapBedroom($request);
 
-            endif;
+                if($result == 'ok'):
+                    return $this->redirectToRoute('user_profile_offers', array('typeOffer' => 'buildings'));
+                endif;
 
-            if($result == 'ok'):
-                return $this->redirectToRoute('user_profile_offers');
             endif;
 
         endif;
