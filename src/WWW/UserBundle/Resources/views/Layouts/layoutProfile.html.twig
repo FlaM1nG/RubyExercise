@@ -80,6 +80,7 @@
                             <li><a href="{{ path('user_profilePhone') }}">Teléfono</a></li>
                             <li><a href="{{ path('user_profilePhoto') }}">Foto Personal</a></li>
                             <li><a href="{{ path('user_profileChangeBank') }}">Datos bancarios</a></li>
+                            <li><a href="{{ path('user_public_profile',{username: app.session.get('username')}) }}"> Mi perfil público</a></li>
                             <li><a href="{{ path('user_unsubscribe') }}">Darse de baja</a></li>
                         </ul>
                     </li>
