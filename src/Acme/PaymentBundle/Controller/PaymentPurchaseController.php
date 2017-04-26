@@ -484,7 +484,7 @@ class PaymentPurchaseController extends Controller {
          //   $this->offer = new ShareHouse($result['data']);
             //$this->offer = new House($result['data']);
 
-        endif;
+     //   endif;
 
 
     }
