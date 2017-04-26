@@ -251,21 +251,18 @@ class HouseOffersController extends Controller
         $arrayAttr = null;
         $formSubscribe = null;
         $service = $this->getIdService($request);
-        
 
         $sesion = $request->getSession();
 
-        //Guardamos el precio total en la sesion
+        if($service!=8){
+            
+            //Guardamos el precio total en la sesion
 
-        $precioTotal = $sesion->get('preciototal');
+            $precioTotal = $sesion->get('preciototal');
 
-        $fechainicial = $sesion->get('fechainicial');
+            $fechainicial = $sesion->get('fechainicial');
 
-        $fechafinal = $sesion->get('fechafinal');
-
-
-
-        if($service == 6 || $service == 7){
+            $fechafinal = $sesion->get('fechafinal');
 
             $formSubscribe = $this->createForm(DatepickerType::class);
 
