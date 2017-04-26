@@ -252,10 +252,12 @@ class HouseOffersController extends Controller
         $formSubscribe = null;
         $service = $this->getIdService($request);
 
-        $sesion = $request->getSession();
+
 
         if($service!=8){
-            
+
+            $sesion = $request->getSession();
+
             //Guardamos el precio total en la sesion
 
             $precioTotal = $sesion->get('preciototal');
