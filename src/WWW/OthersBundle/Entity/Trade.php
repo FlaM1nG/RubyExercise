@@ -4,6 +4,7 @@ namespace WWW\OthersBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use WWW\GlobalBundle\Entity\Address;
 use \WWW\ServiceBundle\Entity\Offer;
 use Doctrine\Common\Util\Inflector as Inflector;
 
@@ -60,16 +61,23 @@ class Trade
      * @var string
      */
     private $region;
+
+    /**
+     * @var \WWW\GlobalBundle\Entity\Address
+     */
+    private $address;
     
     public function __construct($arrayData = null) {
 
         if(!empty($arrayData)):
             foreach($arrayData as $key => $value):
-                $key = Inflector::camelize($key);
+                if($key != 'address'):
+                    $key = Inflector::camelize($key);
 
-                if(property_exists('WWW\OthersBundle\Entity\Trade',$key) && !empty($value) ):
-                    $this->$key = $value;
+                    if(property_exists('WWW\OthersBundle\Entity\Trade',$key) && !empty($value) ):
+                        $this->$key = $value;
 
+                    endif;
                 endif;
             endforeach;
 
@@ -80,6 +88,11 @@ class Trade
                 if( key_exists('category', $arrayData)):
                     $this->category->setName($arrayData['category']);
                 endif;
+            endif;
+
+            if(key_exists('address', $arrayData)):
+                $address = new Address($arrayData['address']);
+                $this->address = $address;
             endif;
         else:
             $this->category = new TradeCategory();
@@ -286,13 +299,6 @@ class Trade
     {
         return $this->region;
     }
-    
-    
-    /**
-     * @var \WWW\GlobalBundle\Entity\Address
-     */
-    private $address;
-
 
     /**
      * Set address
