@@ -47,6 +47,16 @@ class PaymentPurchaseController extends Controller {
     //3- Moneda EU o USD
     //4- Correo del cliente
 
+    // Funcion para calcular el numero de inserciones por fecha en my_company_events
+
+    function diferenciaDias($inicio, $fin)
+    {
+        $inicio = strtotime($inicio);
+        $fin = strtotime($fin);
+        $dif = $fin - $inicio;
+        $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+        return ceil($diasFalt);
+    }
 
 
     public function prepareAction(Request $request) {
@@ -70,10 +80,8 @@ class PaymentPurchaseController extends Controller {
 
         $arrayCourier = null;
 
-        if(empty($this->serviceId)) {
 
-            $this->serviceId = $this->offer->getOffer()->getService()->getId();
-        }
+        $this->serviceId  = $this->offer->getOffer()->getService()->getId();
 
 
         if ($this->serviceId == 1 || $this->serviceId == 2):
@@ -102,7 +110,7 @@ class PaymentPurchaseController extends Controller {
 
             $calendarioId = $sesion->get('calendario_id');
 
-            $servicioId = $sesion->get('service_id');
+           // $servicioId = $sesion->get('service_id');
 
             $fechafinal = $sesion->get('fechafinal');
 
@@ -111,21 +119,7 @@ class PaymentPurchaseController extends Controller {
             $em = $this->getDoctrine()->getEntityManager();
             $db = $em->getConnection();
 
-
-            // Funcion para calcular el numero de inserciones por fecha en my_company_events
-
-            function diferenciaDias($inicio, $fin)
-            {
-                $inicio = strtotime($inicio);
-                $fin = strtotime($fin);
-                $dif = $fin - $inicio;
-                $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
-                return ceil($diasFalt);
-            }
-
-
-
-            $numero_dias = diferenciaDias($fechainicial, $fechafinal); //imprime el numero de dias entre el rango de fecha
+            $numero_dias = $this->diferenciaDias($fechainicial, $fechafinal); //imprime el numero de dias entre el rango de fecha
 
 
             $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
@@ -135,12 +129,12 @@ class PaymentPurchaseController extends Controller {
             for ($n=0; $n<$numero_dias; $n++) {
 
                 $test = $repository->findOneBy(
-                    array('calendarID' => $calendarioId, 'serviceID' => $servicioId, 'startDatetime' => $date
+                    array('calendarID' => $calendarioId, 'serviceID' => $this->serviceId , 'startDatetime' => $date
                     ));
 
                 if (!$test) {
 
-                $mce = new MyCompanyEvents('', '€', $preciototal, $calendarioId, $servicioId, null, null, $date, $fechaend, 0, 0, 0, $request->get('inscription_id'));
+                $mce = new MyCompanyEvents('', '€', $preciototal, $calendarioId, $this->serviceId , null, null, $date, $fechaend, 0, 0, 0, $request->get('inscription_id'));
 
                 $mce->setOcuppate(true);
 
