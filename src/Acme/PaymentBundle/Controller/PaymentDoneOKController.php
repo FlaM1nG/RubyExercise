@@ -98,7 +98,7 @@ class PaymentDoneOKController extends PayumController
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'services/payment/pay.php';
 
-        if(isset($request->getSession()->get('password'))){
+        if(!empty($request->getSession()->get('password'))){
             $data['id'] = $this->getUser()->getId();
             $data['username'] = $this->getUser()->getUsername();
             $data['password'] = $request->getSession()->get('password');

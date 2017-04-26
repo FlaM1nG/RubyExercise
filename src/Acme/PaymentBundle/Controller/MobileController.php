@@ -17,6 +17,7 @@ use WWW\OthersBundle\Entity\Trade;
 use WWW\CarsBundle\Entity\ShareCar;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
+use WWW\HouseBundle\Entity\ShareHouse;
 
 class MobileController extends Controller {
     
@@ -163,7 +164,9 @@ class MobileController extends Controller {
             elseif ($this->offer->getService()->getId()== 4 || $this->offer->getService()->getId()== 5) {
                 $this->offerPrice= new ShareCar($result);
         }
-
+             elseif ($this->offer->getService()->getId()== 6 || $this->offer->getService()->getId()== 7) {
+                $this->offerPrice= new ShareHouse($result);
+        }
        
         }
     }

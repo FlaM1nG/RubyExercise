@@ -286,10 +286,10 @@ class PaymentPurchaseController extends Controller {
             $this->serviceId = 5;
             $this->getOfferInfo($request);
         
-        elseif (strstr($path, 'house-rents') !== false):
+        elseif (strstr($path, 'house-rents') !== false):            
             $this->service = 'house-rents';
             $this->serviceId = 6;
-            $this->getOfferInfo($request);
+            $this->getOffer($request);
         elseif (strstr($path, 'share-house') !== false):
             $this->service = 'share-house';
             $this->serviceId = 7;
@@ -309,8 +309,12 @@ class PaymentPurchaseController extends Controller {
         $data['id'] = $request->get('idOffer');
 
         $result = $ch->resultApiRed($data, $file);
-
+        
         if ($result['result'] == 'ok'):
+            
+            if($result['service_id'] == 6){
+                $this->offer = new ShareHouse($result);
+            }
             $this->offer = new Trade($result);
 
         else:
