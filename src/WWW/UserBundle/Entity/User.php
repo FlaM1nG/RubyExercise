@@ -50,8 +50,8 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
      * @var string
      * 
      * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"register","password"})
-     * @Assert\Regex("/^(?=\w*\d)(?=\w*[a-zA-Z])\S{8,}$/",
-     *               message="La contraseña debe contener letras y números",
+     * @Assert\Regex("/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){8,}$/",
+     *               message="La contraseña debe contener solo letras y números",
      *               groups = {"register","password"})
      * @Assert\Length(min=8, minMessage="La longitud mínima es de 8 caracteres ", groups = {"register","password"})
      * 

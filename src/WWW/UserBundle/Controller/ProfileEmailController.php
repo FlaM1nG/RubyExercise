@@ -78,6 +78,14 @@ class ProfileEmailController extends Controller {
         if($result['result'] == 'ok'):
             $error = "Para verificar el cambio compruebe su correo su correo electrónico";
             $resultAux['result'] = 'ko';
+
+        elseif($result['result'] == 'email_exists'):
+            $error = 'El email ya existe';
+            $resultAux['result'] = 'ko';
+
+        elseif($result['result'] == 'bad_credentials'):
+            $error = 'Contraseña incorrecta';
+            $resultAux['result'] = 'ko';
         endif;
         
         $ut->flashMessage("general", $request, $resultAux, $error);
