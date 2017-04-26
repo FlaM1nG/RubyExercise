@@ -5,10 +5,13 @@
 {% import 'macros/popup.html.twig' as popups %}
 
 {% set to = app.session.get('username') %}
+{% set hasInscriptions = false %}
 
 {% for inscription in offer.offer.inscriptions %}
     {# Debe estar en estado 3 para poder enviarle los mensajes #}
     {% if inscription.status == 3 %}
+
+        {% set hasInscriptions = true %}
         {# compruebo que el nombre del usuario no esté ya dentro del array 'to' #}
         {% if inscription.username not in to %}
             {% set to = to ~ ',' ~ inscription.username %}
@@ -35,7 +38,7 @@
 {% endblock %}
 
 {% block body %}
-    {#{{ dump(offer) }}#}
+
     <div class="container cd-main-content cont-inscri">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -52,7 +55,7 @@
         </div>
 
         {# Si la oferta no tiene inscritos #}
-        {% if offer.offer.hasInscriptions != 1 %}
+        {% if not hasInscriptions %}
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <p>Aún no tienes a gente inscrita, seguro que pronto comprará alguien tu servicio.</p>
@@ -76,6 +79,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row row-user-col">
                         {% for inscription in offer.offer.inscriptions %}
+                        
                             {# Compruebo que en la lista de inscritos el inscrito sea oficial, que haya pagado (status == 3) #}
                             {% if inscription.status == 3 %}
                                 {% if offer.offer.service.id == 5 %}

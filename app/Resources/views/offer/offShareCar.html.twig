@@ -216,12 +216,18 @@
 
             <div class="row separacion-inferior">
                 <div class="col-lg-12">
-                    <h4>
-                        Aún no hay comentarios
-                    </h4>
-                    <p>
-                        ¡Se el primero en comentar!
-                    </p>
+                    {% if offer.offer.expired %}
+                        <h4>No hay comentarios</h4>
+
+                    {% else %}
+                        <h4>
+                            Aún no hay comentarios
+                        </h4>
+                        <p>
+                            ¡Se el primero en comentar!
+                        </p>
+                    {% endif %}
+
                 </div>
             </div>
 
@@ -237,7 +243,7 @@
             {% for comment in pagination%}
 
                 {{ comentarios.messComentarioPublico(
-                path('user_public_profile', {username: offer.offer.userAdmin.username} ),
+                path('user_public_profile', {username: comment.user.username} ),
                 comment.user.photo,
                 comment.user.username,
                 comment.createdDate,
