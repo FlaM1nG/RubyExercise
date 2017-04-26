@@ -234,7 +234,7 @@
                 $('.gastosGestion').html(parseFloat(gastos).toFixed(2)+' €');
                 $('#previoPago_managementFee').val(gastos);
 
-                return gastos;
+                return parseFloat(gastos).toFixed(2);
 
             }
 
@@ -244,7 +244,7 @@
             });
 
             {# Funcionalidad para elegir método de pago #}
-            $('.check-payment-method').on('click', '.img-metodo-pago', function () { console.log('entro');
+            $('.check-payment-method').on('click', '.img-metodo-pago', function () { 
                 var elegido = $('.row-payment-method').find('.check-payment-method-checked');
 
                 if($(elegido)){
@@ -279,12 +279,12 @@
                     var administrationFees = calculaGastosGestion({{ offer.price }});
                     var precio = parseFloat({{ offer.price }})
 
-                    total = parseFloat(precio + administrationFees );
-
+                    total = parseFloat(precio) + parseFloat(administrationFees);
 
                     if (document.getElementById('previoPago_payMethod_0').checked) {
                         gastos = total *{{ paypalFee }};
                     }
+
                     total = parseFloat(total+gastos);
 
 
