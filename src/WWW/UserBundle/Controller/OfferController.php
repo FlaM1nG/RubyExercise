@@ -104,7 +104,7 @@ class OfferController extends Controller{
                 $result = $this->updateOfferTrade($request);
 
                 if($result == 'ok'):
-                    return $this->redirectToRoute('user_profile_offers',array('typeOffer' => 'trades'));
+                    return $this->redirectToRoute('user_profile_offers',array('typeOffer' => 'trade'));
                 endif;
             
             elseif($this->service == 4 || $this->service == 5):
