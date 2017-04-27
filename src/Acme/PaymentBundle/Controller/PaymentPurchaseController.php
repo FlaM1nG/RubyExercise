@@ -67,17 +67,13 @@ class PaymentPurchaseController extends Controller {
 
         $this->setUpVars($request);
 
-
-        $administrationFeesPercent = MyConstants::ADMINISTRATION_FEES / 100;
+        $administrationFeesPercent = MyConstants::ADMINISTRATION_FEES/100;
 
         $form = $this->createForm(PagoType::class, $user, array('amount' => $this->offer->getPrice(),
             'arrayAddresses' => $arrayAddressesForm));
         $form->handleRequest($request);
 
-
         $arrayCourier = null;
-
-
         $this->serviceId = $this->offer->getOffer()->getService()->getId();
 
 
@@ -528,16 +524,18 @@ class PaymentPurchaseController extends Controller {
 
         $addressDefault = $user->getDefaultAddress();
 
-        array_unshift($arrayAddressesForm, $addressDefault);
+        if(!empty($addressDefault)):
+            array_unshift($arrayAddressesForm,$addressDefault);
+            $arrayAddressesPay[$user->getDefaultAddress()->getId()] = mb_strtolower($addressDefault->getRegion());
+        endif;
 
-        if (!empty($user->getAddresses()[0])):
-
-            foreach ($user->getAddresses()[0] as $data):
-                array_push($arrayAddressesForm, $data);
-                $arrayAddressesPay[$data->getId()] = strtolower($data->getRegion());
+        if(!empty($user->getAddresses()[0])):
+            
+            foreach($user->getAddresses()[0] as $data ):
+                array_push($arrayAddressesForm,$data);
+                $arrayAddressesPay[$data->getId()] =  mb_strtolower($data->getRegion());
             endforeach;
 
-            $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
         endif;
     }
 
