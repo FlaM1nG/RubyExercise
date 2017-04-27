@@ -85,7 +85,7 @@ class PaymentPurchaseController extends Controller {
             $arrayCourier = $this->getCourierPrice($request);
 
         endif;
-
+        
         $preciototal = null;
 
         if ($this->serviceId == 6 || $this->serviceId == 7):

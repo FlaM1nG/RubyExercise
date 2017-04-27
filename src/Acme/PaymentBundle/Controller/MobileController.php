@@ -33,7 +33,7 @@ class MobileController extends Controller {
         $idOffer = $request->request->get("id_offer");
         
         $gastosPago = $request->request->get("payment_fee");
-        $this->getOffer($idOffer);
+        $this->getOffer($request,$idOffer);
         $gastosGestion = $this->offerPrice->getPrice() * (MyConstants::ADMINISTRATION_FEES / 100);
         
         if( $totalAmount > $this->offerPrice->getPrice()){
@@ -49,9 +49,9 @@ class MobileController extends Controller {
                 $arrayPay['metodo_envio'] = $request->request->get("send_method");;
                 $arrayPay['gastos_envio'] = $request->request->get("shipping_cost");
                 $arrayPay['send_office'] = $request->request->get('send_office');
-				$arrayPay['gastos_comprobacion'] = $request->request->get('testing_cost');
+		$arrayPay['gastos_comprobacion'] = $request->request->get('testing_cost');
             }
-			$arrayPay['idUser'] = $request->request->get('id');
+            $arrayPay['idUser'] = $request->request->get('id');
             $arrayPay['username'] = $username;
             $arrayPay['password'] = $request->request->get('password');
 			
@@ -145,7 +145,7 @@ class MobileController extends Controller {
     protected function getPayum() {
         return $this->get('payum');
     }
-    private function getOffer($idOffer) {
+    private function getOffer(Request $request, $idOffer) {
 
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . "services/offer/get_offer.php";
@@ -156,19 +156,36 @@ class MobileController extends Controller {
 
         $result = $ch->resultApiRed($data, $file);
 
-        if ($result['result'] == 'ok'){
+        if ($result['result'] == 'ok') {
             $this->offer = new Offer($result);
-            if($this->offer->getService()->getId()== 1 || $this->offer->getService()->getId()== 2){
-                $this->offerPrice= new Trade($result);
+            if ($this->offer->getService()->getId() == 1 || $this->offer->getService()->getId() == 2) {
+                $this->offerPrice = new Trade($result);
+            } elseif ($this->offer->getService()->getId() == 4 ) {
+                $this->offerPrice = new ShareCar($result);
+            } elseif ( $this->offer->getService()->getId() == 5){
+                 $idInscription = $request->request->get("id_inscription");
+                 $this->getOfferInfo($request, $idInscription);
+            } elseif ($this->offer->getService()->getId() == 6 || $this->offer->getService()->getId() == 7) {
+                $this->offerPrice = new ShareHouse($result);
             }
-            elseif ($this->offer->getService()->getId()== 4 || $this->offer->getService()->getId()== 5) {
-                $this->offerPrice= new ShareCar($result);
-        }
-             elseif ($this->offer->getService()->getId()== 6 || $this->offer->getService()->getId()== 7) {
-                $this->offerPrice= new ShareHouse($result);
-        }
-       
         }
     }
-   
+    
+        private function getOfferInfo(Request $request, $idInscription) {
+        $file = MyConstants::PATH_APIREST . 'services/offer/get_infoOffersPrice.php';
+        $ch = new ApiRest();
+
+        $data['id'] = $request->request->get('id');;
+        $data['username'] = $request->request->get('username');
+        $data['password'] = $request->request->get('password');
+        $data['offerId'] = $request->request->get("id_offer");
+        $data['serviceId'] = 5;
+        $data['idInscription'] = $idInscription;
+        
+        $result = $ch->resultApiRed($data, $file);
+
+        $this->offerPrice = new ShareCar($result['data']);
+
+    }
+
 }
