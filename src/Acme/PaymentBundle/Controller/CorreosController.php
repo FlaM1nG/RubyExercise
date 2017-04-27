@@ -39,14 +39,14 @@ class CorreosController extends Controller {
         
     }
     
-    public function getTrackingNumberAction($idOffer, Request $request, $idDir, $sendOffice) {
+    public function getTrackingNumberAction($idOffer, Request $request, $idDir, $sendOffice,$arrayDetails) {
         //Inicio las variables propias
         $this->searchAddressBuyer($idDir);
         $this->offer = new Trade();
         $this->buyer = new User();
         
         //Se cargan los datos 
-        $this->buyer = $this->getUserProfile($request);
+        $this->buyer = $this->getUserProfile($request,$arrayDetails);
         $this->getOffer($idOffer, $request);
          
         
@@ -65,7 +65,7 @@ class CorreosController extends Controller {
             'description' => $this->offer->getOffer()->getTitle(),
             'box_type' => 'custom',
             'weight' => array(
-                'value' => $this->offer->getWeight(),
+                'value' => intval($this->offer->getWeight()),
                 'unit' => 'kg',
             ),
             'dimension' => array(
@@ -80,34 +80,34 @@ class CorreosController extends Controller {
                     'origin_country' => 'ESP',
                     'quantity' => 1,
                     'price' => array(
-                        'amount' => $this->offer->getPrice(),
+                        'amount' => floatval($this->offer->getPrice()),
                         'currency' => 'EUR',
                     ),
                     'weight' => array(
-                        'value' => $this->offer->getWeight(),
+                        'value' => intval($this->offer->getWeight()),
                         'unit' => 'kg',
                     ),
                     'sku' => 'imac2014'
                 ),
             ),
         );
-
+        
         $sender = array(
-            'contact_name' => $this->offer->getOffer()->getUserAdmin()->getName(),
+            'contact_name' => $this->offer->getOffer()->getUserAdmin()->getUsername(),
             'email' => $this->offer->getOffer()->getUserAdmin()->getEmail(),
-            'phone' => $this->offer->getOffer()->getUserAdmin()->getPhone(),
-            'street1' => ' ',
-            'city' => ' ',
-            'postal_code' => ' ',
+            'phone' =>  strval( $this->offer->getOffer()->getUserAdmin()->getPhone() ),
+            'street1' => $this->offer->getAddress()->getStreet(),
+            'city' => $this->offer->getAddress()->getCity(),
+            'postal_code' => $this->offer->getAddress()->getZipCode(),
             'state' => $this->offer->getRegion(),            
             'country' => 'ESP',
             'type' => 'residential'
         );
-        
-        if($sendOffice=0){
+       
+        if($sendOffice==0){
             $receiver = array(
-                'contact_name' => $this->buyer->getName(),
-                'phone' => $this->buyer->getPhone(),
+                'contact_name' => $this->buyer->getUsername(),
+                'phone' => strval( $this->buyer->getPhone()),
                 'email' => $this->buyer->getEmail(),
                 'street1' => $this->addressBuyer->getStreet(),
                 'postal_code' => $this->addressBuyer->getZipCode(),
@@ -117,9 +117,11 @@ class CorreosController extends Controller {
                 'type' => 'residential'
             );
         }
+        
         else {
             $receiver = array(
-                'contact_name' => 'WhatWantWeb',
+                'contact_name' => 'Felix Estrada Muñoz',
+                'company_name' => 'WhatWantWeb',
                 'phone' => '**************',
                 'email' => 'info@whatwantweb.com',
                 'street1' => 'Avd Fernado de los Ríos 11 bq. 1, of. 3',
@@ -130,6 +132,7 @@ class CorreosController extends Controller {
                 'type' => 'business'
             );
         }
+        
         $payload = array(
             'async' => false,
             'billing' => array(
@@ -157,6 +160,7 @@ class CorreosController extends Controller {
 
             ),
         );
+		
 
         try {
             $api = new Postmen($api_key, $region);
@@ -164,6 +168,7 @@ class CorreosController extends Controller {
             echo "RESULT:\n";
             
             var_dump($result->tracking_numbers[0]);
+           
         } catch (exception $e) {
             echo "ERROR:\n";
             echo $e->getCode() . "\n";      // error code
@@ -195,15 +200,24 @@ class CorreosController extends Controller {
         endif;
     }
     
-    private function getUserProfile(Request $request) {
+    private function getUserProfile(Request $request, $arrayDetails) {
 
         $user = null;
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'user/data/get_info_user.php';
 
-        $data['id'] = $request->getSession()->get('id');
-        $data['username'] = $request->getSession()->get('username');
-        $data['password'] = $request->getSession()->get('password');
+        if(!empty($request->getSession()->get('password'))){
+            $data['id'] = $request->getSession()->get('id');
+            $data['username'] = $request->getSession()->get('username');
+            $data['password'] = $request->getSession()->get('password');
+        
+        }
+        else{
+            $data['id'] = $arrayDetails['idUser'];
+            $data['username'] = $arrayDetails['username'];
+            $data['password'] = $arrayDetails['password'];
+        }
+        
         
         $result = $ch->resultApiRed($data, $file);
 

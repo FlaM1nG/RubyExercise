@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 use Acme\PaymentBundle\Controller\CorreosController;
+use WWW\GlobalBundle\Entity\MyCompanyEvents;
 
 class DetailsController extends PayumController 
 {
@@ -62,14 +63,73 @@ class DetailsController extends PayumController
         list($ref,$idOffer)=explode("W",$IDPayment);
         if(isset($details->getDetails()['CANCELLED'])){
             return $this->render('pay/postPayPageKO.html.twig',array(
-            'details' => $details
+            'id' => $IDPayment
             
             ));
         }
         else {
             
+            
+            //House
+            $fechainicial = $details->getDetails()['fechaIni'];
+
+            $date = new \DateTime($fechainicial);
+
+            $calendarioId = $details->getDetails()['idCalendar'];
+
+            $fechafinal = $details->getDetails()['fechaFin'];
+            $fechaend = $date;
+            $idService = $details->getDetails()['idService'];
+
+            $em = $this->getDoctrine()->getEntityManager();
+
+
+            $numero_dias = $this->diferenciaDias($fechainicial, $fechafinal); //imprime el numero de dias entre el rango de fecha
+
+
+            $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+
+            // hacemos un for para insertar
+
+            for ($n = 0; $n < $numero_dias; $n++) {
+
+                $test = $repository->findOneBy(array(
+                            'calendarID' => $calendarioId,
+                            'serviceID' => $idService,
+                            'startDatetime' => $date
+                ));
+
+                if (!$test) {
+
+                    $mce = new MyCompanyEvents('', '€', $details->getDetails()['precio_oferta'], $calendarioId, $idService, null, null, $date, $fechaend, 0, 0, 0, $details->getDetails()['idInscription']);
+
+                    $mce->setOcuppate(true);
+
+                    $em->persist($mce);
+
+                    $em->flush();
+
+                    //vamos sumando un dia a las fechas
+
+                    $fechaend->modify('+1 day');
+
+                    $date = $fechaend;
+                } else {
+
+                    $test->setInscriptionID($details->getDetails()['idInscription']);
+                    $test->setOcuppate(true);
+
+                    $em->flush();
+
+                    $fechaend->modify('+1 day');
+
+                    $date = $fechaend;
+                }
+            }
+            //////////
+            
             $this->updateStatus($idOffer,$details,$IDPayment, $request);
-            die;
+            
             if(isset($details->getDetails()['metodo_envio'])){
                 if($details->getDetails()['metodo_envio']== 'correos'){
                     $codigo =new CorreosController($this->getDoctrine()->getManager());
@@ -79,8 +139,10 @@ class DetailsController extends PayumController
                         $sendOffice= 1;
                     }
                     $sendOffice = 0;
-                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice);
-                    print_r($codigo);
+                    $arrayDetails = $details->getDetails();
+                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice,$arrayDetails);
+                    
+                    
                 }
             }
             return $this->render('pay/postPayPageOK.html.twig',array(
@@ -91,7 +153,15 @@ class DetailsController extends PayumController
         
     }
         
-    
+        // Funcion para calcular el numero de inserciones por fecha en my_company_events
+
+    function diferenciaDias($inicio, $fin) {
+        $inicio = strtotime($inicio);
+        $fin = strtotime($fin);
+        $dif = $fin - $inicio;
+        $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+        return ceil($diasFalt);
+    }
     private function getStatusPayment(){
         
     }
@@ -107,10 +177,10 @@ class DetailsController extends PayumController
         $data['offer_id'] = $idOffer;
         //secreto = dgv7Hbh5OMmC0Kmx2SDRC
         $extra['idPayment'] = $details->getId();
-        $extra['hash'] = hash_hmac('sha512', $idPayment, 'dgv7Hbh5OMmC0Kmx2SDRC');
+        $extra['hash'] = hash_hmac('sha512', $details->getNumber(), 'dgv7Hbh5OMmC0Kmx2SDRC');
         $extra['concept']= $details->getDescription();
         $extra['reference'] = $idPayment;
-        $extra['price'] = $details->getDetails()['gastos_totales'];
+        $extra['price'] = $details->getDetails()['precio_oferta'];
         if(isset($details->getDetails()['metodo_envio'])){
             $extra['mail']['name']= $details->getDetails()['metodo_envio'];
             $extra['mail']['description']= 'paqueteria';
