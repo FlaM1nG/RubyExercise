@@ -104,7 +104,7 @@ class OfferController extends Controller{
                 $result = $this->updateOfferTrade($request);
 
                 if($result == 'ok'):
-                    return $this->redirectToRoute('user_profile_offers',array('typeOffer' => 'trades'));
+                    return $this->redirectToRoute('user_profile_offers',array('typeOffer' => 'trade'));
                 endif;
             
             elseif($this->service == 4 || $this->service == 5):
@@ -505,6 +505,7 @@ class OfferController extends Controller{
 
        $file = MyConstants::PATH_APIREST."services/inscription/rate.php";
        $ch = new ApiRest();
+       $response = new JsonResponse();
 
        $rating = $request->get('rating');
        $idOffer = $request->get('idOffer');
@@ -518,17 +519,19 @@ class OfferController extends Controller{
        $data['comment'] = $comment;
 
        $result = $ch->resultApiRed($data, $file);
-
+//$result['result'] = 'ok';
        if($result['result'] == 'ok'):
+           $response->setData(array('result' => 'ok'));
 
-           return $this->forward('UserBundle:Offer:myOffers');
+           $ut = new Utilities();
+           $ut->flashMessage('Gracias por su valoración.', $request, $result);
 
        else:
-           $response = new JsonResponse();
+           $response->setData(array('result' => 'ko'));
 
-           return $response;
        endif;
 
+       return $response;
 
    }
 
