@@ -10927,6 +10927,24 @@ body.lb-disable-scrolling {
 .kv-file-remove.btn.btn-xs.btn-default .glyphicon.glyphicon-trash.text-danger {
   color: #fff;
 }
+/* ------------------ Formularios userProfile  ------------------
+******************************************************************/
+form .file-input .file-footer-caption {
+  display: none;
+}
+select.prefixPhone {
+  width: 25%;
+  display: inline;
+  float: left;
+}
+input.phoneNumber {
+  width: 75%;
+  display: inline;
+  float: left;
+}
+.editAddressButton {
+  margin-top: 2rem;
+}
 /* ------------------ MENU DE ADMINISTRACI�N  ------------------
 ******************************************************************/
 /* *****  ***** */
@@ -13005,6 +13023,7 @@ input#registroUsuario_captcha {
 /* *****  ***** */
 .us-number-comments {
   text-align: center;
+  padding: 0.5em 0;
 }
 .us-number-comments span {
   font-size: 16px;
@@ -13612,6 +13631,12 @@ Sidebar
     right: auto;
     color: transparent;
   }
+}
+li.has-children {
+  list-style-type: none;
+}
+li.has-children ul {
+  list-style-type: none;
 }
 @media only screen and (min-width: 1170px) {
   .cd-side-nav {
@@ -14958,6 +14983,11 @@ textarea {
   margin: 0 auto;
 }
 /* ##### FIN GRID ##### */
+/* ##### PAGO TRADE #### */
+.tra-noTesting {
+  display: none;
+}
+/* ##### FIN PAGO TRADE #### */
 /* *****  ***** */
 /* ##### FIN  ##### */
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/

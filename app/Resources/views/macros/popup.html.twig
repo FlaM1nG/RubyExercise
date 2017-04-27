@@ -60,40 +60,41 @@
                 </div>
 
 
-                <div class="modal-body">
-                    {{ body|raw }}
-                </div>
+                <div class="modal-body textCenter">
+                    <p>{{  body|raw }}</p>
 
-                <div class="modal-footer">
-                    <a href="#{{ hrefAccept }}" class="btn btn-default us-mess-btn" id="{{ hrefAccept }}"
-                        data-toggle="tooltip"
-                        data-tooltip="true"
-                        data-placement="bottom"
-                        title="{{ tooltipAccept|e|capitalize }}">
+                    <div class="separacion-superior">
+                        <a href="#{{ hrefAccept }}" class="btn btn-default us-mess-btn" id="{{ hrefAccept }}"
+                           data-toggle="tooltip"
+                           data-tooltip="true"
+                           data-placement="bottom"
+                           title="{{ tooltipAccept|e|capitalize }}">
 
-                        {% if titleButtonAccept is not empty  %}
-                            {{ titleButtonAccept }}
-                        {% endif %}
+                            {% if titleButtonAccept is not empty  %}
+                                {{ titleButtonAccept }}
+                            {% endif %}
 
-                        {% if iconButtonAccept is not empty %}
-                            <i class="{{ iconButtonAccept }}" aria-hidden="true"></i>
-                        {% endif %}
-                    </a>
+                            {% if iconButtonAccept is not empty %}
+                                <i class="{{ iconButtonAccept }}" aria-hidden="true"></i>
+                            {% endif %}
+                        </a>
 
-                    <a href="#{{ hrefCancel }}" class="btn btn-default us-mess-btn" id="{{ hrefCancel }}"
-                       data-toggle="tooltip"
-                       data-tooltip = "true"
-                       data-placement="bottom"
-                       title="{{ tooltipCancel|e|capitalize }}">
+                        <a href="#{{ hrefCancel }}" class="btn btn-default us-mess-btn" id="{{ hrefCancel }}"
+                           data-toggle="tooltip"
+                           data-tooltip = "true"
+                           data-placement="bottom"
+                           title="{{ tooltipCancel|e|capitalize }}">
 
-                        {% if titleButtonCancel is not empty  %}
-                            {{ titleButtonCancel }}
-                        {% endif %}
+                            {% if titleButtonCancel is not empty  %}
+                                {{ titleButtonCancel }}
+                            {% endif %}
 
-                        {% if iconButtonCancel is not empty %}
-                            <i class="{{ iconButtonCancel }}" aria-hidden="true"></i>
-                        {% endif %}
-                    </a>
+                            {% if iconButtonCancel is not empty %}
+                                <i class="{{ iconButtonCancel }}" aria-hidden="true"></i>
+                            {% endif %}
+                        </a>
+                    </div>
+
                 </div>
 
 

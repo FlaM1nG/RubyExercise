@@ -261,14 +261,21 @@ class ShareCarController extends Controller {
 
         elseif($formCourierPrice->isSubmitted()):
 
-            $this->offerSubscribe($request, $shareCar, $listCourierPrice);
+            $inscription = $this->offerSubscribe($request, $shareCar, $listCourierPrice);
             $nameService = "";
-            if($service == 4) $nameService = 'share-car';
-            elseif($service == 5) $nameService = 'courier-car';
+            
+            if($service == 4):
+                $nameService = 'share-car';
+            
+            elseif($service == 5):
+                $nameService = 'courier-car';
+                $request->getSession()->set('idInscription', $inscription);
+
+            endif;    
 
             return $this->redirectToRoute(  'acme_payment_homepage', array(
                                             'idOffer'=> $shareCar->getOffer()->getId(),
-                                            'service'=> $nameService,
+                                            'service'=> $nameService
                                                 ));
         endif;
 
@@ -380,6 +387,7 @@ class ShareCarController extends Controller {
 
     private function offerSubscribe(Request $request, ShareCar $shareCar, $listPrices = null){
 
+        $idInscription = null;
         $ch = new ApiRest();
         $ut = new Utilities();
         $file = MyConstants::PATH_APIREST."services/inscription/subscribe_user.php";
@@ -394,9 +402,16 @@ class ShareCarController extends Controller {
             $data['newInscription'] = true;
             $shareCar->setPrice($listPrices[$data['id_messengerPrice']]->getPriceEs());
         endif;
-//print_r($shareCar);
+
 
         $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+            if(array_key_exists('id_inscription', $result))
+                $idInscription = $result['id_inscription'];
+        endif;
+
+        return $idInscription;
 
     }
 

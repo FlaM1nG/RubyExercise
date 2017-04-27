@@ -328,7 +328,8 @@ class HouseOffersController extends Controller
 
 
         if($formSubscribe->isSubmitted()):
-            $this->offerSubscribe($request,$offerShareHouse->getOffer()->getId());
+            $inscription =  $this->offerSubscribe($request,$offerShareHouse->getOffer()->getId());
+                $request->getSession()->set('idInscription', $inscription);
                 $nameService = "";
                 if($service == 6) $nameService = 'house-rents';
                 elseif($service == 7) $nameService = 'share-house';
@@ -391,7 +392,11 @@ class HouseOffersController extends Controller
         $data['offer_id'] = $offerId;
 
         $result = $ch->resultApiRed($data, $file);
-
+        if($result['result'] == 'ok'):
+            if(array_key_exists('id_inscription', $result))
+                $idInscription = $result['id_inscription'];
+        endif;
+        return $idInscription;
     }
 
 

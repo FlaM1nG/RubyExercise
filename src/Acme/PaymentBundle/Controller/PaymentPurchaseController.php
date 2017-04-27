@@ -47,17 +47,6 @@ class PaymentPurchaseController extends Controller {
     //3- Moneda EU o USD
     //4- Correo del cliente
 
-    // Funcion para calcular el numero de inserciones por fecha en my_company_events
-
-    function diferenciaDias($inicio, $fin)
-    {
-        $inicio = strtotime($inicio);
-        $fin = strtotime($fin);
-        $dif = $fin - $inicio;
-        $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
-        return ceil($diasFalt);
-    }
-
 
     public function prepareAction(Request $request) {
         //Redsys <20
@@ -65,35 +54,39 @@ class PaymentPurchaseController extends Controller {
         $user = $this->getUserProfile($request);
         $arrayAddressesPay = array();
         $arrayAddressesForm = array();
-
+        $form = null;
         $this->createArraysAddresses($user, $arrayAddressesPay, $arrayAddressesForm);
 
         $this->setUpVars($request);
 
-
         $administrationFeesPercent = MyConstants::ADMINISTRATION_FEES/100;
-
-        $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice(),
-                                                                'arrayAddresses' => $arrayAddressesForm));
+        
+        if ($this->serviceId == 6 || $this->serviceId == 7):
+          
+            $form = $this->createForm(PagoType::class, $user, array('amount' => $request->getSession()->get('preciototal'),
+            'arrayAddresses' => $arrayAddressesForm));
+        else:
+            $form = $this->createForm(PagoType::class, $user, array('amount' => $this->offer->getPrice(),
+            'arrayAddresses' => $arrayAddressesForm));
+        endif;
+        
+        
         $form->handleRequest($request);
 
-
         $arrayCourier = null;
-
-
-        $this->serviceId  = $this->offer->getOffer()->getService()->getId();
+        $this->serviceId = $this->offer->getOffer()->getService()->getId();
 
 
         if ($this->serviceId == 1 || $this->serviceId == 2):
             $arrayCourier = $this->getCourierPrice($request);
 
         endif;
-
+        
         $preciototal = null;
 
         if ($this->serviceId == 6 || $this->serviceId == 7):
 
-           $precio_base= $this->offer->getPrice();
+           // $precio_base= $this->offer->getPrice();
 
             $sesion = $request->getSession();
 
@@ -101,85 +94,8 @@ class PaymentPurchaseController extends Controller {
 
             $preciototal = $sesion->get('preciototal');
 
-            $fechainicial = $sesion->get('fechainicial');
 
-            $offerID = $request->get('idOffer');
-
-
-            $date = new \DateTime ($fechainicial);
-
-            $calendarioId = $sesion->get('calendario_id');
-
-           // $servicioId = $sesion->get('service_id');
-
-            $fechafinal = $sesion->get('fechafinal');
-
-            $fechaend = $date;
-
-            $em = $this->getDoctrine()->getEntityManager();
-            $db = $em->getConnection();
-
-            $numero_dias = $this->diferenciaDias($fechainicial, $fechafinal); //imprime el numero de dias entre el rango de fecha
-
-
-            $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
-
-            // hacemos un for para insertar
-
-            for ($n=0; $n<$numero_dias; $n++) {
-
-                $test = $repository->findOneBy(
-                    array('calendarID' => $calendarioId, 'serviceID' => $this->serviceId , 'startDatetime' => $date
-                    ));
-
-                if (!$test) {
-
-                $mce = new MyCompanyEvents('', '€', $precio_base, $calendarioId, $this->serviceId , null, null, $date, $fechaend, 0, 0, 0, $request->get('inscription_id'));
-
-                $mce->setOcuppate(true);
-
-                $query = "select id from inscription where offer_id=$offerID";
-
-                $stmt = $db->prepare($query);
-                $params = array();
-                $stmt->execute($params);
-                $fechas = $stmt->fetchAll();
-
-
-                $mce->setInscriptionID($fechas[0]['id']);
-
-                $em->persist($mce);
-
-                $em->flush();
-
-                //vamos sumando un dia a las fechas
-
-                $fechaend->modify('+1 day');
-
-                $date = $fechaend;
-
-                }else{
-
-                    $query = "select id from inscription where offer_id=$offerID";
-
-                    $stmt = $db->prepare($query);
-                    $params = array();
-                    $stmt->execute($params);
-                    $fechas = $stmt->fetchAll();
-
-
-                    $test->setInscriptionID($fechas[0]['id']);
-                    $test->setOcuppate(true);
-                 
-                    $em->flush();
-
-                    $fechaend->modify('+1 day');
-
-                    $date = $fechaend;
-
-
-                }
-            }
+            $this->offer->setPrice($preciototal);
 
         endif;
 
@@ -201,12 +117,20 @@ class PaymentPurchaseController extends Controller {
             $arrayPay['gastos_pago'] = $request->get('previoPago')['managementPayFee'];
             $arrayPay['gastos_totales'] = $request->get('previoPago')['totalAmount'];
             $arrayPay['metodo_pago'] = $request->get('previoPago')['payMethod'];
+            $arrayPay['precio_oferta'] = $this->offer->getPrice();
             if ($this->serviceId == 1 || $this->serviceId == 2) {
                 $arrayPay['direccion'] = $request->get('previoPago')['addressPay'];
                 $arrayPay['metodo_envio'] = $request->get('previoPago')['sendMethod'];
                 $arrayPay['gastos_envio'] = $request->get('previoPago')['shippingCost'];
                 //$arrayPay['send_office'] = $request->get('previoPago')['send_office'];
                 //$arrayPay['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
+            }
+            if ($this->serviceId == 6 || $this->serviceId == 7) {
+                $arrayPay['fechaIni'] = $sesion->get('fechainicial');
+                $arrayPay['fechaFin'] = $sesion->get('fechafinal');
+                $arrayPay['idCalendar'] = $sesion->get('calendario_id');
+                $arrayPay['idService'] = $this->serviceId;
+                $arrayPay['idInscription'] = $sesion->get('idInscription');
             }
 
             $payment = new Payment;
@@ -238,13 +162,21 @@ class PaymentPurchaseController extends Controller {
                 $details['gastos_pago'] = $request->get('previoPago')['managementPayFee'];
                 $details['gastos_totales'] = $request->get('previoPago')['totalAmount'];
                 $details['metodo_pago'] = $request->get('previoPago')['payMethod'];
+                $details['precio_oferta'] = $this->offer->getPrice();
                 if ($this->serviceId == 1 || $this->serviceId == 2) {
                     $details['direccion'] = $request->get('previoPago')['addressPay'];
                     $details['metodo_envio'] = $request->get('previoPago')['sendMethod'];
                     $details['gastos_envio'] = $request->get('previoPago')['shippingCost'];
-                   // $details['send_office'] = $request->get('previoPago')['send_office'];
+                    // $details['send_office'] = $request->get('previoPago')['send_office'];
                     //$arrayPay['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
                 }
+             if ($this->serviceId == 6 || $this->serviceId == 7) {
+                $details['fechaIni'] = $sesion->get('fechainicial');
+                $details['fechaFin'] = $sesion->get('fechafinal');
+                $details['idCalendar'] = $sesion->get('calendario_id');
+                $details['idService'] = $this->serviceId;
+                $details['idInscription'] = $sesion->get('idInscription');
+            }
 
                 $storage->update($details);
                 //Las notificaciones de compra se guardan en la tabla payum_payments_details
@@ -288,23 +220,17 @@ class PaymentPurchaseController extends Controller {
                 return $this->redirect($captureToken->getTargetUrl());
             }
         }
-//print_r($this->offer);
-        if ($this->serviceId == 6 || $this->serviceId == 7):
-
-        $this->offer->setPrice($preciototal);
-
-            endif;
 
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
                     'offer' => $this->offer,
                     'service' => $this->serviceId,
                     'arrayCourier' => $arrayCourier,
-                    'preciototal' =>  $preciototal,
+                    'preciototal' => $preciototal,
                     'arrayAddresses' => $arrayAddressesPay,
                     'administrationFees' => $administrationFeesPercent,
-                    'sendOfficePercent' => MyConstants::SEND_OFFICE/100,
-                    'paypalFee' => MyConstants::PAYPAL_FEE/100
+                    'sendOfficePercent' => MyConstants::SEND_OFFICE / 100,
+                    'paypalFee' => MyConstants::PAYPAL_FEE / 100
         ));
     }
 
@@ -392,18 +318,18 @@ class PaymentPurchaseController extends Controller {
         if (strstr($path, 'trade') !== false):
             $this->service = 'trade';
             $this->getOffer($request);
-        
+
         elseif (strstr($path, 'share-car') !== false):
             $this->service = 'share-car';
             $this->serviceId = 4;
 //            $this->getOfferShareCar($request);
             $this->getOfferInfo($request);
-        
+
         elseif (strstr($path, 'courier-car') !== false):
             $this->service = 'courier-car';
             $this->serviceId = 5;
             $this->getOfferInfo($request);
-        
+
         elseif (strstr($path, 'house-rents') !== false):
             $this->service = 'house-rents';
             $this->serviceId = 6;
@@ -429,11 +355,12 @@ class PaymentPurchaseController extends Controller {
         $result = $ch->resultApiRed($data, $file);
 
         if ($result['result'] == 'ok'):
-            if($result['service_id'] == 6 || $result['service_id'] == 7){
+            if ($result['service_id'] == 6 || $result['service_id'] == 7) {
                 $this->offer = new ShareHouse($result);
             }
-            $this->offer = new Trade($result);
-//print_r($result);exit;
+            else{
+                $this->offer = new Trade($result);
+            }
         else:
             $this->ut->flashMessage("general", $request);
         endif;
@@ -466,23 +393,22 @@ class PaymentPurchaseController extends Controller {
         $data['offerId'] = $request->get('idOffer');
         $data['serviceId'] = $this->serviceId;
 
+        if($this->serviceId == 5):
+            $data['idInscription'] = $request->getSession()->get('idInscription');
+        endif;
 
         $result = $ch->resultApiRed($data, $file);
 
         if ($this->serviceId == 4 || $this->serviceId == 5):
 
             $this->offer = new ShareCar($result['data']);
-
+         
         endif;
 
-       // if ($this->serviceId == 6 || $this->serviceId == 7):
-
-         //   $this->offer = new ShareHouse($result['data']);
-            //$this->offer = new House($result['data']);
-
-     //   endif;
-
-
+        // if ($this->serviceId == 6 || $this->serviceId == 7):
+        //   $this->offer = new ShareHouse($result['data']);
+        //$this->offer = new House($result['data']);
+        //   endif;
     }
 
     private function getUserProfile(Request $request) {
@@ -530,24 +456,24 @@ class PaymentPurchaseController extends Controller {
             return $array;
         endif;
     }
-    
-    private function createArraysAddresses(User $user, &$arrayAddressesPay, &$arrayAddressesForm){
+
+    private function createArraysAddresses(User $user, &$arrayAddressesPay, &$arrayAddressesForm) {
 
         $addressDefault = $user->getDefaultAddress();
 
-        array_unshift($arrayAddressesForm,$addressDefault);
+        if(!empty($addressDefault)):
+            array_unshift($arrayAddressesForm,$addressDefault);
+            $arrayAddressesPay[$user->getDefaultAddress()->getId()] = mb_strtolower($addressDefault->getRegion());
+        endif;
 
         if(!empty($user->getAddresses()[0])):
             
             foreach($user->getAddresses()[0] as $data ):
                 array_push($arrayAddressesForm,$data);
-                $arrayAddressesPay[$data->getId()] = strtolower($data->getRegion());
+                $arrayAddressesPay[$data->getId()] =  mb_strtolower($data->getRegion());
             endforeach;
 
-            $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
         endif;
-
     }
 
 }
-
