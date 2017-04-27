@@ -126,14 +126,14 @@
                 data["idOffer"] = idOffer;
                 data["comment"] = comment;
 
-
                 $.ajax({
                     type: "POST",
                     url: "{{ url('user_ajax_valorationOffer') }}",
                     data: data,
                     success: function(data)
                     {
-                        location.href='{{ path('user_profiler_purchases') }}';
+                        if(data['result'] == 'ok')
+                            location.href='{{ path('user_profiler_purchases',{typeOffer: app.request.attributes.get('typeOffer')}) }}';
                     },
                     error: function()             
                     {
