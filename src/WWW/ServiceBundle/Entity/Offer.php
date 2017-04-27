@@ -170,7 +170,10 @@ class Offer
 
                 if(array_key_exists('avg_score',$data))
                     $user->setAvgScore($data['avg_score']);
-
+                if(array_key_exists('email', $data))
+                        $user->setEmail ($data['email']);
+                if(array_key_exists('phone', $data))
+                        $user->setPhone ($data['phone']);
                 $user->setUsername($data['username']);
                 $user->setId($data['user_admin_id']);
                 $photoUser = new Photo();
