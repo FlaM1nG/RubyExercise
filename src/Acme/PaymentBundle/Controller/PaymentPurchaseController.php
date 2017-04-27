@@ -182,6 +182,7 @@ class PaymentPurchaseController extends Controller {
 
                 }
             }
+            $this->offer->setPrice($preciototal);
 
         endif;
 
@@ -291,7 +292,7 @@ class PaymentPurchaseController extends Controller {
             }
         }
 //print_r($this->offer);
-        $this->offer->setPrice($preciototal);
+
 
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
@@ -464,6 +465,9 @@ class PaymentPurchaseController extends Controller {
         $data['offerId'] = $request->get('idOffer');
         $data['serviceId'] = $this->serviceId;
 
+        if($this->serviceId == 5):
+            $data['idInscription'] = $request->getSession()->get('idInscription');
+        endif;
 
         $result = $ch->resultApiRed($data, $file);
 
