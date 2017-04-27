@@ -1,25 +1,10 @@
 {#<script type="text/javascript">#}
     {#$(document).ready(function () {#}
-
+{#{{ dump(arrayAddresses|json_encode) }}#}
         var regions = {{ arrayAddresses|json_encode|raw}};
         var a = [];
 
-console.log(regions);
-
-{#for (i in addresses){#}
-    {#a[i]= addresses[i]#}
-    {#x += i;#}
-{#}#}
-{#console.log(a);#}
-console.log("------");
-{#console.log(addresses);#}
-{#for(i in addresses){#}
-    {#region[i] = addresses[i];#}
-{#console.log(i);#}
-{#}#}
-
-
-{#console.log(region);#}
+{#console.log(regions);#}
 
         {% if offer.region|lower != 'ceuta' and offer.region|lower != 'melilla' and offer.region|lower !='baleares' and
         offer.region|lower != 's.c.tenerife' and offer.region|lower != 'las palmas' %}
@@ -51,7 +36,7 @@ console.log("------");
         function actualizaGastosEnvio(){
 
             if($('.tra-testing')!= 'undefined' || $('.tra-noTesting') != undefined){
-console.log('muestroOculto');
+{#console.log('muestroOculto');#}
                 showHiddenTesting();
             }
 
@@ -99,7 +84,11 @@ console.log('muestroOculto');
         function actualizaGastosGestionPago(precioTotal){
             var gastos = 0;
             var total = 0;
-            var gastosTesteo = calculaGastosComprobacion();
+            var gastosTesteo = 0;
+
+            if(document.getElementById('previoPago_sendOffice')!= null){
+                gastosTesteo = calculaGastosComprobacion();
+            }
 
             if(precioTotal == 0) {
                 var precio = parseFloat({{ offer.price }});
