@@ -70,18 +70,14 @@ class PaymentPurchaseController extends Controller {
 
         $this->setUpVars($request);
 
-
         $administrationFeesPercent = MyConstants::ADMINISTRATION_FEES/100;
 
         $form = $this->createForm(PagoType::class, $user, array('amount' =>$this->offer->getPrice(),
                                                                 'arrayAddresses' => $arrayAddressesForm));
         $form->handleRequest($request);
 
-
         $arrayCourier = null;
-
-
-        $this->serviceId  = $this->offer->getOffer()->getService()->getId();
+        $this->serviceId = $this->offer->getOffer()->getService()->getId();
 
 
         if ($this->serviceId == 1 || $this->serviceId == 2):
@@ -182,6 +178,7 @@ class PaymentPurchaseController extends Controller {
 
                 }
             }
+            $this->offer->setPrice($preciototal);
 
         endif;
 
@@ -290,8 +287,6 @@ class PaymentPurchaseController extends Controller {
                 return $this->redirect($captureToken->getTargetUrl());
             }
         }
-//print_r($this->offer);
-        $this->offer->setPrice($preciototal);
 
         return $this->render('pay/payPage.html.twig', array(
                     'form' => $form->createView(),
@@ -431,7 +426,7 @@ class PaymentPurchaseController extends Controller {
                 $this->offer = new ShareHouse($result);
             }
             $this->offer = new Trade($result);
-//print_r($result);exit;
+
         else:
             $this->ut->flashMessage("general", $request);
         endif;
@@ -464,6 +459,9 @@ class PaymentPurchaseController extends Controller {
         $data['offerId'] = $request->get('idOffer');
         $data['serviceId'] = $this->serviceId;
 
+        if($this->serviceId == 5):
+            $data['idInscription'] = $request->getSession()->get('idInscription');
+        endif;
 
         $result = $ch->resultApiRed($data, $file);
 
@@ -533,19 +531,20 @@ class PaymentPurchaseController extends Controller {
 
         $addressDefault = $user->getDefaultAddress();
 
-        array_unshift($arrayAddressesForm,$addressDefault);
+        if(!empty($addressDefault)):
+            array_unshift($arrayAddressesForm,$addressDefault);
+            $arrayAddressesPay[$user->getDefaultAddress()->getId()] = mb_strtolower($addressDefault->getRegion());
+        endif;
 
         if(!empty($user->getAddresses()[0])):
             
             foreach($user->getAddresses()[0] as $data ):
                 array_push($arrayAddressesForm,$data);
-                $arrayAddressesPay[$data->getId()] = strtolower($data->getRegion());
+                $arrayAddressesPay[$data->getId()] =  mb_strtolower($data->getRegion());
             endforeach;
 
-            $arrayAddressesPay[$user->getDefaultAddress()->getId()] = $user->getDefaultAddress()->getRegion();
         endif;
 
     }
 
 }
-
