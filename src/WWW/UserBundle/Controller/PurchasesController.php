@@ -56,7 +56,7 @@ class PurchasesController extends Controller{
         $data['id'] = $request->getSession()->get('id');
         $data['password'] = $request->getSession()->get('password');
 
-        if(!empty($service)):
+        if(!empty($service) || $service == 'all'):
             $data['service'] = $service;
         endif;
 
@@ -84,7 +84,7 @@ class PurchasesController extends Controller{
     public function valorationAction(Request $request){
         
         $result = $this->getOffer($request);
-        
+
         return $this->render('UserBundle:Profile:offers/profileValorationOffer.html.twig',
                         array('title' => $result[0]['title'],
                               'description' => $result[0]['description'],
