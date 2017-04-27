@@ -33,6 +33,7 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                     <div class="form-group">
+
                         {% if arrayAddresses is not empty %}
                             {{form_row(form.addressPay)}}
                         {% else %}
@@ -244,7 +245,7 @@
             });
 
             {# Funcionalidad para elegir método de pago #}
-            $('.check-payment-method').on('click', '.img-metodo-pago', function () { 
+            $('.check-payment-method').on('click', '.img-metodo-pago', function () {
                 var elegido = $('.row-payment-method').find('.check-payment-method-checked');
 
                 if($(elegido)){
