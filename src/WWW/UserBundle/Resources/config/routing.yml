@@ -91,10 +91,12 @@ user_profiler_purchases:
        typeOffer: "trade|vehicles|buildings|all|"
     
 user_profiler_purchasesValoration:
-    path: /profile/purchases/valoration/{idOffer}/
+    path: /profile/purchases/{typeOffer}/valoration/{idOffer}/
     defaults: { _controller: UserBundle:Purchases:valoration }
     requirements:
         idOffer: \d+
+        typeOffer: "trade|vehicles|buildings|all|"
+
         
 user_profiler_inscriptions:
     path: /profile/inscription/

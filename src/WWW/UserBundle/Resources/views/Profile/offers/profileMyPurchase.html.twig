@@ -50,7 +50,7 @@
 
                     {% set urlValoration = '' %}
                     {% if purchase.valorated is not empty %}
-                        {% set urlValoration = path('user_profiler_purchasesValoration',{idOffer: purchase.offer_id}) %}
+                        {% set urlValoration = path('user_profiler_purchasesValoration',{typeOffer: app.request.get('typeOffer') ,idOffer: purchase.offer_id}) %}
                     {% endif %}
 
                     {{ offers.offUserDisfrutadas('', purchase.offer_photo ,purchase.title, purchase.created_date,
