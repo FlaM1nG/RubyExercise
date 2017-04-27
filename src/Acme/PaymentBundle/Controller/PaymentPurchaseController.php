@@ -177,6 +177,7 @@ class PaymentPurchaseController extends Controller {
                     $date = $fechaend;
                 }
             }
+            $this->offer->setPrice($preciototal);
 
         endif;
 
@@ -459,6 +460,9 @@ class PaymentPurchaseController extends Controller {
         $data['offerId'] = $request->get('idOffer');
         $data['serviceId'] = $this->serviceId;
 
+        if($this->serviceId == 5):
+            $data['idInscription'] = $request->getSession()->get('idInscription');
+        endif;
 
         $result = $ch->resultApiRed($data, $file);
 
