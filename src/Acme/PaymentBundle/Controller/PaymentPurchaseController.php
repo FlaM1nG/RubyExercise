@@ -46,15 +46,7 @@ class PaymentPurchaseController extends Controller {
     //2- Cantidad a pagar
     //3- Moneda EU o USD
     //4- Correo del cliente
-    // Funcion para calcular el numero de inserciones por fecha en my_company_events
 
-    function diferenciaDias($inicio, $fin) {
-        $inicio = strtotime($inicio);
-        $fin = strtotime($fin);
-        $dif = $fin - $inicio;
-        $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
-        return ceil($diasFalt);
-    }
 
     public function prepareAction(Request $request) {
         //Redsys <20
@@ -62,15 +54,23 @@ class PaymentPurchaseController extends Controller {
         $user = $this->getUserProfile($request);
         $arrayAddressesPay = array();
         $arrayAddressesForm = array();
-
+        $form = null;
         $this->createArraysAddresses($user, $arrayAddressesPay, $arrayAddressesForm);
 
         $this->setUpVars($request);
 
         $administrationFeesPercent = MyConstants::ADMINISTRATION_FEES/100;
-
-        $form = $this->createForm(PagoType::class, $user, array('amount' => $this->offer->getPrice(),
+        
+        if ($this->serviceId == 6 || $this->serviceId == 7):
+          
+            $form = $this->createForm(PagoType::class, $user, array('amount' => $request->getSession()->get('preciototal'),
             'arrayAddresses' => $arrayAddressesForm));
+        else:
+            $form = $this->createForm(PagoType::class, $user, array('amount' => $this->offer->getPrice(),
+            'arrayAddresses' => $arrayAddressesForm));
+        endif;
+        
+        
         $form->handleRequest($request);
 
         $arrayCourier = null;
@@ -86,7 +86,7 @@ class PaymentPurchaseController extends Controller {
 
         if ($this->serviceId == 6 || $this->serviceId == 7):
 
-            // $precio_base= $this->offer->getPrice();
+           // $precio_base= $this->offer->getPrice();
 
             $sesion = $request->getSession();
 
@@ -94,85 +94,7 @@ class PaymentPurchaseController extends Controller {
 
             $preciototal = $sesion->get('preciototal');
 
-            $fechainicial = $sesion->get('fechainicial');
 
-            $offerID = $request->get('idOffer');
-
-
-            $date = new \DateTime($fechainicial);
-
-            $calendarioId = $sesion->get('calendario_id');
-
-            // $servicioId = $sesion->get('service_id');
-
-            $fechafinal = $sesion->get('fechafinal');
-
-            $fechaend = $date;
-
-            $em = $this->getDoctrine()->getEntityManager();
-            $db = $em->getConnection();
-
-            $numero_dias = $this->diferenciaDias($fechainicial, $fechafinal); //imprime el numero de dias entre el rango de fecha
-
-
-            $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
-
-            // hacemos un for para insertar
-
-            for ($n = 0; $n < $numero_dias; $n++) {
-
-                $test = $repository->findOneBy(
-                        array('calendarID' => $calendarioId, 'serviceID' => $this->serviceId, 'startDatetime' => $date
-                ));
-
-                if (!$test) {
-
-                    $mce = new MyCompanyEvents('', '€', $preciototal, $calendarioId, $this->serviceId, null, null, $date, $fechaend, 0, 0, 0, $request->get('inscription_id'));
-
-                    $mce->setOcuppate(true);
-
-                    $query = "select id from inscription where offer_id=$offerID";
-
-                    $stmt = $db->prepare($query);
-                    $params = array();
-                    $stmt->execute($params);
-                    $fechas = $stmt->fetchAll();
-
-                    print_r($mce);
-                   
-                    $mce->setInscriptionID($fechas[0]['id']);
-
-                    $em->persist($mce);
-
-                    $em->flush();
-
-                    //vamos sumando un dia a las fechas
-
-                    $fechaend->modify('+1 day');
-
-                    $date = $fechaend;
-                } else {
-
-                    $query = "select id from inscription where offer_id=$offerID";
-
-                    $stmt = $db->prepare($query);
-                    $params = array();
-                    $stmt->execute($params);
-                    $fechas = $stmt->fetchAll();
-
-
-                    $test->setInscriptionID($fechas[0]['id']);
-                    $test->setOcuppate(true);
-                    $test->setPrice($preciototal);
-
-
-                    $em->flush();
-
-                    $fechaend->modify('+1 day');
-
-                    $date = $fechaend;
-                }
-            }
             $this->offer->setPrice($preciototal);
 
         endif;
@@ -202,6 +124,13 @@ class PaymentPurchaseController extends Controller {
                 $arrayPay['gastos_envio'] = $request->get('previoPago')['shippingCost'];
                 //$arrayPay['send_office'] = $request->get('previoPago')['send_office'];
                 //$arrayPay['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
+            }
+            if ($this->serviceId == 6 || $this->serviceId == 7) {
+                $arrayPay['fechaIni'] = $sesion->get('fechainicial');
+                $arrayPay['fechaFin'] = $sesion->get('fechafinal');
+                $arrayPay['idCalendar'] = $sesion->get('calendario_id');
+                $arrayPay['idService'] = $this->serviceId;
+                $arrayPay['idInscription'] = $sesion->get('idInscription');
             }
 
             $payment = new Payment;
@@ -241,6 +170,13 @@ class PaymentPurchaseController extends Controller {
                     // $details['send_office'] = $request->get('previoPago')['send_office'];
                     //$arrayPay['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
                 }
+             if ($this->serviceId == 6 || $this->serviceId == 7) {
+                $details['fechaIni'] = $sesion->get('fechainicial');
+                $details['fechaFin'] = $sesion->get('fechafinal');
+                $details['idCalendar'] = $sesion->get('calendario_id');
+                $details['idService'] = $this->serviceId;
+                $details['idInscription'] = $sesion->get('idInscription');
+            }
 
                 $storage->update($details);
                 //Las notificaciones de compra se guardan en la tabla payum_payments_details
@@ -422,8 +358,9 @@ class PaymentPurchaseController extends Controller {
             if ($result['service_id'] == 6 || $result['service_id'] == 7) {
                 $this->offer = new ShareHouse($result);
             }
-            $this->offer = new Trade($result);
-
+            else{
+                $this->offer = new Trade($result);
+            }
         else:
             $this->ut->flashMessage("general", $request);
         endif;
@@ -465,7 +402,7 @@ class PaymentPurchaseController extends Controller {
         if ($this->serviceId == 4 || $this->serviceId == 5):
 
             $this->offer = new ShareCar($result['data']);
-
+         
         endif;
 
         // if ($this->serviceId == 6 || $this->serviceId == 7):
