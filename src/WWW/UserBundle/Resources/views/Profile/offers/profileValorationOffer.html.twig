@@ -51,10 +51,8 @@
 
             {{ offers.offUserVot(urlImage, title, description) }}
 
-     {#{{ title }} <br>#}
-     {#{{ description }} <br>#}
-     {#{{ asset(urlImage,'img') }} <br>#}
-     {%if offers.offUserVot(valorated_by_me) == false%}
+
+     {%if valorated_by_me == false%}
          <input id="rating-input"
                 class="rating rating-loading"
                 data-show-clear="false"
@@ -128,14 +126,14 @@
                 data["idOffer"] = idOffer;
                 data["comment"] = comment;
 
-
                 $.ajax({
                     type: "POST",
                     url: "{{ url('user_ajax_valorationOffer') }}",
                     data: data,
                     success: function(data)
                     {
-                        location.href='{{ path('user_profiler_purchases') }}';
+                        if(data['result'] == 'ok')
+                            location.href='{{ path('user_profiler_purchases',{typeOffer: app.request.attributes.get('typeOffer')}) }}';
                     },
                     error: function()             
                     {
