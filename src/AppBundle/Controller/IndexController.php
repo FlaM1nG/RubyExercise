@@ -22,19 +22,9 @@ class IndexController extends Controller
                 "text" => "Coche Compartido"
             ),
             "courier" => array(
-                "faX" => "fa-envelope",
+                "faX" => "fa-truck",
                 "href" => "serShareCar",
                 "text" => "Mensajeria"
-            ),
-            "renting" => array(
-                "faX" => "fa-weixin",
-                "href" => "serShareCar",
-                "text" => "Renting"
-            ),
-            "camping" => array(
-                "faX" => "fa-envira",
-                "href" => "serHouseRents",
-                "text" => "Camping"
             ),
             "money" => array(
                 "faX" => "fa-money",
@@ -45,6 +35,36 @@ class IndexController extends Controller
                 "faX" => "fa-ticket",
                 "href" => "service_listTrade",
                 "text" => "Entradas Ocio"
+            ),
+            "alquilerTuristico" => array(
+                "faX" => "fa-home",
+                "href" => "serHouseRents",
+                "text" => "Alquiler turistico"
+            ),
+            "share_house" => array(
+                "faX" => "fa-users",
+                "href" => "house_lisShareHouse",
+                "text" => "Casa compartida"
+            ),
+            "swap_house" => array(
+                "faX" => "fa-refresh",
+                "href" => "house_listHouseSwap",
+                "text" => "Intercambio casa"
+            ),
+            "swap_room" => array(
+                "faX" => "fa-exchange",
+                "href" => "house_listBedroomSwap",
+                "text" => "Intercambio habitaciones"
+            ),
+            "clothes" => array(
+                "faX" => "fa-child",
+                "href" => "service_listClothes",
+                "text" => "Ropa"
+            ),
+            "barter" => array(
+                "faX" => "fa-refresh",
+                "href" => "service_listBarter",
+                "text" => "Trueque"
             ),
         );
 
