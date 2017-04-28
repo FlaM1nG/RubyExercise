@@ -1,1 +1,10 @@
-{{ form(formCancelation) }}
+{{ form_start(formCancelation) }}
+
+    {{ form_row(formCancelation.concept,{'label': 'Motivo por el que no acepta al usuario:'}) }}
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        {{ form_widget(formCancelation.sendForm, {'attr':{'class':'btn-default btn off-btn-write'}}) }}
+        {{ form_widget(formCancelation.cancelSend, {'attr':{'class':'btn-default btn off-btn-write'}}) }}
+    </div>
+
+    {{ form_row(formCancelation._token) }}
