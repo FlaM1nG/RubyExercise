@@ -32,3 +32,6 @@ offCourierCar:
     requirements:
         idOffer: \d+
 
+ajax_cancelInscription:
+    path: /ajax/cancelInscription
+    defaults: { _controller: CarsBundle:ShareCar:cancelInscription }
