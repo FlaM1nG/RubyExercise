@@ -55,7 +55,7 @@
 
                     {{ offers.offUserDisfrutadas('', purchase.offer_photo ,purchase.title, purchase.created_date,
                         purchase.description, 'leer', urlValoration,
-                        'Valorar', '#PDF', 'PDF','buttonEnjoyed','#buttonEnjoyed',purchase.offer_id,purchase.status ) }}
+                        'Valorar', '#PDF', 'PDF','buttonEnjoyed','#buttonEnjoyed',purchase.offer_id,purchase.status,'#' ) }}
                 {% endfor %}
 
                 {% if pagination is not null %}
@@ -74,7 +74,7 @@
 
     {% set title = 'Cancelar' %}
 
-    {{ popups.popup('modalCancel', title, include('offer/formCancelOffer.html.twig') ) }}
+    {{ popups.popup('modalCancel', title,include('offer/formCancelOffer.html.twig') ) }}
 
     {{ popups.popupWithButtons('idEnjoyed', 'Estado de la oferta', '¿Ha disfrutado ya la oferta?','enjoyed','fa fa-thumbs-o-up','Oferta disfrutada','',
                                'notEnjoyed', 'fa fa-thumbs-o-down', 'Oferta aún no disfrutada','') }}
@@ -103,12 +103,17 @@
                                                         $("#idEnjoyed .close").click();
                                                     });
 
-            $(document).on('click', '.buttonCancel', function(e){ e.preventDefault();
-                                                        e.stopPropagation();
-                                                        dataOffer = $(this).data('id');
+            $(document).on('click', '.buttonCancel', function(e){
+                                                        e.preventDefault();
+                                                        dataOffer  = $(this).data('id');
                                                     });
 
-            $(document).on('clic', '#sendForm', cancelOffer);
+            $(document).on('click', '#cancelation_sendForm', cancelOffer);
+
+            $(document).on('click', '#cancelation_cancelSend', function(e){
+                                                                    e.preventDefault();
+                                                                    $('#modalCancel .close').click();
+                                                                });
 
 
             function changeTransition(e){
@@ -160,7 +165,7 @@
 
             function cancelOffer(e){
                 e.preventDefault();
-
+//console.log("oferta cancelar")
                 var concept = $('#cancelation_concept').val();
 
                 var data = { 'offerId': dataOffer,
@@ -168,28 +173,11 @@
 
                 $.ajax({
                     type: "POST",
-                    url: '{{ path('user_ajax_offerEnjoyed') }}',
+                    url: '{{ path('user_ajax_offerCancel') }}',
                     data: data,
                     success: function(data) {
-                        $("#idEnjoyed .close").click();
 
-                        if(data['result'] == 'ok') {
-                            $('.contentAlert').html("<div class='alert "+
-                                    "alert-success alert-dismissible' role='alert'>"+
-                                    "<button type='button' class='close' "+
-                                    "data-dismiss='alert' aria-label='Close'>"+
-                                    "<span aria-hidden='true'>×</span>"+
-                                    "</button><strong></strong>"+data['message']+
-                                    "</div>");
-                        }else{
-                            $('.contentAlert').html("<div class='alert "+
-                                    "alert-warning alert-dismissible' role='alert'>"+
-                                    "<button type='button' class='close' "+
-                                    "data-dismiss='alert' aria-label='Close'>"+
-                                    "<span aria-hidden='true'>×</span>"+
-                                    "</button><strong></strong>"+data['message']+
-                                    "</div>");
-                        }
+                        location.reload();
 
                     },
                     error: function()
