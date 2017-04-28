@@ -160,7 +160,7 @@
 
 
 
-{% macro userInscr(href, src, nombre, estrellas, valoraciones, escribe, formMessage, pesoPaqueteMin, pesoPaqueteMax) %}
+{% macro userInscr(href, src, nombre, estrellas, valoraciones, escribe, formMessage, idUser, idInscription, pesoPaqueteMin, pesoPaqueteMax) %}
     {% import 'macros/star.html.twig' as est %}
 
     <div class="user-inscrip">
@@ -217,7 +217,17 @@
                         data-toggle="modal"
                         data-target="#writeUser"
                         data-name="{{ nombre }}">
-                    Escríbele
+                    <i class="fa fa-pencil"></i>
+                </button>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <button class="btn-default btn off-btn-write butonCancel"
+                        data-toggle="modal"
+                        data-target="#cancelUser"
+                        data-name="{{ nombre }}"
+                        data-id="{{ idUser }}"
+                        data-inscription ="{{ idInscription }}">
+                    <i class="fa fa-times"></i>
                 </button>
             </div>
         </div>
