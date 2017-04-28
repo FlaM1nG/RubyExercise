@@ -45,9 +45,9 @@
                     Revisa nuestra página y disfruta de nuestros fantásticos servicios y de las ventajas que te ofrecen estas.
                 </p>
             {% else %}
-                {#{{ dump(app.request) }}#}
-                {% for purchase in pagination %}
 
+                {% for purchase in pagination %}
+{#{{ dump(purchase) }}#}
                     {% set urlValoration = '' %}
                     {% if purchase.valorated is not empty %}
                         {% set urlValoration = path('user_profiler_purchasesValoration',{typeOffer: app.request.get('typeOffer') ,idOffer: purchase.offer_id}) %}
@@ -72,7 +72,11 @@
 
 {% block popupBlock %}
 
-    {{ popups.popupWithButtons('idEnjoyed', 'Estado de la oferta', '¿Ha disfrutado ya la oferta? En tal caso háganoslo saber.','enjoyed','fa fa-thumbs-o-up','Oferta disfrutada','',
+    {% set title = 'Cancelar' %}
+
+    {{ popups.popup('modalCancel', title, include('offer/formCancelOffer.html.twig') ) }}
+
+    {{ popups.popupWithButtons('idEnjoyed', 'Estado de la oferta', '¿Ha disfrutado ya la oferta?','enjoyed','fa fa-thumbs-o-up','Oferta disfrutada','',
                                'notEnjoyed', 'fa fa-thumbs-o-down', 'Oferta aún no disfrutada','') }}
 
 {% endblock %}
@@ -97,7 +101,15 @@
             $(document).on('click', '#notEnjoyed', function(e){
                                                         e.preventDefault();
                                                         $("#idEnjoyed .close").click();
-                                                    })
+                                                    });
+
+            $(document).on('click', '.buttonCancel', function(e){ e.preventDefault();
+                                                        e.stopPropagation();
+                                                        dataOffer = $(this).data('id');
+                                                    });
+
+            $(document).on('clic', '#sendForm', cancelOffer);
+
 
             function changeTransition(e){
 
@@ -146,7 +158,54 @@
                 });
             }
 
+            function cancelOffer(e){
+                e.preventDefault();
 
+                var concept = $('#cancelation_concept').val();
+
+                var data = { 'offerId': dataOffer,
+                             'concept': concept };
+
+                $.ajax({
+                    type: "POST",
+                    url: '{{ path('user_ajax_offerEnjoyed') }}',
+                    data: data,
+                    success: function(data) {
+                        $("#idEnjoyed .close").click();
+
+                        if(data['result'] == 'ok') {
+                            $('.contentAlert').html("<div class='alert "+
+                                    "alert-success alert-dismissible' role='alert'>"+
+                                    "<button type='button' class='close' "+
+                                    "data-dismiss='alert' aria-label='Close'>"+
+                                    "<span aria-hidden='true'>×</span>"+
+                                    "</button><strong></strong>"+data['message']+
+                                    "</div>");
+                        }else{
+                            $('.contentAlert').html("<div class='alert "+
+                                    "alert-warning alert-dismissible' role='alert'>"+
+                                    "<button type='button' class='close' "+
+                                    "data-dismiss='alert' aria-label='Close'>"+
+                                    "<span aria-hidden='true'>×</span>"+
+                                    "</button><strong></strong>"+data['message']+
+                                    "</div>");
+                        }
+
+                    },
+                    error: function()
+                    {
+                        $('.contentAlert').html("<div class='alert "+
+                                "alert-warning alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                "Ha ocurrido un error, por favor inténtelo más tarde</div>");
+
+                    }
+                });
+
+            }
         });
     </script>
 
