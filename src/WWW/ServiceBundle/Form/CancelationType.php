@@ -18,14 +18,22 @@ class CancelationType extends AbstractType{
 
     public function buildForm(FormBuilderInterface $builder, array $options){
 
+        $arrayAttr = array();
+
+        if($options['inscription'] == true):
+            $arrayAttr['disabled'] = true;
+        endif;
+
         $builder
             ->add('concept', TextareaType::class, array('label' => 'Motivo'))
             ->add('cancelSend', SubmitType::class, array('label' => 'Cancelar'))
-            ->add('sendForm', SubmitType::class, array('label' => 'Enviar'));
+            ->add('sendForm', SubmitType::class, array('label' => 'Enviar',
+                                                       'attr' => $arrayAttr));
     }
 
     public function configureOptions(OptionsResolver $resolver){
-        $resolver->setDefaults(array('data_class' => 'WWW\ServiceBundle\Entity\Cancelation'));
+        $resolver->setDefaults(array('data_class' => 'WWW\ServiceBundle\Entity\Cancelation',
+                                     'inscription' => null));
     }
 
 }
