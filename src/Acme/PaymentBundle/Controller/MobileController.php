@@ -31,7 +31,7 @@ class MobileController extends Controller {
         $username = $request->request->get("username");
         $pago = $request->request->get("method");
         $idOffer = $request->request->get("id_offer");
-        
+        $idService = $request->request->get("id_service");
         $gastosPago = $request->request->get("payment_fee");
         $this->getOffer($request,$idOffer);
         $gastosGestion = $this->offerPrice->getPrice() * (MyConstants::ADMINISTRATION_FEES / 100);
@@ -50,6 +50,15 @@ class MobileController extends Controller {
                 $arrayPay['gastos_envio'] = $request->request->get("shipping_cost");
                 $arrayPay['send_office'] = $request->request->get('send_office');
 		$arrayPay['gastos_comprobacion'] = $request->request->get('testing_cost');
+            }
+            if ($this->offer->getService()->getId() == 6 || $this->offer->getService()->getId() == 7){
+                
+                $arrayPay['fechaIni']= $request->request->get("arrival_date");
+                $arrayPay['fechaFin'] = $request->request->get("departure_date");
+                $arrayPay['idCalendar'] = $request->request->get("id_calendar");
+                $arrayPay['idInscription'] = $request->request->get("id_inscription");
+                $arrayPay['idService'] = $this->offer->getService()->getId();
+            
             }
             $arrayPay['idUser'] = $request->request->get('id');
             $arrayPay['username'] = $username;
@@ -98,9 +107,18 @@ class MobileController extends Controller {
                     $details['send_office'] = $request->request->get('send_office');
 					$details['gastos_comprobacion'] = $request->request->get('testing_cost');
                 }
+                if ($this->offer->getService()->getId() == 6 || $this->offer->getService()->getId() == 7){
+                
+                    $details['fechaIni']= $request->request->get("arrival_date");
+                    $details['fechaFin'] = $request->request->get("departure_date");
+                    $details['idCalendar'] = $request->request->get("id_calendar");
+                    $details['idInscription'] = $request->request->get("id_inscription");
+                    $details['idService'] = $this->offer->getService()->getId();
+            
+                }
                 $details['idUser'] = $request->request->get('id');
                 $details['username'] = $username;
-				$details['password'] = $request->request->get('password');
+		$details['password'] = $request->request->get('password');
                 $storage->update($details);
 
                 //Las notificaciones de compra se guardan en la tabla payum_payments_details

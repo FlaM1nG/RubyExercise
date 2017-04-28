@@ -47,7 +47,6 @@ class PaymentPurchaseController extends Controller {
     //3- Moneda EU o USD
     //4- Correo del cliente
 
-
     public function prepareAction(Request $request) {
         //Redsys <20
         //Addons >20

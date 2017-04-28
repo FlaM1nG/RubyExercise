@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
+use WWW\GlobalBundle\Entity\MyCompanyEvents;
+
 class PaymentDoneOKController extends PayumController
 {
     public function viewAction(Request $request)
@@ -68,6 +70,54 @@ class PaymentDoneOKController extends PayumController
         }
         else {
             
+            $idService = $details->getDetails()['idService'];
+            if($idService== 6 || $idService == 7){
+            //House
+                $fechainicial = $details->getDetails()['fechaIni'];
+                $date = new \DateTime($fechainicial);
+                $calendarioId = $details->getDetails()['idCalendar'];
+                $fechafinal = $details->getDetails()['fechaFin'];
+                $fechaend = $date;
+                
+
+                $em = $this->getDoctrine()->getEntityManager();
+
+                $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+                
+                $numero_dias = $this->diferenciaDias($fechainicial, $fechafinal); //imprime el numero de dias entre el rango de fecha
+
+                // hacemos un for para insertar
+
+                    for ($n = 0; $n < $numero_dias; $n++) {
+
+                        $test = $repository->findOneBy(array(
+                                    'calendarID' => $calendarioId,
+                                    'serviceID' => $idService,
+                                    'startDatetime' => $date
+                        ));
+
+                        if (!$test) {
+
+                            $mce = new MyCompanyEvents('', '€', $details->getDetails()['precio_oferta'], $calendarioId, $idService, null, null, $date, $fechaend, 0, 0, 0, $details->getDetails()['idInscription']);
+                            $mce->setOcuppate(true);
+                            $em->persist($mce);
+                            $em->flush();
+
+                            //vamos sumando un dia a las fechas
+
+                            $fechaend->modify('+1 day');
+                            $date = $fechaend;
+                        } else {
+
+                            $test->setInscriptionID($details->getDetails()['idInscription']);
+                            $test->setOcuppate(true);
+                            $em->flush();
+                            $fechaend->modify('+1 day');
+                            $date = $fechaend;
+                        }
+                    }
+            }
+            
             $this->updateStatus($idOffer,$details,$IDPayment, $request);
             if(isset($details->getDetails()['metodo_envio'])){
                 if($details->getDetails()['metodo_envio']== 'correos'){
@@ -82,7 +132,7 @@ class PaymentDoneOKController extends PayumController
                     $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice,$arrayDetails);
                     print_r($codigo);
                 }
-            }
+            }     
             return $this->render('pay/postPayPageOK.html.twig',array(
             'id' => $IDPayment
             
@@ -116,11 +166,11 @@ class PaymentDoneOKController extends PayumController
         $extra['reference'] = $idPayment;
         $extra['price'] = $details->getDetails()['precio_oferta'];
         if(isset($details->getDetails()['metodo_envio'])){
-			if($details->getDetails()['metodo_envio'] == correos){
-				$extra['mail']['name']= $details->getDetails()['metodo_envio'];
-				$extra['mail']['description']= 'paqueteria';
-				$extra['mail']['price']= $details->getDetails()['gastos_envio'];
-			}
+            if($details->getDetails()['metodo_envio'] == correos){
+                $extra['mail']['name']= $details->getDetails()['metodo_envio'];
+                $extra['mail']['description']= 'paqueteria';
+                $extra['mail']['price']= $details->getDetails()['gastos_envio'];
+            }
         }
         $extra['pay']['name']= $details->getDetails()['metodo_pago'];
         $extra['pay']['description']= 'metodo de pago';

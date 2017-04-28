@@ -68,63 +68,52 @@ class DetailsController extends PayumController
             ));
         }
         else {
-            
-            
-            //House
-            $fechainicial = $details->getDetails()['fechaIni'];
-
-            $date = new \DateTime($fechainicial);
-
-            $calendarioId = $details->getDetails()['idCalendar'];
-
-            $fechafinal = $details->getDetails()['fechaFin'];
-            $fechaend = $date;
             $idService = $details->getDetails()['idService'];
+            if($idService== 6 || $idService == 7){
+            //House
+                $fechainicial = $details->getDetails()['fechaIni'];
+                $date = new \DateTime($fechainicial);
+                $calendarioId = $details->getDetails()['idCalendar'];
+                $fechafinal = $details->getDetails()['fechaFin'];
+                $fechaend = $date;
+                
 
-            $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getEntityManager();
 
+                $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+                
+                $numero_dias = $this->diferenciaDias($fechainicial, $fechafinal); //imprime el numero de dias entre el rango de fecha
 
-            $numero_dias = $this->diferenciaDias($fechainicial, $fechafinal); //imprime el numero de dias entre el rango de fecha
+                // hacemos un for para insertar
 
+                    for ($n = 0; $n < $numero_dias; $n++) {
 
-            $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+                        $test = $repository->findOneBy(array(
+                                    'calendarID' => $calendarioId,
+                                    'serviceID' => $idService,
+                                    'startDatetime' => $date
+                        ));
 
-            // hacemos un for para insertar
+                        if (!$test) {
 
-            for ($n = 0; $n < $numero_dias; $n++) {
+                            $mce = new MyCompanyEvents('', '€', $details->getDetails()['precio_oferta'], $calendarioId, $idService, null, null, $date, $fechaend, 0, 0, 0, $details->getDetails()['idInscription']);
+                            $mce->setOcuppate(true);
+                            $em->persist($mce);
+                            $em->flush();
 
-                $test = $repository->findOneBy(array(
-                            'calendarID' => $calendarioId,
-                            'serviceID' => $idService,
-                            'startDatetime' => $date
-                ));
+                            //vamos sumando un dia a las fechas
 
-                if (!$test) {
+                            $fechaend->modify('+1 day');
+                            $date = $fechaend;
+                        } else {
 
-                    $mce = new MyCompanyEvents('', '€', $details->getDetails()['precio_oferta'], $calendarioId, $idService, null, null, $date, $fechaend, 0, 0, 0, $details->getDetails()['idInscription']);
-
-                    $mce->setOcuppate(true);
-
-                    $em->persist($mce);
-
-                    $em->flush();
-
-                    //vamos sumando un dia a las fechas
-
-                    $fechaend->modify('+1 day');
-
-                    $date = $fechaend;
-                } else {
-
-                    $test->setInscriptionID($details->getDetails()['idInscription']);
-                    $test->setOcuppate(true);
-
-                    $em->flush();
-
-                    $fechaend->modify('+1 day');
-
-                    $date = $fechaend;
-                }
+                            $test->setInscriptionID($details->getDetails()['idInscription']);
+                            $test->setOcuppate(true);
+                            $em->flush();
+                            $fechaend->modify('+1 day');
+                            $date = $fechaend;
+                        }
+                    }
             }
             //////////
             
