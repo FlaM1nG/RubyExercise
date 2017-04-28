@@ -109,6 +109,7 @@ class Offer
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = Array();
         $this->service = new Service();
+        $this->inscriptions = new \Doctrine\Common\Collections\ArrayCollection();
         
         if(gettype($data) == 'array'):
             $keyPhoto = '';
@@ -184,6 +185,11 @@ class Offer
                     $user->setAvgScore($data['avg_score']);
             endif;
 
+            if(array_key_exists('data_extra', $data) AND !empty($data['data_extra'])):
+                $inscription = new Inscription();
+                $inscription->setDataExtra($data['data_extra']);
+                $this->addInscription($inscription);
+            endif;    
 //            if(array_key_exists('has_inscriptions', $data)):
 //                $this->hasInscriptions = $data['has_']
 //            endif;
