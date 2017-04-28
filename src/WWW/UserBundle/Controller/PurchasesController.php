@@ -132,7 +132,7 @@ class PurchasesController extends Controller{
 
     public function cancelOfferPurchaseAction(Request $request){
 
-        $file = MyConstants::class.'services/trade/cancel_trade.php';
+        $file = MyConstants::PATH_APIREST.'services/trade/cancel_trade.php';
         $ch = new ApiRest();
         $response = new JsonResponse();
         $ut = new Utilities();
