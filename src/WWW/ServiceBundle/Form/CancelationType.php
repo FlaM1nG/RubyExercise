@@ -9,7 +9,6 @@
 namespace WWW\ServiceBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +20,7 @@ class CancelationType extends AbstractType{
 
         $builder
             ->add('concept', TextareaType::class, array('label' => 'Motivo'))
+            ->add('cancelSend', SubmitType::class, array('label' => 'Cancelar'))
             ->add('sendForm', SubmitType::class, array('label' => 'Enviar'));
     }
 
