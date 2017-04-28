@@ -10,6 +10,7 @@ namespace WWW\CarsBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\CarsBundle\Entity\ShareCar;
 use WWW\CarsBundle\Form\ShareCarType;
@@ -18,6 +19,7 @@ use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
 use WWW\CarsBundle\Entity\Car;
 use WWW\ServiceBundle\Entity\MessengerPrice;
+use WWW\ServiceBundle\Form\CancelationType;
 use WWW\ServiceBundle\Form\CourierPriceType;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
@@ -421,8 +423,9 @@ class ShareCarController extends Controller {
         $message = $this->fillMessage($request, $offer);
 
         $formMessage = $this->createForm(MessageType::class, $message);
-
         $formMessage->handleRequest($request);
+
+        $formCancelation = $this->createForm(CancelationType::class,null, array('inscription' => true));
 
         if($formMessage->isSubmitted()):
             $this->sendMessage($request, $offer);
@@ -430,7 +433,8 @@ class ShareCarController extends Controller {
 
         return $this->render('offer/inscription.html.twig',
                         array('offer' => $offer,
-                              'formMessage' => $formMessage->createView()));
+                              'formMessage' => $formMessage->createView(),
+                              'formCancelation' => $formCancelation->createView()));
     }
 
     private function getDataCourier(Request $request, &$priceMin){
@@ -481,5 +485,33 @@ class ShareCarController extends Controller {
         endif;
 
     }
-    
+
+    public function cancelInscriptionAction(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'services/trade/cancel_trade.php';
+        $ch = new ApiRest();
+        $response = new JsonResponse();
+        $ut = new Utilities();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['user_id'] = $request->get('user_id');
+        $data['offer_id'] = $request->get('offer_id');
+        $data['concept'] = $request->get('concept');
+//        $data['inscription_id'] = $request->get('inscription_id');
+
+        $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+            $ut->flashMessage('Cancelación realizada con éxito', $request,$result);
+            $response->setData(array('result' => 'ok'));
+        else:
+            $response->setData(array('result' => 'ko', 'message' => 'No se ha podido llevar a cabo la cancelación, por 
+            favor inténtelo más tarde. En caso de que siga teniendo problemas póngase en contacto con nuestro servicio 
+            de atención al cliente'));
+        endif;
+
+        return $response;
+    }
 }
