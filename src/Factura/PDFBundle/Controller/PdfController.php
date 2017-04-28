@@ -4,28 +4,54 @@ namespace Factura\PDFBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class PdfController extends Controller
 {
-    
-     public function imprimirHVPdfAction(){
-    
-         $html = $this->renderView('PDFBundle:Default:index.html.twig',array());
 
-return new Response(
-    $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-    200,
-    array(
-        'Content-Type'          => 'application/pdf',
-        'Content-Disposition'   => 'attachment; filename="file.pdf"'
-    )
-);
-         
-         
-         
-     }
+    public function imprimirHVPdfAction(Request $request)
+    {
+
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+
+        $sesion = $request->getSession();
+
+        $id_usuario = $sesion->get('id');
+
+        //$query = "SELECT address_id FROM billing where user_id=21 and id=2";
+        $query = "SELECT * FROM user where id=21";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $entities  = $stmt->fetchAll();
+
+        $query = "SELECT * FROM address where user_id=21";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $domicilio  = $stmt->fetchAll();
+
+
+        $html = $this->renderView('PDFBundle:Default:index.html.twig',
+            array(
+                'entities' => $entities,
+                'domicilio' => $domicilio,
+            ));
+
+        //Aquí defino los datos del documento como el tamaño, orientación, título, etc.
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="file.pdf"'
+            )
+        );
+
+    }
 }
-         
     /*     
          
          
@@ -144,7 +170,21 @@ return new Response(
     $this->returnPDFResponseFromHTML($html);
     }
 }
-     
+      $html = $this->renderView('PDFBundle:Default:index.html.twig',array());
+
+return new Response(
+    $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+    200,
+    array(
+        'Content-Type'          => 'application/pdf',
+        'Content-Disposition'   => 'attachment; filename="file.pdf"'
+    )
+);
+
+
+
+     }
+}
     
      
       */
