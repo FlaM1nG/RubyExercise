@@ -79,20 +79,20 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row row-user-col">
                         {% for inscription in offer.offer.inscriptions %}
-                        
+                        {{ dump(inscription) }}
                             {# Compruebo que en la lista de inscritos el inscrito sea oficial, que haya pagado (status == 3) #}
                             {% if inscription.status == 3 %}
                                 {% if offer.offer.service.id == 5 %}
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
                                         {{ usuarios.userInscr(path('user_public_profile',{username:inscription.username}),
                                         asset(inscription.user_photo,'img'), inscription.username,
-                                        inscription.avg_score, inscription.valoration_num, '##',formMessage,
-                                        inscription.courier.weight_min, inscription.courier.weight_max) }}
+                                        inscription.avg_score, inscription.valoration_num, '##',formMessage,inscription.user_id,
+                                        inscription.id, inscription.courier.weight_min, inscription.courier.weight_max) }}
                                 {% else %}
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
                                         {{ usuarios.userInscr(path('user_public_profile',{username:inscription.username}),
                                         asset(inscription.user_photo,'img'), inscription.username,
-                                        inscription.avg_score, inscription.valoration_num, '##',formMessage) }}
+                                        inscription.id, inscription.avg_score, inscription.valoration_num, '##',formMessage,inscription.user_id) }}
                                 {% endif %}
                                     </div>
 
@@ -108,7 +108,7 @@
 
 {% block popupBlock %}
 
-
+    {{ popups.popup('cancelUser', 'Cancelar',include('offer/formCancelOffer.html.twig') ) }}
 
     {% set title = 'Enviar mensaje a todos' %}
     {{ popups.popup('writeUser', title, include('offer/offPrivateMessage.html.twig') ) }}
@@ -122,10 +122,21 @@
     {{ estrella.staticRatingJS() }}
 
     <script>
-        $(document).ready(function (){ console.log("hola");
-            $(document).on('click','.butonWriteUser', changeUsername);
+        $(document).ready(function (){
 
             var to = "{{ to }}";
+            var userId, inscriptionId;
+
+            $(document).on('keyup', '#cancelation_concept',activeSendForm);
+            $(document).on('click', '#cancelation_sendForm',cancelUserOffer);
+            $(document).on('click', '#cancelation_cancelSend', function(e){
+                                                                    $('#cancelUser .close').click()
+                                                                });
+            $(document).on('click', '.butonCancel', function(e){
+                                                        userId = $(this).data('id');
+                                                        inscriptionId = $(this).data('inscription')});
+
+            $(document).on('click','.butonWriteUser', changeUsername);
 
             function changeUsername(e){
                 e.stopPropagation();
@@ -133,6 +144,52 @@
                 var username = $(this).attr('data-name');
 
                 $('#mensajeTo').val(username);
+            }
+
+            function activeSendForm(e){
+
+                var text = $('#cancelation_concept').val().replace(/\s+/g,' ').trim();
+
+                if(text.length >= 30){
+                    $('#cancelation_sendForm').attr('disabled',false);
+                }else{
+                    $('#cancelation_sendForm').attr('disabled',true);
+                }
+            }
+
+            function cancelUserOffer(e){
+                e.preventDefault();
+
+                var concept = $('#cancelation_concept').val();
+                var user_id = userId;
+                var offer_id = {{ app.request.get('idOffer') }}
+
+                var data = { 'concept': concept,
+                             'user_id': user_id,
+                             'offer_id': offer_id,
+                             'inscription_id': inscriptionId  }
+
+                $.ajax({
+                    type: "POST",
+                    url: '{{ path('ajax_cancelInscription') }}',
+                    data: data,
+                    success: function(data) {
+
+                        location.reload();
+
+                    },
+                    error: function()
+                    {
+                        $('.contentAlert').html("<div class='alert "+
+                                "alert-warning alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                "Ha ocurrido un error, por favor inténtelo más tarde</div>");
+
+                    }
+                });
             }
         });
     </script>
