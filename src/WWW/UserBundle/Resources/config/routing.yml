@@ -247,3 +247,7 @@ user_ajax_deleteImgHouse:
 user_ajax_offerEnjoyed:
       path: /ajax/offerEnjoyed/
       defaults: { _controller: UserBundle:Purchases:offerEnjoyed }
+
+user_ajax_offerCancel:
+      path: /ajax/offerCancel/
+      defaults: { _controller: UserBundle:Purchases:cancelOfferPurchase }
