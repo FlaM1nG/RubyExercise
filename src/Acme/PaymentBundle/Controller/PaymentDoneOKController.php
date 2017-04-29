@@ -71,6 +71,7 @@ class PaymentDoneOKController extends PayumController
         else {
             
             $idService = $details->getDetails()['idService'];
+            $precio = $details->getDetails()['precio_oferta'];
             if($idService== 6 || $idService == 7){
             //House
                 $fechainicial = $details->getDetails()['fechaIni'];
@@ -85,9 +86,14 @@ class PaymentDoneOKController extends PayumController
                 $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
                 
                 $numero_dias = $this->diferenciaDias($fechainicial, $fechafinal); //imprime el numero de dias entre el rango de fecha
-
+                //Si venimos del pago por movil restamos un dia para la reserva
+                if (empty($request->getSession()->get('username'))) {
+                    $numero_dias--;
+                    $precio = $details->getDetails()['precioCasa'];
+                }
+                
                 // hacemos un for para insertar
-
+                                
                     for ($n = 0; $n < $numero_dias; $n++) {
 
                         $test = $repository->findOneBy(array(
@@ -118,9 +124,10 @@ class PaymentDoneOKController extends PayumController
                     }
             }
             
-            $this->updateStatus($idOffer,$details,$IDPayment, $request);
+            $this->updateStatus($idOffer,$details,$IDPayment,$precio, $request);
             if(isset($details->getDetails()['metodo_envio'])){
                 if($details->getDetails()['metodo_envio']== 'correos'){
+                    $idInscription =  $details->getDetails()['idInscription'];
                     $codigo =new CorreosController($this->getDoctrine()->getManager());
                     $idDir= $details->getDetails()['direccion'];
                     //hacer que se llame a esta funcion una vez solo
@@ -128,9 +135,10 @@ class PaymentDoneOKController extends PayumController
                         $sendOffice= 1;
                     }
                     $sendOffice = 0;
-					$arrayDetails = $details->getDetails();
-                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice,$arrayDetails);
-                    print_r($codigo);
+                    $arrayDetails = $details->getDetails();
+                    $number = $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice,$arrayDetails, $idInscription);
+                    $this->saveTrackingNumber($number, $idInscription,$details, $request);
+                   // var_dump($number);
                 }
             }     
             return $this->render('pay/postPayPageOK.html.twig',array(
@@ -139,11 +147,17 @@ class PaymentDoneOKController extends PayumController
             ));
         }
     }
-    
+    function diferenciaDias($inicio, $fin) {
+        $inicio = strtotime($inicio);
+        $fin = strtotime($fin);
+        $dif = $fin - $inicio;
+        $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+        return ceil($diasFalt);
+    }
     private function getStatusPayment(){
         
     }
-    private function updateStatus($idOffer,$details,$idPayment,Request $request){
+    private function updateStatus($idOffer,$details,$idPayment,$precio,Request $request){
         
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'services/payment/pay.php';
@@ -164,7 +178,7 @@ class PaymentDoneOKController extends PayumController
         $extra['hash'] = hash_hmac('sha512', $details->getNumber(), 'dgv7Hbh5OMmC0Kmx2SDRC');
         $extra['concept']= $details->getDescription();
         $extra['reference'] = $idPayment;
-        $extra['price'] = $details->getDetails()['precio_oferta'];
+        $extra['price'] = $precio;
         if(isset($details->getDetails()['metodo_envio'])){
             if($details->getDetails()['metodo_envio'] == correos){
                 $extra['mail']['name']= $details->getDetails()['metodo_envio'];
@@ -182,6 +196,30 @@ class PaymentDoneOKController extends PayumController
 		
 		var_dump($result);
 		
+    }
+    private function saveTrackingNumber($number,$idInscription,$details,Request $request){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST . 'services/inscription/update_inscription.php';
+
+        if(!empty($request->getSession()->get('password'))){
+            $data['id'] = $request->getSession()->get('id');
+            $data['username'] = $request->getSession()->get('username');
+            $data['password'] = $request->getSession()->get('password');
+        }
+        else{
+            $data['id'] = $details->getDetails()['idUser'];
+            $data['username'] = $details->getDetails()['username'];
+            $data['password'] = $details->getDetails()['password'];
+        }
+        $data['inscription_id'] = $idInscription;
+        $data['data'] = $number;
+        //secreto = dgv7Hbh5OMmC0Kmx2SDRC
+        
+
+        $result = $ch->resultApiRed($data, $file);
+
+        var_dump($result);
     }
     
 }

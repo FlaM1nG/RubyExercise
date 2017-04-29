@@ -115,12 +115,14 @@ class DetailsController extends PayumController
                         }
                     }
             }
+            
             //////////
             
             $this->updateStatus($idOffer,$details,$IDPayment, $request);
             
             if(isset($details->getDetails()['metodo_envio'])){
                 if($details->getDetails()['metodo_envio']== 'correos'){
+                    $idInscription =  $details->getDetails()['idInscription'];
                     $codigo =new CorreosController($this->getDoctrine()->getManager());
                     $idDir= $details->getDetails()['direccion'];
                     //hacer que se llame a esta funcion una vez solo
@@ -129,9 +131,9 @@ class DetailsController extends PayumController
                     }
                     $sendOffice = 0;
                     $arrayDetails = $details->getDetails();
-                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice,$arrayDetails);
-                    
-                    
+                    $number = $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice,$arrayDetails, $idInscription);
+                    $this->saveTrackingNumber($number, $idInscription, $request);
+                    //var_dump($number);
                 }
             }
             return $this->render('pay/postPayPageOK.html.twig',array(
@@ -185,5 +187,21 @@ class DetailsController extends PayumController
 
         var_dump($result);
     }
-    
+    private function saveTrackingNumber($number,$idInscription,Request $request){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST . 'services/inscription/update_inscription.php';
+
+        $data['id'] = $this->getUser()->getId();
+        $data['username'] = $this->getUser()->getUsername();
+        $data['password'] = $request->getSession()->get('password');
+        $data['inscription_id'] = $idInscription;
+        $data['data'] = $number;
+        //secreto = dgv7Hbh5OMmC0Kmx2SDRC
+        
+
+        $result = $ch->resultApiRed($data, $file);
+
+        var_dump($result);
+    }
 }

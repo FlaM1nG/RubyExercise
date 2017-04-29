@@ -50,9 +50,10 @@ class MobileController extends Controller {
                 $arrayPay['gastos_envio'] = $request->request->get("shipping_cost");
                 $arrayPay['send_office'] = $request->request->get('send_office');
 		$arrayPay['gastos_comprobacion'] = $request->request->get('testing_cost');
+                $arrayPay['idInscription'] = $request->request->get("id_inscription");
             }
             if ($this->offer->getService()->getId() == 6 || $this->offer->getService()->getId() == 7){
-                
+                $arrayPay['precioCasa']= $request->request->get("house_price");
                 $arrayPay['fechaIni']= $request->request->get("arrival_date");
                 $arrayPay['fechaFin'] = $request->request->get("departure_date");
                 $arrayPay['idCalendar'] = $request->request->get("id_calendar");
@@ -105,10 +106,11 @@ class MobileController extends Controller {
                     $details['metodo_envio'] = $request->request->get("send_method");;
                     $details['gastos_envio'] = $request->request->get("shipping_cost");
                     $details['send_office'] = $request->request->get('send_office');
-					$details['gastos_comprobacion'] = $request->request->get('testing_cost');
+                    $details['gastos_comprobacion'] = $request->request->get('testing_cost');
+                    $details['idInscription'] = $request->request->get("id_inscription");
                 }
                 if ($this->offer->getService()->getId() == 6 || $this->offer->getService()->getId() == 7){
-                
+                    $details['precioCasa']= $request->request->get("house_price");
                     $details['fechaIni']= $request->request->get("arrival_date");
                     $details['fechaFin'] = $request->request->get("departure_date");
                     $details['idCalendar'] = $request->request->get("id_calendar");
