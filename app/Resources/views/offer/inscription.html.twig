@@ -79,7 +79,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row row-user-col">
                         {% for inscription in offer.offer.inscriptions %}
-                        {{ dump(inscription) }}
+                        {#{{ dump(inscription) }}#}
                             {# Compruebo que en la lista de inscritos el inscrito sea oficial, que haya pagado (status == 3) #}
                             {% if inscription.status == 3 %}
                                 {% if offer.offer.service.id == 5 %}
@@ -108,7 +108,7 @@
 
 {% block popupBlock %}
 
-    {{ popups.popup('cancelUser', 'Cancelar',include('offer/formCancelOffer.html.twig') ) }}
+    {{ popups.popup('cancelUser', 'Cancelar Inscrito',include('offer/formCancelOffer.html.twig') ) }}
 
     {% set title = 'Enviar mensaje a todos' %}
     {{ popups.popup('writeUser', title, include('offer/offPrivateMessage.html.twig') ) }}
