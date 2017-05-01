@@ -121,7 +121,7 @@ easy_admin:
             list:
                 fields:
                     - id
-                    - { property: 'url', type: 'image', base_path: 'http://whatwantweb.com/' }
+                    - { property: 'url', type: 'image', base_path: 'https://whatwantweb.com/' }
                     - { property: 'createdDate',format: 'j/n/Y'}
                     - { property: 'modifiedDate',format: 'j/n/Y'}
         Trade:

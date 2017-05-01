@@ -25,6 +25,7 @@ class CorreosController extends Controller {
     private $buyer;
     private $addressBuyer;
     private $em;
+    private $trackingNumber;
 
 
     public function __construct(\Doctrine\ORM\EntityManager $entityManager)
@@ -32,15 +33,39 @@ class CorreosController extends Controller {
         $this->em = $entityManager;
 }
 
-    public function checkCode($idOffer) {
+    public function checkCode($idInscription,$arrayDetails, $request) {
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST . 'services/inscription/get_inscription.php';
+
+        if(!empty($request->getSession()->get('password'))){
+            $data['id'] = $request->getSession()->get('id');
+            $data['username'] = $request->getSession()->get('username');
+            $data['password'] = $request->getSession()->get('password');
         
+        }
+        else{
+            $data['id'] = $arrayDetails['idUser'];
+            $data['username'] = $arrayDetails['username'];
+            $data['password'] = $arrayDetails['password'];
+        }
+        $data['inscription_id'] = $idInscription;
+        
+        $result = $ch->resultApiRed($data, $file);
+        if(!empty($result['data_extra'])){
+            $this->trackingNumber=$result['data_extra'];
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     public function saveCode($idOffer) {
         
     }
     
-    public function getTrackingNumberAction($idOffer, Request $request, $idDir, $sendOffice,$arrayDetails) {
+    public function getTrackingNumberAction($idOffer, Request $request, $idDir, $sendOffice,$arrayDetails, $idInscription) {
         //Inicio las variables propias
+        if(!$this->checkCode($idInscription,$arrayDetails, $request)){
         $this->searchAddressBuyer($idDir);
         $this->offer = new Trade();
         $this->buyer = new User();
@@ -95,7 +120,7 @@ class CorreosController extends Controller {
         $sender = array(
             'contact_name' => $this->offer->getOffer()->getUserAdmin()->getUsername(),
             'email' => $this->offer->getOffer()->getUserAdmin()->getEmail(),
-            'phone' =>  strval( $this->offer->getOffer()->getUserAdmin()->getPhone() ),
+            'phone' =>  '697478793',//strval( $this->offer->getOffer()->getUserAdmin()->getPhone() ),
             'street1' => $this->offer->getAddress()->getStreet(),
             'city' => $this->offer->getAddress()->getCity(),
             'postal_code' => $this->offer->getAddress()->getZipCode(),
@@ -107,7 +132,7 @@ class CorreosController extends Controller {
         if($sendOffice==0){
             $receiver = array(
                 'contact_name' => $this->buyer->getUsername(),
-                'phone' => strval( $this->buyer->getPhone()),
+                'phone' =>  '697478793',//strval( $this->buyer->getPhone()),
                 'email' => $this->buyer->getEmail(),
                 'street1' => $this->addressBuyer->getStreet(),
                 'postal_code' => $this->addressBuyer->getZipCode(),
@@ -122,7 +147,7 @@ class CorreosController extends Controller {
             $receiver = array(
                 'contact_name' => 'Felix Estrada Muñoz',
                 'company_name' => 'WhatWantWeb',
-                'phone' => '**************',
+                'phone' => '653409736',
                 'email' => 'info@whatwantweb.com',
                 'street1' => 'Avd Fernado de los Ríos 11 bq. 1, of. 3',
                 'postal_code' => '18100',
@@ -172,7 +197,8 @@ class CorreosController extends Controller {
             echo $e->getMessage() . "\n";   // error message
             print_r($e->getDetails());      // error details
         }
-        return new Response($result->tracking_numbers[0]);
+        }
+        return $this->trackingNumber;
             
             
     }
