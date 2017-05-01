@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
+use WWW\GlobalBundle\Entity\MyCompanyEvents;
+
 class DetailsMobileController extends PayumController
 {
     public function viewAction(Request $request)
@@ -60,11 +62,18 @@ class DetailsMobileController extends PayumController
 		
         list($ref,$idOffer)=explode("W",$IDPayment);
         if(!isset($details->getDetails()['CANCELLED'])){   
+            $idService = $details->getDetails()['idService'];
+            if($idService == 6 || $idService == 7){
+                $precio = $details->getDetails()['precioCasa'];
+            }
+            else {
+                $precio = $details->getDetails()['precio_oferta'];
+            }
+            $this->updateStatus($idOffer,$details,$IDPayment,$precio, $request);
 			
-            $this->updateStatus($idOffer,$details,$IDPayment, $request);
-			
-			if(isset($details->getDetails()['metodo_envio'])){
+            if(isset($details->getDetails()['metodo_envio'])){
                 if($details->getDetails()['metodo_envio']== 'correos'){
+                    $idInscription =  $details->getDetails()['idInscription'];
                     $codigo =new CorreosController($this->getDoctrine()->getManager());
                     $idDir= $details->getDetails()['direccion'];
                     //hacer que se llame a esta funcion una vez solo
@@ -73,13 +82,61 @@ class DetailsMobileController extends PayumController
                     }
                     $sendOffice = 0;
                     $arrayDetails = $details->getDetails();
-                    $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice, $arrayDetails);
-                    print_r($codigo);
+                    $number = $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice,$arrayDetails, $idInscription);
+                    $this->saveTrackingNumber($number, $idInscription,$details, $request);
                 }
+            }
+            
+            
+            if($idService== 6 || $idService == 7){
+            //House
+                $fechainicial = $details->getDetails()['fechaIni'];
+                $date = new \DateTime($fechainicial);
+                $calendarioId = $details->getDetails()['idCalendar'];
+                $fechafinal = $details->getDetails()['fechaFin'];
+                $fechaend = $date;
+
+
+                $em = $this->getDoctrine()->getEntityManager();
+
+                $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+                
+                $numero_dias = $this->diferenciaDias($fechainicial, $fechafinal); //imprime el numero de dias entre el rango de fecha
+
+                // hacemos un for para insertar
+
+                    for ($n = 0; $n < $numero_dias - 1; $n++) {
+
+                        $test = $repository->findOneBy(array(
+                                    'calendarID' => $calendarioId,
+                                    'serviceID' => $idService,
+                                    'startDatetime' => $date
+                        ));
+
+                        if (!$test) {
+
+                            $mce = new MyCompanyEvents('', '€', $details->getDetails()['precio_oferta'], $calendarioId, $idService, null, null, $date, $fechaend, 0, 0, 0, $details->getDetails()['idInscription']);
+                            $mce->setOcuppate(true);
+                            $em->persist($mce);
+                            $em->flush();
+
+                            //vamos sumando un dia a las fechas
+
+                            $fechaend->modify('+1 day');
+                            $date = $fechaend;
+                        } else {
+
+                            $test->setInscriptionID($details->getDetails()['idInscription']);
+                            $test->setOcuppate(true);
+                            $em->flush();
+                            $fechaend->modify('+1 day');
+                            $date = $fechaend;
+                        }
+                    }
             }
 			
         }
-		if ($details instanceof  DetailsAggregateInterface) {
+	if ($details instanceof  DetailsAggregateInterface) {
             $details = $details->getDetails();
         }
 
@@ -97,7 +154,14 @@ class DetailsMobileController extends PayumController
 //            'cancelToken' => $cancelToken,
 //        ));
     }
-    private function updateStatus($idOffer,$details,$idPayment,Request $request){
+    function diferenciaDias($inicio, $fin) {
+        $inicio = strtotime($inicio);
+        $fin = strtotime($fin);
+        $dif = $fin - $inicio;
+        $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+        return ceil($diasFalt);
+    }
+    private function updateStatus($idOffer,$details,$idPayment,$precio ,Request $request){
         
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'services/payment/pay.php';
@@ -111,7 +175,7 @@ class DetailsMobileController extends PayumController
         $extra['hash'] = hash_hmac('sha512', $details->getNumber(), 'dgv7Hbh5OMmC0Kmx2SDRC');
         $extra['concept']= $details->getDescription();
         $extra['reference'] = $idPayment;
-        $extra['price'] = $details->getDetails()['precio_oferta'];
+        $extra['price'] = $precio;
         if(isset($details->getDetails()['metodo_envio'])){
 			if($details->getDetails()['metodo_envio'] == correos){
 				$extra['mail']['name']= $details->getDetails()['metodo_envio'];
@@ -129,5 +193,24 @@ class DetailsMobileController extends PayumController
 
         //var_dump($result);
 		//die;
+    }
+    private function saveTrackingNumber($number,$idInscription,$details,Request $request){
+        
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST . 'services/inscription/update_inscription.php';
+
+        
+            $data['id'] = $details->getDetails()['idUser'];
+            $data['username'] = $details->getDetails()['username'];
+            $data['password'] = $details->getDetails()['password'];
+        
+        $data['inscription_id'] = $idInscription;
+        $data['data'] = $number;
+        //secreto = dgv7Hbh5OMmC0Kmx2SDRC
+        
+
+        $result = $ch->resultApiRed($data, $file);
+
+        var_dump($result);
     }
 }

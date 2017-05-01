@@ -136,7 +136,7 @@
     
     
 {% macro offUserExp(hrefOffer, srcImage, titleOffer, textOffer, dataVer,
-    hrefBorrar, dataBorrar, hrefPDF) %}
+    hrefBorrar, dataBorrar, hrefPDF, classCorreos, titleCodCorreos, codCorreos, modalCorreos ) %}
     <div class="us-off-element-ex">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
@@ -189,6 +189,18 @@
                            title="{{ dataBorrar|e|capitalize }}">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
+
+                    {% if codCorreos is not empty %}
+                        <a href="#" class="btn btn-default us-mess-btn {{ classCorreos }}"
+                           data-id="{{ codCorreos|e }}"
+                           data-toggle="modal"
+                           data-target="#{{ modalCorreos }}"
+                           data-placement="bottom"
+                           title="{{ titleCodCorreos|e|capitalize }}">
+                            <i class="fa fa-barcode" aria-hidden="true"></i>
+                        </a>
+                    {% endif %}
+
                     </div>
                 </div>
                         
