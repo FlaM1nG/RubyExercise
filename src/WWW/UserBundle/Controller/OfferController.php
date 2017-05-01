@@ -376,7 +376,7 @@ class OfferController extends Controller{
 
                  $this->offer = new ShareHouse($result);
 
-                 if($result['service_id'] == 6 || $result['service_id'] == 7):
+                 if($result['service_id'] == 6 ):
                      $validation = 'licenciaObligatoria';
                  else:
                      $validation = null;
