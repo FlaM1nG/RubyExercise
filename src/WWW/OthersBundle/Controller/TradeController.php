@@ -389,7 +389,7 @@ class TradeController extends Controller{
                 $idInscription = $result['id_inscription'];
             }
         endif;
-        print_r($result);
+        
         return $idInscription;
     }
     
