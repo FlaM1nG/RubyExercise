@@ -47,7 +47,6 @@ class PaymentPurchaseController extends Controller {
     //3- Moneda EU o USD
     //4- Correo del cliente
 
-
     public function prepareAction(Request $request) {
         //Redsys <20
         //Addons >20
@@ -118,18 +117,22 @@ class PaymentPurchaseController extends Controller {
             $arrayPay['gastos_totales'] = $request->get('previoPago')['totalAmount'];
             $arrayPay['metodo_pago'] = $request->get('previoPago')['payMethod'];
             $arrayPay['precio_oferta'] = $this->offer->getPrice();
+            $arrayPay['idService'] = $this->serviceId;
             if ($this->serviceId == 1 || $this->serviceId == 2) {
+                $arrayPay['idInscription'] = $session->get('idInscription');
                 $arrayPay['direccion'] = $request->get('previoPago')['addressPay'];
                 $arrayPay['metodo_envio'] = $request->get('previoPago')['sendMethod'];
                 $arrayPay['gastos_envio'] = $request->get('previoPago')['shippingCost'];
-                //$arrayPay['send_office'] = $request->get('previoPago')['send_office'];
-                //$arrayPay['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
+                if(!empty($request->get('previoPago')['send_office'])){
+                    $arrayPay['send_office'] = $request->get('previoPago')['send_office'];
+                    $arrayPay['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
+                }
             }
             if ($this->serviceId == 6 || $this->serviceId == 7) {
                 $arrayPay['fechaIni'] = $sesion->get('fechainicial');
                 $arrayPay['fechaFin'] = $sesion->get('fechafinal');
                 $arrayPay['idCalendar'] = $sesion->get('calendario_id');
-                $arrayPay['idService'] = $this->serviceId;
+                
                 $arrayPay['idInscription'] = $sesion->get('idInscription');
             }
 
@@ -163,10 +166,16 @@ class PaymentPurchaseController extends Controller {
                 $details['gastos_totales'] = $request->get('previoPago')['totalAmount'];
                 $details['metodo_pago'] = $request->get('previoPago')['payMethod'];
                 $details['precio_oferta'] = $this->offer->getPrice();
+                $details['idService'] = $this->serviceId;
                 if ($this->serviceId == 1 || $this->serviceId == 2) {
+                    $details['idInscription'] = $session->get('idInscription');
                     $details['direccion'] = $request->get('previoPago')['addressPay'];
                     $details['metodo_envio'] = $request->get('previoPago')['sendMethod'];
                     $details['gastos_envio'] = $request->get('previoPago')['shippingCost'];
+                    if(!empty($request->get('previoPago')['send_office'])){
+                        $details['send_office'] = $request->get('previoPago')['send_office'];
+                        $details['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
+                    }
                     // $details['send_office'] = $request->get('previoPago')['send_office'];
                     //$arrayPay['gastos_comprobacion'] = $request->get('previoPago')['testing_cost'];
                 }
@@ -174,7 +183,7 @@ class PaymentPurchaseController extends Controller {
                 $details['fechaIni'] = $sesion->get('fechainicial');
                 $details['fechaFin'] = $sesion->get('fechafinal');
                 $details['idCalendar'] = $sesion->get('calendario_id');
-                $details['idService'] = $this->serviceId;
+                
                 $details['idInscription'] = $sesion->get('idInscription');
             }
 
