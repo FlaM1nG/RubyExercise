@@ -165,10 +165,7 @@ class CorreosController extends Controller {
         try {
             $api = new Postmen($api_key, $region);
             $result = $api->create('labels', $payload);
-            echo "RESULT:\n";
-            
-            var_dump($result->tracking_numbers[0]);
-           
+
         } catch (exception $e) {
             echo "ERROR:\n";
             echo $e->getCode() . "\n";      // error code

@@ -579,21 +579,8 @@
             $(this).tab('show');
         });
     </script>
-    
-    <script type="text/javascript">
-    $(document).scroll(function(e){
-        var scrollTop = $(document).scrollTop();
-        if(scrollTop > $('#menuAdministracion').height()){
-            //console.log(scrollTop);
-            $('#cbp-hrmenu').css("position","fixed");
-            $('#cbp-hrmenu').css("top","0");
-            $('#cbp-hrmenu').css("z-index","999");
-        } else {
-            $('#cbp-hrmenu').css("position","relative");
-        }
-    });
-    
-    </script>
+
+    {{ include('nav/menuScript.html.twig') }}
     
     <script type="text/javascript">
         //Previsualización de las imágenes

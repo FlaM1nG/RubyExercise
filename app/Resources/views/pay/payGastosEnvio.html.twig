@@ -1,10 +1,7 @@
 {#<script type="text/javascript">#}
     {#$(document).ready(function () {#}
-{#{{ dump(arrayAddresses|json_encode) }}#}
         var regions = {{ arrayAddresses|json_encode|raw}};
         var a = [];
-
-{#console.log(regions);#}
 
         {% if offer.region|lower != 'ceuta' and offer.region|lower != 'melilla' and offer.region|lower !='baleares' and
         offer.region|lower != 's.c.tenerife' and offer.region|lower != 'las palmas' %}
@@ -36,7 +33,6 @@
         function actualizaGastosEnvio(){
 
             if($('.tra-testing')!= 'undefined' || $('.tra-noTesting') != undefined){
-{#console.log('muestroOculto');#}
                 showHiddenTesting();
             }
 
@@ -152,16 +148,13 @@
 
             var index = document.getElementById('previoPago_addressPay').value;
             var regionDestino = regions[index];
-{#console.log('index '+index+' regionDestino '+regionDestino);#}
             if(regionDestino == 'ceuta' || regionDestino == 'melilla' || regionDestino == 'baleares'
             || regionDestino == 's.c.tenerife' || regionDestino == 'las palmas'){
-{#console.log('debería de ocultar');#}
                 $('.tra-testing').addClass('tra-noTesting');
                 $('.tra-testing').removeClass('tra-testing');
                 $('.tra-noTesting+tr').css('background','rgba(255,102,0,.5)')
 
             }else{
-{#console.log('deberíai de mostrar');#}
                 $('.tra-noTesting').addClass('tra-testing');
                 $('.tra-noTesting').removeClass('tra-noTesting');
                 $('.tra-testing+tr').css('background','rgba(0,0,0,0)')

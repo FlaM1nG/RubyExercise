@@ -78,7 +78,7 @@
                     {% elseif offer.service.id == 9 %}
                         {% set url = path('house_offerBedroomSwap', {idOffer: offer.id})%}
                     {% endif%}
-{#{{ dump(offer) }}#}
+
                     {% if is_granted('offer_expired', offer) %}
                         {{ offers.offUserExp(url, offer.photos.0.url, offer.title, offer.description, 'leer',
                         '#borrar', 'Borrar', '#pdf', 'btnCorreos', 'Código correos',
