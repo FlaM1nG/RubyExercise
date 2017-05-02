@@ -33,25 +33,30 @@
 
               </h3>
               <hr/>
-    {{ form_start(form) }}
+            {{ form_start(form) }}
 
-        {{ form_row(form.brand) }}
+                {{ form_row(form.brand) }}
+                {{ form_row(form.model) }}
+                {{ form_row(form.type) }}
+                <div class="form-group">
+                    {{ form_label(form.plate) }}
+                    {{ form_widget(form.plate) }}
+                    <span>*Solo usted podrá ver su número de matrícula, ningún otro usuario tendrá acceso a este dato</span>
+                </div>
+                {{ form_row(form.plate)}}
+                {{ form_row(form.color) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.seats) }}
+                {{ form_row(form.imgCar) }}
+                {{ form_row(form.smoke) }}
+                {{ form_row(form.animals) }}
+                {{ form_row(form.music) }}
+                {{ form_row(form.talk) }}
+                {{ form_row(form._token) }}
 
-        {{ form_row(form.model) }}
-        {{ form_row(form.type) }}
-        {{ form_row(form.plate)}}
-        {{ form_row(form.color) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.seats) }}
-        {{ form_row(form.smoke) }}
-        {{ form_row(form.animals) }}
-        {{ form_row(form.music) }}
-        {{ form_row(form.talk) }}
-        {{ form_row(form._token) }}
-        <input id="imgCar" name="imgCar[]" type="file" multiple class="file-loading" accept="image/*" >
-            <div class="us-guardarPersonal-row">
-        {{ form_row(form.saveNewCar) }}
-            </div>
+                <div class="us-guardarPersonal-row">
+                    {{ form_row(form.saveNewCar) }}
+                </div>
           </div>
    </div>
 

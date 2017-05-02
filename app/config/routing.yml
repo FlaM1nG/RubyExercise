@@ -1,5 +1,3 @@
-cars:
-    resource: "@CarsBundle/Resources/config/routing.yml"
 pdf:
     resource: "@PDFBundle/Resources/config/routing.xml"
     prefix:   /
@@ -149,11 +147,11 @@ _sonata_admin:
     prefix: /admin
 
 
-prueba_inscripcion:
-    path: /prueba/inscritos
-    defaults: { _controller: AppBundle:Index:pruebaInscripcion }
-
-    prefix:   /services/trade
+#prueba_inscripcion:
+                              #    path: /prueba/inscritos
+                              #    defaults: { _controller: AppBundle:Index:pruebaInscripcion }
+                              #
+                              #    prefix:   /services/trade
 
 # app/config/routing.yml
 fos_js_routing:
@@ -166,6 +164,9 @@ adesigns_calendar:
 prueba_pago:
     path: /prueba/previopago
     defaults: { _controller: AppBundle:Index:pruebaPantallaPago }
+
+
+
 #house:
 #    resource: "@HouseBundle/Resources/config/routing.yml"
 #    prefix:   /
@@ -175,3 +176,6 @@ house:
     prefix:   /services/building/
 
 
+pruebaAdminDatos:
+    path: /prueba/datosAdmin
+    defaults: { _controller: AppBundle:Index:pruebaDatosAdminPanel }

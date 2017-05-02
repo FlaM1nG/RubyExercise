@@ -1,4 +1,6 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import '::macros/house.html.twig' as houses %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block title %}
     Casas
@@ -24,14 +26,178 @@
 
 
 {% block bodyProfile %}
+    <div class="row row-house">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h3>
+                        {{ house.title }}
+                    </h3>
+                    <hr/>
+                </div>
+            </div>
 
-    <h3>
-        Casas
-    </h3>
-    <hr/>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div id="us-img-big" class="owl-carousel">
+                        {% for foto in house.photos %}
+                            <div class="item">
+                                <div class="us-img-marco-grande">
+                                    <a href="{{ asset(foto.url|e|default('img/placeholder.jpg'), 'img') }}"
+                                       data-lightbox="item">
 
-    {{ dump(house) }}
+                                        <img class="img-responsive off-img-expo"
+                                             src="{{ asset(foto.url|e|default('img/placeholder.jpg'), 'img') }}"
+                                             alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
 
+                    <div id="us-img-small" class="owl-carousel">
+                        {% if house.photos|length > 1 %}
+                            {% for foto in house.photos %}
+                                <div class="item off-item-dime">
+                                    <div class="us-img-marco-peque">
+                                        <img class="img-responsive off-img-slid"
+                                             src="{{  asset(foto.url|e|default('img/placeholder.jpg'), 'img') }}"
+                                             alt="">
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 us-car-text">
+                    <div class="row row-hr">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h4>
+                                Dirección
+                            </h4>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                {{ house.address.street }} <br>
+                                {{ house.address.city }} ({{ house.address.region }}) - {{ house.address.zipCode }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row row-hr">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h4>
+                                Descripción
+                            </h4>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                {{ house.description }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row row-hr">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h4>
+                                Número de licencia
+                            </h4>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <p>
+
+                            {% if house.licenseNumber is not empty %}
+                                {{ house.licenseNumber }}
+                            {% else %}
+                                 Sin licencia
+                            {% endif %}
+
+                            </p>
+                        </div>
+                    </div>
+
+                    {#<div class="row off-row-date-prin">#}
+                        {#{{ offers.atriHouRen('capacidad', 'fa-users', house.capacity,3, 6, 6, 6) }}#}
+
+                        {#{{ offers.atriHouRen('baños', 'fa-bath', house.bathrooms,3, 6, 6, 6) }}#}
+
+                        {#{{ offers.atriHouRen('dormitorios', 'fa-home', house.bedrooms,3, 6, 6, 6) }}#}
+
+                        {#{{ offers.atriHouRen('camas', 'fa-bed', house.beds,3, 6, 6, 6) }}#}
+                    {#</div>#}
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-log-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h4>
+                                Alojamiento
+                            </h4>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="row col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        {{ houses.atriHouRen('capacidad', 'fa-users', house.capacity,3, 6, 6, 6) }}
+
+                        {{ houses.atriHouRen('baños', 'fa-bath', house.bathrooms,3, 6, 6, 6) }}
+
+                        {{ houses.atriHouRen('dormitorios', 'fa-home', house.bedrooms,3, 6, 6, 6) }}
+
+                        {{ houses.atriHouRen('camas', 'fa-bed', house.beds,3, 6, 6, 6) }}
+                    </div>
+                </div>
+            </div>
+            {% for key, arrayDatos in arrayAttr %}
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h4>
+                        {{ key|capitalize }}
+                    </h4>
+                    <hr>
+                        {% set col = 0 %}
+
+                        {% for dato in arrayDatos %}
+                            {% if col == 0 %}
+                                <div class="row off-row-date-second">
+                            {% endif %}
+
+                            {{ houses.atriOffer(dato.label, attribute(house,dato.attr)) }}
+
+                            {% if col < 3 %}
+                                {% set col = 1 + col %}
+                            {% else %}
+                                {% set col = 0 %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
+                        {% if col != 0 %}
+                            {% set col = 0 %}
+                            </div>
+                        {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+
+    </div>
 
 {% endblock %}
 
@@ -39,6 +205,10 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
+
+    {{ codMenu.scriptUserMenu('.row-house') }}
+
+    {{ include('owlCarousel/owlCochesScript.html.twig') }}
 
     {{ include('lightbox/lightboxScript.html.twig') }}
 

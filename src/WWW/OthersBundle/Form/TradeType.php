@@ -14,7 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use WWW\GlobalBundle\Entity\Address;
 use WWW\GlobalBundle\Entity\Utilities;
+use WWW\GlobalBundle\Form\AddressType;
 use WWW\ServiceBundle\Form\OfferType;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\GlobalBundle\Entity\ApiRest;
@@ -30,7 +32,7 @@ class TradeType extends AbstractType{
 
     
     public function buildForm(FormBuilderInterface $builder, array $options){
-//print_r($options['data']);
+
         $service = $options['data']->getOffer()->getService()->getId();
         $arrayCategory = $this->arrayCategories($service);
         $arrayRegion =$this->arrayRegion();
@@ -53,17 +55,29 @@ class TradeType extends AbstractType{
                                                             },
                                                          'choice_value' => 'id'
                                                          ))
-            
-            ->add('region',ChoiceType::class, array('label' => 'Provincia',
-                                                    'attr' => array('placeholder' => 'Provincia en la que se encuentra el objeto'),
-                                                    'choices' =>$arrayRegion,
-                                                    'choice_value' => 'countryRegion',
-                                                    'choice_label' => 'region',
-                                                    'choices_as_values'=>true,
-                                                    'group_by' => 'country'
 
-            ))
-            ->add('saveTrade',SubmitType::class,array('label'=>'Guardar'));
+            ->add('address', ChoiceType::class, array(  'label'=>'Dirección ',
+                                                        'required' => false,
+                                                        'empty_value' => false,
+                                                        'choices' => $options['arrayAddresses'],
+                                                        'choices_as_values' => true,
+                                                        'choice_label' => 'name',
+                                                        'choice_value' => 'id',
+                                                        'preferred_choices' => function($address, $key, $index) {
+                                                            return $address->getIsDefault() == 1;
+                                                        },))
+            
+//            ->add('region',ChoiceType::class, array('label' => 'Provincia',
+//                                                    'attr' => array('placeholder' => 'Provincia en la que se encuentra el objeto'),
+//                                                    'choices' =>$arrayRegion,
+//                                                    'choice_value' => 'countryRegion',
+//                                                    'choice_label' => 'region',
+//                                                    'choices_as_values'=>true,
+//                                                    'group_by' => 'country'
+//
+//            ))
+            ->add('saveTrade',SubmitType::class, array('label'=>'Guardar',
+                                                        'attr' => array('class' => 'btn btn-default btn-normal-derecha')));
 
         if($service != 3):
 
@@ -87,7 +101,7 @@ class TradeType extends AbstractType{
     public function configureOptions(OptionsResolver $resolver){
         
         $resolver->setDefaults(array('data_class'=>Trade::class,
-                                     'allow_extra_fields' => true,));
+                                     'arrayAddresses' => null));
     }
 
     private function arrayCategories($id){

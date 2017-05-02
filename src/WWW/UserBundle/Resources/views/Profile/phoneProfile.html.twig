@@ -34,35 +34,35 @@
             </h3>
             <hr/>
             {#{{dump(app.user)}}#}
-            {% if app.user.phone is not empty %}
-                <label class="control-label">Teléfono</label>
+            {#{% if app.user.phone is not empty %}#}
+                {#<label class="control-label">Teléfono</label>#}
 
-                <p>
-                    {{app.user.prefix}} &nbsp; {{ app.user.phone }}
-                </p>
+                {#<p>#}
+                    {#{{app.user.prefix}} &nbsp; {{ app.user.phone }}#}
+                {#</p>#}
 
-                {% if app.user.isConfirmed %}
-                    <a class="btn btn-default us-btn-phoneProfile" href="{{ path('user_profileChangePhone') }}"
-                       id="changePhone"
-                       data="confirm" >
-                        Cambiar teléfono
-                    </a>
+                {#{% if app.user.isConfirmed %}#}
+                    {#<a class="btn btn-default us-btn-phoneProfile" href="{{ path('user_profileChangePhone') }}"#}
+                       {#id="changePhone"#}
+                       {#data="confirm" >#}
+                        {#Cambiar teléfono#}
+                    {#</a>#}
 
-                    {% if phones is not empty %}
-                        <a href="{{path('user_profileConfirmPhone')}}">
-                            Introducir código de confirmación
-                        </a>
+                    {#{% if phones is not empty %}#}
+                        {#<a href="{{path('user_profileConfirmPhone')}}">#}
+                            {#Introducir código de confirmación#}
+                        {#</a>#}
 
-                        * No verá el tlfn nuevo hasta que lo confirme
-                    {% endif %}
+                        {#* No verá el tlfn nuevo hasta que lo confirme#}
+                    {#{% endif %}#}
 
-                {% else %}
-                    <a class="btn btn-default us-btn-phoneProfile" href="#">
-                        Confirmar teléfono
-                    </a>
-                {% endif %}
+                {#{% else %}#}
+                    {#<a class="btn btn-default us-btn-phoneProfile" href="#">#}
+                        {#Confirmar teléfono#}
+                    {#</a>#}
+                {#{% endif %}#}
 
-            {% endif %}
+            {#{% endif %}#}
         </div>
     </div>
 
@@ -73,17 +73,6 @@
 {% block javascriptsFooter %}
     {{ parent() }}
     {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
-    
-    <script type="text/javascript">
-        $(document).ready(function () {
-            
-            $(document).on('click','#changePhone',alertChangePhone);
-            
-            function alertChangePhone(e){
-                e.stopPropagation();
-                alert("El teléfono actual está confirmado,al cambiarlo deberá de confirmar el tlfn nuevo");
-            }
-        });
-    </script>    
+
 {% endblock %}
     

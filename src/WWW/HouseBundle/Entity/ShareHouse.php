@@ -4,6 +4,7 @@ namespace WWW\HouseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use WWW\ServiceBundle\Entity\Offer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ShareHouse
@@ -27,6 +28,7 @@ class ShareHouse
 
     /**
      * @var \WWW\HouseBundle\Entity\House
+     * @Assert\Valid()
      */
     private $house;
 
@@ -46,22 +48,38 @@ class ShareHouse
     private $departureTime;
     
 
-    public function __construct($arrayData = null) {
+    public function __construct($arrayData = null)  {
 
-        if(gettype($arrayData)== 'array' AND !empty($arrayData)):
-            if(array_key_exists('house', $arrayData)):
+        if (gettype($arrayData) == 'array' AND !empty($arrayData)) {
+            if (array_key_exists('house', $arrayData)) {
                 $this->house = new House($arrayData['house']);
-            else:
+            }else{
+
                 $this->house = new House();
-                $this->house->setId($arrayData['house_id']);
-            endif;
+
+                if (array_key_exists('house_id', $arrayData)) {
+                    $this->house->setId($arrayData['house_id']);
+                }
+            }
+
+            if (isset($_SESSION['sesion'])){
+
+
+
+                $this->price = $arrayData['totalPrice'];
+
+            }
+
             $this->price = $arrayData['price'];
             $this->offer = new Offer($arrayData);
-            $this->departureTime = \DateTime::createFromFormat('H:i:s', $arrayData['departure_time']);
-            $this->entryTime = \DateTime::createFromFormat('H:i:s', $arrayData['entry_time']);
-        else:
+            if ((array_key_exists('departure_time', $arrayData)) or (array_key_exists('entry_time', $arrayData))) {
+                $this->departureTime = \DateTime::createFromFormat('H:i:s', $arrayData['departure_time']);
+                $this->entryTime = \DateTime::createFromFormat('H:i:s', $arrayData['entry_time']);
+            }
+        } else {
+
             $this->house = new House();
-        endif;
+        }
 
     }
 

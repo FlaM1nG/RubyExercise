@@ -1,10 +1,6 @@
-<!-- ELEMENTO-->
  <div class="col-tra-elem col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-    
-    <!-- BODY -->
+
     <div class="tra-cont-elem">
-        {#{dump(trade.offer.photos.0.url)}#}
-            <!-- IMAGEN -->
             <div class="row row-tra-mar">
                 <a href="{{path('service_trade' , {offer: 'offer' ,idOffer: trade.id})}}">
                     <img class="img-responsive tra-grid-img" 
@@ -12,10 +8,8 @@
                         alt="">
                 </a>
             </div>
-            <!-- FIN IMAGEN -->
 
 
-            <!-- TITLE-->
             <div class="row row-tra-title-grid">
                 <h4>
                     <a href="{{path('service_trade' , {offer: 'offer' ,idOffer: trade.offer.id})}}" class="tra-title-elem">
@@ -23,29 +17,20 @@
                     </a>
                 </h4>
             </div>
-            <!-- FIN TITLE -->
 
 
-            <!-- CATEGORIAS -->
             <div class="row row-tra-cat-grid">
-               
-                
-                
                 <span class="tra-price">
                     {{trade.price}}€
                 </span>
                
             </div>
-            <!-- FIN CATEGORIAS -->
 
 
-            <!-- USER Y PRECIO -->
             <div class="row row-tra-upr-grid">
-                
-                <!-- USER -->
+
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-tra-user">
 
-                   <!-- IMAGEN USUARIO -->
                    <div class="row row-tra-grid-user-img">
                         <a href="#USUARIO">
                             <img class="center-block img-circle 
@@ -54,19 +39,16 @@
                                 width="50" alt="">
                         </a>
                    </div>
-                   <!-- FIN IMAGEN USUARIO -->
 
-                   <!-- NOMBRE USUARIO -->
+
                    <div class="row row-tra-grid-name">
                        <a href="#USUARIO">{{ trade.offer.userAdmin.username }}</a>
                    </div>
-                   <!-- FIN NOMBRE USUARIO -->
+
 
                 </div>
-                <!-- FIN USER -->
 
 
-                <!-- PRECIO -->
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 
                     col-tra-grid-price">
                     
@@ -74,16 +56,10 @@
                         <span class="">{{ trade.category.name}} </span>
                     </a>
                 </div>
-                <!-- FIN PRECIO -->
 
 
             </div>
-            <!-- FIN USER Y PRECIO -->
-        
-        
+
     </div>
-    <!-- BODY -->
-    
      
  </div>
-<!-- FIN ELEMENTO-->

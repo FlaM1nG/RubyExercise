@@ -34,13 +34,17 @@ class HouseType extends AbstractType{
 
             ->add('description', TextareaType::class, array('label' => 'Descripción'))
 
-            ->add('capacity', IntegerType::class, array('label' => 'Capacidad'))
+            ->add('capacity', IntegerType::class, array('label' => 'Capacidad',
+                                                        'attr' => array('min' => 1)))
 
-            ->add('beds', IntegerType::class, array('label' => 'Número de camas'))
+            ->add('beds', IntegerType::class, array('label' => 'Camas',
+                                                    'attr' => array('min' => 0)))
 
-            ->add('bedrooms', IntegerType::class, array('label' => 'Número de habitaciones'))
+            ->add('bedrooms', IntegerType::class, array('label' => 'Habitaciones',
+                                                        'attr' => array('min' => 0)))
 
-            ->add('bathrooms', IntegerType::class, array('label' => 'Número de cuartos de baño'))
+            ->add('bathrooms', IntegerType::class, array('label' => 'Cuartos de baño',
+                                                         'attr' => array('min' => 1)))
 
             ->add('aireAcondicionado', CheckboxType::class, array('label' => 'Aire acondicionado', 'required' => false))
 
@@ -172,7 +176,7 @@ class HouseType extends AbstractType{
 
             ->add('pestillo', CheckboxType::class, array('label' => 'Pestillo en la habitación', 'required' => false))
 
-            ->add('imgHouse', FileType::class, array('label' => ' ',
+            ->add('imgHouse', FileType::class, array('label' => 'Imágenes',
                                                'multiple' => true,
                                                'required' => false,
                                                'mapped' => false,

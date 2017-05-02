@@ -72,8 +72,23 @@ class ProfileEmailController extends Controller {
         $data['email'] = $user->getEmail();
         
         $result = $ch->resultApiRed($data, $file);
+        $error = null;
+        $resultAux['result'] = $result['result'];
+
+        if($result['result'] == 'ok'):
+            $error = "Para verificar el cambio compruebe su correo su correo electrónico";
+            $resultAux['result'] = 'ko';
+
+        elseif($result['result'] == 'email_exists'):
+            $error = 'El email ya existe';
+            $resultAux['result'] = 'ko';
+
+        elseif($result['result'] == 'bad_credentials'):
+            $error = 'Contraseña incorrecta';
+            $resultAux['result'] = 'ko';
+        endif;
         
-        $ut->flashMessage("general", $request, $result);
-        
+        $ut->flashMessage("general", $request, $resultAux, $error);
+
     }
 }

@@ -9,6 +9,7 @@
 namespace WWW\OthersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use WWW\GlobalBundle\Entity\Address;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Form\TradeType;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,40 +40,54 @@ class TradeController extends Controller{
     private $service;
     
     public function createOfferAction(Request $request){
-        
+
         $this->setUpVars($request);
-        $trade = new Trade();
+        $arrayAddresses = null;
 
-        $trade->getCategory()->setId($this->service);
-        $trade->getOffer()->getService()->setId($this->service);
- 
-        $formTrade = $this->createForm(TradeType::class,$trade);
+        $arrayAddresses = $this->hasAddresses($request);
 
-        $formTrade->handleRequest($request);
-        
-         if($formTrade->isSubmitted()):
-             $result = $this->saveTrade($request,$trade);
+        if(!empty($arrayAddresses)):
 
-             if($result == 'ok'):
+            $trade = new Trade();
 
-                 if($this->service == 1):
-                    return $this->redirectToRoute('service_listTrade');
+            $trade->getCategory()->setId($this->service);
+            $trade->getOffer()->getService()->setId($this->service);
 
-                 elseif($this->service == 2):
-                    return $this->redirectToRoute('service_listClothes');
+            $formTrade = $this->createForm(TradeType::class,$trade,array('arrayAddresses' => $arrayAddresses));
 
-                 elseif($this->service == 3):
-                    return $this->redirectToRoute('service_listBarter');
+            $formTrade->handleRequest($request);
+
+             if($formTrade->isSubmitted()):
+                 $result = $this->saveTrade($request,$trade);
+
+                 if($result == 'ok'):
+
+                     if($this->service == 1):
+                        return $this->redirectToRoute('service_listTrade');
+
+                     elseif($this->service == 2):
+                        return $this->redirectToRoute('service_listClothes');
+
+                     elseif($this->service == 3):
+                        return $this->redirectToRoute('service_listBarter');
+                     endif;
                  endif;
              endif;
-         endif;
         
-        return $this->render('OthersBundle:Trade:offerTrade.html.twig',
-                       array('formOffer' => $formTrade->createView(),
-                             'offer' => $trade,
-                             'service' => $this->service ));
+            return $this->render('OthersBundle:Trade:offerTrade.html.twig',
+                           array('formOffer' => $formTrade->createView(),
+                                 'offer' => $trade,
+                                 'service' => $this->service,
+                                 'addresses' => $arrayAddresses));
+
+        else:
+
+            return $this->render('OthersBundle:Trade:offerTrade.html.twig',
+                            array('service' => $this->service,
+                                  'addresses' => $arrayAddresses));
+        endif;
     }
-    
+
     public function setUpVars(Request $request){
         
         $this->ut = new Utilities(); 
@@ -105,11 +120,12 @@ class TradeController extends Controller{
                             "holders" => 1);
 
         $dataExtra["category_id"] = $trade->getCategory()->getId();
-        $dataExtra["region"] = "'".$trade->getRegion()->getRegion()."'";
+        $dataExtra["region"] = "'".$trade->getAddress()->getRegion()."'";
         $dataExtra["price"] = 0;
   
         if($this->service != 3):
             $dataExtra["price"] = $trade->getPrice();
+            $dataExtra["address_id"] = $trade->getAddress()->getId();
 //            $dataExtra["dimensions"] = "'".$request->get('trade')['width']."x".
 //                                                   $request->get('trade')['height']."x".
 //                                                   $request->get('trade')['long']."'";
@@ -249,7 +265,8 @@ class TradeController extends Controller{
             $this->sendMessage($request);
 
         elseif($formSubscribe->isSubmitted()):
-            $this->offerSubscribe($this->trade);
+            $inscription = $this->offerSubscribe($this->trade);
+            $request->getSession()->set('idInscription', $inscription);
             return $this->redirectToRoute('acme_payment_homepage', array(
                 'idOffer'=> $this->trade->getOffer()->getId(),
                 'service'=> "trade",
@@ -366,7 +383,14 @@ class TradeController extends Controller{
         $data['offer_id'] = $trade->getOffer()->getId();
         
         $result = $ch->resultApiRed($data, $file);
-
+        
+        if($result['result'] == 'ok'):
+            if(array_key_exists('id_inscription', $result)){
+                $idInscription = $result['id_inscription'];
+            }
+        endif;
+        
+        return $idInscription;
     }
     
     private function formArrayData(){
@@ -377,21 +401,47 @@ class TradeController extends Controller{
         
         return $data;
     }
+
+    private function hasAddresses(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'user/data/get_info_user.php';
+        $ch = new ApiRest();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['info'] = 'addresses';
+
+        $result = $ch->resultApiRed($data, $file);
+
+        if(!empty($result['addresses'])):
+
+            foreach($result['addresses'] as $key => $value):
+                $address = new Address($value);
+                $arrayAddress[$key] = $address;
+            endforeach;
+
+            return $arrayAddress;
+
+        else:
+            return null;
+        endif;    
+    }
     
     /**
      * @Route("/ajax/rating", name="ajax_rating")
      * @Method({"POST"})
      */
     
-    public function pruebaAction(Request $request){
-        $newRating = $request->get('rating');
-        
-        $ch = new ApiRest();
-        $file = MyConstants::PATH_APIREST."services/inscription/rate.php";
-        
-        $data = $this->formArrayData();
-        
-        $response = new JsonResponse();
-        return $response;
-    }
+//    public function pruebaAction(Request $request){
+//        $newRating = $request->get('rating');
+//
+//        $ch = new ApiRest();
+//        $file = MyConstants::PATH_APIREST."services/inscription/rate.php";
+//
+//        $data = $this->formArrayData();
+//
+//        $response = new JsonResponse();
+//        return $response;
+//    }
 }

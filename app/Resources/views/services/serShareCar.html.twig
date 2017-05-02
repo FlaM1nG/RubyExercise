@@ -30,14 +30,19 @@
 {% endblock %}
 
 {% block cssParallax %}
-sha-parallax
+    {% if service == 4 %}
+        sha-parallax
+    {% elseif service == 5 %}
+        men-parallax
+    {% endif %}
+
 {% endblock %}
 
 {% block cssTitleParallax %}
 sha-header-title
 {% endblock %}
 
-{% block alert %}
+{% block alertService %}
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
         {{ alerts.alert('alert-success', flash_message, null) }}
     {% endfor %}
@@ -74,7 +79,7 @@ sha-header-title
             offer.toPlace,
             offer.offer.title,
             path('user_public_profile',{username:offer.offer.userAdmin.username}),
-            asset(offer.offer.userAdmin.photo.url,'img'),
+            offer.offer.userAdmin.photo.url,
             offer.offer.userAdmin.username,
             service == 5 and priceMin is not empty ? priceMin : offer.price,
             offer.offer.userAdmin.avgScore, service) }}

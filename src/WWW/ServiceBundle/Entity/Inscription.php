@@ -59,6 +59,11 @@ class Inscription
     private $messengerPrice;
 
     /**
+     * @var string
+     */
+    private $dataExtra;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -251,5 +256,27 @@ class Inscription
     {
         return $this->messengerPrice;
     }
-   
+
+    /**
+     * Set dataExtra
+     *
+     * @param string $dataExtra
+     * @return Inscription
+     */
+    public function setDataExtra($dataExtra)
+    {
+        $this->dataExtra = $dataExtra;
+
+        return $this;
+    }
+
+    /**
+     * Get dataExtra
+     *
+     * @return string 
+     */
+    public function getDataExtra()
+    {
+        return $this->dataExtra;
+    }
 }

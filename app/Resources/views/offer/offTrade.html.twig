@@ -73,10 +73,9 @@
 {% block offerUser %}
     {{ users.userOffer(
         path('user_public_profile',{username: offer.offer.userAdmin.username} ),
-        asset(offer.offer.userAdmin.photo.url,'img'),
+        offer.offer.userAdmin.photo.url,
         offer.offer.userAdmin.username)
     }}
-    <!-- FIN NOMBRE USUARIO -->
 {% endblock %}
 
 
@@ -158,7 +157,7 @@
 
             {{ comentarios.messComentarioPublico(
                 path('user_public_profile', {username: offer.offer.userAdmin.username} ),
-                asset(comment.user.photo,'img'),
+                comment.user.photo,
                 comment.user.username,
                 comment.createdDate,
                 i,
@@ -215,7 +214,7 @@
 {% block javascriptsFooter %}
     {{ parent() }}
 
-    <script src="{{ asset('js/starRating/star-rating.js') }}"></script>
+    <script async src="{{ asset('js/starRating/star-rating.js') }}"></script>
 
     <script>
         $(document).ready( function(){

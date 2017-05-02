@@ -15,9 +15,6 @@
 </div>
 {% endmacro %}
 
-
-
-
 {% macro atriOffer(dato, icono) %}        
 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 off-col-other-date-sec">
    <i class="fa
@@ -37,9 +34,6 @@
 
 </div>
 {% endmacro %}
-
-
-
 
 {% macro atriHouRen(text, icon, number, lg, md, sm, xs) %}        
 <div class="col-lg-{{lg}} col-md-{{md}} col-sm-{{sm}} col-xs-{{xs}} off-col-other-date">
@@ -142,12 +136,12 @@
     
     
 {% macro offUserExp(hrefOffer, srcImage, titleOffer, textOffer, dataVer,
-    hrefBorrar, dataBorrar) %}        
+    hrefBorrar, dataBorrar, hrefPDF, classCorreos, titleCodCorreos, codCorreos, modalCorreos ) %}
     <div class="us-off-element-ex">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
                 <a href="{{ hrefOffer|e }}">
-                    <img src="{{ asset(srcImage|e|default('web/img/placeholder.jpg')) }}" class="img-responsive"/>
+                    <img src="{{ asset(srcImage|e|default('web/img/placeholder.jpg'),'img') }}" class="img-responsive"/>
                 </a>
                 <div class="us-off-exp">
                     <h4>
@@ -180,6 +174,14 @@
                          
                 <div class="row us-mess-buttons">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a href="#PDF" class="btn btn-default us-mess-btn"
+                           data-id="PDF"
+                           data-toggle="tooltip"
+                           data-placement="bottom"
+                           title="Imprimir factura">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                        </a>
+
                         <a href="{{ hrefBorrar|e }}" class="btn btn-default us-mess-btn"
                            data-id="{{ dataBorrar|e }}"
                            data-toggle="tooltip" 
@@ -187,6 +189,18 @@
                            title="{{ dataBorrar|e|capitalize }}">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
+
+                    {% if codCorreos is not empty %}
+                        <a href="#" class="btn btn-default us-mess-btn {{ classCorreos }}"
+                           data-id="{{ codCorreos|e }}"
+                           data-toggle="modal"
+                           data-target="#{{ modalCorreos }}"
+                           data-placement="bottom"
+                           title="{{ titleCodCorreos|e|capitalize }}">
+                            <i class="fa fa-barcode" aria-hidden="true"></i>
+                        </a>
+                    {% endif %}
+
                     </div>
                 </div>
                         
@@ -258,7 +272,8 @@
     
     
 {% macro offUserDisfrutadas(hrefOffer, srcImage, titleOffer, dateFact, textOffer, 
-    dataVer, hrefValorar, dataValorar, hrefPDF, dataPDF) %}        
+    dataVer, hrefValorar, dataValorar, hrefPDF, dataPDF, classEnjoyed, hrefEnjoyed, idOffer, statusOffer,
+    hrefCancel,titleModal ) %}
     <div class="us-off-element">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
@@ -308,24 +323,51 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <a {{ hrefValorar|e }} class="btn btn-default us-mess-btn"
                            data-id="{{ dataValorar|e }}"
-                           data-toggle="tooltip" 
+                           data-toggle="tooltip" data-tooltip="true"
                            data-placement="bottom" 
                            title="{{ 'Valora la oferta'|e|capitalize }}" {{disabled}}>
                             <i class="fa fa-star-half-o" aria-hidden="true"></i>
                         </a>
-                          
-                            
+
                         <a href="{{ hrefPDF|e }}" class="btn btn-default us-mess-btn"
                            data-id="{{ dataPDF|e }}"
-                           data-toggle="tooltip" 
+                           data-tooltip="true"
                            data-placement="bottom" 
                            title="{{ 'Imprimir factura'|e|capitalize }}">
                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                         </a>
+
+                        <a href="{{ hrefEnjoyed|e }}" class="btn btn-default us-mess-btn {{ classEnjoyed }}"
+                           data-id="{{ idOffer|e }}"
+                           data-toggle="modal"
+                           data-tooltip="true"
+                           data-target="#idEnjoyed"
+                           data-placement="bottom"
+                           title="{{statusOffer == 5 ? 'Oferta disfrutada' : '¿Ha disfrutado la oferta?' }}"
+                           {{ statusOffer == 5 ? 'disabled':'' }}>
+                            <i class="fa fa-smile-o" aria-hidden="true"></i>
+                        </a>
+
+                        <a href="{{ hrefCancel|e }}" class="btn btn-default us-mess-btn buttonCancel"
+                           title="cancelar"
+                           data-toggle="modal"
+                           data-target="#modalCancel"
+                           data-id="{{ idOffer|e }}"
+                           data-tooltip="true"
+                           data-placement="bottom"
+                        {{ statusOffer != 3 ? 'disabled':'' }}>
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+
                     </div>
                 </div>
-                        
-                
+
+                {#<button class="btn-default btn off-btn-write butonWriteUser"#}
+                        {#data-toggle="modal"#}
+                        {#data-target="#writeUser"#}
+                        {#data-name="{{ to }}">#}
+                    {#Escribe a todos#}
+                {#</button>#}
             </div>
         </div>
     </div>
@@ -417,4 +459,25 @@
             </div>
         </div>
     </div>
+{% endmacro %}
+
+
+{% macro editService(idService) %}
+    {% if idService|e == 1 %}
+        Compra-Venta
+    {% elseif idService|e == 2 %}
+        Compra-Venta de Ropa
+    {% elseif idService|e == 3 %}
+        Trueque
+    {% elseif idService|e == 4 %}
+        Coche Compartido
+    {% elseif idService|e == 5 %}
+        Mensajería
+    {% elseif idService|e == 6 %}
+        Alquiler Turístico
+    {% elseif idService|e == 7 %}
+        Casa compartida
+    {% else %}
+        Servicio no encontrado
+    {% endif %}
 {% endmacro %}

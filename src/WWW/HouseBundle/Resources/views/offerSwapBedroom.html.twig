@@ -1,0 +1,247 @@
+{% extends '::offer/layoutOffer.html.twig' %}
+{% import '::macros/offer.html.twig' as offers %}
+{% import '::macros/star.html.twig' as rating %}
+{% import 'macros/popup.html.twig' as popups %}
+{% import 'macros/message.html.twig' as comentarios %}
+{% import 'macros/user.html.twig' as users %}
+
+{#{ BLOQUES -->     offerImage
+                    offerUser
+                    offerTitle
+                    offerPrice
+                    offerVote
+                    offerDescription
+                    offerVariableData
+                    offerRelacionadas
+                    offerComments
+                    offerPublicidad
+                    offerDestacadas
+                    offerOtherData
+}#}
+
+{% block alert %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block offerImage %}
+    <div id="off-img-big" class="owl-carousel">
+        {% set imgGallery = []  %}
+
+        {% for photo in offer.offer.photos %}
+
+            <div class="item">
+                <div class="off-img-marco-grande">
+                    <a href="{{ asset(photo.url, 'img') }}"
+                       data-lightbox="offer-item">
+
+                        <img class="img-responsive off-img-expo"
+                             src="{{ asset(photo.url, 'img') }}"
+                             alt="">
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="off-img-small" class="owl-carousel">
+        {% for photo in offer.offer.photos %}
+            {% set arrayPhoto = photo.url|split('.') %}
+            {% set photoThumb = arrayPhoto[0]~'_250.'~arrayPhoto[1] %}
+            <div class="item off-item-dime">
+                <div class="off-img-marco-peque">
+                    <img class="img-responsive off-img-slid"
+                         src="{{ asset(photoThumb,'img') }}"
+                         alt="">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+
+{% block offerUser %}
+    <!-- IMAGEN USUARIO -->
+    <div class="row row-off-user-name">
+        <a class="off-user-image" href={{ path('user_public_profile', {username: offer.offer.userAdmin.username}) }}>
+            <img class=" img-circle img-responsive"
+                 src="{{ asset(offer.offer.userAdmin.photo.url, 'img') }}"
+                 width="50" alt="">
+        </a>
+
+        <a class="off-user-name" href={{ path('user_public_profile', {username: offer.offer.userAdmin.username}) }}>{{ offer.offer.userAdmin.username }}</a>
+
+    </div>
+    <!-- FIN NOMBRE USUARIO -->
+{% endblock %}
+
+
+{% block offerTitle %}
+    {{ offer.offer.title }}
+{% endblock %}
+
+
+{% block offerPrice %}
+
+{% endblock %}
+
+
+{% block offerVote %}
+    <!-- VALORACIONES -->
+    {{ rating.staticRating(offer.offer.userAdmin.avgScore) }}
+    <!-- FIN VALORACIONES -->
+{% endblock %}
+
+
+{% block offerDate %}
+    {{ offer.offer.modifiedDate|date('d/m/Y') }}
+{% endblock %}
+
+
+{% block offerDescription %}
+    <p>
+        {{offer.offer.description}}
+    </p>
+{% endblock %}
+
+
+{% block offerVariableData %}
+
+    <div class="row">
+        <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12">
+            <!-- DATOS IMPORTATNES DEL SERVICIO -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h4>
+                        Alojamiento
+                    </h4>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row off-row-date-prin">
+                <!-- CAPACIDAD -->
+                {{ offers.atriHouRen('capacidad', 'fa-users', offer.offer.holders,3, 6, 6, 6) }}
+                <!-- FIN CAPACIDAD -->
+
+            </div>
+            <!-- FIN DATOS IMPORTATNES DEL SERVICIO -->
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block offerRelacionadas %}
+    {% for i in 0..2 %}
+        {#{ include('services/lists/tradeList.html.twig') }#}
+    {% endfor %}
+{% endblock %}
+
+{% block popupBlock %}
+    {% set title = 'Enviar mensaje a ' ~ offer.offer.userAdmin.username %}
+    {{ popups.popup('writeUser', title, include('offer/offPrivateMessage.html.twig') ) }}
+{% endblock %}
+
+{% block offerComments %}
+
+    {% if offer.offer.comments is empty %}
+
+        <div class="row separacion-inferior">
+            <div class="col-lg-12">
+                <h4>
+                    Aún no hay comentarios
+                </h4>
+                <p>
+                    ¡Se el primero en comentar!
+                </p>
+            </div>
+        </div>
+
+    {% else %}
+
+        {% set numPage = pagination.currentPageNumber %}
+        {% if numPage == 1 %}
+            {% set i = 0 %}
+        {% else %}
+            {% set i = numComment *(numPage-1) %}
+        {% endif %}
+
+        {% for comment in pagination%}
+
+            {{ comentarios.messComentarioPublico(
+            path('user_public_profile', {username: offer.offer.userAdmin.username} ),
+            asset(comment.user.photo,'img'),
+            comment.user.username,
+            comment.createdDate,
+            i,
+            comment.comment)
+            }}
+
+            {% set i = i+1 %}
+        {% endfor %}
+
+        {% if pagination is not null %}
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}
+
+
+{% block offerPublicidad %}
+    <h3>
+        Publicidad
+    </h3>
+    <hr>
+    <img src="{{ asset('img/publicidad.jpg') }}"
+         class="img-responsive center-block"
+         alt="publicidad">
+{% endblock %}
+
+
+{% block offerDestacadas %}
+    <p>DESTACADOS</p>
+{% endblock %}
+
+
+{% block offerOtherData %}
+    <h3>
+        Recompensa por tu compra <span class="off-special">¡Gratis!</span>
+    </h3>
+    <hr>
+    <p>
+        Lorem fistrum hasta luego Lucas te voy a borrar el cerito tiene musho
+        peligro benemeritaar por la gloria de mi madre al ataquerl diodenoo.
+        Diodeno amatomaa pecador diodeno sexuarl.
+    </p>
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ rating.staticRatingJS() }}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+{% endblock %}

@@ -1,4 +1,6 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/offer.html.twig' as offers %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block title %}
     Ofertas
@@ -6,8 +8,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-
-    <link rel="stylesheet" href="{{ asset('css/calendario/fullcalendar.css') }}" />
 
 {% endblock %}
 
@@ -31,25 +31,30 @@
 
 
 {% block bodyProfile %}
+<div class="row us-dataPersonal-row-fluid">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h3>
+            Editando oferta de {{ offers.editService(service) }}
+        </h3>
+        <hr/>
+        {{form_start(form)}}
+            {{ form_row(form.offer.title) }}
+            {{ form_row(form.category) }}
+            {{ form_row(form.offer.description) }}
+            {{ form_row(form.address) }}
+            {% if service != 3 %}
+                {#{{form_row(form.width)}}#}
+                {#{{form_row(form.height)}}#}
+                {#{{form_row(form.long)}}#}
+                {{form_row(form.weight)}}
+                {{form_row(form.price)}}
+            {% endif %}
 
-    {{form_start(form)}}
-        {{form_row(form.offer.title)}}
-        {{form_row(form.category)}}
-        {{form_row(form.offer.description)}}
-        {{form_row(form.region)}}
-        {% if service != 3 %}
-            {#{{form_row(form.width)}}#}
-            {#{{form_row(form.height)}}#}
-            {#{{form_row(form.long)}}#}
-            {{form_row(form.weight)}}
-            {{form_row(form.price)}}
-        {% endif %}
-  
-        <input id="imgOffer" name="imgOffer[]" type="file" accept="image/*" multiple class="file-loading">
-        {{form_row(form.offer.id)}}
-
-    {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
-        {{form_row(form.saveTrade)}}
+            <input id="imgOffer" name="imgOffer[]" type="file" accept="image/*" multiple class="file-loading">
+            {{ form_row(form.offer.id) }}
+         {{ form_row(form.saveTrade) }}
+    </div>
+</div>
 
 {% endblock %}
 
@@ -57,13 +62,11 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row-fluid') }}
 
     <script type="text/javascript" src="{{ asset('js/calendario/jquery-2.1.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/calendario/jquery-ui.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/calendario/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/fullcalendar.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/fullcalendar-lang-all.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/calendar.js') }}"></script>
 
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>

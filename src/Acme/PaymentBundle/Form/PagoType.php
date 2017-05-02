@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,31 +25,28 @@ use WWW\GlobalBundle\Entity\Address;
 class PagoType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
+
+        $amount= $options['amount'];
+        $arrayAddress = $options['arrayAddresses'];
         
-        $listDir = $options['data']->getAddresses();
-        $defaultDir = $options['data']->getDefaultAddress();
-        $arrayAddress= [] ;
-        array_unshift($arrayAddress,$defaultDir);
-        
-        if($listDir[0]!= null):
-            foreach($listDir as $value):
-                array_push($arrayAddress,$value);
-            endforeach;
+        $arrayAttrSubmit = array('class' => 'btn btn-default btn-float-none');
+
+        if(!empty($arrayAddress[0])):
+
+            $builder
+                ->add('addressPay', ChoiceType::class, array(
+                                                            'label' => 'Dirección envio',
+                                                            'choices' => $arrayAddress,
+                                                            'choice_value' => 'id',
+                                                            'choice_label' => 'name',
+                                                            'choices_as_values' => true,
+                                                            ));
+        else:
+            $arrayAttrSubmit['disabled'] = 'disabled';
         endif;
-       
-         
-        
+
         $builder
-
-            ->add('addressPay', ChoiceType::class, array(
-                'label' => 'Dirección envio',
-                'choices' => $arrayAddress,
-                'choice_value' => 'id',
-                'choice_label' => 'name',
-                'choices_as_values' => true,
-//                'data' => $options['data']->getAddressPay() // OBTENER DIRECCION
-            ))
-
+                
             ->add('facture', CheckboxType::class, array(
                 'attr' => array('class' => 'check-facturacion'),
                 'label' => 'Marque la casilla si desea factura.',
@@ -56,58 +54,54 @@ class PagoType extends AbstractType {
                 'required' => false
             ))
 
-            ->add('dirFac', ChoiceType::class, array(
-                'label' => 'Dirección facturación',
-                'choices' => $arrayAddress,
-                'choice_value' => 'id',
-                'choice_label' => 'name',
-                'choices_as_values' => true,
-                'mapped' =>false
-//                'data' => $options['data']->getCar() // OBTENER DIRECCION
-            ))
-            ->add('dni', TextType::class, array(
-                'label' => 'DNI',
-                'mapped' =>false,
-                'required' => false
-            ))
-            ->add('paypal', CheckboxType::class, array(
-                'attr' => array('class' => 'check-payment-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
+//            ->add('dirFac', ChoiceType::class, array(
+//                'label' => 'Dirección facturación',
+//                'choices' => $arrayAddress,
+//                'choice_value' => 'id',
+//                'choice_label' => 'name',
+//                'choices_as_values' => true,
+//                'mapped' =>false
+//            ))
+//            ->add('dni', TextType::class, array(
+//                'label' => 'DNI',
+//                'mapped' =>false,
+//                'required' => false
+//            ))
 
-            ->add('card', CheckboxType::class, array(
-                'attr' => array('class' => 'check-payment-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
+            ->add('payMethod', ChoiceType::class, array('choices' => array('paypal' =>' ', 'card' => ' '),
+                                                        'expanded' => true,
+                                                        'multiple' => false,
+                                                        'mapped' => false))
 
-            ->add('correos', CheckboxType::class, array(
-                'attr' => array('class' => 'check-send-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
+            ->add('sendMethod', ChoiceType::class, array('choices' => array('correos' => ' ', 'otros' =>' '),
+                                                         'expanded' => true,
+                                                         'multiple' => false,
+                                                         'mapped' => false))
 
-            ->add('dhl', CheckboxType::class, array(
-                'attr' => array('class' => 'check-send-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
+            ->add('totalAmount', HiddenType::class, array(  'attr' => array('class' => 'check-send-method center-block'),
+                                                            'data' => $amount,
+                                                            'mapped' =>false,
+                                                        ))
+            ->add('shippingCost', HiddenType::class, array( 'attr' => array('class' => 'shippingCost'),
+                                                            'mapped' => false,
+                                                            'data' => 0))
 
-            ->add('otros', CheckboxType::class, array(
-                'attr' => array('class' => 'check-send-method center-block'),
-                'label' => ' ',
-                'mapped' =>false,
-                'required' => false
-            ))
-
-            ->add('submit', SubmitType::class, array(
-                'attr' => array('class' => 'btn btn-default btn-float-none'),
-                'label' => 'Pagar',
+            ->add('managementPayFee', HiddenType::class, array('attr' => array('class' => 'managementPayFee'),
+                                                               'mapped' => false,
+                                                               'data' => 0))
+            ->add('managementFee', HiddenType::class, array('attr' => array('class' => 'managementFee'),
+                                                                'mapped' => false,
+                                                                'data' => 0))
+            
+            ->add('sendOffice', CheckboxType::class, array('label' => 'Comprobación de estado',
+                                                           'mapped' => false,
+                                                           'required' => false ))
+                
+            ->add('testingCost', HiddenType::class, array('mapped' => false,
+                                                          'data' => 0 ))
+            
+            ->add('submit', SubmitType::class, array('attr' => $arrayAttrSubmit,
+                                                     'label' => 'Pagar'
                 
             ));
 
@@ -117,7 +111,9 @@ class PagoType extends AbstractType {
 
        $resolver->setDefaults(array(
            'data_class'=> 'WWW\UserBundle\Entity\User',
-           'validation_groups' => false
+           'validation_groups' => false,
+           'amount' => null,
+           'arrayAddresses' => null
            ));
     }
 

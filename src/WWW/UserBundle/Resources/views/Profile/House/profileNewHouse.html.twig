@@ -28,36 +28,114 @@
     <div class="row us-dataPersonal-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h3>
-                Agregar una nueva casa
+                Casa
             </h3>
             <hr/>
 
             {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_row(form.title) }}
+                {{ form_row(form.description) }}
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {{ form_row(form.address.country) }}
+                            </div>
+                        </div>
 
-            {{ form_row(form.title) }}
-            {{ form_row(form.address.country) }}
-            {{ form_row(form.address.city) }}
-            {{ form_row(form.address.street) }}
-            {{ form_row(form.address.zipCode) }}
-            {{ form_row(form.description) }}
-            {{ form_row(form.capacity) }}
-            {{ form_row(form.bedrooms) }}
-            {{ form_row(form.beds) }}
-            {{ form_row(form.bathrooms) }}
-            {{ form_row(form.licenseNumber) }}
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {{ form_row(form.address.city) }}
+                            </div>
+                        </div>
+                    </div>
 
-            {{ form_row(form.imgHouse) }}
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {{ form_row(form.address.street) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {{ form_row(form.address.zipCode) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {{ form_row(form.capacity) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {{ form_row(form.bedrooms) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {{ form_row(form.beds) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {{ form_row(form.bathrooms) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.licenseNumber) }}
+                    {{ form_widget(form.licenseNumber) }}
+                    <span>* El número de licencia es obligatorio para las ofertas de alquiler turístico y casa compartida </span>
+
+                </div>
+                {#{{ form_row(form.licenseNumber) }}#}
+
+                {{ form_row(form.imgHouse) }}
+
+            </div>
+
+            {% set cont = 0 %}
+
             {% for key, attr in arrayAttr %}
-                <h4> {{ key|capitalize }}</h4>
+                {% if cont == 0 %}
+                    <div class="row">
+                {% endif %}
 
-                {% for data in attr %}
-                    {{ form_row(attribute(form, data.attr),{'label': data.label|capitalize}) }}
-                {% endfor %}
-            {{ form_row(form._token) }}
-            {{ form_row(form.saveNewHouse) }}
+                    <div class="col-lg-4">
+                        {% set cont = cont +1 %}
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 input-group">
+                                <h4> {{ key|capitalize }}</h4>
+
+                                {% for data in attr %}
+                                    {{ form_row(attribute(form, data.attr),{'label': data.label|capitalize}) }}
+                                {% endfor %}
+
+                            </div>
+                        {% if cont == 3 %}
+                            {% set cont = 0 %}
+
+                         </div>
+                        {% endif %}
+                    </div>
 
             {% endfor %}
-
+            <div class="row col-lg-12">
+                {{ form_row(form._token) }}
+                {{ form_row(form.saveNewHouse) }}
+            </div>
         </div>
     </div>
 

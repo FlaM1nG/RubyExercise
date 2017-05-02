@@ -105,11 +105,11 @@ class Offer
      * Constructor
      */
     public function __construct($data = null){ 
-     //var_dump($data);
-        
+
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = Array();
         $this->service = new Service();
+        $this->inscriptions = new \Doctrine\Common\Collections\ArrayCollection();
         
         if(gettype($data) == 'array'):
             $keyPhoto = '';
@@ -171,7 +171,10 @@ class Offer
 
                 if(array_key_exists('avg_score',$data))
                     $user->setAvgScore($data['avg_score']);
-
+                if(array_key_exists('email', $data))
+                        $user->setEmail ($data['email']);
+                if(array_key_exists('phone', $data))
+                        $user->setPhone ($data['phone']);
                 $user->setUsername($data['username']);
                 $user->setId($data['user_admin_id']);
                 $photoUser = new Photo();
@@ -182,6 +185,11 @@ class Offer
                     $user->setAvgScore($data['avg_score']);
             endif;
 
+            if(array_key_exists('data_extra', $data) AND !empty($data['data_extra'])):
+                $inscription = new Inscription();
+                $inscription->setDataExtra($data['data_extra']);
+                $this->addInscription($inscription);
+            endif;    
 //            if(array_key_exists('has_inscriptions', $data)):
 //                $this->hasInscriptions = $data['has_']
 //            endif;

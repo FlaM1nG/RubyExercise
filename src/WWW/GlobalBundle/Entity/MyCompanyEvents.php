@@ -9,8 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="mycompanyevents")
  * @ORM\Entity
  */
-class MyCompanyEvents 
-{
+class MyCompanyEvents implements  \Serializable {
     /**
      * @var int
      *
@@ -49,9 +48,24 @@ class MyCompanyEvents
      * @var boolean 
      * @ORM\Column(type="boolean")
      */
-    protected $ocuppate = true;
-     
-     
+    protected $ocuppate = false;
+
+
+
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    protected $blocked = false;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="inscriptionID", type="integer")
+     */
+
+    protected $inscriptionID;
+    
     /**
      * @var string URL Relative to current path.
      * 
@@ -129,17 +143,22 @@ class MyCompanyEvents
     
     
     
-    protected $otherFields = array();
+//    protected $otherFields = array();
     
-      public function __construct($title, $price,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = true, $allDay = false)
+      public function __construct($id,$title, $price,$calendarID, $serviceID,$bgColor, $fgColor, \DateTime $startDatetime, \DateTime $endDatetime = null, $ocuppate = false, $blocked = false, $allDay = false, $inscriptionID )
     {
+
+        $this->id = $id;
         $this->title = $title;
-         $this->price = $price;
-      
-         $this->bgColor = $bgColor;
-         $this->fgColor = $fgColor;
+        $this->price = $price;
+        $this->calendarID = $calendarID;
+        $this->serviceID = $serviceID;
+        $this->inscriptionID = $inscriptionID;
+        $this->bgColor = $bgColor;
+        $this->fgColor = $fgColor;
         $this->startDatetime = $startDatetime;
         $this->setOcuppate($ocuppate);
+        $this->setBlocked($blocked);
         $this->setAllDay($allDay);
         
         if ($endDatetime === null && $this->allDay === false) {
@@ -169,6 +188,11 @@ class MyCompanyEvents
         $event['price'] = $this->price;
         
         $event['ocuppate'] = $this->ocuppate;
+
+        $event['blocked'] = $this->blocked;
+
+        $event['inscription_id'] = $this->inscriptionID;
+        
         
         $event['start'] = $this->startDatetime->format("Y-m-d\TH:i:sP");
         
@@ -205,9 +229,9 @@ class MyCompanyEvents
          $event['isDeleted'] = $this->isDeleted;
         
         $event['allDay'] = $this->allDay;
-        foreach ($this->otherFields as $field => $value) {
-            $event[$field] = $value;
-        }
+//        foreach ($this->otherFields as $field => $value) {
+//            $event[$field] = $value;
+//        }
         
         if ($this->serviceID !== null) {
             $event['service_id'] = $this->serviceID;
@@ -257,16 +281,37 @@ class MyCompanyEvents
         return $this->price;
     }
     
-      public function setOcuppate($ocuppate = true)
+      public function setOcuppate($ocuppate)
     {
         $this->ocuppate = (boolean) $ocuppate;
     }
     
     public function getOcuppate()
     {
-        return $this->occupate;
+        return $this->ocuppate;
     }
-    
+
+    public function setBlocked($blocked)
+    {
+        $this->blocked = (boolean) $blocked;
+    }
+
+    public function getBlocked()
+    {
+        return $this->blocked;
+    }
+
+    public function setInscriptionID($inscriptionID)
+    {
+        $this->inscriptionID = $inscriptionID;
+    }
+
+    public function getInscriptionID()
+    {
+        return $this->inscriptionID;
+    }
+
+
     public function setUrl($url)
     {
         $this->url = $url;
@@ -384,20 +429,20 @@ class MyCompanyEvents
      * @param string $name
      * @param string $value
      */
-    public function addField($name, $value)
-    {
-        $this->otherFields[$name] = $value;
-    }
-    /**
-     * @param string $name
-     */
-    public function removeField($name)
-    {
-        if (!array_key_exists($name, $this->otherFields)) {
-            return;
-        }
-        unset($this->otherFields[$name]);
-    }
+//    public function addField($name, $value)
+//    {
+//        $this->otherFields[$name] = $value;
+//    }
+//    /**
+//     * @param string $name
+//     */
+//    public function removeField($name)
+//    {
+//        if (!array_key_exists($name, $this->otherFields)) {
+//            return;
+//        }
+//        unset($this->otherFields[$name]);
+//    }
     /**
      * @var \WWW\GlobalBundle\Entity\Calendar
      */
@@ -409,28 +454,23 @@ class MyCompanyEvents
     private $service;
 
 
-    /**
-     * Set otherFields
-     *
-     * @param string $otherFields
-     * @return MyCompanyEvents
-     */
-    public function setOtherFields($otherFields)
-    {
-        $this->otherFields = $otherFields;
 
-        return $this;
-    }
+//    public function setOtherFields($otherFields)
+//    {
+//        $this->otherFields = $otherFields;
+//
+//        return $this;
+//    }
 
     /**
      * Get otherFields
      *
      * @return string 
      */
-    public function getOtherFields()
-    {
-        return $this->otherFields;
-    }
+//    public function getOtherFields()
+//    {
+//        return $this->otherFields;
+//    }
 
     /**
      * Set calendar
@@ -476,5 +516,41 @@ class MyCompanyEvents
     public function getService()
     {
         return $this->service;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->calendarID,
+            $this->title,
+            $this->price,
+            $this->url,
+            $this->bgColor,
+            $this->fgColor,
+            $this->allDay,
+            $this->serviceID,
+            $this->blocked,
+            $this->inscriptionID,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->calendarID,
+            $this->title,
+            $this->price,
+            $this->url,
+            $this->bgColor,
+            $this->fgColor,
+            $this->allDay,
+            $this->serviceID,
+            $this->blocked,
+            $this->inscriptionID,
+            ) = unserialize($serialized);
     }
 }

@@ -1,6 +1,7 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
 {% import 'macros/offer.html.twig' as offers %}
 {% import 'macros/script.html.twig' as codMenu %}
+{% import 'macros/popup.html.twig' as popups %}
 
 {% block title %}
     Ofertas
@@ -38,7 +39,7 @@
                     Aún no has publicado ninguna oferta
                 </h4>
                 <p>
-                    ¡Crea ofertas en el servicio que tengas dado de alta!
+                    ¡Crea ofertas en el servicio correspondiente!
                 </p>
                 <p>
                     Dirígete al servicio que deseas crear la oferta y pulsa en la cabecera “Añadir oferta” para poder crear
@@ -70,11 +71,26 @@
 
                     {% elseif offer.service.id == 7 %}
                         {% set url = path('house_offerShareHouse', {idOffer: offer.id})%}
+
+                    {% elseif offer.service.id == 8 %}
+                        {% set url = path('house_offerHouseSwap', {idOffer: offer.id})%}
+
+                    {% elseif offer.service.id == 9 %}
+                        {% set url = path('house_offerBedroomSwap', {idOffer: offer.id})%}
                     {% endif%}
 
-                    {{ offers.offUser(url, offer.photos.0.url ,offer.title,
-                    offer.description, 'leer', pathEditar, 'editar', '#borrar','Borrar', offer.id) }}
+                    {% if is_granted('offer_expired', offer) %}
+                        {{ offers.offUserExp(url, offer.photos.0.url, offer.title, offer.description, 'leer',
+                        '#borrar', 'Borrar', '#pdf', 'btnCorreos', 'Código correos',
+                        (offer.service.id <=2 and offer.inscriptions is not empty) ? offer.inscriptions.0.dataExtra:'',
+                        'modalCorreos')}}
 
+                    {%else%}
+
+                        {{ offers.offUser(url, offer.photos.0.url ,offer.title,
+                        offer.description, 'leer', pathEditar, 'editar', '#borrar','Borrar', offer.id) }}
+
+                    {%endif%}
                 {% endfor %}
 
                 {% if pagination is not null %}
@@ -89,7 +105,11 @@
     </div>
 {% endblock %}
 
+{% block popupBlock %}
 
+    {{ popups.popup('modalCorreos', 'Código de envío','Código que debe presentar en correos: ' ) }}
+
+{% endblock %}
 
 {% block javascriptsFooter %}
     {{ parent() }}
@@ -97,8 +117,22 @@
     {{ codMenu.scriptUserMenu('.us-dataPersonal-row-fluid') }}
 
     <script type="text/javascript">
+
         $(document).ready(function() {
+
             $(document).on('click','.btnDelete', deleteOffer);
+            $(document).on('click', '.btnCorreos', showCodCorreos);
+
+            function showCodCorreos(e){
+                var cod = $(this).data('id');
+                var text = $('#modalCorreos .modal-body').text();
+
+                if(text.search(cod) == -1) {
+                    text = '<b>' + $('#modalCorreos .modal-body').text() + '</b> ' + cod;
+
+                    $('#modalCorreos .modal-body').html(text);
+                }
+            }
 
             function deleteOffer(e){
                 e.preventDefault();

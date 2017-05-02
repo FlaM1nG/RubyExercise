@@ -3,19 +3,32 @@
 {% import 'macros/sidebar.html.twig' as sidebars %}
 {% import 'macros/star.html.twig' as rating %}
 {% import 'macros/houseRentsList.html.twig' as houses %}
+{% import 'macros/filter.html.twig' as filters %}
 
 {#{% set service = 6 %}#}
 {% if service == 6 %}
     {% set pathFilter = path('serHouseRents') %}
     {% set routingOffer = 'offHouseRents' %}
     {% set routingNewOffer = 'building_newOfferHouseRent' %}
-    {% set titleService = 'Alquiler de viviendas turísticas' %}
+    {% set titleService = 'Alquiler turístico' %}
 
 {% elseif service == 7 %}
     {% set pathFilter = path('serHouseRents') %}
     {% set routingOffer = 'house_offerShareHouse' %}
     {% set routingNewOffer = 'house_newOfferShareHouse' %}
     {% set titleService = 'Casa compartida' %}
+
+{% elseif service == 8 %}
+    {% set pathFilter = path('serHouseRents') %}
+    {% set routingOffer = 'house_offerHouseSwap' %}
+    {% set routingNewOffer = 'house_newOfferHouseSwap' %}
+    {% set titleService = 'Intercambio de casa' %}
+
+{% elseif service == 9 %}
+    {% set pathFilter = path('serHouseRents') %}
+    {% set routingOffer = 'house_offerBedroomSwap' %}
+    {% set routingNewOffer = 'house_newOfferBedroomSwap' %}
+    {% set titleService = 'Intercambio de habitaciones' %}
 
 {% endif %}
 
@@ -24,7 +37,17 @@
 {% endblock %}
 
 {% block cssParallax %}
-hre-parallax
+
+    {% if service == 6 %}
+        hre-parallax
+    {% elseif service == 7 %}
+        sh-house-parallax
+    {% elseif service == 8 %}
+        sw-house-parallax
+    {% elseif service == 9 %}
+        sw-room-parallax
+    {% endif %}
+
 {% endblock %}
 
 {% block cssTitleParallax %}
@@ -39,7 +62,7 @@ sha-header-title
     {#{ include('services/subTitles/shareCarSubTitle.html.twig') }#}
 {% endblock %}
 
-{% block alert %}
+{% block alertService %}
 
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
         {{ alerts.alert('alert-success', flash_message, null) }}
@@ -51,8 +74,9 @@ sha-header-title
 
 {% endblock %}
 
-{% block serviceFilters %} 
-    {{ include('services/filters/houseRentFilters.html.twig') }}
+{% block serviceFilters %}
+    {#{{ include('services/filters/houseRentFilters.html.twig') }}#}
+    {{ filters.filterHouse('get', pathFilter , service) }}
 {% endblock %}
             
 {% block serviceList %}
@@ -66,7 +90,7 @@ sha-header-title
 
         {{ houses.element(path(routingOffer,{idOffer: offer.offer_id}), asset(offer.house_photo,'img'), imgSmall1, imgSmall2, offer.title,
             offer.capacity, offer.bedrooms, offer.bathrooms, path('user_public_profile',{username: offer.username}), asset(offer.user_photo,'img'),
-            offer.username, offer.price, offer.avg_score ) }}
+            offer.username, offer.price, offer.avg_score, service ) }}
     {% endfor %}
 
     {% if pagination is not null %}
@@ -74,7 +98,7 @@ sha-header-title
             {{ knp_pagination_render(pagination) }}
         </div>
     {% endif %}
-        
+
 {% endblock %}
 
 {% block filtroMovilBody %}

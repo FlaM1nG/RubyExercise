@@ -1,6 +1,7 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
 {% import 'macros/offer.html.twig' as offers %}
 {% import 'macros/script.html.twig' as codMenu %}
+{% import 'macros/popup.html.twig' as popups %}
 
 {% block title %}
     Mis ofertas publicadas
@@ -46,15 +47,14 @@
             {% else %}
 
                 {% for purchase in pagination %}
-
                     {% set urlValoration = '' %}
                     {% if purchase.valorated is not empty %}
-                        {% set urlValoration = path('user_profiler_purchasesValoration',{idOffer: purchase.offer_id}) %}
+                        {% set urlValoration = path('user_profiler_purchasesValoration',{typeOffer: app.request.get('typeOffer') ,idOffer: purchase.offer_id}) %}
                     {% endif %}
 
                     {{ offers.offUserDisfrutadas('', purchase.offer_photo ,purchase.title, purchase.created_date,
                         purchase.description, 'leer', urlValoration,
-                        'Valorar', '#PDF', 'PDF') }}
+                        'Valorar', '#PDF', 'PDF','buttonEnjoyed','#buttonEnjoyed',purchase.offer_id,purchase.status,'#' ) }}
                 {% endfor %}
 
                 {% if pagination is not null %}
@@ -69,11 +69,131 @@
     
 {% endblock %}
 
+{% block popupBlock %}
 
+    {% set title = 'Cancelar' %}
+
+    {{ popups.popup('modalCancel', title,include('offer/formCancelOffer.html.twig') ) }}
+
+    {{ popups.popupWithButtons('idEnjoyed', 'Estado de la oferta', '¿Ha disfrutado ya la oferta?','enjoyed','fa fa-thumbs-o-up','Oferta disfrutada','',
+                               'notEnjoyed', 'fa fa-thumbs-o-down', 'Oferta aún no disfrutada','') }}
+
+{% endblock %}
 
 {% block javascriptsFooter %}
     {{ parent() }}
     {{ codMenu.scriptUserMenu('.us-dataPersonal-row-fluid') }}
+
+    <script>
+        $(document).ready(function (){
+
+            var dataOffer;
+
+            $('[data-tooltip="true"]').tooltip({trigger: "hover"});
+
+            $(document).on('click','.buttonEnjoyed', function (e){
+                                                        e.stopPropagation();
+                                                        dataOffer = $(this).data('id');
+                                                    });
+
+            $(document).on('click', '#enjoyed', changeTransition);
+            $(document).on('click', '#notEnjoyed', function(e){
+                                                        e.preventDefault();
+                                                        $("#idEnjoyed .close").click();
+                                                    });
+
+            $(document).on('click', '.buttonCancel', function(e){
+                                                        e.preventDefault();
+                                                        dataOffer  = $(this).data('id');
+                                                    });
+
+            $(document).on('click', '#cancelation_sendForm', cancelOffer);
+
+            $(document).on('click', '#cancelation_cancelSend', function(e){
+                                                                    e.preventDefault();
+                                                                    $('#modalCancel .close').click();
+                                                                });
+
+
+            function changeTransition(e){
+
+                e.preventDefault();
+
+                var data ={'idOffer': dataOffer};
+
+                $.ajax({
+                    type: "POST",
+                    url: '{{ path('user_ajax_offerEnjoyed') }}',
+                    data: data,
+                    success: function(data) {
+                        $("#idEnjoyed .close").click();
+
+                        if(data['result'] == 'ok') {
+                            $('.contentAlert').html("<div class='alert "+
+                                    "alert-success alert-dismissible' role='alert'>"+
+                                    "<button type='button' class='close' "+
+                                    "data-dismiss='alert' aria-label='Close'>"+
+                                    "<span aria-hidden='true'>×</span>"+
+                                    "</button><strong></strong>"+data['message']+
+                                    "</div>");
+                            $('.buttonEnjoyed').attr('data_id',dataOffer).attr('disabled',true)
+                        }else{
+                            $('.contentAlert').html("<div class='alert "+
+                                    "alert-warning alert-dismissible' role='alert'>"+
+                                    "<button type='button' class='close' "+
+                                    "data-dismiss='alert' aria-label='Close'>"+
+                                    "<span aria-hidden='true'>×</span>"+
+                                    "</button><strong></strong>"+data['message']+
+                                    "</div>");
+                        }
+
+                    },
+                    error: function()
+                    {
+                        $('.contentAlert').html("<div class='alert "+
+                                "alert-warning alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                "Ha ocurrido un error, por favor inténtelo más tarde</div>");
+
+                    }
+                });
+            }
+
+            function cancelOffer(e){
+                e.preventDefault();
+                var concept = $('#cancelation_concept').val();
+
+                var data = { 'offerId': dataOffer,
+                             'concept': concept };
+
+                $.ajax({
+                    type: "POST",
+                    url: '{{ path('user_ajax_offerCancel') }}',
+                    data: data,
+                    success: function(data) {
+
+                        location.reload();
+
+                    },
+                    error: function()
+                    {
+                        $('.contentAlert').html("<div class='alert "+
+                                "alert-warning alert-dismissible' role='alert'>"+
+                                "<button type='button' class='close' "+
+                                "data-dismiss='alert' aria-label='Close'>"+
+                                "<span aria-hidden='true'>×</span>"+
+                                "</button><strong></strong>"+
+                                "Ha ocurrido un error, por favor inténtelo más tarde</div>");
+
+                    }
+                });
+
+            }
+        });
+    </script>
 
 {% endblock %}
     

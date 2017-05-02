@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Region;
 use WWW\GlobalBundle\MyConstants;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 /**
  * Description of AddressType
@@ -41,7 +42,7 @@ class AddressType extends AbstractType{
                                                     'required' => false
                                                     ))
                 
-                ->add('country', ChoiceType::class, array('label' => 'Población',
+                ->add('country', ChoiceType::class, array('label' => 'Provincia',
                                                         'required' => false,
                                                         'empty_value' => false,
                                                         'choices' =>$arrayRegion,
@@ -58,7 +59,7 @@ class AddressType extends AbstractType{
                 ->add('city','text', array('label'=>'Ciudad',
                                            'validation_groups' => array('address')))
                 
-                ->add('street','text', array('label'=>'Dirección',
+                ->add('street','text', array('label'=>'Calle',
                                              'validation_groups' => array('address')))
                 
                 ->add('zipCode','text', array('label'=>'CP',
@@ -72,13 +73,13 @@ class AddressType extends AbstractType{
                                                         'preferred_choices' => array('+34')
                                                         ))
                 
-                ->add('phone','number',array('label'=>' ',
+                ->add('phone',NumberType::class,array('label'=>'&nbsp;',
                                              'required' => false))
                      
                 ->add('id','hidden', array('label' => ' '))
                 ->add('editAddress','submit',array('label' => 'Guardar',
-                                                   'validation_groups' => false,
-                                                    'attr' => array('class' => 'btn-default editAddressButton')));
+                                                   'validation_groups' => false
+                ));
     }
     
     private function arrayPrefix(){

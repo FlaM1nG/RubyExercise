@@ -10,6 +10,7 @@ namespace WWW\CarsBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\CarsBundle\Entity\ShareCar;
 use WWW\CarsBundle\Form\ShareCarType;
@@ -18,6 +19,7 @@ use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\MyConstants;
 use WWW\CarsBundle\Entity\Car;
 use WWW\ServiceBundle\Entity\MessengerPrice;
+use WWW\ServiceBundle\Form\CancelationType;
 use WWW\ServiceBundle\Form\CourierPriceType;
 use WWW\UserBundle\Entity\Message;
 use WWW\UserBundle\Form\MessageType;
@@ -30,17 +32,12 @@ class ShareCarController extends Controller {
     
     public function createShareCarAction(Request $request){
 
-        $route = $request->get('_route');
-
-        $request->getSession()->set('_security.user.target_path',$route);
-
         $arrayCourierPrice = null;
         $fileRender = 'CarsBundle:ShareCar:newShareCarOffer.html.twig';
         $shareCar = new ShareCar();
         $service = null;
 
         $arrayCars = $this->getCarsUser($request);
-
 
         if(strpos($request->getPathInfo(),'share-car') !== false):
             $service = 4;
@@ -69,10 +66,7 @@ class ShareCarController extends Controller {
             endif;
         endif;
         
-        return $this->render($fileRender,
-                       array('form' => $form->createView()
-                       )
-        );
+        return $this->render($fileRender, array('form' => $form->createView()));
     }
 
     private function getCarsUser(Request $request){
@@ -205,7 +199,21 @@ class ShareCarController extends Controller {
 
     public function offerCarAction(Request $request){
 
-        $shareCar = $this->getOfferShareCar($request);
+        //Miramos si venimos del perfil para que en ese caso si el coche se borró, igualmente me enseñe la oferta
+        if( strpos(parse_url($request->headers->get('referer'),PHP_URL_PATH),'user/profile/offers')!== false):
+            $profile = true;
+        else:
+            $profile = false;
+        endif;
+
+        $shareCar = $this->getOfferShareCar($request,$profile);
+
+        if($shareCar == 'error_shareCar'):
+            return $this->redirectToRoute('serShareCar');
+        elseif($shareCar == 'error_courier'):
+            return $this->redirectToRoute('serCourier_list');
+        endif;
+
         $courierPrice = null;
         $listCourierPrice = null;
         $formCourierPrice = null;
@@ -255,14 +263,21 @@ class ShareCarController extends Controller {
 
         elseif($formCourierPrice->isSubmitted()):
 
-            $this->offerSubscribe($request, $shareCar, $listCourierPrice);
+            $inscription = $this->offerSubscribe($request, $shareCar, $listCourierPrice);
             $nameService = "";
-            if($service == 4) $nameService = 'share-car';
-            elseif($service == 5) $nameService = 'courier-car';
+            
+            if($service == 4):
+                $nameService = 'share-car';
+            
+            elseif($service == 5):
+                $nameService = 'courier-car';
+                $request->getSession()->set('idInscription', $inscription);
+
+            endif;    
 
             return $this->redirectToRoute(  'acme_payment_homepage', array(
                                             'idOffer'=> $shareCar->getOffer()->getId(),
-                                            'service'=> $nameService,
+                                            'service'=> $nameService
                                                 ));
         endif;
 
@@ -278,7 +293,7 @@ class ShareCarController extends Controller {
         
     }
 
-    private function getOfferShareCar(Request $request){
+    private function getOfferShareCar(Request $request, $profile = null){
 
         $file = MyConstants::PATH_APIREST.'services/share_car/get_share_car.php';
         $ch = new ApiRest();
@@ -288,9 +303,21 @@ class ShareCarController extends Controller {
         $data['id'] = $id;
         $data['option'] = "offer";
 
-        $result = $ch->resultApiRed($data, $file);
+        if($profile):
+            $data['forceWithCar'] = true;
+        endif;
 
-        $shareCar = new ShareCar($result);
+        $result = $ch->resultApiRed($data, $file);
+        if($result['result'] == 'ok' AND isset($result['car']['existCar'])):
+            $shareCar = new ShareCar($result);
+
+        elseif($result['result'] == 'ok' AND $result['car']['result'] == 'data_error'):
+            if($result['service_id'] == '4'):
+                $shareCar = 'error_shareCar';
+            else:
+                $shareCar = 'error_courier';
+            endif;
+        endif;
 
         return $shareCar;
 
@@ -361,6 +388,7 @@ class ShareCarController extends Controller {
 
     private function offerSubscribe(Request $request, ShareCar $shareCar, $listPrices = null){
 
+        $idInscription = null;
         $ch = new ApiRest();
         $ut = new Utilities();
         $file = MyConstants::PATH_APIREST."services/inscription/subscribe_user.php";
@@ -375,9 +403,17 @@ class ShareCarController extends Controller {
             $data['newInscription'] = true;
             $shareCar->setPrice($listPrices[$data['id_messengerPrice']]->getPriceEs());
         endif;
-//print_r($shareCar);
+
 
         $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+            if(array_key_exists('id_inscription', $result)){
+                $idInscription = $result['id_inscription'];
+            }
+        endif;
+
+        return $idInscription;
 
     }
 
@@ -387,8 +423,9 @@ class ShareCarController extends Controller {
         $message = $this->fillMessage($request, $offer);
 
         $formMessage = $this->createForm(MessageType::class, $message);
-
         $formMessage->handleRequest($request);
+
+        $formCancelation = $this->createForm(CancelationType::class,null, array('inscription' => true));
 
         if($formMessage->isSubmitted()):
             $this->sendMessage($request, $offer);
@@ -396,7 +433,8 @@ class ShareCarController extends Controller {
 
         return $this->render('offer/inscription.html.twig',
                         array('offer' => $offer,
-                              'formMessage' => $formMessage->createView()));
+                              'formMessage' => $formMessage->createView(),
+                              'formCancelation' => $formCancelation->createView()));
     }
 
     private function getDataCourier(Request $request, &$priceMin){
@@ -447,5 +485,33 @@ class ShareCarController extends Controller {
         endif;
 
     }
-    
+
+    public function cancelInscriptionAction(Request $request){
+
+        $file = MyConstants::PATH_APIREST.'services/trade/cancel_trade.php';
+        $ch = new ApiRest();
+        $response = new JsonResponse();
+        $ut = new Utilities();
+
+        $data['id'] = $request->getSession()->get('id');
+        $data['username'] = $request->getSession()->get('username');
+        $data['password'] = $request->getSession()->get('password');
+        $data['user_id'] = $request->get('user_id');
+        $data['offer_id'] = $request->get('offer_id');
+        $data['concept'] = $request->get('concept');
+//        $data['inscription_id'] = $request->get('inscription_id');
+
+        $result = $ch->resultApiRed($data,$file);
+
+        if($result['result'] == 'ok'):
+            $ut->flashMessage('Cancelación realizada con éxito', $request,$result);
+            $response->setData(array('result' => 'ok'));
+        else:
+            $response->setData(array('result' => 'ko', 'message' => 'No se ha podido llevar a cabo la cancelación, por 
+            favor inténtelo más tarde. En caso de que siga teniendo problemas póngase en contacto con nuestro servicio 
+            de atención al cliente'));
+        endif;
+
+        return $response;
+    }
 }

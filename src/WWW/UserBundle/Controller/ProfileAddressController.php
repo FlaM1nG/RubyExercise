@@ -43,6 +43,8 @@ class ProfileAddressController extends Controller
     }
     
     public function newAddressAction(Request $request){
+
+        $this->redirectRouteAddresses($request);
         
         $address = new Address();
         $formAddress = $this->createForm(AddressType::class, $address);
@@ -53,13 +55,51 @@ class ProfileAddressController extends Controller
             $result = $this->createAddress($request, $address);
 
             if($result == 'ok'):
-                return $this->forward('UserBundle:ProfileAddress:listAddress');
+
+                $path = $request->getSession()->get('_security.user.target_path');
+                
+                if (!empty($path)):
+                    $request->getSession()->remove('_security.user.target_path');
+
+                    if(strpos($path, '/payment/trade/offer/') !== false):
+                        return $this->redirect($path);
+                    else:
+                        return $this->redirect($this->generateUrl($path));
+                    endif;
+                else:
+                    return $this->forward('UserBundle:ProfileAddress:listAddress');
+                    
+                endif;
+
             endif;
         endif;
-        
+       
         return $this->render('UserBundle:Profile:profileNewAddress.html.twig',
                              array('form' => $formAddress->createView() )
                             );
+    }
+
+    private function redirectRouteAddresses(Request $request){
+
+        $path = parse_url($request->headers->get('referer'),PHP_URL_PATH);
+
+        if($path == $this->generateUrl('service_newClothes')):
+            $request->getSession()->set('_security.user.target_path','service_newClothes');
+
+        elseif($path == $this->generateUrl('service_newTrade')):
+            $request->getSession()->set('_security.user.target_path','service_newTrade');
+
+        elseif($path == $this->generateUrl('service_newBarter')):
+            $request->getSession()->set('_security.user.target_path','service_newBarter');
+
+        elseif(strpos($path, '/payment/trade/offer/') !== false):
+            $request->getSession()->set('_security.user.target_path',$request->headers->get('referer'));
+        //vengo de hacer un submit o de cualquier otro sitio
+        elseif($path != $this->generateUrl('user_profiler_newAdress')):
+            $request->getSession()->remove('_security.user.target_path');
+        
+        endif;
+
     }
     
     private function createAddress(Request $request, $address){
@@ -126,10 +166,9 @@ class ProfileAddressController extends Controller
         
         $arrayAddress = $user->getAddresses();
         $addressDefault = $user->getDefaultAddress();
-        
         $address = null;
         
-        if($addressDefault->getId() == $idAddress):
+        if(!empty($addressDefault) AND $addressDefault->getId() == $idAddress):
             $address = $addressDefault;
             $address->setIsDefault(true);
         else:
@@ -147,14 +186,14 @@ class ProfileAddressController extends Controller
     }
     
     private function updateAddress(Request $request, $address, $ut){
-        
+
         $ch =  new ApiRest();
         $file = MyConstants::PATH_APIREST."user/addresses/update_address.php";
 
         $data['id_user'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
-        $data['id'] = $address->getId();
+        $data['id'] = $request->get('idAddress');
         $data['name'] = "'".$address->getName()."'";
         $data['street'] = "'".$address->getStreet()."'";
         $data['country'] = "'".$address->getCountry()->getCountry()."'";
@@ -194,15 +233,19 @@ class ProfileAddressController extends Controller
         $result = $ch->resultApiRed($data, $file);
         
         $response = new JsonResponse();
-       
+
         if($result['result'] == 'ok'):
             $response->setData(array(
                 'result' => 'ok',
                 'message' => 'Datos actualizados correctamente'));
-        else:
+        elseif($result['result'] == 'data_error' AND $result['error'] == 'addressTrade'):
              $response->setData(array(
                 'result' => 'ko',
-                'message' => 'Ha ocurrido un error, por favor vuelva a intentarlo'));
+                'message' => 'No se ha podido llevar a cabo el borrado, la dirección está asociada a ofertas de compra-venta'));
+        else:
+            $response->setData(array(
+                'result' => 'ko',
+                'message' => 'Ha ocurrido un error, por favor, vuelvalo intentar más tarde'));
         endif;
         
         return $response;

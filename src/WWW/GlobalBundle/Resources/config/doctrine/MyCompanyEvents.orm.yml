@@ -21,6 +21,11 @@ WWW\GlobalBundle\Entity\MyCompanyEvents:
         ocuppate:
             type: boolean
             nullable: true
+        blocked:
+            type: boolean
+            nullable: true
+        inscriptionID:
+            type: integer
         url:          
             type: string
             length: 255
@@ -50,16 +55,14 @@ WWW\GlobalBundle\Entity\MyCompanyEvents:
             nullable: true
         allDay:          
             type: boolean
-        otherFields:          
-            type: string
         serviceID:
             type: integer
-    manyToOne:
-            calendar:
-                targetEntity: Calendar
-                inversedBy: myCompanyEvents
-                joinColumn:
-                    referencedColumnName: id
+#    manyToOne:
+#            calendar:
+#                targetEntity: Calendar
+#                inversedBy: myCompanyEvents
+#                joinColumn:
+#                    referencedColumnName: id
             service:
                 nullable: true
                 targetEntity: WWW\ServiceBundle\Entity\Service

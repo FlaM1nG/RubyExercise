@@ -69,23 +69,19 @@ function validaRegistro(){
     var validar = true;
     
     if(!validaUsername(username)){
-        console.log("Username Debe rellenar este dato");
         validar = false;
     }
    
     if(year ==="" || mes ==="" || dia==="" || !validaFecha(year,mes,dia)){
-        console.log("Debe ser mayor de edad");
         validar = false;
     }
     
     if(!validaEmail(email)){
-        console.log("Email no válido");
         validar = false;
     }
     
     
     if(!validaPassword(password1,password2)){
-        console.log("Contraseña no válida");
         validar = false;
     }
     
@@ -113,7 +109,6 @@ function validaForgot(){
     var validar = true;
 
     if(!validaPassword(password1,password2)){
-        console.log("Contraseña no válida");
         validar = false;
     }
     

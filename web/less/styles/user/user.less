@@ -1,5 +1,22 @@
 /* ------------------ USER  ------------------
 ******************************************************************/
+//.input-group-addon {
+//    border: 1px solid #ccc !important;
+//}
+
+.input-especial{
+    z-index: 0;
+}
+
+.row-hr{
+    hr{
+        margin: 0 0 10px 0;
+    }
+}
+
+.row-house{
+    padding-bottom: 40px;
+}
 
 .row-us-name{
     padding-top: 10px;
@@ -15,6 +32,7 @@
     border: 1px solid @brand-primary;
     margin-bottom: 30px;
     .sombra-general2;
+    margin-top: 20px;
 
     .us-val{
         padding-bottom: 10px;
@@ -197,6 +215,20 @@
     .us-writte-btn{
         padding: 6px 12px;
         float: none;
+    }
+}
+
+.us-tel {
+    display: flex;
+
+    .us-pref-tel{
+        display:inline-block;
+        width: 25%;
+    }
+
+    .us-num-tel{
+        display: inline-block;
+        width: 75%;
     }
 }
 
@@ -412,14 +444,27 @@
     float: none;
 }
 
-.us-mess-sent-element{
+.us-mess-sent-element, #replyForm{
     .us-open-mess{
         margin: 0 auto;
         float: none;
+        border: 1px solid @gray-base;
+        .sombra-general2;
+        padding: 0 5%;
+    }
+}
+
+#replyForm{
+    .us-open-mess{
+        padding: 3% 5%;
     }
 }
 
 .btn.btn-default.us-profileAddresses {
+    float: none;
+}
+
+.btn.btn-default.us-profileBtnLeft{
     float: none;
 }
 /* ***** FIN PROFILE ***** */
@@ -523,8 +568,8 @@
 }
 
 .us-image-checkbox input[type="checkbox"],
-.check-payment-method input[type="checkbox"],
-.check-send-method input[type="checkbox"]{
+.check-payment-method input[type="radio"],
+.check-send-method input[type="radio"]{
     display: none;
 }
 
@@ -656,6 +701,7 @@ input#registroUsuario_captcha {
 /* *****  ***** */
 .us-number-comments{
     text-align: center;
+    padding:0.5em 0;
 
     span{
         font-size: 16px;
@@ -1268,6 +1314,14 @@ Sidebar
         color: transparent;
     }
 }
+
+li.has-children {
+    list-style-type: none;
+
+    ul {
+        list-style-type: none;
+    }
+}
 @media only screen and (min-width: 1170px) {
     .cd-side-nav {
         width: 200px;
@@ -1577,7 +1631,7 @@ Sidebar
     }
 
     .us-login-cont{
-        padding-top: 0;
+        //padding-top: 0;
 
         .row{
             width: inherit;

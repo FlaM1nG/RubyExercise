@@ -4,18 +4,19 @@
 
 
 {% block title %}
-Coches
+    Coches
+
 {% endblock %}
 
 {% block alertProfile %}
 
-{% for flash_message in app.session.flashbag.get('messageSuccess') %}
-{{ alerts.alert('alert-success', flash_message, null) }}
-{% endfor %}
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
 
-{% for flash_message in app.session.flashbag.get('messageFail') %}
-{{ alerts.alert('alert-warning', flash_message, null) }}
-{% endfor %}
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
 
 
 {% endblock %}
@@ -23,8 +24,6 @@ Coches
 
 {% block javascriptsHeader %}
     {{ parent() }}
-
-
 
 {% endblock %}
 
@@ -34,16 +33,31 @@ Coches
     <div class="row us-dataPersonal-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h3>
-                Coches
+                Mis Coches
             </h3>
             <hr/>
-            {% for car in arrayCars %}
-                
-                {{ coches.coche(path('user_profileCar', {idCar: car.id}), asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img'), car.plate,
-                car.model.brand.name, car.model.name, car.seats, car.description,
-                path('user_profileEditCar', {idCar: car.id} ), 'dataEdit', 'titleEdit',
-                '#', car.id, 'Delete car') }}
-            {% endfor %}
+
+            {% if arrayCars is not empty %}
+                {% for car in arrayCars %}
+
+                    {{ coches.coche(path('user_profileCar', {idCar: car.id}), asset(car.photos.0.url|default('web/img/placeholder.jpg'),'img'), car.plate,
+                    car.model.brand.name, car.model.name, car.seats, car.description,
+                    path('user_profileEditCar', {idCar: car.id} ), 'dataEdit', 'titleEdit',
+                    '#', car.id, 'Delete car') }}
+                {% endfor %}
+
+            {% else %}
+
+                <a href="{{ path('user_profileNewCar') }}" class="btn btn-default us-profileBtnLeft">Nuevo coche</a>
+
+                <h4>
+                    No tiene ningún coche creado.
+                </h4>
+                <p>
+                    Para poder crear ofertas de vehículos debe de crear uno.
+                </p>
+
+            {% endif %}
         </div>
     </div>
 

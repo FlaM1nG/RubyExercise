@@ -1,10 +1,11 @@
 {% macro userList(href, src, nombre) %}
+
 <!-- IMAGEN USUARIO -->
 <div class="row">
     <a href="{{ href|default('#')|e }}">
         <img class="center-block img-circle 
             img-responsive us-perfil-list" 
-            src="{{ src|e|default(asset('img/userDefault.jpg')) }}" 
+            src="{{ asset(src|e|default('web/img/userDefault.jpg'),'img') }}"
             alt="img-perfil-{{ nombre|e }}">
     </a>
             
@@ -28,12 +29,14 @@
 
 
 {% macro userOffer(href, src, nombre) %}
+
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="us-perfil-list center-block">
                 <a class="off-user-image" href="{{ href|e }}">
                     <img class=" img-circle img-responsive"
-                         src="{{ src|e }}"
+                         src="{{ asset(src|e|default('web/img/userDefault.jpg'),'img') }}"
+                         {#src="{{ asset(src|e|default('img/userDefault.jpg'), 'img') }}"#}
                          alt="">
                 </a>
             </div>
@@ -58,7 +61,7 @@
         <div class="us-perfil-list center-block">
             <a href="{{ href|default('#')|e }}">
                 <img class="img-responsive"
-                     src="{{ src|e|default(asset('img/userDefault.jpg')) }}"
+                     src="{{ asset(src|e|default('web/img/userDefault.jpg'),'img') }}"
                      alt="img-perfil-{{ nombre|e }}">
             </a>
         </div>
@@ -157,7 +160,7 @@
 
 
 
-{% macro userInscr(href, src, nombre, estrellas, valoraciones, escribe, formMessage) %}
+{% macro userInscr(href, src, nombre, estrellas, valoraciones, escribe, formMessage, idUser, idInscription, pesoPaqueteMin, pesoPaqueteMax) %}
     {% import 'macros/star.html.twig' as est %}
 
     <div class="user-inscrip">
@@ -166,7 +169,7 @@
                 <div class="us-perfil-list center-block">
                     <a href="{{ href|default('#')|e }}">
                         <img class="img-responsive"
-                             src="{{ asset(src, 'img')|default(asset('img/userDefault.jpg', 'img'))|e }}"
+                             src="{{ asset(src, 'img')|default(asset('web/img/userDefault.jpg', 'img'))|e }}"
                              alt="img-perfil-{{ nombre|e }}">
                     </a>
                 </div>
@@ -200,13 +203,30 @@
             </div>
         </div>
 
+        {% if pesoPaqueteMin is not null and pesoPaqueteMax is not null %}
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center us-val">
+                    Bulto de {{ pesoPaqueteMin }} - {{ pesoPaqueteMax }} kg
+                </div>
+            </div>
+        {% endif %}
+
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <button class="btn-default btn off-btn-write butonWriteUser"
                         data-toggle="modal"
                         data-target="#writeUser"
                         data-name="{{ nombre }}">
-                    Escríbele
+                    <i class="fa fa-pencil"></i>
+                </button>
+
+                <button class="btn-default btn off-btn-write butonCancel"
+                        data-toggle="modal"
+                        data-target="#cancelUser"
+                        data-name="{{ nombre }}"
+                        data-id="{{ idUser }}"
+                        data-inscription ="{{ idInscription }}">
+                    <i class="fa fa-times"></i>
                 </button>
             </div>
         </div>

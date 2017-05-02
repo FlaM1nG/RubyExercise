@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block body %}
+
   {{form_start(form)}}
     <div class="container cd-main-content">
         <div class="row">
@@ -19,6 +20,8 @@
                 <hr/>
             </div>
         </div>
+
+    {% if service == 1 or service == 2 %}
 
         <div class="cont-pago">
             <div class="row">
@@ -30,46 +33,66 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                     <div class="form-group">
-                        {{form_row(form.addressPay)}}
+
+                        {% if arrayAddresses is not empty %}
+                            {{form_row(form.addressPay)}}
+                        {% else %}
+                            No tiene ninguna dirección creada, debe crear una para poder continuar con el proceso de compra <br>
+                            Puede crear una nueva dirección pulsando <a href="{{ path('user_profiler_newAdress') }}">aquí</a>
+                        {% endif %}
                     </div>
                 </div>
-
+            {% if arrayAddresses is not empty %}
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-group">
                         <label class="form-cien">&nbsp;</label>
-                        <a href="#" class="btn btn-default btn-normal">
-                            Nueva dirección
-                        </a>
+                        <a href="{{ path('user_profiler_newAdress') }}" class="btn btn-default btn-normal">Nueva dirección</a>
+                        {#{{form_row(form.newAddress)}}#}
                     </div>
                 </div>
+            {% endif %}
             </div>
 
-            <div class="row">
+        {% if service == 1 and offer.category.id == 2 and offer.price >= 100 and
+              (offer.region|lower != 'ceuta' and offer.region|lower != 'melilla' and offer.region|lower !='baleares' and
+               offer.region|lower != 's.c.tenerife' and offer.region|lower != 'las palmas') %}
+            <div class="row tra-testing">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 separacion-inferior">
                     <label class="checkbox-inline">
-                        {{form_widget(form.facture)}}  
-                      
+                    {{form_widget(form.sendOffice)}}
+
                     </label>
                 </div>
             </div>
+        {% endif %}
 
-            <div class="row row-facturacion hidden">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        {{form_row(form.dirFac)}}
-                    </div>
-                </div>
+            {#<div class="row">#}
+                {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 separacion-inferior">#}
+                    {#<label class="checkbox-inline">#}
+                        {#{{form_widget(form.facture)}}  #}
+                      {##}
+                    {#</label>#}
+                {#</div>#}
+            {#</div>#}
 
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label for="usr">DNI/NIF</label>
-                            {{form_widget(form.dni)}}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {#<div class="row row-facturacion hidden">#}
+                {#<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">#}
+                    {#<div class="form-group">#}
+                        {#{{form_row(form.dirFac)}}#}
+                    {#</div>#}
+                {#</div>#}
+
+                {#<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">#}
+                    {#<div class="form-group">#}
+                        {#<div class="form-group">#}
+                            {#<label for="usr">DNI/NIF</label>#}
+                            {#{{form_widget(form.dni)}}#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
         </div>
+    {% endif %}
 
         <div class="cont-pago">
             <div class="row">
@@ -82,27 +105,25 @@
                 <div class="us-check-group-element col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label class="check-payment-method center-block" title="Paypal">
                         <img class="img-responsive center-block img-metodo-pago" src="{{ asset('img/paypal.png') }}" />
-                        {{form_widget(form.paypal)}}
+                        {{ form_widget(form.payMethod.0, {'attr': {'class':'checkPayMethod center-block'}}) }}
                     </label>
 
-                    {#<span class="us-register-text-hobby">#}
-                    {#Paypal#}
-                    {#</span>#}
                 </div>
 
                 <div class="us-check-group-element col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label class="check-payment-method center-block" title="Tarjeta">
                         <img class="img-responsive center-block img-metodo-pago" src="{{ asset('img/tarjetas3.jpg') }}" />
-                        {{form_widget(form.card)}}
+                        {#{{form_widget(form.card)}}#}
+                        {{ form_widget(form.payMethod.1, {'attr': {'class':'checkPayMethod center-block'}}) }}
                     </label>
 
-                    {#<span class="us-register-text-hobby">#}
-                    {#Tarjeta#}
-                    {#</span>#}
                 </div>
             </div>
         </div>
 
+    <!-- Métodos de envío -->
+
+    {% if service == 1 or service == 2 %}
         <div class="cont-pago">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 separacion-inferior">
@@ -111,46 +132,34 @@
             </div>
 
             <div class="row row-send-method">
-                <div class="us-check-group-element col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        {# Si el trade viene con el array de precios vacío es por que el peso del paquete excede de 30kg #}
+        {% if offer.weight <= 30 %}
+                 <div class="us-check-group-element col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label class="check-send-method center-block" title="Correos">
                         <img class="img-responsive center-block img-metodo-envio" src="{{ asset('img/correos.jpg') }}" />
-                        {{form_widget(form.correos)}}
+                        {{ form_widget(form.sendMethod.0,{'id':'sendMethod_correos','attr': {'class':'check-send-method center-block'}}) }}
                     </label>
 
-                    {#<span class="us-register-text-hobby">#}
-                    {#Correos#}
-                    {#</span>#}
                 </div>
-
-                <div class="us-check-group-element col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <label class="check-send-method center-block" title="DHL">
-                        <img class="img-responsive center-block img-metodo-envio" src="{{ asset('img/dhl.png') }}" />
-                        {{form_widget(form.dhl)}}
-                    </label>
-
-                    {#<span class="us-register-text-hobby">#}
-                    {#DHL#}
-                    {#</span>#}
-                </div>
-
-                <div class="us-check-group-element col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        {% endif %}
+                 <div class="us-check-group-element col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label class="check-send-method center-block" title="Otros">
                         <img class="img-responsive center-block img-metodo-envio" src="{{ asset('img/otro.png') }}" />
-                        {{form_widget(form.otros)}}
+                        {{ form_widget(form.sendMethod.1,{'id':'sendMethod_others','attr': {'class':'check-send-method center-block'}}) }}
                     </label>
 
-                    {#<span class="us-register-text-hobby">#}
-                    {#Otros#}
-                    {#</span>#}
                 </div>
             </div>
         </div>
 
+    {% endif %}
+    <!-- Fin métodos de envío -->
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <h4>Total</h4>
-                <h4>{{ offer.price|number_format(2, ',') }} €</h4>
+                <h4 class="precioTotal">{{ form.totalAmount.vars.value|number_format(2, ',') }} €</h4>
+                {{form_widget(form.totalAmount)}}
                 {{form_row(form.submit, {'id': 'pagar_ofertas'})}}
             </div>
         </div>
@@ -165,13 +174,34 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% if (service == 1 or service == 2) and offer.weight <= 30 %}
                         <tr>
                             <td>Gastos de envío</td>
-                            <td class="text-right">Precio</td>
+                            <td class="text-right gastosEnvio">0.00 €</td>
+                            {{ form_row(form.shippingCost) }}
                         </tr>
+                    {% endif %}
+
                         <tr>
-                            <td>%IVA</td>
-                            <td class="text-right">Precio</td>
+                            <td>Gastos de gestión</td>
+                            <td class="text-right gastosGestion">0.00 €</td>
+                            {{ form_row(form.managementFee) }}
+                        </tr>
+
+                    {% if service == 1 and offer.category.id == 2 and offer.price >= 100 and
+                    (offer.region|lower != 'ceuta' and offer.region|lower != 'melilla' and offer.region|lower !='baleares' and
+                    offer.region|lower != 's.c.tenerife' and offer.region|lower != 'las palmas')%}
+                        <tr class="tra-testing">
+                            <td>Gastos de comprobación</td>
+                            <td class="text-right gastosComprobacion"> 0.00 €</td>
+                            {{ form_row(form.testingCost) }}
+                        </tr>
+                    {% endif %}
+
+                        <tr>
+                            <td> Gastos de gestión de pago <span>+2% pago con paypal</span></td>
+                            <td class="text-right gestionPago">0.00 €</td>
+                            {{ form_row(form.managementPayFee) }}
                         </tr>
                         <tr class="table-pago-total">
                             <th></th>
@@ -179,16 +209,15 @@
                         </tr>
                         <tr class="table-pago-total">
                             <td></td>
-                            <td>{{ offer.price|number_format(2, ',') }} €</td>
+                            <td class="precioTotal">{{ (offer.price)|number_format(2, ',') }} €</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-
-
     </div>
+
 {% endblock %}
 
 {% block javascriptsFooter %}
@@ -198,6 +227,17 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            function calculaGastosGestion(precioTotal){
+
+                var gastos = precioTotal*{{ administrationFees }}
+
+                $('.gastosGestion').html(parseFloat(gastos).toFixed(2)+' €');
+                $('#previoPago_managementFee').val(gastos);
+
+                return parseFloat(gastos).toFixed(2);
+
+            }
 
             {# Funcionalidad para mostrar o no para realizar factura. #}
             $('.check-facturacion').on('click', function () {
@@ -227,6 +267,39 @@
                 $(this).parent().toggleClass('check-send-method-checked');
             });
 
+            {% if (service == 1 or service == 2) and arrayAddresses is not empty %}
+                    {{ include('pay/payGastosEnvio.html.twig') }}
+
+            {% else %}
+
+                $(document).on('click','.checkPayMethod', function (){ actualizaGastosGestionPago();});
+
+                function actualizaGastosGestionPago(){
+                    var gastos = 0;
+                    var total = 0;
+                    var administrationFees = calculaGastosGestion({{ offer.price }});
+                    var precio = parseFloat({{ offer.price }})
+
+                    total = parseFloat(precio) + parseFloat(administrationFees);
+
+                    if (document.getElementById('previoPago_payMethod_0').checked) {
+                        gastos = total *{{ paypalFee }};
+                    }
+
+                    total = parseFloat(total+gastos);
+
+
+                    $('.gestionPago').html(parseFloat(gastos).toFixed(2) + ' €');
+                    $('#previoPago_managementPayFee').val(parseFloat(gastos).toFixed(2));
+
+                    $('.precioTotal').html(parseFloat(total).toFixed(2)+' €');
+                    document.getElementById('previoPago_totalAmount').value = parseFloat(total).toFixed(2);
+
+                }
+
+            {% endif %}
+
+
             {# Validación de datos para pago #}
             {#$('#pagar_ofertas').on('click', function () {#}
                 {#var alerta;#}
@@ -234,13 +307,13 @@
 
                 {# Comprueba de la dirección de envio no sea nula #}
                 {#if($('#dir_envio').val() == null | $('#dir_envio').val() == 'null'){#}
-                    {#console.log('VACIO');#}
+
                 {#}#}
 
                 {#mensaje = mensaje.concat("\n- LLENO");#}
 
                 {#if($('.alert-zone').length != 0){#}
-                    {#console.log($('.alert-zone'));#}
+
                     {#$('.alert-zone').text(mensaje);#}
                     {#$('.alert-zone').text().replace(/\n/g,'<br/>');#}
                 {#}else{#}
