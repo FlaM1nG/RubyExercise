@@ -174,7 +174,7 @@
                          
                 <div class="row us-mess-buttons">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <a href="#PDF" class="btn btn-default us-mess-btn"
+                        <a href="{{ hrefPDF|e }}" class="btn btn-default us-mess-btn"
                            data-id="PDF"
                            data-toggle="tooltip"
                            data-placement="bottom"
@@ -329,7 +329,7 @@
                             <i class="fa fa-star-half-o" aria-hidden="true"></i>
                         </a>
 
-                        <a href="{{ hrefPDF|e }}" class="btn btn-default us-mess-btn"
+                        <a href="{{ hrefPDF|e  }}" class="btn btn-default us-mess-btn"
                            data-id="{{ dataPDF|e }}"
                            data-tooltip="true"
                            data-placement="bottom" 

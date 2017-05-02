@@ -4,28 +4,63 @@ namespace Factura\PDFBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class PdfController extends Controller
 {
-    
-     public function imprimirHVPdfAction(){
-    
-         $html = $this->renderView('PDFBundle:Default:index.html.twig',array());
 
-return new Response(
-    $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-    200,
-    array(
-        'Content-Type'          => 'application/pdf',
-        'Content-Disposition'   => 'attachment; filename="file.pdf"'
-    )
-);
-         
-         
-         
-     }
+    public function imprimirHVPdfAction(Request $request)
+    {
+
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+
+        $sesion = $request->getSession();
+
+        $idOferta = $request->get('idOffer');
+        
+        $id_usuario = $sesion->get('id');
+
+        //$query = "SELECT address_id FROM billing where user_id=21 and id=2";
+        $query = "SELECT * FROM user where id=$id_usuario";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $entities  = $stmt->fetchAll();
+
+        $query = "SELECT * FROM address where user_id=$id_usuario";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $domicilio  = $stmt->fetchAll();
+
+        $query = "SELECT * FROM inscription as ins inner join billing as bil on ins.user_id=bil.user_id inner join concept as con on con.billing_id=bil.id where ins.user_id=$id_usuario and ins.offer_id=$idOferta";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $referencia  = $stmt->fetchAll();
+
+
+        $html = $this->renderView('PDFBundle:Default:index.html.twig',
+            array(
+                'entities' => $entities,
+                'domicilio' => $domicilio,
+                'referencia' => $referencia,
+            ));
+
+        //Aquí defino los datos del documento como el tamaño, orientación, título, etc.
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="file.pdf"'
+            )
+        );
+
+    }
 }
-         
     /*     
          
          
@@ -144,7 +179,21 @@ return new Response(
     $this->returnPDFResponseFromHTML($html);
     }
 }
-     
+      $html = $this->renderView('PDFBundle:Default:index.html.twig',array());
+
+return new Response(
+    $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+    200,
+    array(
+        'Content-Type'          => 'application/pdf',
+        'Content-Disposition'   => 'attachment; filename="file.pdf"'
+    )
+);
+
+
+
+     }
+}
     
      
       */

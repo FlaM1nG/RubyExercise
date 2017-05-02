@@ -18,8 +18,8 @@
       <div id="company">
         <h2 class="name">What Want Web</h2>
         <div>Avenida Fernando Rios 11, </div>
-        <div>(958) 209372</div>
-        <div><a href="mailto:company@example.com">whatwantweb@whatwantweb.com</a></div>
+        <div>(958) 049052</div>
+        <div><a href="mailto:support@whatwantweb.com">support@whatwantweb.com</a></div>
       </div>
       </div>
     </header>
@@ -27,21 +27,28 @@
       <div id="details" class="clearfix">
         <div id="client">
           <div class="to">Factura para:</div>
-          <h2 class="name">John Doe</h2>
-          <div class="address">796 Silver Harbour, TX 79273, US</div>
-          <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+
+          {% for entities in entities%}
+          <h2 class="name">{{entities.name}} {{entities.surname}}</h2>
+          {% for domicilio in domicilio%}
+          <div class="address">{{domicilio.street}},{{domicilio.zip_code}} {{domicilio.city}} ({{domicilio.region}}), {{domicilio.country}}</div>
+          {% endfor %}
+          <div class="email"><a href="mailto:{{entities.email}}">{{entities.email}}</a></div>
+          {% endfor %}
         </div>
         <div id="invoice">
-          <h1>Nº FACTURA: 283</h1>
-          <h1>Nº REFERENCIA: 3283</h1>
-          <div class="date">Fecha de Factura: 01/02/2017</div>
-          <div class="date">Fecha de Pago: 28/02/2017</div>
+          {% for referencia in referencia%}
+          <h1>Nº FACTURA: {{referencia.billing_id}}</h1>
+          <h1>Nº REFERENCIA: {{referencia.reference}}</h1>
+          <div class="date">Fecha de Factura: {{referencia.date}}</div>
+          <div class="date">Fecha de Pago: {{referencia.paid_date}}</div>
+          {% endfor %}
         </div>
       </div>
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th class="no">CC REF.</th>
+            <th class="no">UNIDADES</th>
             <th class="desc">DESCRIPCIÓN</th>
             <th class="unit">PRECIO</th>
             <th class="qty">IVA</th>
@@ -50,44 +57,26 @@
         </thead>
         <tbody>
           <tr>
-            <td class="no">CV</td>
-            <td class="desc"><h3>Samsung Galaxy S7</h3>Móvil de alta gama</td>
-            <td class="unit">350€</td>
-            <td class="qty"></td>
-            <td class="total">350€</td>
-          </tr>
-          <tr>
-            <td class="no">AT</td>
-            <td class="desc"><h3>Casa</h3>Casa a las afueras de Madrid</td>
-            <td class="unit">160€</td>
-            <td class="qty">10%</td>
-            <td class="total">144€</td>
-          </tr>
-          <tr>
-            <td class="no">CC</td>
-            <td class="desc"><h3>Coche Compartido</h3>Granada-Almería</td>
-            <td class="unit">10€</td>
-            <td class="qty">10%</td>
-            <td class="total">9€</td>
+            {% for referencia in referencia%}
+            <td class="no">1</td>
+            <td class="desc"><h3>{{referencia.name}}</h3>{{referencia.description}}</td>
+            <td class="unit">{{referencia.price}}€</td>
+            <td class="qty">{{referencia.iva}}%</td>
+            <td class="total">{{referencia.price+((referencia.price*referencia.iva)/100)}}€</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
             <td colspan="2">SUBTOTAL</td>
-            <td>144€</td>
-            <td colspan="1">IVA 10%</td>
-            <td>14.40€</td>
-          </tr>
-          <tr>
-            <td colspan="2">SUBTOTAL</td>
-            <td>359€</td>
-            <td colspan="1">IVA 21%</td>
-            <td>75.39€</td>
+            <td>{{referencia.price}}€</td>
+            <td colspan="1">IVA {{referencia.iva}}%</td>
+
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">TOTAL</td>
-            <td>592,79€</td>
+            <td>{{referencia.price+((referencia.price*referencia.iva)/100)}}€</td>
+            {% endfor %}
           </tr>
         </tfoot>
       </table>
