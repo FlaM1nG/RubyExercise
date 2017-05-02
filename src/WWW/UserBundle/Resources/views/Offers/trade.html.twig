@@ -16,7 +16,6 @@
         {% endfor %}
     {% endblock %}
     {{ form_errors(formulario) }}
-{#{dump(offer)}#}
     {{ form_start(formulario) }}
     
         {{ form_row(formulario.saveTrade) }}
@@ -57,7 +56,6 @@
                   // Obtenemos la imagen del campo "file".
                   for (var i = 0 ; i< files.length; i++) {
                         var f = files[i];
-                        console.log(f);
              
                     var reader = new FileReader();
              

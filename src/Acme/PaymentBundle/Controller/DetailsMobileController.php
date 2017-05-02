@@ -190,9 +190,6 @@ class DetailsMobileController extends PayumController
         $data['data']= json_encode($extra);
 		
         $result = $ch->resultApiRed($data, $file);
-
-        //var_dump($result);
-		//die;
     }
     private function saveTrackingNumber($number,$idInscription,$details,Request $request){
         

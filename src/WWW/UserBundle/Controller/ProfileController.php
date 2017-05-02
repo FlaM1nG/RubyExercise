@@ -31,17 +31,13 @@ class ProfileController extends Controller{
     private $email = "";
     
     
-    public function profileAction(Request $request){ 
-//        echo "ENTRO";
-//       \Doctrine\Common\Util\Debug::dump((object)$this->getUser());
+    public function profileAction(Request $request){
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createAccessDeniedException();
         }
         $ut = new Utilities();
         $numMessage = $ut->messageNoRead($request);
         $this->getUserExist($request);
-
-//        print_r($this->user);
         
         $session = $request->getSession();
         if(empty($session->get('numMessage'))):
@@ -388,7 +384,6 @@ class ProfileController extends Controller{
     }
     
     private function newAddresses(Request $request){
-        echo "nueva dirección";
         $this->tabActive = "address";
         
         $arrayAddress = $this->user->getAddresses();
