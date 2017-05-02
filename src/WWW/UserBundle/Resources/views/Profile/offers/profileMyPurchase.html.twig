@@ -51,11 +51,12 @@
                     {% set urlValoration = '' %}
                     {% if purchase.valorated is not empty %}
                         {% set urlValoration = path('user_profiler_purchasesValoration',{typeOffer: app.request.get('typeOffer') ,idOffer: purchase.offer_id}) %}
+                        {% set urlFactura = path('novar_empleo_imprimirHVPdf',{idOffer: purchase.offer_id}) %}
                     {% endif %}
 
                     {{ offers.offUserDisfrutadas('', purchase.offer_photo ,purchase.title, purchase.created_date,
                         purchase.description, 'leer', urlValoration,
-                        'Valorar', '#PDF', 'PDF','buttonEnjoyed','#buttonEnjoyed',purchase.offer_id,purchase.status,'#' ) }}
+                        'Valorar', urlFactura, 'PDF','buttonEnjoyed','#buttonEnjoyed',purchase.offer_id,purchase.status,'#' ) }}
                 {% endfor %}
 
                 {% if pagination is not null %}

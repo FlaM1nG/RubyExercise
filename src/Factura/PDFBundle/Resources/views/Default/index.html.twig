@@ -19,7 +19,7 @@
         <h2 class="name">What Want Web</h2>
         <div>Avenida Fernando Rios 11, </div>
         <div>(958) 049052</div>
-        <div><a href="mailto:whatwantweb@whatwantweb.com">whatwantweb@whatwantweb.com</a></div>
+        <div><a href="mailto:support@whatwantweb.com">support@whatwantweb.com</a></div>
       </div>
       </div>
     </header>
@@ -37,10 +37,12 @@
           {% endfor %}
         </div>
         <div id="invoice">
-          <h1>Nº FACTURA: 283</h1>
-          <h1>Nº REFERENCIA: 3283</h1>
-          <div class="date">Fecha de Factura: 01/02/2017</div>
-          <div class="date">Fecha de Pago: 28/02/2017</div>
+          {% for referencia in referencia%}
+          <h1>Nº FACTURA: {{referencia.billing_id}}</h1>
+          <h1>Nº REFERENCIA: {{referencia.reference}}</h1>
+          <div class="date">Fecha de Factura: {{referencia.date}}</div>
+          <div class="date">Fecha de Pago: {{referencia.paid_date}}</div>
+          {% endfor %}
         </div>
       </div>
       <table border="0" cellspacing="0" cellpadding="0">
@@ -55,24 +57,26 @@
         </thead>
         <tbody>
           <tr>
+            {% for referencia in referencia%}
             <td class="no">1</td>
-            <td class="desc"><h3>Samsung Galaxy S7</h3>Móvil de alta gama</td>
-            <td class="unit">350€</td>
-            <td class="qty">21%</td>
-            <td class="total">420€</td>
+            <td class="desc"><h3>{{referencia.name}}</h3>{{referencia.description}}</td>
+            <td class="unit">{{referencia.price}}€</td>
+            <td class="qty">{{referencia.iva}}%</td>
+            <td class="total">{{referencia.price+((referencia.price*referencia.iva)/100)}}€</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
             <td colspan="2">SUBTOTAL</td>
-            <td>350€</td>
-            <td colspan="1">IVA 21%</td>
+            <td>{{referencia.price}}€</td>
+            <td colspan="1">IVA {{referencia.iva}}%</td>
 
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">TOTAL</td>
-            <td>420€</td>
+            <td>{{referencia.price+((referencia.price*referencia.iva)/100)}}€</td>
+            {% endfor %}
           </tr>
         </tfoot>
       </table>
