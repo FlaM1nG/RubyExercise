@@ -31,9 +31,9 @@ class DatepickerType extends AbstractType
 
                 ->add('endDate', HiddenType::class)
 
-                ->add('fechaInicial', FormType::class, array('label' => 'Fecha Inicial'))
+            //    ->add('fechaInicial', FormType::class, array('label' => 'Fecha Inicial'))
 
-                ->add('fechaFinal', FormType::class, array('label' => 'Fecha Final'))
+            //    ->add('fechaFinal', FormType::class, array('label' => 'Fecha Final'))
 
                 ->add('precioTotal', FormType::class, array('label' => 'Precio Total'))
 

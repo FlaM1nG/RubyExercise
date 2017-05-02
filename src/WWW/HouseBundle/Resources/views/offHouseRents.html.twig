@@ -42,7 +42,6 @@
 
 
 {% block offerImage %}
-    {#{{ dump(offer) }}#}
     <div id="off-img-big" class="owl-carousel">
         {% set imgGallery = []  %}
         
@@ -79,19 +78,12 @@
 {% endblock %}
 
 
-{% block offerUser %} 
-    <!-- IMAGEN USUARIO -->
-    <div class="row row-off-user-name">
-        <a class="off-user-image" href={{ path('user_public_profile', {username: offer.offer.userAdmin.username}) }}>
-            <img class=" img-circle img-responsive" 
-                src="{{ asset(offer.offer.userAdmin.photo.url|default('web/img/userDefault.jpg'), 'img') }}"
-                width="50" alt="">
-        </a>
-                    
-        <a class="off-user-name" href={{ path('user_public_profile', {username: offer.offer.userAdmin.username}) }}>{{ offer.offer.userAdmin.username }}</a>
-        
-    </div>
-    <!-- FIN NOMBRE USUARIO -->
+{% block offerUser %}
+    {{ users.userOffer(
+    path('user_public_profile',{username: offer.offer.userAdmin.username} ),
+    offer.offer.userAdmin.photo.url,
+    offer.offer.userAdmin.username)
+    }}
 {% endblock %}
 
 
@@ -117,36 +109,30 @@
                 <p>Precio Total: <span id="precioTotal"></span> €</p>
         #}
 
-
-        {{ form_label(formSubscribe.DatePicker) }}
-        {{ form_widget(formSubscribe.DatePicker) }}
-        {{ form_label(formSubscribe.DatePickerto) }}
-        {{ form_widget(formSubscribe.DatePickerto) }}
-        {{ form_widget(formSubscribe.startDate) }}
-        {{ form_widget(formSubscribe.endDate) }}
-
-
-
-
+        <div class="hre-fechas-seleccion">
+            {{ form_label(formSubscribe.DatePicker) }}
+            {{ form_widget(formSubscribe.DatePicker) }}
+            {{ form_label(formSubscribe.DatePickerto) }}
+            {{ form_widget(formSubscribe.DatePickerto) }}
+            {{ form_widget(formSubscribe.startDate) }}
+            {{ form_widget(formSubscribe.endDate) }}
+        </div>
     {% endif %}
-
-
-
 {% endblock %}
 
 
-{% block offerVote %} 
-    <!-- VALORACIONES -->
+{% block offerVote %}
     {{ rating.staticRating(offer.offer.userAdmin.avgScore) }}
-    <!-- FIN VALORACIONES -->
+
     {% if service == 6 or service == 7 %}
-    {{ form_label(formSubscribe.precioTotal) }}
-    {{ form_widget(formSubscribe.precioTotal) }}
-    {{ form_label(formSubscribe.subscribeButton) }}
-    {{ form_widget(formSubscribe.subscribeButton) }}
-
+        <div class="hre-payment">
+        {{ form_start(formSubscribe) }}
+        {{ form_label(formSubscribe.precioTotal) }}
+        {{ form_widget(formSubscribe.precioTotal) }}
+        {{ form_label(formSubscribe.subscribeButton) }}
+        {{ form_widget(formSubscribe.subscribeButton) }}
+        </div>
     {% endif %}
-
 {% endblock %}
 
 
@@ -158,16 +144,14 @@
 {% block offerDescription %}
     <p>
         {{offer.offer.description ~ offer.house.description}}
-
     </p>
 {% endblock %}
 
 
 {% block offerVariableData %}
-    
     <div class="row">
         <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12">
-            <!-- DATOS IMPORTATNES DEL SERVICIO -->
+            {#<!-- DATOS IMPORTATNES DEL SERVICIO -->#}
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h4>
@@ -178,33 +162,33 @@
             </div>
 
             <div class="row off-row-date-prin">
-                <!-- CAPACIDAD -->
+                {#<!-- CAPACIDAD -->#}
                 {{ offers.atriHouRen('capacidad', 'fa-users', offer.house.capacity,3, 6, 6, 6) }}
-                <!-- FIN CAPACIDAD -->
+                {#<!-- FIN CAPACIDAD -->#}
 
 
-                <!-- BAÑOS -->
+                {#<!-- BAÑOS -->#}
                 {{ offers.atriHouRen('baños', 'fa-bath', offer.house.bathrooms,3, 6, 6, 6) }}
-                <!-- FIN BAÑOS -->
+                {#<!-- FIN BAÑOS -->#}
 
 
-                <!-- DORMITORIOS -->
+                {#<!-- DORMITORIOS -->#}
                 {{ offers.atriHouRen('dormitorios', 'fa-home', offer.house.bedrooms,3, 6, 6, 6) }}
-                <!-- FIN DORMITORIOS -->
+                {#<!-- FIN DORMITORIOS -->#}
 
 
-                <!-- CAMAS -->
+                {#<!-- CAMAS -->#}
                 {{ offers.atriHouRen('camas', 'fa-bed', offer.house.beds,3, 6, 6, 6) }}
-                <!-- FIN CAMAS -->
+                {#<!-- FIN CAMAS -->#}
 
 
             </div>
-            <!-- FIN DATOS IMPORTATNES DEL SERVICIO -->
+            {#<!-- FIN DATOS IMPORTATNES DEL SERVICIO -->#}
         </div>
 
     {% if service == 6 or service == 7 %}
         <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
-            <!-- LLEGADA Y SALIDA -->
+            {#<!-- LLEGADA Y SALIDA -->#}
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h4>
@@ -215,231 +199,23 @@
             </div>
 
             <div class="row off-row-date-prin">
-                <!-- LLEGADA -->
+                {#<!-- LLEGADA -->#}
                 {{ offers.atriHouRen('llegada', 'fa-sign-in', offer.entryTime.date|date('H:i'),
                     6, 6, 6, 6) }}
-                <!-- FIN LLEGADA -->
+                {#<!-- FIN LLEGADA -->#}
 
 
-                <!-- SALIDA -->
+                {#<!-- SALIDA -->#}
                 {{ offers.atriHouRen('salida', 'fa-sign-out', offer.departureTime.date|date('H:i'),
                     6, 6, 6, 6) }}
-                <!-- FIN SALIDA -->
+                {#<!-- FIN SALIDA -->#}
 
 
             </div>
-            <!-- FIN LLEGADA Y SALIDA -->
+            {#<!-- FIN LLEGADA Y SALIDA -->#}
         </div>
     {% endif %}
     </div>
-    
-    
-    {#<!-- Varios -->#}
-    {#<div class="row">#}
-        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
-            {#<h4>#}
-                {#Varios#}
-            {#</h4>#}
-            {#<hr>#}
-        {#</div>#}
-    {#</div>#}
-
-        {##}
-    {#{% set col = 0 %}#}
-    {##}
-    {#{% for dato in arrayAttr.varios %}#}
-        {#{% if col == 0 %}#}
-            {#<div class="row off-row-date-second">#}
-        {#{% endif %}#}
-        {##}
-        {##}
-        {#<!-- DATO -->#}
-        {#{{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}#}
-        {#<!-- DATO -->#}
-                {##}
-                {##}
-        {#{% if col < 3 %}#}
-            {#{% set col = 1 + col %}#}
-        {#{% else %}#}
-            {#{% set col = 0 %}#}
-             {#</div>#}
-        {#{% endif %}#}
-            {##}
-   {##}
-    {#{% endfor %}#}
-    {##}
-    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
-    {#{% if col != 0 %}#}
-        {#</div>#}
-    {#{% endif %}#}
-    {##}
-    {#<!-- VARIOS -->#}
-
-    {#<!-- ACCESIBILIDAD -->#}
-    {#<div class="row">#}
-        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
-            {#<h4>#}
-                {#Varios#}
-            {#</h4>#}
-            {#<hr>#}
-        {#</div>#}
-    {#</div>#}
-
-
-    {#{% set col = 0 %}#}
-
-    {#{% for dato in arrayAttr.accesibilidad %}#}
-        {#{% if col == 0 %}#}
-            {#<div class="row off-row-date-second">#}
-        {#{% endif %}#}
-
-
-        {#<!-- DATO -->#}
-        {#{{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}#}
-        {#<!-- DATO -->#}
-
-
-        {#{% if col < 3 %}#}
-            {#{% set col = 1 + col %}#}
-        {#{% else %}#}
-            {#{% set col = 0 %}#}
-            {#</div>#}
-        {#{% endif %}#}
-
-
-    {#{% endfor %}#}
-
-    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
-    {#{% if col != 0 %}#}
-        {#</div>#}
-    {#{% endif %}#}
-
-    {#<!-- ACCESIBILIDAD -->#}
-    {##}
-    {##}
-    {#<!-- NORMAS -->#}
-    {#<div class="row">#}
-        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
-            {#<h4>#}
-                {#Normas#}
-            {#</h4>#}
-            {#<hr>#}
-        {#</div>#}
-    {#</div>#}
-        {##}
-    {#{% set col = 0 %}#}
-    {##}
-    {#{% for dato in arrayAttr['normas'] %}#}
-        {#{% if col == 0 %}#}
-            {#<div class="row off-row-date-second">#}
-        {#{% endif %}#}
-        {##}
-        {##}
-        {#<!-- DATO -->#}
-        {#{{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}#}
-        {#<!-- DATO -->#}
-                {##}
-                {##}
-        {#{% if col < 3 %}#}
-            {#{% set col = 1 + col %}#}
-        {#{% else %}#}
-            {#{% set col = 0 %}#}
-             {#</div>#}
-        {#{% endif %}#}
-            {##}
-   {##}
-    {#{% endfor %}#}
-    {##}
-    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
-    {#{% if col != 0 %}#}
-        {#</div>#}
-    {#{% endif %}#}
-    {##}
-    {#<!-- NORMAS -->#}
-
-    {#<!-- BAÑO -->#}
-    {#<div class="row">#}
-        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
-            {#<h4>#}
-                {#Baño#}
-            {#</h4>#}
-            {#<hr>#}
-        {#</div>#}
-    {#</div>#}
-
-
-    {#{% set col = 0 %}#}
-
-    {#{% for dato in arrayAttr.varios %}#}
-        {#{% if col == 0 %}#}
-            {#<div class="row off-row-date-second">#}
-        {#{% endif %}#}
-
-
-        {#<!-- DATO -->#}
-        {#{{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}#}
-        {#<!-- DATO -->#}
-
-
-        {#{% if col < 3 %}#}
-            {#{% set col = 1 + col %}#}
-        {#{% else %}#}
-            {#{% set col = 0 %}#}
-            {#</div>#}
-        {#{% endif %}#}
-
-
-    {#{% endfor %}#}
-
-    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
-    {#{% if col != 0 %}#}
-        {#</div>#}
-    {#{% endif %}#}
-
-    {#<!-- BAÑO -->#}
-    {##}
-    {##}
-    {#<!-- SEGURIDAD -->#}
-    {#<div class="row">#}
-        {#<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">#}
-            {#<h4>#}
-                {#Seguridad#}
-            {#</h4>#}
-            {#<hr>#}
-        {#</div>#}
-    {#</div>#}
-        {##}
-    {#{% set col = 0 %}#}
-
-    {#{% for dato in arrayAttr['seguridad'] %}#}
-        {#{{ dump(dato) }}#}
-        {#{% if col == 0 %}#}
-            {#<div class="row off-row-date-second">#}
-        {#{% endif %}#}
-        {##}
-        {##}
-        {#<!-- DATO -->#}
-{#{{ dump(attribute(offer.house,dato.attr)) }}#}
-        {#{{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}#}
-        {#<!-- DATO -->#}
-                {##}
-                {##}
-        {#{% if col < 3 %}#}
-            {#{% set col = 1 + col %}#}
-        {#{% else %}#}
-            {#{% set col = 0 %}#}
-             {#</div>#}
-        {#{% endif %}#}
-            {##}
-   {##}
-    {#{% endfor %}#}
-    {##}
-    {#{ SE REALIZA COMPROBACIÓN PARA CERRAR EL ROW }#}
-    {#{% if col != 0 %}#}
-        {#</div>#}
-    {#{% endif %}#}
-    {##}
-    {#<!-- SEGURIDAD -->#}
 
     {% for key, arrayDatos in arrayAttr %}
 
@@ -457,7 +233,7 @@
                     {% endif %}
 
 
-                    <!-- DATO -->
+                    {#<!-- DATO -->#}
                     {% if service == 6 and dato.attr != 'entradaPrivada'%}
                         {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
 
@@ -465,7 +241,7 @@
                         {{ offers.atriOffer(dato.label, attribute(offer.house,dato.attr)) }}
 
                     {% endif %}
-                    <!-- DATO -->
+                    {#<!-- DATO -->#}
 
 
                     {% if col < 3 %}

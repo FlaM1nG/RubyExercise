@@ -55,7 +55,7 @@
         </header> <!-- .cd-main-header -->
         <main class="cd-main-content us-content-user">
             <nav class="cd-side-nav">
-                <ul>
+                <ul class="navProfile">
                     {#<li class="cd-label">Personal</li>#}
                     <li class="has-children misDatos
                     {% if urlDireccion == 'user_profiler' or
@@ -80,6 +80,7 @@
                             <li><a href="{{ path('user_profilePhone') }}">Teléfono</a></li>
                             <li><a href="{{ path('user_profilePhoto') }}">Foto Personal</a></li>
                             <li><a href="{{ path('user_profileChangeBank') }}">Datos bancarios</a></li>
+                            <li><a href="{{ path('user_public_profile',{username: app.session.get('username')}) }}"> Mi perfil público</a></li>
                             <li><a href="{{ path('user_unsubscribe') }}">Darse de baja</a></li>
                         </ul>
                     </li>
@@ -128,19 +129,19 @@
                         <a href="{{ path('user_profile_offers') }}">Ofertas</a>
 
                         <ul>
-                            <li>
+                            <li class="has-children">
                                 <a href="{{ path('user_profile_offers') }}">Mis ofertas</a>
                                 <ul>
-                                    <li><a href="{{ path('user_profile_offers',{typeOffer: 'vehicle'}) }}">Vehículos</a></li>
+                                    <li><a href="{{ path('user_profile_offers',{typeOffer: 'vehicles'}) }}">Vehículos</a></li>
                                     <li><a href="{{ path('user_profile_offers',{typeOffer: 'buildings'}) }}">Inmuebles</a></li>
                                     <li><a href="{{ path('user_profile_offers',{typeOffer: 'trade'}) }}">¿Qué necesitas?</a></li>
                                 </ul>
                             </li>
 
-                            <li>
+                            <li class="has-children">
                                 <a href="{{path('user_profiler_purchases')}}">Compras</a>
                                 <ul>
-                                    <li><a href="{{ path('user_profiler_purchases',{typeOffer: 'vehicle'}) }}">Vehículos</a></li>
+                                    <li><a href="{{ path('user_profiler_purchases',{typeOffer: 'vehicles'}) }}">Vehículos</a></li>
                                     <li><a href="{{ path('user_profiler_purchases',{typeOffer: 'buildings'}) }}">Inmuebles</a></li>
                                     <li><a href="{{ path('user_profiler_purchases',{typeOffer: 'trade'}) }}">¿Qué necesitas?</a></li>
                                 </ul>

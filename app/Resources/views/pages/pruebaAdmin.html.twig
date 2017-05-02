@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    Prueba admin
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+    </div>
+
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ include('nav/menuScript.html.twig') }}
+{% endblock %}

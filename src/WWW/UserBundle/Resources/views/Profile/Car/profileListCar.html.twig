@@ -4,18 +4,19 @@
 
 
 {% block title %}
-Coches
+    Coches
+
 {% endblock %}
 
 {% block alertProfile %}
 
-{% for flash_message in app.session.flashbag.get('messageSuccess') %}
-{{ alerts.alert('alert-success', flash_message, null) }}
-{% endfor %}
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
 
-{% for flash_message in app.session.flashbag.get('messageFail') %}
-{{ alerts.alert('alert-warning', flash_message, null) }}
-{% endfor %}
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
 
 
 {% endblock %}
@@ -32,7 +33,7 @@ Coches
     <div class="row us-dataPersonal-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h3>
-                Coches
+                Mis Coches
             </h3>
             <hr/>
 

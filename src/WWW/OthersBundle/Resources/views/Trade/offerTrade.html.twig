@@ -28,12 +28,12 @@
 
     <div class="container">
 
-    {% if hasAddresses %}
+    {% if addresses is not empty %}
         {{ form_start(formOffer) }}
         <div class="row">
             <div class="col-lg-12">
                 <h3>
-                    Nueva Oferta de {{ titleTrade }}
+                    Oferta de {{ titleTrade }}
                 </h3>
                 <hr/>
             </div>
@@ -45,7 +45,7 @@
                 {{ form_row(formOffer.category) }}
                 {{ form_row(formOffer.offer.title) }}
                 {{ form_row(formOffer.offer.description) }}
-                {{ form_row(formOffer.region) }}
+                {{ form_row(formOffer.address) }}
             </div>
         </div>
 
@@ -118,7 +118,7 @@
                 </h4>
                 <p>
                     Necesita tener dada de alta una dirección para poder crear este tipo de ofertas.<br>
-                    La dirección que tenga por defecto será la que se usará en caso de eviar el paquete por correos.
+                    La dirección se usará en caso de eviar el paquete por correos.
                 </p>
                 <p>
                     Para crear una direción ahora pinche <a href="{{ path('user_profiler_newAdress') }}">aquí</a>

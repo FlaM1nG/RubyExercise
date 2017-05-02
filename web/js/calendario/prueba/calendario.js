@@ -10,7 +10,7 @@ $(document).ready(function() {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay,listWeek'
+            right: 'month'
         },
 
         buttonText:
@@ -20,9 +20,7 @@ $(document).ready(function() {
             prevYear: ' &lt;&lt; ',
             nextYear: ' &gt;&gt; ',
             today:    'hoy',
-            month:    'mes',
-            week:     'semana',
-            day:      'día'
+            month:    'mes'
         },
 
         /*defaultDate: '2016-09-12',*/
@@ -39,7 +37,7 @@ $(document).ready(function() {
                 $(".fc-prev-button").prop('disabled', true).addClass('fc-state-disabled');
             }
             else {
-                $(".fc-prev-button").removeClass('fc-state-disabled').prop('disabled', false);;
+                $(".fc-prev-button").removeClass('fc-state-disabled').prop('disabled', false);
             }
             // Future
             if (maxDate >= currentView.start && maxDate <= currentView.end) {
@@ -69,6 +67,9 @@ $(document).ready(function() {
                 $('#ModalEdit #calendar_id').val($('#calendarID').val());
                 $('#ModalEdit #service_id').val($('#serviceID').val());
                 $('#ModalEdit #start').val($('#startDateCalendario').val());
+                $('#ModalEdit #idoffer').val($('#idoffer').val());
+                
+                
 
 
                 $('#ModalEdit').modal('show');
@@ -126,7 +127,7 @@ $(document).ready(function() {
             if (event.blocked == 0) {
 
                 if (event.ocuppate == 0) {
-                    //event.color = "#FFB347"; //Em andamento
+                    //event.color = "#FFB347"; 
 
                     element.css('color', '#368d3a');
                 } else {
@@ -154,6 +155,7 @@ $(document).ready(function() {
         calendarID = event.calendarID;
         serviceID = event.serviceID;
         blocked = event.blocked;
+   
 
         Event = [];
 

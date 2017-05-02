@@ -136,7 +136,7 @@
     
     
 {% macro offUserExp(hrefOffer, srcImage, titleOffer, textOffer, dataVer,
-    hrefBorrar, dataBorrar, hrefPDF) %}
+    hrefBorrar, dataBorrar, hrefPDF, classCorreos, titleCodCorreos, codCorreos, modalCorreos ) %}
     <div class="us-off-element-ex">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
@@ -189,6 +189,18 @@
                            title="{{ dataBorrar|e|capitalize }}">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
+
+                    {% if codCorreos is not empty %}
+                        <a href="#" class="btn btn-default us-mess-btn {{ classCorreos }}"
+                           data-id="{{ codCorreos|e }}"
+                           data-toggle="modal"
+                           data-target="#{{ modalCorreos }}"
+                           data-placement="bottom"
+                           title="{{ titleCodCorreos|e|capitalize }}">
+                            <i class="fa fa-barcode" aria-hidden="true"></i>
+                        </a>
+                    {% endif %}
+
                     </div>
                 </div>
                         
@@ -260,7 +272,8 @@
     
     
 {% macro offUserDisfrutadas(hrefOffer, srcImage, titleOffer, dateFact, textOffer, 
-    dataVer, hrefValorar, dataValorar, hrefPDF, dataPDF, classEnjoyed, hrefEnjoyed, dataEnjoyed, statusOffer ) %}
+    dataVer, hrefValorar, dataValorar, hrefPDF, dataPDF, classEnjoyed, hrefEnjoyed, idOffer, statusOffer,
+    hrefCancel,titleModal ) %}
     <div class="us-off-element">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
@@ -325,7 +338,7 @@
                         </a>
 
                         <a href="{{ hrefEnjoyed|e }}" class="btn btn-default us-mess-btn {{ classEnjoyed }}"
-                           data-id="{{ dataEnjoyed|e }}"
+                           data-id="{{ idOffer|e }}"
                            data-toggle="modal"
                            data-tooltip="true"
                            data-target="#idEnjoyed"
@@ -333,6 +346,17 @@
                            title="{{statusOffer == 5 ? 'Oferta disfrutada' : '¿Ha disfrutado la oferta?' }}"
                            {{ statusOffer == 5 ? 'disabled':'' }}>
                             <i class="fa fa-smile-o" aria-hidden="true"></i>
+                        </a>
+
+                        <a href="{{ hrefCancel|e }}" class="btn btn-default us-mess-btn buttonCancel"
+                           title="cancelar"
+                           data-toggle="modal"
+                           data-target="#modalCancel"
+                           data-id="{{ idOffer|e }}"
+                           data-tooltip="true"
+                           data-placement="bottom"
+                        {{ statusOffer != 3 ? 'disabled':'' }}>
+                            <i class="fa fa-times" aria-hidden="true"></i>
                         </a>
 
                     </div>

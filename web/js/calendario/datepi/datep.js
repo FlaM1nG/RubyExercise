@@ -45,7 +45,7 @@ $(document).ready(function() {
                 success: function(data) {
                     if(data.response == "OK"){
                         totalPrice = data;
-                        $('#datepicker_precioTotal').text(data.totalPrice);
+                        $('#datepicker_precioTotal').text(data.totalPrice+" €");
                         $('#datepicker_subscribeButton').attr("disabled",false);
                     }else{
                         $('#datepicker_precioTotal').text("Fecha no disponible");
@@ -90,10 +90,9 @@ $(document).ready(function() {
                 data: {'initDate' : initDate, 'endDate' : endDate,'idOffer' : idoferta},
                 type: 'post',
                 success: function(data) {
-                  //  console.log(data);
                     if(data.response == "OK"){
                     totalPrice = data;
-                    $('#datepicker_precioTotal').text(data.totalPrice);
+                    $('#datepicker_precioTotal').text(data.totalPrice+" €");
                         $('#datepicker_subscribeButton').attr("disabled",false);
                     }else{
                         $('#datepicker_precioTotal').text("Fecha no disponible");

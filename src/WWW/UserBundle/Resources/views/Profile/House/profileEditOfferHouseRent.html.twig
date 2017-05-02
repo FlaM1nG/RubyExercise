@@ -1,6 +1,5 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
-
-
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -36,129 +35,165 @@
     {{ parent() }}
 {% endblock %}
 
+{% set title = "" %}
+
+{% if service == 6 %}
+    {% set title = "Editar oferta de alquiler turístico" %}
+
+{% elseif service == 7 %}
+    {% set title = "Editar oferta de casa compartida" %}
+
+{% elseif service == 8 %}
+    {% set title = "Editar oferta de intercambio de casas" %}
+{% endif %}
 
 {% block bodyProfile %}
 
-    {% if service != 8 %}
-        <div class="container">
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                {{title}}
+            </h3>
+            <hr/>
 
-            <div class="row">
-                <div class="col-lg-8 text-center">
-                    <h1>Calendario</h1>
-                    <p class="lead">Para editar el precio pulsar dos veces sobre el precio que se desee modificar</p>
-                    <div id="calendar-holder" class="col-centered">
+            {{ form_start(form) }}
+
+            <div class="form-group">
+                <label class="control-label">Casa</label>
+                <a href="{{ path('user_profile_editHouse',{idHouse: offer.house.id}) }}" class="linkBlock">Ir a editar la casa asociada</a>
+            </div>
+
+            {{ form_row(form.houseId) }}
+            {{ form_row(form.offer.title) }}
+            {{ form_row(form.offer.description) }}
+
+            {% if service != 8 %}
+                {{ form_row(form.price) }}
+                <div class="form-group">
+                    <div class="">
+                        {{ form_label(form.entryTime) }}
+                        {{ form_widget(form.entryTime) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.departureTime) }}
+                        {{ form_widget(form.departureTime) }}
                     </div>
                 </div>
-                <div class="col-lg-8 text-left">
-                <br>
-                    <p class="lead" style="color:#008000;">&#9724; Días Libres</p>
-                    <p class="lead" style="color:#FF0000;">&#9724; Días Ocupados</p>
-                    <p class="lead" style="color:#151515;">&#9724; Días Bloqueados</p>
+
+            {% endif %}
+
+            {{ form_row(form.offer.id) }}
+            {{ form_row(form._token) }}
+
+            {{ form_row(form.newShareHouse) }}
+
+            {% if service != 8 %}
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-lg-8 text-center">
+                            <h1>Calendario</h1>
+                            <p class="lead">Para editar el precio pulsar dos veces sobre el precio que se desee modificar</p>
+                            <div id="calendar-holder" class="col-centered">
+                            </div>
+                        </div>
+                        <div class="col-lg-8 text-left">
+                            <br>
+                            <p class="lead" style="color:#008000;">&#9724; Días Libres</p>
+                            <p class="lead" style="color:#FF0000;">&#9724; Días Ocupados</p>
+                            <p class="lead" style="color:#151515;">&#9724; Días Bloqueados</p>
+                        </div>
+
+                    </div>
+
+                    <!-- Formulario editar precio calendario -->
+                    <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <form class="form-horizontal" method="POST" action="{{ path('fullcalendar_edit_create') }}">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Editar Precio</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="price" class="col-sm-2 control-label">Precio</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="price" class="form-control" id="price">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="blocked" class="col-sm-2 control-label">Bloquear</label>
+                                            <div class="col-sm-10">
+                                                <select name="blocked" class="form-control" id="blocked">
+                                                    <option value="0">No</option>
+                                                    <option value="1">Sí</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="id" class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-10">
+                                                <input type="hidden" name="id" class="form-control" id="id">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="calendar_id" class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-10">
+                                                <input type="hidden" name="calendar_id" class="form-control" id="calendar_id">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="service_id" class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-10">
+                                                <input type="hidden" name="service_id" class="form-control" id="service_id">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="start" class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-10">
+                                                <input type="hidden" name="start" class="form-control" id="start">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="end" class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-10">
+                                                <input type="hidden" name="end" class="form-control" id="end">
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" name="id" class="form-control" id="id">
+                                        <input type="hidden" name="title" class="form-control" id="title">
+                                        <input type="hidden" name="serviceID" class="form-control" id="serviceID" value="{{ service }}">
+                                        <input type="hidden" name="calendarID" class="form-control" id="calendarID" value="{{ calendarID }}">
+                                        <input type="hidden" name="startDateCalendario" class="form-control" id="startDateCalendario" value="">
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+                {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
 
+            {% endif %}
         </div>
-
-        <!-- Formulario editar precio calendario -->
-        <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form class="form-horizontal" method="POST" action="{{ path('fullcalendar_edit_create') }}">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Editar Precio</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="price" class="col-sm-2 control-label">Precio</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="price" class="form-control" id="price">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="blocked" class="col-sm-2 control-label">Bloquear</label>
-                                <div class="col-sm-10">
-                                    <select name="blocked" class="form-control" id="blocked">
-                                        <option value="0">No</option>
-                                        <option value="1">Sí</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="id" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <input type="hidden" name="id" class="form-control" id="id">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="calendar_id" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <input type="hidden" name="calendar_id" class="form-control" id="calendar_id">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="service_id" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <input type="hidden" name="service_id" class="form-control" id="service_id">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="start" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <input type="hidden" name="start" class="form-control" id="start">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="end" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <input type="hidden" name="end" class="form-control" id="end">
-                                </div>
-                            </div>
-
-                            <input type="hidden" name="id" class="form-control" id="id">
-                            <input type="hidden" name="title" class="form-control" id="title">
-                            <input type="hidden" name="serviceID" class="form-control" id="serviceID" value="{{ service }}">
-                            <input type="hidden" name="calendarID" class="form-control" id="calendarID" value="{{ calendarID }}">
-                            <input type="hidden" name="startDateCalendario" class="form-control" id="startDateCalendario" value="">
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
     </div>
-    {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
-
-    {% endif %}
-
-    {{ form_start(form) }}
-
-    <a href="{{ path('user_profile_editHouse',{idHouse: offer.house.id}) }}">Editar casa</a>
-    {{ form_row(form.houseId) }}
-
-    {% if service != 8 %}
-        {{ form_row(form.price) }}
-    {% endif %}
-
-    {{ form_row(form.offer.title) }}
-    {{ form_row(form.offer.description) }}
-    {{ form_row(form.offer.id) }}
-    {{ form_row(form._token) }}
-
-    {{ form_row(form.newShareHouse) }}
 
 {% endblock %}
 
 
 {% block javascriptsFooter %}
     {{ parent() }}
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
 
     <script src="{{ asset('js/plugins/canvas-to-blob.min.js') }}"
             type="text/javascript"></script>
@@ -173,17 +208,15 @@
 
 
     {% if service != 8 %}
+        <!-- Calendario -->
 
-
-    <!-- Calendario -->
-
-    <script type="text/javascript" src="{{ asset('js/calendario/jquery-2.1.1.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/jquery-ui.custom.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/fullcalendar.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/fullcalendar-lang-all.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/prueba/calendario.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/jquery-2.1.1.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/jquery-ui.custom.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/moment.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/fullcalendar.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/fullcalendar-lang-all.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/prueba/calendario.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>

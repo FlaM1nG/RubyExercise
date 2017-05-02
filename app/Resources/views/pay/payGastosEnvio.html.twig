@@ -1,31 +1,43 @@
 {#<script type="text/javascript">#}
     {#$(document).ready(function () {#}
+        var regions = {{ arrayAddresses|json_encode|raw}};
+        var a = [];
 
-        var addresses = '{{ arrayAddresses|json_encode|raw}}';
-        region=[];
+        {% if offer.region|lower != 'ceuta' and offer.region|lower != 'melilla' and offer.region|lower !='baleares' and
+        offer.region|lower != 's.c.tenerife' and offer.region|lower != 'las palmas' %}
+
+            showHiddenTesting();
+
+        {% endif %}
 
         {% if offer.weight <= 30 %}
             $(document).on('click','input.check-send-method', actualizaGastosEnvio);
             $(document).on('change','#previoPago_addressPay', actualizaGastosEnvio);
             $(document).on('click','.checkPayMethod',actualizaGastosEnvio);
+            $(document).on('click','#previoPago_sendOffice', actualizaGastosEnvio);
 
         {% else %}
             $(document).on('click','.checkPayMethod', function (){ actualizaGastosGestionPago(0)});
+            $(document).on('click','#previoPago_sendOffice', function(){actualizaGastosGestionPago(0) });
 
         {% endif %}
 
-        var arrayAddress = JSON.parse(addresses, function (key, value){
-            var clave = parseInt(key);
+        {#var arrayAddress = JSON.parse(addresses, function (key, value){#}
+            {#var clave = parseInt(key);#}
+            {#region[clave] = value;#}
+            {#return region;#}
+        {#});#}
 
-            region[clave] = value;
 
-            return region;
-        });
 
         function actualizaGastosEnvio(){
 
+            if($('.tra-testing')!= 'undefined' || $('.tra-noTesting') != undefined){
+                showHiddenTesting();
+            }
+
             var index = document.getElementById('previoPago_addressPay').value;
-            var regionDestino = arrayAddress[index];
+            var regionDestino = regions[index];
             var regionOrigen = '{{ offer.region|lower }}';
 
             var gastosEnvio = 0;
@@ -65,15 +77,20 @@
 
         }
 
-
         function actualizaGastosGestionPago(precioTotal){
             var gastos = 0;
             var total = 0;
+            var gastosTesteo = 0;
+
+            if(document.getElementById('previoPago_sendOffice')!= null){
+                gastosTesteo = calculaGastosComprobacion();
+            }
 
             if(precioTotal == 0) {
                 var precio = parseFloat({{ offer.price }});
                 var gastosGestion = calculaGastosGestion(precio);
-                total = parseFloat(precio + gastosGestion);
+
+                total = parseFloat(precio + gastosGestion + gastosTesteo);
 
                 if(!$('#previoPago_shippingCost').empty() ){
                     total = parseFloat(total+parseFloat(document.getElementById('previoPago_shippingCost').value));
@@ -85,6 +102,8 @@
                 total = parseFloat(total+gastos);
 
             }else{
+                precioTotal = parseFloat(precioTotal + gastosTesteo);
+
                 if (document.getElementById('previoPago_payMethod_0').checked) {
                     gastos = parseFloat(precioTotal *{{ paypalFee }});
 
@@ -103,7 +122,44 @@
 
         }
 
+        function calculaGastosComprobacion(){
 
+            var price = {{ offer.price }}
+            var percent = parseFloat({{ sendOfficePercent }});
+            var gasto = 0.00
 
-    {#});#}
-{#</script>#}
+            if(document.getElementById('previoPago_sendOffice').checked) {
+
+                gasto = price * percent;
+
+                $('.gastosComprobacion').html(parseFloat(gasto).toFixed(2)+' €');
+                document.getElementById('previoPago_testingCost').value = parseFloat(gasto).toFixed(2);
+
+            }else{
+
+                $('.gastosComprobacion').html(parseFloat(gasto).toFixed(2)+' €');
+                document.getElementById('previoPago_testingCost').value = parseFloat(gasto).toFixed(2);
+            }
+
+            return gasto;
+        }
+
+        function showHiddenTesting(){
+
+            var index = document.getElementById('previoPago_addressPay').value;
+            var regionDestino = regions[index];
+            if(regionDestino == 'ceuta' || regionDestino == 'melilla' || regionDestino == 'baleares'
+            || regionDestino == 's.c.tenerife' || regionDestino == 'las palmas'){
+                $('.tra-testing').addClass('tra-noTesting');
+                $('.tra-testing').removeClass('tra-testing');
+                $('.tra-noTesting+tr').css('background','rgba(255,102,0,.5)')
+
+            }else{
+                $('.tra-noTesting').addClass('tra-testing');
+                $('.tra-noTesting').removeClass('tra-noTesting');
+                $('.tra-testing+tr').css('background','rgba(0,0,0,0)')
+
+            }
+        }
+    });
+</script>

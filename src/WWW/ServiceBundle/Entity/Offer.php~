@@ -105,8 +105,7 @@ class Offer
      * Constructor
      */
     public function __construct($data = null){ 
-     //var_dump($data);
-        
+
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = Array();
         $this->service = new Service();

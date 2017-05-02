@@ -89,14 +89,18 @@ hrefDelete, dataDelete, titleDelete) %}
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div id="us-img-big" class="owl-carousel">
+
                     {% for imagenGrande in imagenesGrandes %}
+
+                        {% set aux = imagenGrande|split('.') %}
+                        {% set url = aux[0]~'_720.'~aux[1] %}
                         <div class="item">
                             <div class="us-img-marco-grande">
                                 <a href="{{ asset(imagenGrande|e|default('img/placeholder.jpg'), 'img') }}"
                                    data-lightbox="item">
 
                                     <img class="img-responsive off-img-expo"
-                                         src="{{ asset(imagenGrande|e|default('img/placeholder.jpg'), 'img') }}"
+                                         src="{{ asset(url|e|default('img/placeholder.jpg'), 'img') }}"
                                          alt="">
                                 </a>
                             </div>
@@ -106,11 +110,16 @@ hrefDelete, dataDelete, titleDelete) %}
 
                 <div id="us-img-small" class="owl-carousel">
                     {% if imagenesPequenas|length > 1 %}
+
                         {% for imagenPeque in imagenesPequenas %}
+
+                            {% set aux = imagenPeque|split('.') %}
+                            {% set url = aux[0]~'_250.'~aux[1] %}
+
                             <div class="item off-item-dime">
                                 <div class="us-img-marco-peque">
                                     <img class="img-responsive off-img-slid"
-                                         src="{{  asset(imagenPeque|e|default('img/placeholder.jpg'), 'img') }}"
+                                         src="{{  asset(url|e|default('img/placeholder.jpg'), 'img') }}"
                                          alt="">
                                 </div>
                             </div>
@@ -156,7 +165,7 @@ hrefDelete, dataDelete, titleDelete) %}
 
         <div class="row row-hr">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4>Opciones en vehículo</h4>
+                <h4>Opciones</h4>
                 <hr>
             </div>
         </div>

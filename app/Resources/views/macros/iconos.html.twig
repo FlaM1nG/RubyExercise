@@ -1,7 +1,7 @@
 {% macro icon(faX, href, text) %}
 
 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 franja">
-    <a href="{{ href|e }}" class="service-ref">
+    <a href="{{ path(href)}}" class="service-ref">
         <p class="service-text">
             <span class="fa {{ faX|e }}"></span>
             <br>

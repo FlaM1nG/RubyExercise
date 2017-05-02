@@ -193,6 +193,26 @@ class Message
     }
 
     /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatusString()
+    {
+        if($this->status == 0){
+            return "enviado";
+        }else if($this->status == 1){
+            return "rechazado";
+        }else if($this->status == 2){
+            return "aprobado";
+        }else if($this->status == 3){
+            return "leido";
+        }
+        
+        return false;
+    }
+
+    /**
      * Set revisionDate
      *
      * @param \DateTime $revisionDate
@@ -354,6 +374,16 @@ class Message
     }
 
     /**
+     * Get from
+     *
+     * @return \WWW\UserBundle\Entity\User
+     */
+    public function getFromNick()
+    {
+        return $this->from->getUsername();
+    }
+
+    /**
      * Set to
      *
      * @param \WWW\UserBundle\Entity\User $to
@@ -374,6 +404,16 @@ class Message
     public function getTo()
     {
         return $this->to;
+    }
+
+    /**
+     * Get to
+     *
+     * @return \WWW\UserBundle\Entity\User
+     */
+    public function getToNick()
+    {
+        return $this->to->getUsername();
     }
 
     /**

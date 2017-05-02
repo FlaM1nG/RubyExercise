@@ -9184,7 +9184,6 @@ button.close {
 .cbp-hrmenu .cbp-hrsub-inner > div {
   width: 33%;
   float: left;
-  padding: 0 2em 0;
 }
 .cbp-hrmenu .cbp-hrsub-inner:before,
 .cbp-hrmenu .cbp-hrsub-inner:after {
@@ -10928,6 +10927,24 @@ body.lb-disable-scrolling {
 .kv-file-remove.btn.btn-xs.btn-default .glyphicon.glyphicon-trash.text-danger {
   color: #fff;
 }
+/* ------------------ Formularios userProfile  ------------------
+******************************************************************/
+form .file-input .file-footer-caption {
+  display: none;
+}
+select.prefixPhone {
+  width: 25%;
+  display: inline;
+  float: left;
+}
+input.phoneNumber {
+  width: 75%;
+  display: inline;
+  float: left;
+}
+.editAddressButton {
+  margin-top: 2rem;
+}
 /* ------------------ MENU DE ADMINISTRACI�N  ------------------
 ******************************************************************/
 /* *****  ***** */
@@ -11692,6 +11709,12 @@ header.is-fixed {
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
 /*######################   RANGO ANCHO [1600 � 1200[ ######################*/
 /*######################   RANGO ANCHO [1200 �  992[  ######################*/
+@media only screen and (max-width: 1200px) {
+  .cd-main-content {
+    z-index: 0;
+    position: relative;
+  }
+}
 /*######################   RANGO ANCHO [992�  768[  ######################*/
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width: 768px) {
@@ -12796,6 +12819,9 @@ a.boton-leer-post:focus {
 .btn.btn-default.us-profileAddresses {
   float: none;
 }
+.btn.btn-default.us-profileBtnLeft {
+  float: none;
+}
 /* ***** FIN PROFILE ***** */
 /* ***** REGISTER ***** */
 .us-profile {
@@ -12997,6 +13023,7 @@ input#registroUsuario_captcha {
 /* *****  ***** */
 .us-number-comments {
   text-align: center;
+  padding: 0.5em 0;
 }
 .us-number-comments span {
   font-size: 16px;
@@ -13604,6 +13631,12 @@ Sidebar
     right: auto;
     color: transparent;
   }
+}
+li.has-children {
+  list-style-type: none;
+}
+li.has-children ul {
+  list-style-type: none;
 }
 @media only screen and (min-width: 1170px) {
   .cd-side-nav {
@@ -14600,6 +14633,7 @@ textarea {
   -moz-box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
   padding: 2%;
+  border: 1px solid #333333;
 }
 .sha-offer-list:hover {
   background-color: #333333;
@@ -14742,7 +14776,7 @@ textarea {
     color: #ffffff;
   }
   .sha-offer-list:hover {
-    border: none;
+    border: 1px solid #333333;
     background-color: #ffffff;
     color: inherit;
   }
@@ -14949,6 +14983,11 @@ textarea {
   margin: 0 auto;
 }
 /* ##### FIN GRID ##### */
+/* ##### PAGO TRADE #### */
+.tra-noTesting {
+  display: none;
+}
+/* ##### FIN PAGO TRADE #### */
 /* *****  ***** */
 /* ##### FIN  ##### */
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/

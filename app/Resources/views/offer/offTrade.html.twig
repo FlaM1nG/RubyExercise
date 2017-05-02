@@ -71,13 +71,11 @@
 
 
 {% block offerUser %}
-{#{{ dump(offer) }}#}
     {{ users.userOffer(
         path('user_public_profile',{username: offer.offer.userAdmin.username} ),
         offer.offer.userAdmin.photo.url,
         offer.offer.userAdmin.username)
     }}
-    <!-- FIN NOMBRE USUARIO -->
 {% endblock %}
 
 

@@ -4,6 +4,7 @@ namespace WWW\OthersBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use WWW\GlobalBundle\Entity\Address;
 use \WWW\ServiceBundle\Entity\Offer;
 use Doctrine\Common\Util\Inflector as Inflector;
 
@@ -47,7 +48,7 @@ class Trade
 
     /**
      * @var \WWW\ServiceBundle\Entity\Offer
-     * @Assert\type(type="WWW\ServiceBundle\Entity\Offer")
+     * 
      */
     private $offer;
 
@@ -60,25 +61,42 @@ class Trade
      * @var string
      */
     private $region;
+
+    /**
+     * @var \WWW\GlobalBundle\Entity\Address
+     */
+    private $address;
     
     public function __construct($arrayData = null) {
-        
+
         if(!empty($arrayData)):
             foreach($arrayData as $key => $value):
-                $key = Inflector::camelize($key);
+                if($key != 'address'):
+                    $key = Inflector::camelize($key);
 
-                if(property_exists('WWW\OthersBundle\Entity\Trade',$key)):
-                    $this->$key = $value;
+                    if(property_exists('WWW\OthersBundle\Entity\Trade',$key) && !empty($value) ):
+                        $this->$key = $value;
 
+                    endif;
                 endif;
             endforeach;
 
             $this->offer = new Offer($arrayData);
 
-            if(key_exists('category_id', $arrayData) && key_exists('category', $arrayData)):
+            if(key_exists('category_id', $arrayData)):
                 $this->category = new TradeCategory(null,$arrayData['category_id']);
-                $this->category->setName($arrayData['category']);
+                if( key_exists('category', $arrayData)):
+                    $this->category->setName($arrayData['category']);
+                endif;
             endif;
+
+            if(key_exists('address', $arrayData)):
+                $address = new Address($arrayData['address']);
+                $this->address = $address;
+            endif;
+        else:
+            $this->category = new TradeCategory();
+            $this->offer = new Offer();
         endif;    
     }
     /**
@@ -281,6 +299,27 @@ class Trade
     {
         return $this->region;
     }
-    
-    
+
+    /**
+     * Set address
+     *
+     * @param \WWW\GlobalBundle\Entity\Address $address
+     * @return Trade
+     */
+    public function setAddress(\WWW\GlobalBundle\Entity\Address $address = null)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return \WWW\GlobalBundle\Entity\Address 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
 }

@@ -40,15 +40,16 @@ user_profilePassword:
     
 user_profilePhone:
     path: /profile/phone/
-    defaults: { _controller: UserBundle:ProfilePhone:profilePhone}
+    defaults: { _controller: UserBundle:ProfilePhone:profileChangePhone }
+#    defaults: { _controller: UserBundle:ProfilePhone:profilePhone}
 
-user_profileConfirmPhone:
-    path: /profile/phone/confirm/
-    defaults: { _controller: UserBundle:ProfilePhone:confirmCode}
-    
-user_profileChangePhone:
-    path: /profile/phone/changePhone/
-    defaults: { _controller: UserBundle:ProfilePhone:profileChangePhone}    
+#user_profileConfirmPhone:
+#    path: /profile/phone/confirm/
+#    defaults: { _controller: UserBundle:ProfilePhone:confirmCode}
+#
+#user_profileChangePhone:
+#    path: /profile/phone/changePhone/
+#    defaults: { _controller: UserBundle:ProfilePhone:profileChangePhone}
 
 user_profilePhoto:
     path: /profile/photo/
@@ -73,10 +74,10 @@ user_profiler_newAdress:
     defaults: { _controller: UserBundle:ProfileAddress:newAddress }    
 
 user_profile_offers:
-    path: /profile/offers/{typeOffer}
-    defaults: { _controller: UserBundle:Offer:myOffers,typeOffer:null }
+    path: /profile/offers/{typeOffer}/
+    defaults: { _controller: UserBundle:Offer:myOffers,typeOffer:all }
     requirements:
-        typeOffer: "trade|vehicles|buildings|"
+        typeOffer: "trade|vehicles|buildings|all|"
         
 user_profiler_editOffer:    
     path: /profile/offer/{idOffer}/
@@ -86,15 +87,17 @@ user_profiler_editOffer:
 
 user_profiler_purchases:
     path: /profile/purchases/{typeOffer}/
-    defaults: { _controller: UserBundle:Purchases:myPurchases,typeOffer:null }
+    defaults: { _controller: UserBundle:Purchases:myPurchases,typeOffer:all }
     requirements:
-       typeOffer: "trade|vehicles|buildings|"
+       typeOffer: "trade|vehicles|buildings|all|"
     
 user_profiler_purchasesValoration:
-    path: /profile/purchases/valoration/{idOffer}/
+    path: /profile/purchases/{typeOffer}/valoration/{idOffer}/
     defaults: { _controller: UserBundle:Purchases:valoration }
     requirements:
         idOffer: \d+
+        typeOffer: "trade|vehicles|buildings|all|"
+
         
 user_profiler_inscriptions:
     path: /profile/inscription/
@@ -139,7 +142,7 @@ user_ajax_valorationOffer:
     defaults: { _controller: UserBundle:Offer:valorationOffer }
     
 user_ajax_deleteMessage:
-    path: /ajax/message
+    path: /ajax/message/
     defaults: { _controller: UserBundle:Message:removeMessage }
     
 user_ajax_deleteOffer:
@@ -210,10 +213,6 @@ user_ajax_sendSMS:
      path: /ajax/sendSMS
      defaults: { _controller: UserBundle:Register:sendConfirmationCode }
 
-#prueba_validation_false:
-#     path: /pruebaValidationFalse
-#     defaults: { _controller: UserBundle:Default:pruebaValidationFalse }
-
 user_profile_newHouse:
       path: /profile/house/new/
       defaults: { _controller: UserBundle:ProfileHouse:createHouse }
@@ -245,3 +244,7 @@ user_ajax_deleteImgHouse:
 user_ajax_offerEnjoyed:
       path: /ajax/offerEnjoyed/
       defaults: { _controller: UserBundle:Purchases:offerEnjoyed }
+
+user_ajax_offerCancel:
+      path: /ajax/offerCancel/
+      defaults: { _controller: UserBundle:Purchases:cancelOfferPurchase }

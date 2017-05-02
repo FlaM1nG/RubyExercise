@@ -215,4 +215,32 @@ class Billing
     {
         return $this->paidDate;
     }
+    /**
+     * @var string
+     */
+    private $reference;
+
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     * @return Billing
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string 
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
 }

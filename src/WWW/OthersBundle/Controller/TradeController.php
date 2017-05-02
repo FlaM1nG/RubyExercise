@@ -9,6 +9,7 @@
 namespace WWW\OthersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use WWW\GlobalBundle\Entity\Address;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\OthersBundle\Form\TradeType;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,27 +40,20 @@ class TradeController extends Controller{
     private $service;
     
     public function createOfferAction(Request $request){
-//        print_r($request);
-//        print_r($request->headers->get('referer'));
-//       echo "<br>". parse_url($request->headers->get('referer'),PHP_URL_PATH );
 
         $this->setUpVars($request);
-        $hasAddresses = true;
+        $arrayAddresses = null;
 
-        if($this->service != 3):
-            $hasAddresses = $this->hasAddresses($request);
-        endif;
+        $arrayAddresses = $this->hasAddresses($request);
 
-        if($hasAddresses):
-
-//            $request->getSession()->remove('_security.user.target_path');
+        if(!empty($arrayAddresses)):
 
             $trade = new Trade();
 
             $trade->getCategory()->setId($this->service);
             $trade->getOffer()->getService()->setId($this->service);
 
-            $formTrade = $this->createForm(TradeType::class,$trade);
+            $formTrade = $this->createForm(TradeType::class,$trade,array('arrayAddresses' => $arrayAddresses));
 
             $formTrade->handleRequest($request);
 
@@ -84,17 +78,13 @@ class TradeController extends Controller{
                            array('formOffer' => $formTrade->createView(),
                                  'offer' => $trade,
                                  'service' => $this->service,
-                                 'hasAddresses' => $hasAddresses));
+                                 'addresses' => $arrayAddresses));
 
         else:
 
-//            $route = $request->get('_route');
-//
-//            $request->getSession()->set('_security.user.target_path',$route);
-
             return $this->render('OthersBundle:Trade:offerTrade.html.twig',
                             array('service' => $this->service,
-                                  'hasAddresses' => $hasAddresses));
+                                  'addresses' => $arrayAddresses));
         endif;
     }
 
@@ -130,11 +120,12 @@ class TradeController extends Controller{
                             "holders" => 1);
 
         $dataExtra["category_id"] = $trade->getCategory()->getId();
-        $dataExtra["region"] = "'".$trade->getRegion()->getRegion()."'";
+        $dataExtra["region"] = "'".$trade->getAddress()->getRegion()."'";
         $dataExtra["price"] = 0;
   
         if($this->service != 3):
             $dataExtra["price"] = $trade->getPrice();
+            $dataExtra["address_id"] = $trade->getAddress()->getId();
 //            $dataExtra["dimensions"] = "'".$request->get('trade')['width']."x".
 //                                                   $request->get('trade')['height']."x".
 //                                                   $request->get('trade')['long']."'";
@@ -274,7 +265,8 @@ class TradeController extends Controller{
             $this->sendMessage($request);
 
         elseif($formSubscribe->isSubmitted()):
-            $this->offerSubscribe($this->trade);
+            $inscription = $this->offerSubscribe($this->trade);
+            $request->getSession()->set('idInscription', $inscription);
             return $this->redirectToRoute('acme_payment_homepage', array(
                 'idOffer'=> $this->trade->getOffer()->getId(),
                 'service'=> "trade",
@@ -391,7 +383,14 @@ class TradeController extends Controller{
         $data['offer_id'] = $trade->getOffer()->getId();
         
         $result = $ch->resultApiRed($data, $file);
-
+        
+        if($result['result'] == 'ok'):
+            if(array_key_exists('id_inscription', $result)){
+                $idInscription = $result['id_inscription'];
+            }
+        endif;
+        
+        return $idInscription;
     }
     
     private function formArrayData(){
@@ -411,13 +410,21 @@ class TradeController extends Controller{
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
+        $data['info'] = 'addresses';
 
         $result = $ch->resultApiRed($data, $file);
 
         if(!empty($result['addresses'])):
-            return true;
+
+            foreach($result['addresses'] as $key => $value):
+                $address = new Address($value);
+                $arrayAddress[$key] = $address;
+            endforeach;
+
+            return $arrayAddress;
+
         else:
-            return false;
+            return null;
         endif;    
     }
     
