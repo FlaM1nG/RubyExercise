@@ -265,7 +265,8 @@ class TradeController extends Controller{
             $this->sendMessage($request);
 
         elseif($formSubscribe->isSubmitted()):
-            $this->offerSubscribe($this->trade);
+            $inscription = $this->offerSubscribe($this->trade);
+            $request->getSession()->set('idInscription', $inscription);
             return $this->redirectToRoute('acme_payment_homepage', array(
                 'idOffer'=> $this->trade->getOffer()->getId(),
                 'service'=> "trade",
@@ -382,7 +383,14 @@ class TradeController extends Controller{
         $data['offer_id'] = $trade->getOffer()->getId();
         
         $result = $ch->resultApiRed($data, $file);
-
+        
+        if($result['result'] == 'ok'):
+            if(array_key_exists('id_inscription', $result)){
+                $idInscription = $result['id_inscription'];
+            }
+        endif;
+        
+        return $idInscription;
     }
     
     private function formArrayData(){

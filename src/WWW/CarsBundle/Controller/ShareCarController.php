@@ -409,8 +409,9 @@ class ShareCarController extends Controller {
         $result = $ch->resultApiRed($data,$file);
 
         if($result['result'] == 'ok'):
-            if(array_key_exists('id_inscription', $result))
+            if(array_key_exists('id_inscription', $result)){
                 $idInscription = $result['id_inscription'];
+            }
         endif;
 
         return $idInscription;
