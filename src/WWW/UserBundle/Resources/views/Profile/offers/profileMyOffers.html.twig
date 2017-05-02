@@ -125,9 +125,13 @@
 
             function showCodCorreos(e){
                 var cod = $(this).data('id');
-                var text = '<b>'+$('#modalCorreos .modal-body').text()+'</b> '+cod;
+                var text = $('#modalCorreos .modal-body').text();
 
-                $('#modalCorreos .modal-body').html(text);
+                if(text.search(cod) == -1) {
+                    text = '<b>' + $('#modalCorreos .modal-body').text() + '</b> ' + cod;
+
+                    $('#modalCorreos .modal-body').html(text);
+                }
             }
 
             function deleteOffer(e){

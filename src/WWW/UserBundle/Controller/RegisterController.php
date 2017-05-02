@@ -52,7 +52,8 @@ class RegisterController extends Controller{
             if ($result['result'] == 'ok'):
 
                 $this->saveSessionUser($request, $result);
-                return $this->redirectToRoute('user_registerConfirmPhone');
+//                return $this->redirectToRoute('user_registerConfirmPhone');
+                return $this->render('UserBundle:Register:registerSuccessfull.html.twig');
             else:
                 return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
             endif;
@@ -126,7 +127,7 @@ class RegisterController extends Controller{
         $session->set("id",$result['id']);
         $session->set("username",$result['username']);
         $session->set("password",$result['password']);
-        $session->set('phone', $this->usuario->getPhone());
+//        $session->set('phone', $this->usuario->getPhone());
 
     }
 
