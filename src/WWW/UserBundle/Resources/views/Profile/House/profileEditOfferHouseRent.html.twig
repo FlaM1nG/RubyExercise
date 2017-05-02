@@ -68,7 +68,10 @@
             {{ form_row(form.offer.description) }}
 
             {% if service != 8 %}
-                {{ form_row(form.price) }}
+                <div class="us-price-special">
+                    {{ form_row(form.price) }}
+                </div>
+
                 <div class="form-group">
                     <div class="">
                         {{ form_label(form.entryTime) }}
@@ -85,16 +88,16 @@
             {{ form_row(form.offer.id) }}
             {{ form_row(form._token) }}
 
-            {{ form_row(form.newShareHouse) }}
+
 
             {% if service != 8 %}
                 <div class="container">
 
                     <div class="row">
                         <div class="col-lg-8 text-center">
-                            <h1>Calendario</h1>
+                            <h3>Calendario</h3>
                             <p class="lead">Para editar el precio pulsar dos veces sobre el precio que se desee modificar</p>
-                            <div id="calendar-holder" class="col-centered">
+                            <div id="calendar-holder" class="col-centered us-calendar">
                             </div>
                         </div>
                         <div class="col-lg-8 text-left">
@@ -173,8 +176,8 @@
 
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                        <button type="button" class="btn btn-default btn-cal-pop" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-default btn-cal-pop">Guardar Cambios</button>
                                     </div>
                                 </form>
                             </div>
@@ -185,6 +188,8 @@
                 {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
 
             {% endif %}
+
+            {{ form_row(form.newShareHouse) }}
         </div>
     </div>
 
