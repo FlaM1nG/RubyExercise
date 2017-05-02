@@ -47,7 +47,6 @@
             {% else %}
 
                 {% for purchase in pagination %}
-{#{{ dump(purchase) }}#}
                     {% set urlValoration = '' %}
                     {% if purchase.valorated is not empty %}
                         {% set urlValoration = path('user_profiler_purchasesValoration',{typeOffer: app.request.get('typeOffer') ,idOffer: purchase.offer_id}) %}
@@ -166,7 +165,6 @@
 
             function cancelOffer(e){
                 e.preventDefault();
-//console.log("oferta cancelar")
                 var concept = $('#cancelation_concept').val();
 
                 var data = { 'offerId': dataOffer,

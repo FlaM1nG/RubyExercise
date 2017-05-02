@@ -33,7 +33,6 @@
             </h3>
             <hr/>
 
-{#{{ dump(form) }}#}
             <form action="{{ path('user_profileNewCar') }}" method="post" {{ form_enctype(form) }}>
                 {{ form_row(form.brand) }}
                 {{ form_row(form.model) }}

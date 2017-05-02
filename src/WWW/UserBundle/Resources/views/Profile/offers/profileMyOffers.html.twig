@@ -79,7 +79,7 @@
                     {% elseif offer.service.id == 9 %}
                         {% set url = path('house_offerBedroomSwap', {idOffer: offer.id})%}
                     {% endif%}
-{#{{ dump(offer) }}#}
+
                     {% if is_granted('offer_expired', offer) %}
                         {{ offers.offUserExp(url, offer.photos.0.url, offer.title, offer.description, 'leer',
                         '#borrar', 'Borrar', urlFactura, 'btnCorreos', 'Código correos',
@@ -126,9 +126,13 @@
 
             function showCodCorreos(e){
                 var cod = $(this).data('id');
-                var text = '<b>'+$('#modalCorreos .modal-body').text()+'</b> '+cod;
+                var text = $('#modalCorreos .modal-body').text();
 
-                $('#modalCorreos .modal-body').html(text);
+                if(text.search(cod) == -1) {
+                    text = '<b>' + $('#modalCorreos .modal-body').text() + '</b> ' + cod;
+
+                    $('#modalCorreos .modal-body').html(text);
+                }
             }
 
             function deleteOffer(e){

@@ -34,32 +34,51 @@ class ProfilePhoneController extends Controller{
         $arrayPhones = null;
         $form = null;
         
-        $result = $this->getInfoPhone($request);
-        $arrayPhones = $result['phones'];
+//        $result = $this->getInfoPhone($request);
+//        $arrayPhones = $result['phones'];
+//
+//        if(empty($arrayPhones)):
 
-        if(empty($arrayPhones)):
-
-            $user = new User();
+            $user = $this->getUserProfile($request);
 
             $form = $this->createForm(ProfilePhoneType::class, $user);
 
             $form->handleRequest($request);
 
             if($form->isSubmitted()):
-                $result = $this->changePhone($request, $user);
-                if($result == 'ok'):
-                    return $this->redirectToRoute("user_profileConfirmPhone");
-                endif;
+                $this->changePhone($request, $user);
+//                if($result == 'ok'):
+//                    return $this->redirectToRoute("user_profileConfirmPhone");
+//                endif;
             endif; 
             
-            return $this->render("UserBundle:Profile:changePhoneProfile.html.twig",
-                array('form' => $form->createView()));
+//            return $this->render("UserBundle:Profile:changePhoneProfile.html.twig", array('form' => $form->createView()));
+            return $this->render("UserBundle:Profile:changePhoneProfile.html.twig", array('form' => $form->createView()));
 
-        else:
-            return $this->redirectToRoute('user_profileConfirmPhone');
+//        else:
+//            return $this->redirectToRoute('user_profileConfirmPhone');
+//        endif;
+
+
+    }
+
+    private function getUserProfile(Request $request){
+
+        $user = null;
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST.'user/data/get_info_user.php';
+
+        $data['id'] = $this->getUser()->getId();
+        $data['username'] = $this->getUser()->getUsername();
+        $data['password'] = $request->getSession()->get('password');
+
+        $result = $ch->resultApiRed($data, $file);
+
+        if($result['result'] == 'ok'):
+            $user = new User($result);
         endif;
 
-
+        return $user;
     }
 
     private function getInfoPhone(Request $request){
@@ -73,26 +92,28 @@ class ProfilePhoneController extends Controller{
 
         $result = $ch->resultApiRed($data, $file);
 
-
         return $result;
     }
 
     private function changePhone(Request $request, User $user){
                 
-//        $ut = new Utilities();
-        $file = MyConstants::PATH_APIREST."user/phone/send_sms.php";
+        $ut = new Utilities();
+//        $file = MyConstants::PATH_APIREST."user/phone/send_sms.php";
+        $file = MyConstants::PATH_APIREST."user/data/update_user.php";
         $ch = new ApiRest();
         
         $data['id'] = $request->getSession()->get('id');
         $data['username'] = $request->getSession()->get('username');
         $data['password'] = $request->getSession()->get('password');
         $data['phone'] = $user->getPhone();
-        $data['prefix'] = $user->getPrefix();
-        
-        $result = $ch->resultApiRed($data, $file);
-        return ($result['result']);
+        $data['prefix'] = "'".$user->getPrefix()."'";
+        $info['data'] = json_encode($data);
 
-//        $ut->flashMessage("general", $request, $result);
+        $result = $ch->resultApiRed($info, $file);
+
+        $ut->flashMessage("general", $request, $result);
+
+        return ($result['result']);
         
     }
     

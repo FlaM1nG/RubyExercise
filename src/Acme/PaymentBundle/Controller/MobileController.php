@@ -154,7 +154,7 @@ class MobileController extends Controller {
                 //return new Response($captureToken->getTargetUrl()  );
             }
         }else{
-           echo "Tu que vienes... aqui a hacer trampas???";
+//            MENSAJE DE NO PERMISO
         }
         
     }

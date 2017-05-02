@@ -166,7 +166,6 @@ class ProfileAddressController extends Controller
         
         $arrayAddress = $user->getAddresses();
         $addressDefault = $user->getDefaultAddress();
-//        echo "<pre>";print_r($user);echo "</pre>";
         $address = null;
         
         if(!empty($addressDefault) AND $addressDefault->getId() == $idAddress):
