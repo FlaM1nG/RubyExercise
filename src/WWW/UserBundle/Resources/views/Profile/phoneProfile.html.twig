@@ -34,19 +34,19 @@
             </h3>
             <hr/>
             {#{{dump(app.user)}}#}
-            {% if app.user.phone is not empty %}
-                <label class="control-label">Teléfono</label>
+            {#{% if app.user.phone is not empty %}#}
+                {#<label class="control-label">Teléfono</label>#}
 
-                <p>
-                    {{app.user.prefix}} &nbsp; {{ app.user.phone }}
-                </p>
+                {#<p>#}
+                    {#{{app.user.prefix}} &nbsp; {{ app.user.phone }}#}
+                {#</p>#}
 
                 {#{% if app.user.isConfirmed %}#}
-                    <a class="btn btn-default us-btn-phoneProfile" href="{{ path('user_profileChangePhone') }}"
-                       id="changePhone"
-                       data="confirm" >
-                        Cambiar teléfono
-                    </a>
+                    {#<a class="btn btn-default us-btn-phoneProfile" href="{{ path('user_profileChangePhone') }}"#}
+                       {#id="changePhone"#}
+                       {#data="confirm" >#}
+                        {#Cambiar teléfono#}
+                    {#</a>#}
 
                     {#{% if phones is not empty %}#}
                         {#<a href="{{path('user_profileConfirmPhone')}}">#}
@@ -62,7 +62,7 @@
                     {#</a>#}
                 {#{% endif %}#}
 
-            {% endif %}
+            {#{% endif %}#}
         </div>
     </div>
 
