@@ -50,7 +50,7 @@ class ShareCarController extends Controller {
 
         endif;    
 
-        $form = $this->createForm(ShareCarType::class, $shareCar, array('listCar' => $arrayCars));
+        $form = $this->createForm(ShareCarType::class, $shareCar, array('listCar' => $arrayCars, 'newOffer'=> true));
 
         $form->handleRequest($request);
 
