@@ -231,7 +231,6 @@ class Trade
      * @return Trade
      */
     public function setOffer( $offer = null){
-        //echo "gettype ".gettype($offer);
         if(gettype($offer) == 'array'):
             
             $newOffer = new Offer($offer);

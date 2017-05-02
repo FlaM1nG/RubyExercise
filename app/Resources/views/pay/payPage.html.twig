@@ -307,13 +307,13 @@
 
                 {# Comprueba de la dirección de envio no sea nula #}
                 {#if($('#dir_envio').val() == null | $('#dir_envio').val() == 'null'){#}
-                    {#console.log('VACIO');#}
+
                 {#}#}
 
                 {#mensaje = mensaje.concat("\n- LLENO");#}
 
                 {#if($('.alert-zone').length != 0){#}
-                    {#console.log($('.alert-zone'));#}
+
                     {#$('.alert-zone').text(mensaje);#}
                     {#$('.alert-zone').text().replace(/\n/g,'<br/>');#}
                 {#}else{#}

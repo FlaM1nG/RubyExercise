@@ -308,7 +308,6 @@ class ShareCarController extends Controller {
         endif;
 
         $result = $ch->resultApiRed($data, $file);
-//echo "<pre>";print_r($result);echo "</pre>";
         if($result['result'] == 'ok' AND isset($result['car']['existCar'])):
             $shareCar = new ShareCar($result);
 

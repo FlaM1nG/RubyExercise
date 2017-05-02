@@ -51,7 +51,6 @@ class OfferVoter extends Voter
         
         if (!$user instanceof User) {
             // el usuario debe estar logeado; sino, denegar el acceso
-            //var_dump('El objeto no es de tipo usuario');
             
             return false;
         }
