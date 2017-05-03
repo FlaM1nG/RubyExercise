@@ -16,10 +16,10 @@ namespace WWW\GlobalBundle;
 class MyConstants {
     
     const PATH_APIREST = "https://www.whatwantweb.com/JS9NAJ8JEABj8jcsk9xbGTC7VSM9XAMbaxnbs3873778dhd4m/api_rest2/";
-    const NUM_COMMENTS_PAGINATOR = 1;
-    const NUM_TRADES_PAGINATOR = 5;
-    const NUM_CAR_PAGINATOR = 5;
-    const NUM_HOUSE_PAGINATOR = 5;
+    const NUM_COMMENTS_PAGINATOR = 10;
+    const NUM_TRADES_PAGINATOR = 27;
+    const NUM_CAR_PAGINATOR = 30;
+    const NUM_HOUSE_PAGINATOR = 30;
     const NUM_OFFERS_PROFILE = 10;
     const NUM_MESSAGE_PROFILE = 10;
     // x%
