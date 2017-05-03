@@ -311,6 +311,10 @@ class ProfileHouseController extends Controller{
             $response->setData(array(
                 'result' => 'ok',
                 'message' => 'Datos actualizados correctamente'));
+
+        elseif($result['result'] == 'active_house'):
+            $response->setData(array('result' => 'ko',
+                                     'message' => 'Hay ofertas vinculadas a esta casa, debe eliminarlas para poder borrar.'));
         else:
             $response->setData(array(
                 'result' => 'ko',
