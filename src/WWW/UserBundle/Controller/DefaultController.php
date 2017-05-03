@@ -67,7 +67,7 @@ class DefaultController extends Controller{
                 $ut->flashMessage('', $request, $result, 'Enlace inválido');
 
             else:
-                $ut->flashMessage('', $request, $result, '');
+                $ut->flashMessage('', $request, $result, 'Oops, ha ocurrido algo, por favor vuélvalo a intentar más tarde');
 
             endif;
             
