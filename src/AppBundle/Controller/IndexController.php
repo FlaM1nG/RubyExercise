@@ -178,4 +178,8 @@ class IndexController extends Controller
             'direccion' => $direccion
         ));
     }
+
+    public function termsConditionsAction(){
+        return $this->render('pages/termsConditions.html.twig');
+    }
 }

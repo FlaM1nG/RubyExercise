@@ -179,3 +179,7 @@ house:
 pruebaAdminDatos:
     path: /prueba/datosAdmin
     defaults: { _controller: AppBundle:Index:pruebaDatosAdminPanel }
+
+termsConditions:
+    path: /termsConditions
+    defaults: { _controller: AppBundle:Index:termsConditions }

@@ -1,0 +1,807 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    Términos y Condiciones
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block body %}
+<div class="container cd-main-content">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h1>Condiciones Generales de Uso</h1>
+            <hr>
+
+            <h2>Coche compartido</h2>
+
+            <h3>1. Descripción</h3>
+
+            <p>
+                What Want Web, S.L. ha desarrollado una plataforma de trayectos compartidos a la que se puede acceder
+                desde el sitio web whatwantweb.com o desde una aplicación móvil, diseñada para poner en contacto a los
+                conductores que viajan a un determinado destino con pasajeros que se dirigen al mismo lugar, de forma
+                que puedan compartir el Trayecto así como los costes asociados al mismo (en adelante denominada la
+                “Plataforma”).
+            </p>
+
+            <p>
+                Los presentes términos y condiciones tienen por objeto regular el acceso y los términos de uso de la
+                Plataforma. Se ruega leer atentamente estas condiciones. Entiendes y reconoces que Whatwantweb S.L
+                no es parte en ningún contrato, acuerdo o relación contractual, de ninguna clase, suscrito entre los
+                Usuarios de su Plataforma. Al hacer clic en “Registrarse con una dirección de correo electrónico y
+                móvil”, reconoces que has leído y aceptado las presentes condiciones generales de uso.
+            </p>
+
+            <h3>2. Definiciones</h3>
+
+            <p>
+                En este documento,
+            </p>
+
+            <p>
+                <b>“Anuncio”</b> significa un anuncio relacionado con un Trayecto publicado por un usuario Conductor en
+                la Plataforma.
+            </p>
+
+            <p>
+                <b>“Cuenta”</b> significa la cuenta que debe crearse para ser Usuario y poder acceder a determinados
+                servicios ofrecidos por la Plataforma.
+            </p>
+
+            <p>
+                <b>“Conductor”</b> significa el Usuario que utiliza la Plataforma para ofrecer el uso compartido de un
+                trayecto a otra persona a cambio de compartir los costes asociados al trayecto, y transportar a dicha
+                persona en un Trayecto determinado en la fecha y hora en las que el Conductor ha organizado el Trayecto
+                con anterioridad.
+            </p>
+
+            <p>
+                <b>“Confirmación de la reserva”</b> Whatwantweb ha establecido un sistema para la reserva de Plazas en
+                línea <b>(“Reserva”)</b> para algunos de los Trayectos ofrecidos en la Plataforma.
+            </p>
+
+            <p>
+                <b>“Contenido desarollado por el Usuario”</b> tiene el significado que se le atribuye en el Artículo
+                11.2 a continuación.
+            </p>
+
+            <p>
+                <b>“Gastos de Gestión”</b> tiene el significado que se le atribuye en el Artículo 5.2 a continuación.
+            </p>
+
+            <p>
+                <b>“Usuario”</b> significa cualquier persona que haya creado una Cuenta en la Plataforma.
+            </p>
+
+            <p>
+                <b>“Pasajero”</b> significa el Usuario que ha aceptado compartir un Trayecto con el Conductor, o,
+                si procede, la persona en cuyo nombre ha reservado una Plaza un Usuario.
+            </p>
+
+            <p>
+                <b>“Gastos compartidos”</b> significa, para un Trayecto determinado, la suma de dinero solicitada por el
+                Conductor y aceptada por el Pasajero por su contribución a los gastos del viaje.
+            </p>
+
+            <p>
+                <b>“Plaza”</b> significa el asiento reservado por un Pasajero en el vehículo del Conductor.
+            </p>
+
+            <p>
+                <b>“Plataforma”</b> tiene el significado que se le atribuye en el Artículo 1 arriba.
+            </p>
+
+            <p>
+                <b>“Reserva”</b> tiene el significado que se le atribuye en el Artículo 4.2.1 a continuación.
+            </p>
+
+            <p>
+                <b>“Servicios”</b> significa todos los servicios ofrecidos por Whatwantweb por medio de la Plataforma.
+            </p>
+
+            <p>
+                <b>“Sitio web”</b> significa el sitio web al que se puede acceder desde la dirección www.whatwantweb.com.
+            </p>
+
+            <p>
+                <b>“Tramo”</b> tiene el significado que se le atribuye en el Artículo 4.1 a continuación.
+            </p>
+
+            <p>
+                <b>“Trayecto”</b> significa el recorrido sujeto de un Anuncio publicado por un Conductor en la
+                Plataforma por el cual el Conductor acepta compartir un Trayecto con Pasajeros, Usuarios de la
+                plataforma, a cambio de la compartición de los gastos asociados al Trayecto.
+            </p>
+
+            <p>
+                <b>“Trayecto con reserva”</b> tiene el significado que se le atribuye en el Artículo 4.2.1 a
+                continuación.
+            </p>
+
+            <p>
+                <b>“Whatwantweb S.L”</b> tiene el significado que se le atribuye en el la descripción arriba indicada.
+            </p>
+
+            <TABLE BORDER WIDTH="50%">
+                <TR><TD style="text-align:center;"><strong>Pesos</strong></TD><TD style="text-align:center;"><strong>Precios</strong></TD>
+                </TR>
+                <TR><TD style="text-align:center;">0-2kg</TD><TD style="text-align:center;">3€</TD>
+                <TR><TD style="text-align:center;">2.01kg-5kg</TD><TD style="text-align:center;">4.5€</TD>
+                <TR><TD style="text-align:center;">5.01kg-10kg</TD><TD style="text-align:center;">5.5€</TD>
+                <TR><TD style="text-align:center;">10.01kg-15kg</TD><TD style="text-align:center;">6.5€</TD>
+                <TR><TD style="text-align:center;">15.01kg-20kg</TD><TD style="text-align:center;">7.5€</TD>
+                <TR><TD style="text-align:center;">20.01kg-25kg</TD><TD style="text-align:center;">9€</TD>
+                <TR><TD style="text-align:center;">25.01kg-30kg</TD><TD style="text-align:center;">10.5€</TD>
+                <TR><TD style="text-align:center;">+30.01kg</TD><TD style="text-align:center;">Consultar</TD>
+                </TR>
+            </TABLE>
+
+
+            <h3>3. Registro en la Plataforma y creación de una Cuenta></h3>
+
+            <h4>3.1. Condiciones de registro en la Plataforma</h4>
+
+            <p>
+                La Plataforma solamente puede ser utilizada por personas mayores de 18 años con capacidad de obrar. Está
+                estrictamente prohibido el registro en la plataforma por parte de un menor. Al acceder, utilizar o
+                registrarse en la Plataforma, confirmas y garantizas que tienes más de 18 años.
+            </p>
+
+            <h4>3.2. Creación de una Cuenta</h4>
+
+            <p>
+                La Plataforma permite a los Usuarios publicar y ver Anuncios e interactuar entre ellos para reservar una
+                Plaza. Es posible ver los Anuncios sin estar registrado en la Plataforma. No obstante, no podrás
+                publicar un Anuncio ni reservar una Plaza sin haber creado primero una Cuenta para convertirse en
+                Usuario.<br>
+                Para crear tu Cuenta puedes utilizar el método que a continuación se describe:
+                <ul>
+                    <li>
+                        Rellenar todos los campos obligatorios en el formulario de registro.
+                    </li>
+                    <li>
+                        Al utilizar dicha funcionalidad, entiendes que What Want Web tendrá acceso a publicar en la
+                        Plataforma. Para registrarte en la Plataforma es necesario que hayas leído y aceptado las
+                        presentes CGU y la Política de privacidad.
+                    </li>
+                    <li>
+                        Al crear tu Cuenta, te comprometes a proporcionar información real, verídica y precisa, y a
+                        actualizar dicha información por medio de tu perfil o enviando una notificación a Whatwantweb
+                        S.L, con el objetivo de garantizar su relevancia y precisión durante la duración total de tu
+                        relación contractual con Whatwantweb S.L.
+                    </li>
+                    <li>
+                        En el momento que te registres utilizando tu dispositivo móvil, te comprometes a guardar en
+                        secreto la contraseña seleccionada durante la creación de tu Cuenta y a no comunicársela a
+                        ninguna otra persona. En caso de pérdida o divulgación de tu contraseña, deberás comunicárselo
+                        a Whatwantweb inmediatamente. Tú eres el único responsable del uso de tu Cuenta por parte de
+                        terceras partes, salvo que hayas comunicado de forma expresa a  Whatwantweb la pérdida, el uso
+                        fraudulento por parte de un tercero, o la revelación de tu contraseña a un tercero.
+                    </li>
+                    <li>
+                        Queda totalmente prohibido no crear ni utilizar, bajo tu propia identidad o bajo la identidad
+                        de un tercero, ninguna Cuenta adicional a la creada inicialmente.
+                    </li>
+                </ul>
+            </p>
+
+            <h4>3.3. Verificación</h4>
+
+            <p>
+                Whatwantweb podrá, con fines de transparencia, de mejora de la veracidad o de prevención o detección de
+                fraude, establecer un sistema para verificar parte de la información proporcionada en tu perfil. Se
+                trata, fundamentalmente, de aquellos casos en los que introduces tu número de teléfono o nos
+                proporcionas un Documento de Identidad.
+            </p>
+
+            <p>
+                Reconoces y aceptas que cualquier referencia en la Plataforma o en los Servicios a la información
+                “certificada”, o a cualquier otro término similar, significa solamente que un Usuario ha superado con
+                éxito el procedimiento de verificación existente en la Plataforma o en los Servicios para proporcionarle
+                más información sobre el Usuario con el que está pensando compartir un Trayecto. Whatwantweb no puede
+                garantizar la veracidad, fiabilidad o validez de la información sujeta al procedimiento de verificación.
+            </p>
+
+
+            <h3>4. Utilización de los Servicios</h3>
+
+            <h4>4.1. Publicación de Anuncios</h4>
+
+            <p>
+                Como Usuario, siempre y cuando cumplas las condiciones establecidas a continuación, podrás crear y
+                publicar Anuncios en la Plataforma introduciendo información sobre el Trayecto que vas a realizar
+                fechas/horas/puntos de recogida y llegada, número de plazas ofrecidas, opciones disponibles, cantidad
+                de Costes compartidos, etc.).
+            </p>
+
+            <p>
+                Al publicar el Anuncio, puedes indicar aquellas ciudades de paso en las que aceptas hacer una parada,
+                recoger o dejar Pasajeros. Las secciones del Trayecto entre estas ciudades de paso, o una de estas
+                ciudades de paso y el punto de recogida o destino del Trayecto constituyen los “Tramos”.
+            </p>
+
+            <p>
+                Solamente podrás publicar un Anuncio si cumples todas y cada una de las condiciones indicadas a continuación:
+
+
+            </p>
+
+            <ol type="1">
+                <li>
+                    Posees un carnet de conducir válido.
+                </li>
+
+                <li>
+                    Publicas solamente Anuncios con vehículos de tu propiedad o utilizados con consentimiento expreso
+                    del propietario, y siempre y cuando estés autorizado para utilizar el vehículo con fines de
+                    desplazamiento compartido.
+                </li>
+
+                <li>
+                    Eres y seguirás siendo el conductor principal del vehículo sujeto del Anuncio.
+                </li>
+
+                <li>
+                    El vehículo tiene un seguro a terceros en vigor.
+                </li>
+
+                <li>
+                    No tienes ninguna contraindicación ni incapacidad médica para conducir.
+                </li>
+
+                <li>
+                    El vehículo que vas a utilizar para el Trayecto es un turismo de 4 ruedas y un máximo de 7 asientos,
+                    excluyendo los conocidos como vehículos “sin carnet”.
+                </li>
+
+                <li>
+                    No tienes intención de publicar otro anuncio para el mismo Trayecto en la Plataforma.
+                </li>
+
+                <li>
+                    No ofreces más Plazas de las disponibles en tu vehículo y de las permitidas en la Plataforma.
+                </li>
+
+                <li>
+                    Todos las Plazas ofertadas tienen cinturón de seguridad, incluso en el caso de que el vehículo esté
+                    homologado con asientos sin cinturón de seguridad.
+                </li>
+
+                <li>
+                    Utilizas un vehículo en buen estado y que cumple con todas las normativas legales, y que el vehículo
+                    dispone del Certificado de ITV actualizado.
+                </li>
+            </ol>
+
+            <p>
+                Reconoces que tú eres el único responsable del contenido del Anuncio que publicas en la Plataforma. Por
+                lo tanto, reconoces y garantizas la veracidad y precisión de toda la información incluida en tu Anuncio,
+                y te comprometes a realizar el Trayecto bajo las condiciones descritas en tu Anuncio.
+            </p>
+
+            <p>
+                Tu anuncio, siempre y cuando cumpla con los presentes CGU, será publicado en la Plataforma y por lo
+                tanto podrá ser visto por todos los Usuarios y visitantes, incluso por las personas que no son Usuarios
+                de la Plataforma, que realicen una búsqueda en la Plataforma o en el sitio web de las empresas asociadas
+                a Whatwantweb. Whatwantweb se reserva el derecho, a su exclusivo criterio y sin necesidad de previo
+                aviso, a no publicar o a borrar, en cualquier momento, cualquier Anuncio que no cumpla con los presentes
+                CGU o que considere que puede dañar su imagen, la imagen de la Plataforma o la imagen de los Servicios.
+            </p>
+
+            <p>
+                Reconoces y aceptas que los criterios utilizados en la clasificación y el establecimiento del orden de
+                visualización de tu Anuncio entre los demás Anuncios es criterio exclusivo de Whatwantweb.
+            </p>
+
+
+            <h4>4.2. Reservar una Plaza</h4>
+
+            <p>
+                Los métodos disponibles para reservar una Plaza dependen del tipo de Trayecto que vayas a realizar.
+                Para determinados Trayectos, Whatwantweb ha establecido un sistema de reserva en línea.
+            </p>
+
+            <h5>4.2.1. Trayecto con reserva</h5>
+
+            <p>
+                Whatwantweb ha establecido un sistema para la reserva de Plazas en línea (“Reserva”) para algunos de los
+                Trayectos ofrecidos en la Plataforma (“Trayectos con reserva”).
+            </p>
+
+            <p>
+                La decisión de elegir un Trayecto como válido para el sistema de Reserva es únicamente de Whatwantweb,
+                quien se reserva el derecho a modificar estas condiciones en cualquier momento.
+            </p>
+
+            <p>
+                Cuando un Pasajero esté interesado en un Anuncio con sistema de Reserva, puede realizar una solicitud de
+                Reserva en línea. Esta solicitud de Reserva puede ser aceptada automáticamente. En el momento de la
+                Reserva, el Pasajero realiza el pago en línea por la cantidad de Costes compartidos y los Gastos de
+                Gestión relacionadas, si procede. Una vez recibido el pago por parte de Whatwantweb y tras la validación
+                de la Reserva por parte del Conductor, si procede, el Pasajero recibe una Confirmación de reserva (la
+                “Confirmación de reserva”).
+            </p>
+
+            <p>
+                En caso de rechazo o expiración de la solicitud de Reserva por el Conductor, el Pasajero recibe un
+                reembolso por el importe de la cantidad total pagada en el momento de la solicitud de Reserva.
+            </p>
+
+            <p>
+                De no hacerlo, la solicitud de Reserva caducará de forma automática y el Pasajero recibirá el reembolso
+                de la cantidad que haya pagado en el momento de realizar la solicitud de Reserva, si procede.
+            </p>
+
+            <p>
+                A partir de este momento tú eres el único responsable del cumplimiento del contrato que te vincula con
+                el otro Usuario.
+            </p>
+
+            <h5>4.2.3. Naturaleza de la reserva de Plazas y términos de uso de los Servicios en nombre de un tercero</h5>
+            Cualquier utilización de los Servicios, tanto en calidad de Pasajero como de Conductor, está relacionada con un nombre específico. La identidad del Conductor y del Pasajero debe corresponderse con la identidad comunicada por los mismos a Whatwantweb y a los demás Usuarios que participan en el Trayecto.
+            La Plataforma está pensada para reservar Plazas para personas.
+            Está prohibido publicar un Anuncio para cualquier otro Conductor que no seas tú.
+
+            <h4>4.3. Sistema de evaluación</h4>
+
+            <h5>4.3.1. Funcionamiento</h5>
+
+            <p>
+
+            </p>
+
+            <p></p>
+
+            Whatwantweb te anima a publicar tus comentarios y/o valoraciones sobre un Conductor (en el caso de que seas un Pasajero) o sobre un Pasajero (en el caso de que seas un Conductor) con el cual hayas compartido un Trayecto o con quien se supone que hubieses debido compartir un Trayecto. Sin embargo, no está permitido dejar ningún comentario sobre otro Pasajero si eres un Pasajero, ni sobre ningún otro Usuario con quien no hayas viajado o con quien no tenías previsto viajar.
+            Podrás responder a un comentario realizado en tu perfil por parte de otro Usuario transcurridos 14 días tras la fecha de recepción del comentario. El comentario y, si procede, su respuesta, se publicarán en tu perfil.
+            4.3.2.    Moderación
+            Reconoces y aceptas que Whatwantweb se reserva el derecho a no publicar o a eliminar cualquier comentario, pregunta, opinión o respuesta a los mismos si considera que su contenido incumple lo establecido en las presentes CGU.
+            4.3.3.    Límite
+            Whatwantweb se reserva el derecho a suspender tu Cuenta, limitar su acceso a los Servicios, o rescindir los presentes CGU en caso de que (1) hayas recibido al menos tres críticas y (2) las opiniones promedias que hayas recibido tengan una puntuación de 3 o inferior.
+
+            5.    Condiciones financieras
+
+            El acceso y el registro en la Plataforma, así como la búsqueda, visualización y publicación de Anuncios, no implican coste alguno. No obstante, la Reserva se realizará tras el pago correspondiente de una tarifa, bajo las condiciones descritas a continuación.
+
+            5.1.    Costes compartidos
+
+            Los Costes compartidos los determinas tú, como Conductor, bajo tu única responsabilidad. Está estrictamente prohibido obtener ningún tipo de beneficio mediante el uso de nuestra Plataforma. Por lo tanto, estás de acuerdo en limitar la Cantidad de costes compartidos solicitada a tus Pasajeros a los costes reales del trayecto que vas a compartir con los Pasajeros. De lo contrario, asumirás los riesgos de recalificación de la transacción realizada a través de la Plataforma.
+            Cuando publiques un Anuncio, Whatwantweb te puede sugerir una Cantidad de Costes comparti-dos, que tiene en cuenta principalmente la naturaleza del Trayecto y la distancia recorrida. Esta can-tidad se indica solamente a modo de guía y puedes aumentarla o reducirla teniendo en cuenta los costes reales del Trayecto. Para evitar el uso abusivo de la Plataforma, Whatwantweb limita la posi-bilidad de ajuste de los Costes compartidos.
+
+            5.2.    Gastos de Gestión
+
+            En el contexto de Trayectos con reserva, Whatwantweb, podrá cobrar por el uso de la Plataforma unos Gastos de Gestión, dichas Tarifas (de aquí en adelante denominadas “Gastos de Gestión”) se cobrarán en el momento de realizar la Reserva y se calcularán basándose en los Costes compartidos. Se cobra un 3% al pasajero para sufragar los gastos del pago con tarjeta, la posterior transferencia al conductor y demás gastos, y un 10% al conductor más impuestos vigentes. Whatwantweb cobra los Gastos de Gestión por cada Plaza sujeta a una Reserva por parte de un Pasajero.
+            En el caso de trayectos transfronterizos, los métodos para el cálculo de los Gastos de Gestión y el IVA aplicable podrán variar dependiendo del punto de recogida y/o el destino del Trayecto.
+            Al utilizar la Plataforma para la realización de trayectos transfronterizos o al exterior de España, puede que los Gastos de Gestión las cobre la empresa filial de Whatwantweb que opera la platafor-ma local.
+
+            5.3.    Redondeo
+
+            Reconoces y aceptas que Whatwantweb puede, a su única discreción, redondear de forma ascendente o descendente los Gastos de Gestión y la Cantidad de costes compartidos.
+
+            5.4.    Métodos de pago y repago de la Cantidad de costes compartidos al Conductor
+
+            5.4.1.    Autorización de cobro
+            Al utilizar la Plataforma como Conductor para Trayectos con reserva, concedes a Whatwantweb una autorización de cobro de la cantidad de Costes compartidos en tu nombre y a tu nombre.
+            Por consiguiente, en el contexto de un Trayecto con reserva, y tras la aceptación de la Reserva, Whatwantweb cobra la cantidad total pagada por el Pasajero (Gastos de Gestión y Cantidad de costes compartidos).
+            La Cantidad de costes compartidos recibida por Whatwantweb se deposita en una cuenta dedicada al pago de los Conductores.
+            Reconoces y aceptas que ninguna de las cantidades mencionadas recibidas por Whatwantweb en nombre del Conductor dan derecho al cobro de intereses. Te comprometes a responder con debida diligencia a cualquier solicitud de Whatwantweb, y en general, a cualquier autoridad administrativa o judicial competente, especialmente en lo relacionado con la prevención del blanqueo de capitales. Fundamentalmente aceptas proporcionar, tras su solicitud, cualquier elemento de prueba de tu dirección y/o identidad que sea de utilidad.
+            En caso de falta de respuesta a dichas solicitudes, Whatwantweb podrá tomar las medidas que considere necesarias, como por ejemplo congelar las cantidades pagadas y/o suspender tu Cuenta o resolver las presentes CGU.
+            5.4.2.    Pago de la Cantidad de costes compartidos al Conductor
+            Tras el Trayecto, los Pasajeros tendrán un período de siete (7) días naturales durante los cuales deberán confirmar de forma expresa a Whatwantweb que se ha realizado el Trayecto. En ausencia de confirmación o recusación por su parte durante este período, Whatwantweb considerará el Trayecto como confirmado.
+            A partir del momento de esta confirmación expresa o tácita, tendrás, como Conductor, un crédito a ser abonado en tu Cuenta. Este crédito se corresponde a la cantidad total pagada por el Pasajero en el momento de confirmar la Reserva tras haberle restado los Gastos de Gestión y el 10%más impuestos vigentes, es decir, la Cantidad de costes compartidos pagada por el Pasajero.
+            Cuando el Pasajero confirma el Trayecto, tú, como Conductor, tienes la opción de proporcionar instrucciones a Whatwantweb para abonar el dinero en tu cuenta bancaria (introduciendo la infor-mación de tu banco por adelantado en tu Cuenta) o en tu cuenta de PayPal (introduciendo por ade-lantado tu dirección de correo electrónico de PayPal en tu Cuenta).
+            La orden de pago a tu nombre se enviará en un plazo de 15 días tras la entrega de las cantidades en cuestión en tu perfil (siempre y cuando Whatwantweb tenga tu información bancaria).
+            Una vez finalizados los períodos de tiempo límite aplicables, cualquier cantidad que no haya sido reclamada será considerada como propia de Whatwantweb.
+
+            6.    Objetivo no comercial y no empresarial de los Servicios y la Plataforma
+
+            Aceptas utilizar los Servicios y la Plataforma solamente para ponerte en contacto, con fines no co-merciales y no empresariales, con personas que desean compartir un Trayecto contigo.
+            Como Conductor, aceptas no solicitar una Cantidad de costes compartidos superior a los costes reales del trayecto y que puedan generarte un beneficio, dejando especificado que, en el contexto de compartir un coste, tú tienes que asumir como Conductor tu propia parte de los costes incurridos en el Trayecto. Tú eres el único responsable de calcular los costes en los que incurres durante el Tra-yecto y de asegurarte de que la cantidad solicitada a tus Pasajeros no supera los costes reales del trayecto (excluyendo tu parte de los costes).
+            Whatwantweb se reserva el derecho a suspender tu Cuenta en caso de que utilices un vehículo de alquiler con conductor u otro vehículo comercial, taxi o vehículo de empresa con el objetivo de ge-nerar un beneficio a través de la Plataforma. Recuerda proporcionar a Whatwantweb, en caso de que te lo solicite, una copia del certificado de registro de tu vehículo y cualquier otra información que demuestre que estás autorizado a utilizar el vehículo en cuestión en la Plataforma y que no estás obteniendo beneficio alguno por el uso de la misma.
+            Whatwantweb también se reserva el derecho a suspender tu Cuenta, limitar tu acceso a los Servicios o resolver los presentes CGU en caso de que tu actividad en la Plataforma, dada la naturaleza de los Trayectos ofrecidos, tu frecuencia, el número de Pasajeros transportados y la Cantidad de costes compartidos solicitada, te conlleve a una posición en la que generes beneficio, o por cualquier otro motivo que sugiera a Whatwantweb que estás generando beneficio a través de la Plataforma.
+
+            7.    Política de cancelación
+
+
+            7.1.    Condiciones de reembolso del pago en caso de cancelación
+
+            Esta política de cancelación solamente se aplicará a los Trayectos con reserva; Whatwantweb no ofrece garantía alguna en caso de cancelación por cualquier motivo, ya sea por parte de un Pasajero o por un Conductor, en el caso de Trayectos sin reserva.
+            La cancelación de una Plaza en un Trayecto con reserva por parte del Conductor o el Pasajero una vez Confirmada la reserva, estará sujeta a lo siguiente:
+            –    En caso de que la cancelación la realice el Conductor o llegue 30 minutos tarde, al Pasajero se le devolverá la suma total que haya pagado (es decir, la Cantidad de costes compartidos y los Gastos de Gestión relacionadas) y se hará una publicación automática en su perfil indicando lo sucedido.
+            Fundamentalmente se trata de los casos en los que el Conductor cancela el viaje o no llega al punto de encuentro en un plazo de 30 minutos tras la hora acordada;
+            –    En caso de cancelación por parte del Pasajero:
+            Si el Pasajero cancela con una antelación superior a 24 horas antes de la hora de sa-lida programada y mencionada en el Anuncio, al Pasajero solamente se le devolverá la Cantidad de costes compartidos. Los Gastos de Gestión se las quedará Whatwantweb y el Conductor no tendrá derecho a recibir ninguna suma de cualquier naturaleza;
+            Si el Pasajero cancela el viaje con una antelación inferior a 24 horas antes de la hora de salida mencionada en el Anuncio y una vez hubieran pasado 30 minutos tras la Confirmación de la reserva, el Pasajero tendrá derecho al reembolso de la mitad de la Cantidad de costes compartidos pagada en el momento de la realización de la Reserva. Los Gastos de Gestión se las quedará Whatwantweb y al Conductor se le pagará el 50 % de la Cantidad de costes compartidos;
+            Si el Pasajero cancela 3 horas antes de  la hora de salida programada mencionada en el Anuncio, o si no ha llegado al punto de encuentro en un período de 30 minutos tras la hora acor-dada, no tendrá derecho a ninguno reembolso. El Conductor será compensado con el coste total de la Cantidad de costes
+            compartidos y los Gastos de Gestión serán para
+            Whatwantweb.
+            En caso de que la cancelación se produzca antes de la fecha de salida y por causa imputable al Pasa-jero, el Plaza o Plazas cancelados por el Pasajero quedarán automáticamente disponibles para otros Pasajeros, quienes podrán reservarlos en línea bajo las condiciones de los presentes CGU.
+            Whatwantweb valorará, a su criterio y según la información disponible, la legitimidad de las solici-tudes de reembolso.
+
+            7.2.    Derecho de desistimiento
+
+            De conformidad con lo establecido en el Artículo 103 a) de la Ley General para la Defensa de Con-sumidores y Usuarios, no tendrás derecho a desistimiento a partir del momento de entrega de la Confirmación de reserva, siempre y cuando se haya ejecutado en su totalidad el Contrato entre tú y Whatwantweb, consistente en ponerse en contacto con otro Usuario.
+
+            8.    Comportamiento de las personas que visitan la Plataforma y los Usuarios
+
+
+            8.1.    Compromiso de todas las personas que visitan la Plataforma
+
+            Reconoces ser el único responsable de respetar todas las leyes, normativas y obligaciones aplicables a la utilización de la Plataforma.
+            Además, al utilizar la Plataforma y durante los Trayectos, te comprometes a:
+            (1) no utilizar la Plataforma con fines profesionales, comerciales o con ánimo de lucro;
+            (2) no enviar a Whatwantweb(especialmente en el momento de crear o actualizar tu Cuenta) ni a los demás Usuarios de la Plataforma información falsa, confusa, maliciosa o fraudulen-ta;
+            (3) no hablar ni comportarse , ni publicar ningún contenido en la Plataforma que pueda resultar difamatorio, injurioso, obsceno, pornográfico, vulgar, ofensivo, agresivo, improce-dente, violento, amenazante, acosador, de naturaleza racista o xenófoba, que tenga connotaciones sexuales, incite a la violencia, discriminación u odio, o que fomente actividades o el uso de substan-cias ilegales o de forma más general que sea contrario a los objetivos de la Plataforma y que pueda infringir los derechos de Whatwantweb o una tercera parte, o que pueda ser contrario a las buenas costumbres;
+            (4) no infringir los derechos y no dañar la imagen de Whatwantweb, en especial en lo que respecta a sus derechos de propiedad intelectual;
+            (5) no abrir más de una Cuenta en la Plataforma y no abrir una Cuenta en nombre de un tercero;
+            (6) no intentar eludir el sistema de reserva en línea de la Plataforma, principalmente intentando enviar a otro Usuario tu información de contacto para realizar la reserva fuera de la Pla-taforma con el objetivo de evitar el pago de los Gastos de Gestión;
+            (7) no ponerse en contacto con otro Usuario, por medio de la Plataforma, con otra finalidad que no sea la definición de las condiciones del desplazamiento compartido;
+            (8) no aceptar ni realizar el pago fuera de la Plataforma, excepto en los casos autori-zados por los presentes CGU en el caso de Trayectos sin reserva;
+            (9) cumplir con las presentes CGU y con la Política de privacidad.
+
+            8.2.    Compromisos de los Conductores
+
+            Cuando utilizas la Plataforma como Conductor, te comprometes a:
+            (1) respetar todas las leyes, normativas y códigos con respecto a la conducción y al vehículo, especialmente contar con un seguro de responsabilidad civil en vigor en el momento de realizar el Trayecto y estar en posesión de un carnet de conducir válido;
+            (2) comprobar que tu póliza de seguro cubre los desplazamientos compartidos y que los Pasajeros con los que compartes el trayecto son considerados como terceros en tu vehículo y, por lo tanto, están cubiertos por tu seguro;
+            (3) no asumir ningún riesgo durante la conducción, ni tomar ningún producto que pueda afectar negativamente a tu atención y a tu capacidad de conducir de manera atenta y comple-tamente segura;
+            (4) publicar Anuncios que se correspondan solamente con Trayectos ya programados;
+            (5) realizar el Trayecto según la descripción en el Anuncio (en especial con respecto a utilizar o no autopista) y a respetar las horas y lugares acordados con los demás Usuarios (en especial el punto de encuentro y el lugar de destino);
+            (6) no llevar a más Pasajeros que el número de Plazas indicados en el Anuncio;
+            (7) utilizar un vehículo en buen estado y que cumpla con todas las normativas legales, en especial con el Certificado de ITV en vigor;
+            (8) a compartir con Whatwantweb o con cualquier Pasajero que lo solicite tu carnet de conducir, el certificado de registro de tu vehículo, tu póliza de seguro, el certificado de la ITV y cualquier otro documento que demuestre tu capacidad para utilizar el vehículo como Conductor en la Plataforma;
+            (9) en caso de retraso o cambio en la hora o en el propio Trayecto, informar a tus Pasajeros sin demora;
+            (10) en el caso de un Trayecto transfronterizo, mantener y tener disponible para el Pasajero y para cualquier autoridad que lo solicite, un documento válido que muestre tu identidad y tu derecho a cruzar la frontera;
+            (11) esperar a los Pasajeros en el punto de encuentro acordado al menos hasta 30 minutos después de la hora acordada;
+            (12) no publicar ningún Anuncio relativo a un vehículo que no sea tuyo o para el cual no tengas permiso para utilizarlo como transporte compartido;
+            (13) asegurarte de que los Pasajeros pueden contactarte a través de la mensajería interna registrada en tu perfil;
+            (14) no solicitar la validación antes de que se baje el Pasajero en cuestión;
+            (15) no generar ningún beneficio a través de la Plataforma;
+            (16) no tener ninguna contraindicación ni incapacidad médica para conducir;
+            (17) comportarse de forma apropiada y responsable durante el Trayecto, de confor-midad con la filosofía del desplazamiento compartido.
+
+            8.3.    Compromisos de los Pasajeros
+
+            Cuando utilizas la Plataforma como Pasajero, te comprometes a:
+            1.- adoptar un comportamiento apropiado durante el Trayecto de modo que no inte-rrumpa la concentración o la conducción del Conductor ni la paz y tranquilidad del resto de los Pa-sajeros;
+            2.- respetar el vehículo del Conductor y su limpieza;
+            3.- en caso de retraso, informar al Conductor sin demora.
+            4.- esperar al Conductor en el punto de encuentro acordado al menos hasta 30 minu-tos después de la hora acordada;
+            5.- comunicar a Whatwantweb , o a cualquier Conductor que te lo solicite, tu docu-mento de identidad o cualquier otro documento que pruebe tu identidad;
+            6.- en el caso de un Trayecto transfronterizo, mantener y tener disponible para el Conductor y para cualquier autoridad que lo solicite, un documento válido que muestre tu identidad y tu derecho a cruzar la frontera;
+            7.- asegurarse de que los Pasajeros pueden contactarte por la mensajería interna que has registrado en tu perfil, incluso en el punto de reunión.
+            En el caso de que hayas realizado una Reserva para uno o más Plazas en nombre de terceros, de conformidad con lo establecido en el anterior Artículo 4.2.3, garantizas que dicho tercero respetará las condiciones establecidas en dicho Artículo y, en general, los presentes CGU. Whatwantweb se reserva el derecho a suspender tu Cuenta, limitar tu acceso a los Servicios o rescindir las presentes CGU en caso de incumplimiento por parte del tercero en cuyo nombre has reservado la Plaza de conformidad con estas CGU.
+
+            9.    Suspensión de cuentas, limitación de acceso y rescisión
+
+            Puedes rescindir tus relaciones contractuales con  Whatwantweb, en cualquier momento, de forma gratuita y sin tener que explicar el motivo. Para ello, simplemente debes ir a la pestaña “Darse de baja” en la página de tu Perfil.
+            En el caso de (1) incumplimiento por tu parte de las presentes CGU, incluidos, entre otros el in-cumplimiento de tus obligaciones como Usuario según lo establecido en los Artículos 6 y 8 de arri-ba, (2) superación del límite establecido arriba en el Artículo 4.3.3, o (3) en el caso de que What-wantweb tenga algún motivo real para creer que es necesario proteger su seguridad e integridad, la de los Usuarios o terceros, o para los fines de prevención de fraude o investigaciones, What-wantweb se reserva el derecho a:
+            (1)    rescindir las CGU que te vinculan con Whatwantweb de forma inmediata y sin previo aviso; y/o
+            (2)    evitar la publicación de, o eliminar cualquier opinión, Anuncio, mensaje, con-tenido, solicitud de Reserva o cualquier contenido que hayas publicado en la Plataforma; y/o
+            (3)    limitarte el acceso y el uso de la Plataforma; y/o
+            (4)    suspender de forma temporal o permanente tu Cuenta.
+            Cuando sea necesario realizar dicha rescisión, se te notificará sobre esta decisión para que puedas presentar tus explicaciones a Whatwantweb. Whatwantweb decidirá, a su discreción, si levantar o no la rescisión aplicadas.
+
+            10.    Datos de carácter personal
+
+            En el contexto del uso de la Plataforma por tu parte, Whatwantweb recopilará y procesará tu infor-mación personal. Al utilizar la Plataforma y registrarte como Usuario, reconoces y aceptas el proce-samiento de tus datos personales por parte de Whatwantweb de conformidad con la legislación apli-cable y lo establecido en la Política de privacidad.
+
+            11.    Propiedad intelectual
+
+
+            11.1.    Contenido publicado por Whatwantweb
+
+            Con sujeción al contenido proporcionado por sus Usuarios, Whatwantweb es el titular único de to-dos los derechos de propiedad intelectual relacionados con el Servicio, la Plataforma, su contenido (en concreto los textos, imágenes, diseños, logotipos, vídeos, sonido, datos y gráficos) y con el software y las bases de datos que aseguran su funcionamiento.
+            Whatwantweb te garantiza un derecho personal, no exclusivo y no transferible para utilizar la Plata-forma y los Servicios, para tu uso personal y privado, con un objetivo no comercial y de conformi-dad con la finalidad de la Plataforma y los Servicios.
+            Está totalmente prohibido utilizar o explotar la Plataforma y los Servicios, incluido su contenido, con cualquier otra finalidad que no sea la prevista sin previo consentimiento por escrito de What-wantweb. En concreto, está totalmente prohibido lo siguiente:
+            (1) reproducir, modificar, adaptar, distribuir, representar públicamente y diseminar la Plataforma, los Servicios y todo su contenido, salvo previa autorización expresa de Whatwantweb;
+            (2) descompilar y aplicar ingeniería inversa a la Plataforma o los Servicios, salvo las excepciones estipuladas por los textos aplicables;
+            (3) extraer o intentar extraer (en concreto utilizando robots de extracción de datos o herramientas similares de recolección de datos) una parte sustancial de los datos de la Plataforma.
+
+            11.2.    Contenido publicado por el Usuario en la Plataforma
+
+            Con el objetivo de permitir la provisión de los Servicios, y en cumplimiento con el objetivo de la Plataforma, le otorgas a Whatwantweb una licencia no exclusiva para usar el contenido y los datos que has proporcionado en el contexto de la utilización de los Servicios (de aquí en adelante deno-minados como el “Contenido desarrollado por el Usuario”). Para poder permitir a Whatwantweb distribuir por medio de la red digital y de conformidad con cualquier protocolo de comunicación (en especial Internet y las redes móviles) y para poder ofrecer al público el contenido de la Plataforma, autorizas a Whatwantweb a reproducir, representar, adaptar y traducir tu Contenido desarrollado por el Usuario para todo el mundo y durante la duración completa de tus relaciones contractuales con Whatwantweb, de conformidad con lo siguiente:
+            (1) autorizas a Whatwantweb a reproducir todo o parte de tu Contenido desarrollado por el Usuario en cualquier medio de grabación digital, conocido o por conocer, en concreto en cualquier servidor, disco duro, tarjeta de memoria u otro medio equivalente, en cualquier formato y por medio de cualquier proceso, ya conocido o por conocer, en el grado necesario para cualquier operación de almacenamiento, copia de seguridad, transmisión o descarga relacionada con el fun-cionamiento de la Plataforma y el suministro del Servicio;
+            (2) autorizas a Whatwantweb a adaptar y traducir su Contenido desarrollado por el Usuario, y a reproducir dichas adaptaciones en cualquier medio digital, conocido o por conocer, establecido en el punto (1) arriba, con el objetivo de suministrar los Servicios en diferentes idiomas. Este derecho incluye la opción de realizar modificaciones en el formato de tu Contenido desarrolla-do por el Usuario, con respecto a tu derecho moral, con el objetivo de respetar el diseño gráfico de la Plataforma o para hacer que tu Contenido sea compatible a nivel técnico con nuestro software para su posterior publicación por medio de la Plataforma.
+
+            12.    Función de Whatwantweb
+
+            La Plataforma constituye una plataforma de conexión de red en línea en la cual los Usuarios pueden crear y publicar Anuncios de Trayectos con el objetivo de compartir los mismos y los costes aso-ciados al Trayecto. Estos Anuncios serán visualizados por los demás Usuarios para comprobar las condiciones del Trayecto, y, cuando corresponda, para reservar directamente una Plaza en el vehículo en cuestión con el Usuario que ha publicado el Anuncio en la Plataforma.
+            Al utilizar la Plataforma y aceptar las presentes CGU, reconoces que Whatwantweb no es parte de ningún acuerdo formalizado entre tú y los demás Usuarios con el objetivo de compartir los costes relacionados con un Trayecto.
+            Whatwantweb no tiene ningún tipo de control sobre el comportamiento de sus Usuarios y los usua-rios de la Plataforma. No posee, explota, suministra ni administra los vehículos incluidos en los Anuncios, y no ofrece Trayectos en la Plataforma.
+            Reconoces y aceptas que Whatwantweb no controla la validez, veracidad o legalidad de los Anun-cios, Plazas y Trayectos ofrecidos. En su capacidad de intermediario, Whatwantweb no ofrece ser-vicio de transporte ni actúa en calidad de transportista, la función de Whatwantweb se limita a faci-litar el acceso a la Plataforma.
+            Los Usuarios (Conductores o Pasajeros) actúan bajo su única y total responsabilidad.
+            En su capacidad de intermediario, Whatwantweb no será considerado responsable de ningún inci-dente que tenga lugar durante un Trayecto, en especial en lo relacionado con:
+            (1) información errónea comunicada por el Conductor en su Anuncio, o por cualquier otro medio, con respecto al Trayecto y sus condiciones;
+            (2) la cancelación o modificación de un Trayecto por parte de un Usuario;
+            (3) el comportamiento de sus Usuarios durante, antes o después del Trayecto.
+
+            13.    Funcionamiento, disponibilidad y funcionalidades de la Plataforma
+
+            Whatwantweb intentará en la medida de lo posible mantener el funcionamiento constante de la Pla-taforma los 7 días de la semana y las 24 horas del día. Sin embargo, es posible que se pueda sus-pender de forma temporal el acceso a la Plataforma, sin previo aviso, por motivos técnicos, de man-tenimiento, migración u operaciones de actualización, o debido a cortes de suministro o restricciones relacionadas con el funcionamiento de la red.
+            Además, Whatwantweb se reserva el derecho a modificar o suspender en su totalidad o en parte el acceso a la Plataforma o sus funcionalidades, a su discreción, bien sea de forma temporal o perma-nente.
+
+            14.    Modificación de los CGU
+
+            Estos CGU y los documentos integrados por referencia forman el acuerdo completo entre tú y Whatwantweb con relación a la utilización de los Servicios. Cualquier otro documento mencionado en la Plataforma (Preguntas frecuentes, por ejemplo), tiene solamente fines indicativos.
+            Whatwantweb podrá modificar los presentes CGU para adaptarlos a su entorno tecnológico y co-mercial, y para cumplir con la legislación en vigor. Cualquier modificación realizada en los CGU será publicada en la Plataforma indicando la fecha de entrada en vigor, y recibirás una notificación de dicho cambio antes de la entrada en vigor del mismo.
+
+            15.    Ley aplicable – Litigios
+
+            Estos CGU se han redactado en español, de conformidad con la legislación española.
+            Si fuese necesario, también podrás presentar tus reclamaciones con respecto a nuestra Plataforma o Servicios en la plataforma de resolución de litigios en línea de la Comisión Europea, a la que podrás acceder desde el siguiente enlace. La Comisión Europea enviará tu reclamación al organismo na-cional competente. En cumplimiento de la legislación aplicable al arbitraje, tienes la obligación de, antes de solicitar el arbitraje, comunicar a Whatwantweb por escrito cualquier reclamación o litigio con el objetivo de obtener una solución amistosa.
+
+
+
+             
+            MENSAJERÍA
+
+            Queda expresamente prohibida la utilización de Whatwantweb con fines ilegales o fraudulen-tos, así como concertar servicios que pudieran vulnerar la Ley o perjudicar a terceros.
+            En ningún caso podrán publicarse en Whatwantweb cargas que por una u otra causa estén fuera de la ley (flora o fauna peligro extinción, sustancias estupefacientes, etc.).
+            1    Queda expresamente prohibido por parte de los usuarios introducir información falsa, confusa o conscientemente errónea, u omitir aquella información relevante que pueda inducir a error a otros usuarios de la herramienta Whatwantweb.
+            Una vez que los usuarios de la herramienta Whatwantweb lleguen a un acuerdo Whatwantweb S.L queda exenta de cualquier tipo de responsabilidad de los problemas que puedan surgir como consecuencia de los acuerdos, servicios o contratos que estos suscriban.
+            2	Será de exclusiva responsabilidad del usuario la correcta identificación de la contra-parte con la que contrate un servicio.
+            3	Si tú eliges, o se te facilita, un código de identificador de usuario, una contraseña o cualquier otra información que sea parte de los sistemas de seguridad de Whatwantweb, deberás tratar esa información como confidencial y no deberás facilitársela a terceras personas.
+            4	Whatwantweb se reserva el Derecho de inhabilitar cualquier código de identificación o contraseña, en cualquier momento, si según nuestro criterio el usuario no ha cumplido alguna de las condiciones de uso.
+            Whatwantweb solo se responsabilizará de la devolución de los pagos únicamente hechos a través de la plataforma (tarjeta de crédito/débito y Paypal) y quedará exenta de todos los pagos he-chos fuera de la misma (entrega en efectivo).
+            Los pagos realizados a través de la plataforma por el usuario que quiere enviar/recibir un ar-tículo, no serán abonados al transportista hasta que este realice con éxito el envío.
+            El cobro de un transporte realizado, será abonado cuando el usuario que contrata al transpor-tista y dicho transportista, notifiquen a través de la plataforma la realización del envío con éxito.
+            La comisión de Whatwantweb al comprador es del 3% de gastos de gestión, para sufragar los gastos del TPV, la transferencia al conductor y demás gastos, y la comisión al conductor es de 1€ que se cobrará al propietario del vehículo, para todo tipo de mercancías y pesos, la tabla de precios para el usuario que utiliza la plataforma es PINCHAR AQUI.
+            El conductor del vehículo revisará la mercancía a la salida para ver su contenido y a la llegada certificará el estado de esta junto con el usuario comprador.
+            5	Devoluciones: solo se contemplará la devolución del importe abonado al transportista si ambas partes acuerdan que se trató de un error o el servicio finalmente no se llevó a cabo. En ningún caso Whatwantweb será responsable de la devolución del artículo o de los problemas deri-vados del transporte del artículo (extravío, robo,…). En cualquier caso, Whatwantweb facilitará a ambas partes todos los datos personales para que se puedan emprender las acciones legales oportu-nas.
+
+
+
+
+            Apartamentos turísticos, bed and breakfast y alquiler habitaciones para estudiantes.
+
+
+            Estos términos y condiciones (que pueden ser modificados cada cierto tiempo) son aplicables a to-dos los servicios directos o indirectos (a través de los distribuidores) disponibles online, a través de cualquier dispositivo móvil, por correo electrónico o por teléfono. Al acceder, navegar y utilizar nuestro sitio web (móvil) o cualquiera de nuestras aplicaciones disponibles a través de plataformas (en adelante, mencionados de forma conjunta como "el sitio web") y/o realizar una reserva, aceptas haber leído, entendido y estar de acuerdo con los términos y condiciones que se muestran a conti-nuación (incluyendo el fragmento referente a la privacidad).
+            Estas páginas, su contenido, estructura, infraestructura y el servicio de reservas de alojamientos online que proporcionan a través de este sitio web pertenecen y son gestionadas y suministradas por Whatwantweb "Plataforma" se refiere a la app y la página web (móvil) donde el Servicio está dis-ponible, pertenece, está controlado, gestionado, mantenido y/o albergado por whatwantweb.com.
+            "Servicio" se refiere al servicio de reservas online (incluida la facilitación de pagos) de varios pro-ductos y servicios que los Proveedores pongan a disposición en la Plataforma cada cierto tiempo.
+            "Proveedor" se refiere al proveedor de alojamiento (p. Hostel , apartamento, bed and breakfast), y cualquier otro producto o servicio relacionado con los viajes o similar que, cada cierto tiempo, esté disponible en la Plataforma para reservarse.
+            1. Ámbito de nuestro servicio
+            A través de la Plataforma, nosotros (Whatwantweb y los socios (en distribución) afiliados) propor-cionamos una plataforma online a través de la cual los Proveedores pueden anunciar sus productos y servicios para que se reserven, y a través de la cual los que visitan la Plataforma pueden realizar reservas (esto es, el servicio de reservas). Al llevar a cabo una reserva mediante Whatwantweb.com, estableces una relación contractual directa (legalmente vinculante) con el Proveedor con el que has reservado o al que le has comprado un producto o servicio (según corresponda). Desde el momento en que realizas tu reserva, nosotros actuamos únicamente como intermediarios entre tú y el Provee-dor, trasmitiendo los datos de la reserva al(a los) Proveedor(es) y enviándote un correo electrónico de confirmación en representación del Proveedor.
+            Al prestar nuestro Servicio, la información que mostramos está basada en la información que nos proporcionan los Proveedores, siendo obligatorio en los apartamentos turísticos el número de licen-cia de apartamento turístico. Como tales, los Proveedores tienen acceso a una extranet mediante la cual se hacen totalmente responsables de actualizar las tarifas, la disponibilidad y los otros datos que aparecen en nuestra Plataforma. Aunque intentamos que nuestro Servicio sea lo más preciso posible, no podemos verificar ni garantizar que toda la información sea exacta, completa o correcta. Tampoco nos hacemos responsables de errores (como errores manifiestos y tipográficos), interrup-ciones (debido a caídas (temporales y/o parciales) del servidor o a reparaciones, actualizaciones y mantenimiento de nuestra Plataforma u otros motivos), información imprecisa, engañosa o falsa, o falta de información. Cada Proveedor es responsable en todo momento de la precisión, la exactitud y la corrección de la información (tanto descriptiva como referente a tarifas y disponibilidad) que aparece en nuestra Plataforma. Nuestra Plataforma no constituye ni debe ser vista como una reco-mendación o promoción de la calidad, el nivel de servicio, la calificación o clasificación (por estre-llas) de ningún Proveedor (o sus instalaciones, recinto, productos o servicios) disponible.
+            Nuestro Servicio está disponible únicamente para uso personal y no comercial. Por lo tanto, no está permitido revender, realizar deep-links, utilizar, copiar, monitorizar (por ejemplo, spider, scrape), mostrar, descargar o reproducir el contenido, la información, el software, las reservas, las entradas, los productos o los servicios disponibles en nuestra Plataforma para cualquier actividad o fin co-mercial o competitivo.
+            En los Países, Comunidades Autónomas o Ciudades que sea obligatorio un numero de licencia de Apartamento Turístico, Whatwantweb lo solicitará y será campo obligatorio para darse de alta como usuario,
+            2. Precios, tarifas tachadas y precio mínimo garantizado
+            Los precios que aparecen en nuestra Plataforma son muy competitivos. Todos los precios de habita-ciones son por habitación para toda la estancia completa y todos los precios se muestran con IVA/impuestos sobre ventas incluidos y cualquier otro impuesto (sujeto a cambios de dichos im-puestos), a no ser que se indique de otra forma en nuestra Plataforma o en la entrada/e-mail de con-firmación. Los precios de las entradas son por persona o grupo y están sujetos a la validez que se indique en la entrada, si corresponde. Las tasas e impuestos (incluidos los de turismo/municipales) pueden ser cobrados por el Proveedor en caso de no presentado o de cargos por cancelación. El alo-jamiento cargará los impuestos correspondientes en caso de no-show o como cargo por cancelación.
+            4. Gastos del servicio
+            En nuestro servicio se cobra unos gastos de gestión al inquilino (3%) por los gastos del cobro del Tpv, los gastos de transferencia al proveedor y demás gastos, la gestión del cambio de apartamento si no reúne las condiciones idóneas para su disfrute es gratuito, no añadimos suplementos (de reser-va) al precio de las habitaciones por cualquier otro motivo y los gastos si los hubiese por tasas mu-nicipales se pagarán al proveedor.
+            Los Proveedores pagan una comisión del 10% más impuestos vigentes a Whatwantweb después de que el usuario final haya consumido el servicio o producto del Proveedor o después de que el cliente se haya alojado (y pagado) el alojamiento.
+            5. Tarjeta de crédito o transferencia bancaria
+            Los pagos a los Proveedores se pagan en su totalidad durante el proceso de reserva mediante un sistema de pago seguro online (siempre que tu banco lo ofrezca y lo soporte). En el caso de algunos productos y servicios, Whatwantweb facilita (a través de procesadores de pago externos) el pago de los servicios o productos correspondientes (esto es, el servicio de facilitación del pago) para y en nombre del Proveedor (Whatwantweb nunca actúa ni funciona como vendedor oficial). El pago se procesa de forma segura directamente desde tu tarjeta de crédito/débito o desde tu cuenta a la cuen-ta del establecimiento mediante un procesador de pago externo. Todos los pagos facilitados por nosotros para y en nombre de, y transferidos al Proveedor constituirán en cada caso un pago por ti (de parte) del precio de la reserva del producto o servicio correspondiente en concepto de liquida-ción final, y no podrás reclamar dichos importes abonados.
+            No responsabilizarás a Whatwantweb de ningún cargo (autorizado, (supuestamente) no autorizado o erróneo) por parte del Proveedor y no (re)clamarás ningún importe por ningún cargo válido o auto-rizado realizado por parte del Proveedor (incluidas las tarifas con pago por adelantado, los no show y las cancelaciones con cargos) en tu tarjeta de crédito.
+            6. Pago por adelantado, cancelación, no show (no presentado) y a tener en cuenta
+            Al realizar una reserva con un Proveedor, aceptas sus condiciones de cancelación y si no te presen-tas, así como otros términos y condiciones adicionales (entrega) de dicho Proveedor que puedan afectar a tu reserva o a tu estancia (incluidos el apartado a tener en cuenta del Proveedor puesto a disposición en nuestra Plataforma y las condiciones correspondientes del Proveedor). Aquí se in-cluyen los servicios y/o productos ofertados por el proveedor de establecimiento. Las condiciones generales de cancelación y no presentación de cada Proveedor están a tu disposición en nuestra Pla-taforma, como durante el proceso de reserva y en el e-mail de confirmación o en la entrada (si co-rresponde). En caso de no presentado o cancelaciones con cargos, el Proveedor puede aplicar el impuesto turístico/municipal. Los retrasos en el pago, los datos bancarios erróneos, los datos de las tarjetas de crédito o débito, las tarjetas de crédito o débito no válidas o con saldo insuficiente son de tu responsabilidad y podrías no beneficiarte de la devolución o reembolso del pago si se diera alguno de estos casos.
+            Si deseas revisar, modificar o cancelar tu reserva, se a de mandar un mail a in-fo@whatwantweb.com. Ten en cuenta que se podrán aplicar suplementos por cancelación conforme a las condiciones de cancelación. Te recomendamos que leas dichas condiciones con detenimiento antes de realizar la reserva.
+            Si cancela el proveedor: Si cancela con + de 30 días, no hay penalización.
+            Si cancela con mas de 7 días, 50€ por cada reserva cancelada y se publica un comentario en tu perfil de que ha cancelado una reserva.
+            Si cancelas con menos de 7 días 100€ por cada reserva cancelada y se publica un comentario en tu perfil de que ha cancelado una reserva.
+            Si cancela el inquilino: si cancela hasta 8 días se le devuelve el dinero de compra pero no los gastos de gestión.
+            si cancela 7 a 4 días se le devuelve el 50% del dinero de compra pero no los gastos de gestión.
+            si cancela 3 día o menos no se le devuelve el dinero de compra ni los gastos de gestión.
+            si cancela la reserva después de no mas de 30 minutos se le devuelve el 50% del dinero de compra pero no los gastos de gestión.
+
+
+            Si vas a llegar tarde o con retraso el día del registro de entrada o si llegas al día siguiente, asegúrate de comunicarlo (con prontitud y a su debido tiempo) al Proveedor, para que sepan cuándo llegarás y así evitar que cancelen tu reserva. Si lo necesitas, nuestro departamento de atención al cliente puede ayudarte a informar al Proveedor. Whatwantweb no se hace responsable de las consecuencias que pueda tener tu retraso, o de cualquier cancelación o cargo por no presentarte que pueda realizar el Proveedor.
+            7. Correspondencia y comunicación (adicional)
+            Al hacer una reserva, se pondrá en contacto con el proveedor a través de nuestra mensajería interna para conocer los datos de dirección y otros que necesite. También aceptas recibir un e-mail, que podemos enviarte después de tu estancia en el establecimiento, invitándote a completar un formula-rio de opinión. Consulta nuestra política de privacidad y cookies para más información acerca de cómo podemos ponernos en contacto contigo.
+            Whatwantweb se exime de cualquier responsabilidad en relación con cualquier comunicación con el Proveedor en o a través de su plataforma. No obtendrás ningún derecho de ninguna petición a, o comunicación con el Proveedor o (cualquier forma de) acuse de recibo de cualquier comunicación o petición. Whatwantweb no puede garantizar que el Proveedor (debida y oportunamente) reciba/lea, cumpla con, ejecute o acepte cualquier petición o comunicación.
+            Con el objetivo de completar y asegurar tu reserva adecuadamente, necesitas usar una dirección de e-mail correcta. No nos hacemos responsables de (ni tenemos ninguna obligación de verificar) nin-gún error o fallo ortográfico en la dirección de e-mail ni de ningún número de teléfono (móvil) o número de tarjeta de crédito que sea impreciso o erróneo.
+            Cualquier queja o reclamación contra Whatwantweb o respecto al Servicio que presta debe hacerse de forma inmediata, o como mucho, en un período de 30 días después de la fecha prevista de con-sumo del producto o del servicio (por ejemplo, la fecha de salida). Cualquier queja o reclamación enviada fuera del período de 30 días puede ser rechazada y el demandante perderá todo derecho a cualquier tipo de compensación (por daño o coste).
+            Debido a las continuas actualizaciones y ajustes en las tarifas y disponibilidad, recomendamos en-carecidamente realizar capturas de pantalla al hacer una reserva para poder apoyar tu argumentación (si fuera necesario).
+            8. Ranking, programa de alojamientos preferentes, estrellas y comentarios
+            La clasificación de los Proveedores aparece por defecto en nuestra Plataforma. También ofrecemos otras formas de clasificar los Proveedores. El Ranking es por defecto y crea automáticamente. Los Proveedores preferentes están marcados con un símbolo y pagan más comisión por aparecer en una posición más alta en el ranking. Solo pueden ser preferentes los Proveedores que cumplan y man-tengan ciertos requisitos.
+            Las estrellas usadas en los apartamentos y los comentarios de los clientes pueden visualizarse en la página de información del Proveedor en nuestra Plataforma con el fin único de compartir tu opinión sobre el nivel del servicio y la calidad del Proveedor con (futuros) clientes. Whatwantweb también los puede utilizar (de forma parcial o completa) según su criterio (ej. para marketing, promoción o mejora del servicio) en nuestra Plataforma. Nos reservamos el derecho de adaptar, rechazar o elimi-nar los comentarios que creamos oportunos. Los comentarios tienen la consideración de una en-cuesta y no incluyen ofertas comerciales, invitaciones ni incentivos de ningún tipo.
+            9. Exención de responsabilidad
+            Conforme a las limitaciones indicadas en estos términos y condiciones, y en la medida que esté permitido por la ley, solo nos hacemos responsables de los daños directos que sufras, pagues o con-traigas a causa de defectos atribuibles a nuestras obligaciones en referencia a nuestros servicios, hasta una cantidad total del coste total de tu reserva, como se indica en el correo electrónico de con-firmación (ya sea por un suceso o por una serie de sucesos).
+            Sin embargo, y en la medida en que esté permitido por la ley, ni nosotros ni ninguno de nuestros directores, empleados, representantes, subsidiarios, empresas afiliadas, distribuidores, afiliados, licenciatarios, apoderados u otras personas involucradas en el proceso de creación, patrocinio y promoción del sitio web y sus contenidos será responsable de: 1.- pérdidas o daños punitivos, espe-ciales, indirectos o consecuentes, pérdidas de producción, de beneficios, ingresos, contratos, así como de pérdidas o daños de clientes o de reputación y pérdidas de demandas; 2.- errores relacio-nados con la descripción de la información (incluida la información sobre precios, disponibilidad y clasificaciones) del Proveedor en nuestra Plataforma; 3.- servicios prestados o productos ofertados por el Proveedor u otros socios de negocio; 4.- pérdidas, daños o costes (directos, indirectos, conse-cuentes o punitivos) que sufras, contraigas o pagues, surgidos o relativos al uso, indisponibilidad o retraso de nuestra Plataforma; o 5.- cualquier tipo de perjuicio (personal), muerte, daño de la pro-piedad u otros daños, pérdidas y gastos (directos o indirectos, consecuentes o punitivos) que sufras, contraigas o pagues, ya sea a causa de actos (legales), errores, infracciones, negligencias (evidentes), mala conducta profesional deliberada, omisiones, incumplimientos, representación errónea, responsabilidad extracontractual objetiva o (completa o parcialmente) atribuible al Proveedor o a otros socios de negocio (incluyendo cualquiera de sus empleados, directores, personal, apoderados, representantes o empresas afiliadas) cuyos productos o servicios (directa o indirectamente) estén disponibles, se oferten o promocionen en o a través de nuestra Plataforma, incluyendo cualquier cancelación (parcial), overbooking, huelga, fuerza mayor u otro acto que escape a nuestro control.
+            Tanto si el Proveedor te ha cobrado por tu habitación, producto o servicio, como si nosotros facili-tamos el pago del precio (de la habitación/reserva), aceptas que el Proveedor es, en todo momento, el responsable de la recogida, retención, envío y pago de los impuestos aplicables sobre el importe total del precio (de la habitación/reserva) a las autoridades fiscales pertinentes. Whatwantweb no es responsable del envío, recogida, retención o pago de los impuestos sobre el precio (de la habita-ción/reserva) a las autoridades fiscales pertinentes. Whatwantweb no actúa como vendedor oficial de ningún producto o servicio disponible en la Plataforma.
+            Al subir fotos u otras imágenes a nuestro sistema (por ejemplo, al enviar un comentario) certificas, garantizas y confirmas que estás en posesión del copyright de la foto/imagen y que estás de acuerdo con que Whatwantweb utilice dicha foto o imagen en sus webs (móviles), apps y materiales promo-cionales (online y offline), así como en cualquier publicación que Whatwantweb considere apropia-da. Estás garantizando a Whatwantweb un derecho no-exclusivo, universal, irrevocable, incondi-cional y permanente, así como la licencia para utilizar, reproducir, mostrar, hacer reproducir, distri-buir, sublicenciar, comunicar y facilitar las fotos/imágenes en la forma que Whatwantweb considere apropiada. Al subir estas fotos/imágenes, la persona que las sube acepta la responsabilidad legal y moral sobre todas y cada una de las reclamaciones legales realizadas por un tercero (incluyendo, pero no limitándose a, los propietarios de los alojamientos) a raíz del uso y publicación de las fo-tos/imágenes por parte de Whatwantweb. Whatwantweb no posee ni avala de forma alguna las fo-tos/imágenes que se suben. La veracidad, validez y derecho de uso de todas las fotos/imágenes la asumirá la persona que ha subido la foto, y nunca será responsabilidad de Whatwantweb. Whatwantweb niega cualquier responsabilidad u obligación sobre las fotografías publicadas. La persona que ha subido las fotos garantiza que las fotos/imágenes no contienen ningún virus, troyano o archivos infectados, así como ningún material pornográfico, ilegal, obsceno, ofensivo, censurable o inapropiado, y que no infringe los derechos (de propiedad intelectual, de copyright o de privacidad) de terceros. Cualquier foto/imagen que no cumpla con los requisitos mencionados no será publicada y/o puede ser eliminada por Whatwantweb en cualquier momento y sin previo aviso.
+            10. Derechos de propiedad intelectual
+            Si no se indica lo contrario, el software necesario para nuestros servicios o disponible o utilizado por nuestra Plataforma y los derechos de propiedad intelectual (incluidos los copyrights) de los con-tenidos y la información, así como el material de nuestra Plataforma pertenecen a Whatwantweb.
+            Whatwantweb se reserva exclusivamente la propiedad de todos los derechos, título e interés en (to-dos los derechos de propiedad intelectual de la apariencia incluyendo la infraestructura de la Plata-forma donde el servicio tiene disponibilidad (incluyendo los comentarios de los clientes y el conte-nido traducido), y no tienes derecho a copiar, recopilar, enlazar a, publicar, promocionar, vender, integrar, utilizar, combinar o utilizar el contenido (incluidas las traducciones y los comentarios de los clientes) o nuestra marca sin un permiso por escrito nuestro. En la medida que quieras usar (completamente o parcialmente) nuestro contenido (traducido) (incluyendo los comentarios de los clientes) o seas propietario de cualquier derecho de propiedad intelectual de la Plataforma o cual-quier contenido (traducido) o comentarios de los clientes, por la presente, transfieres y cedes todos los derechos de propiedad intelectual a Whatwantweb. Cualquier tipo de uso indebido o cualquier tipo de acción o comportamiento anteriormente mencionado constituirá una infracción de nuestros derechos de propiedad intelectual (incluyendo el copyright y el derecho de base de datos).
+            11. Otros.
+            En la medida en que lo permita la ley, estos términos y condiciones y la prestación de nuestros ser-vicios se regirán e interpretarán de acuerdo a la legislación Española, y cualquier controversia que surja por estos términos y condiciones generales o por nuestros servicios se presentará únicamente ante los tribunales competentes de España.
+            La versión original en Español de estos términos y condiciones ha sido traducida a otros idiomas. La versión traducida es una traducción de cortesía y no oficial, por lo tanto no se pueden extraer derechos de la traducción. En caso de disputa sobre el contenido o la interpretación de los términos y condiciones, así como en el supuesto de conflictos, contradicciones o discrepancias entre la versión en Español y el resto de versiones en otros idiomas, la versión en Español de estos términos prevalece y es concluyente en la medida en que esté permitido por la ley. Podrás consultar la versión en Español en nuestra Plataforma (seleccionando el idioma) o pedirnos por escrito que te la enviemos.
+            Si alguna disposición de estos términos y condiciones es o se convierte en inválida o no vinculante, seguirás estando vinculado al resto de disposiciones mencionadas. Si esto ocurriese, la disposición no válida deberá cumplirse hasta el máximo permitido por la ley aplicable y, en la medida de lo posible, se aceptará un efecto similar al de las disposiciones inválidas o no vinculantes, conforme al contenido y objeto de estos términos y condiciones.
+
+            EN CONCRETO, LOS PROVEEDORES DEBEN CONOCER CÓMO SE APLICA LA NORMATIVA DE SUS RESPECTIVAS CIUDADES. EN ALGUNAS CIUDADES, LAS NORMAS RESTRINGEN LA CAPACIDAD PARA ALOJAR HUÉSPEDES A CAMBIO DE PRECIO PARA ESTANCIAS CORTAS. ESTAS NORMAS SUELEN FORMAR PARTE DE LOS NORMAS URBANÍSTICAS O ADMINISTRATIVAS DE UNA CIUDAD EN CONCRETO. EN MUCHAS CIUDADES LOS PROVEEDORES DEBEN INSCRIBIRSE EN UN REGISTRO, OBTENER UN PERMISO O LICENCIA ANTES DE PODER PUBLICAR EN UN ANUNCIO UNA VIVIENDA O ACEPTAR HUÉSPEDES. TAMBIÉN ES POSIBLE QUE ALGUNOS TIPOS DE RESERVAS A CORTO PLAZO ESTÉN PROHIBIDAS. LOS GOBIERNOS LOCALES APLICAN ESTAS NORMAS DE FORMAS MUY DIFERENTES. LAS PENALIZACIONES PUEDEN IR DESDE MULTAS A OTROS TIPOS DE SANCIONES. LOS PROVEEDORES DEBERÁN CONSULTAR LA NORMATIVA LOCAL ANTES DE PUBLICAR SU ANUNCIO EN WHATWANTWEB.
+
+
+
+             
+            INTERCAMBIO DE VIVIENDAS
+            INTERCAMBIO DE HABITACIONES ENTRE ESTUDIANTES
+
+
+            1.- Objeto
+            La finalidad de este PORTAL es la de ser un lugar de intercambio de viviendas e intercambio de habitaciones entre estudiantes en Internet tanto a nivel nacional como internacional.
+            En este sentido, Whatwantweb pone a disposición de los usuarios de Internet interesados en el in-tercambio de sus viviendas e intercambio de habitaciones entre estudiantes el Sitio Web Whatwantweb.com
+            Whatwantweb sólo facilitará a los demás usuarios los datos y/o información proporcionados por el USUARIO cuando estos datos y/o información no vulneren disposiciones legales o las presentes Condiciones Generales de Uso.
+            Whatwantweb podrá eliminar del Sitio Web contenidos ilegales sin previo aviso.
+            El USUARIO reconoce que técnicamente no es posible lograr disponibilidad del Sitio Web What-wantweb al 100%. Sin embargo, Whatwantweb se esforzará por mantener disponible el Sitio Web de la forma más constante posible. Especialmente por razones de mantenimiento, seguridad o capa-cidad, así como a causa de acontecimientos sobre los que no puede influir Whatwantweb (por ejemplo anomalías de redes públicas de comunicación, cortes de electricidad, etc.) pueden producir-se breves anomalías o la suspensión pasajera de los servicios del Sitio Web.
+            Whatwantweb sólo facilitará a los demás usuarios los datos y/o información proporcionados por el USUARIO cuando estos datos y/o información no vulneren disposiciones legales o las presentes Condiciones Generales de Uso.
+            Whatwantweb podrá eliminar del Sitio Web contenidos ilegales sin previo aviso.
+            Las comisiones que se fijan son las siguientes:
+            intercambio de casas comisión fija 30€ más impuestos vigentes a cada propietario de la vivienda.
+            Intercambio de habitaciones entre estudiantes comisión fija 10€ más impuestos vigentes a cada es-tudiante.
+
+
+
+             
+            MERCADILLO DE ROPA 2ª MANO
+
+
+            Whatwantweb actúa como vendedor social, en la oferta de ropa y complementos de segunda mano por distintos vendedores, intermediando en la compraventa de los citados productos.
+            1. El USUARIO que venda o compre productos en el SITIO WEB (en adelante USUARIO VEN-DEDOR y USUARIO COMPRADOR) deberá darse de alta a través del formulario previsto al efecto por Whatwantweb en el SITIO WEB, cumplimentando todos los campos requeridos, así como los datos de contacto, la dirección de entrega o de recogida, en su caso. El USUARIO deberá aceptar la política de privacidad y de contratación contenida en el presente documento.
+
+            2. EL USUARIO vendedor deberá publicar las imágenes de los productos puestos a la venta y el precio de acuerdo con las características de acuerdo con el producto que vende.
+            3. El USUARIO se compromete a proporcionar a Whatwantweb los datos de contacto, dirección de recogida o dirección de remitente , pago y/o facturación correctos y veraces así como a mantenerlos en todo momento actualizados, no asumiendo Whatwantweb ninguna responsabilidad en caso con-trario.
+
+            4. El USUARIO COMPRADOR podrá realizar el pago del precio del producto por cualquiera de los medios de pago puesto a disposición en el SITIO WEB, la compra tiene una comisión del 3% para sufragar los gastos del TPV, la transferencia al vendedor y demás gastos.
+
+            5. Whatwantweb confirmará al USUARIO COMPRADOR la transacción realizada al finalizar el proceso de compra al correo electrónico facilitado por el USUARIO. Del mismo modo Whatwant-web confirmará la venta al USUARIO VENDEDOR por email y le ofrecerá información ofrecién-dole información sobre como proceder para realizar el envío según sea el método de envío elegido por el USUARIO VENDEDOR.
+
+            6. Los gastos de envío del pedido serán asumidos por el USUARIO COMPRADOR.
+
+            7. Whatwantweb señalará los gastos de envío en el proceso de pedido, los mismos deberán ser acep-tados por el USUARIO con anterioridad a la aceptación de la compra.
+
+            8. Whatwantweb informará a los USUARIOS de los plazos de recogida y entrega del producto por email.
+
+            9. La gestión logística de los pedidos corresponde a las empresas contratadas por Whatwantweb por lo que Whatwantweb no asume responsabilidad alguna derivada del incumplimiento de las obliga-ciones descritas en esta cláusula con motivo de una acción u omisión llevada a cabo por el operador logístico, sin perjuicio de la tramitación que Whatwantweb pueda realizar para solventar las inci-dencias ocurridas. Una de las empresas logísticas es Correos, otra forma de enviar la compra es a través de nuestra plataforma, en la sección “coche compartido”, el conductor del vehículo verificara el buen estado del artículo, el comprador podrá decidir otra forma alternativa de envío.
+
+            10. Whatwantweb emitirá una factura al USUARIO VENDEDOR en concepto de uso de la plata-forma que supondrá el doce por ciento (12%) más IVA del precio del producto vendido en el SITIO WEB.
+
+            11. Whatwantweb liquidará a partir de los diez (10) días al USUARIO VENDEDOR las cantidades resultantes de lo vendido en el mes anterior restando la cantidad expresada en el apartado anterior en concepto de comisión.
+
+            12. Whatwantweb es un mero intermediario entre los USUARIOS COMPRADORES y los USUA-RIOS VENDEDORES, por lo que no compra ni vende productos de ningún tipo. Whatwantweb es propietario de un portal de compra y venta de prendas de segunda mano y todas las transacciones efectuadas en Whatwantweb son entre particulares, USUARIOS COMPRADORES y USUARIOS VENDEDORES. De conformidad con la normativa de consumidores, los servicios de intermedia-ción prestados por Whatwantweb no podrán ser objeto de desistimiento por el USUARIO cuando se haya confirmado la transacción al USUARIO COMPRADOR y al USUARIO VENDEDOR de conformidad con la Cláusula 5 anterior, porque el servicio se entiende completamente ejecutado, circunstancia que es conocida y aceptada por el USUARIO COMPRADOR y el USUARIO VEN-DEDOR. Hasta ese momento, cualquiera de los usuarios podrá desistir de los servicios de interme-diación, sin coste alguno, dando de baja la oferta concreta por parte del USUARIO VENDEDOR o cancelando el pedido efectuado por parte del USUARIO COMPRADOR, o por cualquier otra co-municación a Whatwantweb, indicando su decisión de desistir de los servicios con una declaración inequívoca, a través de los medios de contacto indicados en el sitio web. En caso de desistimiento, le devolveremos todos los pagos que, en su caso, hayamos recibido del USUARIO, sin ninguna demora indebida y, en todo caso, a más tardar 14 días naturales a partir de la fecha en la que nos informe de su decisión de desistir. Efectuaremos el reembolso a través del mismo medio de pago empleado para la transacción inicial a no ser que usted haya dispuesto lo contrario. Asimismo, al tratarse de un servicio, no resultan de aplicación las garantías de los productos de consumo. Si el usuario que desiste es el comprador se le reintegrará el dinero menos los gastos de gestión.
+
+            13. Se informa a los USUARIOS COMPRADORES que, al tratarse de transacciones entre particu-lares, no resulta de aplicación la garantía legal de productos ni el derecho de desistimiento previstos en la normativa sobre consumidores y usuarios. No obstante, se aplican las reglas que se indican en los puntos posteriores a las ventas a través de la plataforma.
+
+            14. Los USUARIOS VENDEDORES al añadir prendas a la venta podrán decidir aceptar devolu-ciones por las prendas que venderán y esta información quedará reflejada en todos los artículos que tienen en venta quedando visible a los USUARIOS COMPRADORES.
+
+            15. En consecuencia, el USUARIO COMPRADOR podrá desistir libremente del contrato de com-praventa si así lo acepta el USUARIO VENDEDOR de conformidad con lo indicado en el apartado anterior. Toda comunicación se hará a través de Whatwantweb, quien pondrá los medios y procesos necesarios para poder procesar la devolución.
+
+            16. Si el USUARIO COMPRADOR y USUARIO VENDEDOR deciden procesar la devolución de las prendas Whatwantweb procesará la recogida y envío del pedido.
+
+
+            17. El USUARIO VENDEDOR o USUARIO COMPRADOR, según lo que acuerden entre ambos, debe hacerse cargo del coste directo de devolución del producto y transporte. El USUARIO COMPRADOR deberá retornar la mercancía en las mismas condiciones que la recepcionó.
+
+            18. Whatwantweb intentará por todos los medios mediar en las incidencias que puedan generar las transacciones. Si una transacción con incidencia en USUARIO VENDEDOR no se resolviese, Whatwantweb bloqueará el acceso, cuenta y pagos pendientes que ese USUARIO VENDEDOR tuviese pendiente hasta ese momento. Existen algunas penalizaciones al respecto que pueden ser consultadas AQUI.
+
+            19. Si un USUARIO COMPRADOR y un USUARIO VENDEDOR acuerdan anular un pedido ya realizado, deberán ponerse en contacto Whatwantweb. Si el pedido ha sido depositado o recogido por cualquiera de las agencias de transporte asociadas a Whatwantweb, se podrá tramitar una anula-ción del pedido siendo por cuenta del solicitante un cargo por el valor del transporte de vuelta.
+
+            20. El USUARIO COMPRADOR se compromete a proporcionar a Whatwantweb los datos de di-rección de entrega correctos. En caso de realizar un pedido y que este esté en proceso de entrega por la agencia de transporte y no se pueda entregar por motivos ajenos a la agencia de transporte el pe-dido quedará estacionado durante 15 días y el USUARIO COMPRADOR será notificado por dife-rentes medios para procesar la retirada del pedido en el lugar en el que se encuentre. Si transcurridos los 15 días el pedido no es retirado de la agencia u oficina, el pedido será retornado a la USUARIA VENDEDORA y la USUARIA COMPRADORA no tendrá derecho a reclamación alguna. Whatwantweb procesará un cargo a la USUARIA COMPRADORA por valor del doble del precio de transporte en concepto de gastos de envío de retorno.
+
+            22. Whatwantweb es un plataforma o SITIO WEB que pone en contacto compradores y vendedores de ropa y complementos de segunda mano, en ningún caso es propietaria ni ejerce ninguna titulari-dad ni control de los productos puestos a la venta , salvo que se exprese lo contrario exonerándose de cualquier responsabilidad en caso de desacuerdo entre las partes. Sin perjuicio de lo anterior, Whatwantweb empleará la máxima diligencia para garantizar el buen funcionamiento de la plata-forma.
+
+            23 Toda la información de los productos publicados en el SITIO WEB ha sido incorporada y publi-cada por el USUARIO VENDEDOR que pone a la venta el producto por lo que Whatwantweb no puede garantizar la calidad de los mismos, así como la veracidad de las imágenes y/o descripciones que publican los vendedores.
+
+            24. Whatwantweb no será en ningún caso responsable del contenido funcionamiento y/o política de protección de datos u otros términos contemplados en otros sitios web a los que en algún caso pueda accederse por la inclusión de un vínculo o enlace (Links) en el presente SITIO WEB, ni de los contenidos, servicios o productos ofrecidos desde los mismos, a no ser que estos otros sitios sean propiedad de Whatwantweb. Los hiperenlaces contenidos en el SITIO WEB de Whatwantweb pue-den dirigir a sitios web de terceros. Whatwantweb los incorpora para facilitar la navegación del USUARIO, en ningún caso asume responsabilidad por el contenido, la información o los servicios que pudieran aparecer en dichos sitios, que tendrán exclusivamente carácter informativo y que en ningún caso implican relación alguna entre el citado tercero y Whatwantweb.
+
+            25. Whatwantweb desarrolla la máxima diligencia en la implementación de medidas de seguridad, sin embargo no asume responsabilidad alguna en relación a la custodia y buen uso de las contraseñas para acceder al SITIO WEB, que serán responsabilidad exclusiva del USUARIO.
+
+            26. NORMAS DE USO Y PARTICIPACIÓN EN EL BLOG
+            Las presentes normas para responder a las publicaciones del blog y/o realizar comentarios sobre las prendas se aceptan desde el momento en que el usuario se haya registrado y comparta cualquier comentario. Los comentarios que realice el usuario deben estar relacionados con el tema que se trata. No está permitida la publicación de ningún tipo de publicidad a través de los comentarios. El contenido de los mensajes publicados en el blog o en relación a las prendas son visibles y accesibles para el resto de usuarios de la Web. En el momento que el usuario envía el mensaje, autoriza expre-samente a Whatwantweb al uso y difusión de ese texto a través de la Web www.whatwantweb.com. Asimismo, renuncia a pedir cualquier tipo de responsabilidad y/ o contraprestación por el referido uso. Los usuarios utilizarán en todo momento un lenguaje apropiado y respetuoso. Están prohibidos los insultos, las faltas de respeto y los comentarios que puedan atentar contra los derechos de las personas. Serán eliminados todos los comentarios de contenido racista, xenófobo, pedófilo, sexista, agresivo o de cualquier otro tipo que pudieran vulnerar derechos o ser ofensivos. No está permitido publicar datos personales de terceros en los comentarios. Se recomienda a los usuarios que tampoco publiquen datos personales propios. No se pueden publicar comentarios que puedan vulnerar derechos de autor, derechos de propiedad intelectual y/o industrial.
+
+            Whatwantweb podrá eliminar cualquier comentario que contravenga las presentes normas así como eliminar el acceso de los usuarios que no respeten las mismas.
+
+
+             
+            COMPRA/VENTA/TRUEQUE
+
+            Whatwantweb que es una plataforma que permite a los usuarios publicar ofertas para la compra–venta y trueque de una amplia variedad de artículos de su propiedad, así como la comunicación en-tre los usuarios ofertantes y los usuarios interesados en adquirir los artículos ofrecidos y la localiza-ción geográfica de los mismos, para completar la transacción.
+            El uso del Servicio atribuye a quien lo realiza la condición de usuario del mismo (en adelante, “el Usuario”) e implica la aceptación íntegra de estos Términos de Uso.
+
+            Asimismo, se obliga hacer un uso adecuado del Servicio y a no emplearlo para realizar actividades ilícitas o constitutivas de delito, que atenten contra los derechos de terceros o que infrinjan cualquier norma del ordenamiento jurídico.
+            El Usuario se obliga a no transmitir, introducir, difundir y poner a disposición de terceros, cualquier tipo de material e información (productos, objetos, datos, contenidos, mensajes, dibujos, archivos de sonido e imagen, fotografías, software, etc.) que sean contrarios a la ley, la moral, el orden público y los presentes Términos de Uso. A título enunciativo y en ningún caso limitativo o excluyente, el Usuario se compromete a:
+            •	I. No introducir o difundir contenidos o propaganda de carácter racista, xenófobo, pornográfico, de apología del terrorismo o que atenten contra los derechos humanos.
+            •	II. No difundir, transmitir o poner a disposición de terceros cualquier tipo de infor-mación, elemento o contenido que atente contra los derechos fundamentales y las libertades públicas reconocidos constitucionalmente y en los tratados internacionales.
+            •	III. No difundir, transmitir o poner a disposición de terceros cualquier tipo de infor-mación, elemento o contenido que constituya publicidad ilícita o desleal.
+            •	IV. No transmitir publicidad no solicitada o autorizada, material publicitario, “correo basura”, “cartas en cadena”, “estructuras piramidales”, o cualquier otra forma de solicitación, ex-cepto en aquellas áreas (tales como espacios comerciales) que hayan sido exclusivamente concebidas para ello.
+            •	V. No introducir o difundir cualquier información y contenidos falsos, engañosos, ambiguos o inexactos de forma que induzca o pueda inducir a error a los receptores de la informa-ción.
+            •	VI. No suplantar a otros Usuarios del Servicio ni transmitir los datos de acceso a la cuenta ni la contraseña a un tercero sin el consentimiento de Whatwantweb.
+            •	VII. No difundir, transmitir o poner a disposición de terceros cualquier tipo de in-formación, elemento o contenido sin autorización de los titulares de los derechos de propiedad inte-lectual e industrial que puedan recaer sobre tal información, elemento o contenido.
+            •	VIII. No difundir, transmitir o poner a disposición de terceros cualquier tipo de in-formación, elemento o contenido que suponga una violación del secreto de las comunicaciones y la legislación de datos de carácter personal.
+            •	IX. No difundir, transmitir o poner a disposición de terceros fotografías ni cualquier representación o imagen de personas menores de edad.
+            •	X. Cualquier sustancia que requiera una receta médica o que deba dispensarse bajo la supervisión de un médico (doctor, dentista, optometrista, óptico, farmacéutico o veterinario) no está permitida en Whatwantweb. Así como los productos que puedas influir en la salud del individuo (que presenten contraindicaciones, interacciones, etc) y perecederos de cualquier tipo.
+            El Usuario se obliga a mantener indemne a Whatwantweb ante cualquier posible reclamación, multa, pena o sanción que pueda venir obligada a soportar como consecuencia del incumplimiento por parte del Usuario de cualquiera de las normas de utilización antes indicadas, reservándose, además Whatwantweb el derecho a solicitar la indemnización por daños y perjuicios que corresponda.
+            4. Exclusión de Usuarios
+            Whatwantweb se reserva el derecho a impedir el uso del Servicio, ya sea de forma temporal o defi-nitiva, a cualquier Usuario que infrinja cualquiera de las normas establecidas en estos Términos de Uso, la ley o la moral. Discrecionalmente, Whatwantweb también podrá excluir Usuarios e incluso dejar de prestar total o parcialmente el Servicio cuando así lo considere oportuno para mejorar la operativa del Servicio y/o del resto de los usuarios del mismo.
+            5. Exclusión de responsabilidad
+            Whatwantweb no es propietaria de ninguno de los artículos en venta o vendidos a través de su plataforma y no es parte en la transacción de compraventa llevada a cabo exclusivamente entre compradores y vendedores ni revisa o valida los productos que los Usuarios ofrecen a través del Servicio, por lo que Whatwantweb no será responsable, ni directa ni indirectamente, ni subsidiariamente, de los daños y perjuicios de cualquier naturaleza derivados de la utilización y contratación de los contenidos y de las actividades de los Usuarios y/o de terceros a través del Servicio así como de la falta de licitud, fiabilidad, utilidad, veracidad, exactitud, exhaustividad y actualidad de los mismos.
+            Con carácter enunciativo, y en ningún caso limitativo, Whatwantweb no será responsable por los daños y perjuicios de cualquier naturaleza derivados de:
+            a) La utilización que los Usuarios hagan del Servicio ni por el estado, origen, posible inexactitud, o posible falsedad de los datos proporcionados por los Usuarios ni de los productos ofrecidos a través del Servicio.
+            b) Los contenidos, informaciones, opiniones y manifestaciones de cualquier Usuario o de terceras personas o entidades que se comuniquen o exhiban a través del Servicio.
+            c) La utilización que los Usuarios puedan hacer de los materiales del Servicio, ya sean prohibidos o permitidos, en infracción de los derechos de propiedad intelectual y/o industrial, información confi-dencial, de contenidos del Servicio o de terceros.
+            d) La realización de actos de competencia desleal y publicidad ilícita.
+            e) La eventual pérdida de datos de los Usuarios por causa no atribuible al Servicio,
+            f) El acceso de menores de edad a los contenidos incluidos en el Servicio.
+            g) La indisponibilidad, errores, fallos de acceso y falta de continuidad del Servicio.
+            h) Los fallos o incidencias que pudieran producirse en las comunicaciones, borrado o transmisiones incompletas.
+            i) La no operatividad o problemas en la dirección de email facilitada por el Usuario.
+            Whatwantweb responderá única y exclusivamente frente al Usuario de los Servicios que preste por sí misma y de los contenidos directamente originados e identificados con su copyright, quedando limitada, como máximo, al importe de las cantidades percibidas directamente del Usuario por Whatwantweb, con exclusión en todo caso de responsabilidad por daños indirectos o por lucro ce-sante.
+            Cualquier reclamación o controversia que pueda surgir entre los Usuarios del Servicio deberá ser solventada entre éstos, obligándose a mantener a Whatwantweb totalmente indemne, sin perjuicio de lo cual Whatwantweb realizará sus mejores esfuerzos para facilitar a los Usuarios una pronta y satisfactoria solución a través de su Servicio de Atención al Usuario
+            Para productos tecnológicos con un valor superior a 100€ tiene la posibilidad de mandarlo a las oficinas de Whatwantweb para ser revisado, una vez que se le de el visto bueno se le enviará a la dirección que decida el comprador. El coste de este Servicio es del 10% más impuestos vigentes del valor de la mercancía.
+            En el Servicio “trueque” tienen las misma posibilidad que en el anterior caso.
+
+            6. Contenidos y servicios enlazados a través del Servicio
+            El Servicio puede incluir dispositivos técnicos de enlace, directorios e incluso instrumentos de bús-queda que permitan al Usuario acceder a otras páginas y portales de internet (en adelante, “Sitios Enlazados”).
+            El Usuario reconoce y acepta que el acceso a los Sitios Enlazados será bajo su exclusivo riesgo y responsabilidad y exonera a Whatwantweb de cualquier responsabilidad sobre eventuales vulnera-ciones de derechos de propiedad intelectual o industrial de los titulares de los Sitios Enlazados. Así mismo el Usuario exonera a Whatwantweb de cualquier responsabilidad sobre la disponibilidad técnica de las páginas web enlazadas, la calidad, fiabilidad, exactitud y/o veracidad de los servicios, informaciones, elementos y/o contenidos a los que el Usuario pueda acceder.
+            En estos casos, Whatwantweb sólo será responsable de los contenidos y servicios suministrados en los Sitios Enlazados en la medida en que tenga conocimiento efectivo de la ilicitud y no haya desac-tivado el enlace con la diligencia debida. En el supuesto de que el Usuario considere que existe un Sitio Enlazado con contenidos ilícitos o inadecuados podrá comunicárselo a Whatwantweb, sin que en ningún caso esta comunicación conlleve la obligación de retirar el correspondiente enlace.
+            En ningún caso, la existencia de Sitios Enlazados debe presuponer la formalización de acuerdos con los responsables o titulares de los mismos, ni la recomendación, promoción o identificación de Whatwantweb con las manifestaciones, contenidos o servicios proveídos. Whatwantweb no conoce los contenidos y servicios de los Sitios Enlazados y, por tanto, no se hace responsable de forma di-recta o indirecta por los daños producidos por la ilicitud, calidad, desactualización, indisponibilidad, error e inutilidad de los contenidos y/o servicios de los Sitios Enlazados ni por cualquier otro daño que no sea directamente imputable a Whatwantweb.
+
+            7. Propiedad intelectual e industrial
+            Los derechos de propiedad industrial e intelectual sobre las obras, prestaciones protegidas y cuales-quiera contenidos o elementos sobre los que recaigan derechos de propiedad intelectual e industrial que se usen en el Servicio (los “Contenidos del Servicio”) pertenecen a sus legítimos titulares. El Usuario no adquirirá por el uso del Servicio ningún derecho de propiedad intelectual o industrial, ni licencia de uso alguna sobre tales elementos.
+            Son Contenidos del Servicio, los textos, fotografías, gráficos, imágenes, iconos, tecnología, softwa-re, bases de datos, y demás contenidos audiovisuales o sonoros, así como su diseño gráfico y códi-gos fuente utilizados en el Servicio. Esta enumeración se realiza a título enunciativo y ejemplifica-tivo, no limitativo.
+            El texto, las imágenes, los gráficos, los ficheros de sonido, los ficheros de animación, los ficheros de vídeo, el software y la apariencia del sitio web de Whatwantweb son objeto de protección por derechos de propiedad intelectual e industrial. Esos elementos no podrán ser válida y legítimamente copiados o distribuidos para uso comercial, ni podrán ser modificados o insertados en otros sitios web sin previa autorización expresa de sus titulares.
+            El Usuario manifiesta ser titular en exclusiva de todos los derechos que recaen sobre las obras, prestaciones protegidas y cualesquiera otros elementos protegidos por propiedad intelectual o indus-trial que incorpore en el Servicio (en adelante, los “Contenidos”).
+            El Usuario cede gratuitamente y en exclusiva a Whatwantweb los derechos de comunicación públi-ca, reproducción, distribución y transformación que tiene sobre los Contenidos, en todas las moda-lidades de explotación existentes en la fecha aceptación de estos Términos de Uso, por todo el tiempo de vigencia de los derechos objeto de cesión, para el ámbito territorial universal.
+            Whatwantweb no representa ni tiene vinculación empresarial alguna con las marcas que los Usuarios puedan anunciar en el Servicio y Apple no patrocina ni participa en modo alguno en las acciones llevadas a cabo por Whatwantweb a través del Servicio.
+            Cualesquiera consultas relacionadas con lo anterior pueden plantearse a través del Servicio de Atención al Usuario a través de info@whatwantweb.com.
+
+            8. Publicación de anuncios
+            El Usuario que desee poner a la venta un producto deberá tener en cuenta que mediante la publica-ción de su anuncio está emitiendo una oferta de venta, que será vinculante desde que ésta fuese aceptada por otro Usuario.
+            En cualquier caso, a la hora de publicar sus anuncios el Usuario deberá tomar en consideración lo siguiente:
+            - No está permitido publicar anuncios con imágenes de contenido sexual.
+            - No está permitido publicar anuncios relacionados con el sexo, el erotismo o el fetichismo, así como tampoco relacionados con masajes, servicios de compañía o amistad.
+            - No está permitido anunciar esquemas piramidales o similares.
+            - Sólo se permite anunciar un inmueble por anuncio. En tal caso, el inmueble debe anunciarse en la localidad en la que se encuentre.
+            - No se pueden buscar compañeras o compañeros para pisos relax, piso de masajes, etc.
+            - No está permitido publicar imágenes o descripciones que no se correspondan con el artículo real-mente ofrecido.
+            - No está permitido publicar imágenes de menores de edad.
+            - No está permitido publicar anuncios relacionados con animales.
+            Por su parte, el Usuario interesado en adquirir un producto debe tener en cuenta que cuando se compromete a comprar un artículo, por un precio establecido, está suscribiendo un contrato de compraventa legalmente vinculante con otro Usuario. Asimismo, el Usuario deberá tener en cuenta que al adquirir un artículo, será considerado sujeto pasivo del Impuesto sobre Transmisiones Patri-moniales Onerosas y Actos Jurídicos Documentados (“ITPAJD”), modalidad TPO, obligándose a mantener a Whatwantweb totalmente indemne en caso de no dar cumplimiento a dicha obligación.
+            En cualquier caso, a la hora de publicar sus anuncios el Usuario deberá tomar en consideración las reglas de convivencia.
+
+            9. Servicio de visibilidad
+            Los usuarios podrán incrementar la visibilidad de sus anuncios en Whatwantweb, a través de la con-tratación de servicios de preferencias publicitarias ("servicios de visibilidad").
+            Los Servicios de Visibilidad son servicios opcionales de los que pueden disfrutar los Usuarios para mejorar el posicionamiento de los artículos anunciados.
+            Existen diferentes tipos de servicios de visibilidad.
+            Servicio de Visibilidad en España:
+            Existen 3 tipos de servicios de visibilidad para usuarios ubicados en el territorio español:
+            a) El primero de los Servicios de Visibilidad implicará que, desde el mismo momento de su contra-tación:
+            - El anuncio se reposicionará en las primeras posiciones en el panel de anuncios del Servicio, como si de un nuevo anuncio se tratara.
+            - El anuncio se destacará respecto del resto de anuncios que no tengan contratado el Servicio de Visibilidad.
+            - El anuncio se reposicionará en las primeras posiciones en el panel de anuncios del Servicio, como si de un nuevo anuncio se tratara y también se destacará respecto del resto de los anuncios que no lo tengan contratado.
+
+            La opción de contratar los Servicios de Visibilidad estará disponible para los usuarios, tan solamente se tienen que poner en contacto con info@whatwantweb.com
+            Los Servicios de Visibilidad no son un mecanismo para que los Usuarios realicen publicidad de su perfil, ni permite que los Usuarios publiciten varios artículos que no tengan relación o puedan ser publicitados de forma independiente. Whatwantweb se reserva el derecho a dejar de prestar total o parcialmente el Servicio de Visibilidad o incluso a excluir a los Usuarios que no cumplan con lo anterior o contravengan de alguna forma los Términos de Uso cuando así lo considere oportuno para mejorar la operativa del Servicio y/o del resto de los usuarios del mismo, notificando previamente dicha circunstancia a los Usuarios afectados.
+
+            10. Nulidad e ineficacia de las cláusulas
+            Si cualquier cláusula incluida en los presentes Términos de Uso fuese declarada total o parcialmente, nula o ineficaz, tal nulidad o ineficacia tan sólo afectará a dicha disposición o a la parte de la misma que resulte nula o ineficaz, subsistiendo los presentes Términos de Uso en todo lo demás, considerándose tal disposición total o parcialmente por no incluida.
+
+            Para poder acumular dinero en la bolsa se a de seguir a Whatwantweb en Facebook, Twiter e Insta-gran,  esta bolsa irá caducando a los doce meses, es decir, siempre tendrá sumados los últimos doce meses, con un importe máximo de 500€. por año. La utilización la bolsa es personal e intransferible, para uso exclusivo en  todos los apartamentos turísticos que existan en la plataforma con una estan-cia mínima de 2 noches, se a de tener en la bolsa el importe total del costo del apartamento elegido, no pudiendo pagar en metálico o por Tpv si faltase dinero para el pago total del apartamento. Esta gestión no tiene el 3% de gastos de Gestión.
+            La invitación por parte de un Usuario a todos sus amigos tiene una recompensa del 1% de todo lo facturado durante un año, no se incluye el 3% de gastos de gestión y el 2% de gastos de Paypal, este importe se le transfiere a su cuenta corriente del banco que nos indique, las transferencias se harán cuando las solicite el usuario, pero siempre por un importe mínimo de 20€ menos la del mes 12, cuando termina la promoción que se le hará por la totalidad que se le adeude, para tener acceso a esta promoción han de seguir a Whatwantweb en Facebook, Twiter e Instagran.
+
+            Para todas las incidencias que tengan los usuarios les ponemos a su disposición un numero de te-léfono 665 80 80 06, con el Servicio de mensajería instantánea “WhatsApp” este servicio esta in-dicado para cuando por ejemplo un conductor no acuda a su cita, el usuario pasajero nos los co-munica y le buscamos el primer viaje hacia el mismo destino que consta en nuestra base de datos de nuestra plataforma, todo esto sin que tenga que pagar otra reserva (siempre que los dos sean del mismo precio), esto no conlleva ningún gasto adicional por parte de Whatwantweb. También para cuando un apartamento turístico no correspondan las fotos que hay publicadas con la realidad, el estado de limpieza no sea el óptimo, u otras negligencias que puedan suceder, en este caso se busca otro apartamento ubicado en la misma zona o del mismo precio (según prefiera el usuario), esto no conlleva ningún gasto adiciona por parte de Whatwantweb, es decir, para todas las incidencias que tengan nuestros usuarios. Creemos que este servicio de mensajería es lo mas rápido para solucionar los problemas.
+            Los sorteos de estancias gratuitas en apartamentos turísticos que haga Whatwantweb, serán entre todos los usuarios que hayan realizado alguna transacción y esta ya se haya consumido. ya sea como comprador o vendedor, como conductor o pasajero, como propietario del apartamento o inquilino, ect. entre todos ellos, teniendo un número en el sorteo por cada transacción. Este sorteo se hará publico por nuestras redes Sociales.
+            Whatwantweb se reserva el derecho a anular o modificar cualquier bolsa, recompensa del 1% o si a sido agraciado en algún sorteo si ve indicios de uso fraudulento o intentos de engaño por parte de algún usuario.
+
+
+
+            16.    Aviso legal
+
+
+            La plataforma está editada por What Want Web SL, registrada en el Registro de Granada, con nú-mero CIF B-19582881, teniendo su sede en la Avenida Fernando de los Ríos número 11, bloque 1, oficina 3, 18.100 Armilla Granada.
+            Para cualquier consulta pueden ponerse en contacto con What Want Web S.L en el mail in-fo@whatwantweb.com
+
+            Versión de 3 de Mayo de 2017
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ include('nav/menuScript.html.twig') }}
+{% endblock %}
