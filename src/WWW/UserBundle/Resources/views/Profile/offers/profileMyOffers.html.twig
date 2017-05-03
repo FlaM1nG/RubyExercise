@@ -1,6 +1,7 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
 {% import 'macros/offer.html.twig' as offers %}
 {% import 'macros/script.html.twig' as codMenu %}
+{% import 'macros/popup.html.twig' as popups %}
 
 {% block title %}
     Ofertas
@@ -49,6 +50,7 @@
                 {% for offer in pagination %}
 
                     {% set pathEditar = path('user_profiler_editOffer',{idOffer:offer.id}) %}
+                    {% set urlFactura = path('novar_empleo_imprimirHVPdf',{idOffer: offer.id}) %}
 
                     {% if offer.service.id == 1 %}
                         {% set url = path('service_trade' , {idOffer: offer.id}) %}
@@ -80,7 +82,9 @@
 
                     {% if is_granted('offer_expired', offer) %}
                         {{ offers.offUserExp(url, offer.photos.0.url, offer.title, offer.description, 'leer',
-                        '#borrar', 'Borrar')}}
+                        '#borrar', 'Borrar', urlFactura, 'btnCorreos', 'Código correos',
+                        (offer.service.id <=2 and offer.inscriptions is not empty) ? offer.inscriptions.0.dataExtra:'',
+                        'modalCorreos')}}
 
                     {%else%}
 
@@ -102,7 +106,11 @@
     </div>
 {% endblock %}
 
+{% block popupBlock %}
 
+    {{ popups.popup('modalCorreos', 'Código de envío','Código que debe presentar en correos: ' ) }}
+
+{% endblock %}
 
 {% block javascriptsFooter %}
     {{ parent() }}
@@ -110,8 +118,22 @@
     {{ codMenu.scriptUserMenu('.us-dataPersonal-row-fluid') }}
 
     <script type="text/javascript">
+
         $(document).ready(function() {
+
             $(document).on('click','.btnDelete', deleteOffer);
+            $(document).on('click', '.btnCorreos', showCodCorreos);
+
+            function showCodCorreos(e){
+                var cod = $(this).data('id');
+                var text = $('#modalCorreos .modal-body').text();
+
+                if(text.search(cod) == -1) {
+                    text = '<b>' + $('#modalCorreos .modal-body').text() + '</b> ' + cod;
+
+                    $('#modalCorreos .modal-body').html(text);
+                }
+            }
 
             function deleteOffer(e){
                 e.preventDefault();

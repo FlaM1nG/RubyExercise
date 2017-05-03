@@ -3,30 +3,30 @@
     <div class="row prueba administration-row">
 
         <!-- PRIMERA COLUMNA-->
-        <div class="col-lg-3 col-md-3 col-sm-4 hidden-xs colAdministracion">
+        <div class="col-lg-5 col-md-5 col-sm-5 hidden-xs colAdministracion">
             <a href="{{ path('homepage') }}">
                 <img class="img-responsive logo" 
-                     src="{{ asset('img/Logo_www-2.png') }}" alt="Site Logo"/>
+                     src="{{ asset('img/Logo_www-3.png') }}" alt="Site Logo"/>
             </a>
         </div>
         <!-- FIN PRIMERA COLUMNA-->
 
-        <!-- SEGUNDA COLUMNA-->
+        {#<!-- SEGUNDA COLUMNA-->
         <div class="col-lg-4 col-md-3 col-sm-8 col-xs-12 colAdministracion">
             <div class="input-group stylish-input-group posicion-top">
-                <input type="text" class="form-control alto-search"  
+                <input type="text" class="form-control alto-search"
                        placeholder="¿Qué es lo que quieres de la web?" >
                 <span class="input-group-addon">
                     <button type="submit">
                         <span class="glyphicon glyphicon-search"></span>
-                    </button>  
+                    </button>
                 </span>
             </div>
         </div>
-        <!-- FIN SEGUNDA COLUMNA-->
+        <!-- FIN SEGUNDA COLUMNA-->#}
 
         <!-- TERCERA COLUMNA-->
-        <div class="col-lg-3 col-md-4 col-sm-8 hidden-xs colAdministracion">
+        <div class="col-lg-5 col-md-5 col-sm-7 hidden-xs colAdministracion">
             <div class="navegacion-usuario">
                 <ul style="border-right: 0;">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
@@ -83,24 +83,38 @@
                             Bolsa
                         </a>
                     </li>#}
-                    
+
                     <li class="text-nav-user">
-                        <a href="#">
-                            <span class="glyphicon glyphicon-bullhorn 
-                                size-icon">
-                                      
+                        <a href="http://www.whatwantradio.com/web/app.php" target="_blank">
+                            <span class="glyphicon glyphicon-play size-icon" aria-hidden="true">
                             </span>
                             Radio
                         </a>
                     </li>
+                    
+                    {#<li class="text-nav-user">#}
+                        {#<a id="play-music">#}
+                            {#<span class="glyphicon glyphicon-stop size-icon" aria-hidden="true">#}
+                                {#<audio id="audioPlayer" autoplay="" controls="" src="http://217.182.85.254:8004/;"></audio>#}
+                            {#</span>#}
+                            {#on/off#}
+                        {#</a>#}
+                    {#</li>#}
+
+                    {#<li class="text-nav-user">#}
+                        {#<a id="play-sound">#}
+                            {#<span class="glyphicon glyphicon-volume-up size-icon" aria-hidden="true" ></span>#}
+                            {#Sonido#}
+                        {#</a>#}
+                    {#</li>#}
                 </ul>
             </div>
         </div>
         <!-- FIN TERCERA COLUMNA-->
 
         <!-- CUARTA COLUMNA-->
-        <div class="col-lg-2 col-md-2 col-sm-4 hidden-xs colAdministracion">
-            <img class="img-responsive logo2" 
+        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs colAdministracion">
+            <img class="img-responsive logo2"
                  src="{{ asset('img/Logo_wwb-2.png') }}" alt="Site Logo"/>
             <span class="text-bank">
                 Próximamente también podrá usar nuestro servicio de banco

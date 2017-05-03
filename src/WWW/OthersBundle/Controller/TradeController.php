@@ -40,26 +40,19 @@ class TradeController extends Controller{
     private $service;
     
     public function createOfferAction(Request $request){
-//        print_r($request);
-//        print_r($request->headers->get('referer'));
-//       echo "<br>". parse_url($request->headers->get('referer'),PHP_URL_PATH );
 
         $this->setUpVars($request);
         $arrayAddresses = null;
 
-        if($this->service != 3):
-            $arrayAddresses = $this->hasAddresses($request);
-        endif;
+        $arrayAddresses = $this->hasAddresses($request);
 
         if(!empty($arrayAddresses)):
-
-//            $request->getSession()->remove('_security.user.target_path');
 
             $trade = new Trade();
 
             $trade->getCategory()->setId($this->service);
             $trade->getOffer()->getService()->setId($this->service);
-//print_r($arrayAddresses);
+
             $formTrade = $this->createForm(TradeType::class,$trade,array('arrayAddresses' => $arrayAddresses));
 
             $formTrade->handleRequest($request);
@@ -88,10 +81,6 @@ class TradeController extends Controller{
                                  'addresses' => $arrayAddresses));
 
         else:
-
-//            $route = $request->get('_route');
-//
-//            $request->getSession()->set('_security.user.target_path',$route);
 
             return $this->render('OthersBundle:Trade:offerTrade.html.twig',
                             array('service' => $this->service,
@@ -159,7 +148,7 @@ class TradeController extends Controller{
         $result = $ch->resultApiRed($dataOffer, $file);
 
         $this->ut->flashMessage("general", $request, $result);
-print_r($result);
+
         return $result['result'];
     }
     
@@ -276,7 +265,8 @@ print_r($result);
             $this->sendMessage($request);
 
         elseif($formSubscribe->isSubmitted()):
-            $this->offerSubscribe($this->trade);
+            $inscription = $this->offerSubscribe($this->trade);
+            $request->getSession()->set('idInscription', $inscription);
             return $this->redirectToRoute('acme_payment_homepage', array(
                 'idOffer'=> $this->trade->getOffer()->getId(),
                 'service'=> "trade",
@@ -393,7 +383,14 @@ print_r($result);
         $data['offer_id'] = $trade->getOffer()->getId();
         
         $result = $ch->resultApiRed($data, $file);
-
+        
+        if($result['result'] == 'ok'):
+            if(array_key_exists('id_inscription', $result)){
+                $idInscription = $result['id_inscription'];
+            }
+        endif;
+        
+        return $idInscription;
     }
     
     private function formArrayData(){

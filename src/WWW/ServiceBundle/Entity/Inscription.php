@@ -59,6 +59,11 @@ class Inscription
     private $messengerPrice;
 
     /**
+     * @var string
+     */
+    private $dataExtra;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -251,12 +256,6 @@ class Inscription
     {
         return $this->messengerPrice;
     }
-   
-    /**
-     * @var string
-     */
-    private $dataExtra;
-
 
     /**
      * Set dataExtra

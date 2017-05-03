@@ -43,7 +43,6 @@ class ApiRest {
         
         endif;
         
-        //echo  $information;
         return $this->resultApiRed($information, $file);
     }
     

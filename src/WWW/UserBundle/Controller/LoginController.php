@@ -4,6 +4,7 @@ namespace WWW\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use WWW\GlobalBundle\Entity\Utilities;
 use WWW\UserBundle\Entity\User as User;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
@@ -14,6 +15,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 class LoginController extends Controller{
     
     public function loginAction(Request $request){
+
         $session=$request->getSession();
 
         if(empty($session->get('intentoLogin')))
@@ -69,9 +71,9 @@ class LoginController extends Controller{
            elseif($result['result'] == 'not_activate'):
                 $this->saveSession($request, $result);
 
-                return $this->redirectToRoute('user_registerConfirmPhone');
+               return $this->render('UserBundle:Default:login.html.twig',array('last_username' => $lastUsername,'error' => $error,'formulario'=>$formulario->createView()));
 
-           else: 
+            else:
                 $session->set('intentoLogin',$session->get('intentoLogin')+1);
             
                 $this->addFlash(
@@ -101,8 +103,18 @@ class LoginController extends Controller{
             "password" => $password);
 
         $ch = new ApiRest();
+        $ut = new Utilities();
 
         $result = $ch->resultApiRed($data, $file);
+
+        if($result['result'] == 'not_activate'):
+            $ut->flashMessage('',$request, $result, 'Su usuario todavía no ha sido confirmado, por favor revise su email. 
+            Recuerde revisar también el correo no deseado.');
+
+        elseif($result['result'] == 'bad_credentials'):
+            $ut->flashMessage('',$request, $result, 'Usuario o contraseña no válido');
+        
+        endif;
 
         return $result;
 

@@ -19,39 +19,6 @@ class Cancelation
      */
     private $concept;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set concept
-     *
-     * @param string $concept
-     * @return Cancelation
-     */
-    public function setConcept($concept)
-    {
-        $this->concept = $concept;
-
-        return $this;
-    }
-
-    /**
-     * Get concept
-     *
-     * @return string 
-     */
-    public function getConcept()
-    {
-        return $this->concept;
-    }
     /**
      * @var \DateTime
      */
@@ -91,7 +58,39 @@ class Cancelation
      * @var \WWW\ServiceBundle\Entity\Inscription
      */
     private $inscription;
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * Set concept
+     *
+     * @param string $concept
+     * @return Cancelation
+     */
+    public function setConcept($concept)
+    {
+        $this->concept = $concept;
+
+        return $this;
+    }
+
+    /**
+     * Get concept
+     *
+     * @return string 
+     */
+    public function getConcept()
+    {
+        return $this->concept;
+    }
 
     /**
      * Set revisionDate

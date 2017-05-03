@@ -102,9 +102,17 @@ class OfferController extends Controller{
             $result = null;
             if($this->service <= 3):
                 $result = $this->updateOfferTrade($request);
+
+                if($result == 'ok'):
+                    return $this->redirectToRoute('user_profile_offers',array('typeOffer' => 'trade'));
+                endif;
             
             elseif($this->service == 4 || $this->service == 5):
-                $result = $this->updateOfferShareCar($request);
+                $result = $this->updateOfferShareCar($request, array('typeOffer' => 'vehicles'));
+
+                if($result == 'ok'):
+                    return $this->redirectToRoute('user_profile_offers');
+                endif;
             
             elseif($this->service == 6 || $this->service == 7 || $this->service == 8):
 
@@ -117,14 +125,18 @@ class OfferController extends Controller{
 
                 $result = $this->updateOfferHouseRent($request);
 
+                if($result == 'ok'):
+                    return $this->redirectToRoute('user_profile_offers', array('typeOffer' => 'buildings'));
+                endif;
+
             elseif($this->service == 9):
 
                 $result = $this->updateOfferSwapBedroom($request);
 
-            endif;
+                if($result == 'ok'):
+                    return $this->redirectToRoute('user_profile_offers', array('typeOffer' => 'buildings'));
+                endif;
 
-            if($result == 'ok'):
-                return $this->redirectToRoute('user_profile_offers');
             endif;
 
         endif;
@@ -364,7 +376,7 @@ class OfferController extends Controller{
 
                  $this->offer = new ShareHouse($result);
 
-                 if($result['service_id'] == 6 || $result['service_id'] == 7):
+                 if($result['service_id'] == 6 ):
                      $validation = 'licenciaObligatoria';
                  else:
                      $validation = null;
@@ -493,6 +505,7 @@ class OfferController extends Controller{
 
        $file = MyConstants::PATH_APIREST."services/inscription/rate.php";
        $ch = new ApiRest();
+       $response = new JsonResponse();
 
        $rating = $request->get('rating');
        $idOffer = $request->get('idOffer');
@@ -506,17 +519,19 @@ class OfferController extends Controller{
        $data['comment'] = $comment;
 
        $result = $ch->resultApiRed($data, $file);
-
+//$result['result'] = 'ok';
        if($result['result'] == 'ok'):
+           $response->setData(array('result' => 'ok'));
 
-           return $this->forward('UserBundle:Offer:myOffers');
+           $ut = new Utilities();
+           $ut->flashMessage('Gracias por su valoración.', $request, $result);
 
        else:
-           $response = new JsonResponse();
+           $response->setData(array('result' => 'ko'));
 
-           return $response;
        endif;
 
+       return $response;
 
    }
 

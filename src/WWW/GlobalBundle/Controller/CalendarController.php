@@ -44,9 +44,6 @@ class CalendarController extends Controller
     public function editcreateEventAction(Request $request)
     {
 
-
-
-
         $session = $request->getSession();
 
         //Guardamos el id de la oferta en la sesion
@@ -75,7 +72,7 @@ class CalendarController extends Controller
 
             $dateEnd = $date;
 
-            $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'),null,null, $date, $dateEnd,0,$request->get('blocked'),0,0);
+            $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'),null,null, $date, $dateEnd,0,$request->get('blocked'),0,$request->get('inscription_id'));
 
             $em->persist($mce);
 
@@ -101,10 +98,8 @@ class CalendarController extends Controller
             $begin = new \DateTime($startDate);
             $end = new \DateTime($endDate);
             $end->modify('+1 day');
-            //die($ocuppate . ' - ' . $blocked);
             $interval = new \DateInterval('P1D'); // 1 Day
             $dateRange = new \DatePeriod($begin, $interval, $end);
-            //echo "<pre>"; die(print_r($dateRange));
             $range = array();
             foreach ($dateRange as $key => $date) {
                 $range[$key]['start_datetime'] = date_format($date, $format);
@@ -156,7 +151,6 @@ class CalendarController extends Controller
                 }
             }
         }
-        //echo "<pre>"; die(print_r($resultEspecificos));
 
 
         $sql =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado, my.blocked as bloqueado,my.start_datetime,my.end_datetime, h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$idoffer";
@@ -185,8 +179,6 @@ class CalendarController extends Controller
 // PRECIOS BASE. Por ejemplo: 10€
         //$aBase = createDateRangeBase('2017-01-01', '2018-12-31', $aEspecificos[0]['precio_base'], $aEspecificos['ocupado'],$aEspecificos['bloqueado']);
         $aBase = createDateRangeBase('2017-01-01', '2018-12-31', $aEspecificos[0]['precio_base'], 0, 0);
-        //echo "<pre>";
-        //print_r($aBase);die;
         if (!empty($resultEspecificos) && !empty($aBase)) {
             foreach ($aBase as $key => $value) {
                 foreach ($resultEspecificos as $key2 => $value2) {
@@ -323,7 +315,6 @@ class CalendarController extends Controller
 
             $interval = new \DateInterval('P1D'); // 1 Day
             $dateRange = new \DatePeriod($begin, $interval, $end);
-            //echo "<pre>"; die(print_r($dateRange));
             $range = array();
             foreach ($dateRange as $key => $date) {
                 //$range[$key]['fecha'] = $date->format($format);
@@ -361,8 +352,6 @@ class CalendarController extends Controller
             }
         }
 
-
-       // echo "<pre>"; die(print_r($aEspecificos));
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->headers->set('Content-Type', 'application/json');
         // precios
@@ -378,11 +367,10 @@ class CalendarController extends Controller
         $stmt->execute($params);
         $fechas = $stmt->fetchAll();
         //echo "<pre>"; die(print_r($fechas));
-        
+
 
         // List of dates and base prices
         $aBase = createDateRange('2017-01-01', '2017-12-31', $aEspecificos['precio_base'], 0 ,0);
-        //echo "<pre>"; die(print_r($fechas));
         $result = array('1' => array(), '2' => array(), '3' => array(), '4' => array(), '5' => array(),'6' => array(),'7' => array(),'8' => array(),'9' => array(),'10' => array(),'11' => array(),'12' => array());
 
         if (!empty($fechas)) {
@@ -394,7 +382,6 @@ class CalendarController extends Controller
                 }
             }
         }
-        //echo "<pre>"; die(print_r($result));
 
         // We merge the base prices with the specific ones
         if (!empty($aBase) && !empty($result)) {
@@ -421,15 +408,17 @@ class CalendarController extends Controller
 
         $sePuede = true;
 
-       // echo "<pre>"; die(print_r($aBase));
         if (!empty($_POST['initDate']) && !empty($_POST['endDate'])) {
+            //We receive the initial and end dates, if this dates are the same are false
+            if (($_POST['initDate']) == ($_POST['endDate'])) {
+                $sePuede = false;
+            }
             // We receive the initial and end dates
             foreach ($aBase as $fecha => $value) {
                     // We calculate the price between the two dates entered. The format date is: 20-03-2017
-                    if ((strtotime($fecha) >= strtotime($_POST['initDate'])) && (strtotime($fecha) <= strtotime($_POST['endDate']))) {
+                    if ((strtotime($fecha) >= strtotime($_POST['initDate'])) && (strtotime($fecha) < strtotime($_POST['endDate']))) {
                         //echo "Fechas :" . $fecha . '<br>';
                         if ($value['ocupado'] == 1 || $value['bloqueado'] == 1) {
-                            //echo "ENTRAAAAA";
                             $sePuede = false;
                             //$res['response'] = 'NOK';
                         } //else {
@@ -443,6 +432,23 @@ class CalendarController extends Controller
 
 
                     }
+            }
+
+            if (!empty($res['totalPrice'])){
+
+
+                $sesion = $request->getSession();
+
+                //Guardamos el precio total en la sesion
+
+                $sesion->set('preciototal', $res['totalPrice']);
+
+                $sesion->set('fechainicial', $_POST['initDate']);
+
+                $sesion->set('fechafinal', $_POST['endDate']);
+
+             //   $idoferta = $session->get('offer');
+
             }
 
             if ($sePuede) {
@@ -504,7 +510,6 @@ class CalendarController extends Controller
 
             $interval = new \DateInterval('P1D'); // 1 Day
             $dateRange = new \DatePeriod($begin, $interval, $end);
-            //echo "<pre>"; die(print_r($dateRange));
             $range = array();
             foreach ($dateRange as $key => $date) {
                 $aux['id'] = $key;

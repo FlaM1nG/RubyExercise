@@ -42,7 +42,7 @@ class HouseOffersController extends Controller
 
             $form = $this->createForm(ShareHouseType::class,$offer,
                 array('arrayHouses' => $arrayHouses,'service' =>$service,
-                      'validation_groups' => $service == 6 || $service == 7 ?'licenciaObligatoria':false));
+                      'validation_groups' => $service == 6 ?'licenciaObligatoria':false));
         else:
             $offer = new ShareRoom();
 
@@ -252,7 +252,19 @@ class HouseOffersController extends Controller
         $formSubscribe = null;
         $service = $this->getIdService($request);
 
-        if($service == 6 || $service == 7){
+
+
+        if($service!=8){
+
+            $sesion = $request->getSession();
+
+            //Guardamos el precio total en la sesion
+
+            $precioTotal = $sesion->get('preciototal');
+
+            $fechainicial = $sesion->get('fechainicial');
+
+            $fechafinal = $sesion->get('fechafinal');
 
             $formSubscribe = $this->createForm(DatepickerType::class);
 
@@ -270,6 +282,7 @@ class HouseOffersController extends Controller
         endif;
 
         $offerShareHouse = $this->getoffer($request, $service);
+
 
         if($service != 9):
             $arrayAttr = $offerShareHouse->getHouse()->getArrayGroupsAttrH();
@@ -298,12 +311,25 @@ class HouseOffersController extends Controller
             );
 
         endif;
+ 
 
         $formSubscribe =  $this->createForm(DatepickerType::class);
         $formSubscribe->handleRequest($request);
 
+        $calendarId = null;
+
+        //Sacamos el calendar ID
+        $calendarId = $this->getDataCalendar($offerShareHouse->getHouse()->getId());
+
+        // Lo guardo en la sesion el calendar ID y el servicio
+        $sesion->set('calendario_id', $calendarId);
+        $sesion->set('service_id', $service);
+        
+
+
         if($formSubscribe->isSubmitted()):
-            $this->offerSubscribe($request,$offerShareHouse->getOffer()->getId());
+            $inscription =  $this->offerSubscribe($request,$offerShareHouse->getOffer()->getId());
+                $request->getSession()->set('idInscription', $inscription);
                 $nameService = "";
                 if($service == 6) $nameService = 'house-rents';
                 elseif($service == 7) $nameService = 'share-house';
@@ -311,8 +337,11 @@ class HouseOffersController extends Controller
                 return $this->redirectToRoute('acme_payment_homepage', array(
                     'idOffer'=> $offerShareHouse->getOffer()->getId(),
                     'service'=> $nameService,
+
                 ));
         endif;
+
+
 
         return $this->render('HouseBundle::offHouseRents.html.twig', array(
                              'offer' => $offerShareHouse,
@@ -322,8 +351,33 @@ class HouseOffersController extends Controller
                              'formSubscribe' => $formSubscribe->createView(),
                              'pagination' => $pagination,
                              'numComment' => MyConstants::NUM_COMMENTS_PAGINATOR,
-                             'service' => $service
+                             'service' => $service,
+                            'preciototal' => $precioTotal,
+                            'fechainicial' => $fechainicial,
+                            'fechafinal' => $fechafinal,
+                            'calendarID' => $calendarId,
+
+
+
         ));
+    }
+
+    private function getDataCalendar($idHouse){
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+
+        $query =  "select calendar_id from house where id=".$idHouse;
+
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $fechas = $stmt->fetchAll();
+
+        $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
+
+        return $fechas[0]['calendar_id'];
+
     }
 
 
@@ -338,7 +392,11 @@ class HouseOffersController extends Controller
         $data['offer_id'] = $offerId;
 
         $result = $ch->resultApiRed($data, $file);
-
+        if($result['result'] == 'ok'):
+            if(array_key_exists('id_inscription', $result))
+                $idInscription = $result['id_inscription'];
+        endif;
+        return $idInscription;
     }
 
 

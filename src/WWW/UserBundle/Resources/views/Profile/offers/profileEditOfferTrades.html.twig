@@ -1,5 +1,6 @@
 {% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
 {% import 'macros/offer.html.twig' as offers %}
+{% import 'macros/script.html.twig' as codMenu %}
 
 {% block title %}
     Ofertas
@@ -33,7 +34,7 @@
 <div class="row us-dataPersonal-row-fluid">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h3>
-            Editando mi oferta publicada de {{ offers.editService(service) }}
+            Editando oferta de {{ offers.editService(service) }}
         </h3>
         <hr/>
         {{form_start(form)}}
@@ -61,6 +62,7 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row-fluid') }}
 
     <script type="text/javascript" src="{{ asset('js/calendario/jquery-2.1.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/calendario/jquery-ui.custom.min.js') }}"></script>

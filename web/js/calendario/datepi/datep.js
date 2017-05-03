@@ -90,7 +90,6 @@ $(document).ready(function() {
                 data: {'initDate' : initDate, 'endDate' : endDate,'idOffer' : idoferta},
                 type: 'post',
                 success: function(data) {
-                  //  console.log(data);
                     if(data.response == "OK"){
                     totalPrice = data;
                     $('#datepicker_precioTotal').text(data.totalPrice+" €");

@@ -81,7 +81,6 @@
 
                                         </div>
                                     {%endif%}
-
                                     {# BOTON INSCRITOS A LA ESPERA A QUE SE CREE EL CONDICIONAL PARA QUE APAREZCA SOLO
                                         CUANDO LA OFERTA TE PERTENECE #}
                                     {% if is_granted('show_inscriptions_offer', offer.offer) %}
@@ -152,7 +151,7 @@
                             {% if formComment is defined %}
                             <h4>COMENTARIOS</h4>
                             <hr>
-                            {% if is_granted('ROLE_USER') %}
+                            {% if is_granted('ROLE_USER') and not offer.offer.expired %}
                                 {{ form_start(formComment) }}
                                 <div class="off-form-comment">
                                     <div class="input-group">
