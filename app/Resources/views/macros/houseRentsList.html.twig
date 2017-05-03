@@ -71,13 +71,14 @@
     capacidad, habitaciones, banos, hrefUser, srcImgUser, nameUser, price,
     vote, service ) %}
 
+    {% import 'macros/user.html.twig' as users %}
     {% import 'macros/star.html.twig' as rating %}
 {#<!-- ELEMENT -->#}
 <div class="row row-hre-element">
     {#<!-- COLUMNA IMAGEN PRICIPAL -->#}
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 col-hre-img-prin">
         <a href="{{ hrefOffer|e }}">
-            <img class="img-responsive hre-img-prin" 
+            <img class="img-responsive hre-img-prin"
                 src="{{ srcImgBig|e }} " 
                 alt="">
         </a>
@@ -86,35 +87,35 @@
     
     
     {#<!-- COLUMNA IMAGENES SECUNDARIAS -->#}
-    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 col-hre-second ">
+    {#<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 col-hre-second ">#}
         {#<!-- SEGUNDA IMAGEN -->#}
-        <div class="row row-hre-img-secon">
-            <a href="{{ hrefOffer|e }}">
-                <img class="img-responsive hre-img-other hre-img-other1" 
-                    src="{{ srcImgSmallF|e }}" 
-                    alt="">
-            </a>
-        </div>
+        {#<div class="row row-hre-img-secon">#}
+            {#<a href="{{ hrefOffer|e }}">#}
+                {#<img class="img-responsive hre-img-other hre-img-other1" #}
+                    {#src="{{ srcImgSmallF|e }}" #}
+                    {#alt="">#}
+            {#</a>#}
+        {#</div>#}
         {#<!-- FIN SEGUNDA IMAGEN -->#}
-        
-        
+        {##}
+        {##}
         {#<!-- TERCERA IMAGEN -->#}
-        <div class="row row-hre-img-secon">
-            <a href="{{ hrefOffer|e }}">
-                <img class="img-responsive hre-img-other" 
-                    src="{{ srcImgSmallS|e }} " 
-                    alt="">
-            </a>
-        </div>
+        {#<div class="row row-hre-img-secon">#}
+            {#<a href="{{ hrefOffer|e }}">#}
+                {#<img class="img-responsive hre-img-other" #}
+                    {#src="{{ srcImgSmallS|e }} " #}
+                    {#alt="">#}
+            {#</a>#}
+        {#</div>#}
         {#<!-- FIN TERCERA IMAGEN -->#}
-        
-        
-    </div>
+        {##}
+        {##}
+    {#</div>#}
     {#<!-- FIN COLUMNA IMAGENES SECUNDARIAS -->#}
     
     
     {#<!-- COLUMNA  DATOS -->#}
-    <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 col-hre-data">
+    <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 col-hre-data">
         {#<!-- FILA TITULO, DATOS Y USUARIO -->#}
         <div class="row row-hre-title-user">
             {#<!-- COLUMNA TITULO Y DATOS -->#}
@@ -158,29 +159,7 @@
             
             {#<!-- COLUMNA USUARIO -->#}
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-hre-user">
-                {#<!-- IMAGEN USUARIO -->#}
-                <div class="row">
-                    <a href="{{ hrefUser|e }}">
-                        <img class="center-block img-circle 
-                            img-responsive" 
-                            src="{{ srcImgUser|e }}" 
-                            width="50" alt="">
-                    </a>
-                </div>
-                {#<!-- FIN IMAGEN USUARIO -->#}
-                
-                
-                {#<!-- NOMBRE USUARIO -->#}
-                <div class="row row-hre-user-name">
-                    <a href="{{ hrefUser|e }}" class="hre-user-name-grid">
-                        {{ nameUser|e }}
-                    </a>
-                        
-                        
-                </div>
-                {#<!-- FIN NOMBRE USUARIO -->#}
-                
-                
+                {{ users.userList(hrefUser, srcImgUser, nameUser) }}
             </div>
             {#<!-- FIN COLUMNA USUARIO -->#}
             
@@ -201,7 +180,7 @@
             {#<!-- PRECIO DIA -->#}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-hre-price">
                 <span class="hre-price">
-                    Desde {{ price|e }}€/dia
+                    Desde {{ price|e }}€ dia
                 </span>
             </div>
             {#<!-- FIN PRECIO DIA -->#}
