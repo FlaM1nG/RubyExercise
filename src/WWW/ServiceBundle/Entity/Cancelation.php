@@ -276,4 +276,32 @@ class Cancelation
     {
         return $this->inscription;
     }
+    /**
+     * @var boolean
+     */
+    private $isDeleted;
+
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return Cancelation
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean 
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
 }

@@ -11,6 +11,10 @@ WWW\ServiceBundle\Entity\Inscription:
     fields:
         status:
             type: integer
+        dataExtra:
+            type: string
+            length: 255
+            nullable: true
         createdDate:
             type: datetime
             nullable: true
