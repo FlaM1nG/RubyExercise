@@ -15,12 +15,9 @@ WWW\UserBundle\Entity\Hobby:
         description:
             type: string
             length: 255
+        photo:
+            type: string
+            length: 255
         deleted:
             type: boolean
-    oneToOne:        
-        photo:
-            nullable: true
-            targetEntity: WWW\GlobalBundle\Entity\Photo
-            joinColumn:
-                referencedColumnName: id
     lifecycleCallbacks: {  }

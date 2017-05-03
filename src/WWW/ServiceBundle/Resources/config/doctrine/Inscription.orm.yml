@@ -11,6 +11,10 @@ WWW\ServiceBundle\Entity\Inscription:
     fields:
         status:
             type: integer
+        dataExtra:
+            type: string
+            length: 255
+            nullable: true
         createdDate:
             type: datetime
             nullable: true
@@ -22,9 +26,6 @@ WWW\ServiceBundle\Entity\Inscription:
             nullable: true
         isDeleted:
             type: boolean
-            nullable: true
-        dataExtra:
-            type: string
             nullable: true
     manyToOne:
         user:
