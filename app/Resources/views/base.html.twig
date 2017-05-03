@@ -7,8 +7,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head 
-        content must come *after* these tags -->
+        {#<!-- The above 3 meta tags *must* come first in the head; any other head #}
+        {#content must come *after* these tags -->#}
         <title>WWW | {% block title %}{% endblock %}</title>
 
         {% block stylesheets %}
@@ -74,13 +74,13 @@
     {% endblock %}
 
     {% block javascriptsFooter %}
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        {#<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->#}
         <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
 
-        <!-- Latest compiled and minified JavaScript -->
+        {#<!-- Latest compiled and minified JavaScript -->#}
         <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
 
-        <!-- MegaMenu js -->
+        {#<!-- MegaMenu js -->#}
         <script src="{{ asset('js/cbpHorizontalMenu.min.js') }}" type="text/javascript"></script>
         <script>
             $(function() {
@@ -88,8 +88,8 @@
             });
         </script>
 
-        <!-- Mobile Menu js -->
-        <script src="{{ asset('js/menuMovil.js') }}" type="text/javascript"></script> <!-- Resource jQuery -->
+        {#<!-- Mobile Menu js -->#}
+        <script src="{{ asset('js/menuMovil.js') }}" type="text/javascript"></script>
         
         <script type="text/javascript">
             $('#myModal').on('shown.bs.modal', function () {

@@ -72,9 +72,9 @@
     vote, service ) %}
 
     {% import 'macros/star.html.twig' as rating %}
-<!-- ELEMENT -->
+{#<!-- ELEMENT -->#}
 <div class="row row-hre-element">
-    <!-- COLUMNA IMAGEN PRICIPAL -->
+    {#<!-- COLUMNA IMAGEN PRICIPAL -->#}
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 col-hre-img-prin">
         <a href="{{ hrefOffer|e }}">
             <img class="img-responsive hre-img-prin" 
@@ -82,12 +82,12 @@
                 alt="">
         </a>
     </div>
-    <!-- FIN COLUMNA IMAGEN PRICIPAL -->
+    {#<!-- FIN COLUMNA IMAGEN PRICIPAL -->#}
     
     
-    <!-- COLUMNA IMAGENES SECUNDARIAS -->
+    {#<!-- COLUMNA IMAGENES SECUNDARIAS -->#}
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 col-hre-second ">
-        <!-- SEGUNDA IMAGEN -->
+        {#<!-- SEGUNDA IMAGEN -->#}
         <div class="row row-hre-img-secon">
             <a href="{{ hrefOffer|e }}">
                 <img class="img-responsive hre-img-other hre-img-other1" 
@@ -95,10 +95,10 @@
                     alt="">
             </a>
         </div>
-        <!-- FIN SEGUNDA IMAGEN -->
+        {#<!-- FIN SEGUNDA IMAGEN -->#}
         
         
-        <!-- TERCERA IMAGEN -->
+        {#<!-- TERCERA IMAGEN -->#}
         <div class="row row-hre-img-secon">
             <a href="{{ hrefOffer|e }}">
                 <img class="img-responsive hre-img-other" 
@@ -106,20 +106,20 @@
                     alt="">
             </a>
         </div>
-        <!-- FIN TERCERA IMAGEN -->
+        {#<!-- FIN TERCERA IMAGEN -->#}
         
         
     </div>
-    <!-- FIN COLUMNA IMAGENES SECUNDARIAS -->
+    {#<!-- FIN COLUMNA IMAGENES SECUNDARIAS -->#}
     
     
-    <!-- COLUMNA  DATOS -->
+    {#<!-- COLUMNA  DATOS -->#}
     <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 col-hre-data">
-        <!-- FILA TITULO, DATOS Y USUARIO -->
+        {#<!-- FILA TITULO, DATOS Y USUARIO -->#}
         <div class="row row-hre-title-user">
-            <!-- COLUMNA TITULO Y DATOS -->
+            {#<!-- COLUMNA TITULO Y DATOS -->#}
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <!-- TITULO -->
+                {#<!-- TITULO -->#}
                 <div class="row">
                     <h4>
                         <a href="{{ hrefOffer|e }}" class="hre-title-grid">
@@ -127,10 +127,10 @@
                         </a>
                     </h4>
                 </div>
-                <!-- FIN TITULO -->
+                {#<!-- FIN TITULO -->#}
                 
                 
-                <!-- DATOS -->
+                {#<!-- DATOS -->#}
                 <div class="row row-hre-data">
                     {% if capacidad > 0 %}
                         <span>Capacidad {{ capacidad|trim }}{% if habitaciones > 0 or banos > 0 %}{{ ','|trim }}{% endif %}
@@ -149,16 +149,16 @@
                         <span>Baños {{ banos|trim }} </span>
                     {% endif %}
                 </div>
-                <!-- FIN DATOS -->
+                {#<!-- FIN DATOS -->#}
                 
                 
             </div>
-            <!-- FIN COLUMNA TITULO Y DATOS -->
+            {#<!-- FIN COLUMNA TITULO Y DATOS -->#}
             
             
-            <!-- COLUMNA USUARIO -->
+            {#<!-- COLUMNA USUARIO -->#}
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-hre-user">
-                <!-- IMAGEN USUARIO -->
+                {#<!-- IMAGEN USUARIO -->#}
                 <div class="row">
                     <a href="{{ hrefUser|e }}">
                         <img class="center-block img-circle 
@@ -167,10 +167,10 @@
                             width="50" alt="">
                     </a>
                 </div>
-                <!-- FIN IMAGEN USUARIO -->
+                {#<!-- FIN IMAGEN USUARIO -->#}
                 
                 
-                <!-- NOMBRE USUARIO -->
+                {#<!-- NOMBRE USUARIO -->#}
                 <div class="row row-hre-user-name">
                     <a href="{{ hrefUser|e }}" class="hre-user-name-grid">
                         {{ nameUser|e }}
@@ -178,43 +178,43 @@
                         
                         
                 </div>
-                <!-- FIN NOMBRE USUARIO -->
+                {#<!-- FIN NOMBRE USUARIO -->#}
                 
                 
             </div>
-            <!-- FIN COLUMNA USUARIO -->
+            {#<!-- FIN COLUMNA USUARIO -->#}
             
             
         </div>
-        <!-- FIN FILA TITULO, DATOS Y USUARIO -->
+        {#<!-- FIN FILA TITULO, DATOS Y USUARIO -->#}
         
         
-        <!-- VALORACIÓN Y PRECIO DIA -->
+        {#<!-- VALORACIÓN Y PRECIO DIA -->#}
         <div class="row">
-            <!-- VALORACIONES -->
+            {#<!-- VALORACIONES -->#}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 {{ rating.staticRating(vote) }}
             </div>
-            <!-- FIN VALORACIONES -->
+            {#<!-- FIN VALORACIONES -->#}
             
         {% if service == 6 or service == 7 %}
-            <!-- PRECIO DIA -->
+            {#<!-- PRECIO DIA -->#}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-hre-price">
                 <span class="hre-price">
                     Desde {{ price|e }}€/dia
                 </span>
             </div>
-            <!-- FIN PRECIO DIA -->
+            {#<!-- FIN PRECIO DIA -->#}
         {% endif %}
             
         </div>
-        <!-- FIN VALORACIÓN Y PRECIO DIA -->
+        {#<!-- FIN VALORACIÓN Y PRECIO DIA -->#}
         
         
     </div>
-    <!-- FIN COLUMNA  DATOS -->
+    {#<!-- FIN COLUMNA  DATOS -->#}
     
     
 </div>
-<!-- FIN ELEMENT -->
+{#<!-- FIN ELEMENT -->#}
 {% endmacro %}

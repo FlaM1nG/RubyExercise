@@ -30,7 +30,7 @@
 {% block body %}
 
 <div class="container cd-main-content us-pro-public-cont">
-    <!-- FILA IMG PROFILE AND USERNAME -->
+    {#<!-- FILA IMG PROFILE AND USERNAME -->#}
     <div class="row us-row-header-public">
         <div class="col-lg-6 col-md-4 col-sm-12 col-xs-12">
             <div class="us-pro-pub-marco">
@@ -49,7 +49,7 @@
             <div class="row off-row-rating">
                 <div class="col-lg-12">
                     <span class="off-vote"> 
-                        <!-- VALORACIONES -->
+                        {#<!-- VALORACIONES -->#}
                         <input id=""
                                class="valoration rating rating-loading"
                                data-show-clear="false"
@@ -59,14 +59,14 @@
                                step="1"
                                value="{{ profile.avg_score }}" />
 
-                        <!-- FIN VALORACIONES -->
+                        {#<!-- FIN VALORACIONES -->#}
 
                     </span>
                 </div>
             </div>
         </div>
     </div>
-    <!-- FIN FILA IMG PROFILE AND USERNAME -->
+    {#<!-- FIN FILA IMG PROFILE AND USERNAME -->#}
 
 
     <div class="row us-row-sep">
@@ -90,11 +90,11 @@
         </div>
 
     {% else %}
-        <!-- ELEMENTO VALORACION USER -->
+        {#<!-- ELEMENTO VALORACION USER -->#}
         {% for valoration in profile.valorations %}
         <div class="us-val-elem">
             <div class="row">
-                <!-- USER VALORACION -->
+                {#<!-- USER VALORACION -->#}
                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 us-col-username">
                     <div class="row">
                         <div class="us-pub-img-small">
@@ -116,7 +116,7 @@
                     <div class="row off-row-rating">
                         <div class="col-lg-12">
                             <span class="off-vote">
-                                <!-- VALORACIONES -->
+                                {#<!-- VALORACIONES -->#}
                                 <input id=""
                                        class="valoration rating rating-loading"
                                        data-show-clear="false"
@@ -126,23 +126,23 @@
                                        step="1"
                                        value="{{ valoration.score }}" />
 
-                                <!-- FIN VALORACIONES -->
+                                {#<!-- FIN VALORACIONES -->#}
 
                             </span>
                         </div>
                     </div>
 
                 </div>
-                <!-- FIN USER VALORACION -->
+                {#<!-- FIN USER VALORACION -->#}
 
 
-                <!-- DATOS VALORACION -->
+                {#<!-- DATOS VALORACION -->#}
                 <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
                     <p>
                         {{ valoration.comment }}
                     </p>
                 </div>
-                <!-- FIN DATOS VALORACION -->
+                {#<!-- FIN DATOS VALORACION -->#}
 
 
             </div>
@@ -151,19 +151,19 @@
         </div>
         {% endfor %}
     {% endif %}
-        <!-- FIN ELEMENTO VALORACION USER -->
+        {#<!-- FIN ELEMENTO VALORACION USER -->#}
     
     
-    <div class="row us-row-more">
-        <div class="col-lg-12">
-            <div class="us-see-more">
-                <a href="#">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    <span>Ver más</span>
-                </a>
-            </div>
-        </div>
-    </div>
+    {#<div class="row us-row-more">#}
+        {#<div class="col-lg-12">#}
+            {#<div class="us-see-more">#}
+                {#<a href="#">#}
+                    {#<i class="fa fa-plus-circle" aria-hidden="true"></i>#}
+                    {#<span>Ver más</span>#}
+                {#</a>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
 
 
     <div class="row us-row-sep">
@@ -176,7 +176,7 @@
     </div>
 
 
-    <!-- ELEMENTO OFERTA USER -->
+    {#<!-- ELEMENTO OFERTA USER -->#}
     {% if  profile.offers is empty %}
 
         <div class="row separacion-inferior">
@@ -208,7 +208,7 @@
 
         <div class="us-off-elem">
             <div class="row">
-                <!-- IMAGEN OFERTA -->
+                {#<!-- IMAGEN OFERTA -->#}
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="us-off-img-small">
                         <a href="{{ urlOffer }}">
@@ -217,10 +217,10 @@
                         </a>
                     </div>
                 </div>
-                <!-- FIN IMAGEN OFERTA -->
+                {#<!-- FIN IMAGEN OFERTA -->#}
 
 
-                <!-- DATOS OFERTA -->
+                {#<!-- DATOS OFERTA -->#}
                 <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
                     <a href="{{ urlOffer }}">
                         <h3>
@@ -234,7 +234,7 @@
                         Ver Oferta
                     </a>
                 </div>
-                <!-- FIN DATOS OFERTA -->
+                {#<!-- FIN DATOS OFERTA -->#}
 
 
             </div>
@@ -244,19 +244,19 @@
         {% endfor %}
 
     {% endif %}
-    <!-- ELEMENTO OFERTA USER  -->
+    {#<!-- ELEMENTO OFERTA USER  -->#}
 
     
-    <div class="row us-row-more">
-        <div class="col-lg-12">
-            <div class="us-see-more">
-                <a href="#">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    <span>Ver más</span>
-                </a>
-            </div>
-        </div>
-    </div>
+    {#<div class="row us-row-more">#}
+        {#<div class="col-lg-12">#}
+            {#<div class="us-see-more">#}
+                {#<a href="#">#}
+                    {#<i class="fa fa-plus-circle" aria-hidden="true"></i>#}
+                    {#<span>Ver más</span>#}
+                {#</a>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
     
 
 </div>

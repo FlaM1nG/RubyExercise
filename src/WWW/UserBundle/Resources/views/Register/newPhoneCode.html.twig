@@ -7,12 +7,12 @@
 {% endblock %}
 
 {% block body %}
-    <!-- TITULO REGISTRO -->
+    {#<!-- TITULO REGISTRO -->#}
     <div class="container cd-main-content">
         <h1>Confirmar Teléfono</h1>
         <hr>
     </div>
-    <!-- FIN TITULO REGISTRO -->
+    {#<!-- FIN TITULO REGISTRO -->#}
 
 
     {% block alert %}
@@ -26,7 +26,7 @@
         {% endfor %}
     {% endblock %}
 
-    <!-- CUERPO FORMULARIO -->
+    {#<!-- CUERPO FORMULARIO -->#}
 
     <div class="container cd-main-content">
         {{ form_start(formulario) }}
@@ -35,7 +35,7 @@
             {{ form_row(formulario.savePhone) }}
             {{ form_row(formulario._token) }}
     </div>
-    <!-- FIN CUERPO FORMULARIO -->
+    {#<!-- FIN CUERPO FORMULARIO -->#}
 
 {% endblock %}
 

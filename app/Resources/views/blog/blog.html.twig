@@ -23,107 +23,107 @@
     
     
 
-<!-- BLOG ULTIMOS ELEMENTOS -->
+{#<!-- BLOG ULTIMOS ELEMENTOS -->#}
 <div class="container cd-main-content blo-row-top">
-    <!-- POSTS -->
+    {#<!-- POSTS -->#}
     <div class="row">
-        <!-- COLUMNA 1 -->
+        {#<!-- COLUMNA 1 -->#}
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 col-blog-big">
             {% set etiquetas = ['Etiqueta1', 'Etiqueta2'] %}
             {% set title = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}            
-            <!-- ELEMENTO CON IMAGEN -->
+            {#<!-- ELEMENTO CON IMAGEN -->#}
             {{ blogs.bigElement('#BIGBLOG', asset('img/blog.jpg'), "now"|date(), 
                 etiquetas, random(100), random(100), title) }}
-            <!-- FIN ELEMENTO CON IMAGEN -->
+            {#<!-- FIN ELEMENTO CON IMAGEN -->#}
         </div>
-        <!-- fin COLUMNA 1 -->
+        {#<!-- fin COLUMNA 1 -->#}
         
 
-        <!-- COLUMNA 2 -->
+        {#<!-- COLUMNA 2 -->#}
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 
-            <!-- COLUMNA 2 FILA 1-->
+            {#<!-- COLUMNA 2 FILA 1-->#}
             <div class="row row-blog">
 
-                <!-- COLUMNA 2 FILA 1 COLUMNA 1-->
+                {#<!-- COLUMNA 2 FILA 1 COLUMNA 1-->#}
                 {% set title = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}            
                 {{ blogs.smallElement('#BIGBLOG', "now"|date(), etiquetas, 
                     random(100), random(100), title) }}
-                <!-- FIN COLUMNA 2 FILA 1 COLUMNA 1-->
+                {#<!-- FIN COLUMNA 2 FILA 1 COLUMNA 1-->#}
 
-                <!-- COLUMNA 2 FILA 1 COLUMNA 2-->
+                {#<!-- COLUMNA 2 FILA 1 COLUMNA 2-->#}
                 {% set title = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}            
                 {{ blogs.smallElement('#BIGBLOG', "now"|date(), etiquetas, 
                     random(100), random(100), title) }}
-                <!-- FIN COLUMNA 2 FILA 1 COLUMNA 2-->
+                {#<!-- FIN COLUMNA 2 FILA 1 COLUMNA 2-->#}
 
             </div>
-            <!-- FIN COLUMNA 2 FILA 1-->
+            {#<!-- FIN COLUMNA 2 FILA 1-->#}
 
-            <!-- COLUMNA 2 FILA 2-->
+            {#<!-- COLUMNA 2 FILA 2-->#}
             <div class="row row-blog">
 
-                <!-- COLUMNA 2 FILA 2 COLUMNA 1-->
+                {#<!-- COLUMNA 2 FILA 2 COLUMNA 1-->#}
                 {% set title = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}            
                 {{ blogs.smallElement('#BIGBLOG', "now"|date(), etiquetas, 
                     random(100), random(100), title) }}
-                <!-- FIN COLUMNA 2 FILA 2 COLUMNA 1-->
+                {#<!-- FIN COLUMNA 2 FILA 2 COLUMNA 1-->#}
 
-                <!-- COLUMNA 2 FILA 2 COLUMNA 2-->
+                {#<!-- COLUMNA 2 FILA 2 COLUMNA 2-->#}
                 {% set title = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}            
                 {{ blogs.smallElement('#BIGBLOG', "now"|date(), etiquetas, 
                     '+99', '+99', title) }}
-                <!-- FIN COLUMNA 2 FILA 2 COLUMNA 2-->
+                {#<!-- FIN COLUMNA 2 FILA 2 COLUMNA 2-->#}
 
             </div>
-            <!-- FIN COLUMNA 2 FILA 2-->
+            {#<!-- FIN COLUMNA 2 FILA 2-->#}
             
 
         </div>
-        <!-- FIN COLUMNA 2 -->
+        {#<!-- FIN COLUMNA 2 -->#}
         
         
     </div>
-    <!-- FIN POSTS -->
+    {#<!-- FIN POSTS -->#}
     
     
-    <!-- COLUMNA 2 FILA 2-->
+    {#<!-- COLUMNA 2 FILA 2-->#}
     <div class="row row-blog">
 
-        <!-- COLUMNA 2 FILA 2 COLUMNA 1-->
+        {#<!-- COLUMNA 2 FILA 2 COLUMNA 1-->#}
         {% set title = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}            
         {{ blogs.smallElement('#BIGBLOG', "now"|date(), etiquetas, 
             random(100), random(100), title, 3, 3) }}
-        <!-- FIN COLUMNA 2 FILA 2 COLUMNA 1-->
+        {#<!-- FIN COLUMNA 2 FILA 2 COLUMNA 1-->#}
 
 
-        <!-- COLUMNA 2 FILA 2 COLUMNA 2-->
+        {#<!-- COLUMNA 2 FILA 2 COLUMNA 2-->#}
         {% set title = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}            
         {{ blogs.smallElement('#BIGBLOG', "now"|date(), etiquetas, 
             '+99', '+99', title, 3, 3) }}
-        <!-- FIN COLUMNA 2 FILA 2 COLUMNA 2-->
+        {#<!-- FIN COLUMNA 2 FILA 2 COLUMNA 2-->#}
 
 
-        <!-- COLUMNA 2 FILA 2 COLUMNA 1-->
+        {#<!-- COLUMNA 2 FILA 2 COLUMNA 1-->#}
         {% set title = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}            
         {{ blogs.smallElement('#BIGBLOG', "now"|date(), etiquetas, 
             random(100), random(100), title, 3, 3) }}
-        <!-- FIN COLUMNA 2 FILA 2 COLUMNA 1-->
+        {#<!-- FIN COLUMNA 2 FILA 2 COLUMNA 1-->#}
 
 
-        <!-- COLUMNA 2 FILA 2 COLUMNA 2-->
+        {#<!-- COLUMNA 2 FILA 2 COLUMNA 2-->#}
         {% set title = random(['Titulo objeto en venta', 'Aleatorio para que el texto sea diferentes', 'Yo soy corto', 'Soy un titulo para ver que aparece', 'Te ha tocado la loteria!!']) %}            
         {{ blogs.smallElement('#BIGBLOG', "now"|date(), etiquetas, 
             '+99', '+99', title, 3, 3) }}
-        <!-- FIN COLUMNA 2 FILA 2 COLUMNA 2-->
+        {#<!-- FIN COLUMNA 2 FILA 2 COLUMNA 2-->#}
 
 
         </div>
-        <!-- FIN COLUMNA 2 FILA 2-->
+        {#<!-- FIN COLUMNA 2 FILA 2-->#}
     
     
 </div>
-<!-- FIN BLOG ULTIMOS ELEMENTOS -->
+{#<!-- FIN BLOG ULTIMOS ELEMENTOS -->#}
         
     
 {% endblock %}
