@@ -41,6 +41,10 @@
                 {% set photosCar = photosCar|merge([photos.url]) %}
             {% endfor %}
 
+            {% if photosCar is empty %}
+                {% set photosCar = ['web/img/placeholder.jpg']  %}
+            {% endif %}
+
             {{ coches.cocheVista(photosCar,
                                 photosCar,
                                 car.model.brand.name,
