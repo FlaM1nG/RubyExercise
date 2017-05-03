@@ -37,7 +37,7 @@ class CorreosController extends Controller {
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'services/inscription/get_inscription.php';
 
-        if(!empty($request->getSession()->get('password'))){
+        if(empty( $arrayDetails['idUser'])){
             $data['id'] = $request->getSession()->get('id');
             $data['username'] = $request->getSession()->get('username');
             $data['password'] = $request->getSession()->get('password');
@@ -229,7 +229,7 @@ class CorreosController extends Controller {
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'user/data/get_info_user.php';
 
-        if(!empty($request->getSession()->get('password'))){
+        if(empty( $arrayDetails['idUser'])){
             $data['id'] = $request->getSession()->get('id');
             $data['username'] = $request->getSession()->get('username');
             $data['password'] = $request->getSession()->get('password');
