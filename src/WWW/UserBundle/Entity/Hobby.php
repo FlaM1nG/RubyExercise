@@ -25,11 +25,6 @@ class Hobby
     private $description;
     
     /**
-     * @var \WWW\GlobalBundle\Entity\Photo
-     */
-    private $photo;
-        
-    /**
      * @var boolean
      */
     private $deleted;
@@ -92,29 +87,6 @@ class Hobby
     }
 
 
-    /**
-     * Set photo
-     *
-     * @param \WWW\GlobalBundle\Entity\Photo $photo
-     * @return Hobby
-     */
-    public function setPhoto(\WWW\GlobalBundle\Entity\Photo $photo = null)
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return \WWW\GlobalBundle\Entity\Photo 
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
 
     /**
      * Set deleted
@@ -150,4 +122,32 @@ class Hobby
         );    
     }
 
+    /**
+     * @var string
+     */
+    private $photo;
+
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     * @return Hobby
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return string 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
 }
