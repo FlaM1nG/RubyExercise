@@ -27,9 +27,6 @@ WWW\ServiceBundle\Entity\Inscription:
         isDeleted:
             type: boolean
             nullable: true
-        dataExtra:
-            type: string
-            nullable: true
     manyToOne:
         user:
             targetEntity: WWW\UserBundle\Entity\User
