@@ -50,6 +50,7 @@
                 {% for offer in pagination %}
 
                     {% set pathEditar = path('user_profiler_editOffer',{idOffer:offer.id}) %}
+                    {% set urlFactura = path('novar_empleo_imprimirHVPdf',{idOffer: offer.id}) %}
 
                     {% if offer.service.id == 1 %}
                         {% set url = path('service_trade' , {idOffer: offer.id}) %}
@@ -81,7 +82,7 @@
 
                     {% if is_granted('offer_expired', offer) %}
                         {{ offers.offUserExp(url, offer.photos.0.url, offer.title, offer.description, 'leer',
-                        '#borrar', 'Borrar', '#pdf', 'btnCorreos', 'Código correos',
+                        '#borrar', 'Borrar', urlFactura, 'btnCorreos', 'Código correos',
                         (offer.service.id <=2 and offer.inscriptions is not empty) ? offer.inscriptions.0.dataExtra:'',
                         'modalCorreos')}}
 
