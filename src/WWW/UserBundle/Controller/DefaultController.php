@@ -4,10 +4,12 @@ namespace WWW\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use WWW\GlobalBundle\Entity\Utilities;
 use WWW\UserBundle\Entity\User as User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
+use WWW\UserBundle\Form\ForgotPassType;
 
 class DefaultController extends Controller{
 
@@ -42,16 +44,35 @@ class DefaultController extends Controller{
          
         //El usuario del formulario se asocia al objeto $usuario
         $formulario->handleRequest($request);
-        
-        if(!empty($usuario->getPassword())):
+
+        if($formulario->isSubmitted() AND $formulario->isValid()):
             
             $file = MyConstants::PATH_APIREST."user/passwords/new_password.php";
             $ch = new ApiRest();
+            $ut = new Utilities();
+            
             $data = array("password" => $usuario->getPassword(),
-                             "token" => $token);
+                          "token" => $token);
+
             $result = $ch->sendInformation($data, $file, "parameters");
+
+            if($result['result'] == 'ok'):
+                $ut->flashMessage('Su contraseña ha sido cambiada con éxito', $request,$result, null);
+                return $this->redirectToRoute('user_login');
+
+            elseif($result['result'] == 'date_expired'):
+                $ut->flashMessage('', $request, $result, 'El enlace ha caducado');
+
+            elseif($result['result'] == 'bad_credentials'):
+                $ut->flashMessage('', $request, $result, 'Enlace inválido');
+
+            else:
+                $ut->flashMessage('', $request, $result, '');
+
+            endif;
             
             return $this->render('UserBundle:ChangePass:changepass.html.twig',array('formulario'=>$formulario->createView(),'token'=>$token));
+
         else:
             return $this->render('UserBundle:ChangePass:changepass.html.twig',array('formulario'=>$formulario->createView(),'token'=>$token));
         endif;
@@ -63,12 +84,12 @@ class DefaultController extends Controller{
 
         $usuario = new User();
 
-        $formulario = $this->createForm('WWW\UserBundle\Form\ForgotPassType', $usuario);
+        $formulario = $this->createForm(ForgotPassType::class, $usuario);
 
         //El usuario del formulario se asocia al objeto $usuario
         $formulario->handleRequest($request);
 
-        if (!empty($usuario->getEmail())):
+        if ($formulario->isSubmitted()):
 
             $file = MyConstants::PATH_APIREST . "user/passwords/forget_password.php";
             $data = array("email" => $usuario->getEmail());
