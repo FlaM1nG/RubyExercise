@@ -162,7 +162,7 @@ class PaymentDoneOKController extends PayumController
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'services/payment/pay.php';
 
-        if(!empty($request->getSession()->get('password'))){
+        if(empty( $details->getDetails()['idUser'])){
             $data['id'] = $this->getUser()->getId();
             $data['username'] = $this->getUser()->getUsername();
             $data['password'] = $request->getSession()->get('password');
@@ -199,7 +199,7 @@ class PaymentDoneOKController extends PayumController
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'services/inscription/update_inscription.php';
 
-        if(!empty($request->getSession()->get('password'))){
+        if(empty( $details->getDetails()['idUser'])){
             $data['id'] = $request->getSession()->get('id');
             $data['username'] = $request->getSession()->get('username');
             $data['password'] = $request->getSession()->get('password');
