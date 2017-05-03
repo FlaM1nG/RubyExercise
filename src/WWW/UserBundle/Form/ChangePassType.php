@@ -30,7 +30,7 @@ class ChangePassType extends AbstractType{
                                                 'invalid_message' => 'Las dos contraseñas deben coincidir',
                                                 'first_options' => array('label' => 'Contraseña'),
                                                 'second_options' => array('label' => 'Repite Contraseña'),
-                                                'required' => false
+                                                'validation_groups' => array('changePassword')
                                               )
                         )
                 ->add('guardar','submit',array('label'=>'Guardar'));
@@ -38,7 +38,7 @@ class ChangePassType extends AbstractType{
         
     public function configureOptions(OptionsResolver $resolver){
         
-        $resolver->setDefaults(array('data-class'=>'WWW\UserBundle\Entity\User'));
+        $resolver->setDefaults(array('data-class'=>'WWW\UserBundle\Entity\User', 'validation_groups' => array('changePassword')));
     }
     
     public function getBlockPrefix(){

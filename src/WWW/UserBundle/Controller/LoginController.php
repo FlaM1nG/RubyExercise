@@ -110,6 +110,10 @@ class LoginController extends Controller{
         if($result['result'] == 'not_activate'):
             $ut->flashMessage('',$request, $result, 'Su usuario todavía no ha sido confirmado, por favor revise su email. 
             Recuerde revisar también el correo no deseado.');
+
+        elseif($result['result'] == 'bad_credentials'):
+            $ut->flashMessage('',$request, $result, 'Usuario o contraseña no válido');
+        
         endif;
 
         return $result;
