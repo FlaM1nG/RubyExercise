@@ -25,6 +25,9 @@ WWW\ServiceBundle\Entity\Cancelation:
         deletedDate:
             type: datetime
             nullable: true
+        isDeleted:
+            type: boolean
+            nullable: true
     manyToOne:
         open_user:
             targetEntity: WWW\UserBundle\Entity\User

@@ -68,7 +68,8 @@
     {{ parent() }}
     {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
     {#<!-- the main fileinput plugin file -->#}
-    {#<script src="{{ asset('js/fileinput.js') }}"></script>#}
+    <script src="{{ asset('js/fileinput.js') }}"></script>
+    <script src="{{ asset('js/locales/es.js') }}"></script>
 
     <script type="text/javascript">
 
@@ -107,6 +108,10 @@
 
             $(".file-loading").fileinput({
 
+                validateInitialCount: true,
+                maxFileCount: 5,
+                minFileCount: 1,
+
                 initialPreview: [
                     {{arrayUrl|raw}}
                 ],
@@ -122,9 +127,8 @@
                 showUpload: false,
                 showZoom: false,
                 initialCaption: '',
-                validateInitialCount: true,
-                maxFileCount: 5,
-                extra: {idCar: {{ car.id }} }
+                extra: {idCar: {{ car.id }} },
+                language: "es"
             });
 
         });

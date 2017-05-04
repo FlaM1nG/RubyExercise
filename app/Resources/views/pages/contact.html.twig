@@ -10,6 +10,16 @@
     {{ include('nav/menu.html.twig') }}
 {% endblock %}
 
+{% block alert %}
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{  alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{  alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+{% endblock %}
+
 {% block body %}
     <div class="container">
 	<h1>Contacto</h1>
@@ -21,58 +31,44 @@
             Póngase en contacto con nosotros por email
         </h3>
         
-        <form class="">
+        <form class="" action="{{ path('contact') }}" method="post">
             <fieldset>
 
             {#<!-- Text input-->#}
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
-                <label class="control-label" for="name">
-                    Nombre
-                </label>  
+                {{form_label(form.name)}}
                 
                 <div class="">
-                    <input id="name" name="name" type="text" placeholder="" 
-                        class="form-control input-md" required="">
+                    {{form_widget(form.name)}}
+                </div>
+            </div>
+
+            {#<!-- Text input-->#}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+                {{form_label(form.email)}}
+                
+                <div class="">
+                    {{form_widget(form.email)}}
 
                 </div>
             </div>
 
             {#<!-- Text input-->#}
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
-                <label class="control-label" for="email">
-                    Email
-                </label>  
+                {{form_label(form.subject)}}
                 
                 <div class="">
-                    <input id="email" name="email" type="text" placeholder="" 
-                        class="form-control input-md" required="">
-
-                </div>
-            </div>
-
-            {#<!-- Text input-->#}
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
-                <label class="control-label" for="subject">
-                    Asunto
-                </label>  
-                
-                <div class="">
-                    <input id="subject" name="subject" type="text" 
-                        placeholder="" class="form-control input-md" 
-                        required="">
+                    {{form_widget(form.subject)}}
 
                 </div>
             </div>
 
             {#<!-- Textarea -->#}
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-                <label class="control-label" for="message">
-                    Mensaje
-                </label>
+                {{form_label(form.message)}}
                 
                 <div class="">                     
-                    <textarea class="form-control" id="message" 
-                        name="message" row="20"></textarea>
+                   {{form_widget(form.message, {'id':'message'})}}
                 </div>
             </div>
 
@@ -80,9 +76,7 @@
             <div class="form-group">
                 <label class="control-label" for="send"></label>
                 <div class="">
-                    <button id="send" name="send" class="btn btn-primary">
-                        Enviar
-                    </button>
+                   {{ form_widget(form.send) }}
                 </div>
             </div>
 

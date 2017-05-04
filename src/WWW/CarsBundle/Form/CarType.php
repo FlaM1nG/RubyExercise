@@ -67,7 +67,7 @@ class CarType extends AbstractType{
             ->add('imgCar', FileType::class, array( 'label' => 'Imágenes',
                                                     'mapped' => false,
                                                     'multiple' => true,
-                                                    'required' => true,
+                                                    'required' => false,
                                                     'attr' => array('accept' => 'image/*', 'class' => 'file-loading')))
 
             ->add('saveNewCar', SubmitType::class, array('label' => 'Guardar'));

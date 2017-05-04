@@ -67,7 +67,7 @@ class DefaultController extends Controller{
                 $ut->flashMessage('', $request, $result, 'Enlace inválido');
 
             else:
-                $ut->flashMessage('', $request, $result, '');
+                $ut->flashMessage('', $request, $result, 'Oops, ha ocurrido algo, por favor vuélvalo a intentar más tarde');
 
             endif;
             
@@ -95,7 +95,15 @@ class DefaultController extends Controller{
             $data = array("email" => $usuario->getEmail());
 
             $ch = new ApiRest();
+            $ut = new Utilities();
+
             $result = $ch->sendInformation($data, $file, "parameters");
+
+            $ut->flashMessage('Se le ha enviado un email para poder acceder a su cuenta.', $request, $result,
+                'Oops, ha ocurrido un error, por favor vuélvalo a intentar más tarde.');
+
+            $usuario->setEmail('');
+            $formulario = $this->createForm(ForgotPassType::class, $usuario);
 
             return $this->render('UserBundle:ForgotPass:forgotpass.html.twig', array('formulario' => $formulario->createView()));
         else:

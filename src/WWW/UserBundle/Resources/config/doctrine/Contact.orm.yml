@@ -1,0 +1,33 @@
+WWW\UserBundle\Entity\Contact:
+    type: entity
+    table: null
+    repositoryClass: WWW\UserBundle\Repository\ContactRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: true
+        email:
+            type: string
+            length: 255
+            nullable: true
+        subject:
+            type: string
+            length: 255
+            nullable: true
+        message:
+            type: string
+            length: 255
+            nullable: true
+        date:
+            type: datetime
+        isRead:
+            type: boolean
+            nullable: true
+    lifecycleCallbacks: {  }

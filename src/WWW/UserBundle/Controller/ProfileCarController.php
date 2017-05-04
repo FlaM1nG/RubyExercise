@@ -238,8 +238,8 @@ class ProfileCarController extends Controller{
         endif;
 
         $info['data']= json_encode($data);
-
-        if(!empty($request->files->get('newCar')['imgCar'])):
+        
+        if(!empty($request->files->get('newCar')['imgCar'][0])):
             $photos = $request->files->get('newCar')['imgCar'];
             $count = 0;
 
