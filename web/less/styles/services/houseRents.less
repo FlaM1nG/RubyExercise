@@ -1,5 +1,8 @@
 /* ------------------ HOUSE RENTS ------------------
 ******************************************************************/
+.col-hre-price{
+    margin-top: 2%;
+}
 
 .hre-payment{
     button#datepicker_subscribeButton{
@@ -41,7 +44,12 @@
     background-color: @brand-secondary;
     margin: 0 0 20px 1%;
     .aEnlaces;
-    .sombra-general;
+    .sombra-general2;
+    border: 1px solid @gray-base;
+
+    .rating-md {
+        font-size: 2.13em;
+    }
 }
 
 .row-hre-element:hover, .row-hre-element:focus{
@@ -135,7 +143,7 @@
 }
 
 .hre-price {
-    font-size: 30px;
+    font-size: 22px;
     color: @gray-base;
     font-weight: 700;
     letter-spacing: 1px;
@@ -195,6 +203,11 @@
     .col-hre-second {
         display: none;
     }
+
+    .col-hre-img-prin, .col-hre-data{
+        width: 100%;
+    }
+
     
     @media only screen and (max-height : 768px){
         
@@ -210,7 +223,8 @@
     .row-hre-element{
         background-color: @gray-base;
         color: @brand-secondary;
-        margin: 0 0 20px 0%;
+        margin: 0 0 20px 0;
+
 
         .hre-price {
             color: @brand-secondary;

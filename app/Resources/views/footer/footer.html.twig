@@ -1,7 +1,7 @@
 <footer class="section section-primary cd-main-content"> 
     <div class="container separacion-inferior">
         <div class="row">
-            <!-- PRIMERA COLUMNA -->
+            {#<!-- PRIMERA COLUMNA -->#}
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 footer-text 
                  col-footer">
                 <div class="row footer-title">
@@ -17,22 +17,28 @@
                 </div>
 
                 <div class="row footer-elementos">
-                    <a class="" href="#">Servicios</a>
-                </div>
-
-                <div class="row footer-elementos">
-                    <a class="" href="#">Política de privacidad</a>
-                </div>
-
-                <div class="row footer-elementos">
-                    <a class="" 
-                       href="{{ path('siteMap') }}">
-                        Mapa del sitio
+                    <a class="" href="{{ path('pageServices') }}">
+                        Servicios
                     </a>
                 </div>
 
                 <div class="row footer-elementos">
-                    <a class="" href="#">Búsqueda Avanzada</a>
+                    <a class="" href="{{ path('privacyPolicy') }}">
+                        Política de privacidad
+                    </a>
+                </div>
+
+                <div class="row footer-elementos">
+                    <a class="" 
+                       href="{{ path('pageCookies') }}">
+                        Cookies
+                    </a>
+                </div>
+
+                <div class="row footer-elementos">
+                    <a class="" href="{{ path('termsConditions') }}">
+                        Términos y Condiciones
+                    </a>
                 </div>
 
                 <div class="row footer-elementos">
@@ -58,9 +64,9 @@
 
 
             </div>
-            <!-- FIN PRIMERA COLUMNA -->
+            {#<!-- FIN PRIMERA COLUMNA -->#}
 
-            <!-- SEGUNDA COLUMNA -->
+            {#<!-- SEGUNDA COLUMNA -->#}
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-footer">
                 <div class="row footer-title">
                     <h4>DISFRUTANOS</h4>
@@ -90,9 +96,9 @@
                     <a class="" href="#">Ventas del grupo WWW?</a>
                 </div>
             </div>
-            <!-- FIN SEGUNDA COLUMNA -->
+            {#<!-- FIN SEGUNDA COLUMNA -->#}
 
-            <!-- TERCERA COLUMNA -->
+            {#<!-- TERCERA COLUMNA -->#}
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-footer">
                 <div class="row footer-title">
                     <h4>MI CUENTA</h4>
@@ -119,9 +125,9 @@
                     <a class="" href="#">Ayuda</a>
                 </div>
             </div>
-            <!-- FIN TERCERA COLUMNA -->
+            {#<!-- FIN TERCERA COLUMNA -->#}
 
-            <!-- CUARTA COLUMNA -->
+            {#<!-- CUARTA COLUMNA -->#}
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-6 col-footer-sub 
                 col-footer">
                 <div class="row footer-title">
@@ -150,11 +156,11 @@
                     <a class="fa fa-flickr iconos-footer" href="https://www.flickr.com/photos/142367374@N07/?"></a>
                 </div>
             </div>
-            <!-- FIN CUARTA COLUMNA -->
+            {#<!-- FIN CUARTA COLUMNA -->#}
         </div>
     </div>
 
-    <!-- FIRMA WEB -->
+    {#<!-- FIRMA WEB -->#}
     <div class="container-fluid signature">
         <div class="container">
             <div class="row">
