@@ -218,7 +218,7 @@ footer.section.section-primary > .container > .row {
 /*######################   RANGO ANCHO [992�  768[  ######################*/
 @media only screen and (max-width : 992px) {
     .hr-footer {
-        margin: 10px auto 20px;
+        margin: 10px auto 15px;
         border: none;
         margin-left: 0;
         width: 70px;
@@ -228,15 +228,19 @@ footer.section.section-primary > .container > .row {
     
     .col-footer-sub{
         margin-top: 20px;
-        
+        text-align: center;
+
         hr{
             margin: 10px auto 15px;
             border: none;
-            margin-left: 0;
             width: 70px;
             height: 5px;
             padding: 0;
         }
+
+        //h4{
+        //    text-align: left;
+        //}
     }
     
     .footer-elementos3 {
@@ -251,7 +255,6 @@ footer.section.section-primary > .container > .row {
 /*######################   RANGO ANCHO [768 � 480[  ######################*/
 @media only screen and (max-width : 768px) {
     .col-footer{
-        min-height: 330px;
         padding: 0 5%;
     }
     
@@ -278,7 +281,14 @@ footer.section.section-primary > .container > .row {
 
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 @media only screen and (max-width : 480px) {
-    
+    .col-footer{
+        width: 100%;
+        text-align: center;
+    }
+
+    .hr-footer {
+        margin: 10px auto 15px;
+    }
         
     @media only screen and (max-height : 667px){
         
@@ -291,10 +301,6 @@ footer.section.section-primary > .container > .row {
 
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 @media only screen and (max-width : 320px) {
-    .col-footer {
-        min-height: 380px;
-    }
-    
     .boton-sub {
         padding: 17px 15px;
     }
