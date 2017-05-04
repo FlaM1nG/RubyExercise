@@ -6,6 +6,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WWW\CarsBundle\Form\PagoType;
+use WWW\GlobalBundle\Entity\ApiRest;
+use WWW\GlobalBundle\Entity\Utilities;
+use WWW\GlobalBundle\Form\ContactType;
+use WWW\GlobalBundle\MyConstants;
 use WWW\UserBundle\Entity\User;
 
 class IndexController extends Controller
@@ -94,8 +98,32 @@ class IndexController extends Controller
         return $this->render('pages/devolutions.html.twig');
     }
     
-    public function contactAction() {
-        return $this->render('pages/contact.html.twig');
+    public function contactAction(Request $request) {
+
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()):
+            
+            $file = MyConstants::PATH_APIREST.'global/utils/Contact.php';
+
+            $ch = new ApiRest();
+            $ut = new Utilities();
+            
+            $data['name'] = $request->get('contact')['name'];
+            $data['email'] = $request->get('contact')['email'];
+            $data['subject'] = $request->get('contact')['subject'];
+            $data['message'] = $request->get('contact')['message'];
+
+            $result = $ch->resultApiRed($data, $file);
+
+            $ut->flashMessage('Su mensaje ha sido envíado con éxito.', $request, $result, 
+                'Oops, ha ocurrido un error, por favor vuélvalo a intentar más tarde');
+
+            $form = $this->createForm(ContactType::class);
+        endif;
+
+        return $this->render('pages/contact.html.twig', array('form' => $form->createView()));
     }
     
     public function shippingAction() {
@@ -177,5 +205,17 @@ class IndexController extends Controller
             'usuario' => $usuario,
             'direccion' => $direccion
         ));
+    }
+
+    public function termsConditionsAction(){
+        return $this->render('pages/termsConditions.html.twig');
+    }
+
+    public function cookieAction(){
+        return $this->render('pages/cookies.html.twig');
+    }
+
+    public function servicesPageAction(){
+        return $this->render('pages/services.html.twig');
     }
 }

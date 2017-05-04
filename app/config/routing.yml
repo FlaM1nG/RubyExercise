@@ -29,11 +29,11 @@ app:
     type:     annotation
 
 aboutUs:
-    path: /about-us
+    path: /about-us/
     defaults: { _controller: AppBundle:Index:aboutUs }
     
 siteMap:
-    path: /site-map
+    path: /site-map/
     defaults: { _controller: AppBundle:Index:siteMap }
     
 orders:
@@ -45,15 +45,15 @@ devolutions:
     defaults: { _controller: AppBundle:Index:devolutions }
     
 contact:
-    path: /contact
+    path: /contact/
     defaults: { _controller: AppBundle:Index:contact }
     
 shipping:
-    path: /shipping
+    path: /shipping/
     defaults: { _controller: AppBundle:Index:shipping }
     
 privacyPolicy:
-    path: /privacy-policy
+    path: /privacy-policy/
     defaults: { _controller: AppBundle:Index:privacyPolicy }
     
 paymentMethod:
@@ -179,3 +179,15 @@ house:
 pruebaAdminDatos:
     path: /prueba/datosAdmin
     defaults: { _controller: AppBundle:Index:pruebaDatosAdminPanel }
+
+termsConditions:
+    path: /termsConditions
+    defaults: { _controller: AppBundle:Index:termsConditions }
+
+pageCookies:
+    path: /cookies
+    defaults: { _controller: AppBundle:Index:cookie }
+
+pageServices:
+    path: /services
+    defaults: { _controller: AppBundle:Index:servicesPage }
