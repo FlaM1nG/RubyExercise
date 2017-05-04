@@ -190,6 +190,8 @@ class PdfController extends Controller
     
     private function checkUser(Request $request){
         $id =$request->request->get("id");
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
         $query1 = "SELECT password FROM user where id=$id";
         $stmt = $db->prepare($query1);
         $params = array();
