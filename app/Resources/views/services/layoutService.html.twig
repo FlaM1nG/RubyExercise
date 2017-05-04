@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<!-- BODY -->
+{#<!-- BODY -->#}
 <div class="container cd-main-content">
     
     {#<!-- SUBTITLE BLOCK  -->#}
@@ -37,11 +37,11 @@
     {#</div>#}
     {#<!-- END SUBTITLE BLOCK  -->#}
     
-    <!-- LIST ELEMENTS WITH FILTERS -->
+    {#<!-- LIST ELEMENTS WITH FILTERS -->#}
     <div class="row separacion-inferior">
         {% block alertService %} {% endblock %}
         
-        <!-- COLUMN FILTERS -->
+        {#<!-- COLUMN FILTERS -->#}
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
             {#<div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -56,25 +56,25 @@
                 </div>
             </div>
         </div>
-        <!-- END COLUMN FILTERS -->
+        {#<!-- END COLUMN FILTERS -->#}
         
-        <!-- COLUMN LIST ELEMENTS  -->
+        {#<!-- COLUMN LIST ELEMENTS  -->#}
         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
             {% block serviceList %} {% endblock %}
         </div>
-        <!-- END COLUMN LIST ELEMENTS -->
+        {#<!-- END COLUMN LIST ELEMENTS -->#}
         
     </div>
-    <!-- END LIST ELEMENTS WITH FILTERS -->
+    {#<!-- END LIST ELEMENTS WITH FILTERS -->#}
     
 </div>
-<!-- END BODY -->
+{#<!-- END BODY -->#}
 
 
 <div class="cd-main-content sid-cont">
-    <!-- SIDEBAR FLOATING -->
+    {#<!-- SIDEBAR FLOATING -->#}
     {% block serviceSidebar %} {% endblock %}
-    <!-- END SIDEBAR FLOATING -->
+    {#<!-- END SIDEBAR FLOATING -->#}
 </div>
 
 {% endblock %}
@@ -83,7 +83,7 @@
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
-        <!-- Modal content-->
+        {#<!-- Modal content-->#}
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
@@ -117,7 +117,7 @@
 
 {% block zoneMobile %}
 <div class="cd-navigation menu-mobile-bank">
-    <!-- Trigger the modal with a button -->
+    {#<!-- Trigger the modal with a button -->#}
     <button type="button" 
         class="btn btn-default" 
         data-toggle="modal" 

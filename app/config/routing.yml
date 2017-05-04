@@ -179,3 +179,15 @@ house:
 pruebaAdminDatos:
     path: /prueba/datosAdmin
     defaults: { _controller: AppBundle:Index:pruebaDatosAdminPanel }
+
+termsConditions:
+    path: /termsConditions
+    defaults: { _controller: AppBundle:Index:termsConditions }
+
+pageCookies:
+    path: /cookies
+    defaults: { _controller: AppBundle:Index:cookie }
+
+pageServices:
+    path: /services
+    defaults: { _controller: AppBundle:Index:servicesPage }
