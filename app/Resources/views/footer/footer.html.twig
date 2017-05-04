@@ -40,29 +40,6 @@
                         Términos y Condiciones
                     </a>
                 </div>
-
-                {#<div class="row footer-elementos">#}
-                    {#<a class="" #}
-                       {#href="{{ path('orders') }}">#}
-                        {#Pedidos#}
-                    {#</a>#}
-                {#</div>#}
-
-                {#<div class="row footer-elementos">#}
-                    {#<a class="" #}
-                       {#href="{{ path('devolutions') }}">#}
-                        {#Devoluciones#}
-                    {#</a>#}
-                {#</div>#}
-
-                <div class="row footer-elementos">
-                    <a class="" 
-                       href="{{ path('contact') }}">
-                        Contacta con nosotros
-                    </a>
-                </div>
-
-
             </div>
             {#<!-- FIN PRIMERA COLUMNA -->#}
 
@@ -105,20 +82,37 @@
                     <hr class="hr-footer">
                 </div>
 
-                <div class="row footer-elementos">
-                    <a class="" href="#">Registrate</a>
-                </div>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <div class="row footer-elementos">
+                        <a class="" href="{{ path('user_profiler') }}">
+                            Mi cuenta
+                        </a>
+                    </div>
+
+                    <div class="row footer-elementos">
+                        <a class="" href="{{ path('user_logout') }}">
+                            Cerrar sesión
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="row footer-elementos">
+                        <a class="" href="{{ path('user_register') }}">
+                            Registrate
+                        </a>
+                    </div>
+
+                    <div class="row footer-elementos">
+                        <a class="" href="{{ path('user_login') }}">
+                            Accede
+                        </a>
+                    </div>
+                {% endif %}
 
                 <div class="row footer-elementos">
-                    <a class="" href="#">Ver el carro</a>
-                </div>
-
-                <div class="row footer-elementos">
-                    <a class="" href="#">Mi lista de deseos</a>
-                </div>
-
-                <div class="row footer-elementos">
-                    <a class="" href="#">Seguir mi pedido</a>
+                    <a class=""
+                       href="{{ path('contact') }}">
+                        Contacta con nosotros
+                    </a>
                 </div>
 
                 <div class="row footer-elementos">
