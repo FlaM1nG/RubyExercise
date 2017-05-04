@@ -66,6 +66,7 @@ class CorreosController extends Controller {
     public function getTrackingNumberAction($idOffer, Request $request, $idDir, $sendOffice,$arrayDetails, $idInscription) {
         //Inicio las variables propias
         if(!$this->checkCode($idInscription,$arrayDetails, $request)){
+			
         $this->searchAddressBuyer($idDir);
         $this->offer = new Trade();
         $this->buyer = new User();
@@ -90,7 +91,7 @@ class CorreosController extends Controller {
             'description' => $this->offer->getOffer()->getTitle(),
             'box_type' => 'custom',
             'weight' => array(
-                'value' => intval($this->offer->getWeight()),
+                'value' => floatval($this->offer->getWeight()),
                 'unit' => 'kg',
             ),
             'dimension' => array(
@@ -109,7 +110,7 @@ class CorreosController extends Controller {
                         'currency' => 'EUR',
                     ),
                     'weight' => array(
-                        'value' => intval($this->offer->getWeight()),
+                        'value' => floatval($this->offer->getWeight()),
                         'unit' => 'kg',
                     ),
                     'sku' => 'imac2014'
@@ -190,6 +191,8 @@ class CorreosController extends Controller {
         try {
             $api = new Postmen($api_key, $region);
             $result = $api->create('labels', $payload);
+			
+			$this->trackingNumber= $result->tracking_numbers[0];
 
         } catch (exception $e) {
             echo "ERROR:\n";

@@ -66,6 +66,9 @@ class DetailsMobileController extends PayumController
             if($idService == 6 || $idService == 7){
                 $precio = $details->getDetails()['precioCasa'];
             }
+			elseif($idService==5){
+				$precio = $details->getDetails()['precioMensajeria'];
+			}	
             else {
                 $precio = $details->getDetails()['precio_oferta'];
             }
@@ -190,6 +193,7 @@ class DetailsMobileController extends PayumController
         $data['data']= json_encode($extra);
 		
         $result = $ch->resultApiRed($data, $file);
+		
     }
     private function saveTrackingNumber($number,$idInscription,$details,Request $request){
         
@@ -208,6 +212,6 @@ class DetailsMobileController extends PayumController
 
         $result = $ch->resultApiRed($data, $file);
 
-        var_dump($result);
+        
     }
 }
