@@ -214,4 +214,8 @@ class IndexController extends Controller
     public function cookieAction(){
         return $this->render('pages/cookies.html.twig');
     }
+
+    public function servicesPageAction(){
+        return $this->render('pages/services.html.twig');
+    }
 }

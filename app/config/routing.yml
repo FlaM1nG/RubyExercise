@@ -187,3 +187,7 @@ termsConditions:
 pageCookies:
     path: /cookies
     defaults: { _controller: AppBundle:Index:cookie }
+
+pageServices:
+    path: /services
+    defaults: { _controller: AppBundle:Index:servicesPage }
