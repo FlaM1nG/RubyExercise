@@ -6,9 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class PdfController extends Controller
 {
-
+    
     public function imprimirPdfBuyerAction(Request $request)
     {
 
@@ -21,7 +22,16 @@ class PdfController extends Controller
         $idOferta = $request->get('idOffer');
 
         if(!empty($request->request->get("id"))){
-            $id_usuario = $request->request->get("id");
+            if($this->checkUser($request)){
+                $id_usuario = $request->request->get("id");
+        
+            }
+            else{
+                $json =  array();
+                $json['result'] = 'data_error';
+                $json['error'] = 'autentication_failed';
+                return new Response (json_encode($json));
+            }
         }
         else{
             $id_usuario = $sesion->get('id');
@@ -106,14 +116,6 @@ class PdfController extends Controller
        // $sesion = $request->getSession();
 
         $idOferta = $request->get('idOffer');
-/*
-        if(!empty($request->request->get("id"))){
-            $id_usuario = $request->request->get("id");
-        }
-        else{
-            $id_usuario = $sesion->get('id');
-        }
-*/
         //$query = "SELECT address_id FROM billing where user_id=21 and id=2";
 
         $query4 = "SELECT user_admin_id from offer where id=$idOferta";
@@ -185,5 +187,19 @@ class PdfController extends Controller
         );
 
     }
-
+    
+    private function checkUser(Request $request){
+        $id =$request->request->get("id");
+        $query1 = "SELECT password FROM user where id=$id";
+        $stmt = $db->prepare($query1);
+        $params = array();
+        $stmt->execute($params);
+        $password  = $stmt->fetchAll();
+        if($password==$request->request->get("password")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
