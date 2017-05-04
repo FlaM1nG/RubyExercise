@@ -184,6 +184,7 @@ class DetailsController extends PayumController
         $data['data']= json_encode($extra);
 
         $result = $ch->resultApiRed($data, $file);
+		
     }
     private function saveTrackingNumber($number,$idInscription,Request $request){
         
@@ -200,6 +201,6 @@ class DetailsController extends PayumController
 
         $result = $ch->resultApiRed($data, $file);
 
-        var_dump($result);
+        
     }
 }

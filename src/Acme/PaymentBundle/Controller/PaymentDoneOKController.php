@@ -71,7 +71,12 @@ class PaymentDoneOKController extends PayumController
         else {
             
             $idService = $details->getDetails()['idService'];
-            $precio = $details->getDetails()['precio_oferta'];
+            if(!empty($details->getDetails()['precioMensajeria'])){
+				$precio = $details->getDetails()['precioMensajeria'];
+			}
+			else{
+				$precio = $details->getDetails()['precio_oferta'];
+			}
             if($idService== 6 || $idService == 7){
             //House
                 $fechainicial = $details->getDetails()['fechaIni'];
@@ -137,8 +142,9 @@ class PaymentDoneOKController extends PayumController
                     $sendOffice = 0;
                     $arrayDetails = $details->getDetails();
                     $number = $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice,$arrayDetails, $idInscription);
+					
                     $this->saveTrackingNumber($number, $idInscription,$details, $request);
-                   // var_dump($number);
+                    
                 }
             }     
             return $this->render('pay/postPayPageOK.html.twig',array(
@@ -216,7 +222,7 @@ class PaymentDoneOKController extends PayumController
 
         $result = $ch->resultApiRed($data, $file);
 
-        var_dump($result);
+       
     }
     
 }

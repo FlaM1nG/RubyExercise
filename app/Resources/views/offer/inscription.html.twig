@@ -46,7 +46,7 @@
                 <hr/>
             </div>
         </div>
-
+{#{{ dump(offer) }}#}
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-my-off-sep">
                 {{ offers.offUserInscrip('#', asset(offer.offer.photos.0.url, 'img'), offer.offer.title,
@@ -77,7 +77,7 @@
 
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="row row-user-col">
+                    <div class="row row-user-col"> 
                         {% for inscription in offer.offer.inscriptions %}
                             {# Compruebo que en la lista de inscritos el inscrito sea oficial, que haya pagado (status == 3) #}
                             {% if inscription.status == 3 %}
@@ -91,7 +91,7 @@
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-user-ins">
                                         {{ usuarios.userInscr(path('user_public_profile',{username:inscription.username}),
                                         asset(inscription.user_photo,'img'), inscription.username,
-                                        inscription.id, inscription.avg_score, inscription.valoration_num, '##',formMessage,inscription.user_id) }}
+                                        inscription.avg_score, inscription.valoration_num, '##',formMessage,inscription.user_id,inscription.id) }}
                                 {% endif %}
                                     </div>
 

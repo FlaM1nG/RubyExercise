@@ -44,21 +44,25 @@ class MobileController extends Controller {
             $arrayPay['gastos_totales'] = $totalAmount;
 			$arrayPay['metodo_pago'] = $pago;
 			$arrayPay['precio_oferta'] = $this->offerPrice->getPrice();
+			$arrayPay['idService'] = $this->offer->getService()->getId();
             if ($this->offer->getService()->getId()== 1 || $this->offer->getService()->getId()== 2) {
                 $arrayPay['direccion'] = $request->request->get("address_pay");;
                 $arrayPay['metodo_envio'] = $request->request->get("send_method");;
                 $arrayPay['gastos_envio'] = $request->request->get("shipping_cost");
                 $arrayPay['send_office'] = $request->request->get('send_office');
-		$arrayPay['gastos_comprobacion'] = $request->request->get('testing_cost');
+				$arrayPay['gastos_comprobacion'] = $request->request->get('testing_cost');
                 $arrayPay['idInscription'] = $request->request->get("id_inscription");
             }
+			if ($this->offer->getService()->getId() == 5 ){
+				$arrayPay['precioMensajeria']= $request->request->get("courier_price");
+			}
             if ($this->offer->getService()->getId() == 6 || $this->offer->getService()->getId() == 7){
                 $arrayPay['precioCasa']= $request->request->get("house_price");
                 $arrayPay['fechaIni']= $request->request->get("arrival_date");
                 $arrayPay['fechaFin'] = $request->request->get("departure_date");
                 $arrayPay['idCalendar'] = $request->request->get("id_calendar");
                 $arrayPay['idInscription'] = $request->request->get("id_inscription");
-                $arrayPay['idService'] = $this->offer->getService()->getId();
+                
             
             }
             $arrayPay['idUser'] = $request->request->get('id');
@@ -101,6 +105,7 @@ class MobileController extends Controller {
                 $details['gastos_totales'] = $totalAmount;
                 $details['metodo_pago'] = $pago;
                 $details['precio_oferta'] = $this->offerPrice->getPrice();
+				$details['idService'] = $this->offer->getService()->getId();
                 if ($this->offer->getService()->getId()== 1 || $this->offer->getService()->getId()== 2) {
                     $details['direccion'] = $request->request->get("address_pay");;
                     $details['metodo_envio'] = $request->request->get("send_method");;
@@ -109,6 +114,9 @@ class MobileController extends Controller {
                     $details['gastos_comprobacion'] = $request->request->get('testing_cost');
                     $details['idInscription'] = $request->request->get("id_inscription");
                 }
+				if ($this->offer->getService()->getId() == 5 ){
+					$details['precioMensajeria']= $request->request->get("courier_price");
+				}
                 if ($this->offer->getService()->getId() == 6 || $this->offer->getService()->getId() == 7){
                     $details['precioCasa']= $request->request->get("house_price");
                     $details['fechaIni']= $request->request->get("arrival_date");
