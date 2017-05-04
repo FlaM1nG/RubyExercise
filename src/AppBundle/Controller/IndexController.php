@@ -105,7 +105,8 @@ class IndexController extends Controller
 
         if($form->isSubmitted()):
             
-            $file = MyConstants::PATH_APIREST;
+            $file = MyConstants::PATH_APIREST.'global/utils/Contact.php';
+
             $ch = new ApiRest();
             $ut = new Utilities();
             
@@ -113,11 +114,13 @@ class IndexController extends Controller
             $data['email'] = $request->get('contact')['email'];
             $data['subject'] = $request->get('contact')['subject'];
             $data['message'] = $request->get('contact')['message'];
-        
+
             $result = $ch->resultApiRed($data, $file);
-        
+
             $ut->flashMessage('Su mensaje ha sido envíado con éxito.', $request, $result, 
                 'Oops, ha ocurrido un error, por favor vuélvalo a intentar más tarde');
+
+            $form = $this->createForm(ContactType::class);
         endif;
 
         return $this->render('pages/contact.html.twig', array('form' => $form->createView()));
