@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Factura | {% block title %}{% endblock %}</title>
+    {% block stylesheets %}
+  <link href="{{ absolute_url(asset('css/stylepdf.css')) }}" rel="stylesheet" 
+                  type="text/css" media="all">
+       {% endblock %}
+  </head>
+  <body>
+    <header class="clearfix">
+      <div id="logo">
+          <figure>
+       <img src="{{ absolute_url(asset('img/Logo_www-2.png')) }}" alt="Logo"   media="all"/>
+       </figure>
+      </div>
+      <div id="company">
+        <h2 class="name">What Want Web</h2>
+        <div>Avenida Fernando Rios 11, </div>
+        <div>(958) 049052</div>
+        <div><a href="mailto:support@whatwantweb.com">support@whatwantweb.com</a></div>
+      </div>
+      </div>
+    </header>
+    <main>
+      <div id="details" class="clearfix">
+        <div id="client">
+          <div class="to">Factura para:</div>
+
+          {% for entities in entities%}
+          <h2 class="name">{{entities.name}} {{entities.surname}}</h2>
+          {% for domicilio in domicilio%}
+          <div class="address">{{domicilio.street}},{{domicilio.zip_code}} {{domicilio.city}} ({{domicilio.region}}), {{domicilio.country}}</div>
+          {% endfor %}
+          <div class="email"><a href="mailto:{{entities.email}}">{{entities.email}}</a></div>
+          {% endfor %}
+        </div>
+        <div id="invoice">
+
+          {% set sePuede = false %}
+          {% for referencia in referencia%}
+            {% if sePuede==false %}
+          <h1>Nº FACTURA: {{referencia.id}}</h1>
+          <div class="date">Fecha de Factura: {{referencia.date}}</div>
+          <div class="date">Fecha de Pago: {{referencia.paid_date}}</div>
+              {% set sePuede = true %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th class="no">Nº REFERENCIA</th>
+            <th class="desc">DESCRIPCIÓN</th>
+            <th class="unit">PRECIO</th>
+            <th class="qty">IVA</th>
+            <th class="total">TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% set total = 0 %}
+
+        {% for referencia in referencia%}
+        <tr>
+
+            <td class="no">{{referencia.reference}}</td>
+            <td class="desc"><h3>{{referencia.name}}</h3>{{referencia.description}}</td>
+            <td class="unit">{{referencia.price}}€</td>
+            <td class="qty">{{referencia.iva}}%</td>
+            <td class="total">{{referencia.price+((referencia.price*referencia.iva)/100)}}€</td>
+          </tr>
+          {% set total = referencia.price+((referencia.price*referencia.iva)/100)-total %}
+        {% endfor %}
+
+        </tbody>
+        <tfoot>
+        {% set sePuede3 = false %}
+        {% set total= total*(-1)  %}
+        {% if sePuede3==false %}
+          <tr>
+            <td colspan="2">SUBTOTAL</td>
+            <td>{{ total}}€</td>
+            <td colspan="1">IVA y Gastos incluidos</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">TOTAL</td>
+            <td>{{ total}}€</td>
+              {% set sePuede3 = true %}
+          </tr>
+        {% endif %}
+
+        </tfoot>
+      </table>
+      <div id="thanks">¡Gracias por confiar en Nosotros!</div>
+      <div id="notices">
+        <div>NOTICIA:</div>
+        <div class="notice">Un cargo de 1.5% será cargado en su factura si no se produce el pago despues de los 30 días a la fecha de compra.</div>
+      </div>
+    </main>
+    <footer>
+        Esta Factura fue creada en su ordenador y es valida sin la firma y sello.
+    </footer>
+  </body>
+</html>
