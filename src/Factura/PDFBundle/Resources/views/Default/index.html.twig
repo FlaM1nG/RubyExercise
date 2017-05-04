@@ -37,18 +37,22 @@
           {% endfor %}
         </div>
         <div id="invoice">
+
+          {% set sePuede = false %}
           {% for referencia in referencia%}
-          <h1>Nº FACTURA: {{referencia.billing_id}}</h1>
-          <h1>Nº REFERENCIA: {{referencia.reference}}</h1>
+            {% if sePuede==false %}
+          <h1>Nº FACTURA: {{referencia.id}}</h1>
           <div class="date">Fecha de Factura: {{referencia.date}}</div>
           <div class="date">Fecha de Pago: {{referencia.paid_date}}</div>
+              {% set sePuede = true %}
+            {% endif %}
           {% endfor %}
         </div>
       </div>
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th class="no">UNIDADES</th>
+            <th class="no">Nº REFERENCIA</th>
             <th class="desc">DESCRIPCIÓN</th>
             <th class="unit">PRECIO</th>
             <th class="qty">IVA</th>
@@ -56,28 +60,39 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            {% for referencia in referencia%}
-            <td class="no">1</td>
+        {% set total = 0 %}
+
+        {% for referencia in referencia%}
+        <tr>
+
+            <td class="no">{{referencia.reference}}</td>
             <td class="desc"><h3>{{referencia.name}}</h3>{{referencia.description}}</td>
             <td class="unit">{{referencia.price}}€</td>
             <td class="qty">{{referencia.iva}}%</td>
             <td class="total">{{referencia.price+((referencia.price*referencia.iva)/100)}}€</td>
           </tr>
+          {% set total = referencia.price+((referencia.price*referencia.iva)/100)+total %}
+        {% endfor %}
+
         </tbody>
         <tfoot>
+        {% set sePuede3 = false %}
+
+        {% if sePuede3==false %}
           <tr>
             <td colspan="2">SUBTOTAL</td>
-            <td>{{referencia.price}}€</td>
-            <td colspan="1">IVA {{referencia.iva}}%</td>
-
+            <td>{{ total}}€</td>
+            <td colspan="1">IVA y Gastos incluidos</td>
+            <td></td>
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">TOTAL</td>
-            <td>{{referencia.price+((referencia.price*referencia.iva)/100)}}€</td>
-            {% endfor %}
+            <td>{{ total}}€</td>
+              {% set sePuede3 = true %}
           </tr>
+        {% endif %}
+
         </tfoot>
       </table>
       <div id="thanks">¡Gracias por su compra!</div>

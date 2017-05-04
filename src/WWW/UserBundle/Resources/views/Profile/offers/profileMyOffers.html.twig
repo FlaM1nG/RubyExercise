@@ -8,17 +8,17 @@
 {% endblock %}
 
 {% block alertProfile %}
-    
+
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
             {{ alerts.alert('alert-success', flash_message, null) }}
-        {% endfor %} 
+        {% endfor %}
 
         {% for flash_message in app.session.flashbag.get('messageFail') %}
             {{ alerts.alert('alert-warning', flash_message, null) }}
     {% endfor %}
 
-   
-{% endblock %} 
+
+{% endblock %}
 
 
 {% block javascriptsHeader %}
@@ -50,7 +50,7 @@
                 {% for offer in pagination %}
 
                     {% set pathEditar = path('user_profiler_editOffer',{idOffer:offer.id}) %}
-                    {% set urlFactura = path('novar_empleo_imprimirHVPdf',{idOffer: offer.id}) %}
+                    {% set urlFactura = path('imprimirPdfSeller',{idOffer: offer.id}) %}
 
                     {% if offer.service.id == 1 %}
                         {% set url = path('service_trade' , {idOffer: offer.id}) %}
