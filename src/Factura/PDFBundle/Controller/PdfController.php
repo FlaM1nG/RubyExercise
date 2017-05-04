@@ -168,8 +168,7 @@ class PdfController extends Controller
         $referencia  = $stmt->fetchAll();
 
 
-
-        $html = $this->renderView('PDFBundle:Default:index.html.twig',
+        $html = $this->renderView('PDFBundle:Default:seller.html.twig',
             array(
                 'entities' => $entities,
                 'domicilio' => $domicilio,
