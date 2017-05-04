@@ -183,3 +183,7 @@ pruebaAdminDatos:
 termsConditions:
     path: /termsConditions
     defaults: { _controller: AppBundle:Index:termsConditions }
+
+pageCookies:
+    path: /cookies
+    defaults: { _controller: AppBundle:Index:cookie }

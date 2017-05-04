@@ -182,4 +182,8 @@ class IndexController extends Controller
     public function termsConditionsAction(){
         return $this->render('pages/termsConditions.html.twig');
     }
+
+    public function cookieAction(){
+        return $this->render('pages/cookies.html.twig');
+    }
 }
