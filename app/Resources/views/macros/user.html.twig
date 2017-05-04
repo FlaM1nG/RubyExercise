@@ -1,6 +1,6 @@
 {% macro userList(href, src, nombre) %}
 
-<!-- IMAGEN USUARIO -->
+{#<!-- IMAGEN USUARIO -->#}
 <div class="row">
     <a href="{{ href|default('#')|e }}">
         <img class="center-block img-circle 
@@ -11,10 +11,10 @@
             
             
 </div>
-<!-- FIN IMAGEN USUARIO -->
+{#<!-- FIN IMAGEN USUARIO -->#}
 
 
-<!-- NOMBRE USUARIO -->
+{#<!-- NOMBRE USUARIO -->#}
 <div class="row row-hre-user-name">
     <a href="{{ href|default('#')|e }}" class="hre-user-name-grid">
         {{ nombre|e }}
@@ -22,7 +22,7 @@
     
     
 </div>
-<!-- FIN NOMBRE USUARIO -->
+{#<!-- FIN NOMBRE USUARIO -->#}
 {% endmacro %}
 
 
@@ -55,7 +55,7 @@
 
 
 {% macro userComments(href, src, nombre, fecha, number) %}
-<!-- IMAGEN USUARIO -->
+{#<!-- IMAGEN USUARIO -->#}
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="us-perfil-list center-block">
@@ -67,10 +67,10 @@
         </div>
     </div>   
 </div>
-<!-- FIN IMAGEN USUARIO -->
+{#<!-- FIN IMAGEN USUARIO -->#}
 
 
-<!-- NOMBRE USUARIO -->
+{#<!-- NOMBRE USUARIO -->#}
 <div class="row row-hre-user-name">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <a href="{{ href|default('#')|e }}" class="hre-user-name-grid">
@@ -80,25 +80,25 @@
         
     </div>
 </div>
-<!-- FIN NOMBRE USUARIO -->
+{#<!-- FIN NOMBRE USUARIO -->#}
 
 
-<!-- FECHA CREACION -->
+{#<!-- FECHA CREACION -->#}
 <div class="row us-date-comments">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <span>{{ fecha|date('d/m/Y H:i') }}</span>        
     </div>
 </div>
-<!-- FIN FECHA CREACION  -->
+{#<!-- FIN FECHA CREACION  -->#}
 
 
-<!-- NUMERO COMENTARIO -->
+{#<!-- NUMERO COMENTARIO -->#}
 <div class="row us-number-comments">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <span>{{ number + 1 }}</span>      
     </div>
 </div>
-<!-- FIN FECHA CREACION  -->
+{#<!-- FIN FECHA CREACION  -->#}
 {% endmacro %}
 
 

@@ -75,7 +75,7 @@
 
 
 {% block offerUser %}
-    <!-- IMAGEN USUARIO -->
+    {#<!-- IMAGEN USUARIO -->#}
     <div class="row row-off-user-name">
         <a class="off-user-image" href={{ path('user_public_profile', {username: offer.offer.userAdmin.username}) }}>
             <img class=" img-circle img-responsive"
@@ -86,7 +86,7 @@
         <a class="off-user-name" href={{ path('user_public_profile', {username: offer.offer.userAdmin.username}) }}>{{ offer.offer.userAdmin.username }}</a>
 
     </div>
-    <!-- FIN NOMBRE USUARIO -->
+    {#<!-- FIN NOMBRE USUARIO -->#}
 {% endblock %}
 
 
@@ -101,9 +101,9 @@
 
 
 {% block offerVote %}
-    <!-- VALORACIONES -->
+    {#<!-- VALORACIONES -->#}
     {{ rating.staticRating(offer.offer.userAdmin.avgScore) }}
-    <!-- FIN VALORACIONES -->
+    {#<!-- FIN VALORACIONES -->#}
 {% endblock %}
 
 
@@ -123,7 +123,7 @@
 
     <div class="row">
         <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12">
-            <!-- DATOS IMPORTATNES DEL SERVICIO -->
+            {#<!-- DATOS IMPORTATNES DEL SERVICIO -->#}
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h4>
@@ -134,12 +134,12 @@
             </div>
 
             <div class="row off-row-date-prin">
-                <!-- CAPACIDAD -->
+                {#<!-- CAPACIDAD -->#}
                 {{ offers.atriHouRen('capacidad', 'fa-users', offer.offer.holders,3, 6, 6, 6) }}
-                <!-- FIN CAPACIDAD -->
+                {#<!-- FIN CAPACIDAD -->#}
 
             </div>
-            <!-- FIN DATOS IMPORTATNES DEL SERVICIO -->
+            {#<!-- FIN DATOS IMPORTATNES DEL SERVICIO -->#}
         </div>
 
     </div>

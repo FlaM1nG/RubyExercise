@@ -7,12 +7,12 @@
 {% endblock %}
        
 {% block body %}
-<!-- TITULO REGISTRO -->
+{#<!-- TITULO REGISTRO -->#}
 <div class="container cd-main-content">
     <h1>Registro</h1>
     <hr>
 </div>
-<!-- FIN TITULO REGISTRO -->
+{#<!-- FIN TITULO REGISTRO -->#}
   
   {% block alert %}
         
@@ -25,20 +25,20 @@
         {% endfor %}
    {% endblock %}
     
-<!-- CUERPO FORMULARIO -->
+{#<!-- CUERPO FORMULARIO -->#}
 <div class="container cd-main-content">
 {{ form_start(formulario) }}
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-        <!-- FILA USUARIO NOMBRE Y TELEFONO -->
+        {#<!-- FILA USUARIO NOMBRE Y TELEFONO -->#}
         <div class="row">
-            <!-- USUARIO NOMBRE -->
+            {#<!-- USUARIO NOMBRE -->#}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 {{ form_row(formulario.username) }}
             </div>
-            <!-- FIN USUARIO NOMBRE -->
+            {#<!-- FIN USUARIO NOMBRE -->#}
 
 
-            <!-- USUARIO TELEFONO -->
+            {#<!-- USUARIO TELEFONO -->#}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 {{ form_label(formulario.prefix) }}
                 <div class="user-register-phone"> 
@@ -46,46 +46,46 @@
                 {{ form_widget(formulario.phone) }}
                 </div>
             </div>
-            <!-- FIN USUARIO TELEFONO -->
+            {#<!-- FIN USUARIO TELEFONO -->#}
 
 
         </div>
-        <!-- FIN FILA USUARIO NOMBRE Y TELEFONO -->
+        {#<!-- FIN FILA USUARIO NOMBRE Y TELEFONO -->#}
 
 
-        <!-- FILA USUARIO EMAIL Y PASS -->
+        {#<!-- FILA USUARIO EMAIL Y PASS -->#}
         <div class="row">
-            <!-- USUARIO PASS -->
+            {#<!-- USUARIO PASS -->#}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 {{ form_row(formulario.password) }}
             </div>
-            <!-- FIN USUARIO PASS -->
+            {#<!-- FIN USUARIO PASS -->#}
 
 
-            <!-- USUARIO EMAIL -->
+            {#<!-- USUARIO EMAIL -->#}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 {{ form_row(formulario.email) }}
             </div>
-            <!-- FIN USUARIO EMAIL -->
+            {#<!-- FIN USUARIO EMAIL -->#}
 
 
         </div>
-        <!-- FIN FILA USUARIO EMAIL Y PASS -->
+        {#<!-- FIN FILA USUARIO EMAIL Y PASS -->#}
 
         {{ form_row(formulario.isEnterprise) }}
         {{ form_row(formulario.nif) }}
 
-        <!-- FILA USUARIO FECHA NACIMIENTO -->
+        {#<!-- FILA USUARIO FECHA NACIMIENTO -->#}
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 
                  us-birthdate-align">
                 {{ form_row(formulario.birthdate) }}
             </div>
         </div>
-        <!-- FIN FILA USUARIO FECHA NACIMIENTO -->
+        {#<!-- FIN FILA USUARIO FECHA NACIMIENTO -->#}
 
 
-        <!-- FILA USUARIO HOBBIES -->
+        {#<!-- FILA USUARIO HOBBIES -->#}
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3>
@@ -99,9 +99,9 @@
 
                 {% for hobby in hobbies %}
 
-                    {% if hobby.photo is defined %}
-                        {% set imageHobby = 'background:url("https://www.whatwantweb.com/'~hobby.photo.url~'")' %}
-                    {% endif %}
+                    {#{% if hobby.photo is defined %}#}
+                        {#{% set imageHobby = 'background:url("https://www.whatwantweb.com/'~hobby.photo.url~'")' %}#}
+                    {#{% endif %}#}
                     <div class="us-check-group-element col-lg-3 col-md-3 
                          col-sm-4 col-xs-6">
                         <label class="us-image-checkbox center-block" 
@@ -109,7 +109,7 @@
 
                             <img class="img-responsive img-circle center-block
                                  us-register-img-hob"
-                                 src="{{ asset('img/usuario1.jpg') }}" />
+                                 src="{{ asset('img/hobbies/ciencia.jpg') }}" />
 
                             <input style="{{ imageHobby }}" 
                                    type="checkbox" 
@@ -124,7 +124,7 @@
                 {%endfor%}
             </div>
         </div>
-        <!-- FIN FILA USUARIO HOBBIES -->
+        {#<!-- FIN FILA USUARIO HOBBIES -->#}
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-label-terms">
@@ -147,29 +147,29 @@
         </div>
                 
                 
-        <!-- FILA USUARIO CAPTCHA -->
+        {#<!-- FILA USUARIO CAPTCHA -->#}
         <div class="row">
             <div class="us-register-captcha center-block">
                 {{ form_row(formulario.captcha) }}
             </div>
         </div>
-        <!-- FIN FILA USUARIO CAPTCHA -->
+        {#<!-- FIN FILA USUARIO CAPTCHA -->#}
 
 
-        <!-- FILA USUARIO CAPTCHA Y BOTON -->
+        {#<!-- FILA USUARIO CAPTCHA Y BOTON -->#}
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 us-save-register">
                 {{ form_row(formulario.guardar) }}
             </div>
         </div>
-        <!-- FIN FILA USUARIO CAPTCHA Y BOTON -->
+        {#<!-- FIN FILA USUARIO CAPTCHA Y BOTON -->#}
 
 
     </div>
 
 
 </div>
-<!-- FIN CUERPO FORMULARIO -->
+{#<!-- FIN CUERPO FORMULARIO -->#}
 
 {{ form_end(formulario) }}
 

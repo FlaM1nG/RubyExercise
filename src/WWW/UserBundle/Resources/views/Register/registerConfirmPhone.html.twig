@@ -7,12 +7,12 @@
 {% endblock %}
        
 {% block body %}
-    <!-- TITULO REGISTRO -->
+    {#<!-- TITULO REGISTRO -->#}
     <div class="container cd-main-content">
         <h1>Confirmar Teléfono</h1>
         <hr>
     </div>
-    <!-- FIN TITULO REGISTRO -->
+    {#<!-- FIN TITULO REGISTRO -->#}
 
     {% block alert %}
 
@@ -25,7 +25,7 @@
         {% endfor %}
     {% endblock %}
 
-    <!-- CUERPO FORMULARIO -->
+    {#<!-- CUERPO FORMULARIO -->#}
 
     <div class="container cd-main-content">
         Teléfono actual: {{ app.session.get('phone') }}
@@ -48,7 +48,7 @@
         {{ form_row(form.sendSMS) }}
 
     </div>
-    <!-- FIN CUERPO FORMULARIO -->
+    {#<!-- FIN CUERPO FORMULARIO -->#}
 
 {% endblock %}
 
