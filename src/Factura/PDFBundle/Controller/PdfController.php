@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 class PdfController extends Controller
 {
 
-    public function imprimirHVPdfAction(Request $request)
+    public function imprimirPdfBuyerAction(Request $request)
     {
 
 
@@ -19,24 +19,59 @@ class PdfController extends Controller
         $sesion = $request->getSession();
 
         $idOferta = $request->get('idOffer');
-        
-        $id_usuario = $sesion->get('id');
+
+        if(!empty($request->request->get("id"))){
+            $id_usuario = $request->request->get("id");
+        }
+        else{
+            $id_usuario = $sesion->get('id');
+        }
 
         //$query = "SELECT address_id FROM billing where user_id=21 and id=2";
-        $query = "SELECT * FROM user where id=$id_usuario";
-        $stmt = $db->prepare($query);
+        $query1 = "SELECT * FROM user where id=$id_usuario";
+        $stmt = $db->prepare($query1);
         $params = array();
         $stmt->execute($params);
         $entities  = $stmt->fetchAll();
 
-        $query = "SELECT * FROM address where user_id=$id_usuario";
-        $stmt = $db->prepare($query);
+        $query2 = "SELECT default_address_id FROM user where id = $id_usuario";
+        $stmt = $db->prepare($query2);
+        $params = array();
+        $stmt->execute($params);
+        $default_address  = $stmt->fetchAll();
+
+        $domicilio_def = $default_address[0]["default_address_id"];
+
+        $query3 = "Select * from address where id=$domicilio_def and user_id=$id_usuario";
+        $stmt = $db->prepare($query3);
         $params = array();
         $stmt->execute($params);
         $domicilio  = $stmt->fetchAll();
 
-        $query = "SELECT * FROM inscription as ins inner join billing as bil on ins.user_id=bil.user_id inner join concept as con on con.billing_id=bil.id where ins.user_id=$id_usuario and ins.offer_id=$idOferta";
-        $stmt = $db->prepare($query);
+/*
+        $query3 = "SELECT * FROM inscription as ins inner join billing as bil on ins.user_id=bil.user_id inner join concept as con on con.billing_id=bil.id where ins.id=con.inscription_id and ins.offer_id=$idOferta";
+        $stmt = $db->prepare($query3);
+        $params = array();
+        $stmt->execute($params);
+        $referencia  = $stmt->fetchAll();
+
+*/
+
+        $query4 = "SELECT id,user_id from inscription where offer_id=$idOferta";
+        $stmt = $db->prepare($query4);
+        $params = array();
+        $stmt->execute($params);
+        $id_inscripcion  = $stmt->fetchAll();
+
+
+
+        $id_inscription = $id_inscripcion[0]["id"];
+        $id_usu_compra = $id_inscripcion[0]["user_id"];
+
+
+
+        $query5 = "SELECT bill.id,bill.date,bill.paid_date,con.reference,con.name,con.iva,con.price,con.description from billing as bill inner join concept as con on con.inscription_id=$id_inscription where user_id=$id_usu_compra and bill.id=con.billing_id";
+        $stmt = $db->prepare($query5);
         $params = array();
         $stmt->execute($params);
         $referencia  = $stmt->fetchAll();
@@ -55,11 +90,103 @@ class PdfController extends Controller
             200,
             array(
                 'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="file.pdf"'
+                'Content-Disposition'   => 'attachment; filename="Factura.pdf"'
             )
         );
 
     }
+
+    public function imprimirPdfSellerAction(Request $request)
+    {
+
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+
+        $sesion = $request->getSession();
+
+        $idOferta = $request->get('idOffer');
+
+        if(!empty($request->request->get("id"))){
+            $id_usuario = $request->request->get("id");
+        }
+        else{
+            $id_usuario = $sesion->get('id');
+        }
+
+        //$query = "SELECT address_id FROM billing where user_id=21 and id=2";
+        $query1 = "SELECT * FROM user where id=$id_usuario";
+        $stmt = $db->prepare($query1);
+        $params = array();
+        $stmt->execute($params);
+        $entities  = $stmt->fetchAll();
+
+        $query2 = "SELECT default_address_id FROM user where id = $id_usuario";
+        $stmt = $db->prepare($query2);
+        $params = array();
+        $stmt->execute($params);
+        $default_address  = $stmt->fetchAll();
+
+        $domicilio_def = $default_address[0]["default_address_id"];
+
+        $query3 = "Select * from address where id=$domicilio_def and user_id=$id_usuario";
+        $stmt = $db->prepare($query3);
+        $params = array();
+        $stmt->execute($params);
+        $domicilio  = $stmt->fetchAll();
+
+        /*
+                $query3 = "SELECT * FROM inscription as ins inner join billing as bil on ins.user_id=bil.user_id inner join concept as con on con.billing_id=bil.id where ins.id=con.inscription_id and ins.offer_id=$idOferta";
+                $stmt = $db->prepare($query3);
+                $params = array();
+                $stmt->execute($params);
+                $referencia  = $stmt->fetchAll();
+        */
+
+
+
+        $query4 = "SELECT user_admin_id from offer where id=$idOferta";
+        $stmt = $db->prepare($query4);
+        $params = array();
+        $stmt->execute($params);
+        $id_vende  = $stmt->fetchAll();
+
+        $id_usu_vendedor = $id_vende[0]["user_admin_id"];
+
+        $query5 = "SELECT id,user_id from inscription where offer_id=$idOferta";
+        $stmt = $db->prepare($query5);
+        $params = array();
+        $stmt->execute($params);
+        $id_inscripcion  = $stmt->fetchAll();
+
+
+        $query6 = "SELECT bill.id,bill.date,bill.paid_date,con.reference,con.name,con.iva,con.price,con.description from billing as bill inner join concept as con on con.inscription_id=$id_inscription where user_id=$id_usu_compra and bill.id=con.billing_id";
+        $stmt = $db->prepare($query6);
+        $params = array();
+        $stmt->execute($params);
+        $referencia  = $stmt->fetchAll();
+
+
+
+        $html = $this->renderView('PDFBundle:Default:index.html.twig',
+            array(
+                'entities' => $entities,
+                'domicilio' => $domicilio,
+                'referencia' => $referencia,
+            ));
+
+        //Aquí defino los datos del documento como el tamaño, orientación, título, etc.
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="Factura.pdf"'
+            )
+        );
+
+    }
+
 }
     /*     
          
