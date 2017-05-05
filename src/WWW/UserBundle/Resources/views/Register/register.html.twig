@@ -107,9 +107,13 @@
                         <label class="us-image-checkbox center-block" 
                             title="{{ hobby.name | capitalize}}">
 
+                            {#<img class="img-responsive img-circle center-block#}
+                                 {#us-register-img-hob"#}
+                                 {#src="{{ asset('img/hobbies/ciencia.jpg') }}" />#}
+
                             <img class="img-responsive img-circle center-block
                                  us-register-img-hob"
-                                 src="{{ asset('img/hobbies/ciencia.jpg') }}" />
+                                 src="{{ asset(hobby.photo) }}" />
 
                             <input style="{{ imageHobby }}" 
                                    type="checkbox" 
@@ -138,10 +142,8 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="us-terms">
-                    {{ include('macros/text.html.twig') }}
-                    {{ include('macros/text.html.twig') }}
-                    {{ include('macros/text.html.twig') }}
-                    {{ include('macros/text.html.twig') }}
+                    {{ include('macros/termsConditions.html.twig') }}
+                    {{ include('macros/privacy.html.twig') }}
                 </div>
             </div>
         </div>
