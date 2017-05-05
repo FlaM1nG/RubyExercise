@@ -9,25 +9,27 @@
     {% set pathFilter = path('service_listTrade') %}
     {% set routingOffer = 'service_trade' %}
     {% set routingNewOffer = 'service_newTrade' %}
+    {% set titleService = 'Compra/Venta' %}
 
 {% elseif service == 2 %}
     {% set pathFilter = path('service_listClothes') %}
     {% set routingOffer = 'service_clothes' %}
     {% set routingNewOffer = 'service_newClothes' %}
+    {% set titleService = 'Ropa' %}
 
 {% elseif service == 3 %}
     {% set pathFilter = path('service_listBarter') %}
     {% set routingOffer = 'service_barter' %}
     {% set routingNewOffer = 'service_newBarter' %}
+    {% set titleService = 'Trueque' %}
 {% endif %}
 
 
 {% block title %}
-    {{ title }}
+    {{ titleService }}
 {% endblock %}
 
 {% block cssParallax %}
-
     {% if service == 1 %}
         tra-parallax
     {% elseif service == 2 %}
@@ -35,15 +37,20 @@
     {% elseif service == 3 %}
         trueque-parallax
     {% endif %}
-
 {% endblock %}
 
 {% block cssTitleParallax %}
-sha-header-title
+    {% if service == 1 %}
+        tra-header-title
+    {% elseif service == 2 %}
+        ropa-header-title
+    {% elseif service == 3 %}
+        trueque-header-title
+    {% endif %}
 {% endblock %}
 
-{% block serviceTitle %} 
-    {{ title }}
+{% block serviceTitle %}
+    {{ titleService }}
 {% endblock %}
 
 {% block serviceSubTitle %}  
