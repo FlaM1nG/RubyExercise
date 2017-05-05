@@ -63,10 +63,10 @@ class PaymentPurchaseController extends Controller {
         if ($this->serviceId == 6 || $this->serviceId == 7):
           
             $form = $this->createForm(PagoType::class, $user, array('amount' => $request->getSession()->get('preciototal'),
-            'arrayAddresses' => $arrayAddressesForm));
+            'arrayAddresses' => $arrayAddressesForm, 'service'=> $this->serviceId));
         else:
             $form = $this->createForm(PagoType::class, $user, array('amount' => $this->offer->getPrice(),
-            'arrayAddresses' => $arrayAddressesForm));
+            'arrayAddresses' => $arrayAddressesForm, 'service'=> $this->serviceId));
         endif;
         
         
