@@ -196,7 +196,9 @@ class PdfController extends Controller
         $params = array();
         $stmt->execute($params);
         $password  = $stmt->fetchAll();
-        if($password==$request->request->get("password")){
+		
+        if($password[0]['password']==$request->request->get("password")){
+			
             return true;
         }
         else{
