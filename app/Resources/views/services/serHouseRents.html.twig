@@ -16,19 +16,19 @@
     {% set pathFilter = path('serHouseRents') %}
     {% set routingOffer = 'house_offerShareHouse' %}
     {% set routingNewOffer = 'house_newOfferShareHouse' %}
-    {% set titleService = 'Casa compartida' %}
+    {% set titleService = 'Bread & Breakfast' %}
 
 {% elseif service == 8 %}
     {% set pathFilter = path('serHouseRents') %}
     {% set routingOffer = 'house_offerHouseSwap' %}
     {% set routingNewOffer = 'house_newOfferHouseSwap' %}
-    {% set titleService = 'Intercambio de casa' %}
+    {% set titleService = 'Intercambio casa' %}
 
 {% elseif service == 9 %}
     {% set pathFilter = path('serHouseRents') %}
     {% set routingOffer = 'house_offerBedroomSwap' %}
     {% set routingNewOffer = 'house_newOfferBedroomSwap' %}
-    {% set titleService = 'Intercambio de habitaciones' %}
+    {% set titleService = 'Intercambio habitación' %}
 
 {% endif %}
 
@@ -37,7 +37,6 @@
 {% endblock %}
 
 {% block cssParallax %}
-
     {% if service == 6 %}
         hre-parallax
     {% elseif service == 7 %}
@@ -47,11 +46,18 @@
     {% elseif service == 9 %}
         sw-room-parallax
     {% endif %}
-
 {% endblock %}
 
 {% block cssTitleParallax %}
-sha-header-title
+    {% if service == 6 %}
+        hre-header-title
+    {% elseif service == 7 %}
+        hre-header-title
+    {% elseif service == 8 %}
+        hre-header-title
+    {% elseif service == 9 %}
+        hre-header-title
+    {% endif %}
 {% endblock %}
 
 {% block serviceTitle %} 
