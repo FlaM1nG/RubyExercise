@@ -177,7 +177,7 @@ house:
 
 
 pruebaAdminDatos:
-    path: /prueba/datosAdmin
+    path: /pruebaBarbeitos
     defaults: { _controller: AppBundle:Index:pruebaDatosAdminPanel }
 
 termsConditions:
