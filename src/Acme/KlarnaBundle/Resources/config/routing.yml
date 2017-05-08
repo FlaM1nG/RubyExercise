@@ -1,4 +1,0 @@
-acme_klarna:
-    resource:   "@AcmeKlarnaBundle/Controller/"
-    type:       annotation
-    prefix:     /klarna
