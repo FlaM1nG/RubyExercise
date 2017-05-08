@@ -123,7 +123,7 @@ class PdfController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
-       // $sesion = $request->getSession();
+        // $sesion = $request->getSession();
 
         $idOferta = $request->get('idOffer');
         //$query = "SELECT address_id FROM billing where user_id=21 and id=2";
@@ -132,8 +132,7 @@ class PdfController extends Controller
         $stmt = $db->prepare($query4);
         $params = array();
         $stmt->execute($params);
-        $id_vende  = $stmt->fetchAll();
-
+        $id_vende = $stmt->fetchAll();
 
 
         $id_usu_vendedor = $id_vende[0]["user_admin_id"];
@@ -142,13 +141,13 @@ class PdfController extends Controller
         $stmt = $db->prepare($query1);
         $params = array();
         $stmt->execute($params);
-        $entities  = $stmt->fetchAll();
+        $entities = $stmt->fetchAll();
 
         $query2 = "SELECT default_address_id FROM user where id =$id_usu_vendedor";
         $stmt = $db->prepare($query2);
         $params = array();
         $stmt->execute($params);
-        $default_address  = $stmt->fetchAll();
+        $default_address = $stmt->fetchAll();
 
         $domicilio_def = $default_address[0]["default_address_id"];
 
@@ -156,26 +155,23 @@ class PdfController extends Controller
         $stmt = $db->prepare($query3);
         $params = array();
         $stmt->execute($params);
-        $domicilio  = $stmt->fetchAll();
-
-
+        $domicilio = $stmt->fetchAll();
 
 
         $query5 = "SELECT id from inscription where offer_id=$idOferta";
         $stmt = $db->prepare($query5);
         $params = array();
         $stmt->execute($params);
-        $id_inscripcion  = $stmt->fetchAll();
+        $id_inscripcion = $stmt->fetchAll();
 
         $id_inscription = $id_inscripcion[0]["id"];
-
 
 
         $query6 = "SELECT bill.id,bill.date,bill.paid_date,con.reference,con.name,con.iva,con.price,con.description from billing as bill inner join concept as con on con.inscription_id=$id_inscription where bill.id=con.billing_id and bill.user_id=$id_usu_vendedor";
         $stmt = $db->prepare($query6);
         $params = array();
         $stmt->execute($params);
-        $referencia  = $stmt->fetchAll();
+        $referencia = $stmt->fetchAll();
 
 
         $html = $this->renderView('PDFBundle:Default:seller.html.twig',
@@ -186,16 +182,16 @@ class PdfController extends Controller
             ));
 
         //Aquí defino los datos del documento como el tamaño, orientación, título, etc.
-		
+
         if(!empty($request->request->get("id"))){
-                return new Response(
+            return new Response(
                 $html,
                 200,
                 array(
-                        'Content-Type'          => 'text/html; charset=UTF-8',
-                        )
-                );
-		
+                    'Content-Type'          => 'text/html; charset=UTF-8',
+                )
+            );
+        }
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
@@ -206,7 +202,7 @@ class PdfController extends Controller
         );
 
     }
-    }
+    
     private function checkUser(Request $request){
         $id =$request->request->get("id");
 		
