@@ -38,14 +38,12 @@ class AppKernel extends Kernel
              * HERE ALL THE BUNDLES REQUIRED TO MAKE PAYUMBUNDLE WORK
              */
             new Payum\Bundle\PayumBundle\PayumBundle(),
-            new Acme\DemoBundle\AcmeDemoBundle(),
+            
             new Acme\PaymentBundle\AcmePaymentBundle(),
-            new Acme\PaypalExpressCheckoutBundle\AcmePaypalExpressCheckoutBundle(),
-            new Acme\StripeBundle\AcmeStripeBundle(),
+            
             new Acme\RedsysBundle\AcmeRedsysBundle(),
-            new Acme\PayexBundle\AcmePayexBundle(),
-            new Acme\KlarnaBundle\AcmeKlarnaBundle(),
-            new Acme\OtherExamplesBundle\AcmeOtherExamplesBundle(),
+            
+            
 
 //            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
