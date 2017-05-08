@@ -58,7 +58,7 @@
     .aEnlaces;
     font-weight: 600;
     .sombra-general2;
-    padding: 2%;
+    //padding: 2%;
     border: 1px solid @gray-base;
 }
 
@@ -109,18 +109,25 @@
 
 .sha-img{
     min-width: 100%;
+    min-height: 100%;
     position: absolute;
     left: 50%;
     top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
 }
 
 .col-sha-car{
     position: relative;
     overflow: hidden;
-    height: 150px;
+    height: 160px;
     padding: 0;
-    margin-top: 0.5%;
+    //margin-top: 0.5%;
+}
+
+.col-sha-rest{
+    padding-top: 1%;
 }
 /* ##### FIN VIEW LIST ##### */
 
