@@ -88,7 +88,6 @@
         locale file as mentioned below -->
     <script src="{{ asset('js/locales/es.js') }}"></script>
     
-    
     <script type="text/javascript">
         $(document).ready(function(){
           
@@ -124,7 +123,8 @@
                 minFileCount:1,
                 showRemove: false,
                 showUpload: false,
-
+                allowedFileExtensions: ["jpg", "jpeg", "png"],
+                language: "es",
             });
         });
     </script>
