@@ -71,8 +71,7 @@ class ShareCarType extends AbstractType {
                                                   'choice_value' => 'id',
                                                   'choice_label' => 'plate',
                                                   'choices_as_values' => true,
-                                                  'data' => $options['data']->getCar(),
-                                                  'attr' => $arrayDisabled))
+                                                  'data' => $options['data']->getCar()))
 
             ->add('id', HiddenType::class)
 
