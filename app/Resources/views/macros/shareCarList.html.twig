@@ -1,6 +1,6 @@
-{% macro element(hrefOffer, srcImg, dia, origen, destino, plazasLibres, 
+{% macro element(hrefOffer, srcImg, dia, origen, destino, plazasLibres,
     hrefUser, srcImgUser, nameUser, price, vote, service ) %}
-    
+
     {% import 'macros/user.html.twig' as users %}
     {% import 'macros/star.html.twig' as rating %}
 <div class="row sha-offer-list">
@@ -20,11 +20,11 @@
                             {#{{ dia|date('l d F - H:i') }}#}
                             {{ dia|localizeddate('full', 'none', app.request.locale, null, "EEEE dd MMM HH:mm")|capitalize }}
                         </a>
-                        
+
                         <a href="{{ hrefOffer }}" class="sha-date-mobile">
                             {#{{ dia|date('d M') }}#}
                             {{ dia|localizeddate('full', 'none', app.request.locale, null, "dd MMM") }}
-                            <span class="sha-date-sep-mob">-</span> 
+                            <span class="sha-date-sep-mob">-</span>
                             {#{{ dia|date('H:i') }}#}
                             {{ dia|localizeddate('full', 'none', app.request.locale, null, "HH:mm") }}
 
@@ -50,9 +50,9 @@
                 {{ rating.staticRating(vote|number_format) }}
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12
                  col-sha-price">
-                <span class="sha-price">
+                <span class="{% if service == 4 %}sha-price{% elseif service == 5 %}price-cou{% endif %}">
                     {% if service == 4 %}
                         {{ price|e|number_format(2, '.') }}€/plaza
                     {% elseif service == 5 %}
@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="row row-sha-price-mob">
-                    <span class="sha-price">
+                    <span class="{% if service == 4 %}sha-price{% elseif service == 5 %}price-cou{% endif %}">
                         {% if service == 4 %}
                             {{ price|e|number_format(2, '.') }}€/plaza
                         {% elseif service == 5 %}
