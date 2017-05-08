@@ -74,6 +74,8 @@ class Utilities{
                                     $error = "El usuario ya existe";
                                 elseif($result['result'] =='email_exists')
                                     $error = "El email ya existe";
+                                elseif($result['result'] == 'phone_exists')
+                                    $error = "El teléfono ya existe";
                                 break;
             case 'confirmTlfn': $success = "Se le ha enviado un código al teléfono";
             case 'tradeImageN': $error = "Debe introducir de 1 a 5 fotos";

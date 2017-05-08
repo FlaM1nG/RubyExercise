@@ -3,12 +3,9 @@ namespace Acme\PaymentBundle\Controller;
 
 use Payum\Bundle\PayumBundle\Controller\PayumController;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Model\DetailsAggregateInterface;
-use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Request\Sync;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 use WWW\GlobalBundle\Entity\MyCompanyEvents;
@@ -72,11 +69,11 @@ class PaymentDoneOKController extends PayumController
             
             $idService = $details->getDetails()['idService'];
             if(!empty($details->getDetails()['precioMensajeria'])){
-				$precio = $details->getDetails()['precioMensajeria'];
-			}
-			else{
-				$precio = $details->getDetails()['precio_oferta'];
-			}
+                $precio = $details->getDetails()['precioMensajeria'];
+            }
+            else{
+                $precio = $details->getDetails()['precio_oferta'];
+            }
             if($idService== 6 || $idService == 7){
             //House
                 $fechainicial = $details->getDetails()['fechaIni'];

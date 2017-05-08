@@ -8,14 +8,11 @@ require_once ( 'C:\xampp\htdocs\wwweb\vendor\autoload.php' );
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Postmen\Postmen;
-use Symfony\Component\HttpFoundation\Response;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 use Symfony\Component\HttpFoundation\Request;
-use WWW\ServiceBundle\Entity\Offer;
 use WWW\UserBundle\Entity\User;
-use WWW\GlobalBundle\Entity\Address;
 use WWW\OthersBundle\Entity\Trade;
 
 class CorreosController extends Controller {
@@ -58,9 +55,6 @@ class CorreosController extends Controller {
         else{
             return false;
         }
-    }
-    public function saveCode($idOffer) {
-        
     }
     
     public function getTrackingNumberAction($idOffer, Request $request, $idDir, $sendOffice,$arrayDetails, $idInscription) {
@@ -192,7 +186,7 @@ class CorreosController extends Controller {
             $api = new Postmen($api_key, $region);
             $result = $api->create('labels', $payload);
 			
-			$this->trackingNumber= $result->tracking_numbers[0];
+            $this->trackingNumber= $result->tracking_numbers[0];
 
         } catch (exception $e) {
             echo "ERROR:\n";
@@ -255,7 +249,7 @@ class CorreosController extends Controller {
     }
     private function searchAddressBuyer($idAddress){
         
-        //Metodo para busar un usario por id usando Doctrine
+        //Metodo para busar una direccion por id usando Doctrine
         $address= $this->em->getRepository('GlobalBundle:Address')->find($idAddress);
         
         if (!$address) {
@@ -266,8 +260,6 @@ class CorreosController extends Controller {
         }
         $this->addressBuyer = $address;
         
-//        \Doctrine\Common\Util\Debug::dump($this->addressBuyer);
-//        die;
     }
 
 }

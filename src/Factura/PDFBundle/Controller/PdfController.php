@@ -13,7 +13,7 @@ class PdfController extends Controller
     public function imprimirPdfBuyerAction(Request $request)
     {
 
-
+		
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
@@ -21,10 +21,10 @@ class PdfController extends Controller
 
         $idOferta = $request->get('idOffer');
 
-        if(!empty($request->request->get("id"))){
+		if(!empty($request->request->get("id"))){
             if($this->checkUser($request)){
                 $id_usuario = $request->request->get("id");
-        
+				
             }
             else{
                 $json =  array();
@@ -36,7 +36,7 @@ class PdfController extends Controller
         else{
             $id_usuario = $sesion->get('id');
         }
-
+        
         //$query = "SELECT address_id FROM billing where user_id=21 and id=2";
         $query1 = "SELECT * FROM user where id=$id_usuario";
         $stmt = $db->prepare($query1);
@@ -93,8 +93,18 @@ class PdfController extends Controller
                 'domicilio' => $domicilio,
                 'referencia' => $referencia,
             ));
-
+			
+		
         //Aquí defino los datos del documento como el tamaño, orientación, título, etc.
+        if(!empty($request->request->get("id"))){
+            return new Response(
+            $html,
+            200,
+            array(
+                    'Content-Type'          => 'text/html; charset=UTF-8',
+                    )
+            );
+        }
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
@@ -176,6 +186,16 @@ class PdfController extends Controller
             ));
 
         //Aquí defino los datos del documento como el tamaño, orientación, título, etc.
+		
+        if(!empty($request->request->get("id"))){
+                return new Response(
+                $html,
+                200,
+                array(
+                        'Content-Type'          => 'text/html; charset=UTF-8',
+                        )
+                );
+		
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
@@ -186,9 +206,10 @@ class PdfController extends Controller
         );
 
     }
-    
+    }
     private function checkUser(Request $request){
         $id =$request->request->get("id");
+		
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
         $query1 = "SELECT password FROM user where id=$id";
@@ -196,7 +217,9 @@ class PdfController extends Controller
         $params = array();
         $stmt->execute($params);
         $password  = $stmt->fetchAll();
-        if($password==$request->request->get("password")){
+		
+        if($password[0]['password']==$request->request->get("password")){
+			
             return true;
         }
         else{
