@@ -4,11 +4,9 @@ namespace Acme\PaymentBundle\Controller;
 use Payum\Bundle\PayumBundle\Controller\PayumController;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Model\DetailsAggregateInterface;
-use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Request\Sync;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class PaymentDoneKOController extends PayumController
 {

@@ -9,24 +9,18 @@ use Acme\PaymentBundle\Entity\Payment;
 use Payum\Core\Payum;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Range;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 use WWW\OthersBundle\Entity\Trade;
 use WWW\CarsBundle\Entity\ShareCar;
 use WWW\HouseBundle\Entity\ShareHouse;
-use WWW\GlobalBundle\Entity\MyCompanyEvents;
-use WWW\HouseBundle\Entity\House;
 use com\realexpayments\remote\sdk\domain\Card;
-use com\realexpayments\remote\sdk\domain\CardType;
 use com\realexpayments\remote\sdk\domain\PresenceIndicator;
 use com\realexpayments\remote\sdk\domain\payment\AutoSettle;
 use com\realexpayments\remote\sdk\domain\payment\AutoSettleFlag;
 use com\realexpayments\remote\sdk\domain\payment\PaymentRequest;
-use com\realexpayments\remote\sdk\domain\payment\PaymentResponse;
 use com\realexpayments\remote\sdk\domain\payment\PaymentType;
 use com\realexpayments\remote\sdk\RealexClient;
 use com\realexpayments\remote\sdk\http\HttpConfiguration;
@@ -40,26 +34,20 @@ class PaymentPurchaseController extends Controller {
     private $service;
     private $serviceId;
 
-    //Función pincipal popara preparar el pago
-    //Carga un formulario con los siguientes campos:
-    //1-Pago por paypal o pago por tarjeta
-    //2- Cantidad a pagar
-    //3- Moneda EU o USD
-    //4- Correo del cliente
 
     public function prepareAction(Request $request) {
-        //Redsys <20
-        //Addons >20
+        // Se crean las variables. Se carga el usuario de la sesion 
         $user = $this->getUserProfile($request);
         $arrayAddressesPay = array();
         $arrayAddressesForm = array();
         $form = null;
         $this->createArraysAddresses($user, $arrayAddressesPay, $arrayAddressesForm);
-
+        // Se cargan los valores propios de la clase, oferta servicio id etc
         $this->setUpVars($request);
 
         $administrationFeesPercent = MyConstants::ADMINISTRATION_FEES/100;
-        
+        // Aqui se comprueba que si la oferta es de casas que pille el precio por
+        // la sesion ( el precio depende de las fechas
         if ($this->serviceId == 6 || $this->serviceId == 7):
           
             $form = $this->createForm(PagoType::class, $user, array('amount' => $request->getSession()->get('preciototal'),
@@ -75,21 +63,22 @@ class PaymentPurchaseController extends Controller {
         $arrayCourier = null;
         $this->serviceId = $this->offer->getOffer()->getService()->getId();
 
-
+        // Si el servicio es trade, se pilla el precio segun el tamaño del 
+        // paquete y el peso
         if ($this->serviceId == 1 || $this->serviceId == 2):
             $arrayCourier = $this->getCourierPrice($request);
 
         endif;
         
         $preciototal = null;
-
+        // Este if se podria unir con el de arriba?
         if ($this->serviceId == 6 || $this->serviceId == 7):
 
            // $precio_base= $this->offer->getPrice();
 
             $sesion = $request->getSession();
 
-            //Guardamos el precio total en la sesion
+            //Cargamos el precio total de la sesion
 
             $preciototal = $sesion->get('preciototal');
 
@@ -103,15 +92,7 @@ class PaymentPurchaseController extends Controller {
 
         if ($form->isSubmitted() && $form->get('submit')->isClicked()) {
 
-//            Si el usuario elige pagar con tarjeta (LA CAIXA)
-//            if ($form->get('gateway_name')->getData() == 'addon_payments') {
-//                //cargamos el pago por tarjeta
-//                return $this->redirectToRoute('acme_payment_card', array(
-//                            'idOffer' => $this->offer->getOffer()->getId(),
-//                            'service' => $this->service,
-//                ));
-//            }
-            //Guardamos los datos en la base de datos
+            //Guardamos los datos en la base de datos en la parte details
             $arrayPay['gastos_gestion'] = $request->get('previoPago')['managementFee'];
             $arrayPay['gastos_pago'] = $request->get('previoPago')['managementPayFee'];
             $arrayPay['gastos_totales'] = $request->get('previoPago')['totalAmount'];
@@ -131,13 +112,14 @@ class PaymentPurchaseController extends Controller {
             if ($this->serviceId == 6 || $this->serviceId == 7) {
                 $arrayPay['fechaIni'] = $sesion->get('fechainicial');
                 $arrayPay['fechaFin'] = $sesion->get('fechafinal');
-                $arrayPay['idCalendar'] = $sesion->get('calendario_id');
-                
+                $arrayPay['idCalendar'] = $sesion->get('calendario_id');                
                 $arrayPay['idInscription'] = $sesion->get('idInscription');
             }
 
             $payment = new Payment;
             //numero de referencia por la hora y fecha
+            //PUEDE QUE SE DE EL CASO QUE DOS PERSONAS QUE COMPREN LA MISMA OFERTA
+            //A LA MISMA HORA (MISMO SEGUNDO) Y SE CREE UN NUMERO REPETIDO! 
             $payment->setNumber(date('His') . 'W' . $request->get('idOffer'));
             $payment->setClientId(uniqid());
             $payment->setDescription(sprintf('Pago total de %s del cliente %s', $request->get('previoPago')['totalAmount'], $user->getUsername()));
@@ -188,8 +170,8 @@ class PaymentPurchaseController extends Controller {
             }
 
                 $storage->update($details);
-                //Las notificaciones de compra se guardan en la tabla payum_payments_details
-                //de ahi se tienen que sacar el DS_Response y manejar la respuesta
+                // Las notificaciones de compra se guardan en la tabla payum_payments_details
+                // de ahi se tienen que sacar el DS_Response y manejar la respuesta
                 $notifyToken = $this->getPayum()->getTokenFactory()->createNotifyToken(
                         'redsys', $details
                 );
@@ -215,7 +197,7 @@ class PaymentPurchaseController extends Controller {
                 return $this->redirect($captureTokenOK->getTargetUrl());
             }
 
-            //Si no, se paga por PAYPAL
+            //PAYPAL
             elseif ($request->get('previoPago')['payMethod'] == 'paypal') {
 
                 $storage = $this->getPayum()->getStorage($payment);
@@ -243,70 +225,6 @@ class PaymentPurchaseController extends Controller {
         ));
     }
 
-    //Funcion para el pago con tarjeta. Tiene un formulario con los sigueintes campos:
-    //1-Tipo de tarjeta Visa MasterCard
-    //2-Numero de cuenta
-    //3-Fecha de expiración
-    //4-Cvv2
-    //5-Nombre del titular de la tarjeta
-    public function cardAction(Request $request) {
-        $this->setUpVars($request);
-        $form = $this->createCardForm();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $card = ( new Card())
-                    ->addType($form->get('cardtype')->getData())
-                    ->addNumber($form->get('acct')->getData())
-                    ->addExpiryDate($form->get('exp_date')->getData())
-                    ->addCvn($form->get('cvv2')->getData())
-                    ->addCvnPresenceIndicator(PresenceIndicator::CVN_PRESENT)
-                    ->addCardHolderName($form->get('name')->getData());
-            $request = ( new PaymentRequest())
-                    ->addMerchantId("whatwantweb")
-                    ->addType(PaymentType::AUTH)
-                    ->addCard($card)
-                    ->addAmount($this->offer->getPrice() * 100)
-                    ->addCurrency("EUR")
-                    ->addAutoSettle(( new AutoSettle())->addFlag(AutoSettleFlag::TRUE));
-
-            $httpConfiguration = new HttpConfiguration();
-            $httpConfiguration->setEndpoint("https://remote.sandbox.addonpayments.com/remote");
-            $client = new RealexClient("U1DZQjQOMB", $httpConfiguration);
-            $response = $client->send($request);
-
-            // do something with the response
-            echo $response->toXML();
-
-            $resultCode = $response->getResult();
-            $message = $response->getMessage();
-        }
-        return $this->render('AcmePaymentBundle::prepare.html.twig', array(
-                    'form' => $form->createView()
-        ));
-    }
-
-    /**
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createCardForm() {
-        return $this->createFormBuilder()
-                        ->add('cardtype', 'choice', array(
-                            'choices' => array(
-                                'VISA' => 'Visa',
-                                'MASTERCARD' => 'MasterCard',
-                            ),
-                            'mapped' => false,
-                            'constraints' => array(new NotBlank())
-                        ))
-                        ->add('acct', null, array('data' => '4263971921001307'))
-                        ->add('exp_date', null, array('data' => '1220'))
-                        ->add('cvv2', null, array('data' => '123'))
-                        ->add('name', null, array('data' => $this->offer->getOffer()->getUserAdmin()->getName() . ' ' . $this->offer->getOffer()->getUserAdmin()->getSurname()))
-                        ->getForm()
-        ;
-    }
-
     /**
      * @return Payum
      */
@@ -331,7 +249,6 @@ class PaymentPurchaseController extends Controller {
         elseif (strstr($path, 'share-car') !== false):
             $this->service = 'share-car';
             $this->serviceId = 4;
-//            $this->getOfferShareCar($request);
             $this->getOfferInfo($request);
 
         elseif (strstr($path, 'courier-car') !== false):
@@ -414,10 +331,6 @@ class PaymentPurchaseController extends Controller {
          
         endif;
 
-        // if ($this->serviceId == 6 || $this->serviceId == 7):
-        //   $this->offer = new ShareHouse($result['data']);
-        //$this->offer = new House($result['data']);
-        //   endif;
     }
 
     private function getUserProfile(Request $request) {
