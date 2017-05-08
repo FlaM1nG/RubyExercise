@@ -17,13 +17,17 @@
                 <div class="row">
                     <h4>
                         <a href="{{ hrefOffer }}" class="sha-date">
-                            {{ dia|date('l d F - H:i') }}
+                            {#{{ dia|date('l d F - H:i') }}#}
+                            {{ dia|localizeddate('full', 'none', app.request.locale, null, "EEEE dd MMM HH:mm")|capitalize }}
                         </a>
                         
                         <a href="{{ hrefOffer }}" class="sha-date-mobile">
-                            {{ dia|date('d M') }}
+                            {#{{ dia|date('d M') }}#}
+                            {{ dia|localizeddate('full', 'none', app.request.locale, null, "dd MMM") }}
                             <span class="sha-date-sep-mob">-</span> 
-                            {{ dia|date('H:i') }}
+                            {#{{ dia|date('H:i') }}#}
+                            {{ dia|localizeddate('full', 'none', app.request.locale, null, "HH:mm") }}
+
                         </a>
                     </h4>
                 </div>
