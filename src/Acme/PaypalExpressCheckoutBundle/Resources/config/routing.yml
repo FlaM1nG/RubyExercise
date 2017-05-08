@@ -1,4 +1,0 @@
-acme_paypal_express_checkout:
-    resource:   "@AcmePaypalExpressCheckoutBundle/Controller/"
-    type:       annotation
-    prefix:     /paypal/express-checkout

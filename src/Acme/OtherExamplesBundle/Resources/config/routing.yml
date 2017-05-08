@@ -1,4 +1,0 @@
-acme_other_examples:
-    resource:   "@AcmeOtherExamplesBundle/Controller/"
-    type:       annotation
-    prefix:     /other

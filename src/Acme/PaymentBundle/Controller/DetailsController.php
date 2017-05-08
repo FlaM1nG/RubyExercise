@@ -3,12 +3,9 @@ namespace Acme\PaymentBundle\Controller;
 
 use Payum\Bundle\PayumBundle\Controller\PayumController;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Model\DetailsAggregateInterface;
-use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Request\Sync;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 use Acme\PaymentBundle\Controller\CorreosController;
@@ -18,8 +15,6 @@ class DetailsController extends PayumController
 {
     public function viewAction(Request $request)
     {
-        // THIS AN EXAMPLE ACTION. YOU HAVE TO OVERWRITE THIS WITH YOUR OWN ACTION.
-        // CHECK THE PAYMENT STATUS AND ACT ACCORDING TO IT.
 
         $token = $this->getPayum()->getHttpRequestVerifier()->verify($request);
 
@@ -27,7 +22,8 @@ class DetailsController extends PayumController
 
         try {
             $gateway->execute(new Sync($token));
-        } catch (RequestNotSupportedException $e) {}
+        } catch (
+                RequestNotSupportedException $e) {}
 
         $gateway->execute($status = new GetHumanStatus($token));
 
@@ -153,9 +149,6 @@ class DetailsController extends PayumController
         $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
         return ceil($diasFalt);
     }
-    private function getStatusPayment(){
-        
-    }
     
     private function updateStatus($idOffer,$details,$idPayment,Request $request){
         
@@ -184,7 +177,7 @@ class DetailsController extends PayumController
         $data['data']= json_encode($extra);
 
         $result = $ch->resultApiRed($data, $file);
-		var_dump($data);
+		
     }
     private function saveTrackingNumber($number,$idInscription,Request $request){
         
