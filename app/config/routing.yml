@@ -105,34 +105,34 @@ payum_all:
     resource: "@PayumBundle/Resources/config/routing/all.xml"
     prefix:   /
 
-acme_paypal_express_checkout:
-    resource: "@AcmePaypalExpressCheckoutBundle/Resources/config/routing.yml"
-    prefix:   /
-
-acme_stripe:
-    resource: "@AcmeStripeBundle/Resources/config/routing.yml"
-    prefix:   /
+#acme_paypal_express_checkout:
+#    resource: "@AcmePaypalExpressCheckoutBundle/Resources/config/routing.yml"
+#    prefix:   /
+#
+#acme_stripe:
+#    resource: "@AcmeStripeBundle/Resources/config/routing.yml"
+#    prefix:   /
 
 acme_redsys:
     resource: "@AcmeRedsysBundle/Resources/config/routing.yml"
     prefix:   /
 
-acme_payex:
-    resource: "@AcmePayexBundle/Resources/config/routing.yml"
-    prefix:   /
-
-acme_klarna:
-    resource: "@AcmeKlarnaBundle/Resources/config/routing.yml"
-    prefix:   /
+#acme_payex:
+#    resource: "@AcmePayexBundle/Resources/config/routing.yml"
+#    prefix:   /
+#
+#acme_klarna:
+#    resource: "@AcmeKlarnaBundle/Resources/config/routing.yml"
+#    prefix:   /
 
 acme_redsys:
     resource:   "@AcmePaymentBundle/Controller/"
     type:       annotation
     prefix:     /
 
-acme_other_examples:
-    resource: "@AcmeOtherExamplesBundle/Resources/config/routing.yml"
-    prefix:   /
+#acme_other_examples:
+#    resource: "@AcmeOtherExamplesBundle/Resources/config/routing.yml"
+#    prefix:   /
 
 acme_payment:
     resource: "@AcmePaymentBundle/Resources/config/routing.yml"
