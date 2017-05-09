@@ -55,12 +55,12 @@
 span.texto1-pack1 {
     position: absolute;
     z-index: 2;
-    top: 25%;
-    left: 0%;
-    font-size: 25px;
+    top: 0;
+    left: 0;
+    font-size: 13px;
     font-weight: 900;
     color: @gray-base;
-    padding: 5%;
+    padding: 10% 5%;
 }
 
 span.texto2-pack1 {
@@ -144,11 +144,13 @@ span.fondo-pack2 {
 span.texto2-pack3 {
     position: absolute;
     z-index: 2;
-    top: 90%;
-    left: 61%;
+    top: 70px;
+    left: 0;
     font-size: 14px;
     font-weight: 600;
     color: @brand-secondary;
+    padding: 5%;
+    font-size: 22px;
 }
 
 span.especial-pack3 {
@@ -288,6 +290,20 @@ span.fondo-pack3 {
     }
 }
 
+.row-anun3{
+    border: 1px solid @gray-base;
+    min-height: 300px;
+}
+
+.col-anun3-text{
+    p{
+        padding: 5%;
+        font-weight: 600;
+        font-size: 24px;
+        //margin: 5%;
+    }
+}
+
 /* ##### FIN SPONSORS ##### */
 
 
@@ -320,11 +336,11 @@ span.fondo-pack3 {
         font-size: 24px;
     }
 
-    span.texto1-pack1 {
-        top: 44%;
-        font-size: 22px;
-        line-height: 1em;
-    }
+    //span.texto1-pack1 {
+    //    top: 44%;
+    //    font-size: 22px;
+    //    line-height: 1em;
+    //}
 
     span.texto2-pack1 {
         left: 30%;
@@ -336,10 +352,10 @@ span.fondo-pack3 {
         line-height: 1em;
     }
 
-    span.texto2-pack3 {
-        top: 90%;
-        left: 39%;
-    }
+    //span.texto2-pack3 {
+    //    top: 90%;
+    //    left: 39%;
+    //}
 
     @media only screen and (max-height : 1024px){
         
@@ -362,6 +378,14 @@ span.fondo-pack3 {
     }
 }
 
+@media only screen and (max-width : 1440px) {
+    .col-anun3-text{
+        p{
+            font-size: 22px;
+        }
+    }
+}
+
 /*######################   RANGO ANCHO [1200 �  992[  ######################*/
 @media only screen and (max-width : 1200px) {
     .carousel-inner {
@@ -372,10 +396,10 @@ span.fondo-pack3 {
         left: 37%;
     }
 
-    span.texto1-pack1 {
-        top: 31%;
-        font-size: 26px;
-    }
+    //span.texto1-pack1 {
+    //    top: 31%;
+    //    font-size: 26px;
+    //}
 
     .titulo-pack1 {
         left: 6%;
@@ -395,16 +419,28 @@ span.fondo-pack3 {
         font-size: 76px;
     }
 
-    span.texto2-pack3 {
-        top: 90%;
-        right: 1%;
-        left: inherit;
-    }
+    //span.texto2-pack3 {
+    //    top: 90%;
+    //    right: 1%;
+    //    left: inherit;
+    //}
 
     .sponsorPrimero, .sponsorSegundo{
         background-color: @brand-secondary;
         margin-top: 2%;
     }
+
+    .row-anun3{
+        border: none;
+        border-bottom: 1px solid @gray-base;
+    }
+
+    .col-anun3-text{
+        p{
+            font-size: 26px;
+        }
+    }
+
     
     @media only screen and (max-height : 768px){
         
@@ -446,6 +482,16 @@ span.fondo-pack3 {
         top: 10%;
         font-size: 70px;
     }
+
+    .row-anun3{
+        min-height: inherit;
+    }
+
+    .col-anun3-text{
+        p{
+            font-size: 22px;
+        }
+    }
         
     @media only screen and (max-height : 500px){
         
@@ -477,6 +523,12 @@ span.fondo-pack3 {
         top: 10%;
         font-size: 54px;
     }
+
+    .col-anun3-text{
+        p{
+            font-size: 18px;
+        }
+    }
        
     @media only screen and (max-height : 1024px){
         
@@ -498,10 +550,10 @@ span.fondo-pack3 {
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 @media only screen and (max-width : 480px) {
 
-    span.texto1-pack1 {
-        top: 43%;
-        font-size: 22px;
-    }
+    //span.texto1-pack1 {
+    //    top: 43%;
+    //    font-size: 22px;
+    //}
 
     span.texto2-pack1 {
         left: 33%;
@@ -522,11 +574,11 @@ span.fondo-pack3 {
         font-size: 46px;
     }
 
-    span.texto2-pack3 {
-        right: inherit;
-        left: 3%;
-        font-size: 12px;
-    }
+    //span.texto2-pack3 {
+    //    right: inherit;
+    //    left: 3%;
+    //    font-size: 12px;
+    //}
 
     .logo-slider{
         padding-top: 8%;
