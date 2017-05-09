@@ -10,12 +10,12 @@
     {% set pathFilter = path('house_listBedroomSwap') %}
     {% set routingOffer = 'house_offerBedroomSwap' %}
     {% set routingNewOffer = 'house_newOfferBedroomSwap' %}
-    {% set titleService = 'Intercambio de habitaciones' %}
+    {% set titleService = 'Intercambio habitación' %}
 
 {#{% endif %}#}
 
 {% block title %}
-    House Rents
+    {{ titleService }}
 {% endblock %}
 
 {% block cssParallax %}
@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block cssTitleParallax %}
-    sha-header-title
+    sw-ro-header-title
 {% endblock %}
 
 {% block serviceTitle %}
