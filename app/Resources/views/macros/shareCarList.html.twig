@@ -1,9 +1,8 @@
-{% macro element(hrefOffer, srcImg, dia, origen, destino, plazasLibres, 
+{% macro element(hrefOffer, srcImg, dia, origen, destino, plazasLibres,
     hrefUser, srcImgUser, nameUser, price, vote, service ) %}
-    
+
     {% import 'macros/user.html.twig' as users %}
     {% import 'macros/star.html.twig' as rating %}
-
 <div class="row sha-offer-list">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-sha-car">
         <a href="{{ hrefOffer }}">
@@ -12,19 +11,23 @@
         </a>
     </div>
 
-    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-sha-rest">
         <div class="row row-sha-gen-date">
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 col-sha-generico">
                 <div class="row">
                     <h4>
                         <a href="{{ hrefOffer }}" class="sha-date">
-                            {{ dia|date('l d F - H:i') }}
+                            {#{{ dia|date('l d F - H:i') }}#}
+                            {{ dia|localizeddate('full', 'none', app.request.locale, null, "EEEE dd MMM HH:mm")|capitalize }}
                         </a>
-                        
-                        <a href="#" class="sha-date-mobile">
-                            {{ dia|date('d M') }}
-                            <span class="sha-date-sep-mob">-</span> 
-                            {{ dia|date('H:i') }}
+
+                        <a href="{{ hrefOffer }}" class="sha-date-mobile">
+                            {#{{ dia|date('d M') }}#}
+                            {{ dia|localizeddate('full', 'none', app.request.locale, null, "dd MMM") }}
+                            <span class="sha-date-sep-mob">-</span>
+                            {#{{ dia|date('H:i') }}#}
+                            {{ dia|localizeddate('full', 'none', app.request.locale, null, "HH:mm") }}
+
                         </a>
                     </h4>
                 </div>
@@ -43,13 +46,13 @@
 
         <div class="row row-sha-price">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <p class="sha-valoracion">Valoraciones</p>
+                {#<p class="sha-valoracion">Valoraciones</p>#}
                 {{ rating.staticRating(vote|number_format) }}
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12
                  col-sha-price">
-                <span class="sha-price">
+                <span class="{% if service == 4 %}sha-price{% elseif service == 5 %}price-cou{% endif %}">
                     {% if service == 4 %}
                         {{ price|e|number_format(2, '.') }}€/plaza
                     {% elseif service == 5 %}
@@ -60,7 +63,7 @@
         </div>
 
         <div class="row row-sha-mobil">
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 col-sha-us-mob">
                 {{ users.userList(hrefUser, srcImgUser, nameUser) }}
             </div>
 
@@ -73,7 +76,7 @@
                 </div>
 
                 <div class="row row-sha-price-mob">
-                    <span class="sha-price">
+                    <span class="{% if service == 4 %}sha-price{% elseif service == 5 %}price-cou{% endif %}">
                         {% if service == 4 %}
                             {{ price|e|number_format(2, '.') }}€/plaza
                         {% elseif service == 5 %}
@@ -85,7 +88,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 {% endmacro %}
 
