@@ -106,6 +106,7 @@
     {#</script>#}
 
     <script src="{{ asset('js/fileinput.js') }}"></script>
+    <script src="{{ asset('js/locales/es.js') }}"></script>
 
     <script type="text/javascript">
 
@@ -136,6 +137,8 @@
             msgErrorClass: 'alert alert-block alert-danger',
             defaultPreviewContent: '<img src="'+img+'" alt="Your Avatar" style="width:160px">',
             layoutTemplates: {main2: '{preview}'+btnCust+'{browse}{remove}'},
+            allowedFileExtensions: ["jpg", "jpeg", "png"],
+            language: "es",
 
         });
     </script>
