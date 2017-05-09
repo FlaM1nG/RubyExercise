@@ -47,9 +47,6 @@
                             Cantidad
                         </th>
 
-                        <th>
-                            cash
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +56,6 @@
                             <td>{{ data['concept'] }}</td>
                             <td class="text-center">{{ data['date']|date_modify("+1 year")|date("d-m-Y") }}</td>
                             <td class="text-center">{{ data['quantity']|number_format(2, '.', ',')}}</td>
-                            <td>{{ data['cash'] }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -70,7 +66,7 @@
                     </tr>
                 </tfoot>
             </table>
-            <span>*La bolsa acumulada puede usarse en alquiler turístico y B&B </span>
+            <span>*La bolsa acumulada puede usarse sólo en alquiler turístico </span>
         </div>
     </div>
 
