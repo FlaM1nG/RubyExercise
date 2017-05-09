@@ -197,14 +197,7 @@ class IndexController extends Controller
     }
 
     public function pruebaDatosAdminPanelAction(){
-        $usuario = $this->getUser();
-        
-        $direccion = $usuario->getDefaultAddress();
-
-        return $this->render('pages/pruebaAdmin.html.twig', array(
-            'usuario' => $usuario,
-            'direccion' => $direccion
-        ));
+        return $this->render('@User/Register/registerSuccessfull.html.twig');
     }
 
     public function termsConditionsAction(){

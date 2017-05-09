@@ -13,7 +13,7 @@
     {% set pathFilter = path('serCourier_list') %}
     {% set routingOffer = 'offCourierCar' %}
     {% set routingNewOffer = 'serCourier_newOffer' %}
-    {% set titleService = 'Mensajería' %}
+    {% set titleService = 'Paquetería' %}
 
 {% endif %}
 
@@ -39,7 +39,11 @@
 {% endblock %}
 
 {% block cssTitleParallax %}
-sha-header-title
+    {% if service == 4 %}
+        sha-header-title
+    {% elseif service == 5 %}
+        men-header-title
+    {% endif %}
 {% endblock %}
 
 {% block alertService %}
