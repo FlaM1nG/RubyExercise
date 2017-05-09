@@ -1,0 +1,87 @@
+{% extends 'UserBundle:Layouts:layoutProfile.html.twig' %}
+{% import 'macros/script.html.twig' as codMenu %}
+
+{% block title %}
+    Bolsa
+{% endblock %}
+
+{% block alertProfile %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+
+{% endblock %}
+
+
+{% block javascriptsHeader %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block bodyProfile %}
+    <div class="row us-dataPersonal-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>
+                Bolsa Acumulada
+            </h3>
+            <hr/>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Concepto
+                        </th>
+
+                        <th class="text-center">
+                            Caducidad
+                        </th>
+
+                        <th class="text-center">
+                            Cantidad
+                        </th>
+
+                        <th>
+                            cash
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {#{{ dump(arrayLogs) }}#}
+                    {% for data in arrayLogs %}
+                        <tr>
+                            <td>{{ data['concept'] }}</td>
+                            <td class="text-center">{{ data['date']|date_modify("+1 year")|date("d-m-Y") }}</td>
+                            <td class="text-center">{{ data['quantity']|number_format(2, '.', ',')}}</td>
+                            <td>{{ data['cash'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Total:</td>
+                        <td class="text-center">{{ wallet| number_format(2, '.', ',')}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <span>*La bolsa acumulada puede usarse en alquiler turístico y B&B </span>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+
+    {{ codMenu.scriptUserMenu('.us-dataPersonal-row') }}
+
+{% endblock %}
+
