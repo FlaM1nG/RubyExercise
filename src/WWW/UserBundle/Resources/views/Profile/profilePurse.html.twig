@@ -55,14 +55,14 @@
                         <tr>
                             <td>{{ data['concept'] }}</td>
                             <td class="text-center">{{ data['date']|date_modify("+1 year")|date("d-m-Y") }}</td>
-                            <td class="text-center">{{ data['quantity']|number_format(2, '.', ',')}}</td>
+                            <td class="text-center">{{ data['quantity']|number_format(2, '.', ',')}}€</td>
                         </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="2">Total:</td>
-                        <td class="text-center">{{ wallet| number_format(2, '.', ',')}}</td>
+                        <td colspan="2"><b>Total:</b></td>
+                        <td class="text-center"><b>{{ wallet| number_format(2, '.', ',')}}€</b></td>
                     </tr>
                 </tfoot>
             </table>
