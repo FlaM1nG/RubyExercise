@@ -1,5 +1,11 @@
 /* ------------------ SHARE CAR  ------------------
 ******************************************************************/
+.price-cou{
+    font-size: 22px;
+    color: @brand-primary;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
 
 .sha-car-marco{
     height: 200px;
@@ -58,7 +64,7 @@
     .aEnlaces;
     font-weight: 600;
     .sombra-general2;
-    padding: 2%;
+    //padding: 2%;
     border: 1px solid @gray-base;
 }
 
@@ -109,18 +115,25 @@
 
 .sha-img{
     min-width: 100%;
+    min-height: 100%;
     position: absolute;
     left: 50%;
     top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
 }
 
 .col-sha-car{
     position: relative;
     overflow: hidden;
-    height: 150px;
+    height: 160px;
     padding: 0;
-    margin-top: 0.5%;
+    //margin-top: 0.5%;
+}
+
+.col-sha-rest{
+    padding-top: 1%;
 }
 /* ##### FIN VIEW LIST ##### */
 
@@ -187,6 +200,10 @@
     .sha-parallax {
         background-position: center -100px !important;
     }
+
+    .price-cou{
+        font-size: 16px;
+    }
     
     @media only screen and (max-height : 768px){
         
@@ -214,6 +231,7 @@
         border-bottom: none;
         display: inline-block;
         width: 50%;
+        margin-bottom: 5%;
     }
     
     .col-sha-generico{
@@ -223,6 +241,14 @@
         display: inline-block;
         width: 50%;
         margin-top: 15px;
+
+        .col-sha-us-mob{
+            margin-top: 5%;
+        }
+
+        .rating-md{
+            font-size: 1.5em;
+        }
     }
     
     .sha-parallax{
@@ -232,6 +258,10 @@
     
     .sha-header-title {
         padding-top: 0px;
+    }
+
+    .men-header-title{
+        padding-top: 50px;
     }
     
     .sha-date {
@@ -329,6 +359,22 @@
     }
 }
 
+@media only screen and (max-width : 660px) {
+    .sha-valoracion{
+        font-size: 13px;
+    }
+
+    .off-row-rating{
+        .rating{
+            font-size: 18px;
+        }
+    }
+
+    .sha-price {
+        font-size: 22px;
+    }
+}
+
 @media only screen and (max-width : 600px) {
     .sha-offer-list {
         width: 90%;
@@ -344,13 +390,13 @@
 /*######################   RANGO ANCHO [490 � 320[  ######################*/
 @media only screen and (max-width : 490px) {
     .sha-offer-list{
-	width: inherit;
-        margin: 0px 1% 5% 0;
+	    width: inherit;
+        margin: 0 1% 5% 0;
         
     }
     
     .row-sha-gen-date{
-	display: inherit;
+	    display: inherit;
         width: inherit;
         text-align: center;
     }
@@ -361,8 +407,16 @@
     }
     
     .sha-header-title {
+        padding-top: 25px;
+
         h1{
-            font-size: 48px;
+            font-size: 44px;
+        }
+    }
+
+    .men-header-title {
+        h1{
+            font-size: 44px;
         }
     }
         
@@ -379,7 +433,13 @@
 @media only screen and (max-width : 320px) {
     .sha-header-title {
         h1{
-            font-size: 45px;
+            font-size: 40px;
+        }
+    }
+
+    .men-header-title {
+        h1{
+            font-size: 40px;
         }
     }
     
