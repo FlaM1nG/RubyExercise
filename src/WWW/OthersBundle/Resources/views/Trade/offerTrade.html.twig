@@ -144,6 +144,7 @@
 
     {#<!-- the main fileinput plugin file -->#}
     <script src="{{ asset('js/fileinput.js') }}"></script>
+    <script src="{{ asset('js/locales/es.js') }}"></script>
 
     <script type="text/javascript">
 
@@ -159,6 +160,8 @@
                 showZoom: false,
                 initialCaption: '',
                 maxFileCount: 5,
+                allowedFileExtensions: ["jpg", "jpeg", "png"],
+                language: "es",
             });
         });
 

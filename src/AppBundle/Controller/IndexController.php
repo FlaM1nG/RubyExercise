@@ -105,7 +105,7 @@ class IndexController extends Controller
 
         if($form->isSubmitted()):
             
-            $file = MyConstants::PATH_APIREST.'global/utils/Contact.php';
+            $file = MyConstants::PATH_APIREST.'global/utils/contact.php';
 
             $ch = new ApiRest();
             $ut = new Utilities();

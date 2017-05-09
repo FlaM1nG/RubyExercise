@@ -49,20 +49,20 @@
                 {{ form_row(form.nif) }}
             {% endif %}
 
-            <label class="control-label">¡Enlace para invitar a tus amigos!</label>
-            <div class="input-group input-especial">
-                <input type="text" class="form-control"
-                       value="{{ 'https://whatwantweb.com/registration/'~user.linkInvitation }}"
-                       placeholder="{{ 'https://whatwantweb.com/registration/'~user.linkInvitation }}"
-                       id="copy-input" readonly>
-                <span class="input-group-btn">
-                    <button class="btn btn-default btn-copy" type="button" id="copy-button"
-                          data-toggle="tooltip" data-placement="button" data-clipboard-action="copy" data-clipboard-target="#copy-input"
-                          title="Copiar">
-                        <i class="fa fa-files-o" aria-hidden="true"></i>
-                    </button>
-                </span>
-            </div>
+            {#<label class="control-label">¡Enlace para invitar a tus amigos!</label>#}
+            {#<div class="input-group input-especial">#}
+                {#<input type="text" class="form-control"#}
+                       {#value="{{ 'https://whatwantweb.com/registration/'~user.linkInvitation }}"#}
+                       {#placeholder="{{ 'https://whatwantweb.com/registration/'~user.linkInvitation }}"#}
+                       {#id="copy-input" readonly>#}
+                {#<span class="input-group-btn">#}
+                    {#<button class="btn btn-default btn-copy" type="button" id="copy-button"#}
+                          {#data-toggle="tooltip" data-placement="button" data-clipboard-action="copy" data-clipboard-target="#copy-input"#}
+                          {#title="Copiar">#}
+                        {#<i class="fa fa-files-o" aria-hidden="true"></i>#}
+                    {#</button>#}
+                {#</span>#}
+            {#</div>#}
 
             {#{{ user.linkInvitation }}#}
             {{ form_row(form._token) }}
