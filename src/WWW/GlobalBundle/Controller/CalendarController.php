@@ -50,9 +50,10 @@ class CalendarController extends Controller
 
         $session->set('idoferta', 'idOffer');
 
+
         $idoferta = $session->get('offer');
 
-        
+
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
@@ -60,7 +61,7 @@ class CalendarController extends Controller
 
 
 
-        $date= new \DateTime ($_POST['start']);
+        $date= new \DateTime ($_POST['startDateCalendario']);
 
         // query for a single product matching the given name and price
         $test = $repository->findOneBy(
@@ -73,6 +74,7 @@ class CalendarController extends Controller
             $dateEnd = $date;
 
             $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'),null,null, $date, $dateEnd,0,$request->get('blocked'),0,$request->get('inscription_id'));
+
 
             $em->persist($mce);
 
