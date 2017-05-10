@@ -5,15 +5,18 @@
         {{ titulo|e }}
     </h4>
     <hr>
-    {% for i in 0..9 %}
-    <div class="sid-item">
-        <a href="{{ href|default('#') }}">
-            <span>
-                {#{ message|e }#}
-                {{ i }}*{{ random(['Titulo objeto en venta', 
-                    'Yo soy corto', 
-                    'Soy un titulo para ver que aparece', 
-                    'Te ha tocado la loteria!!']) }}    
+    {# {% for i in 0..9 %}   #}
+   <div class="sid-item">
+       <a href="{{ href|default('#') }}">
+           <span>
+               {{ message|raw }}
+
+               {#
+               {{ i }}*{{ random(['Titulo objeto en venta',
+                   'Yo soy corto',
+                   'Soy un titulo para ver que aparece',
+                   'Te ha tocado la loteria!!']) }}
+               #}
             </span>
 
 
@@ -21,23 +24,25 @@
 
 
     </div>
-    {% endfor %}
+    {#  {% endfor %} #}
 
 
-{% endmacro %}
+ {% endmacro %}
 
 
 
-{% macro sidebarElementDemo(href, message) %}
-    {% for i in 0..9 %}
-    <div class="sid-item">
-        <a href="{{ href|default('#') }}">
-            <span>
-                {#{ message|e }#}
-                {{ i }}*{{ random(['Titulo objeto en venta', 
-                    'Yo soy corto', 
-                    'Soy un titulo para ver que aparece', 
-                    'Te ha tocado la loteria!!']) }}    
+ {% macro sidebarElementDemo(href, message) %}
+     {#  {% for i in 0..9 %}#}
+       <div class="sid-item">
+           <a href="{{ href|default('#') }}">
+               <span>
+                   {{ message }}
+                   {#
+                   {{ i }}*{{ random(['Titulo objeto en venta',
+                       'Yo soy corto',
+                       'Soy un titulo para ver que aparece',
+                       'Te ha tocado la loteria!!']) }}
+                       #}
             </span>
 
 
@@ -45,7 +50,7 @@
 
 
     </div>
-    {% endfor %}
+         {#  {% endfor %} #}
 
 
 {% endmacro %}
@@ -57,8 +62,8 @@
         {{ titulo|e }}
     </h4>
     <hr>
-    
-    
+
+
 {% endmacro %}
 
 
@@ -67,7 +72,7 @@
     <div class="sid-item">
         <a href="{{ href|default('#') }}">
             <span>
-                {{ message|e }}  
+                {{ message }}
             </span>
 
 
