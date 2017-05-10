@@ -114,6 +114,9 @@ class LoginController extends Controller{
         elseif($result['result'] == 'bad_credentials'):
             $ut->flashMessage('',$request, $result, 'Usuario o contraseña no válido');
         
+        elseif($result['result'] == 'ok' AND $result['is_banned'] == 1):
+            $resul['result'] = 'ko';
+            $ut->flashMessage('', $request, $result, 'La cuenta ha sido cancelada, para activarla póngase en contacto con nosotros');
         endif;
 
         return $result;
