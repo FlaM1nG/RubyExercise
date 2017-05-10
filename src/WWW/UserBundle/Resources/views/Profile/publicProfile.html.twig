@@ -204,6 +204,19 @@
 
             {% elseif offer.service_id == 5  %}
                 {% set urlOffer = path('offCourierCar',{idOffer: offer.id}) %}
+
+            {% elseif offer.service_id == 6 %}
+                {% set urlOffer = path('offHouseRents', {idOffer: offer.id}) %}
+
+            {% elseif offer.service_id == 7 %}
+                {% set urlOffer = path('house_offerShareHouse', {idOffer: offer.id}) %}
+
+            {% elseif offer.service_id == 8 %}
+                {% set urlOffer = path('house_offerHouseSwap', {idOffer: offer.id}) %}
+
+            {% elseif offer.service_id == 9 %}
+                {% set urlOffer = path('house_offerBedroomSwap', {idOffer: offer.id}) %}
+                
             {% endif %}
 
         <div class="us-off-elem">
