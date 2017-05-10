@@ -52,7 +52,15 @@
         {% if form.house.vars.choices|length == 0 %}
             No tiene ninguna casa creada, pinche <a href="{{ path('user_profile_newHouse') }}">aquí </a>para crear una
         {% else %}
-            {{ form_row(form.house) }}
+            <div class="form-group">
+                {{ form_label(form.house) }}
+                {{ form_widget(form.house) }}
+                {% if service == 6 %}
+                    <span>* Recuerde que en algunas CCAA es obligatorio el número de licencia turística.</span>
+                {% endif %}
+            </div>
+            {#{{ form_row(form.house) }}#}
+            
         {% endif %}
 
         {{ form_row(form.offer.title) }}
