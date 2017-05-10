@@ -116,18 +116,22 @@ class OfferController extends Controller{
             
             elseif($this->service == 6 || $this->service == 7 || $this->service == 8):
 
-                $house = new House();
-                $house->setId($request->get('shareHouse')['houseId']);
-                $this->offer->setHouse($house);
+                if($form->get('newShareHouse')->isClicked()):
+                    $house = new House();
+                    $house->setId($request->get('shareHouse')['houseId']);
+                    $this->offer->setHouse($house);
 
-                $request->getSession()->set('_security.user.target_path','');
-                $request->getSession()->remove('offer');
+                    $request->getSession()->set('_security.user.target_path','');
+                    $request->getSession()->remove('offer');
 
-                $result = $this->updateOfferHouseRent($request);
+                    $result = $this->updateOfferHouseRent($request);
 
-                if($result == 'ok'):
-                    return $this->redirectToRoute('user_profile_offers', array('typeOffer' => 'buildings'));
-                endif;
+                    if($result == 'ok'):
+                        return $this->redirectToRoute('user_profile_offers', array('typeOffer' => 'buildings'));
+                    endif;
+                 else:
+                     return $this->forward('GlobalBundle:Calendar:editcreateEvent', array('request',$request));
+                 endif;
 
             elseif($this->service == 9):
 

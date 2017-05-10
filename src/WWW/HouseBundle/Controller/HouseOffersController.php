@@ -374,6 +374,8 @@ class HouseOffersController extends Controller
         $stmt->execute($params);
         $fechas = $stmt->fetchAll();
 
+
+
         $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
 
         return $fechas[0]['calendar_id'];
