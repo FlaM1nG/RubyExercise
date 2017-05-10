@@ -248,3 +248,7 @@ user_ajax_offerEnjoyed:
 user_ajax_offerCancel:
       path: /ajax/offerCancel/
       defaults: { _controller: UserBundle:Purchases:cancelOfferPurchase }
+
+user_profilePurse:
+      path: /purse/
+      defaults: { _controller: UserBundle:profilePurse:listPurse }
