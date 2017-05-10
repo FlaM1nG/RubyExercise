@@ -21,6 +21,19 @@
                     offerOtherData 
 }#}
 
+{% if service == 6 %}
+    {% set titleService = 'Alquiler Turístico' %}
+{% elseif service == 7 %}
+    {% set titleService = 'Bread & Breakfast' %}
+{% elseif service == 8 %}
+    {% set titleService = 'Intercambio casa' %}
+
+{% endif %}
+
+{% block title %}
+    {{ titleService }} - {{ offer.offer.title }}
+{% endblock %}
+
 {% block alert %}
 
     {% for flash_message in app.session.flashbag.get('messageSuccess') %}
@@ -36,8 +49,9 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('css/calendario/datepi/jquery-ui.css') }}" />
-
+    {% if service != 8 %}
+        <link rel="stylesheet" href="{{ asset('css/calendario/datepi/jquery-ui.css') }}" />
+    {% endif %}
 {% endblock %}
 
 
@@ -360,14 +374,17 @@
     {{ parent() }}
     {{ rating.staticRatingJS() }}
 
+    {% if service != 8 %}
 
-    <script type="text/javascript" src="{{ asset('js/calendario/datepi/jquery-ui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/datepi/core.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/datepi/md5.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/calendario/datepi/datep.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/datepi/jquery-ui.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/datepi/core.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/datepi/md5.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/datepi/datep.js') }}"></script>
 
 
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+    {% endif %}
 
 {% endblock %}
