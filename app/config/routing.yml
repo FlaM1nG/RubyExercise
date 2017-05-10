@@ -191,3 +191,9 @@ pageCookies:
 pageServices:
     path: /services
     defaults: { _controller: AppBundle:Index:servicesPage }
+
+ticket_service:
+    path: /ticketea
+    defaults: { _controller: AppBundle:Index:ticket }
+
+
