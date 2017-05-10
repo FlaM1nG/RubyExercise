@@ -32,7 +32,6 @@ class PurchasesController extends Controller{
         $formCancelation = $this->createForm(CancelationType::class, $cancelation);
 
         $purchases = $this->getPurchases($request, $service);
-
         $paginator = $this->get('knp_paginator');
         $pagination = null;
 
@@ -91,7 +90,7 @@ class PurchasesController extends Controller{
     public function valorationAction(Request $request){
         
         $result = $this->getOffer($request);
-//print_r($result);
+
         return $this->render('UserBundle:Profile:offers/profileValorationOffer.html.twig',
                         array('title' => $result[0]['title'],
                               'description' => $result[0]['description'],

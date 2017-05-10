@@ -273,7 +273,7 @@
     
 {% macro offUserDisfrutadas(hrefOffer, srcImage, titleOffer, dateFact, textOffer, 
     dataVer, hrefValorar, dataValorar, hrefPDF, dataPDF, classEnjoyed, hrefEnjoyed, idOffer, statusOffer,
-    hrefCancel,titleModal ) %}
+    hrefCancel,titleModal, classCorreos, titleCodCorreos, codCorreos, modalCorreos ) %}
     <div class="us-off-element">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
@@ -336,6 +336,17 @@
                            title="{{ 'Imprimir factura'|e|capitalize }}">
                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                         </a>
+
+                        {% if codCorreos is not empty %}
+                            <a href="#" class="btn btn-default us-mess-btn {{ classCorreos }}"
+                               data-id="{{ codCorreos|e }}"
+                               data-toggle="modal"
+                               data-target="#{{ modalCorreos }}"
+                               data-placement="bottom"
+                               title="{{ titleCodCorreos|e|capitalize }}">
+                                <i class="fa fa-barcode" aria-hidden="true"></i>
+                            </a>
+                        {% endif %}
 
                         <a href="{{ hrefEnjoyed|e }}" class="btn btn-default us-mess-btn {{ classEnjoyed }}"
                            data-id="{{ idOffer|e }}"
