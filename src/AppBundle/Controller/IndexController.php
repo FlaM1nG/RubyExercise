@@ -37,7 +37,7 @@ class IndexController extends Controller
             ),
             "ticket" => array(
                 "faX" => "fa-ticket",
-                "href" => "service_listTrade",
+                "href" => "ticket_service",
                 "text" => "Entradas Ocio"
             ),
             "alquilerTuristico" => array(
@@ -125,7 +125,13 @@ class IndexController extends Controller
 
         return $this->render('pages/contact.html.twig', array('form' => $form->createView()));
     }
-    
+
+    public function ticketAction()
+    {
+        
+        return $this->redirect('https://www.ticketea.com/?a_aid=AFFPAP-whatwantweb');
+    }
+
     public function shippingAction() {
         return $this->render('pages/shipping.html.twig');
     }
