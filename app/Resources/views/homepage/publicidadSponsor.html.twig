@@ -36,17 +36,19 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 efecto-marco">
                     <div class="hovereffect tam-packs-grande">
                         <img class="img-responsive tam-packs-peque" 
-                             src="{{ asset('img/pack2.jpg') }}" alt="">
+                             src="{{ asset('img/anuncio2.jpg') }}" alt="">
                         <div class="overlay">
 
                         </div>
-                        <span class="titulo-pack2">¡Duerme en Roma!</span>
-                        <span class="texto1-pack2">Encuentra la mejor estancia 
-                            con nosotros</span>
-                        <span class="texto2-pack2">
-                            <span class="especial-pack2">* </span>
-                            Recuerda que te reembolsamos en tu bolsa un 7%
+                        {#<span class="titulo-pack2">¡Duerme en Roma!</span>#}
+                        <span class="texto1-pack2">
+                            En Compra/Venta, Trueque y Ropa puedes tener tu compra ¡el mismo día!<br><br>
+                            Los productos tecnológicos los revisamos nosotros.
                         </span>
+                        {#<span class="texto2-pack2">#}
+                            {#<span class="especial-pack2">* </span>#}
+                            {#Recuerda que te reembolsamos en tu bolsa un 7%#}
+                        {#</span>#}
                         <span class="fondo-pack2"></span>
                     </div>
 
@@ -105,7 +107,21 @@
                     {#<!-- End Item -->#}
                     <div class="item sponsor sponsorSegundo">
                         <div class="carousel-caption">
-                            <img src="{{ asset('img/wwrPatro.png') }}" class="img-responsive center-block logo-slider" />
+                            <img src="{{ asset('img/wwrPatro.png') }}" class="img-responsive center-block logo-slider
+                            logo-radio" />
+                            <div class="row row-spon-radio">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <a href="#Android">
+                                        <img class="img-responsive img-store1" src="{{ asset('img/googlePlay3.png') }}"/>
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <a href="#IOS">
+                                        <img class="img-responsive img-store2" src="{{ asset('img/AppStore3.png') }}"/>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {#<!-- End Item -->#}
