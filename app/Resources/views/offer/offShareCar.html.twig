@@ -21,6 +21,20 @@
 }#}
 
 
+{% if service == 4 %}
+    {% set titleService = 'Coche compartido' %}
+
+{% elseif service == 5 %}
+    {% set titleService = 'Paquetería' %}
+
+{% endif %}
+
+
+{% block title %}
+    {{titleService}} {{ offer.fromPlace}}-{{ offer.toPlace }}
+{% endblock %}
+
+
 
 {% block offerImage %}
     <div id="off-img-big" class="owl-carousel">
