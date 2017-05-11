@@ -52,7 +52,7 @@
             {{ offers.offUserVot(urlImage, title, description) }}
 
 
-     {%if valorated_by_me == false%}
+    {% if valorated_by_me == false and status > 3 %}
          <input id="rating-input"
                 class="rating rating-loading"
                 data-show-clear="false"
@@ -72,9 +72,14 @@
                  </span>
              </div>
          </div>
-     {%else %}
+    {% elseif valorated_by_me == false and status <3 %}
+         Esta oferta no puede ser valorada hasta que no haya sido disfrutada o cancelada.
+
+    {% else %}
+
          Ya has votado esta oferta!
-     {% endif%}
+
+    {% endif%}
         </div>
     </div>
 

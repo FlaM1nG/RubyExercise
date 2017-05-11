@@ -32,7 +32,6 @@ class PurchasesController extends Controller{
         $formCancelation = $this->createForm(CancelationType::class, $cancelation);
 
         $purchases = $this->getPurchases($request, $service);
-
         $paginator = $this->get('knp_paginator');
         $pagination = null;
 
@@ -96,7 +95,8 @@ class PurchasesController extends Controller{
                         array('title' => $result[0]['title'],
                               'description' => $result[0]['description'],
                               'urlImage' => $result[0]['photo_url'],
-                              'valorated_by_me'=> $result [0]['valorated_by_me']
+                              'valorated_by_me'=> $result [0]['valorated_by_me'],
+                              'status' => $result[0]['status']
                 ));
     }
 

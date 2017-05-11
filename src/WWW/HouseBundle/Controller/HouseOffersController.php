@@ -42,7 +42,8 @@ class HouseOffersController extends Controller
 
             $form = $this->createForm(ShareHouseType::class,$offer,
                 array('arrayHouses' => $arrayHouses,'service' =>$service,
-                      'validation_groups' => $service == 6 ?'licenciaObligatoria':false));
+//                      'validation_groups' => $service == 6 ?'licenciaObligatoria':false
+                ));
         else:
             $offer = new ShareRoom();
 

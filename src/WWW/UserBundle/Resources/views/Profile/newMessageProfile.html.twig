@@ -36,7 +36,12 @@
             {{form_label(form.to)}}
             {{form_widget(form.to.username)}}
             {{form_row(form.subject)}}
-            {{form_row(form.message)}}
+            <div class="form-group">
+                {{ form_widget(form.message) }}
+                {{ form_widget(form.message) }}
+                {{ include('@User/Message/info.html.twig') }}
+            </div>
+            {#{{form_row(form.message)}}#}
             {{form_row(form.enviar)}}
             <a href="{{path('user_profileMessage')}}"
                class="btn-default btn"

@@ -47,7 +47,9 @@
             {% else %}
 
                 {% for purchase in pagination %}
+                    
                     {% set urlValoration = '' %}
+
                     {% if purchase.valorated is not empty %}
                         {% set urlValoration = path('user_profiler_purchasesValoration',{typeOffer: app.request.get('typeOffer') ,idOffer: purchase.offer_id}) %}
                         {% set urlFactura = path('imprimirPdfBuyer',{idOffer: purchase.offer_id}) %}
@@ -55,7 +57,10 @@
 
                     {{ offers.offUserDisfrutadas('', purchase.offer_photo ,purchase.title, purchase.created_date,
                         purchase.description, 'leer', urlValoration,
-                        'Valorar', urlFactura, 'PDF','buttonEnjoyed','#buttonEnjoyed',purchase.offer_id,purchase.status,'#' ) }}
+                        'Valorar', urlFactura, 'PDF','buttonEnjoyed','#buttonEnjoyed',purchase.offer_id,purchase.status,'#',
+                        'Código de seguimiento', 'btnCorreos','código de seguimiento',
+                        (purchase.data_extra is not empty) ? purchase.data_extra:'',
+                        'modalCorreos') }}
                 {% endfor %}
 
                 {% if pagination is not null %}
@@ -78,6 +83,8 @@
 
     {{ popups.popupWithButtons('idEnjoyed', 'Estado de la oferta', '¿Ha disfrutado ya la oferta?','enjoyed','fa fa-thumbs-o-up','Oferta disfrutada','',
                                'notEnjoyed', 'fa fa-thumbs-o-down', 'Oferta aún no disfrutada','') }}
+
+    {{ popups.popup('modalCorreos', 'Código seguimiento','Su código de seguimiento es: ' ) }}
 
 {% endblock %}
 
@@ -114,6 +121,19 @@
                                                                     e.preventDefault();
                                                                     $('#modalCancel .close').click();
                                                                 });
+
+            $(document).on('click', '.btnCorreos', showCodCorreos);
+
+            function showCodCorreos(e){
+                var cod = $(this).data('id');
+                var text = $('#modalCorreos .modal-body').text();
+
+                if(text.search(cod) == -1) {
+                    text = '<b>' + $('#modalCorreos .modal-body').text() + '</b> ' + cod;
+
+                    $('#modalCorreos .modal-body').html(text);
+                }
+            }
 
 
             function changeTransition(e){
