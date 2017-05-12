@@ -9357,6 +9357,20 @@ p {
 .texto-info {
   font-size: 14px;
 }
+.textCenter {
+  text-align: center;
+}
+#pickRadio {
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0);
+  z-index: 9999999;
+}
 /* ##### FIN ETIQUETAS HTML ##### */
 /* ***** PADDINGS ***** */
 .separacion-superior {
@@ -9381,7 +9395,6 @@ p {
   overflow: hidden;
   position: relative;
   text-align: center;
-  cursor: default;
 }
 .hovereffect img {
   display: block;
@@ -9834,53 +9847,39 @@ footer.section.section-primary > .container > .row {
 }
 /* ##### FIN  ##### */
 /* ***** SPONSORS ***** */
+.cont-foo {
+  margin-top: 30px;
+}
 .publi-spon {
-  min-height: 200px;
   margin: 0;
   padding: 0;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #333333;
 }
 .publi-spon1 {
-  min-height: 200px;
   margin: 0;
   padding: 0;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url(../img/sponsor11.jpg);
+  background-color: #333333;
 }
 .publi-spon2 {
-  min-height: 200px;
   margin: 0;
   padding: 0;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url(../img/sponsor22.jpg);
-}
-.publi-spon3 {
-  min-height: 200px;
-  margin: 0;
-  padding: 0;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url(../img/sponsor33.jpg);
-}
-.publi-spon4 {
-  min-height: 200px;
-  margin: 0;
-  padding: 0;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url(../img/sponsor44.jpg);
+  background-color: #333333;
 }
 /* ##### FIN SPONSORS ##### */
-/* *****  ***** */
-/* ##### FIN  ##### */
+.iconos-footer {
+  font-size: 24px !important;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
 /*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
 /*######################   RANGO ANCHO [1600 � 1200[ ######################*/
 /*######################   RANGO ANCHO [1200 �  992[  ######################*/
@@ -10927,28 +10926,13 @@ body.lb-disable-scrolling {
 .kv-file-remove.btn.btn-xs.btn-default .glyphicon.glyphicon-trash.text-danger {
   color: #fff;
 }
-/* ------------------ Formularios userProfile  ------------------
-******************************************************************/
-form .file-input .file-footer-caption {
-  display: none;
-}
-select.prefixPhone {
-  width: 25%;
-  display: inline;
-  float: left;
-}
-input.phoneNumber {
-  width: 75%;
-  display: inline;
-  float: left;
-}
-.editAddressButton {
-  margin-top: 2rem;
-}
 /* ------------------ MENU DE ADMINISTRACI�N  ------------------
 ******************************************************************/
 /* *****  ***** */
 /* ##### FIN  ##### */
+#audioPlayer {
+  display: none;
+}
 .administration-body {
   background-color: #ffffff;
 }
@@ -10987,13 +10971,11 @@ span.glyphicon.glyphicon-search {
 /* ##### FIN BARRA DE BUSQUEDA ##### */
 /* ***** ICONOS NAVEGACION ***** */
 .navegacion-usuario {
-  margin-top: 81px;
+  margin-top: 80px;
   float: right;
 }
 .navegacion-usuario > ul {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
 }
 .navegacion-usuario > ul > li {
   float: left;
@@ -11072,7 +11054,6 @@ span.glyphicon.glyphicon-search {
     margin-bottom: 5px;
   }
   .navegacion-usuario > ul > li a {
-    padding: 16px 2px;
     font-size: 12px;
   }
   .size-icon {
@@ -11112,7 +11093,7 @@ span.glyphicon.glyphicon-search {
   }
   .navegacion-usuario > ul > li a {
     padding: 16px 10px;
-    font-size: 16px;
+    font-size: 14px;
   }
   .logo2 {
     margin: 0px;
@@ -11204,6 +11185,7 @@ ul.row-categoria {
 .categoria > a {
   width: 100%;
   min-height: 200px;
+  padding: 0 !important;
 }
 @-moz-document url-prefix() {
   a.padre-centrado {
@@ -11726,7 +11708,7 @@ header.is-fixed {
     position: relative;
     background-color: #ffffff;
     z-index: 12;
-    padding-top: 50px;
+    padding-top: 44px;
     /* Force Hardware Acceleration in WebKit */
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
@@ -12007,6 +11989,10 @@ span.fondo-pack3 {
 }
 .carousel-caption {
   bottom: inherit;
+  position: relative !important;
+  left: 0;
+  right: 0;
+  padding-top: 0;
 }
 .col-lg-3.col-md-3.col-sm-6.col-xs-12.franja {
   margin: 30px 0px;
@@ -12039,6 +12025,14 @@ span.fondo-pack3 {
 }
 .sponsor44 {
   background-image: url(../img/sponsor44.jpg);
+}
+.sponsorPrimero,
+.sponsorSegundo {
+  background-color: #ffffff;
+  margin-top: 8%;
+}
+.packsHomePage h3 {
+  margin-top: 0;
 }
 /* ##### FIN SPONSORS ##### */
 /* *****  ***** */
@@ -12101,6 +12095,11 @@ span.fondo-pack3 {
     top: 90%;
     right: 1%;
     left: inherit;
+  }
+  .sponsorPrimero,
+  .sponsorSegundo {
+    background-color: #ffffff;
+    margin-top: 2%;
   }
 }
 /*######################   RANGO ANCHO [992�  768[  ######################*/
@@ -12177,17 +12176,30 @@ span.fondo-pack3 {
     left: 3%;
     font-size: 12px;
   }
+  .logo-slider {
+    padding-top: 8%;
+  }
+  .carousel-inner {
+    height: 250px;
+  }
 }
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 /* ------------------ PACKS HOMEPAGE  ------------------
 ******************************************************************/
 /* ***** PACKS ***** */
-.img-packs-efect {
-  height: 165px;
-}
 /* ##### FIN PACKS ##### */
-/* *****  ***** */
-/* ##### FIN  ##### */
+/*######################   >1600PX DE ANCHO - ALTURAS  ######################*/
+/*######################   RANGO ANCHO [1600 � 1200[ ######################*/
+/*######################   RANGO ANCHO [1200 �  992[  ######################*/
+/*######################   RANGO ANCHO [992�  768[  ######################*/
+/*######################   RANGO ANCHO [768 � 480[  ######################*/
+@media only screen and (max-width: 768px) {
+  .img-packs-efect {
+    height: 200px;
+  }
+}
+/*######################   RANGO ANCHO [480 � 320[  ######################*/
+/*######################   RANGO ANCHO [320 � 1]  ######################*/
 /* ------------------ BLOG ------------------
 ******************************************************************/
 /* ***** HOMEPAGE BLOG ***** */
@@ -12462,6 +12474,9 @@ a.boton-leer-post:focus {
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 /* ------------------ USER  ------------------
 ******************************************************************/
+.input-especial {
+  z-index: 0;
+}
 .row-hr hr {
   margin: 0 0 10px 0;
 }
@@ -12635,6 +12650,17 @@ a.boton-leer-post:focus {
 .us-redactar-mess .us-writte-btn {
   padding: 6px 12px;
   float: none;
+}
+.us-tel {
+  display: flex;
+}
+.us-tel .us-pref-tel {
+  display: inline-block;
+  width: 25%;
+}
+.us-tel .us-num-tel {
+  display: inline-block;
+  width: 75%;
 }
 .us-address-new-tel {
   display: flex;
@@ -13872,9 +13898,6 @@ li.has-children ul {
     width: 35%;
     display: inline-block;
   }
-  .us-login-cont {
-    padding-top: 0;
-  }
   .us-login-cont .row {
     width: inherit;
     margin-left: inherit;
@@ -13940,7 +13963,6 @@ li.has-children ul {
 /* ##### FIN  ##### */
 /* ***** CONTACTO ***** */
 .cnt-title3 {
-  text-transform: uppercase;
   margin-bottom: 20px;
 }
 .control-label {
@@ -14618,6 +14640,10 @@ textarea {
   background: url(../img/shareCar.jpg);
   background-position: center bottom !important;
 }
+.men-parallax {
+  background: url(../img/mensajeria.jpg);
+  background-position: center bottom !important;
+}
 /* ##### FIN TITLE VIEW LIST ##### */
 /* ***** VIEW LIST ***** */
 .sha-offer-list {
@@ -15049,10 +15075,28 @@ textarea {
 }
 /* ------------------ HOUSE RENTS ------------------
 ******************************************************************/
+.hre-payment button#datepicker_subscribeButton {
+  float: none;
+}
+.hre-fechas-seleccion label {
+  margin-top: 20px;
+}
 /* ***** TITLE VIEW LIST ***** */
 .hre-parallax {
   background: url(../img/houseRents.jpg);
   background-position: center -200px !important;
+}
+.sh-house-parallax {
+  background: url(../img/shared-house.jpg);
+  background-position: center bottom !important;
+}
+.sw-house-parallax {
+  background: url(../img/swap-home.jpg);
+  background-position: center bottom !important;
+}
+.sw-room-parallax {
+  background: url(../img/swap-room.jpg);
+  background-position: center bottom !important;
 }
 /* ##### FIN TITLE VIEW LIST ##### */
 /* ***** ELEMENT LIST HOUSE RENTS ***** */
