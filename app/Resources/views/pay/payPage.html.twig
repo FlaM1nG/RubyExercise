@@ -121,7 +121,7 @@
             </div>
         </div>
 
-    <!-- Métodos de envío -->
+    {#<!-- Métodos de envío -->#}
 
     {% if service == 1 or service == 2 %}
         <div class="cont-pago">
@@ -153,7 +153,7 @@
         </div>
 
     {% endif %}
-    <!-- Fin métodos de envío -->
+    {#<!-- Fin métodos de envío -->#}
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
@@ -199,8 +199,9 @@
                     {% endif %}
 
                         <tr>
-                            <td> Gastos de gestión de pago <span>+2% pago con paypal</span></td>
-                            <td class="text-right gestionPago">0.00 €</td>
+                            <td> Gastos de gestión de pago <span class="linkBlock">(por favor, tenga en cuenta que paypal aplica
+                                    un recargo del 2% sobre el total del pedido)</span></td>
+                            <td class="text-right gestionPago textMiddle">0.00 €</td>
                             {{ form_row(form.managementPayFee) }}
                         </tr>
                         <tr class="table-pago-total">

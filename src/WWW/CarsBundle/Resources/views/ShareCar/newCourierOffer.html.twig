@@ -65,15 +65,15 @@
 {% block javascriptsFooter %}
     {{ parent() }}
 
-    <!-- the main fileinput plugin file -->
+    {#<!-- the main fileinput plugin file -->#}
     <script src="{{ asset('js/fileinput.js') }}"></script>
+    <script src="{{ asset('js/locales/es.js') }}"></script>
 
     <script type="text/javascript">
 
         $(document).ready(function() {
 
             $("#imgOffer").fileinput({
-
                 initialPreviewAsData: true,
                 overwriteInitial: false,
                 maxFileSize: 3072,
@@ -82,6 +82,8 @@
                 showZoom: false,
                 initialCaption: '',
                 maxFileCount: 5,
+                allowedFileExtensions: ["jpg", "jpeg", "png"],
+                language: "es",
             });
         });
 

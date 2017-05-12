@@ -23,8 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 class ShareHouseType extends AbstractType{
 
     public function buildForm(FormBuilderInterface $builder, array $options){
-
-
+        
         $arrayHouses = $options['arrayHouses'];
         $disabled = false;
 
@@ -46,14 +45,15 @@ class ShareHouseType extends AbstractType{
 
                 ->add('departureTime',TimeType::class, array('label' => 'Hora de salida'));
         endif;
-            
+
         $builder
             ->add('house', ChoiceType::class, array('label' => 'Seleccione una casa',
                                                             'choices' => $arrayHouses,
                                                             'choice_label' => 'title',
                                                             'choice_value' => 'id',
                                                             'choices_as_values' => true,
-                                                            'validation_groups' => $options['validation_groups'],
+                                                            'cascade_validation' => false,
+                                                            'validation_groups' => false,
                                                             'data' => $options['data']->getHouse() ))
 
             ->add('houseId', HiddenType::class, array('data' => $options['data']->getHouse()->getId(),
@@ -67,7 +67,8 @@ class ShareHouseType extends AbstractType{
         $resolver->setDefaults(array('data_class' => 'WWW\HouseBundle\Entity\ShareHouse',
                                      'arrayHouses' => null,
                                      'service' => null,
-                                     'validation_groups' => false));
+                                     'validation_groups' => false
+        ));
     }
 
     public function getBlockPrefix(){

@@ -3,11 +3,11 @@
     
     {% import 'macros/user.html.twig' as users %}
     
-<!-- ELEMENTO-->
+{#<!-- ELEMENTO-->#}
 <div class="col-tra-elem {#col-lg-4 col-md-4 col-sm-6 col-xs-12#}">
-    <!-- BODY -->
+    {#<!-- BODY -->#}
     <div class="tra-cont-elem">
-        <!-- IMAGEN -->
+        {#<!-- IMAGEN -->#}
         <div class="row row-tra-mar">
             <a href="{{ hrefOffer|e }}">
                 <img class="img-responsive tra-grid-img" 
@@ -17,10 +17,10 @@
                     
                     
         </div>
-        <!-- FIN IMAGEN -->
+        {#<!-- FIN IMAGEN -->#}
 
 
-        <!-- TITLE-->
+        {#<!-- TITLE-->#}
         <div class="row row-tra-title-grid">
             <h4>
                 <a href="{{ hrefOffer|e }}" class="tra-title-elem">
@@ -30,10 +30,10 @@
                 
                 
         </div>
-        <!-- FIN TITLE -->
+        {#<!-- FIN TITLE -->#}
         
         
-        <!-- PRECIO -->
+        {#<!-- PRECIO -->#}
 
 
         <div class="row row-tra-cat-grid">
@@ -45,12 +45,12 @@
         </div>
 
 
-        <!-- FIN PRECIO -->
+        {#<!-- FIN PRECIO -->#}
 
 
-        <!-- USER Y PRECIO -->
+        {#<!-- USER Y PRECIO -->#}
         <div class="row row-tra-upr-grid">
-            <!-- CATEGORIAS  -->
+            {#<!-- CATEGORIAS  -->#}
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7
                 col-tra-grid-price">
                 {#{% for i in 0..3 %}
@@ -62,26 +62,26 @@
                 
                 
             </div>
-            <!-- FIN CATEGORIAS -->
+            {#<!-- FIN CATEGORIAS -->#}
             
             
-            <!-- USER -->
+            {#<!-- USER -->#}
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 col-tra-user">
                 {{ users.userList(hrefUser, asset(srcImgUser|default('web/img/userDefault.png'),'img'), nameUser) }}
                 
                 
             </div>
-            <!-- FIN USER -->
+            {#<!-- FIN USER -->#}
 
 
         </div>
-        <!-- FIN USER Y PRECIO -->
+        {#<!-- FIN USER Y PRECIO -->#}
         
         
     </div>
-    <!-- BODY -->
+    {#<!-- BODY -->#}
     
      
  </div>
-<!-- FIN ELEMENTO-->
+{#<!-- FIN ELEMENTO-->#}
 {% endmacro %}

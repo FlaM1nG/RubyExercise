@@ -40,3 +40,8 @@ services:
                 - { name: security.voter }
             # pequeña mejora de rendimiento
             public: false
+
+    twig.extension.intl:
+            class: Twig_Extensions_Extension_Intl
+            tags:
+                - { name: twig.extension }

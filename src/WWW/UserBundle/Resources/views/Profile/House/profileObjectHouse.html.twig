@@ -206,11 +206,11 @@
 {% block javascriptsFooter %}
     {{ parent() }}
 
-    {{ codMenu.scriptUserMenu('.row-house') }}
-
     {{ include('owlCarousel/owlCochesScript.html.twig') }}
 
     {{ include('lightbox/lightboxScript.html.twig') }}
+
+    {{ codMenu.scriptUserMenu('.row-house') }}
 
 {% endblock %}
 

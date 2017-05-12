@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block title %}
-    Profile
+    Mi Cuenta
 {% endblock %}
 
 {% block alertProfile %}
@@ -47,7 +47,7 @@
                     <div class="row off-row-rating">
                         <div class="col-lg-12">
                     <span class="off-vote">
-                        <!-- VALORACIONES -->
+                        {#<!-- VALORACIONES -->#}
                         <input id=""
                                class="valoration rating rating-loading"
                                data-show-clear="false"
@@ -57,7 +57,7 @@
                                step="1"
                                value="{{ usuario.avgScore }}" />
 
-                        <!-- FIN VALORACIONES -->
+                        {#<!-- FIN VALORACIONES -->#}
 
                     </span>
                         </div>
@@ -107,7 +107,7 @@
             </div>
  
             {% if usuario.defaultaddress is not null %}
-            <div class="row us-datos-personales">
+            <div class="row us-datos-personales form-group">
                 <div class="col-lg-12">
                     <span>Dirección por defecto:</span>
                     <div class="us-dir-public">
@@ -116,6 +116,21 @@
                         ({{ usuario.defaultaddress.city }})
                     </div>
 
+                </div>
+            </div>
+
+            <div class="row us-datos-personales">
+                <div class="col-lg-12">
+                    <span>¡Enlace para invitar a tus amigos!</span>
+                    <div class="input-group input-especial">
+                        <input type="text" class="form-control" value="https://whatwantweb.com/registration/{{ usuario.linkInvitation}}"
+                               placeholder="https://whatwantweb.com/registration/{{ usuario.linkInvitation }}" id="copy-input" readonly="">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-copy" type="button" id="copy-button" data-toggle="tooltip" data-placement="button" data-clipboard-action="copy" data-clipboard-target="#copy-input" title="" data-original-title="Copiar">
+                                <i class="fa fa-files-o" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
             {% endif %}

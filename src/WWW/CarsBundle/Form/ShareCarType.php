@@ -40,7 +40,7 @@ class ShareCarType extends AbstractType {
         $arrayDisabled = array();
 
         $widget = 'choice';
-        if(!empty($options['data']->getOffer()->getInscriptions())):
+        if(!$options['newOffer']):
             $arrayReadOnly['readonly'] = true;
             $arrayDisabled['disabled'] = true;
             $widget = 'single_text';
@@ -71,8 +71,7 @@ class ShareCarType extends AbstractType {
                                                   'choice_value' => 'id',
                                                   'choice_label' => 'plate',
                                                   'choices_as_values' => true,
-                                                  'data' => $options['data']->getCar(),
-                                                  'attr' => $arrayDisabled))
+                                                  'data' => $options['data']->getCar()))
 
             ->add('id', HiddenType::class)
 
@@ -93,7 +92,7 @@ class ShareCarType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver){
 
         $resolver->setDefaults(array('data_class'=>'WWW\CarsBundle\Entity\ShareCar',
-                                ));
+                                     'newOffer' => false));
 
         $resolver->setRequired('listCar');
     }

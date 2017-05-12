@@ -174,7 +174,7 @@
                          
                 <div class="row us-mess-buttons">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <a href="#PDF" class="btn btn-default us-mess-btn"
+                        <a href="{{ hrefPDF|e }}" class="btn btn-default us-mess-btn"
                            data-id="PDF"
                            data-toggle="tooltip"
                            data-placement="bottom"
@@ -273,7 +273,7 @@
     
 {% macro offUserDisfrutadas(hrefOffer, srcImage, titleOffer, dateFact, textOffer, 
     dataVer, hrefValorar, dataValorar, hrefPDF, dataPDF, classEnjoyed, hrefEnjoyed, idOffer, statusOffer,
-    hrefCancel,titleModal ) %}
+    hrefCancel,titleModal, classCorreos, titleCodCorreos, codCorreos, modalCorreos ) %}
     <div class="us-off-element">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 off-col-user-image">
@@ -329,13 +329,24 @@
                             <i class="fa fa-star-half-o" aria-hidden="true"></i>
                         </a>
 
-                        <a href="{{ hrefPDF|e }}" class="btn btn-default us-mess-btn"
+                        <a href="{{ hrefPDF|e  }}" class="btn btn-default us-mess-btn"
                            data-id="{{ dataPDF|e }}"
                            data-tooltip="true"
                            data-placement="bottom" 
                            title="{{ 'Imprimir factura'|e|capitalize }}">
                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                         </a>
+
+                        {% if codCorreos is not empty %}
+                            <a href="#" class="btn btn-default us-mess-btn {{ classCorreos }}"
+                               data-id="{{ codCorreos|e }}"
+                               data-toggle="modal"
+                               data-target="#{{ modalCorreos }}"
+                               data-placement="bottom"
+                               title="{{ titleCodCorreos|e|capitalize }}">
+                                <i class="fa fa-barcode" aria-hidden="true"></i>
+                            </a>
+                        {% endif %}
 
                         <a href="{{ hrefEnjoyed|e }}" class="btn btn-default us-mess-btn {{ classEnjoyed }}"
                            data-id="{{ idOffer|e }}"

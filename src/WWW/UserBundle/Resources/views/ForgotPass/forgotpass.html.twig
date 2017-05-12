@@ -15,7 +15,18 @@
     <script type="text/javascript" src="{{ asset('js/validacionUsuarios.js') }}"></script>
 {% endblock %}
 
+{% block alert %}
 
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{ alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{ alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+
+{% endblock %}
 
 {% block body %}
 

@@ -49,11 +49,11 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
     /**
      * @var string
      * 
-     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"register","password"})
+     * @Assert\NotBlank(message="Por favor rellene este campo", groups = {"register","password", "changePassword"})
      * @Assert\Regex("/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){8,}$/",
      *               message="La contraseña debe contener solo letras y números",
-     *               groups = {"register","password"})
-     * @Assert\Length(min=8, minMessage="La longitud mínima es de 8 caracteres ", groups = {"register","password"})
+     *               groups = {"register","password", "changePassword"})
+     * @Assert\Length(min=8, minMessage="La longitud mínima es de 8 caracteres ", groups = {"register","password", "changePassword"})
      * 
      */
     private $password;
@@ -1232,6 +1232,9 @@ class User implements UserInterface, GroupSequenceProviderInterface, \Serializab
             
            $groups[] = "password";
            
+        }elseif($this->isChangePassword()){
+            
+            $groups[] = "changePassword";
         }
 
         return $groups;

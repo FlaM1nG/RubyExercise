@@ -5,12 +5,17 @@
     {{ include('nav/menuImages.html.twig') }}
 {% endblock %}
 
+{% block title %}
+    Disfruta la vida de otra manera
+{% endblock %}
+
 {% block body %}
     <div class="cd-main-content">
         {{ include('homepage/franja.html.twig') }}
         {{ include('homepage/publicidadSponsor.html.twig') }}
         {{ include('homepage/packs.html.twig') }}
-        {#{{ include('homepage/blog.html.twig') }}#}
+        {{ include('homepage/blog.html.twig') }}
+        {{ include('homepage/social.html.twig') }}
     </div>
 
 {% endblock %}

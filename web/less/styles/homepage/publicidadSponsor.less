@@ -55,12 +55,12 @@
 span.texto1-pack1 {
     position: absolute;
     z-index: 2;
-    top: 25%;
-    left: 0%;
-    font-size: 25px;
+    top: 0;
+    left: 0;
+    font-size: 19px;
     font-weight: 900;
-    color: @gray-base;
-    padding: 5%;
+    color: @brand-secondary;
+    padding: 10% 5%;
 }
 
 span.texto2-pack1 {
@@ -82,7 +82,7 @@ span.fondo-pack1 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 90, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .titulo-pack2{
@@ -98,12 +98,12 @@ span.fondo-pack1 {
 span.texto1-pack2 {
     position: absolute;
     z-index: 2;
-    top: 53%;
+    top: 0;
     left: 0;
-    font-size: 30px;
-    font-weight: 900;
-    color: #ff5b00;
-    padding: 0 12%;
+    font-size: 27px;
+    font-weight: 600;
+    color: @brand-secondary;
+    padding: 10% 5%;
     line-height: 1em;
 }
 
@@ -126,7 +126,7 @@ span.fondo-pack2 {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: rgba(9, 9, 9, 0.32);
+    background-color: rgba(0, 0, 0, 0.3);
     width: 100%;
     height: 100%;
 }
@@ -144,11 +144,13 @@ span.fondo-pack2 {
 span.texto2-pack3 {
     position: absolute;
     z-index: 2;
-    top: 90%;
-    left: 61%;
+    top: 70px;
+    left: 0;
     font-size: 14px;
     font-weight: 600;
     color: @brand-secondary;
+    padding: 5%;
+    font-size: 22px;
 }
 
 span.especial-pack3 {
@@ -288,6 +290,34 @@ span.fondo-pack3 {
     }
 }
 
+.row-anun3{
+    border: 1px solid @gray-base;
+    min-height: 300px;
+}
+
+.col-anun3-text{
+    p{
+        padding: 5%;
+        font-weight: 600;
+        font-size: 24px;
+        //margin: 5%;
+    }
+}
+
+.img-store1, .img-store2{
+    width: 40%;
+}
+
+.img-store1{
+    float: right;
+}
+
+.row-spon-radio{
+    img:hover {
+        cursor: pointer;
+    }
+}
+
 /* ##### FIN SPONSORS ##### */
 
 
@@ -315,17 +345,6 @@ span.fondo-pack3 {
         font-size: 12px;
     }
 
-    span.texto1-pack2 {
-        top: 57%;
-        font-size: 24px;
-    }
-
-    span.texto1-pack1 {
-        top: 44%;
-        font-size: 22px;
-        line-height: 1em;
-    }
-
     span.texto2-pack1 {
         left: 30%;
     }
@@ -336,10 +355,10 @@ span.fondo-pack3 {
         line-height: 1em;
     }
 
-    span.texto2-pack3 {
-        top: 90%;
-        left: 39%;
-    }
+    //span.texto2-pack3 {
+    //    top: 90%;
+    //    left: 39%;
+    //}
 
     @media only screen and (max-height : 1024px){
         
@@ -362,6 +381,14 @@ span.fondo-pack3 {
     }
 }
 
+@media only screen and (max-width : 1440px) {
+    .col-anun3-text{
+        p{
+            font-size: 22px;
+        }
+    }
+}
+
 /*######################   RANGO ANCHO [1200 �  992[  ######################*/
 @media only screen and (max-width : 1200px) {
     .carousel-inner {
@@ -372,18 +399,8 @@ span.fondo-pack3 {
         left: 37%;
     }
 
-    span.texto1-pack1 {
-        top: 31%;
-        font-size: 26px;
-    }
-
     .titulo-pack1 {
         left: 6%;
-    }
-
-    span.texto1-pack2 {
-        top: 39%;
-        font-size: 32px;
     }
 
     span.texto2-pack2 {
@@ -395,17 +412,34 @@ span.fondo-pack3 {
         font-size: 76px;
     }
 
-    span.texto2-pack3 {
-        top: 90%;
-        right: 1%;
-        left: inherit;
-    }
-
     .sponsorPrimero, .sponsorSegundo{
         background-color: @brand-secondary;
         margin-top: 2%;
     }
-    
+
+    .row-anun3{
+        border: none;
+        border-bottom: 1px solid @gray-base;
+    }
+
+    .col-anun3-text{
+        p{
+            font-size: 26px;
+        }
+    }
+
+    span.texto1-pack1 {
+        font-size: 24px;
+    }
+
+    span.texto1-pack2 {
+        font-size: 32px;
+    }
+
+    .img-store1, .img-store2{
+        width: 25%;
+    }
+
     @media only screen and (max-height : 768px){
         
     }
@@ -432,11 +466,6 @@ span.fondo-pack3 {
         font-size: 60px;
     }
 
-    span.texto1-pack2 {
-        top: 46%;
-        font-size: 36px;
-    }
-
     span.texto2-pack2 {
         left: inherit;
         right: 2%;
@@ -446,7 +475,27 @@ span.fondo-pack3 {
         top: 10%;
         font-size: 70px;
     }
-        
+
+    .row-anun3{
+        min-height: inherit;
+    }
+
+    .col-anun3-text{
+        p{
+            font-size: 22px;
+        }
+    }
+
+    span.texto1-pack1 {
+        font-size: 30px;
+        padding: 5%;
+    }
+
+    span.texto1-pack2 {
+        font-size: 34px;
+    }
+
+
     @media only screen and (max-height : 500px){
         
     }
@@ -469,13 +518,27 @@ span.fondo-pack3 {
         font-size: 44px;
     }
 
-    span.texto1-pack2 {
-        top: 39%;
-    }
-
     .titulo-pack3 {
         top: 10%;
         font-size: 54px;
+    }
+
+    .col-anun3-text{
+        p{
+            font-size: 18px;
+        }
+    }
+
+    span.texto1-pack1 {
+        font-size: 25px;
+    }
+
+    span.texto1-pack2 {
+        font-size: 32px;
+    }
+
+    .img-store1, .img-store2{
+        width: 40%;
     }
        
     @media only screen and (max-height : 1024px){
@@ -498,18 +561,8 @@ span.fondo-pack3 {
 /*######################   RANGO ANCHO [480 � 320[  ######################*/
 @media only screen and (max-width : 480px) {
 
-    span.texto1-pack1 {
-        top: 43%;
-        font-size: 22px;
-    }
-
     span.texto2-pack1 {
         left: 33%;
-    }
-
-    span.texto1-pack2 {
-        top: 56%;
-        font-size: 26px;
     }
 
     span.texto2-pack2 {
@@ -522,19 +575,27 @@ span.fondo-pack3 {
         font-size: 46px;
     }
 
-    span.texto2-pack3 {
-        right: inherit;
-        left: 3%;
-        font-size: 12px;
-    }
-
     .logo-slider{
-        padding-top: 8%;
+        padding-top: 2%;
+        width: 75%;
     }
 
     .carousel-inner{
         height: 250px;
     }
+
+    span.texto1-pack1 {
+        font-size: 19px;
+    }
+
+    span.texto1-pack2 {
+        font-size: 26px;
+    }
+
+    //.logo-radio{
+    //    padding-top: 2%;
+    //    width: 75%;
+    //}
         
     @media only screen and (max-height : 667px){
         
@@ -547,7 +608,10 @@ span.fondo-pack3 {
 
 /*######################   RANGO ANCHO [320 � 1]  ######################*/
 @media only screen and (max-width : 320px) {
-    
+    .img-store1, .img-store2 {
+        width: 60%;
+        margin-top: 10%;
+    }
     
     @media only screen and (max-height : 534px){
         

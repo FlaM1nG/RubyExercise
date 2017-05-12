@@ -4,7 +4,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="novar_empleo_imprimirHVPdf" path="/imprimirHVPdf">
-        <default key="_controller">PDFBundle:Pdf:imprimirHVPdf</default>
+    <route id="imprimirPdfBuyer" path="/imprimirPdfB/{idOffer}">
+        <default key="_controller">PDFBundle:Pdf:imprimirPdfBuyer</default>
     </route>
+
+    <route id="imprimirPdfSeller" path="/imprimirPdfS/{idOffer}">
+        <default key="_controller">PDFBundle:Pdf:imprimirPdfSeller</default>
+    </route>
+
 </routes>

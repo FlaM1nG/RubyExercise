@@ -42,7 +42,8 @@ class HouseOffersController extends Controller
 
             $form = $this->createForm(ShareHouseType::class,$offer,
                 array('arrayHouses' => $arrayHouses,'service' =>$service,
-                      'validation_groups' => $service == 6 ?'licenciaObligatoria':false));
+//                      'validation_groups' => $service == 6 ?'licenciaObligatoria':false
+                ));
         else:
             $offer = new ShareRoom();
 
@@ -251,10 +252,14 @@ class HouseOffersController extends Controller
         $arrayAttr = null;
         $formSubscribe = null;
         $service = $this->getIdService($request);
+        $calendarId = null;
+        $precioTotal = null;
+        $fechainicial = null;
+        $fechafinal = null;
 
 
 
-        if($service!=8){
+        if($service!=8 ){
 
             $sesion = $request->getSession();
 
@@ -316,15 +321,15 @@ class HouseOffersController extends Controller
         $formSubscribe =  $this->createForm(DatepickerType::class);
         $formSubscribe->handleRequest($request);
 
-        $calendarId = null;
 
-        //Sacamos el calendar ID
-        $calendarId = $this->getDataCalendar($offerShareHouse->getHouse()->getId());
+        if($service!=8 ) {
+            //Sacamos el calendar ID
+            $calendarId = $this->getDataCalendar($offerShareHouse->getHouse()->getId());
 
-        // Lo guardo en la sesion el calendar ID y el servicio
-        $sesion->set('calendario_id', $calendarId);
-        $sesion->set('service_id', $service);
-        
+            // Lo guardo en la sesion el calendar ID y el servicio
+            $sesion->set('calendario_id', $calendarId);
+            $sesion->set('service_id', $service);
+        }
 
 
         if($formSubscribe->isSubmitted()):
@@ -373,6 +378,8 @@ class HouseOffersController extends Controller
         $params = array();
         $stmt->execute($params);
         $fechas = $stmt->fetchAll();
+
+
 
         $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
 

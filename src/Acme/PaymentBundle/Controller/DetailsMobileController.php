@@ -4,7 +4,6 @@ namespace Acme\PaymentBundle\Controller;
 use Payum\Bundle\PayumBundle\Controller\PayumController;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Model\DetailsAggregateInterface;
-use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Request\Sync;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,6 +65,9 @@ class DetailsMobileController extends PayumController
             if($idService == 6 || $idService == 7){
                 $precio = $details->getDetails()['precioCasa'];
             }
+            elseif($idService==5){
+                $precio = $details->getDetails()['precioMensajeria'];
+            }	
             else {
                 $precio = $details->getDetails()['precio_oferta'];
             }
@@ -144,15 +146,8 @@ class DetailsMobileController extends PayumController
             $details = iterator_to_array($details);
         }
         
-        return new Response(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
-//        return $this->render('AcmePaymentBundle:Details:view.html.twig', array(
-//            'status' => $status->getValue(),
-//            'payment' => htmlspecialchars(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)),
-//            'gatewayTitle' => ucwords(str_replace(array('_', '-'), ' ', $token->getGatewayName())),
-//            'refundToken' => $refundToken,
-//            'captureToken' => $captureToken,
-//            'cancelToken' => $cancelToken,
-//        ));
+    return new Response(json_encode($details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+
     }
     function diferenciaDias($inicio, $fin) {
         $inicio = strtotime($inicio);
@@ -177,11 +172,11 @@ class DetailsMobileController extends PayumController
         $extra['reference'] = $idPayment;
         $extra['price'] = $precio;
         if(isset($details->getDetails()['metodo_envio'])){
-			if($details->getDetails()['metodo_envio'] == correos){
-				$extra['mail']['name']= $details->getDetails()['metodo_envio'];
-				$extra['mail']['description']= 'paqueteria';
-				$extra['mail']['price']= $details->getDetails()['gastos_envio'];
-			}
+            if($details->getDetails()['metodo_envio'] == correos){
+                $extra['mail']['name']= $details->getDetails()['metodo_envio'];
+                $extra['mail']['description']= 'paqueteria';
+                $extra['mail']['price']= $details->getDetails()['gastos_envio'];
+            }
         }
         $extra['pay']['name']= $details->getDetails()['metodo_pago'];
         $extra['pay']['description']= 'metodo de pago';
@@ -190,6 +185,7 @@ class DetailsMobileController extends PayumController
         $data['data']= json_encode($extra);
 		
         $result = $ch->resultApiRed($data, $file);
+		
     }
     private function saveTrackingNumber($number,$idInscription,$details,Request $request){
         
@@ -208,6 +204,6 @@ class DetailsMobileController extends PayumController
 
         $result = $ch->resultApiRed($data, $file);
 
-        var_dump($result);
+        
     }
 }

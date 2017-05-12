@@ -68,7 +68,7 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
-    <!-- the main fileinput plugin file -->
+    {#<!-- the main fileinput plugin file -->#}
     <script src="{{ asset('js/fileinput.js') }}"></script>
     <script src="{{ asset('js/locales/es.js') }}"></script>
 
@@ -86,6 +86,8 @@
                 showZoom: false,
                 initialCaption: '',
                 maxFileCount: 5,
+                allowedFileExtensions: ["jpg", "jpeg", "png"],
+                language: "es",
             });
         });
 

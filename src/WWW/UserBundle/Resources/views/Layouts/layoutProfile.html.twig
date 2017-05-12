@@ -19,7 +19,7 @@
 
     {% set urlDireccion = app.request.attributes.get('_route') %}
     
-<!-- TABULADOR DE PESTAÑAS -->
+{#<!-- TABULADOR DE PESTAÑAS -->#}
 <div class="container-fluid cd-main-content us-profile-panel">
     <div class="row">
         <header class="cd-main-header">
@@ -52,7 +52,7 @@
                     </li>
                 </ul>#}
             </nav>
-        </header> <!-- .cd-main-header -->
+        </header>
         <main class="cd-main-content us-content-user">
             <nav class="cd-side-nav">
                 <ul class="navProfile">
@@ -117,6 +117,9 @@
                         </ul>
                     </li>
 
+                    <li class="userPurse">
+                        <a href="{{ path('user_profilePurse') }}">Bolsa</a>
+                    </li>
 
                     <li class="has-children offerUser
                     {% if urlDireccion == 'user_profiler_offers' or
@@ -213,8 +216,8 @@
                     </div>
 {#                    <h1>Responsive Sidebar Navigation</h1>#}
 {#                </div>#}
-            </div> <!-- .content-wrapper -->
-        </main> <!-- .cd-main-content -->
+            </div>
+        </main>
     </div>
                 
 </div>
@@ -255,7 +258,7 @@
         {#});#}
     {#</script>#}
     <script src="{{ asset('js/jquery.menu-aim.js') }}"></script>
-    <script src="{{ asset('js/mainUserMenu.js') }}"></script> <!-- Resource jQuery -->
+    <script src="{{ asset('js/mainUserMenu.js') }}"></script>
 
     
     {{ include('nav/menuScript.html.twig') }}

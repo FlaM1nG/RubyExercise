@@ -8,14 +8,11 @@ require_once ( 'C:\xampp\htdocs\wwweb\vendor\autoload.php' );
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Postmen\Postmen;
-use Symfony\Component\HttpFoundation\Response;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 use Symfony\Component\HttpFoundation\Request;
-use WWW\ServiceBundle\Entity\Offer;
 use WWW\UserBundle\Entity\User;
-use WWW\GlobalBundle\Entity\Address;
 use WWW\OthersBundle\Entity\Trade;
 
 class CorreosController extends Controller {
@@ -37,7 +34,7 @@ class CorreosController extends Controller {
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'services/inscription/get_inscription.php';
 
-        if(!empty($request->getSession()->get('password'))){
+        if(empty( $arrayDetails['idUser'])){
             $data['id'] = $request->getSession()->get('id');
             $data['username'] = $request->getSession()->get('username');
             $data['password'] = $request->getSession()->get('password');
@@ -59,13 +56,11 @@ class CorreosController extends Controller {
             return false;
         }
     }
-    public function saveCode($idOffer) {
-        
-    }
     
     public function getTrackingNumberAction($idOffer, Request $request, $idDir, $sendOffice,$arrayDetails, $idInscription) {
         //Inicio las variables propias
         if(!$this->checkCode($idInscription,$arrayDetails, $request)){
+			
         $this->searchAddressBuyer($idDir);
         $this->offer = new Trade();
         $this->buyer = new User();
@@ -90,7 +85,7 @@ class CorreosController extends Controller {
             'description' => $this->offer->getOffer()->getTitle(),
             'box_type' => 'custom',
             'weight' => array(
-                'value' => intval($this->offer->getWeight()),
+                'value' => floatval($this->offer->getWeight()),
                 'unit' => 'kg',
             ),
             'dimension' => array(
@@ -109,7 +104,7 @@ class CorreosController extends Controller {
                         'currency' => 'EUR',
                     ),
                     'weight' => array(
-                        'value' => intval($this->offer->getWeight()),
+                        'value' => floatval($this->offer->getWeight()),
                         'unit' => 'kg',
                     ),
                     'sku' => 'imac2014'
@@ -190,6 +185,8 @@ class CorreosController extends Controller {
         try {
             $api = new Postmen($api_key, $region);
             $result = $api->create('labels', $payload);
+			
+            $this->trackingNumber= $result->tracking_numbers[0];
 
         } catch (exception $e) {
             echo "ERROR:\n";
@@ -229,7 +226,7 @@ class CorreosController extends Controller {
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'user/data/get_info_user.php';
 
-        if(!empty($request->getSession()->get('password'))){
+        if(empty( $arrayDetails['idUser'])){
             $data['id'] = $request->getSession()->get('id');
             $data['username'] = $request->getSession()->get('username');
             $data['password'] = $request->getSession()->get('password');
@@ -252,7 +249,7 @@ class CorreosController extends Controller {
     }
     private function searchAddressBuyer($idAddress){
         
-        //Metodo para busar un usario por id usando Doctrine
+        //Metodo para busar una direccion por id usando Doctrine
         $address= $this->em->getRepository('GlobalBundle:Address')->find($idAddress);
         
         if (!$address) {
@@ -263,8 +260,6 @@ class CorreosController extends Controller {
         }
         $this->addressBuyer = $address;
         
-//        \Doctrine\Common\Util\Debug::dump($this->addressBuyer);
-//        die;
     }
 
 }

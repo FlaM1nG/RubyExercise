@@ -31,18 +31,20 @@ class PagoType extends AbstractType {
         
         $arrayAttrSubmit = array('class' => 'btn btn-default btn-float-none');
 
-        if(!empty($arrayAddress[0])):
+        if($options['service'] <= 2):
+            if(!empty($arrayAddress[0])):
 
-            $builder
-                ->add('addressPay', ChoiceType::class, array(
-                                                            'label' => 'Dirección envio',
-                                                            'choices' => $arrayAddress,
-                                                            'choice_value' => 'id',
-                                                            'choice_label' => 'name',
-                                                            'choices_as_values' => true,
-                                                            ));
-        else:
-            $arrayAttrSubmit['disabled'] = 'disabled';
+                $builder
+                    ->add('addressPay', ChoiceType::class, array(
+                                                                'label' => 'Dirección envio',
+                                                                'choices' => $arrayAddress,
+                                                                'choice_value' => 'id',
+                                                                'choice_label' => 'name',
+                                                                'choices_as_values' => true,
+                                                                ));
+            else:
+                $arrayAttrSubmit['disabled'] = 'disabled';
+            endif;
         endif;
 
         $builder
@@ -113,7 +115,8 @@ class PagoType extends AbstractType {
            'data_class'=> 'WWW\UserBundle\Entity\User',
            'validation_groups' => false,
            'amount' => null,
-           'arrayAddresses' => null
+           'arrayAddresses' => null,
+           'service' => null
            ));
     }
 

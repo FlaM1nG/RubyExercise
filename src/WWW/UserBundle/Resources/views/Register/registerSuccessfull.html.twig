@@ -7,12 +7,12 @@
 {% endblock %}
 
 {% block body %}
-    <!-- TITULO REGISTRO -->
-    <div class="container cd-main-content">
+    {#<!-- TITULO REGISTRO -->#}
+    <div class="container cd-main-content container-min">
         <h1>Registro</h1>
         <hr>
-    </div>
-    <!-- FIN TITULO REGISTRO -->
+
+    {#<!-- FIN TITULO REGISTRO -->#}
 
     {% block alert %}
 
@@ -25,23 +25,19 @@
         {% endfor %}
     {% endblock %}
 
-    <!-- CUERPO FORMULARIO -->
-    <div class="container cd-main-content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>Registro realizado con éxito</h3>
 
-            <h3>Registro realizado con éxito</h3>
-
-            <p>
-                Ya casi ha terminado. Se le ha envíado un email de confirmación, para poder completar el registro debe
-                de confirma su email, le recordamos que en ocasiones el correo puede acabar en su bandeja de correo no
-                deseado
-            </p>
+                <p>
+                    Ya casi ha terminado. Se le ha envíado un email de confirmación, para poder completar el registro debe
+                    de confirma su email, le recordamos que en ocasiones el correo puede acabar en su bandeja de correo no
+                    deseado
+                </p>
+            </div>
         </div>
-
-
     </div>
-
 {% endblock %}
 
 

@@ -29,11 +29,11 @@ app:
     type:     annotation
 
 aboutUs:
-    path: /about-us
+    path: /about-us/
     defaults: { _controller: AppBundle:Index:aboutUs }
     
 siteMap:
-    path: /site-map
+    path: /site-map/
     defaults: { _controller: AppBundle:Index:siteMap }
     
 orders:
@@ -45,15 +45,15 @@ devolutions:
     defaults: { _controller: AppBundle:Index:devolutions }
     
 contact:
-    path: /contact
+    path: /contact/
     defaults: { _controller: AppBundle:Index:contact }
     
 shipping:
-    path: /shipping
+    path: /shipping/
     defaults: { _controller: AppBundle:Index:shipping }
     
 privacyPolicy:
-    path: /privacy-policy
+    path: /privacy-policy/
     defaults: { _controller: AppBundle:Index:privacyPolicy }
     
 paymentMethod:
@@ -105,34 +105,34 @@ payum_all:
     resource: "@PayumBundle/Resources/config/routing/all.xml"
     prefix:   /
 
-acme_paypal_express_checkout:
-    resource: "@AcmePaypalExpressCheckoutBundle/Resources/config/routing.yml"
-    prefix:   /
-
-acme_stripe:
-    resource: "@AcmeStripeBundle/Resources/config/routing.yml"
-    prefix:   /
+#acme_paypal_express_checkout:
+#    resource: "@AcmePaypalExpressCheckoutBundle/Resources/config/routing.yml"
+#    prefix:   /
+#
+#acme_stripe:
+#    resource: "@AcmeStripeBundle/Resources/config/routing.yml"
+#    prefix:   /
 
 acme_redsys:
     resource: "@AcmeRedsysBundle/Resources/config/routing.yml"
     prefix:   /
 
-acme_payex:
-    resource: "@AcmePayexBundle/Resources/config/routing.yml"
-    prefix:   /
-
-acme_klarna:
-    resource: "@AcmeKlarnaBundle/Resources/config/routing.yml"
-    prefix:   /
+#acme_payex:
+#    resource: "@AcmePayexBundle/Resources/config/routing.yml"
+#    prefix:   /
+#
+#acme_klarna:
+#    resource: "@AcmeKlarnaBundle/Resources/config/routing.yml"
+#    prefix:   /
 
 acme_redsys:
     resource:   "@AcmePaymentBundle/Controller/"
     type:       annotation
     prefix:     /
 
-acme_other_examples:
-    resource: "@AcmeOtherExamplesBundle/Resources/config/routing.yml"
-    prefix:   /
+#acme_other_examples:
+#    resource: "@AcmeOtherExamplesBundle/Resources/config/routing.yml"
+#    prefix:   /
 
 acme_payment:
     resource: "@AcmePaymentBundle/Resources/config/routing.yml"
@@ -177,5 +177,23 @@ house:
 
 
 pruebaAdminDatos:
-    path: /prueba/datosAdmin
+    path: /pruebaBarbeitos
     defaults: { _controller: AppBundle:Index:pruebaDatosAdminPanel }
+
+termsConditions:
+    path: /termsConditions
+    defaults: { _controller: AppBundle:Index:termsConditions }
+
+pageCookies:
+    path: /cookies
+    defaults: { _controller: AppBundle:Index:cookie }
+
+pageServices:
+    path: /services
+    defaults: { _controller: AppBundle:Index:servicesPage }
+
+ticket_service:
+    path: /ticketea
+    defaults: { _controller: AppBundle:Index:ticket }
+
+

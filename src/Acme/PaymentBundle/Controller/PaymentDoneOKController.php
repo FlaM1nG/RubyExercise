@@ -3,12 +3,9 @@ namespace Acme\PaymentBundle\Controller;
 
 use Payum\Bundle\PayumBundle\Controller\PayumController;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Model\DetailsAggregateInterface;
-use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Request\Sync;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\MyConstants;
 use WWW\GlobalBundle\Entity\MyCompanyEvents;
@@ -71,7 +68,12 @@ class PaymentDoneOKController extends PayumController
         else {
             
             $idService = $details->getDetails()['idService'];
-            $precio = $details->getDetails()['precio_oferta'];
+            if(!empty($details->getDetails()['precioMensajeria'])){
+                $precio = $details->getDetails()['precioMensajeria'];
+            }
+            else{
+                $precio = $details->getDetails()['precio_oferta'];
+            }
             if($idService== 6 || $idService == 7){
             //House
                 $fechainicial = $details->getDetails()['fechaIni'];
@@ -137,8 +139,9 @@ class PaymentDoneOKController extends PayumController
                     $sendOffice = 0;
                     $arrayDetails = $details->getDetails();
                     $number = $codigo->getTrackingNumberAction($idOffer, $request,$idDir, $sendOffice,$arrayDetails, $idInscription);
+					
                     $this->saveTrackingNumber($number, $idInscription,$details, $request);
-                   // var_dump($number);
+                    
                 }
             }     
             return $this->render('pay/postPayPageOK.html.twig',array(
@@ -162,7 +165,7 @@ class PaymentDoneOKController extends PayumController
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'services/payment/pay.php';
 
-        if(!empty($request->getSession()->get('password'))){
+        if(empty( $details->getDetails()['idUser'])){
             $data['id'] = $this->getUser()->getId();
             $data['username'] = $this->getUser()->getUsername();
             $data['password'] = $request->getSession()->get('password');
@@ -199,7 +202,7 @@ class PaymentDoneOKController extends PayumController
         $ch = new ApiRest();
         $file = MyConstants::PATH_APIREST . 'services/inscription/update_inscription.php';
 
-        if(!empty($request->getSession()->get('password'))){
+        if(empty( $details->getDetails()['idUser'])){
             $data['id'] = $request->getSession()->get('id');
             $data['username'] = $request->getSession()->get('username');
             $data['password'] = $request->getSession()->get('password');
@@ -216,7 +219,7 @@ class PaymentDoneOKController extends PayumController
 
         $result = $ch->resultApiRed($data, $file);
 
-        var_dump($result);
+       
     }
     
 }

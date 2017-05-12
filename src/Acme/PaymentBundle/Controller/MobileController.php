@@ -10,7 +10,6 @@ use Payum\Core\Payum;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Crevillo\Payum\Redsys\Api;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use WWW\ServiceBundle\Entity\Offer;
 use WWW\OthersBundle\Entity\Trade;
@@ -24,7 +23,6 @@ class MobileController extends Controller {
     private $offer;
     private $offerPrice;
     
-    //EDITARRRRRRRRRRRRR
     public function prepareAction(Request $request) {
 
         $totalAmount = $request->request->get("total_price");
@@ -42,15 +40,22 @@ class MobileController extends Controller {
             $arrayPay['gastos_gestion'] = $gastosGestion;
             $arrayPay['gastos_pago'] = $gastosPago;
             $arrayPay['gastos_totales'] = $totalAmount;
-			$arrayPay['metodo_pago'] = $pago;
-			$arrayPay['precio_oferta'] = $this->offerPrice->getPrice();
+            $arrayPay['metodo_pago'] = $pago;
+            $arrayPay['precio_oferta'] = $this->offerPrice->getPrice();
+            $arrayPay['idService'] = $this->offer->getService()->getId();
+            $arrayPay['idUser'] = $request->request->get('id');
+            $arrayPay['username'] = $username;
+            $arrayPay['password'] = $request->request->get('password');
             if ($this->offer->getService()->getId()== 1 || $this->offer->getService()->getId()== 2) {
                 $arrayPay['direccion'] = $request->request->get("address_pay");;
                 $arrayPay['metodo_envio'] = $request->request->get("send_method");;
                 $arrayPay['gastos_envio'] = $request->request->get("shipping_cost");
                 $arrayPay['send_office'] = $request->request->get('send_office');
-		$arrayPay['gastos_comprobacion'] = $request->request->get('testing_cost');
+                $arrayPay['gastos_comprobacion'] = $request->request->get('testing_cost');
                 $arrayPay['idInscription'] = $request->request->get("id_inscription");
+            }
+            if ($this->offer->getService()->getId() == 5 ){
+                $arrayPay['precioMensajeria']= $request->request->get("courier_price");
             }
             if ($this->offer->getService()->getId() == 6 || $this->offer->getService()->getId() == 7){
                 $arrayPay['precioCasa']= $request->request->get("house_price");
@@ -58,13 +63,8 @@ class MobileController extends Controller {
                 $arrayPay['fechaFin'] = $request->request->get("departure_date");
                 $arrayPay['idCalendar'] = $request->request->get("id_calendar");
                 $arrayPay['idInscription'] = $request->request->get("id_inscription");
-                $arrayPay['idService'] = $this->offer->getService()->getId();
-            
             }
-            $arrayPay['idUser'] = $request->request->get('id');
-            $arrayPay['username'] = $username;
-            $arrayPay['password'] = $request->request->get('password');
-			
+		
             $payment = new Payment();
             //numero de referencia por la hora y fecha
             $payment->setNumber(date('His') . 'W' . $idOffer);
@@ -81,9 +81,9 @@ class MobileController extends Controller {
                 $storage->update($payment);
 
                 $captureToken = $this->getPayum()->getTokenFactory()->createCaptureToken(
-                                'paypal_express_checkout_with_ipn_enabled',
-                                $payment,
-                                'acme_payment_mobile_done'
+                    'paypal_express_checkout_with_ipn_enabled',
+                    $payment,
+                    'acme_payment_mobile_done'
                 );
                 return new Response($captureToken->getTargetUrl());
 
@@ -101,6 +101,10 @@ class MobileController extends Controller {
                 $details['gastos_totales'] = $totalAmount;
                 $details['metodo_pago'] = $pago;
                 $details['precio_oferta'] = $this->offerPrice->getPrice();
+                $details['idService'] = $this->offer->getService()->getId();
+                $details['idUser'] = $request->request->get('id');
+                $details['username'] = $username;
+		$details['password'] = $request->request->get('password');
                 if ($this->offer->getService()->getId()== 1 || $this->offer->getService()->getId()== 2) {
                     $details['direccion'] = $request->request->get("address_pay");;
                     $details['metodo_envio'] = $request->request->get("send_method");;
@@ -109,6 +113,9 @@ class MobileController extends Controller {
                     $details['gastos_comprobacion'] = $request->request->get('testing_cost');
                     $details['idInscription'] = $request->request->get("id_inscription");
                 }
+                if ($this->offer->getService()->getId() == 5 ){
+                    $details['precioMensajeria']= $request->request->get("courier_price");
+                }
                 if ($this->offer->getService()->getId() == 6 || $this->offer->getService()->getId() == 7){
                     $details['precioCasa']= $request->request->get("house_price");
                     $details['fechaIni']= $request->request->get("arrival_date");
@@ -116,31 +123,30 @@ class MobileController extends Controller {
                     $details['idCalendar'] = $request->request->get("id_calendar");
                     $details['idInscription'] = $request->request->get("id_inscription");
                     $details['idService'] = $this->offer->getService()->getId();
-            
                 }
-                $details['idUser'] = $request->request->get('id');
-                $details['username'] = $username;
-		$details['password'] = $request->request->get('password');
+                
                 $storage->update($details);
 
                 //Las notificaciones de compra se guardan en la tabla payum_payments_details
                 //de ahi se tienen que sacar el DS_Response y manejar la respuesta
 
                 $notifyToken = $this->getPayum()->getTokenFactory()->createNotifyToken(
-                                'redsys', $details
+                    'redsys', $details
                 );
 
                 $details['Ds_Merchant_MerchantURL'] = $notifyToken->getTargetUrl();
                 $storagePay = $this->getPayum()->getStorage($payment);
                 $payment->setDetails($details);
                 $storagePay->update($payment);
-				$details['idRedsys'] = $details->getId();
+                
+                $details['idRedsys'] = $details->getId();
+                
                 $captureTokenOK = $this->getPayum()->getTokenFactory()->createCaptureToken(
-                                        'redsys', $payment, 'prueba_postpago_ok'
-                        );
+                    'redsys', $payment, 'prueba_postpago_ok'
+                );
                 $captureTokenKO = $this->getPayum()->getTokenFactory()->createCaptureToken(
-                                        'redsys', $payment, 'prueba_postpago_ko'
-                        );
+                    'redsys', $payment, 'prueba_postpago_ko'
+                );
 
                 $details['Ds_Merchant_UrlOK'] = $captureTokenOK->getAfterUrl(); //podriamos poner el setAfterUrl con una direccion de exito o fracaso
                 $details['Ds_Merchant_UrlKO'] = $captureTokenKO->getAfterUrl() ;
@@ -154,7 +160,9 @@ class MobileController extends Controller {
                 //return new Response($captureToken->getTargetUrl()  );
             }
         }else{
-//            MENSAJE DE NO PERMISO
+
+        throw $this->createNotFoundException('El precio es incorrecto!');
+
         }
         
     }
@@ -188,6 +196,9 @@ class MobileController extends Controller {
             } elseif ($this->offer->getService()->getId() == 6 || $this->offer->getService()->getId() == 7) {
                 $this->offerPrice = new ShareHouse($result);
             }
+        }
+        else{
+            throw $this->createNotFoundException('Oferta no encontrada!');
         }
     }
     
