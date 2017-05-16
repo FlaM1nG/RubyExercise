@@ -43,7 +43,7 @@ class IndexController extends Controller
             "alquilerTuristico" => array(
                 "faX" => "fa-home",
                 "href" => "serHouseRents",
-                "text" => "Alquiler turistico"
+                "text" => "Alquiler turístico"
             ),
             "share_house" => array(
                 "faX" => "fa-users",
@@ -58,7 +58,7 @@ class IndexController extends Controller
             "swap_room" => array(
                 "faX" => "fa-exchange",
                 "href" => "house_listBedroomSwap",
-                "text" => "Intercambio habitaciones"
+                "text" => "Intercambio habitación"
             ),
             "clothes" => array(
                 "faX" => "fa-child",
