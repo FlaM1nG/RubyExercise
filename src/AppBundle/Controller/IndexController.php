@@ -28,7 +28,7 @@ class IndexController extends Controller
             "courier" => array(
                 "faX" => "fa-truck",
                 "href" => "serShareCar",
-                "text" => "Mensajeria"
+                "text" => "Paquetería"
             ),
             "money" => array(
                 "faX" => "fa-money",
@@ -38,7 +38,7 @@ class IndexController extends Controller
             "ticket" => array(
                 "faX" => "fa-ticket",
                 "href" => "ticket_service",
-                "text" => "Entradas Ocio"
+                "text" => "Entradas"
             ),
             "alquilerTuristico" => array(
                 "faX" => "fa-home",
@@ -48,7 +48,7 @@ class IndexController extends Controller
             "share_house" => array(
                 "faX" => "fa-users",
                 "href" => "house_lisShareHouse",
-                "text" => "Casa compartida"
+                "text" => "Bed & Breakfast"
             ),
             "swap_house" => array(
                 "faX" => "fa-refresh",
