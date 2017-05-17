@@ -46,22 +46,45 @@ class RegisterController extends Controller{
         $formulario->handleRequest($request);
         
         if($formulario->isSubmitted() AND $formulario->isValid()):
-            //el sms se envía solo
-            $result = $this->newUser($request, $totalHobbies);
+            if($this->captchaverify($request->get('g-recaptcha-response'))):
+                $result = $this->newUser($request, $totalHobbies);
 
-            if ($result['result'] == 'ok'):
+                if ($result['result'] == 'ok'):
 
-                $this->saveSessionUser($request, $result);
-//                return $this->redirectToRoute('user_registerConfirmPhone');
-                return $this->render('UserBundle:Register:registerSuccessfull.html.twig');
+                    $this->saveSessionUser($request, $result);
+    //                return $this->redirectToRoute('user_registerConfirmPhone');
+                    return $this->render('UserBundle:Register:registerSuccessfull.html.twig');
+                else:
+                    return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
+                endif;
             else:
+                $ut = new Utilities();
+                $result['result'] = 'ko';
+                $ut->flashMessage('',$request,$result,'Captcha incorrecto');
                 return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies));
-            endif;
 
+            endif;
         else:                       
             return $this->render('UserBundle:Register:register.html.twig',array('formulario'=>$formulario->createView(), "hobbies" => $resultHobbies,'token'=>$token));
         endif;
                 
+    }
+
+    function captchaverify($recaptcha){
+
+        $url = "https://www.google.com/recaptcha/api/siteverify";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+            "secret"=>"6LcHuSEUAAAAABitt3bRDZR7sfLn-_plORwNHkFC","response"=>$recaptcha));
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $data = json_decode($response);
+
+        return $data->success;
     }
 
     private function newUser(Request $request,$totalHobbies){

@@ -57,9 +57,9 @@ class RegisterType extends AbstractType{
                                                          'class' => 'registroUsuario_nif'),
                                          'label_attr' => array('style' => 'display:none',
                                                                'class' => 'registroUsuario_nif' )))
-                ->add('captcha', 'captcha', array( 'as_url' => true, 
-                                                   'reload' => true,
-                                                   'label' => " "))
+//                ->add('captcha', 'captcha', array( 'as_url' => true,
+//                                                   'reload' => true,
+//                                                   'label' => " "))
                 ->add('acepto', 'checkbox', array('label' => ' ',
                                                   'mapped' => false,
                                                   'constraints' => new IsTrue(array(
