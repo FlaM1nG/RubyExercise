@@ -39,16 +39,17 @@ class LoginController extends Controller{
                 $result = $this->getInfoLogin($request);
 
                 if($result['result'] == 'ok'):
-
-                   $this->getInfoLogin($request, $result);
+                   
+                   $this->getInfoUser($request, $result);
 
                    $path =$session->get('_security.user.target_path');
 
                    if($path==NULL || $path=='user_register'){
+
                        return $this->redirectToRoute('user_profiler');
                    }
                    else{
-//echo $path;exit;
+
                        return $this->redirect($path);
                    }
 
@@ -120,6 +121,7 @@ class LoginController extends Controller{
 
         if(!$this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')){
             $this->get('app.manager.usuario_manager')->login($user);
+                                   
         }
 
         $session=$request->getSession();
