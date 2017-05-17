@@ -189,7 +189,7 @@ pageCookies:
     defaults: { _controller: AppBundle:Index:cookie }
 
 pageServices:
-    path: /services
+    path: /serviceswww/
     defaults: { _controller: AppBundle:Index:servicesPage }
 
 ticket_service:
