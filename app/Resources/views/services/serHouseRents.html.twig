@@ -118,18 +118,18 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
-    {{ include('services/sidebar/ocioScript.html.twig') }}
-    {{ include('services/sidebar/ocioMovilScript.html.twig') }}
+    {#{{ include('services/sidebar/ocioScript.html.twig') }}#}
+    {#{{ include('services/sidebar/ocioMovilScript.html.twig') }}#}
     {{ rating.staticRatingJS() }}
 {% endblock %}
 
 {% block popupBlock %}
     {{ popups.popup('sid-restaurante', 'Restaurante', 
-        sidebars.sidebarElementDemo('', 'Aquí podrás encontrar 10 de los mejores restaurantes típicos de la ciudad donde hayas seleccionado, podrás acceder a su página web y hacer reservas.<br>Disfruta la vida de otra manera.')) }}
+        sidebars.sidebarElementDemo('',include(':services/sidebar:restauranteText.html.twig'))) }}
         
     {{ popups.popup('sid-ocio', 'Ocio', 
-        sidebars.sidebarElementDemo('', 'Aquí podrás encontrar 10 de los mejores sitios de ocio y tiendas en la ciudad donde hayas seleccionado, podrás acceder a su página web, hacer reservas y ver su geolocalización.<br>Disfruta la vida de otra manera.')) }}
+        sidebars.sidebarElementDemo('',include(':services/sidebar:ocioText.html.twig'))) }}
         
     {{ popups.popup('sid-tiendas', 'Tiendas', 
-        sidebars.sidebarElementDemo('', 'Aquí podrás encontrar 10 de las mejores experiencias de la ciudad donde hayas seleccionado, si crees que tienes una que pueda sorprender al resto de los usuarios, ponte en contacto con nosotros en experiencias@whatwantweb.com para poder publicarla.<br>Disfruta la vida de otra manera.')) }}
+        sidebars.sidebarElementDemo('', include(':services/sidebar:tiendasText.html.twig'))) }}
 {% endblock %}
