@@ -27,7 +27,7 @@ class IndexController extends Controller
             ),
             "courier" => array(
                 "faX" => "fa-truck",
-                "href" => "serShareCar",
+                "href" => "serCourier_list",
                 "text" => "Paquetería"
             ),
             "money" => array(
