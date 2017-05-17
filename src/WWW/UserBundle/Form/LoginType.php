@@ -28,10 +28,10 @@ class LoginType extends AbstractType{
         $builder
                 ->add('_username',TextType::class, array('label'=>'Usuario'))
                 ->add('_password',PasswordType::class, array('label' => 'Contraseña'))
-                ->add('enviar',SubmitType::class, array('label'=>'Enviar'))
-                ->add('captcha', 'captcha', array( 'as_url' => true, 
-                                                   'reload' => true,
-                                                   'label' => " "));
+                ->add('enviar',SubmitType::class, array('label'=>'Enviar'));
+//                ->add('captcha', 'captcha', array( 'as_url' => true, 
+//                                                   'reload' => true,
+//                                                   'label' => " "));
     }
     
     public function configureOptions(OptionsResolver $resolver){
