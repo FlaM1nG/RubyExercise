@@ -61,7 +61,7 @@
         {% set imgSmall2 = random([asset('img/alquilerTuristico1.jpg'), asset('img/alquilerTuristico2.jpg'), asset('img/alquilerTuristico3.jpg'), asset('img/alquilerTuristico4.jpg'), asset('img/alquilerTuristico5.jpg'), asset('img/alquilerTuristico6.jpg')]) %}
 
         {{ houses.element(path(routingOffer,{idOffer: offer.offer_id}), asset(offer.offer_photo,'img'), imgSmall1, imgSmall2, offer.title,
-        offer.holders, 0, 0, path('user_public_profile',{username: offer.username}), asset(offer.user_photo,'img'),
+        offer.holders, 0, 0, path('user_public_profile',{username: offer.username}), offer.user_photo,
         offer.username, 0, offer.avg_score, service ) }}
     {% endfor %}
 
