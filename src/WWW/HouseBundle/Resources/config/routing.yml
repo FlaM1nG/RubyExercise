@@ -39,7 +39,7 @@ house_newOfferHouseSwap:
     defaults: { _controller: HouseBundle:HouseOffers:createNewOffer }
 
 house_offerHouseSwap:
-    path: /house-swap/offer/{idOffer}
+    path: /house-swap/offer/{idOffer}/
     defaults: { _controller: HouseBundle:HouseOffers:showOfferShareHouse }
     requirements:
             idOffer: \d+
@@ -53,7 +53,7 @@ house_newOfferBedroomSwap:
     defaults: { _controller: HouseBundle:BedroomOffers:createNewOffer }
 
 house_offerBedroomSwap:
-    path: /bedroom-swap/offer/{idOffer}
+    path: /bedroom-swap/offer/{idOffer}/
     defaults: { _controller: HouseBundle:BedroomOffers:showOfferBedroom }
     requirements:
             idOffer: \d+
