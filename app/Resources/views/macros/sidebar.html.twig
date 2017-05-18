@@ -7,7 +7,7 @@
     <hr>
     {# {% for i in 0..9 %}   #}
    <div class="sid-item">
-       <a href="{{ href|default('#') }}">
+       {#<a href="{{ href|default('#') }}">#}
            <span>
                {{ message|raw }}
 
@@ -34,8 +34,8 @@
  {% macro sidebarElementDemo(href, message) %}
      {#  {% for i in 0..9 %}#}
        <div class="sid-item">
-           <a href="{{ href|default('#') }}">
-               <span>
+           {#<a href="{{ href|default('#') }}">#}
+               <span class="text-justify">
                    {{ message|raw }}
                    {#
                    {{ i }}*{{ random(['Titulo objeto en venta',
@@ -46,7 +46,7 @@
             </span>
 
 
-        </a>
+        {#</a>#}
 
 
     </div>
