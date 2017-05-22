@@ -19,16 +19,10 @@
     {% set titleService = 'Bed & Breakfast' %}
 
 {% elseif service == 8 %}
-    {% set pathFilter = path('serHouseRents') %}
+    {% set pathFilter = path('house_listHouseSwap') %}
     {% set routingOffer = 'house_offerHouseSwap' %}
     {% set routingNewOffer = 'house_newOfferHouseSwap' %}
     {% set titleService = 'Intercambio casa' %}
-
-{% elseif service == 9 %}
-    {% set pathFilter = path('serHouseRents') %}
-    {% set routingOffer = 'house_offerBedroomSwap' %}
-    {% set routingNewOffer = 'house_newOfferBedroomSwap' %}
-    {% set titleService = 'Intercambio habitación' %}
 
 {% endif %}
 
