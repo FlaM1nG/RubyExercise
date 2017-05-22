@@ -74,7 +74,7 @@
 {% endblock %}
 
 {% block filtroMovilBody %}
-    {{ include('services/filters/shareCarFilter.html.twig') }}
+    {{ filters.filterHouse('get', pathFilter , service) }}
 {% endblock %}
 
 {% block serviceSidebar %}
@@ -96,6 +96,6 @@
     {{ popups.popup('sid-ocio', 'Ocio',
     sidebars.sidebarElementDemo('',include(':services/sidebar:ocioText.html.twig'))) }}
 
-    {{ popups.popup('sid-tiendas', 'Tiendas',
+    {{ popups.popup('sid-tiendas', 'Experiencias',
     sidebars.sidebarElementDemo('',include(':services/sidebar:tiendasText.html.twig'))) }}
 {% endblock %}
