@@ -102,7 +102,7 @@
 {% endblock %}
 
 {% block filtroMovilBody %}
-    {{ include('services/filters/shareCarFilter.html.twig') }}
+    {{ filters.filterHouse('get', pathFilter , service) }}
 {% endblock %}
 
 {% block serviceSidebar %}
