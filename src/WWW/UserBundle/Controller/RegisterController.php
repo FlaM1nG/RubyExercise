@@ -132,8 +132,10 @@ class RegisterController extends Controller{
             "phone" => $this->usuario->getPhone(),
             "hobbies" => $hobbies,
             "nif" => $this->usuario->getNif(),
-            "role" => $role
+            "role" => $role,
+            "token" => $request->get('token')
         );
+
 
         $ch = new ApiRest();
 
