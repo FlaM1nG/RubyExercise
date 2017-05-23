@@ -41,7 +41,7 @@ class CVitaeType extends AbstractType{
             ))
             
 
-            ->add('file', FileType::class, array('label' => 'Adjuntar CV'))
+            ->add('file', FileType::class, array('label' => 'Adjuntar CV.pdf'))
 
             ->add('message', TextareaType::class, array('label' => 'Mensaje',
                 'attr' => array('row' =>'20')))
