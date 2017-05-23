@@ -33,7 +33,7 @@ class CVitaeType extends AbstractType{
                 'choices'   => array(
                     'diseñador'   => 'Diseñador Gráfico',
                     'programadormovil' => 'Programador Aplicaciones Móviles',
-                    'programador'   => 'Programador Web',
+                    'programador_web'   => 'Programador Web',
                     'atencioncliente'   => 'Atención al Cliente',
                     'administrativo'   => 'Administrativo',
                     'otros'   => 'Otros',

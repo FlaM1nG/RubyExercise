@@ -135,23 +135,36 @@ class IndexController extends Controller
 
         if($form->isSubmitted()):
 
-            $file = MyConstants::PATH_APIREST.'global/utils/mailer.php';
+        $data    = $form->getData();
+        $mailer  = $this->get('mailer');
 
-            $ch = new ApiRest();
-            $ut = new Utilities();
+            $file = $data['file'];
 
-            $data['name'] = $request->get('contact')['name'];
-            $data['email'] = $request->get('contact')['email'];
-            $data['subject'] = $request->get('contact')['subject'];
-            $data['message'] = $request->get('contact')['message'];
-            $data['file'] = $request->get('contact')['file'];
+            // Generar un numbre único para el archivo antes de guardarlo
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
-            $result = $ch->resultApiRed($data, $file);
+            // Mover el archivo al directorio donde se guardan los curriculums
+            $cvDir = $this->container->getparameter('kernel.root_dir').'/../web/pdfs';
+            $file->move($cvDir, $fileName);
 
-            $ut->flashMessage('Su mensaje ha sido envíado con éxito.', $request, $result,
-                'Oops, ha ocurrido un error, por favor vuélvalo a intentar más tarde');
+            $fromEmail = $data['email'];
+            $toEmail   = "carlosamg87@gmail.com";
+            //$body      = $data['message'];
+            $file 	   = $this->container->getparameter('kernel.root_dir')."/../web/pdfs/$fileName";
+            $message = \Swift_Message::newInstance()
+                ->setSubject($data['subject'])
+                ->setFrom($fromEmail)
+                ->setTo($toEmail)
+               // ->setBody($body)
+               ->addPart('<h1>Datos de - '.$data["name"].'</h1>
+               <p>Email: '.$data["email"].'</p>
+               <p>Mensaje: '.$data["message"].'</p>', 'text/html')
+                ->setContentType('text/html')
+                ->attach(\Swift_Attachment::fromPath($file));
 
-            $form = $this->createForm(ContactType::class);
+
+        $mailer->send($message);
+
         endif;
 
         return $this->render('pages/curriculums.html.twig', array('form' => $form->createView()));

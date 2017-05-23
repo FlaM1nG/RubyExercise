@@ -40,16 +40,16 @@
             {#<!-- QUE ES WWW -->#}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-text-ob">
                 <h3>
-                    ¿Porqué trabajar con nosotros?
+                    ¿Te gustaría trabajar con nosotros?
                 </h3>
                 <hr>
                 <p>
-                    Whatwantweb es una plataforma basada en el concepto de intercambiar y compartir bienes y servicios,
-                    creando nuevas formas de emprender y también un nuevo sentido de la propiedad. Nuestro sentido de la
-                    propiedad ha cambiado, hemos pasado de una sociedad en la que sobra de todo a otra en la cual la
-                    mayoría no puede disfrutar de lo que este siglo ofrece (bien sea por el abuso de precios o el mal
-                    servicio), a menos que sea compartiéndolo. Esto supone una solución a la crisis económica y
-                    financiera.
+                    Formarás parte del equipo Whatwantweb, siendo nuestro principal activo las personas, apostamos por el crecimiento profesional y la formación continua de todos nuestros empleados e impulsamos un ambiente de trabajo basado en innovación, colaboración, integridad, respeto y excelencia.
+                    En Whatwantweb consideramos que ¡Nuestro Éxito son las Personas que trabajan con nosotros!. Y por ello destacamos especialmente en el cumplimiento de los compromisos que adquirimos con nuestros profesionales. Nuestra política de retención del talento, contempla adicionalmente incentivos particularizados (Bolsa de Formación, Bonus por Objetivos, y otros), en reconocimiento a la involucración y motivación de nuestras personas.
+                    Formarías parte no sólo de un equipo sino también de una familia en la que todos aportan y ayudan a los demás. y trabajarías con profesionales con proyección internacional con los que podrás aprender mucho, somos empresa con cultura Startup.
+                    Nosotros creemos en la igualdad de oportunidades entre hombre y mujeres así como mismo salario.
+                    <br><br>
+                    <strong><i>En nuestra empresa valoramos mucho el conjunto UX/UI y, por ello, el foco de cualquier producto es siempre la satisfacción del usuario.</i></strong>
                 </p>
             </div>
             {#<!-- FIN QUE ES WWW -->#}
@@ -95,7 +95,7 @@
             Curriculum Vitae
         </h3>
         
-        <form class="" action="{{ path('trabaja') }}" method="post">
+        <form class="" action="{{ path('trabaja') }}" method="POST" enctype=multipart/form-data>
             <fieldset>
 
             {#<!-- Text input-->#}
@@ -155,6 +155,7 @@
             </div>
 
             </fieldset>
+            {{form_rest(form)}}
         </form>
            
     </div>
