@@ -1,0 +1,179 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    Trabaja con nosotros
+{% endblock %}
+
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block alert %}
+    {% for flash_message in app.session.flashbag.get('messageFail') %}
+        {{  alerts.alert('alert-warning', flash_message, null) }}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('messageSuccess') %}
+        {{  alerts.alert('alert-success', flash_message, null) }}
+    {% endfor %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+	<h1>Trabaja con nosotros</h1>
+        <hr>
+    </div>
+
+
+    {#<!-- TEXTO E IMAGENES -->#}
+    <div class="container-fluid cd-main-content text-justify">
+        <div class="row">
+
+            {#<!-- IMAGEN 1 -->#}
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-img3">
+
+            </div>
+            {#<!-- FIN IMAGEN 1 -->#}
+
+            {#<!-- QUE ES WWW -->#}
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-text-ob">
+                <h3>
+                    ¿Te gustaría trabajar con nosotros?
+                </h3>
+                <hr>
+                <p>
+                    Mándanos tu Curriculum y entraras a formar parte del equipo Whatwantweb, siendo nuestro principal activo las personas, apostamos por el crecimiento profesional y la formación continua de todos nuestros empleados e impulsamos un ambiente de trabajo basado en innovación, colaboración, integridad, respeto y excelencia.
+                    Te ofrecemos la posibilidad de construir tu carrera profesional, poniendo a tu disposición todas las herramientas que necesites para alcanzar tu meta profesional.
+                    Nuestro equipo se destaca por ser gente creativa y con vocación por la tecnología e Internet, con ganas de desarrollarse profesionalmente y de disfrutar haciendo su trabajo.
+                    Queremos gente con ganas de involucrarse en una empresa con futuro, muchas ganas y curiosidad dentro del mundo online.
+                    <br>
+                    En Whatwantweb consideramos que ¡Nuestro Éxito son las Personas que trabajan con nosotros!.
+                    Formarías parte no sólo de un equipo sino también de una familia en la que todos aportan y ayudan a los demás. y trabajarías con profesionales con proyección internacional con los que podrás aprender mucho, somos empresa con cultura Startup.
+                    Nosotros creemos en la igualdad de oportunidades entre hombre y mujeres así como mismo salario.
+                    <br>
+                    En nuestra empresa valoramos mucho el conjunto UX/UI y, por ello, el foco de cualquier producto es siempre la <strong>satisfacción del usuario.</strong>
+                </p>
+            </div>
+            {#<!-- FIN QUE ES WWW -->#}
+
+
+        </div>
+
+
+        <div class="row">
+            {#<!-- NUESTROS OBJETIVOS -->#}
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-text-ob">
+                <h3>
+                    Nuestros valores
+                </h3>
+                <hr>
+                <p>
+                    Internet y las nuevas tecnologías han impulsado diferentes modelos de consumo alternativo, siendo uno de ellos el que conocemos como economía colaborativa. Nosotros creemos en este sistema de colaboración basado en prestar, alquilar, comprar o vender productos según las necesidades de los usuarios.
+                    <br>
+                    La plataforma que ponemos a vuestra disposición os permite ayudar a una necesidad concreta no basada en el beneficio económico, ya que, como hemos mencionado, nos centramos en la colaboración y ayuda mutua.
+                    Este sistema de economía ofrece precios módicos, contenidos o simbólicos.
+                    <br>
+                    Presentamos una gama de posibilidades con las que posibilitar un ahorro de recursos fundamentales que favorecen a nuestro planeta, pudiendo también dar un segundo uso a muchos productos, así como la reutilización y la contribución al cuidado, la sostenibilidad y beneficio medioambiental.
+                </p>
+            </div>
+            {#<!-- FIN NUESTROS OBJETIVOS -->#}
+
+
+            {#<!-- IMAGEN 2 -->#}
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 aus-img4">
+
+            </div>
+            {#<!-- FIN IMAGEN 2 -->#}
+
+
+        </div>
+
+
+    </div>
+    {#<!-- FIN TEXTO E IMAGENES -->#}
+
+
+    <div class="container formulario">
+        <h3 class="cnt-title3">
+            Curriculum Vitae
+        </h3>
+        
+        <form class="" action="{{ path('trabaja') }}" method="POST" enctype=multipart/form-data>
+            <fieldset>
+
+            {#<!-- Text input-->#}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+                {{form_label(form.name)}}
+
+                <div class="">
+                    {{form_widget(form.name)}}
+                </div>
+            </div>
+
+            {#<!-- Text input-->#}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+                {{form_label(form.email)}}
+
+                <div class="">
+                    {{form_widget(form.email)}}
+
+                </div>
+            </div>
+
+            {#<!-- Text input-->#}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+                {{form_label(form.subject)}}
+
+                <div class="">
+                    {{form_widget(form.subject)}}
+
+                </div>
+            </div>
+
+            {#<!-- Textarea -->#}
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                {{form_label(form.message)}}
+
+                <div class="">
+                   {{form_widget(form.message, {'id':'message'})}}
+                </div>
+            </div>
+
+                {#<!-- Text input-->#}
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+                    {{form_label(form.file)}}
+
+                    <div class="">
+                        {{form_widget(form.file)}}
+
+                    </div>
+                </div>
+
+            {#<!-- Button -->#}
+            <div class="form-group">
+                <label class="control-label" for="send"></label>
+                <div class="">
+                   {{ form_widget(form.send) }}
+                </div>
+            </div>
+
+            </fieldset>
+            {{form_rest(form)}}
+        </form>
+           
+    </div>
+
+
+{% endblock %}
+
+{% block footer %}
+    {{ include('footer/sponsorFooter.html.twig') }}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ include('nav/menuScript.html.twig') }}
+{% endblock %}
