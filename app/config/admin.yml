@@ -9,8 +9,8 @@ easy_admin:
     design:
         brand_color: '#f60'
         menu:
-            - label: 'Usuarios'
-              children: ['BusquedaUsuario', 'DireccionesUsuarios', 'Message', 'Photo']
+            - label: 'Administración'
+              children: ['BusquedaUsuario', 'DireccionesUsuarios', 'Message', 'Photo','Offer','Inscription']
     site_name: 'Gestión WhatWantWeb'
     entities:
         BusquedaUsuario:
@@ -118,22 +118,53 @@ easy_admin:
                 title: 'Mensaje a usuario'
         Photo:
             class: WWW\GlobalBundle\Entity\Photo
+            label: 'Fotos'
             list:
                 fields:
                     - id
-                    - { property: 'url', type: 'image', base_path: 'https://whatwantweb.com/' }
+                    - { property: 'url', type: 'image', base_path: 'https://whatwantweb.com/JS9NAJ8JEABj8jcsk9xbGTC7VSM9XAMbaxnbs3873778dhd4m' }
                     - { property: 'createdDate',format: 'j/n/Y'}
                     - { property: 'modifiedDate',format: 'j/n/Y'}
-        Trade:
-            class: WWW\OthersBundle\Entity\Trade
+                    - isDeleted
+        
         Offer:
             class: WWW\ServiceBundle\Entity\Offer
-        User:
-            disabled_actions: ['show']
-            class: WWW\UserBundle\Entity\User
+            label: 'Ofertas'
+            help: 'Aqui se muestran todas las ofertas en general'
             list:
-                fields: ['id','name','surname','username','email','phone','isBanned']
+                fields:
+                    - id  
+                    - { property: 'serviceId', type: 'text'}
+                    - userAdmin
+                    - expired
+                    - holders
+                    - isDeleted
+                    - { property: 'createdDate', format: 'j/n/Y'}
+                    - { property: 'modifiedDate',format: 'j/n/Y'}
+            show:
+                title: 'Oferta'
+                fields:
+                    - id
+                    - { property: 'serviceId', type: 'text'}
+                    - userAdmin
+                    - { property: 'photos', type: 'object'}
+                    - expired
+                    - holders
+                    - isDeleted
+                    - { property: 'createdDate', format: 'j/n/Y'}
+                    - { property: 'modifiedDate',format: 'j/n/Y'}
+        
+        Inscription:
+            class: WWW\ServiceBundle\Entity\Inscription
+            label: 'Inscripciones'
+            list:
+                fields:
+                    - id 
+                    - user
+                    - offer
 
-        Address:
-            class: WWW\GlobalBundle\Entity\Address
+
+
+
+                    
 
