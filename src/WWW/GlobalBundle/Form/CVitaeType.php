@@ -32,10 +32,11 @@ class CVitaeType extends AbstractType{
             ->add('subject', ChoiceType::class,array('label' =>'Puesto',
                 'choices'   => array(
                     'diseñador'   => 'Diseñador Gráfico',
-                    'programadormovil' => 'Programador Aplicaciones Móviles',
+                    'programador_movil' => 'Programador Aplicaciones Móviles',
                     'programador_web'   => 'Programador Web',
-                    'atencioncliente'   => 'Atención al Cliente',
+                    'atencion_cliente'   => 'Atención al Cliente',
                     'administrativo'   => 'Administrativo',
+                    'community_manager'   => 'Community Manager',
                     'otros'   => 'Otros',
                 ),
             ))

@@ -165,6 +165,11 @@ class IndexController extends Controller
 
         $mailer->send($message);
 
+            // Borramos el fichero en el directorio creado
+
+            unlink($file);
+
+
         endif;
 
         return $this->render('pages/curriculums.html.twig', array('form' => $form->createView()));
