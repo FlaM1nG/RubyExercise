@@ -101,7 +101,10 @@
 {% endblock %}
 
 {% block serviceSidebar %}
-    
+
+    {% if service == 3 %}
+        {{ include('services/sidebar/ocio.html.twig') }}
+    {% endif     %}
 {% endblock %}
 
 {% block javascriptsFooter %}
