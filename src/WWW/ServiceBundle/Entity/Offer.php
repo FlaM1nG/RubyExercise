@@ -472,7 +472,10 @@ class Offer
         return $this->service;
     }
     
-
+    public function getServiceId()
+    {
+        return $this->service->getTitle();
+    }
     /**
      * Set holders
      *
