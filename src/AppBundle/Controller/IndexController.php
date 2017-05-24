@@ -148,7 +148,7 @@ class IndexController extends Controller
             $file->move($cvDir, $fileName);
 
             $fromEmail = $data['email'];
-            $toEmail   = "carlosamg87@gmail.com";
+            $toEmail   = "cv@whatwantweb.com";
             //$body      = $data['message'];
             $file 	   = $this->container->getparameter('kernel.root_dir')."/../web/pdfs/$fileName";
             $message = \Swift_Message::newInstance()
