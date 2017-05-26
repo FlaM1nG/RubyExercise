@@ -196,4 +196,6 @@ ticket_service:
     path: /ticketea
     defaults: { _controller: AppBundle:Index:ticket }
 
-
+trabaja:
+    path: /trabaja/
+    defaults: { _controller: AppBundle:Index:trabaja }

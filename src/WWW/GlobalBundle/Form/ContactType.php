@@ -33,6 +33,7 @@ class ContactType extends AbstractType{
             ->add('email', EmailType::class, array('label' => 'Email'))
 
             ->add('subject', TextType::class, array('label' => 'Asunto'))
+            
 
             ->add('message', TextareaType::class, array('label' => 'Mensaje',
                                                         'attr' => array('row' =>'20')))

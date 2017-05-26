@@ -96,7 +96,7 @@
             {% for photo in offer.offer.photos %}
                 
                 {% set arrayUrl = arrayUrl~"'"~asset(photo.url,'img')~"'," %}
-                {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~photo.id|number_format~" }," %}
+                {% set arrayCaption = arrayCaption~"{caption: '', width: '120px', showZoom: false, key: "~photo.id|number_format~", extra: {idOffer:"~form.offer.id.vars.value~" } }," %}
 
             {% endfor %} 
            

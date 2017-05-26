@@ -9,6 +9,7 @@ use WWW\CarsBundle\Form\PagoType;
 use WWW\GlobalBundle\Entity\ApiRest;
 use WWW\GlobalBundle\Entity\Utilities;
 use WWW\GlobalBundle\Form\ContactType;
+use WWW\GlobalBundle\Form\CVitaeType;
 use WWW\GlobalBundle\MyConstants;
 use WWW\UserBundle\Entity\User;
 
@@ -80,36 +81,36 @@ class IndexController extends Controller
             'servicesFranja' => $entrada
         ));
     }
-    
-    
+
+
     public function aboutUsAction() {
         return $this->render('pages/aboutUs.html.twig');
     }
-    
+
     public function siteMapAction() {
         return $this->render('pages/siteMap.html.twig');
     }
-    
+
     public function ordersAction() {
         return $this->render('pages/orders.html.twig');
     }
-    
+
     public function devolutionsAction() {
         return $this->render('pages/devolutions.html.twig');
     }
-    
+
     public function contactAction(Request $request) {
 
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted()):
-            
+
             $file = MyConstants::PATH_APIREST.'global/utils/contact.php';
 
             $ch = new ApiRest();
             $ut = new Utilities();
-            
+
             $data['name'] = $request->get('contact')['name'];
             $data['email'] = $request->get('contact')['email'];
             $data['subject'] = $request->get('contact')['subject'];
@@ -117,13 +118,61 @@ class IndexController extends Controller
 
             $result = $ch->resultApiRed($data, $file);
 
-            $ut->flashMessage('Su mensaje ha sido envíado con éxito.', $request, $result, 
+            $ut->flashMessage('Su mensaje ha sido envíado con éxito.', $request, $result,
                 'Oops, ha ocurrido un error, por favor vuélvalo a intentar más tarde');
 
             $form = $this->createForm(ContactType::class);
         endif;
 
         return $this->render('pages/contact.html.twig', array('form' => $form->createView()));
+    }
+
+
+    public function trabajaAction(Request $request) {
+
+        $form = $this->createForm(CVitaeType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()):
+
+        $data    = $form->getData();
+        $mailer  = $this->get('mailer');
+
+            $file = $data['file'];
+
+            // Generar un numbre único para el archivo antes de guardarlo
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+            // Mover el archivo al directorio donde se guardan los curriculums
+            $cvDir = $this->container->getparameter('kernel.root_dir').'/../web/pdfs';
+            $file->move($cvDir, $fileName);
+
+            $fromEmail = $data['email'];
+            $toEmail   = "cv@whatwantweb.com";
+            //$body      = $data['message'];
+            $file 	   = $this->container->getparameter('kernel.root_dir')."/../web/pdfs/$fileName";
+            $message = \Swift_Message::newInstance()
+                ->setSubject($data['subject'])
+                ->setFrom($fromEmail)
+                ->setTo($toEmail)
+               // ->setBody($body)
+               ->addPart('<h1>Datos de - '.$data["name"].'</h1>
+               <p>Email: '.$data["email"].'</p>
+               <p>Mensaje: '.$data["message"].'</p>', 'text/html')
+                ->setContentType('text/html')
+                ->attach(\Swift_Attachment::fromPath($file));
+
+
+        $mailer->send($message);
+
+            // Borramos el fichero en el directorio creado
+
+            unlink($file);
+
+
+        endif;
+
+        return $this->render('pages/curriculums.html.twig', array('form' => $form->createView()));
     }
 
     public function ticketAction()
