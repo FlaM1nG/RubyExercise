@@ -50,6 +50,7 @@
                     </a>
                 </div>
             </div>#}
+
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="filtro">
                     {% block serviceFilters %} {% endblock %}
@@ -63,10 +64,12 @@
             {% block serviceList %} {% endblock %}
         </div>
         {#<!-- END COLUMN LIST ELEMENTS -->#}
-        
+        {% block publiPrueba %}
+        {% endblock %}
     </div>
+
     {#<!-- END LIST ELEMENTS WITH FILTERS -->#}
-    
+
 </div>
 {#<!-- END BODY -->#}
 
