@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        Concept:
+            class: WWW\ServiceBundle\Entity\Concept
+            label: 'Conceptos Facturas'  

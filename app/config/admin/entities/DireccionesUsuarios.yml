@@ -1,0 +1,35 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        DireccionesUsuarios:
+            class: WWW\GlobalBundle\Entity\Address
+            label: 'Direcciones de usuarios'
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Direcciones de usuarios'
+                fields:
+                    - id
+                    - user
+                    - { property: 'name', label: 'Nombre', type: 'text' }
+                    - { property: 'street', label: 'Dirección', type: 'text' }
+                    - { property: 'city', label: 'Ciudad', type: 'text' }
+                    - { property: 'region', label: 'Población', type: 'text' }
+                    - { property: 'zipCode', label: 'Cod. Postal', type: 'text' }
+#                    - { property: 'country', label: 'Pais', type: 'text' }
+                    - { property: 'is_deleted', label: 'Borrado', type: 'boolean' }
+                    - { property: 'getIsDefaultAddressUser', label: 'Por defecto', type: 'boolean' }
+            show:
+                title: 'Usuario'
+                fields:
+                    - id
+                    - user
+                    - { property: 'name', label: 'Nombre', type: 'text' }
+                    - { property: 'street', label: 'Dirección', type: 'text' }
+                    - { property: 'city', label: 'Ciudad', type: 'text' }
+                    - { property: 'region', label: 'Población', type: 'text' }
+                    - { property: 'zipCode', label: 'Cod. Postal', type: 'text' }
+                    - { property: 'country', label: 'Pais', type: 'text' }
+                    - { property: 'is_deleted', label: 'Borrado' }
+                    - { property: 'phoneCompleto', label: 'Teléfono Dirr', type: 'text' }
+                    - { property: 'getIsDefaultAddressUser', label: 'Por defecto', type: 'boolean' }

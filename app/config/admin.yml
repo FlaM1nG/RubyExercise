@@ -1,3 +1,6 @@
+#OJO en la carpeta admin esta el que se esta usando mejor estructurado
+#Dejar este como copia de seguridad
+
 easy_admin:
     disabled_actions: ['delete']
     list:
@@ -8,9 +11,16 @@ easy_admin:
         datetime: 'd/m/Y H:i:s'
     design:
         brand_color: '#f60'
-#        menu:
-#            - label: 'Administración'
-#              children: ['BusquedaUsuario', 'DireccionesUsuarios', 'Message', 'Photo','Offer','Inscription']
+        menu:
+            - label: 'Usuarios'
+              children: ['BusquedaUsuario', 'DireccionesUsuarios', 'Message', 'Valoration']
+            - label: 'Servicios'
+              children: ['Photo','Offer','Inscription','Trade','ShareCar','Car', 'ShareHouse', 'ShareRoom', 'House']
+            - label: 'Calendario'
+              children: ['MyCompanyEvents', 'Calendar']
+            - label: 'Pagos'
+              children: ['Payment', 'Billing', 'Concept', 'Wallet']  
+            
     site_name: 'Gestión WhatWantWeb'
     entities:
         BusquedaUsuario:
@@ -167,17 +177,75 @@ easy_admin:
         Inscription:
             class: WWW\ServiceBundle\Entity\Inscription
             label: 'Inscripciones'
-            help: 'Recuerde, el estado tiene el siguiente significado:<br> 1 -> enviado,<br> 1 -> rechazado,<br> 2 -> aprobado,<br> 3 -> leido'
+            help: 'Recuerde los significados de los estados: <br>  0 -> peticion,<br> 1 -> denegado,<br> 2 -> aceptado, <br> 3 -> pagado, <br> 4 -> cancelado, <br>  5 -> consumido'
             list:
                 fields:
                     - id 
-                    - user
+                    - { property: 'userNick', label: 'Nick del usuario', sortable: true}
                     - offer
                     - { property: 'status',label: 'Estado de la inscripción'}
                     - dataExtra
+            show:
+                fields:
+                    - id 
+                    - { property: 'userNick', label: 'Nick del usuario'}
+                    - offer
+                    - { property: 'status',label: 'Estado de la inscripción'}
+                    - dataExtra
+            form:
+                fields:
+                    - id 
+                    - { property: 'status',label: 'Estado de la inscripción'}
+                    - dataExtra
+            
+        Concept:
+            class: WWW\ServiceBundle\Entity\Concept
+            label: 'Conceptos Facturas'    
+            
+        Billing:
+            class: WWW\ServiceBundle\Entity\Billing
+            label: 'Facturas'
+            
+        Payment:
+            class: Acme\PaymentBundle\Entity\Payment
+            label: 'Pagos'
 
+        MyCompanyEvents:
+            class: WWW\GlobalBundle\Entity\MyCompanyEvents
+            label: 'Eventos del Calendario'
+            
+        Calendar: #revisar esta entidad
+            class: WWW\GlobalBundle\Entity\Calendar
+            label: 'Calendarios'
+        
+        Valoration:
+            class: WWW\ServiceBundle\Entity\Valoration
+            label: 'Valoraciones'
 
-
-
-                    
-
+        Wallet:
+            class: WWW\UserBundle\Entity\Wallet
+            label: 'Bolsa'            
+        
+        Trade:
+            class: WWW\OthersBundle\Entity\Trade
+            label: 'Ofertas de Compra-Venta' 
+            
+        ShareCar:
+            class: WWW\CarsBundle\Entity\ShareCar
+            label: 'Ofertas de Vehículos' 
+            
+        Car:
+            class: WWW\CarsBundle\Entity\Car
+            label: 'Coches' 
+        
+        ShareHouse:
+            class: WWW\HouseBundle\Entity\ShareHouse
+            label: 'Casa Compartida'
+        
+        ShareRoom:
+            class: WWW\HouseBundle\Entity\ShareRoom
+            label: 'Habitación Compartida'
+            
+        House:
+            class: WWW\HouseBundle\Entity\House
+            label: 'Casas'

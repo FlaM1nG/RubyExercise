@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        ShareCar:
+            class: WWW\CarsBundle\Entity\ShareCar
+            label: 'Ofertas de Vehículos'

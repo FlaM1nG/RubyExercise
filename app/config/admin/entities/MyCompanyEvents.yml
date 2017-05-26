@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        MyCompanyEvents:
+            class: WWW\GlobalBundle\Entity\MyCompanyEvents
+            label: 'Eventos del Calendario'

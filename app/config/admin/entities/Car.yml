@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        Car:
+            class: WWW\CarsBundle\Entity\Car
+            label: 'Coches' 

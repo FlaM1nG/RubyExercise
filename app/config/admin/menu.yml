@@ -1,0 +1,20 @@
+## YAML Template.
+---
+easy_admin:
+    disabled_actions: ['delete']
+    list:
+        actions: ['edit', 'search','show']
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
+    design:
+        menu:
+            - label: 'Usuarios'
+              children: ['BusquedaUsuario', 'DireccionesUsuarios', 'Message', 'Valoration']
+            - label: 'Servicios'
+              children: ['Photo','Offer','Inscription','Trade','ShareCar','Car', 'ShareHouse', 'ShareRoom', 'House']
+            - label: 'Calendario'
+              children: ['MyCompanyEvents', 'Calendar']
+            - label: 'Pagos'
+              children: ['Payment', 'Billing', 'Concept', 'Wallet'] 

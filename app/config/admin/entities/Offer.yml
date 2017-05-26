@@ -1,0 +1,30 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        Offer:
+            class: WWW\ServiceBundle\Entity\Offer
+            label: 'Ofertas'
+            help: 'Aqui se muestran todas las ofertas en general'
+            list:
+                fields:
+                    - id  
+                    - { property: 'serviceId', type: 'text'}
+                    - userAdmin
+                    - expired
+                    - holders
+                    - isDeleted
+                    - { property: 'createdDate', format: 'j/n/Y'}
+                    - { property: 'modifiedDate',format: 'j/n/Y'}
+            show:
+                title: 'Oferta'
+                fields:
+                    - id
+                    - { property: 'serviceId', type: 'text'}
+                    - userAdmin
+                    - { property: 'photos', type: 'collection'}
+                    - expired
+                    - holders
+                    - isDeleted
+                    - { property: 'createdDate', format: 'j/n/Y'}
+                    - { property: 'modifiedDate',format: 'j/n/Y'}

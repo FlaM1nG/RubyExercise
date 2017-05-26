@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        Wallet:
+            class: WWW\UserBundle\Entity\Wallet
+            label: 'Bolsa'    

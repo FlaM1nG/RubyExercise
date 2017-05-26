@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        ShareRoom:
+            class: WWW\HouseBundle\Entity\ShareRoom
+            label: 'Habitación Compartida'

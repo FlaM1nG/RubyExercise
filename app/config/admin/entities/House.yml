@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        House:
+            class: WWW\HouseBundle\Entity\House
+            label: 'Casas'

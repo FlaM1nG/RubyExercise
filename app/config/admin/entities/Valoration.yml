@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        Valoration:
+            class: WWW\ServiceBundle\Entity\Valoration
+            label: 'Valoraciones'

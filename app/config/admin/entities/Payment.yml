@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        Payment:
+            class: Acme\PaymentBundle\Entity\Payment
+            label: 'Pagos'

@@ -1,0 +1,22 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        Photo:
+            class: WWW\GlobalBundle\Entity\Photo
+            label: 'Fotos'
+            list:
+                fields:
+                    - id
+                    - { property: 'url', type: 'image', base_path: 'https://whatwantweb.com/JS9NAJ8JEABj8jcsk9xbGTC7VSM9XAMbaxnbs3873778dhd4m' }
+                    - { property: 'createdDate',format: 'j/n/Y'}
+                    - { property: 'modifiedDate',format: 'j/n/Y'}
+                    - isDeleted
+                    
+            show:
+                fields:
+                    - id
+                    - { property: 'url', type: 'image', base_path: 'https://whatwantweb.com/JS9NAJ8JEABj8jcsk9xbGTC7VSM9XAMbaxnbs3873778dhd4m' }
+                    - { property: 'createdDate',format: 'j/n/Y'}
+                    - { property: 'modifiedDate',format: 'j/n/Y'}
+                    - isDeleted

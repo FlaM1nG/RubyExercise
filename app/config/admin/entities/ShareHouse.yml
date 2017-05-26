@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        ShareHouse:
+            class: WWW\HouseBundle\Entity\ShareHouse
+            label: 'Casa Compartida'

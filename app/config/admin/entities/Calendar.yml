@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        Calendar: #revisar esta entidad
+            class: WWW\GlobalBundle\Entity\Calendar
+            label: 'Calendarios'

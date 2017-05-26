@@ -1,0 +1,7 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        Trade:
+            class: WWW\OthersBundle\Entity\Trade
+            label: 'Ofertas de Compra-Venta' 
