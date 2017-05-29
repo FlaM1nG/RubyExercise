@@ -1,6 +1,8 @@
 {% extends '::services/layoutService.html.twig' %}
+{% import 'macros/popup.html.twig' as popups %}
 {% import '::macros/tradeList.html.twig' as trades %}
 {% import '::macros/filter.html.twig' as filters %}
+{% import 'macros/sidebar.html.twig' as sidebars %}
 
 {% set pathFilter = '' %}
 {% set routingOffer = '' %}
@@ -100,8 +102,27 @@
     {{ filters.filterTrade('get',pathFilter,categories) }}
 {% endblock %}
 
+{% block publiPrueba %}
+{#{{ dump(service) }}#}
+    {% if service == 2 %}
+        {{ include(':services/sidebar:publicidadZona1.html.twig') }}
+    {% endif %}
+
+{% endblock %}
+
 {% block serviceSidebar %}
-    
+    {% if service == 2 %}
+        {{ include(':services/sidebar:ofertaMovil.html.twig') }}
+    {% endif %}
+{% endblock %}
+
+{% block popupBlock %}
+
+     {% if service == 2 %}
+        {{ popups.popup('sid-ocio', 'Comisión solo del 8%*',
+        sidebars.sidebarElementDemo('',include(':services/sidebar:ofertaText.html.twig'))) }}
+     {% endif %}
+
 {% endblock %}
 
 {% block javascriptsFooter %}
@@ -111,7 +132,18 @@
 <script type="text/javascript">
     
     $(document).ready(function(){
+        var topInit = $('.row.separacion-inferior').offset().top;
+        $('#column-left').css('top',topInit);
+
+
+        var heightContainer = $('.ropa-parallax').height();
+        var height2 = heightContainer+'px';
+
+        $('.sid-body').css('margin-top',height2);
+        $('.container.cd-main-content').position();
+
         var e = $(".row-tra-base");
+
         e.length > 0 && e.masonry({
             // options
             columnWidth: '.col-tra-elem',
@@ -121,9 +153,35 @@
             isFitWidth: true,
             gutter: 20
         });
-        
-        
+
+        {% if service == 2 %}
+
+            $(window).scroll(function() {
+                var windowTop = $(document).scrollTop();
+                var windowBottom = windowTop + window.innerHeight;
+                var elementPositionTop = $('.row.separacion-inferior').offset().top;
+                var elementPositionBottom = elementPositionTop + $('.row.separacion-inferior').height();
+                var ofertaHeight = $('#offerRight').height();
+                var ofertaTop = $('#offerRight').offset().top;
+                var ofertaBottom = ofertaTop + $('#offerRight').height();
+
+                var posicion = elementPositionTop - windowTop;
+                $('#offerRight').css('top',posicion);
+
+                var aux = ofertaBottom+ofertaHeight;
+
+                if(windowTop > elementPositionTop && aux < elementPositionBottom ){
+
+                    $('#offerRight').css('top','80px');
+                }
+
+
+            });
+        {% endif %}
+
     });
+
+
 </script>
 
 {#{{ include('services/filters/filterTradeScript.html.twig') }}#}

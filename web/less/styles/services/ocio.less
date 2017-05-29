@@ -31,6 +31,10 @@
     }
 }
 
+.sid-body-cloth{
+    display: block;
+}
+
 .sid-body2{
     top: 57%;
 }
@@ -39,6 +43,24 @@
     position: fixed;
     top: 6% !important;
 }
+
+#offerRight {
+    background-color: @gray-base;
+    padding: 30px;
+    color: @brand-secondary;
+    border: 1px solid #D2D2D2;
+    border-radius: 8px;
+    float: right;
+    right: 100px;
+    //top: 80px;
+    position: fixed;
+    width: 320px;
+}
+
+.sid-letterSmallOffer {
+    font-size: 12px;
+}
+
 /* ##### FIN SIDEBAR ##### */
 
 
@@ -132,6 +154,10 @@
         box-shadow: 0 0 0 45px rgba(255, 102, 51, 0);
     }
 }
+
+.ofertaRopa{
+    display: none!important;
+}
 /* ##### FIN MOVIL ##### */
 
 
@@ -153,6 +179,10 @@
     /* ***** MOVIL ***** */
     .sid-body-mov{
         display: inherit;
+    }
+
+    .sid-body-cloth{
+        display: block;
     }
 }
 
@@ -296,3 +326,16 @@
         
     }
 }
+
+@media only screen and (max-width: 1900px){
+
+    #offerRight{
+        display: none;
+    }
+
+    .ofertaRopa{
+        display: block!important;
+    }
+}
+
+
