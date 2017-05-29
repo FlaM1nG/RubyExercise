@@ -104,7 +104,7 @@ easy_admin:
             form:
                 title: 'Edición de Casa'
                 fields:
-                    - id
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
                     - { property: 'title', label: 'Nombre'}
                     - { property: 'licenseNumber', label: 'Numero de licencia'}
                     - { property: 'capacity', label: 'Capacidad'}

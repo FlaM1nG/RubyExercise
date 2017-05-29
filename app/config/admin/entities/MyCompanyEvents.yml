@@ -29,6 +29,9 @@ easy_admin:
             form:
                 title: 'Usuario'
                 fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - { property: 'price', label: 'Precio', type_options: { disabled: true }} 
                     - { property: 'ocuppate', label: 'Ocupado', type: 'checkbox'}
                     - { property: 'startDatetime', label: 'Día', type: 'datetime'}
+                    - { property: 'inscriptionID', label: 'Id de Inscripcción', type_options: { disabled: true }}
                     

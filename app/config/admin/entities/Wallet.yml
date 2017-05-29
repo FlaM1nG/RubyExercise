@@ -5,7 +5,7 @@ easy_admin:
         Wallet:
             class: WWW\UserBundle\Entity\Wallet
             label: 'Bolsa'  
-            disabled_actions: ['delete', 'new']
+            disabled_actions: ['delete', 'new', 'edit']
             list:
                 title: 'Bolsa'
                 fields:
@@ -29,6 +29,7 @@ easy_admin:
             form:
                 title: 'Bolsa'
                 fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
                     - { property: 'quantity', label: 'Cantidad'}
                     - { property: 'concept', label: 'Concepto'}
                     - { property: 'consumed', label: 'Consumida', type: 'boolean'} 

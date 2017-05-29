@@ -5,6 +5,7 @@ easy_admin:
         Offer:
             class: WWW\ServiceBundle\Entity\Offer
             label: 'Ofertas'
+            disabled_actions: ['delete', 'new']
             list:
                 help: 'Aqui se muestran todas las ofertas en general'
                 fields:
@@ -30,7 +31,10 @@ easy_admin:
             form:
                 title: 'Oferta'
                 fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
                     - { property: 'expired',label: 'Expirada' ,type: 'checkbox'}
                     - { property: 'holders',label: 'Capacidad' }
                     - { property: 'isDeleted',label: 'Borrada' ,type: 'checkbox'}
+                    - { property: 'createdDate', type: 'datetime', type_options: { widget: 'single_text', disabled: true} }
+                    - { property: 'modifiedDate',type: 'datetime', type_options: { widget: 'single_text', disabled: true} }
                     

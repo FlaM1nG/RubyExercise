@@ -27,6 +27,7 @@ easy_admin:
             form:
                 title: 'Habitación Compartida'
                 fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
                     - { property: 'name', label: 'Nombre'}
                     - { property: 'street', label: 'Calle'}
                     - { property: 'city', label: 'Ciudad'}

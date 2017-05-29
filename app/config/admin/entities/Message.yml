@@ -32,6 +32,8 @@ easy_admin:
             form:
                 help: 'Introduzca un número según la siguiente leyenda:<br> 0 -> enviado,<br> 1 -> rechazado,<br> 2 -> aprobado,<br> 3 -> leido'
                 fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - { property: 'message', label: 'Mensaje', type_options: { disabled: true }}
                     - status
                     - { property: 'revisionDate',format: 'j/n/Y' }
             new:

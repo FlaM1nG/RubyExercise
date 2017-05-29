@@ -46,8 +46,8 @@ easy_admin:
                     - { property: 'birthdate', label: 'Cumpleaños', type: 'date' }
                     - { property: 'prefix', label: 'Prefijo' }
                     - { property: 'phone', label: 'Teléfono' }
-                    - { property: 'is_confirmed', label: 'Confirmado', type: 'text' }
+                    - { property: 'is_confirmed', label: 'Confirmado', type: 'checkbox' }
                     - { property: 'created_date', label: 'Fecha creación cuenta', type: 'datetime', type_options: { widget: 'single_text', disabled: true} }
                     - { property: 'modified_date', label: 'Fecha último cambio', type: 'datetime', type_options: { widget: 'single_text', disabled: true} }
-                    - { property: 'is_deleted', label: 'Eliminar', type: 'text' }
+                    - { property: 'is_deleted', label: 'Eliminar', type: 'checkbox' }
                     - { property: 'deleted_date', label: 'Fecha eliminado', type: 'datetime', type_options: { widget: 'single_text', disabled: true} }

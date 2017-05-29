@@ -34,7 +34,7 @@ easy_admin:
             form:
                 title: 'Coche'
                 fields: 
-                    - id
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
                     - { property: 'plate', label: 'Matrícula'}
                     - { property: 'color', label: 'Color'}
                     - { property: 'description', label: 'Descripción'}
@@ -43,6 +43,6 @@ easy_admin:
                     - { property: 'smoke', label: 'Fumador' }
                     - { property: 'animals', label: 'Permite Animales' }
                     - { property: 'music', label: 'Escucha música' }
-                    - { property: 'talk', label: 'Hablador' }                   
+                    - { property: 'talk', label: 'Hablador' }
                     - { property: 'seats', label: 'Asientos'}
                     - { property: 'type', label: 'Tipo de Coche'}

@@ -29,6 +29,8 @@ easy_admin:
             form:
                 title: 'Oferta Compra-Venta'
                 fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - { property: 'categoryName', label: 'Servicio', type_options: { disabled: true }}
                     - { property: 'price', label: 'Precio'}
                     - { property: 'weight', label: 'Peso'}
                     - { property: 'region', label: 'Población'}

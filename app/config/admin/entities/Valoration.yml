@@ -28,6 +28,7 @@ easy_admin:
             form:
                 title: 'Valoración'
                 fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
                     - { property: 'comment', label: 'Comentario'}
                     - { property: 'score', label: 'Valoracion'}
                     - { property: 'createdDate', label: 'Fecha de valoración', type: 'datetime'}

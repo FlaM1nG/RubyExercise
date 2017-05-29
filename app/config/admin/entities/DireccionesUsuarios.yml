@@ -36,7 +36,7 @@ easy_admin:
             form:
                 title: 'Dirección'
                 fields:
-                    - id
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
                     - { property: 'name', label: 'Nombre', type: 'text' }
                     - { property: 'street', label: 'Dirección', type: 'text' }
                     - { property: 'city', label: 'Ciudad', type: 'text' }

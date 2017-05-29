@@ -10,8 +10,8 @@ easy_admin:
                 title: 'Facturas'
                 fields:
                     - id
-                    - { property: 'user', label: 'Usuario'}
-                    - { property: 'address', label: 'Direccion de Facturación'}
+                    - { property: 'user', label: 'Usuario', sortable: false}
+                    - { property: 'address', label: 'Direccion de Facturación', sortable: false}
                     - { property: 'reference', label: 'Referencia'}
                     - { property: 'paid', label: 'Pagado', type: 'boolean' }
                     - { property: 'paidDate', label: 'Fecha de Pago', type: 'datetime'}

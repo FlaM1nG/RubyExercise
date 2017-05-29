@@ -29,7 +29,7 @@ easy_admin:
             form:
                 title: 'Coche Compartido'
                 fields:
-                    
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
                     - { property: 'fromPlace', label: 'Origen'}
                     - { property: 'toPlace', label: 'Destino'}
                     - { property: 'date', label: 'Fecha', type: 'datetime'} 
