@@ -1,0 +1,27 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        Inscription:
+            class: WWW\ServiceBundle\Entity\Inscription
+            label: 'Inscripciones'
+            help: 'Recuerde los significados de los estados: <br>  0 -> peticion,<br> 1 -> denegado,<br> 2 -> aceptado, <br> 3 -> pagado, <br> 4 -> cancelado, <br>  5 -> consumido'
+            list:
+                fields:
+                    - id 
+                    - { property: 'userNick', label: 'Nick del usuario'}
+                    - offer
+                    - { property: 'status',label: 'Estado de la inscripción'}
+                    - dataExtra
+            show:
+                fields:
+                    - id 
+                    - { property: 'userNick', label: 'Nick del usuario'}
+                    - offer
+                    - { property: 'status',label: 'Estado de la inscripción'}
+                    - dataExtra
+            form:
+                fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - { property: 'status',label: 'Estado de la inscripción'}
+                    - dataExtra

@@ -1,0 +1,33 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        ShareHouse:
+            class: WWW\HouseBundle\Entity\ShareHouse
+            label: 'Casa Compartida'
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Casa Compartidas'
+                fields:
+                    - id
+                    - { property: 'offer', label: 'Oferta'}
+                    - { property: 'house', label: 'Casa'}
+                    - { property: 'entryTime', label: 'Hora de entrada', type: 'time'} 
+                    - { property: 'departureTime', label: 'Hora de Salida', type: 'time'}
+                    - { property: 'price', label: 'Precio'}
+            show:
+                title: 'Casa Compartida'
+                fields:
+                    - id
+                    - { property: 'offer', label: 'Oferta'}
+                    - { property: 'house', label: 'Casa'}
+                    - { property: 'entryTime', label: 'Hora de entrada', type: 'time'} 
+                    - { property: 'departureTime', label: 'Hora de Salida', type: 'time'}
+                    - { property: 'price', label: 'Precio'}
+            form:
+                title: 'Casa Compartida'
+                fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - { property: 'entryTime', label: 'Hora de entrada', type: 'time'} 
+                    - { property: 'departureTime', label: 'Hora de Salida', type: 'time'}
+                    - { property: 'price', label: 'Precio'}

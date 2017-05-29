@@ -1,9 +1,10 @@
 imports:
+    - { resource: admin/ }
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: payum.yml }
-    - { resource: admin.yml }
+   # - { resource: admin.yml }
     - { resource: "@UserBundle/Resources/config/services.yml" }
     - { resource: "@GlobalBundle/Resources/config/services.yml" }
     - { resource: "@ServiceBundle/Resources/config/services.yml" }

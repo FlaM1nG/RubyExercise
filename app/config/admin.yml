@@ -1,3 +1,6 @@
+#OJO en la carpeta admin esta el que se esta usando mejor estructurado
+#Dejar este como copia de seguridad
+
 easy_admin:
     disabled_actions: ['delete']
     list:
@@ -10,7 +13,14 @@ easy_admin:
         brand_color: '#f60'
         menu:
             - label: 'Usuarios'
-              children: ['BusquedaUsuario', 'DireccionesUsuarios', 'Message', 'Photo']
+              children: ['BusquedaUsuario', 'DireccionesUsuarios', 'Message', 'Valoration']
+            - label: 'Servicios'
+              children: ['Photo','Offer','Inscription','Trade','ShareCar','Car', 'ShareHouse', 'ShareRoom', 'House']
+            - label: 'Calendario'
+              children: ['MyCompanyEvents', 'Calendar']
+            - label: 'Pagos'
+              children: ['Payment', 'Billing', 'Concept', 'Wallet']  
+            
     site_name: 'Gestión WhatWantWeb'
     entities:
         BusquedaUsuario:
@@ -25,9 +35,8 @@ easy_admin:
                     - { property: 'email', label: 'Email', type: 'email'}
                     - { property: 'isConfirmedText', label: 'Confirmado'} #hay que traducir 1 o 0 según proceda
                     - { property: 'phone', label: 'Teléfono'}
-                    - { property: 'name', label: 'Nombre'}
-                    - { property: 'surname', label: 'Apellidos'}
-                    - { property: 'sex', label: 'Sexo'} #Hay que traducir m o f según procesda
+                    - photo
+                    - defaultAddress
             show:
                 title: 'Usuario'
                 fields:
@@ -71,23 +80,25 @@ easy_admin:
                 title: 'Direcciones de usuarios'
                 fields:
                     - id
-                    - { property: 'userId', label: 'ID Usuario', type: 'integer'}
+                    - user
                     - { property: 'name', label: 'Nombre', type: 'text' }
                     - { property: 'street', label: 'Dirección', type: 'text' }
                     - { property: 'city', label: 'Ciudad', type: 'text' }
                     - { property: 'region', label: 'Población', type: 'text' }
-                    - { property: 'country', label: 'Pais', type: 'text' }
+                    - { property: 'zipCode', label: 'Cod. Postal', type: 'text' }
+#                    - { property: 'country', label: 'Pais', type: 'text' }
                     - { property: 'is_deleted', label: 'Borrado', type: 'boolean' }
                     - { property: 'getIsDefaultAddressUser', label: 'Por defecto', type: 'boolean' }
             show:
                 title: 'Usuario'
                 fields:
                     - id
-                    - { property: 'userId', label: 'ID Usuario', type: 'integer' }
+                    - user
                     - { property: 'name', label: 'Nombre', type: 'text' }
                     - { property: 'street', label: 'Dirección', type: 'text' }
                     - { property: 'city', label: 'Ciudad', type: 'text' }
                     - { property: 'region', label: 'Población', type: 'text' }
+                    - { property: 'zipCode', label: 'Cod. Postal', type: 'text' }
                     - { property: 'country', label: 'Pais', type: 'text' }
                     - { property: 'is_deleted', label: 'Borrado' }
                     - { property: 'phoneCompleto', label: 'Teléfono Dirr', type: 'text' }
@@ -111,6 +122,7 @@ easy_admin:
                     - { property: 'fromNick', label: 'Emisor', sortable: true}
                     - { property: 'toNick', label: 'Remitente'}
             form:
+                help: 'Introduzca un número según la siguiente leyenda:<br> 0 -> enviado,<br> 1 -> rechazado,<br> 2 -> aprobado,<br> 3 -> leido'
                 fields:
                     - status
                     - { property: 'revisionDate',format: 'j/n/Y' }
@@ -118,22 +130,122 @@ easy_admin:
                 title: 'Mensaje a usuario'
         Photo:
             class: WWW\GlobalBundle\Entity\Photo
+            label: 'Fotos'
             list:
                 fields:
                     - id
-                    - { property: 'url', type: 'image', base_path: 'https://whatwantweb.com/' }
+                    - { property: 'url', type: 'image', base_path: 'https://whatwantweb.com/JS9NAJ8JEABj8jcsk9xbGTC7VSM9XAMbaxnbs3873778dhd4m' }
                     - { property: 'createdDate',format: 'j/n/Y'}
                     - { property: 'modifiedDate',format: 'j/n/Y'}
-        Trade:
-            class: WWW\OthersBundle\Entity\Trade
+                    - isDeleted
+                    
+            show:
+                fields:
+                    - id
+                    - { property: 'url', type: 'image', base_path: 'https://whatwantweb.com/JS9NAJ8JEABj8jcsk9xbGTC7VSM9XAMbaxnbs3873778dhd4m' }
+                    - { property: 'createdDate',format: 'j/n/Y'}
+                    - { property: 'modifiedDate',format: 'j/n/Y'}
+                    - isDeleted
+        
         Offer:
             class: WWW\ServiceBundle\Entity\Offer
-        User:
-            disabled_actions: ['show']
-            class: WWW\UserBundle\Entity\User
+            label: 'Ofertas'
+            help: 'Aqui se muestran todas las ofertas en general'
             list:
-                fields: ['id','name','surname','username','email','phone','isBanned']
+                fields:
+                    - id  
+                    - { property: 'serviceId', type: 'text'}
+                    - userAdmin
+                    - expired
+                    - holders
+                    - isDeleted
+                    - { property: 'createdDate', format: 'j/n/Y'}
+                    - { property: 'modifiedDate',format: 'j/n/Y'}
+            show:
+                title: 'Oferta'
+                fields:
+                    - id
+                    - { property: 'serviceId', type: 'text'}
+                    - userAdmin
+                    - { property: 'photos', type: 'collection'}
+                    - expired
+                    - holders
+                    - isDeleted
+                    - { property: 'createdDate', format: 'j/n/Y'}
+                    - { property: 'modifiedDate',format: 'j/n/Y'}
+        
+        Inscription:
+            class: WWW\ServiceBundle\Entity\Inscription
+            label: 'Inscripciones'
+            help: 'Recuerde los significados de los estados: <br>  0 -> peticion,<br> 1 -> denegado,<br> 2 -> aceptado, <br> 3 -> pagado, <br> 4 -> cancelado, <br>  5 -> consumido'
+            list:
+                fields:
+                    - id 
+                    - { property: 'userNick', label: 'Nick del usuario', sortable: true}
+                    - offer
+                    - { property: 'status',label: 'Estado de la inscripción'}
+                    - dataExtra
+            show:
+                fields:
+                    - id 
+                    - { property: 'userNick', label: 'Nick del usuario'}
+                    - offer
+                    - { property: 'status',label: 'Estado de la inscripción'}
+                    - dataExtra
+            form:
+                fields:
+                    - id 
+                    - { property: 'status',label: 'Estado de la inscripción'}
+                    - dataExtra
+            
+        Concept:
+            class: WWW\ServiceBundle\Entity\Concept
+            label: 'Conceptos Facturas'    
+            
+        Billing:
+            class: WWW\ServiceBundle\Entity\Billing
+            label: 'Facturas'
+            
+        Payment:
+            class: Acme\PaymentBundle\Entity\Payment
+            label: 'Pagos'
 
-        Address:
-            class: WWW\GlobalBundle\Entity\Address
+        MyCompanyEvents:
+            class: WWW\GlobalBundle\Entity\MyCompanyEvents
+            label: 'Eventos del Calendario'
+            
+        Calendar: #revisar esta entidad
+            class: WWW\GlobalBundle\Entity\Calendar
+            label: 'Calendarios'
+        
+        Valoration:
+            class: WWW\ServiceBundle\Entity\Valoration
+            label: 'Valoraciones'
 
+        Wallet:
+            class: WWW\UserBundle\Entity\Wallet
+            label: 'Bolsa'            
+        
+        Trade:
+            class: WWW\OthersBundle\Entity\Trade
+            label: 'Ofertas de Compra-Venta' 
+            
+        ShareCar:
+            class: WWW\CarsBundle\Entity\ShareCar
+            label: 'Ofertas de Vehículos' 
+            
+        Car:
+            class: WWW\CarsBundle\Entity\Car
+            label: 'Coches' 
+        
+        ShareHouse:
+            class: WWW\HouseBundle\Entity\ShareHouse
+            label: 'Casa Compartida'
+        
+        ShareRoom:
+            class: WWW\HouseBundle\Entity\ShareRoom
+            label: 'Habitación Compartida'
+            
+        House:
+            class: WWW\HouseBundle\Entity\House
+            label: 'Casas'

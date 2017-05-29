@@ -1,0 +1,180 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        House:
+            class: WWW\HouseBundle\Entity\House
+            label: 'Casas'
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Listado de Casas'
+                fields:
+                    - id
+                    - { property: 'title', label: 'Nombre'}
+                    - address
+                    - user
+                    - calendar
+                    - { property: 'licenseNumber', label: 'Numero de licencia'}
+                    - { property: 'capacity', label: 'Capacidad'}
+                    - { property: 'createdDate', label: 'Creación', type: 'datetime'}
+                    - { property: 'modifiedDate', label: 'Modificación',type: 'datetime'}
+                    - { property: 'isDeleted', label: 'Borrado', type: 'boolean' }
+                    
+            show:
+                title: 'Casa'
+                fields:
+                    - id
+                    - { property: 'title', label: 'Nombre'}
+                    - address
+                    - user
+                    - calendar
+                    - { property: 'licenseNumber', label: 'Numero de licencia'}
+                    - { property: 'capacity', label: 'Capacidad'}
+                    - { property: 'bathrooms', label: 'Baños'}
+                    - { property: 'beds', label: 'Camas'}
+                    - { property: 'aireAcondicionado', label: 'Aire acondicionado'}
+                    - { property: 'calefaccion', label: 'Calefacción'}
+                    - { property: 'ascensor', label: 'Ascensor'}
+                    - { property: 'portero', label: 'Portero'}
+                    - { property: 'timbre', label: 'Timbre'}
+                    - { property: 'apartamentoEdificio', label: 'Apartamento'}
+                    - { property: 'accesoDiscapacitados', label: 'Acceso para discapacitados'}
+                    - { property: 'piscina', label: 'Piscina'}
+                    - { property: 'gimnasio', label: 'Gimnasio'}
+                    - { property: 'fogones', label: 'Hornilla'}
+                    - { property: 'papelHigienico', label: 'Papel higiénico'}
+                    - { property: 'bidet', label: 'Bidé'}
+                    - { property: 'banera', label: 'Bañera'}
+                    - { property: 'secadorPelo', label: 'Secador de pelo'}
+                    - { property: 'jacuzzi', label: 'Jacuzzi'}
+                    - { property: 'champu', label: 'Champú'}
+                    - { property: 'mesaComedor', label: 'Mesa de comedor'}
+                    - { property: 'cafetera', label: 'Cafetera'}
+                    - { property: 'productosLimpieza', label: 'Productos de limpieza'}
+                    - { property: 'horno', label: 'Horno'}
+                    - { property: 'utensiliosCocina', label: 'Utensilios de cocina'}
+                    - { property: 'lavadora', label: 'Lavadora'}
+                    - { property: 'microondas', label: 'Microondas'}
+                    - { property: 'champu', label: 'Champú'}
+                    - { property: 'nevera', label: 'Nevera'}
+                    - { property: 'secadora', label: 'Secadora'}
+                    - { property: 'desayuno', label: 'Desayuno'}
+                    - { property: 'armario', label: 'Armario'}
+                    - { property: 'sabanas', label: 'Sabanas'}
+                    - { property: 'sofaCama', label: 'Sofa-Cama'}
+                    - { property: 'tendedero', label: 'Tendedero'}
+                    - { property: 'perchero', label: 'Perchero'}
+                    - { property: 'perchas', label: 'Perchas'}
+                    - { property: 'sueloBaldosa', label: 'Suelo de baldosa'}
+                    - { property: 'insonorizacion', label: 'Insonorización'}
+                    - { property: 'entradaPrivada', label: 'Entrada privada'}
+                    - { property: 'ventilador', label: 'Ventilador'}
+                    - { property: 'plancha', label: 'Plancha'}
+                    - { property: 'pestillo', label: 'Pestillo'}
+                    - { property: 'vistasCiudad', label: 'Vistas a la ciudad'}
+                    - { property: 'vistasInteres', label: 'Vistas de interés'}
+                    - { property: 'comedor', label: 'Comedor'}
+                    - { property: 'sofa', label: 'Sofa'}
+                    - { property: 'zonaEstar', label: 'Zona de estar'}
+                    - { property: 'escritorio', label: 'Escritorio'}
+                    - { property: 'chimenea', label: 'Chimenea'}
+                    - { property: 'zonaPortatiles', label: 'Zona para portátiles'}
+                    - { property: 'tv', label: 'Televisión'}
+                    - { property: 'tvPlana', label: 'Televisión plana'}
+                    - { property: 'tvSatelite', label: 'Televisión por satélite'}
+                    - { property: 'wifi', label: 'WiFi'}
+                    - { property: 'parkingPublico', label: 'Parking público'}
+                    - { property: 'libros', label: 'Libros'}
+                    - { property: 'dvd', label: 'DVD'}
+                    - { property: 'puzzles', label: 'Puzzles'}
+                    - { property: 'eventos', label: 'Eventos'}
+                    - { property: 'fiestas', label: 'Fiestas'}
+                    - { property: 'fumar', label: 'Fumar'}
+                    - { property: 'mascotas', label: 'Mascotas'}
+                    - { property: 'botiquin', label: 'Botiquín'}
+                    - { property: 'detectorHumo', label: 'detector de humo'}
+                    - { property: 'detectorCO', label: 'Detector de CO'}
+                    - { property: 'extintor', label: 'Extintor'}
+                    - { property: 'fichaInstrucciones', label: 'Ficha de instrucciones'}
+                    - { property: 'protectorEnchufes', label: 'Protector de enchufes'}
+                    - { property: 'createdDate', label: 'Fecha de Pago', type: 'datetime'}
+                    - { property: 'modifiedDate', label: 'Fecha de Modificación',type: 'datetime'}
+                    - { property: 'isDeleted', label: 'Borrado', type: 'boolean' }
+                    
+            form:
+                title: 'Edición de Casa'
+                fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - { property: 'title', label: 'Nombre'}
+                    - { property: 'licenseNumber', label: 'Numero de licencia'}
+                    - { property: 'capacity', label: 'Capacidad'}
+                    - { property: 'bathrooms', label: 'Baños'}
+                    - { property: 'beds', label: 'Camas'}
+                    - { property: 'aireAcondicionado', label: 'Aire acondicionado'}
+                    - { property: 'calefaccion', label: 'Calefacción'}
+                    - { property: 'ascensor', label: 'Ascensor'}
+                    - { property: 'portero', label: 'Portero'}
+                    - { property: 'timbre', label: 'Timbre'}
+                    - { property: 'apartamentoEdificio', label: 'Apartamento'}
+                    - { property: 'accesoDiscapacitados', label: 'Acceso para discapacitados'}
+                    - { property: 'piscina', label: 'Piscina'}
+                    - { property: 'gimnasio', label: 'Gimnasio'}
+                    - { property: 'fogones', label: 'Hornilla'}
+                    - { property: 'papelHigienico', label: 'Papel higiénico'}
+                    - { property: 'bidet', label: 'Bidé'}
+                    - { property: 'banera', label: 'Bañera'}
+                    - { property: 'secadorPelo', label: 'Secador de pelo'}
+                    - { property: 'jacuzzi', label: 'Jacuzzi'}
+                    - { property: 'champu', label: 'Champú'}
+                    - { property: 'mesaComedor', label: 'Mesa de comedor'}
+                    - { property: 'cafetera', label: 'Cafetera'}
+                    - { property: 'productosLimpieza', label: 'Productos de limpieza'}
+                    - { property: 'horno', label: 'Horno'}
+                    - { property: 'utensiliosCocina', label: 'Utensilios de cocina'}
+                    - { property: 'lavadora', label: 'Lavadora'}
+                    - { property: 'microondas', label: 'Microondas'}
+                    - { property: 'champu', label: 'Champú'}
+                    - { property: 'nevera', label: 'Nevera'}
+                    - { property: 'secadora', label: 'Secadora'}
+                    - { property: 'desayuno', label: 'Desayuno'}
+                    - { property: 'armario', label: 'Armario'}
+                    - { property: 'sabanas', label: 'Sabanas'}
+                    - { property: 'sofaCama', label: 'Sofa-Cama'}
+                    - { property: 'tendedero', label: 'Tendedero'}
+                    - { property: 'perchero', label: 'Perchero'}
+                    - { property: 'perchas', label: 'Perchas'}
+                    - { property: 'sueloBaldosa', label: 'Suelo de baldosa'}
+                    - { property: 'insonorizacion', label: 'Insonorización'}
+                    - { property: 'entradaPrivada', label: 'Entrada privada'}
+                    - { property: 'ventilador', label: 'Ventilador'}
+                    - { property: 'plancha', label: 'Plancha'}
+                    - { property: 'pestillo', label: 'Pestillo'}
+                    - { property: 'vistasCiudad', label: 'Vistas a la ciudad'}
+                    - { property: 'vistasInteres', label: 'Vistas de interés'}
+                    - { property: 'comedor', label: 'Comedor'}
+                    - { property: 'sofa', label: 'Sofa'}
+                    - { property: 'zonaEstar', label: 'Zona de estar'}
+                    - { property: 'escritorio', label: 'Escritorio'}
+                    - { property: 'chimenea', label: 'Chimenea'}
+                    - { property: 'zonaPortatiles', label: 'Zona para portátiles'}
+                    - { property: 'tv', label: 'Televisión'}
+                    - { property: 'tvPlana', label: 'Televisión plana'}
+                    - { property: 'tvSatelite', label: 'Televisión por satélite'}
+                    - { property: 'wifi', label: 'WiFi'}
+                    - { property: 'parkingPublico', label: 'Parking público'}
+                    - { property: 'libros', label: 'Libros'}
+                    - { property: 'dvd', label: 'DVD'}
+                    - { property: 'puzzles', label: 'Puzzles'}
+                    - { property: 'eventos', label: 'Eventos'}
+                    - { property: 'fiestas', label: 'Fiestas'}
+                    - { property: 'fumar', label: 'Fumar'}
+                    - { property: 'mascotas', label: 'Mascotas'}
+                    - { property: 'botiquin', label: 'Botiquín'}
+                    - { property: 'detectorHumo', label: 'detector de humo'}
+                    - { property: 'detectorCO', label: 'Detector de CO'}
+                    - { property: 'extintor', label: 'Extintor'}
+                    - { property: 'fichaInstrucciones', label: 'Ficha de instrucciones'}
+                    - { property: 'protectorEnchufes', label: 'Protector de enchufes'}
+                    - { property: 'createdDate', label: 'Fecha de Pago', type: 'datetime'}
+                    - { property: 'modifiedDate', label: 'Fecha de Modificación',type: 'datetime'}
+                    - { property: 'isDeleted', label: 'Borrado', type: 'checkbox' }

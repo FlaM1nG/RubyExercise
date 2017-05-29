@@ -1,0 +1,9 @@
+## YAML Template.
+---
+easy_admin:
+    site_name: 'Gestión WhatWantWeb'
+    design:
+        brand_color: '#f60'
+         
+            
+        
