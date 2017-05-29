@@ -119,7 +119,7 @@
 {% block popupBlock %}
 
      {% if service == 2 %}
-        {{ popups.popup('sid-ocio', 'Comisión solo del 8%',
+        {{ popups.popup('sid-ocio', 'Comisión solo del 8%*',
         sidebars.sidebarElementDemo('',include(':services/sidebar:ofertaText.html.twig'))) }}
      {% endif %}
 
@@ -161,18 +161,18 @@
                 var windowBottom = windowTop + window.innerHeight;
                 var elementPositionTop = $('.row.separacion-inferior').offset().top;
                 var elementPositionBottom = elementPositionTop + $('.row.separacion-inferior').height();
-                var ofertaHeight = $('#column-left').height();
-                var ofertaTop = $('#column-left').offset().top;
-                var ofertaBottom = ofertaTop + $('#column-left').height();
+                var ofertaHeight = $('#offerRight').height();
+                var ofertaTop = $('#offerRight').offset().top;
+                var ofertaBottom = ofertaTop + $('#offerRight').height();
 
                 var posicion = elementPositionTop - windowTop;
-                $('#column-left').css('top',posicion);
+                $('#offerRight').css('top',posicion);
 
                 var aux = ofertaBottom+ofertaHeight;
 
                 if(windowTop > elementPositionTop && aux < elementPositionBottom ){
 
-                    $('#column-left').css('top','80px');
+                    $('#offerRight').css('top','80px');
                 }
 
 
