@@ -5,3 +5,44 @@ easy_admin:
         Car:
             class: WWW\CarsBundle\Entity\Car
             label: 'Coches' 
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Coches de los Usuarios'
+                fields:
+                    - id
+                    - { property: 'plate', label: 'Matrícula'}
+                    - { property: 'carInsurance', label: 'Seguro del coche'}
+                    - user
+                    - { property: 'seats', label: 'Asientos'}
+                    - { property: 'type', label: 'Tipo de Coche'}
+            show:
+                title: 'Coche'
+                fields: 
+                    - id
+                    - { property: 'plate', label: 'Matrícula'}
+                    - { property: 'color', label: 'Color'}
+                    - { property: 'description', label: 'Descripción'}
+                    - { property: 'kilometers', label: 'Kilómetros'}
+                    - { property: 'carInsurance', label: 'Seguro del coche'}
+                    - { property: 'smoke', label: 'Fumador', type: 'boolean' }
+                    - { property: 'animals', label: 'Permite Animales', type: 'boolean' }
+                    - { property: 'music', label: 'Escucha música', type: 'boolean' }
+                    - { property: 'talk', label: 'Hablador', type: 'boolean' }
+                    - user
+                    - { property: 'seats', label: 'Asientos'}
+                    - { property: 'type', label: 'Tipo de Coche'}
+            form:
+                title: 'Coche'
+                fields: 
+                    - id
+                    - { property: 'plate', label: 'Matrícula'}
+                    - { property: 'color', label: 'Color'}
+                    - { property: 'description', label: 'Descripción'}
+                    - { property: 'kilometers', label: 'Kilómetros'}
+                    - { property: 'carInsurance', label: 'Seguro del coche'}
+                    - { property: 'smoke', label: 'Fumador' }
+                    - { property: 'animals', label: 'Permite Animales' }
+                    - { property: 'music', label: 'Escucha música' }
+                    - { property: 'talk', label: 'Hablador' }                   
+                    - { property: 'seats', label: 'Asientos'}
+                    - { property: 'type', label: 'Tipo de Coche'}

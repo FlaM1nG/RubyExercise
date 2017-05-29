@@ -275,6 +275,15 @@ class Trade
     {
         return $this->category;
     }
+    /**
+     * Get category
+     *
+     * @return \WWW\OthersBundle\Entity\TradeCategory 
+     */
+    public function getCategoryName()
+    {
+        return $this->category->getName();
+    }
 
     /**
      * Set region

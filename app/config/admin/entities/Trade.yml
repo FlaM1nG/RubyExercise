@@ -5,3 +5,30 @@ easy_admin:
         Trade:
             class: WWW\OthersBundle\Entity\Trade
             label: 'Ofertas de Compra-Venta' 
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Ofertas de Compra-Venta'
+                fields:
+                    - id
+                    - { property: 'price', label: 'Precio'}
+                    - { property: 'weight', label: 'Peso'}
+                    - { property: 'offer', label: 'Oferta'} 
+                    - { property: 'categoryName', label: 'Servicio'}
+                    - { property: 'region', label: 'Población'}
+                    - { property: 'address', label: 'Dirección'}
+            show:
+                title: 'Oferta Compra-Venta'
+                fields:
+                    - id
+                    - { property: 'price', label: 'Precio'}
+                    - { property: 'weight', label: 'Peso'}
+                    - { property: 'offer', label: 'Oferta'} 
+                    - { property: 'categoryName', label: 'Servicio'}
+                    - { property: 'region', label: 'Población'}
+                    - { property: 'address', label: 'Dirección'}
+            form:
+                title: 'Oferta Compra-Venta'
+                fields:
+                    - { property: 'price', label: 'Precio'}
+                    - { property: 'weight', label: 'Peso'}
+                    - { property: 'region', label: 'Población'}

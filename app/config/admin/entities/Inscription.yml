@@ -9,7 +9,7 @@ easy_admin:
             list:
                 fields:
                     - id 
-                    - { property: 'userNick', label: 'Nick del usuario', sortable: true}
+                    - { property: 'userNick', label: 'Nick del usuario'}
                     - offer
                     - { property: 'status',label: 'Estado de la inscripción'}
                     - dataExtra

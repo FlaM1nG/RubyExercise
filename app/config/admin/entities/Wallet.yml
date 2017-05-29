@@ -4,4 +4,32 @@ easy_admin:
     entities:
         Wallet:
             class: WWW\UserBundle\Entity\Wallet
-            label: 'Bolsa'    
+            label: 'Bolsa'  
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Bolsa'
+                fields:
+                    - id
+                    - { property: 'quantity', label: 'Cantidad'}
+                    - { property: 'concept', label: 'Concepto'}
+                    - { property: 'consumed', label: 'Consumida', type: 'boolean'} 
+                    - { property: 'user', label: 'Usuario'}
+                    - { property: 'serviceName', label: 'Servicio'}
+                    - { property: 'date', label: 'Fecha', type: 'datetime'}
+            show:
+                title: 'Bolsa'
+                fields:
+                    - id
+                    - { property: 'quantity', label: 'Cantidad'}
+                    - { property: 'concept', label: 'Concepto'}
+                    - { property: 'consumed', label: 'Consumida', type: 'boolean'} 
+                    - { property: 'user', label: 'Usuario'}
+                    - { property: 'serviceName', label: 'Servicio'}
+                    - { property: 'date', label: 'Fecha', type: 'datetime'}
+            form:
+                title: 'Bolsa'
+                fields:
+                    - { property: 'quantity', label: 'Cantidad'}
+                    - { property: 'concept', label: 'Concepto'}
+                    - { property: 'consumed', label: 'Consumida', type: 'boolean'} 
+                    - { property: 'date', label: 'Fecha', type: 'datetime'}

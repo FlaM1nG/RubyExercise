@@ -20,7 +20,7 @@ easy_admin:
                     - { property: 'is_deleted', label: 'Borrado', type: 'boolean' }
                     - { property: 'getIsDefaultAddressUser', label: 'Por defecto', type: 'boolean' }
             show:
-                title: 'Usuario'
+                title: 'Dirección'
                 fields:
                     - id
                     - user
@@ -33,3 +33,16 @@ easy_admin:
                     - { property: 'is_deleted', label: 'Borrado' }
                     - { property: 'phoneCompleto', label: 'Teléfono Dirr', type: 'text' }
                     - { property: 'getIsDefaultAddressUser', label: 'Por defecto', type: 'boolean' }
+            form:
+                title: 'Dirección'
+                fields:
+                    - id
+                    - { property: 'name', label: 'Nombre', type: 'text' }
+                    - { property: 'street', label: 'Dirección', type: 'text' }
+                    - { property: 'city', label: 'Ciudad', type: 'text' }
+                    - { property: 'region', label: 'Población', type: 'text' }
+                    - { property: 'zipCode', label: 'Cod. Postal', type: 'text' }
+                    - { property: 'country', label: 'Pais', type: 'text' }
+                    - { property: 'is_deleted', label: 'Borrado', type: 'checkbox' }
+                    - { property: 'phoneCompleto', label: 'Teléfono Dirr', type: 'text' }
+                    - { property: 'getIsDefaultAddressUser', label: 'Por defecto', type: 'checkbox' }

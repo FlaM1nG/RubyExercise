@@ -5,3 +5,32 @@ easy_admin:
         ShareCar:
             class: WWW\CarsBundle\Entity\ShareCar
             label: 'Ofertas de Vehículos'
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Busqueda de usuarios'
+                fields:
+                    - id
+                    - { property: 'fromPlace', label: 'Origen'}
+                    - { property: 'toPlace', label: 'Destino'}
+                    - { property: 'date', label: 'Fecha', type: 'datetime'} 
+                    - { property: 'car', label: 'Coche'}
+                    - { property: 'offer', label: 'Oferta'}
+                    - { property: 'price', label: 'Precio'}
+            show:
+                title: 'Coche Compartido'
+                fields:
+                    - id
+                    - { property: 'fromPlace', label: 'Origen'}
+                    - { property: 'toPlace', label: 'Destino'}
+                    - { property: 'date', label: 'Fecha', type: 'datetime'} 
+                    - { property: 'car', label: 'Coche'}
+                    - { property: 'offer', label: 'Oferta'}
+                    - { property: 'price', label: 'Precio'}
+            form:
+                title: 'Coche Compartido'
+                fields:
+                    
+                    - { property: 'fromPlace', label: 'Origen'}
+                    - { property: 'toPlace', label: 'Destino'}
+                    - { property: 'date', label: 'Fecha', type: 'datetime'} 
+                    - { property: 'price', label: 'Precio'}

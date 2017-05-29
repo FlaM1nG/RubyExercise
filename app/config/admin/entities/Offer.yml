@@ -5,26 +5,32 @@ easy_admin:
         Offer:
             class: WWW\ServiceBundle\Entity\Offer
             label: 'Ofertas'
-            help: 'Aqui se muestran todas las ofertas en general'
             list:
+                help: 'Aqui se muestran todas las ofertas en general'
                 fields:
                     - id  
                     - { property: 'serviceId', type: 'text'}
-                    - userAdmin
-                    - expired
-                    - holders
-                    - isDeleted
+                    - { property: 'userAdmin', label: 'Usuario'}
+                    - { property: 'expired',label: 'Expirada' ,type: 'boolean'}
+                    - { property: 'holders',label: 'Capacidad' }
+                    - { property: 'isDeleted',label: 'Borrada' ,type: 'boolean'}
                     - { property: 'createdDate', format: 'j/n/Y'}
                     - { property: 'modifiedDate',format: 'j/n/Y'}
             show:
                 title: 'Oferta'
                 fields:
-                    - id
+                    - id  
                     - { property: 'serviceId', type: 'text'}
-                    - userAdmin
-                    - { property: 'photos', type: 'collection'}
-                    - expired
-                    - holders
-                    - isDeleted
+                    - { property: 'userAdmin', label: 'Usuario'}
+                    - { property: 'expired',label: 'Expirada' ,type: 'boolean'}
+                    - { property: 'holders',label: 'Capacidad' }
+                    - { property: 'isDeleted',label: 'Borrada' ,type: 'boolean'}
                     - { property: 'createdDate', format: 'j/n/Y'}
                     - { property: 'modifiedDate',format: 'j/n/Y'}
+            form:
+                title: 'Oferta'
+                fields:
+                    - { property: 'expired',label: 'Expirada' ,type: 'checkbox'}
+                    - { property: 'holders',label: 'Capacidad' }
+                    - { property: 'isDeleted',label: 'Borrada' ,type: 'checkbox'}
+                    

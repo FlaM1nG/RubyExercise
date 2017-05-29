@@ -5,3 +5,28 @@ easy_admin:
         Concept:
             class: WWW\ServiceBundle\Entity\Concept
             label: 'Conceptos Facturas'  
+            disabled_actions: ['delete', 'new', 'edit']
+            list:
+                title: 'Concepto de las Facturas'
+                fields:
+                    - id
+                    - { property: 'name', label: 'Nombre'}
+                    - iva
+                    - { property: 'price', label: 'Precio'} #hay que traducir 1 o 0 según proceda
+                    - billing
+                    - inscription
+                    - { property: 'description', label: 'Descripción'}
+                    - { property: 'reference', label: 'Referencia'}
+            list:
+                title: 'Concepto de las Facturas'
+                fields:
+                    - id
+                    - { property: 'name', label: 'Nombre'}
+                    - iva
+                    - { property: 'price', label: 'Precio'} #hay que traducir 1 o 0 según proceda
+                    - billing
+                    - inscription
+                    - { property: 'description', label: 'Descripción'}
+                    - { property: 'reference', label: 'Referencia'}
+#                    - { property: 'offersUser', label: 'Ofertas'}
+           

@@ -5,3 +5,24 @@ easy_admin:
         Billing:
             class: WWW\ServiceBundle\Entity\Billing
             label: 'Facturas'
+            disabled_actions: ['delete', 'new', 'edit']
+            list:
+                title: 'Facturas'
+                fields:
+                    - id
+                    - { property: 'user', label: 'Usuario'}
+                    - { property: 'address', label: 'Direccion de Facturación'}
+                    - { property: 'reference', label: 'Referencia'}
+                    - { property: 'paid', label: 'Pagado', type: 'boolean' }
+                    - { property: 'paidDate', label: 'Fecha de Pago', type: 'datetime'}
+            show:
+                title: 'Facturas'
+                fields:
+                    - id
+                    - { property: 'user', label: 'Usuario'}
+                    - { property: 'address', label: 'Direccion de Facturación'}
+                    - { property: 'reference', label: 'Referencia'}
+                    - { property: 'paid', label: 'Pagado', type: 'boolean' }
+                    - { property: 'paidDate', label: 'Fecha de Pago', type: 'datetime'}
+                    
+                    

@@ -5,3 +5,30 @@ easy_admin:
         MyCompanyEvents:
             class: WWW\GlobalBundle\Entity\MyCompanyEvents
             label: 'Eventos del Calendario'
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Eventos del Calendario'
+                fields:
+                    - id
+                    - { property: 'calendarID', label: 'Id del calendario'}
+                    - { property: 'price', label: 'Precio'} 
+                    - { property: 'ocuppate', label: 'Ocupado', type: 'boolean'}
+                    - { property: 'startDatetime', label: 'Día', type: 'datetime'}
+                    - { property: 'inscriptionID', label: 'Id de Inscripcción'}
+                    
+            show:
+                title: 'Evento del Calendario'
+                fields:
+                    - id
+                    - { property: 'calendarID', label: 'Id del calendario'}
+                    - { property: 'price', label: 'Precio'} 
+                    - { property: 'ocuppate', label: 'Ocupado', type: 'boolean'}
+                    - { property: 'startDatetime', label: 'Día', type: 'datetime'}
+                    - { property: 'inscriptionID', label: 'Id de Inscripcción'}
+
+            form:
+                title: 'Usuario'
+                fields:
+                    - { property: 'ocuppate', label: 'Ocupado', type: 'checkbox'}
+                    - { property: 'startDatetime', label: 'Día', type: 'datetime'}
+                    

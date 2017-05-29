@@ -5,3 +5,29 @@ easy_admin:
         Valoration:
             class: WWW\ServiceBundle\Entity\Valoration
             label: 'Valoraciones'
+            disabled_actions: ['delete', 'new']
+            help: 'Las Valoraciones van de 0(baja) - 5(alta)'
+            list:
+                title: 'Valoraciones'
+                fields:
+                    - id
+                    - { property: 'comment', label: 'Comentario'}
+                    - { property: 'score', label: 'Valoracion'}
+                    - { property: 'user', label: 'Usuario'} 
+                    - { property: 'offer', label: 'Oferta'}
+                    - { property: 'createdDate', label: 'Fecha de valoración', type: 'datetime'}
+            show:
+                title: 'Valoración'
+                fields:
+                    - id
+                    - { property: 'comment', label: 'Comentario'}
+                    - { property: 'score', label: 'Valoracion'}
+                    - { property: 'user', label: 'Usuario'} 
+                    - { property: 'offer', label: 'Oferta'}
+                    - { property: 'createdDate', label: 'Fecha de valoración', type: 'datetime'}
+            form:
+                title: 'Valoración'
+                fields:
+                    - { property: 'comment', label: 'Comentario'}
+                    - { property: 'score', label: 'Valoracion'}
+                    - { property: 'createdDate', label: 'Fecha de valoración', type: 'datetime'}

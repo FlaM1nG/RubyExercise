@@ -15,7 +15,19 @@ easy_admin:
                     - { property: 'statusString', label: 'Estado', type: 'text'}
                     - { property: 'revisionDate', label: 'Fecha Revisión' }
                     - { property: 'createdDate', label: 'Fecha Alta'}
-                    - { property: 'fromNick', label: 'Emisor', sortable: true}
+                    - { property: 'fromNick', label: 'Emisor'}
+                    - { property: 'toNick', label: 'Remitente'}
+            show:
+#                dql_filter: 'entity.status > 2'
+                title: 'Mensajes entre Usuarios'
+                fields: 
+                    - id
+                    - { property: 'subject', label: 'Titulo', type: 'text'}
+                    - { property: 'message', label: 'Mensaje', type: 'text'}
+                    - { property: 'statusString', label: 'Estado', type: 'text'}
+                    - { property: 'revisionDate', label: 'Fecha Revisión' }
+                    - { property: 'createdDate', label: 'Fecha Alta'}
+                    - { property: 'fromNick', label: 'Emisor'}
                     - { property: 'toNick', label: 'Remitente'}
             form:
                 help: 'Introduzca un número según la siguiente leyenda:<br> 0 -> enviado,<br> 1 -> rechazado,<br> 2 -> aprobado,<br> 3 -> leido'

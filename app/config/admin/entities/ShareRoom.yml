@@ -5,3 +5,29 @@ easy_admin:
         ShareRoom:
             class: WWW\HouseBundle\Entity\ShareRoom
             label: 'Habitación Compartida'
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Habitaciones Compartidas'
+                fields:
+                    - id
+                    - { property: 'name', label: 'Nombre'}
+                    - { property: 'street', label: 'Calle'}
+                    - { property: 'city', label: 'Ciudad'}
+                    - { property: 'region', label: 'Población'}
+                    - { property: 'offer', label: 'Oferta'}
+            show:
+                title: 'Habitación Compartida'
+                fields:
+                    - id
+                    - { property: 'name', label: 'Nombre'}
+                    - { property: 'street', label: 'Calle'}
+                    - { property: 'city', label: 'Ciudad'}
+                    - { property: 'region', label: 'Población'}
+                    - { property: 'offer', label: 'Oferta'}
+            form:
+                title: 'Habitación Compartida'
+                fields:
+                    - { property: 'name', label: 'Nombre'}
+                    - { property: 'street', label: 'Calle'}
+                    - { property: 'city', label: 'Ciudad'}
+                    - { property: 'region', label: 'Población'}

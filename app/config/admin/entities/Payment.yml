@@ -5,3 +5,21 @@ easy_admin:
         Payment:
             class: Acme\PaymentBundle\Entity\Payment
             label: 'Pagos'
+            disabled_actions: ['delete', 'new', 'edit']
+            list:
+                title: 'Listado de Pagos'
+                fields:
+                    - id
+                    - { property: 'number', label: 'Referencia'}
+                    - { property: 'clientEmail', label: 'Nick Usuario'}
+                    - { property: 'totalAmount', label: 'Cantidad Total Pagada'} 
+                    
+            show:
+                title: 'Pago'
+                fields:
+                    - id
+                    - { property: 'number', label: 'Referencia'}
+                    - { property: 'clientEmail', label: 'Nick Usuario'}
+                    - { property: 'totalAmount', label: 'Cantidad Total Pagada'} 
+                    - { property: 'details', label: 'Detalles'} 
+            

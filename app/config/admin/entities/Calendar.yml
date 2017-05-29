@@ -5,3 +5,26 @@ easy_admin:
         Calendar: #revisar esta entidad
             class: WWW\GlobalBundle\Entity\Calendar
             label: 'Calendarios'
+            disabled_actions: ['delete', 'new', 'edit']
+            list:
+                title: 'Calendarios de las Casas'
+                fields:
+                    - id
+                    - { property: 'name', label: 'Nombre'}
+                    - { property: 'createdDate', label: 'Fecha de Pago', type: 'datetime'}
+                    - { property: 'modifiedDate', label: 'Fecha de Modificación',type: 'datetime'}
+                    - { property: 'isDeleted', label: 'Borrado', type: 'boolean' }
+                    - { property: 'deletedDate', label: 'Fecha de Borrado',type: 'datetime'}
+                    
+                    
+            show:
+                title: 'Calendario de Casa'
+                fields:
+                    - id
+                    - { property: 'name', label: 'Nombre'}
+                    - { property: 'createdDate', label: 'Fecha de Pago', type: 'datetime'}
+                    - { property: 'modifiedDate', label: 'Fecha de Modificación',type: 'datetime'}
+                    - { property: 'isDeleted', label: 'Borrado', type: 'boolean' }
+                    - { property: 'deletedDate', label: 'Fecha de Borrado',type: 'datetime'}
+                    
+                    
