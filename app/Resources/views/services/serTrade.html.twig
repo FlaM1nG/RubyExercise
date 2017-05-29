@@ -111,13 +111,17 @@
 {% endblock %}
 
 {% block serviceSidebar %}
-
-    {{ include(':services/sidebar:ofertaMovil.html.twig') }}
+    {% if service == 2 %}
+        {{ include(':services/sidebar:ofertaMovil.html.twig') }}
+    {% endif %}
 {% endblock %}
 
 {% block popupBlock %}
-    {{ popups.popup('sid-ocio', 'Comisión solo del 8%',
-    sidebars.sidebarElementDemo('',include(':services/sidebar:ofertaText.html.twig'))) }}
+
+     {% if service == 2 %}
+        {{ popups.popup('sid-ocio', 'Comisión solo del 8%',
+        sidebars.sidebarElementDemo('',include(':services/sidebar:ofertaText.html.twig'))) }}
+     {% endif %}
 
 {% endblock %}
 
@@ -150,27 +154,30 @@
             gutter: 20
         });
 
-        $(window).scroll(function() {
-            var windowTop = $(document).scrollTop();
-            var windowBottom = windowTop + window.innerHeight;
-            var elementPositionTop = $('.row.separacion-inferior').offset().top;
-            var elementPositionBottom = elementPositionTop + $('.row.separacion-inferior').height();
-            var ofertaHeight = $('#column-left').height();
-            var ofertaTop = $('#column-left').offset().top;
-            var ofertaBottom = ofertaTop + $('#column-left').height();
+        {% if service == 2 %}
 
-            var posicion = elementPositionTop - windowTop;
-            $('#column-left').css('top',posicion);
+            $(window).scroll(function() {
+                var windowTop = $(document).scrollTop();
+                var windowBottom = windowTop + window.innerHeight;
+                var elementPositionTop = $('.row.separacion-inferior').offset().top;
+                var elementPositionBottom = elementPositionTop + $('.row.separacion-inferior').height();
+                var ofertaHeight = $('#column-left').height();
+                var ofertaTop = $('#column-left').offset().top;
+                var ofertaBottom = ofertaTop + $('#column-left').height();
 
-            var aux = ofertaBottom+ofertaHeight;
+                var posicion = elementPositionTop - windowTop;
+                $('#column-left').css('top',posicion);
 
-            if(windowTop > elementPositionTop && aux < elementPositionBottom ){
+                var aux = ofertaBottom+ofertaHeight;
 
-                $('#column-left').css('top','80px');
-            }
+                if(windowTop > elementPositionTop && aux < elementPositionBottom ){
+
+                    $('#column-left').css('top','80px');
+                }
 
 
-        });
+            });
+        {% endif %}
 
     });
 
