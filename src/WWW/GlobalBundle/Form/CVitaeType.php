@@ -36,7 +36,7 @@ class CVitaeType extends AbstractType{
                     'community_manager'   => 'Community Manager',
                     'diseñador'   => 'Diseñador Gráfico',
                     'programador_movil' => 'Programador Aplicaciones Móviles',
-                    'programador_seguridad'   => 'Programador Seguridad',
+                    'desarrollador_software_seguro'   => 'Desarrollador Software Seguro',
                     'programador_web'   => 'Programador Web',
                     'bigdata'   => 'Big Data',
                     'otros'   => 'Otros',
