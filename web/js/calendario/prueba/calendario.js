@@ -68,6 +68,7 @@ $(document).ready(function() {
                 $('#ModalEdit #service_id').val($('#serviceID').val());
                 $('#ModalEdit #start').val($('#startDateCalendario').val());
                 $('#ModalEdit #idoffer').val($('#idoffer').val());
+                $('#ModalEdit #datepicker_DatePickerto').val($('#endDate').val());
                 
                 
 
@@ -155,6 +156,7 @@ $(document).ready(function() {
         calendarID = event.calendarID;
         serviceID = event.serviceID;
         blocked = event.blocked;
+        end = event.end;
    
 
         Event = [];
@@ -165,6 +167,7 @@ $(document).ready(function() {
         Event['service_id'] = serviceID;
         Event['idOffer'] = idoferta;
         Event['blocked'] = blocked;
+        Event['end'] = end;
 
         $.ajax({
             url: Routing.generate('fullcalendar_edit_create'),

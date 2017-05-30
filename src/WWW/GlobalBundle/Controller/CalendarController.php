@@ -18,6 +18,15 @@ class CalendarController extends Controller
      * @return Response
      */
 
+    function diferenciaDias($inicio, $fin) {
+        $inicio = strtotime($inicio);
+        $fin = strtotime($fin);
+        $dif = $fin - $inicio;
+        $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+        return ceil($diasFalt);
+    }
+
+
     public function loadCalendarAction(Request $request)
     {
 
@@ -63,31 +72,57 @@ class CalendarController extends Controller
 
         $date= new \DateTime ($_POST['startDateCalendario']);
 
-        // query for a single product matching the given name and price
-        $test = $repository->findOneBy(
-            array('calendarID' => $_POST['calendar_id'], 'serviceID' => $_POST['service_id'], 'startDatetime' => $date
-            ));
+       // Si no esta vacio la fecha final la metemos y si esta vacia metemos la misma que la inicial
 
+        if (!empty(($_POST['datepicker_DatePickerto']))) {
 
-        if (!$test) {
+            $date_final = ($_POST['datepicker_DatePickerto']);
+        }
 
-            $dateEnd = $date;
+            else {
 
-            $mce = new MyCompanyEvents('','€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'),null,null, $date, $dateEnd,0,$request->get('blocked'),0,$request->get('inscription_id'));
-
-
-            $em->persist($mce);
-
-            $em->flush();
-
-            }else{
-
-                    $test->setPrice($request->get('price'));
-                    $test->setBlocked($request->get('blocked'));
-                    $em->flush();
+                $date_final = ($_POST['startDateCalendario']);
 
             }
+        
+        $date_inicial = ($_POST['startDateCalendario']);
 
+        //imprime el numero de dias entre el rango de fecha
+        $numero_dias = $this->diferenciaDias($date_inicial, $date_final);
+
+
+        for ($n = 0; $n <= $numero_dias; $n++) {
+
+            // query for a single product matching the given name and price
+            $test = $repository->findOneBy(
+                array('calendarID' => $_POST['calendar_id'], 'serviceID' => $_POST['service_id'], 'startDatetime' => $date
+                ));
+
+
+            if (!$test) {
+
+                $dateEnd = $date;
+
+                $mce = new MyCompanyEvents('', '€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'), null, null, $date, $dateEnd, 0, $request->get('blocked'), 0, $request->get('inscription_id'));
+
+
+                $em->persist($mce);
+
+                $em->flush();
+
+                $dateEnd->modify('+1 day');
+                $date = $dateEnd;
+
+            } else {
+                $dateEnd = $date;
+                $test->setPrice($request->get('price'));
+                $test->setBlocked($request->get('blocked'));
+                $em->flush();
+                $dateEnd->modify('+1 day');
+                $date = $dateEnd;
+
+            }
+        }
         return $this->redirectToRoute('user_profiler_editOffer', array('idOffer' => $idoferta), 301);
     }
 
