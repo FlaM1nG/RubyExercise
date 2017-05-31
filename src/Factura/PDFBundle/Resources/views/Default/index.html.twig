@@ -73,7 +73,7 @@
           </tr>
           {% set total = referencia.price+((referencia.price*referencia.iva)/100)+total %}
         {% endfor %}
-
+        
         </tbody>
         <tfoot>
         {% set sePuede3 = false %}
@@ -81,14 +81,14 @@
         {% if sePuede3==false %}
           <tr>
             <td colspan="2">SUBTOTAL</td>
-            <td>{{ total}}€</td>
+            <td>{{ total|number_format(2, '.', ',')}}€</td>
             <td colspan="1">IVA y Gastos incluidos</td>
             <td></td>
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">TOTAL</td>
-            <td>{{ total}}€</td>
+            <td>{{ total|number_format(2, '.', ',')}}€</td>
               {% set sePuede3 = true %}
           </tr>
         {% endif %}
@@ -98,7 +98,7 @@
       <div id="thanks">¡Gracias por su compra!</div>
       <div id="notices">
         <div>NOTICIA:</div>
-        <div class="notice">Para cualquier consulta no dudes en contactarnos en support@whatwantweb.com o llamando al 665 80 80 06</div>
+        <div class="notice">Para cualquier consulta no dudes en contactarnos en support@whatwantweb.com o WhatsApp al 665 80 80 06</div>
       </div>
     </main>
     <footer>
