@@ -7,7 +7,7 @@
     {% if service != 8 %}
 
         <link rel="stylesheet" href="{{ asset('css/calendario/fullcalendar.css') }}" />
-
+        <link rel="stylesheet" href="{{ asset('css/calendario/datepi/jquery-ui.css') }}" />
     {% endif %}
 
 {% endblock %}
@@ -98,7 +98,7 @@
                     <div class="row">
                         <div class="col-lg-8 text-center">
                             <h3>Calendario</h3>
-                            <p class="lead">Para editar el precio pulsar dos veces sobre el precio que se desee modificar</p>
+                            <p class="lead">Para editar pulsar dos veces sobre el precio que se desee modificar</p>
                             <div id="calendar-holder" class="col-centered us-calendar">
                             </div>
                         </div>
@@ -126,6 +126,21 @@
                                             <label for="price" class="col-sm-2 control-label">Precio</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="price" class="form-control" id="price">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group sep-inf2">
+                                            <label for="price" class="col-sm-2 control-label">Fecha inicial</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="startDateCalendario" class="form-control" id="startDateCalendario" value="" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group sep-inf2">
+                                            <label for="datepicker_DatePickerto" class="col-sm-2 control-label">Fecha Final</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="datepicker_DatePickerto" class="form-control" id="datepicker_DatePickerto">
+
                                             </div>
                                         </div>
 
@@ -163,18 +178,14 @@
                                                 <input type="hidden" name="start" class="form-control" id="start">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="end" class="col-sm-2 control-label"></label>
-                                            <div class="col-sm-10">
-                                                <input type="hidden" name="end" class="form-control" id="end">
-                                            </div>
-                                        </div>
+
 
                                         <input type="hidden" name="id" class="form-control" id="id">
                                         <input type="hidden" name="title" class="form-control" id="title">
                                         <input type="hidden" name="serviceID" class="form-control" id="serviceID" value="{{ service }}">
                                         <input type="hidden" name="calendarID" class="form-control" id="calendarID" value="{{ calendarID }}">
-                                        <input type="hidden" name="startDateCalendario" class="form-control" id="startDateCalendario" value="">
+
+                                        <input type="hidden" name="endDate" class="form-control" id="endDate" value="">
                                         <button type="button" class="btn btn-default btn-cal-pop" data-dismiss="modal">Cerrar</button>
                                         <button type="submit" class="btn btn-default btn-cal-pop">Guardar Cambios</button>
 
@@ -228,6 +239,12 @@
 
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+
+        <script type="text/javascript" src="{{ asset('js/calendario/datepi/jquery-ui.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/datepi/core.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/datepi/md5.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/calendario/datepi/datep.js') }}"></script>
 
     {% endif %}
 
