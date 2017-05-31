@@ -62,7 +62,7 @@ class Inscription
      * @var string
      */
     private $dataExtra;
-
+    
     /**
      * Get id
      *
@@ -210,7 +210,13 @@ class Inscription
     {
         return $this->user;
     }
-
+    
+    public function getUserNick()
+    {
+        $this->userNick= $this->user->getUsername();
+        return $this->userNick;
+    }
+    
     /**
      * Set offer
      *

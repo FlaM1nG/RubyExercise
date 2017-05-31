@@ -1,0 +1,36 @@
+## YAML Template.
+---
+easy_admin:
+    entities:
+        Trade:
+            class: WWW\OthersBundle\Entity\Trade
+            label: 'Ofertas de Compra-Venta' 
+            disabled_actions: ['delete', 'new']
+            list:
+                title: 'Ofertas de Compra-Venta'
+                fields:
+                    - id
+                    - { property: 'price', label: 'Precio'}
+                    - { property: 'weight', label: 'Peso'}
+                    - { property: 'offer', label: 'Oferta'} 
+                    - { property: 'categoryName', label: 'Servicio'}
+                    - { property: 'region', label: 'Población'}
+                    - { property: 'address', label: 'Dirección'}
+            show:
+                title: 'Oferta Compra-Venta'
+                fields:
+                    - id
+                    - { property: 'price', label: 'Precio'}
+                    - { property: 'weight', label: 'Peso'}
+                    - { property: 'offer', label: 'Oferta'} 
+                    - { property: 'categoryName', label: 'Servicio'}
+                    - { property: 'region', label: 'Población'}
+                    - { property: 'address', label: 'Dirección'}
+            form:
+                title: 'Oferta Compra-Venta'
+                fields:
+                    - { property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - { property: 'categoryName', label: 'Servicio', type_options: { disabled: true }}
+                    - { property: 'price', label: 'Precio'}
+                    - { property: 'weight', label: 'Peso'}
+                    - { property: 'region', label: 'Población'}

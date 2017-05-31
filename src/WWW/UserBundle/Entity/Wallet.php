@@ -390,4 +390,13 @@ class Wallet
     {
         return $this->service;
     }
+    /**
+     * Get service
+     *
+     * @return \WWW\ServiceBundle\Entity\Service 
+     */
+    public function getServiceName()
+    {
+        return $this->service->getTitle();
+    }
 }
