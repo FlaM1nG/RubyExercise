@@ -109,10 +109,13 @@ class PdfController extends Controller
            // $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             $html,    
             200,
+            //            array(
+//                'Content-Type'          => 'application/pdf',
+//                'Content-Disposition'   => 'attachment; filename="Factura.pdf"'
+//            )
             array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="Factura.pdf"'
-            )
+                'Content-Type'          => 'text/html; charset=UTF-8',
+                )
         );
 
     }
@@ -194,13 +197,15 @@ class PdfController extends Controller
             );
         }
         return new Response(
-            // $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            $html,
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
+//            array(
+//                'Content-Type'          => 'application/pdf',
+//                'Content-Disposition'   => 'attachment; filename="Factura.pdf"'
+//            )
             array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="Factura.pdf"'
-            )
+                'Content-Type'          => 'text/html; charset=UTF-8',
+                )
         );
 
     }
