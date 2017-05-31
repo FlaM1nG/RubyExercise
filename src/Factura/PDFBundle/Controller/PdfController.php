@@ -67,7 +67,7 @@ class PdfController extends Controller
 
 */
 
-        $query4 = "SELECT id,user_id from inscription where offer_id=$idOferta";
+        $query4 = "SELECT id,user_id from inscription where offer_id=$idOferta and status='3'";
         $stmt = $db->prepare($query4);
         $params = array();
         $stmt->execute($params);
@@ -158,7 +158,7 @@ class PdfController extends Controller
         $domicilio = $stmt->fetchAll();
 
 
-        $query5 = "SELECT id from inscription where offer_id=$idOferta";
+        $query5 = "SELECT id from inscription where offer_id=$idOferta and status='3'";
         $stmt = $db->prepare($query5);
         $params = array();
         $stmt->execute($params);
