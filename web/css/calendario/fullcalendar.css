@@ -520,15 +520,8 @@ temporary rendered events).
 
 @media (min-width: 1000px) {
 	.fc-event {
-		position: relative; /* for resize handle and other inner positioning */
-		display: block; /* make the <a> tag block */
 		font-size: x-large;
-		line-height: 1.3;
-		border-radius: 3px;
-		border: 1px solid #fff; /* default BORDER color */
-		background-color: #fff; /* default BACKGROUND color */
-		font-weight: normal; /* undo jqui's ui-widget-header bold */
-		text-align: center;
+
 	}
 }
 
