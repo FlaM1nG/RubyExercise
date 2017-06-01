@@ -69,7 +69,7 @@
             <td class="desc"><h3>{{referencia.name}}</h3>{{referencia.description}}</td>
             <td class="unit">{{referencia.price}}€</td>
             <td class="qty">{{referencia.iva}}%</td>
-            <td class="total">{{referencia.price+((referencia.price*referencia.iva)/100)}}€</td>
+            <td class="total">{{referencia.price+((referencia.price*referencia.iva)/100)|number_format(2, '.', ',')}}€</td>
           </tr>
           {% set total = referencia.price+((referencia.price*referencia.iva)/100)+total %}
         {% endfor %}
