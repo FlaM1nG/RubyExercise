@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    Sitemap
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {{ include('nav/menu.html.twig') }}
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    {{ include('nav/menuScript.html.twig') }}
+{% endblock %}
