@@ -59,15 +59,18 @@ class HouseOffersController extends Controller
                 $result = $this->saveOfferBedroom($request,$offer);
             else:
                 $result = $this->saveNewOffer($request,$offer, $service);
+
             endif;
 
-            if($result == 'ok'):
+            if($result['result'] == 'ok'):
+                //obtenemos el id offer de la api
+                $idoffer = $result['offer_id'];
 
                 if($service == 6):
-                    return $this->redirectToRoute('serHouseRents');
+                    return $this->redirectToRoute('user_profiler_editOffer', array('idOffer' => $idoffer));
                 
                 elseif($service == 7):
-                    return $this->redirectToRoute('house_lisShareHouse');
+                    return $this->redirectToRoute('user_profiler_editOffer', array('idOffer' => $idoffer));
                 
                 elseif($service == 8):
                     return  $this->redirectToRoute('house_listHouseSwap');
@@ -142,7 +145,7 @@ class HouseOffersController extends Controller
             $ut->flashMessage('offer',$request,$result);
         endif;
 
-        return $result['result'];
+        return $result;
     }
 
     private function saveOfferBedroom(Request $request, $offer){
