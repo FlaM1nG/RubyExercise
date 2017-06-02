@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3496c5c7531dd690b2ef169ef1dec63",
+    "content-hash": "af433e99962f5e5f8a7a0ddb6d40ea1a",
     "packages": [
         {
             "name": "adesigns/calendar-bundle",
@@ -5422,72 +5422,6 @@
             "time": "2017-02-09T16:39:40+00:00"
         },
         {
-            "name": "sonata-project/seo-bundle",
-            "version": "1.1.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sonata-project/SonataSeoBundle.git",
-                "reference": "298ac97333e2d449cd23e899a978835324dca08a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataSeoBundle/zipball/298ac97333e2d449cd23e899a978835324dca08a",
-                "reference": "298ac97333e2d449cd23e899a978835324dca08a",
-                "shasum": ""
-            },
-            "require": {
-                "sonata-project/exporter": "~1.2,>=1.2.2",
-                "symfony/framework-bundle": "~2.3",
-                "symfony/options-resolver": "~2.3",
-                "twig/twig": "~1.12"
-            },
-            "require-dev": {
-                "guzzle/guzzle": "3.*",
-                "sonata-project/admin-bundle": "~2.2",
-                "sonata-project/block-bundle": "~2.2,>=2.2.7",
-                "symfony/console": "~2.3",
-                "symfony/finder": "~2.3"
-            },
-            "suggest": {
-                "guzzle/guzzle": "3.*",
-                "knplabs/knp-menu-bundle": "Used by the BreadcrumbMenuBuilder",
-                "sonata-project/block-bundle": "Allows you to use SEO friendly blocks"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Sonata\\SeoBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Thomas Rabaix",
-                    "email": "thomas.rabaix@sonata-project.org",
-                    "homepage": "http://sonata-project.org"
-                },
-                {
-                    "name": "Sonata Community",
-                    "homepage": "https://github.com/sonata-project/SonataSeoBundle/contributors"
-                }
-            ],
-            "description": "Symfony SonataSeoBundle",
-            "homepage": "http://sonata-project.org/bundles/seo",
-            "keywords": [
-                "seo",
-                "sonata"
-            ],
-            "time": "2015-03-16T10:45:04+00:00"
-        },
-        {
             "name": "stripe/stripe-php",
             "version": "v3.23.0",
             "source": {
@@ -5595,75 +5529,6 @@
                 "mailer"
             ],
             "time": "2017-05-01T15:54:03+00:00"
-        },
-        {
-            "name": "symfony-cmf/seo-bundle",
-            "version": "1.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony-cmf/seo-bundle.git",
-                "reference": "4fc888e13c37cba490c5bacabf033b78ec53c814"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony-cmf/seo-bundle/zipball/4fc888e13c37cba490c5bacabf033b78ec53c814",
-                "reference": "4fc888e13c37cba490c5bacabf033b78ec53c814",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/collections": "^1.0",
-                "php": "^5.3.9|^7.0",
-                "sonata-project/seo-bundle": "^1.1.3",
-                "symfony/framework-bundle": "^2.3"
-            },
-            "require-dev": {
-                "burgov/key-value-form-bundle": "^1.0",
-                "doctrine/orm": "^2.4",
-                "doctrine/phpcr-odm": "^1.3",
-                "matthiasnoback/symfony-config-test": "~0.1",
-                "matthiasnoback/symfony-dependency-injection-test": "^0.7",
-                "sonata-project/doctrine-phpcr-admin-bundle": "^1.1",
-                "symfony-cmf/core-bundle": "^1.1",
-                "symfony-cmf/routing-bundle": "^1.2",
-                "symfony-cmf/testing": "^1.3"
-            },
-            "suggest": {
-                "burgov/key-value-form-bundle": "To edit the seo metadata 'extra' fields",
-                "doctrine/doctrine-bundle": "To persist the metadata in ORM entities",
-                "doctrine/orm": "To persist the metadata in ORM entities, ~2.4",
-                "doctrine/phpcr-bundle": "To persist the metadata in PHPCR ODM documents",
-                "sonata-project/doctrine-phpcr-admin-bundle": "To provide an admin extension for the seo metadata",
-                "symfony-cmf/core-bundle": "When using the provided PHPCR-ODM document",
-                "symfony-cmf/routing-bundle": "To make use of the alternate locale provider."
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Cmf\\Bundle\\SeoBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony CMF Community",
-                    "homepage": "https://github.com/symfony-cmf/SeoBundle/contributors"
-                }
-            ],
-            "description": "Symfony CMF Search Engine Optimization Bundle",
-            "homepage": "http://cmf.symfony.com",
-            "keywords": [
-                "Symfony CMF",
-                "seo"
-            ],
-            "time": "2016-12-19T07:39:47+00:00"
         },
         {
             "name": "symfony/assetic-bundle",

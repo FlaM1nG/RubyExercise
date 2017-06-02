@@ -200,6 +200,6 @@ trabaja:
     path: /trabaja/
     defaults: { _controller: AppBundle:Index:trabaja }
 
-sitemaps:
-#    prefix: /sitemaps
-    resource: "@CmfSeoBundle/Resources/config/routing/sitemap.xml"
+#sitemaps:
+##    prefix: /sitemaps
+#    resource: "@CmfSeoBundle/Resources/config/routing/sitemap.xml"

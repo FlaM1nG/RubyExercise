@@ -129,9 +129,9 @@ knp_paginator:
           sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # plantilla utilizada en la paginación para ordenar los resultados
 
 #Para crear el sitemap de la web
-cmf_seo:
-    sitemap:
-        enabled: true
-        defaults:
-            templates:
-                html: sitemap/default.html.twig
+#cmf_seo:
+#    sitemap:
+#        enabled: true
+#        defaults:
+#            templates:
+#                html: sitemap/default.html.twig

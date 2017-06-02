@@ -54,8 +54,8 @@ class AppKernel extends Kernel
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
 //            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Sonata\SeoBundle\SonataSeoBundle(),
-            new Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle()
+//            new Sonata\SeoBundle\SonataSeoBundle(),
+//            new Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
