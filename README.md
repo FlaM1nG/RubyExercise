@@ -1,6 +1,7 @@
-Create a ruby project that retrieves and parses the pricing information in the next page:
-https://www.port-monitor.com/plans-and-pricing
-The output should be simmilar to this, containing all the pricing information (this is just a suggestion):
+RubyExercise
+
+Create a ruby project that retrieves and parses the pricing information in the next page: https://www.port-monitor.com/plans-and-pricing The output should be simmilar to this, containing all the pricing information (this is just a suggestion):
+
 [
     {
         monitors: 10,
@@ -19,8 +20,4 @@ The output should be simmilar to this, containing all the pricing information (t
         price: 8.29
     },    
 ]
-Feel free to use any gem or library to implement the solution.
-We will valorate:
-Clean code.
-Simplicity.
-You shouldn't expend more than four hours in this exercise. Please push your script to a github repository.
+Feel free to use any gem or library to implement the solution. We will valorate: Clean code. Simplicity. You shouldn't expend more than four hours in this exercise. Please push your script to a github repository.
