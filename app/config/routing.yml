@@ -161,9 +161,9 @@ fos_js_routing:
 adesigns_calendar:
     resource: "@GlobalBundle/Resources/config/routing.yml"
 
-prueba_pago:
-    path: /prueba/previopago
-    defaults: { _controller: AppBundle:Index:pruebaPantallaPago }
+#prueba_pago:
+#    path: /prueba/previopago
+#    defaults: { _controller: AppBundle:Index:pruebaPantallaPago }
 
 
 
