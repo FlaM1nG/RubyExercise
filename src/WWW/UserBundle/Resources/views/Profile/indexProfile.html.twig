@@ -76,7 +76,13 @@
             <div class="row us-datos-personales">
                 {% if usuario.birthdate != '' %}
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 separacion-inferior">
-                    <span>Edad:</span> {{ ('now'|date('Y') - usuario.birthdate|date('Y') - 1) }}
+                    {% if 'now'|date('m-d')>=usuario.birthdate|date('m-d') %}
+                    <span>Edad:</span> {{ 'now'|date('Y') - usuario.birthdate|date('Y')  }}
+                   {% else %}
+                       <span>Edad:</span> {{ ('now'|date('Y') - usuario.birthdate|date('Y')-1 )     }}
+
+
+                    {% endif %}
                 </div>
                 {% endif %}
 
@@ -84,7 +90,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 separacion-inferior">
                     <span>Sexo:</span>
                     {% if usuario.sex == 'f' %}
-                        Feminino
+                        Femenino
                     {% elseif usuario.sex == 'm' %}
                         Masculino
                     {% endif %}
