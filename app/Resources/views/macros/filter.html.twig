@@ -113,6 +113,7 @@
 
 {% macro filterTradeScript(count) %}
 <script>
+
     $(document).ready(function(){
         $(".objetoTrade").keyup(function(){
             $(".objetoTrade").val($(this).val());
@@ -133,11 +134,19 @@
             $(".maxTrade").val($(this).val());
         });
         
-        {% for i in 0..count %}
-            $(".checkTrade{{ i }}").click(function(){
-                $(".checkTrade{{ i }}").prop('checked', true);
-            });
-        {% endfor%}
+        {#{% for i in 0..count %}#}
+
+        $("[class*=checkTrade]").click(function(){
+
+            var numCheck = $(this).val();
+
+            if(!$(this).prop('checked')) {
+                $(".checkTrade" + numCheck).prop('checked', false);
+            }else{
+                $(".checkTrade" + numCheck).prop('checked', true);
+            }
+        });
+        {#{% endfor%}#}
         
     });
 </script>
