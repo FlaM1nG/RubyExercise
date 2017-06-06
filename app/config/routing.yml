@@ -176,9 +176,9 @@ house:
     prefix:   /services/building/
 
 
-pruebaAdminDatos:
-    path: /pruebaBarbeitos
-    defaults: { _controller: AppBundle:Index:pruebaDatosAdminPanel }
+#pruebaAdminDatos:
+#    path: /pruebaBarbeitos
+#    defaults: { _controller: AppBundle:Index:pruebaDatosAdminPanel }
 
 termsConditions:
     path: /termsConditions
