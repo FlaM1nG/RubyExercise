@@ -36,6 +36,7 @@ class HouseOffersController extends Controller
         $service = $this->getIdService($request);
         $arrayHouses = null;
 
+
         if($service != 9):
             $arrayHouses = $this->getHousesUser($request);
             $offer = new ShareHouse();
@@ -52,6 +53,11 @@ class HouseOffersController extends Controller
 
 
         $form->handleRequest($request);
+
+        $result = $this->render("HouseBundle::newOfferHouseRent.html.twig", array(
+            'service' => $service,
+            'form' => $form->createView()
+        ));
         
         if($form->isSubmitted() AND $form->isValid()):
 
@@ -67,27 +73,24 @@ class HouseOffersController extends Controller
                 $idoffer = $result['offer_id'];
 
                 if($service == 6):
-                    return $this->redirectToRoute('user_profiler_editOffer', array('idOffer' => $idoffer));
+                    $result = $this->redirectToRoute('user_profiler_editOffer', array('idOffer' => $idoffer));
                 
                 elseif($service == 7):
-                    return $this->redirectToRoute('user_profiler_editOffer', array('idOffer' => $idoffer));
+                    $result = $this->redirectToRoute('user_profiler_editOffer', array('idOffer' => $idoffer));
                 
                 elseif($service == 8):
-                    return  $this->redirectToRoute('house_listHouseSwap');
+                    $result =  $this->redirectToRoute('house_listHouseSwap');
                 
                 elseif($service == 9):
-                    return $this->redirectToRoute('house_listBedroomSwap');
+                    $result = $this->redirectToRoute('house_listBedroomSwap');
 
                 endif;
 
             endif;
 
         endif;
-
-        return $this->render("HouseBundle::newOfferHouseRent.html.twig", array(
-                      'service' => $service,
-                      'form' => $form->createView()
-        ));
+        
+        return $result;
     }
 
     private function getHousesUser(Request $request){
