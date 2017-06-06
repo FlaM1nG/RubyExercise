@@ -58,19 +58,19 @@ $(document).ready(function() {
 
         if ((event.ocuppate == 0) && (event.start._i > hoy)) {
 
-            element.bind('dblclick', function () {
+            element.bind('click', function () {
 
                 $('#ModalEdit #id').val(event.id);
                 $('#ModalEdit #title').val(event.title);
                 $('#ModalEdit #price').val(event.price);
-                $('#ModalEdit #blocked').val(event.blocked);
+                $('#ModalEdit #blocked:checked').val(event.blocked);
                 $('#ModalEdit #calendar_id').val($('#calendarID').val());
                 $('#ModalEdit #service_id').val($('#serviceID').val());
                 $('#ModalEdit #start').val($('#startDateCalendario').val());
                 $('#ModalEdit #idoffer').val($('#idoffer').val());
                 $('#ModalEdit #datepicker_DatePickerto').val($('#endDate').val());
-                
-                
+
+
 
 
                 $('#ModalEdit').modal('show');
@@ -78,6 +78,20 @@ $(document).ready(function() {
 
             element.find(event.price + ' €');
         }
+
+        else {
+            element.bind('click', function () {
+                swal({
+                    title: "¡Fecha Incorrecta!",
+                    text: "¡Fecha ocupada o superior a la actual! Elija otra fecha",
+                    type: "error",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: "F60"
+                });
+        });
+
+        }
+
         },
 
         eventClick: function(calEvent, jsEvent, view) {
