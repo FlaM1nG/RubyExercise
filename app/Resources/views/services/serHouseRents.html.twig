@@ -112,8 +112,8 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
-    {#{{ include('services/sidebar/ocioScript.html.twig') }}#}
-    {#{{ include('services/sidebar/ocioMovilScript.html.twig') }}#}
+    {{ include('services/sidebar/ocioScript.html.twig') }}
+    {{ include('services/sidebar/ocioMovilScript.html.twig') }}
     {{ rating.staticRatingJS() }}
 {% endblock %}
 
