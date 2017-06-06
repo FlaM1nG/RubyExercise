@@ -83,7 +83,7 @@ $(document).ready(function() {
             element.bind('click', function () {
                 swal({
                     title: "¡Fecha Incorrecta!",
-                    text: "¡Fecha ocupada o superior a la actual! Elija otra fecha",
+                    text: "¡Fecha ocupada o inferior a la actual! Elija otra fecha",
                     type: "error",
                     confirmButtonText: "Aceptar",
                     confirmButtonColor: "F60"
