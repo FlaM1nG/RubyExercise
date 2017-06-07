@@ -139,23 +139,32 @@ $(document).ready(function() {
         //Cambiar el color si esta ocupado o no
         eventAfterRender: function (event, element, view) {
 
-            if (event.blocked == 0) {
 
-                if (event.ocuppate == 0) {
-                    //event.color = "#FFB347"; 
+            if (event.start._i >= hoy) {
 
-                    element.css('color', '#368d3a');
+                if (event.blocked == 0) {
+
+                    if (event.ocuppate == 0) {
+                        //event.color = "#FFB347";
+
+                        element.css('color', '#368d3a');
+                    } else {
+                        //event.color = "#77DD77"; //Concluído OK
+
+                        element.css('color', '#FF0000');
+
+                    }
+
                 } else {
-                    //event.color = "#77DD77"; //Concluído OK
 
-                    element.css('color', '#FF0000');
-
+                    element.css('color', '#151515');
                 }
+            }
 
-            }else{
+            else {
 
-                element.css('color', '#151515');
-                }
+                element.css('color', '#D7DBDD');
+            }
 
         },
         loading: function(bool) {

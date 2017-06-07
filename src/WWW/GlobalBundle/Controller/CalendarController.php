@@ -26,30 +26,6 @@ class CalendarController extends Controller
         return ceil($diasFalt);
     }
 
-
-    public function loadCalendarAction(Request $request)
-    {
-
-        $startDatetime = \DateTime::createFromFormat('Y-m-d', $request->get('start'));
-
-        $endDatetime = \DateTime::createFromFormat('Y-m-d', $request->get('end'));
-
-        $events = $this->container->get('event_dispatcher')->dispatch(CalendarEvent::CONFIGURE, new CalendarEvent($startDatetime, $endDatetime, $request))->getEvents();
-
-        $response = new \Symfony\Component\HttpFoundation\Response();
-        $response->headers->set('Content-Type', 'application/json');
-
-        $return_events = array();
-
-        foreach ($events as $event) {
-            $return_events[] = $event->toArray();
-        }
-
-        $response->setContent(json_encode($return_events));
-
-        return $response;
-    }
-    
     public function editcreateEventAction(Request $request)
     {
 
@@ -126,40 +102,40 @@ class CalendarController extends Controller
         return $this->redirectToRoute('user_profiler_editOffer', array('idOffer' => $idoferta), 301);
     }
 
+    function createDateRangeBase($startDate, $endDate, $price, $ocuppate, $blocked, $format = "d-m-Y")
+    {
+        $begin = new \DateTime($startDate);
+        $end = new \DateTime($endDate);
+        $end->modify('+1 day');
+        $interval = new \DateInterval('P1D'); // 1 Day
+        $dateRange = new \DatePeriod($begin, $interval, $end);
+        $range = array();
+        foreach ($dateRange as $key => $date) {
+            $range[$key]['start_datetime'] = date_format($date, $format);
+            $range[$key]['end_datetime'] = date_format($date, $format);
+
+            if ($ocuppate == 0) {
+                $range[$key]['ocuppate'] = "0";
+            } else {
+                $range[$key]['ocuppate'] = "1";
+            }
+
+            if ($blocked == 0) {
+                $range[$key]['blocked'] = "0";
+            } else {
+                $range[$key]['blocked'] = "1";
+            }
+
+            $range[$key]['price'] = $price;
+
+        }
+
+        return $range;
+    }
+
 
     public function cargarDateAction(Request $request)
     {
-
-        function createDateRangeBase($startDate, $endDate, $price, $ocuppate, $blocked, $format = "d-m-Y")
-        {
-            $begin = new \DateTime($startDate);
-            $end = new \DateTime($endDate);
-            $end->modify('+1 day');
-            $interval = new \DateInterval('P1D'); // 1 Day
-            $dateRange = new \DatePeriod($begin, $interval, $end);
-            $range = array();
-            foreach ($dateRange as $key => $date) {
-                $range[$key]['start_datetime'] = date_format($date, $format);
-                $range[$key]['end_datetime'] = date_format($date, $format);
-
-                if ($ocuppate == 0) {
-                    $range[$key]['ocuppate'] = "0";
-                } else {
-                    $range[$key]['ocuppate'] = "1";
-                }
-
-                if ($blocked == 0) {
-                    $range[$key]['blocked'] = "0";
-                } else {
-                    $range[$key]['blocked'] = "1";
-                }
-
-                $range[$key]['price'] = $price;
-
-            }
-
-            return $range;
-        }
 
         $idoffer = $request->get('idOffer');
 
@@ -184,7 +160,7 @@ class CalendarController extends Controller
             foreach ($aEspecificos as $key => $value) {
 
                 if (!empty($value['start_datetime']) && !empty($value['end_datetime'])) {
-                    $resultEspecificos[] = createDateRangeBase($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'],$value['blocked']);
+                    $resultEspecificos[] = $this->createDateRangeBase($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'],$value['blocked']);
                 }
             }
         }
@@ -196,26 +172,7 @@ class CalendarController extends Controller
         $stmt->execute($params);
         $aEspecificos  = $stmt->fetchAll();
 
-
-
-
-        /*if (!empty($aEspecificos)) {
-            foreach ($aEspecificos as $key => $value) {
-
-                if (!empty($value['precio_base'])) {
-                    $aEspecificos['precio_base'] = $value['precio_base'];
-                    $aEspecificos['ocupado'] = $value['ocupado'];
-                    $aEspecificos['bloqueado'] = $value['bloqueado'];
-
-                }
-            }
-        }*/
-       // echo "<pre>";
-        //print_r($aEspecificos);die;
-
-// PRECIOS BASE. Por ejemplo: 10€
-        //$aBase = createDateRangeBase('2017-01-01', '2018-12-31', $aEspecificos[0]['precio_base'], $aEspecificos['ocupado'],$aEspecificos['bloqueado']);
-        $aBase = createDateRangeBase('2017-01-01', '2018-12-31', $aEspecificos[0]['precio_base'], 0, 0);
+        $aBase = $this->createDateRangeBase('2017-01-01', '2018-12-31', $aEspecificos[0]['precio_base'], 0, 0);
         if (!empty($resultEspecificos) && !empty($aBase)) {
             foreach ($aBase as $key => $value) {
                 foreach ($resultEspecificos as $key2 => $value2) {
@@ -314,7 +271,7 @@ class CalendarController extends Controller
 
                     }
                 }
-         //   }
+
 
             // To remove empty months
             foreach($result as $key => $month)
@@ -324,7 +281,6 @@ class CalendarController extends Controller
                 }
             }
 
-            //echo "<pre>"; die(print_r($result));
 
             $response->setContent(json_encode($result));;
         }
@@ -333,37 +289,38 @@ class CalendarController extends Controller
 
     }
 
+
+    /**
+     * Returns every date between two dates as an array
+     * @param string $startDate the start of the date range
+     * @param string $endDate the end of the date range
+     * @param string $format DateTime format, default is Y-m-d
+     * @return array returns every date between $startDate and $endDate, formatted as "d-m-Y"
+     */
+
+    function createDateRangePrice($startDate, $endDate, $price, $ocuppate, $blocked, $format = "d-m-Y")
+    {
+        $begin = new \DateTime($startDate);
+        $end = new \DateTime($endDate);
+        $end->modify('+1 day');
+
+        $interval = new \DateInterval('P1D'); // 1 Day
+        $dateRange = new \DatePeriod($begin, $interval, $end);
+        $range = array();
+        foreach ($dateRange as $key => $date) {
+            //$range[$key]['fecha'] = $date->format($format);
+            //$range[$key]['price'] = $price;
+            //$range[date_format($date, $format)] = $price;
+            $range[date_format($date, $format)]['precio'] = $price;
+            $range[date_format($date, $format)]['ocupado'] = $ocuppate;
+            $range[date_format($date, $format)]['bloqueado'] = $blocked;
+        }
+
+        return $range;
+    }
+
     public function cargarPriceAction(Request $request)
     {
-
-        /**
-         * Returns every date between two dates as an array
-         * @param string $startDate the start of the date range
-         * @param string $endDate the end of the date range
-         * @param string $format DateTime format, default is Y-m-d
-         * @return array returns every date between $startDate and $endDate, formatted as "d-m-Y"
-         */
-
-        function createDateRange($startDate, $endDate, $price, $ocuppate, $blocked, $format = "d-m-Y")
-        {
-            $begin = new \DateTime($startDate);
-            $end = new \DateTime($endDate);
-            $end->modify('+1 day');
-
-            $interval = new \DateInterval('P1D'); // 1 Day
-            $dateRange = new \DatePeriod($begin, $interval, $end);
-            $range = array();
-            foreach ($dateRange as $key => $date) {
-                //$range[$key]['fecha'] = $date->format($format);
-                //$range[$key]['price'] = $price;
-                //$range[date_format($date, $format)] = $price;
-                $range[date_format($date, $format)]['precio'] = $price;
-                $range[date_format($date, $format)]['ocupado'] = $ocuppate;
-                $range[date_format($date, $format)]['bloqueado'] = $blocked;
-            }
-
-            return $range;
-        }
 
         $offerID = $request->get('idOffer');
 
@@ -407,7 +364,7 @@ class CalendarController extends Controller
 
 
         // List of dates and base prices
-        $aBase = createDateRange('2017-01-01', '2017-12-31', $aEspecificos['precio_base'], 0 ,0);
+        $aBase = $this->createDateRangePrice('2017-01-01', '2017-12-31', $aEspecificos['precio_base'], 0 ,0);
         $result = array('1' => array(), '2' => array(), '3' => array(), '4' => array(), '5' => array(),'6' => array(),'7' => array(),'8' => array(),'9' => array(),'10' => array(),'11' => array(),'12' => array());
 
         if (!empty($fechas)) {
@@ -415,7 +372,7 @@ class CalendarController extends Controller
             foreach ($fechas as $key => $value) {
 
                 if (!empty($value['start_datetime']) && !empty($value['end_datetime'])) {
-                    $result[] = createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'], $value['blocked']);
+                    $result[] = $this->createDateRangePrice($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'], $value['blocked']);
                 }
             }
         }
@@ -502,65 +459,69 @@ class CalendarController extends Controller
 
     }
 
+
+    /**
+     * Returns every date between two dates as an array
+     * @param string $startDate the start of the date range
+     * @param string $endDate the end of the date range
+     * @param string $format DateTime format, default is Y-m-d
+     * @return array returns every date between $startDate and $endDate, formatted as "d-m-Y"
+     */
+    function createDateRange($startDate, $endDate, $price, $ocuppate, $blocked, $title, $format = "Y-m-d")
+    {
+        $begin = new \DateTime($startDate);
+        $end = new \DateTime($endDate);
+        $end->modify('+1 day');
+
+        $interval = new \DateInterval('P1D'); // 1 Day
+        $dateRange = new \DatePeriod($begin, $interval, $end);
+        $range = array();
+        foreach ($dateRange as $key => $date) {
+            $aux['id'] = $key;
+            $aux['title'] = $title;
+            $aux['start'] = date_format($date, $format);
+            $aux['price'] = $price;
+            $aux['ocuppate'] = $ocuppate;
+            $aux['blocked'] = $blocked;
+            $range = $aux;
+        }
+
+        return $range;
+    }
+
+    function createDateRangeBaseCAL($startDate, $endDate, $price,$ocuppate, $blocked, $title, $format = "Y-m-d")
+    {
+        $begin = new \DateTime($startDate);
+        $end = new \DateTime($endDate);
+        $end->modify('+1 day');
+
+        $interval = new \DateInterval('P1D'); // 1 Day
+        $dateRange = new \DatePeriod($begin, $interval, $end);
+
+        $range = array();
+        foreach ($dateRange as $key => $date) {
+            $range[$key]['id'] = $key;
+            $range[$key]['title'] = $title;
+            $range[$key]['start'] = date_format($date, $format);
+            $range[$key]['price'] = $price;
+            $range[$key]['ocuppate'] = $ocuppate;
+            $range[$key]['blocked'] = $blocked;
+
+
+        }
+
+        return $range;
+    }
+
+
     public function calendarAction(Request $request)
     {
 
         $session = $request->getSession();
 
-       $idoffer = $request->getSession();
+        $idoffer = $request->getSession();
 
         $offerID = $request->get('idOffer');
-
-       /*
-        $em = $this->getDoctrine()->getEntityManager();
-        $db = $em->getConnection();
-
-        $sql =  "select sh.house_id, sh.price as precio_base,my.price,h.calendar_id,my.start_datetime, my.end_datetime,my.ocuppate,my.title,off.service_id,my.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join my_company_events as my on h.calendar_id = my.calendar_id inner join offer as off on off.service_id = my.service_id and off.id = sh.offer_id WHERE sh.offer_id=$offerID and off.service_id = my.service_id";
-
-
-        $stmt = $db->prepare($sql);
-        $params = array();
-        $stmt->execute($params);
-        $alEspecificos  = $stmt->fetchAll();
-
-        if (!empty($alEspecificos)) {
-            foreach ($alEspecificos as $key => $value) {
-
-                if (!empty($value['precio_base'])) {
-                    $alEspecificos['precio_base'] = $value['precio_base'];
-                }
-            }
-        }
-*/
-        /**
-         * Returns every date between two dates as an array
-         * @param string $startDate the start of the date range
-         * @param string $endDate the end of the date range
-         * @param string $format DateTime format, default is Y-m-d
-         * @return array returns every date between $startDate and $endDate, formatted as "d-m-Y"
-         */
-        function createDateRange($startDate, $endDate, $price, $ocuppate, $blocked, $title, $format = "Y-m-d")
-        {
-            $begin = new \DateTime($startDate);
-            $end = new \DateTime($endDate);
-            $end->modify('+1 day');
-
-            $interval = new \DateInterval('P1D'); // 1 Day
-            $dateRange = new \DatePeriod($begin, $interval, $end);
-            $range = array();
-            foreach ($dateRange as $key => $date) {
-                $aux['id'] = $key;
-                $aux['title'] = $title;
-                $aux['start'] = date_format($date, $format);
-                $aux['price'] = $price;
-                $aux['ocuppate'] = $ocuppate;
-                $aux['blocked'] = $blocked;
-                $range = $aux;
-            }
-
-            return $range;
-        }
-
 
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->headers->set('Content-Type', 'application/json');
@@ -599,16 +560,14 @@ class CalendarController extends Controller
         $params2 = array();
         $stmt2->execute($params2);
         $aEspecificos = $stmt2->fetchAll();
-
-
-
+            
         $eventosEspecificos = array();
         if (!empty($aEspecificos)) {
 
             foreach ($aEspecificos as $key => $value) {
 
                 if (!empty($value['start_datetime']) && !empty($value['end_datetime'])) {
-                    $eventosEspecificos[] = createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'],$value['blocked'], $value['title']);
+                    $eventosEspecificos[] = $this->createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'],$value['blocked'], $value['title']);
                 }
             }
         }
@@ -645,44 +604,9 @@ class CalendarController extends Controller
         }
 
 
-
-
         $response->setContent(json_encode($eventos));
 
         return $response;
     }
-
-    function createDateRangeBaseCAL($startDate, $endDate, $price,$ocuppate, $blocked, $title, $format = "Y-m-d")
-    {
-        $begin = new \DateTime($startDate);
-        $end = new \DateTime($endDate);
-        $end->modify('+1 day');
-
-        $interval = new \DateInterval('P1D'); // 1 Day
-        $dateRange = new \DatePeriod($begin, $interval, $end);
-
-        $range = array();
-        foreach ($dateRange as $key => $date) {
-            $range[$key]['id'] = $key;
-            $range[$key]['title'] = $title;
-            $range[$key]['start'] = date_format($date, $format);
-            $range[$key]['price'] = $price;
-            $range[$key]['ocuppate'] = $ocuppate;
-            $range[$key]['blocked'] = $blocked;
-
-
-        }
-
-        return $range;
-    }
-
-
- 
-
-
-
-
-
-
 
 }
