@@ -140,17 +140,20 @@
                                 <a id="eventMisOfertas" href="{{ path('user_profile_offers') }}">Mis ofertas</a>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('user_profile_offers',{typeOffer: 'vehicles'}) }}">
+                                        <a id="eventMisOfertasVehiculos"
+                                           href="{{ path('user_profile_offers',{typeOffer: 'vehicles'}) }}">
                                             Vehículos
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('user_profile_offers',{typeOffer: 'buildings'}) }}">
+                                        <a id="eventMisOfertasInmuebles"
+                                           href="{{ path('user_profile_offers',{typeOffer: 'buildings'}) }}">
                                             Inmuebles
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('user_profile_offers',{typeOffer: 'trade'}) }}">
+                                        <a id="eventMisOfertasNecesitas"
+                                           href="{{ path('user_profile_offers',{typeOffer: 'trade'}) }}">
                                             ¿Qué necesitas?
                                         </a>
                                     </li>
@@ -158,20 +161,20 @@
                             </li>
 
                             <li class="has-children">
-                                <a href="{{path('user_profiler_purchases')}}">Compras</a>
+                                <a id="eventMisCompras" href="{{path('user_profiler_purchases')}}">Compras</a>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('user_profiler_purchases',{typeOffer: 'vehicles'}) }}">
+                                        <a id="eventMisComprasVehiculos" href="{{ path('user_profiler_purchases',{typeOffer: 'vehicles'}) }}">
                                             Vehículos
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('user_profiler_purchases',{typeOffer: 'buildings'}) }}">
+                                        <a id="eventMisComprasInmuebles" href="{{ path('user_profiler_purchases',{typeOffer: 'buildings'}) }}">
                                             Inmuebles
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('user_profiler_purchases',{typeOffer: 'trade'}) }}">
+                                        <a id="eventMisComprasNecesitas" href="{{ path('user_profiler_purchases',{typeOffer: 'trade'}) }}">
                                             ¿Qué necesitas?
                                         </a>
                                     </li>
