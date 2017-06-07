@@ -115,6 +115,18 @@
     {{ include('services/sidebar/ocioScript.html.twig') }}
     {{ include('services/sidebar/ocioMovilScript.html.twig') }}
     {{ rating.staticRatingJS() }}
+
+    {# Google Analytics #}
+    {% if service == 6 %}
+        <script type="text/javascript" src="{{ asset('js/googleAnalytics/filterAlquilerTuristico.js') }}"></script>
+    {% elseif service == 7 %}
+        <script type="text/javascript" src="{{ asset('js/googleAnalytics/filterCasaCompartida.js') }}"></script>
+    {% elseif service == 8 %}
+        <script type="text/javascript" src="{{ asset('js/googleAnalytics/filterIntercambioCasa.js') }}"></script>
+    {% elseif service == 9 %}
+        <script type="text/javascript" src="{{ asset('js/googleAnalytics/filterIntercambioHabitaciones.js') }}"></script>
+    {% endif %}
+
 {% endblock %}
 
 {% block popupBlock %}
