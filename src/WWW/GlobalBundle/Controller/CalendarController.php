@@ -449,8 +449,6 @@ class CalendarController extends Controller
                 $res['response'] = 'OK';
             }
 
-            //echo "<pre>"; die(print_r($res));
-            //die($totalPrice . ' <-');
             $response->setContent(json_encode($res));
 
         }
