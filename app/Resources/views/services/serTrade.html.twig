@@ -187,5 +187,14 @@
 {#{{ include('services/filters/filterTradeScript.html.twig') }}#}
 {{ filters.filterTradeScript(categories|length) }}
 
+    {# Google Analytics #}
+    {% if service == 1 %}
+        <script type="text/javascript" src="{{ asset('js/googleAnalytics/filterCompraVenta.js') }}"></script>
+    {% elseif service == 2 %}
+        <script type="text/javascript" src="{{ asset('js/googleAnalytics/filterRopa.js') }}"></script>
+    {% elseif service == 3 %}
+        <script type="text/javascript" src="{{ asset('js/googleAnalytics/filterTrueque.js') }}"></script>
+    {% endif %}
+
 {% endblock %}
 
