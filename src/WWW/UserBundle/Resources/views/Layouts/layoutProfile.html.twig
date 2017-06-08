@@ -80,7 +80,11 @@
                             <li><a href="{{ path('user_profilePhone') }}">Teléfono</a></li>
                             <li><a href="{{ path('user_profilePhoto') }}">Foto Personal</a></li>
                             <li><a href="{{ path('user_profileChangeBank') }}">Datos bancarios</a></li>
-                            <li><a href="{{ path('user_public_profile',{username: app.session.get('username')}) }}"> Mi perfil público</a></li>
+                            <li>
+                                <a href="{{ path('user_public_profile',{username: app.session.get('username')}) }}">
+                                    Mi perfil público
+                                </a>
+                            </li>
                             <li><a href="{{ path('user_unsubscribe') }}">Darse de baja</a></li>
                         </ul>
                     </li>
@@ -133,20 +137,47 @@
 
                         <ul>
                             <li class="has-children">
-                                <a href="{{ path('user_profile_offers') }}">Mis ofertas</a>
+                                <a id="eventMisOfertas" href="{{ path('user_profile_offers') }}">Mis ofertas</a>
                                 <ul>
-                                    <li><a href="{{ path('user_profile_offers',{typeOffer: 'vehicles'}) }}">Vehículos</a></li>
-                                    <li><a href="{{ path('user_profile_offers',{typeOffer: 'buildings'}) }}">Inmuebles</a></li>
-                                    <li><a href="{{ path('user_profile_offers',{typeOffer: 'trade'}) }}">¿Qué necesitas?</a></li>
+                                    <li>
+                                        <a id="eventMisOfertasVehiculos"
+                                           href="{{ path('user_profile_offers',{typeOffer: 'vehicles'}) }}">
+                                            Vehículos
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a id="eventMisOfertasInmuebles"
+                                           href="{{ path('user_profile_offers',{typeOffer: 'buildings'}) }}">
+                                            Inmuebles
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a id="eventMisOfertasNecesitas"
+                                           href="{{ path('user_profile_offers',{typeOffer: 'trade'}) }}">
+                                            ¿Qué necesitas?
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 
                             <li class="has-children">
-                                <a href="{{path('user_profiler_purchases')}}">Compras</a>
+                                <a id="eventMisCompras" href="{{path('user_profiler_purchases')}}">Compras</a>
                                 <ul>
-                                    <li><a href="{{ path('user_profiler_purchases',{typeOffer: 'vehicles'}) }}">Vehículos</a></li>
-                                    <li><a href="{{ path('user_profiler_purchases',{typeOffer: 'buildings'}) }}">Inmuebles</a></li>
-                                    <li><a href="{{ path('user_profiler_purchases',{typeOffer: 'trade'}) }}">¿Qué necesitas?</a></li>
+                                    <li>
+                                        <a id="eventMisComprasVehiculos" href="{{ path('user_profiler_purchases',{typeOffer: 'vehicles'}) }}">
+                                            Vehículos
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a id="eventMisComprasInmuebles" href="{{ path('user_profiler_purchases',{typeOffer: 'buildings'}) }}">
+                                            Inmuebles
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a id="eventMisComprasNecesitas" href="{{ path('user_profiler_purchases',{typeOffer: 'trade'}) }}">
+                                            ¿Qué necesitas?
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                           {# <li><a href="{{path('user_profiler_inscriptions')}}">Inscripciones</a></li>#}
@@ -262,5 +293,8 @@
 
     
     {{ include('nav/menuScript.html.twig') }}
+
+    {# Google Analytics #}
+    <script type="text/javascript" src="{{ asset('js/googleAnalytics/perfilUsuario.js') }}"></script>
     
 {% endblock %}

@@ -87,6 +87,9 @@
     {#{{ include('services/sidebar/ocioScript.html.twig') }}#}
     {#{{ include('services/sidebar/ocioMovilScript.html.twig') }}#}
     {{ rating.staticRatingJS() }}
+
+    {# Google Analytics #}
+    <script type="text/javascript" src="{{ asset('js/googleAnalytics/filterIntercambioCasa.js') }}"></script>
 {% endblock %}
 
 {% block popupBlock %}
