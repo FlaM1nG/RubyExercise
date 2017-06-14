@@ -35,16 +35,12 @@ class CalendarController extends Controller
 
         $session->set('idoferta', 'idOffer');
 
-
         $idoferta = $session->get('offer');
-
 
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
         $repository = $this->getDoctrine()->getRepository('GlobalBundle:MyCompanyEvents');
-
-
 
         $date= new \DateTime ($_POST['startDateCalendario']);
 
@@ -80,7 +76,6 @@ class CalendarController extends Controller
                 $dateEnd = $date;
 
                 $mce = new MyCompanyEvents('', '€', $request->get('price'), $request->get('calendar_id'), $request->get('service_id'), null, null, $date, $dateEnd, 0, $request->get('blocked'), 0, $request->get('inscription_id'));
-
 
                 $em->persist($mce);
 
@@ -139,7 +134,6 @@ class CalendarController extends Controller
 
         $idoffer = $request->get('idOffer');
 
-
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
 
@@ -165,14 +159,14 @@ class CalendarController extends Controller
             }
         }
 
-
+        
         $sql =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado, my.blocked as bloqueado,my.start_datetime,my.end_datetime, h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$idoffer";
         $stmt = $db->prepare($sql);
         $params = array();
         $stmt->execute($params);
         $aEspecificos  = $stmt->fetchAll();
 
-        $aBase = $this->createDateRangeBase('2017-01-01', '2018-12-31', $aEspecificos[0]['precio_base'], 0, 0);
+        $aBase = $this->createDateRangeBase('2017-01-01', '2019-12-31', $aEspecificos[0]['precio_base'], 0, 0);
         if (!empty($resultEspecificos) && !empty($aBase)) {
             foreach ($aBase as $key => $value) {
                 foreach ($resultEspecificos as $key2 => $value2) {
@@ -437,11 +431,13 @@ class CalendarController extends Controller
 
                 $sesion->set('preciototal', $res['totalPrice']);
 
+                //Guardamos la fecha inicial en la sesion
+
                 $sesion->set('fechainicial', $_POST['initDate']);
 
-                $sesion->set('fechafinal', $_POST['endDate']);
+                //Guardamos la fecha final en la sesion
 
-             //   $idoferta = $session->get('offer');
+                $sesion->set('fechafinal', $_POST['endDate']);
 
             }
 
@@ -505,7 +501,6 @@ class CalendarController extends Controller
             $range[$key]['ocuppate'] = $ocuppate;
             $range[$key]['blocked'] = $blocked;
 
-
         }
 
         return $range;
@@ -537,55 +532,52 @@ class CalendarController extends Controller
         if(empty($eventos) || $idoffer != $offerID ){
 
 
+            $offerID = $request->get('idOffer');
 
-        $offerID = $request->get('idOffer');
+            $em = $this->getDoctrine()->getEntityManager();
+            $db = $em->getConnection();
 
-        $em = $this->getDoctrine()->getEntityManager();
-        $db = $em->getConnection();
+            $query =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado, my.blocked as bloqueado, h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$offerID";
+            $stmt = $db->prepare($query);
+            $params = array();
+            $stmt->execute($params);
+            $test = $stmt->fetchAll();
 
-        $query =  "select sh.house_id, sh.price as precio_base, my.ocuppate as ocupado, my.blocked as bloqueado, h.calendar_id,off.service_id from share_house as sh inner join house as h on h.id=sh.house_id inner join offer as off on sh.offer_id= off.id inner join my_company_events as my WHERE sh.offer_id=$offerID";
-        $stmt = $db->prepare($query);
-        $params = array();
-        $stmt->execute($params);
-        $test = $stmt->fetchAll();
+            $calendarIDaux = $test[0]["calendar_id"];
+            $serviceIDaux = $test[0]["service_id"];
 
-        $calendarIDaux = $test[0]["calendar_id"];
-        $serviceIDaux = $test[0]["service_id"];
+            $query2 =  "select * from my_company_events WHERE calendar_id = $calendarIDaux AND service_id = $serviceIDaux";
 
-        $query2 =  "select * from my_company_events WHERE calendar_id = $calendarIDaux AND service_id = $serviceIDaux";
+            $stmt2 = $db->prepare($query2);
+            $params2 = array();
+            $stmt2->execute($params2);
+            $aEspecificos = $stmt2->fetchAll();
 
-        $stmt2 = $db->prepare($query2);
-        $params2 = array();
-        $stmt2->execute($params2);
-        $aEspecificos = $stmt2->fetchAll();
-            
-        $eventosEspecificos = array();
-        if (!empty($aEspecificos)) {
+            $eventosEspecificos = array();
+            if (!empty($aEspecificos)) {
 
-            foreach ($aEspecificos as $key => $value) {
+                foreach ($aEspecificos as $key => $value) {
 
-                if (!empty($value['start_datetime']) && !empty($value['end_datetime'])) {
-                    $eventosEspecificos[] = $this->createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'],$value['blocked'], $value['title']);
+                    if (!empty($value['start_datetime']) && !empty($value['end_datetime'])) {
+                        $eventosEspecificos[] = $this->createDateRange($value['start_datetime'], $value['end_datetime'], $value['price'], $value['ocuppate'],$value['blocked'], $value['title']);
+                    }
                 }
             }
-        }
 
 
-        $eventos = $this->createDateRangeBaseCAL( '2017-04-01', '2018-12-31',  $test[0]["precio_base"], $test[0]["ocupado"],$test[0]["bloqueado"],"€" );
+            $eventos = $this->createDateRangeBaseCAL( '2017-04-01', '2018-12-31',  $test[0]["precio_base"], $test[0]["ocupado"],$test[0]["bloqueado"],"€" );
 
-        foreach ($eventos as $key => $value) {
-            foreach ($eventosEspecificos as $key2 => $value2) {
-                if ($value['start'] == $value2['start']) {
-                    $eventos[$key] = $eventosEspecificos[$key2];
+            foreach ($eventos as $key => $value) {
+                foreach ($eventosEspecificos as $key2 => $value2) {
+                    if ($value['start'] == $value2['start']) {
+                        $eventos[$key] = $eventosEspecificos[$key2];
+                    }
                 }
             }
-        }
 
-            $session->set('foo', $eventos);
+                $session->set('foo', $eventos);
 
-            $session->set('sesion', $idoffer);
-
-
+                $session->set('sesion', $idoffer);
 
 
         }//cierra el if
