@@ -71,8 +71,7 @@ $(document).ready(function() {
                 $('#ModalEdit #datepicker_DatePickerto').val($('#endDate').val());
 
 
-
-
+                
                 $('#ModalEdit').modal('show');
             });
 
