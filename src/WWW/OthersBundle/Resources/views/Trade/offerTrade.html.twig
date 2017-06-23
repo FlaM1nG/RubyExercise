@@ -88,6 +88,19 @@
             <div class="col-lg-12 off-price-offer">
                 {% if service != 3 %}
                     {{ form_row(formOffer.price) }}
+                    {% if service != 2 %}
+                        <p>Comision: <span id="comision"></span></p>
+                        <p>Iva: <span id="iva"></span></p>
+                        <p>Tus Ganancias: <span id="precioTotal"></span></p>
+
+                    {% endif %}
+                    {% if service != 1 %}
+                        <p>Comision: <span id="comision"></span></p>
+                        <p>Iva: <span id="iva"></span></p>
+                        <p>Tus Ganancias: <span id="precioTotal"></span></p>
+                    {% endif %}
+
+
                 {% endif %}
 
                 {{ form_row(formOffer._token) }}
@@ -163,6 +176,20 @@
                 allowedFileExtensions: ["jpg", "jpeg", "png"],
                 language: "es",
             });
+
+            {% if service != 3%}
+                $('#trade_price').change(function() {
+                    // to get the selected value
+                    var valor = $(this).val();
+                    var precio_original = $(this).val();
+                    var comision = {{comision}};
+                    var iva = {{iva}};
+
+                    $('#comision').text(parseFloat((valor*comision)/100).toFixed(2)+" €");
+                    $('#iva').text(parseFloat((((valor*comision)/100)*iva)/100).toFixed(2)+" €");
+                    $('#precioTotal').text(parseFloat(precio_original-((((valor*comision)/100)*iva)/100+(valor*comision)/100)).toFixed(2)+" €");
+                });
+            {% endif %}
         });
 
 

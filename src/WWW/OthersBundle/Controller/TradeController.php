@@ -43,8 +43,17 @@ class TradeController extends Controller{
 
         $this->setUpVars($request);
         $arrayAddresses = null;
+        $iva = null;
+        $comision = null;
 
         $arrayAddresses = $this->hasAddresses($request);
+
+        if($this->service<3){
+            $arrayComision = $this->comision();
+            $iva = $arrayComision['iva'];
+            $comision=$arrayComision['comision'];
+        }
+
 
         if(!empty($arrayAddresses)):
 
@@ -78,7 +87,10 @@ class TradeController extends Controller{
                            array('formOffer' => $formTrade->createView(),
                                  'offer' => $trade,
                                  'service' => $this->service,
-                                 'addresses' => $arrayAddresses));
+                                 'addresses' => $arrayAddresses,
+                                 'iva' => $iva,
+                                 'comision' => $comision
+                                ));
 
         else:
 
@@ -88,6 +100,24 @@ class TradeController extends Controller{
         endif;
     }
 
+    public function comision()
+    {
+
+        $ch = new ApiRest();
+        $file = MyConstants::PATH_APIREST."services/commissions/mainComisiones.php";
+
+        $result= $ch->sendInformationWihoutParameters($file);
+
+        $datas = null;
+        foreach($result as $data){
+            if($data['service_id'] == $this->service)
+                $datas = $data;
+        }
+
+        return $datas;
+    }
+    
+    
     public function setUpVars(Request $request){
         
         $this->ut = new Utilities(); 

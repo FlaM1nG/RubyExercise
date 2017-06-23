@@ -44,5 +44,3 @@ service_clothes:
     requirements:
         idOffer: \d+
 
-        
-
